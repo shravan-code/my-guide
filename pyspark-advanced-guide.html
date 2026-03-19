@@ -1,0 +1,2450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔮 PySpark - File Handling, Window Functions & Performance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: rgba(30, 30, 50, 0.7);
+            --bg-glass: rgba(255, 255, 255, 0.05);
+            --accent-purple: #8b5cf6;
+            --accent-pink: #ec4899;
+            --accent-blue: #3b82f6;
+            --accent-cyan: #06b6d4;
+            --accent-green: #10b981;
+            --accent-orange: #f59e0b;
+            --accent-red: #ef4444;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --gradient-1: linear-gradient(135deg, #8b5cf6, #ec4899);
+            --gradient-2: linear-gradient(135deg, #3b82f6, #06b6d4);
+            --gradient-3: linear-gradient(135deg, #10b981, #3b82f6);
+            --gradient-fire: linear-gradient(135deg, #f59e0b, #ef4444);
+            --shadow-glow: 0 0 60px rgba(139, 92, 246, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-secondary); }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink)); border-radius: 5px; }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.1));
+            border-radius: 30px;
+            margin-bottom: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff 0%, #a78bfa 50%, #f472b6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .section-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .section-icon.purple { background: var(--gradient-1); }
+        .section-icon.blue { background: var(--gradient-2); }
+        .section-icon.green { background: var(--gradient-3); }
+        .section-icon.orange { background: var(--gradient-fire); }
+        .section-icon.red { background: linear-gradient(135deg, var(--accent-red), var(--accent-orange)); }
+
+        .section-title { font-size: 36px; font-weight: 800; }
+        .section-subtitle { font-size: 14px; color: var(--text-muted); margin-top: 5px; }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 28px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 14px;
+            padding: 20px;
+            margin: 15px 0;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .code-block::before {
+            content: attr(data-language);
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-purple);
+            background: rgba(139, 92, 246, 0.15);
+            padding: 3px 8px;
+            border-radius: 5px;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.7;
+            color: #e2e8f0;
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        .code-inline {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: #f8f8f2;
+        }
+
+        /* Before/After */
+        .comparison-block {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 900px) { .comparison-block { grid-template-columns: 1fr; } }
+
+        .comparison-block .code-block { margin: 0; }
+
+        .before-block {
+            border: 2px solid var(--accent-red);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .before-block::before { content: '❌ BEFORE'; color: var(--accent-red); }
+
+        .after-block {
+            border: 2px solid var(--accent-green);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .after-block::before { content: '✅ AFTER'; color: var(--accent-green); }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        th {
+            background: rgba(139, 92, 246, 0.2);
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--accent-purple);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 11px;
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            vertical-align: top;
+        }
+
+        tr:hover td { background: rgba(139, 92, 246, 0.05); }
+        tr:last-child td { border-bottom: none; }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 16px;
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px;
+        }
+
+        .tag-purple { background: rgba(139, 92, 246, 0.2); color: #a78bfa; }
+        .tag-blue { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+        .tag-green { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+        .tag-orange { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+        .tag-pink { background: rgba(236, 72, 153, 0.2); color: #f472b6; }
+        .tag-red { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+        .tag-cyan { background: rgba(6, 182, 212, 0.2); color: #22d3ee; }
+
+        /* Info Boxes */
+        .info-box {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(6, 182, 212, 0.15));
+            border-left: 4px solid var(--accent-blue);
+            border-radius: 0 14px 14px 0;
+            padding: 18px;
+            margin: 18px 0;
+        }
+
+        .info-box.warning {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(239, 68, 68, 0.15));
+            border-left-color: var(--accent-orange);
+        }
+
+        .info-box.success {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(59, 130, 246, 0.15));
+            border-left-color: var(--accent-green);
+        }
+
+        .info-box.danger {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(245, 158, 11, 0.15));
+            border-left-color: var(--accent-red);
+        }
+
+        .info-box h5 { font-size: 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .info-box p { font-size: 13px; color: var(--text-secondary); }
+
+        /* Output */
+        .output-block {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .output-block::before {
+            content: '📊 Output';
+            display: block;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--accent-green);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Dataset */
+        .dataset-display {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            padding: 18px;
+            margin: 15px 0;
+        }
+
+        .dataset-display::before {
+            content: '📋 Sample Dataset';
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--accent-blue);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Example Card */
+        .example-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .example-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .example-number {
+            background: var(--gradient-2);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .example-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .example-description {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        /* Issue Card */
+        .issue-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--accent-red);
+        }
+
+        .issue-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .issue-icon {
+            background: var(--accent-red);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .issue-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 9px 18px;
+            background: var(--bg-glass);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover { background: rgba(139, 92, 246, 0.2); color: var(--text-primary); }
+        .tab-btn.active { background: var(--gradient-1); color: white; border-color: transparent; }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Collapsible */
+        .collapsible {
+            background: var(--bg-card);
+            border-radius: 14px;
+            margin: 15px 0;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .collapsible-header {
+            padding: 16px 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+
+        .collapsible-header:hover { background: rgba(139, 92, 246, 0.1); }
+        .collapsible-header h4 { font-size: 14px; display: flex; align-items: center; gap: 10px; }
+
+        .collapsible-arrow {
+            transition: transform 0.3s ease;
+            font-size: 16px;
+        }
+
+        .collapsible.active .collapsible-arrow { transform: rotate(180deg); }
+
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .collapsible.active .collapsible-content { max-height: 5000px; }
+        .collapsible-inner { padding: 20px; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 50px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 60px;
+        }
+
+        .footer p { color: var(--text-muted); font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero -->
+        <div class="hero">
+            <h1>📁 Window Functions & Performance Issues</h1>
+            <p>Deep dive into file handling, window functions, and comprehensive performance optimization with before/after examples</p>
+        </div>
+
+        <!-- FILE HANDLING SECTION -->
+        <section class="section" id="file-handling">
+            <div class="section-header">
+                <div class="section-icon blue">📁</div>
+                <div>
+                    <h2 class="section-title">File Handling Guide</h2>
+                    <p class="section-subtitle">Complete guide to reading/writing different file formats</p>
+                </div>
+            </div>
+
+            <!-- Sample Dataset -->
+            <div class="card">
+                <h3 class="card-title">📋 Sample Datasets for Examples</h3>
+                <div class="dataset-display">
+                    <pre>from pyspark.sql import SparkSession
+from pyspark.sql.functions import *
+
+spark = SparkSession.builder.appName("FileHandling").getOrCreate()
+
+# Dataset 1: Employees
+employees = spark.createDataFrame([
+    (1, "Alice", "Sales", 5000, "2020-01-15", "New York", "active"),
+    (2, "Bob", "Engineering", 7500, "2019-03-20", "San Francisco", "active"),
+    (3, "Charlie", "Sales", 5500, "2021-06-10", "New York", "active"),
+    (4, "Diana", "Engineering", 8000, "2018-09-05", "San Francisco", "inactive"),
+    (5, "Eve", "HR", 4500, "2020-11-30", "Boston", "active"),
+], ["id", "name", "department", "salary", "hire_date", "city", "status"])
+
+# Dataset 2: Sales Records
+sales = spark.createDataFrame([
+    ("2024-01", "Electronics", 50000, 150),
+    ("2024-01", "Clothing", 30000, 200),
+    ("2024-02", "Electronics", 60000, 180),
+    ("2024-02", "Clothing", 35000, 250),
+    ("2024-03", "Electronics", 55000, 160),
+], ["month", "category", "revenue", "quantity"])
+
+# Dataset 3: JSON Data
+json_data = [
+    {"id": 1, "name": "Alice", "skills": ["Python", "SQL", "Spark"]},
+    {"id": 2, "name": "Bob", "skills": ["Java", "Scala", "Kafka"]},
+    {"id": 3, "name": "Charlie", "skills": ["Python", "TensorFlow"]},
+]
+
+# Dataset 4: Logs (Multi-line)
+logs = [
+    '{"timestamp": "2024-01-15 10:30:00", "level": "INFO", "message": "Application started"}',
+    '{"timestamp": "2024-01-15 10:30:05", "level": "ERROR", "message": "Connection failed"}',
+    '{"timestamp": "2024-01-15 10:30:10", "level": "WARN", "message": "Retrying..."}',
+]</pre>
+                </div>
+            </div>
+
+            <!-- CSV Files -->
+            <div class="card">
+                <h3 class="card-title">📄 CSV File Handling</h3>
+
+                <div class="collapsible">
+                    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                        <h4>🔍 Reading CSV Files - All Options</h4>
+                        <span class="collapsible-arrow">▼</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="collapsible-inner">
+                            <div class="code-block" data-language="python">
+                                <pre># ============== READING CSV FILES ==============
+
+# Basic reading
+df = spark.read.csv("path/to/file.csv")
+
+# With header
+df = spark.read.csv("path/to/file.csv", header=True)
+
+# With schema inference
+df = spark.read.csv("path/to/file.csv", header=True, inferSchema=True)
+
+# With custom schema (FASTER - recommended)
+from pyspark.sql.types import StructType, StructField, StringType, IntegerType
+
+schema = StructType([
+    StructField("id", IntegerType(), False),
+    StructField("name", StringType(), True),
+    StructField("salary", IntegerType(), True),
+    StructField("department", StringType(), True)
+])
+
+df = spark.read.csv("path/to/file.csv", header=True, schema=schema)
+
+# Various options
+df = spark.read.csv(
+    "path/to/file.csv",
+    header=True,
+    schema=schema,
+    sep=",",                    # Separator
+    encoding="UTF-8",          # File encoding
+    quote='"',                  # Quote character
+    escape='\\',               # Escape character
+    comment=None,              # Lines starting with this will be skipped
+    nullValue="NA",            # Represent null values
+    emptyValue="",             # Represent empty values
+    nanValue="NaN",            # Represent NaN values
+    dateFormat="yyyy-MM-dd",   # Date format
+    timestampFormat="yyyy-MM-dd'T'HH:mm:ss",  # Timestamp format
+    maxColumns=1000,           # Max columns
+    maxCharsPerColumn=10000,   # Max chars per column
+    maxMalformedLogPartitions=10  # Partitions for error handling
+)
+
+# Multi-line CSV
+df = spark.read.csv("path/to/multiline.csv", header=True, multiLine=True)
+
+# Handling bad records
+df = spark.read.csv(
+    "path/to/file.csv",
+    header=True,
+    mode="DROPMALFORMED"  # PERMISSIVE, DROPMALFORMED, FAILFAST
+)</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapsible">
+                    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                        <h4>🔍 Writing CSV Files - All Options</h4>
+                        <span class="collapsible-arrow">▼</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="collapsible-inner">
+                            <div class="code-block" data-language="python">
+                                <pre># ============== WRITING CSV FILES ==============
+
+# Basic writing
+df.write.csv("path/to/output.csv")
+
+# With options
+df.write.csv(
+    "path/to/output.csv",
+    header=True,               # Write header row
+    sep=",",                   # Separator
+    encoding="UTF-8",         # File encoding
+    quote='"',                 # Quote character
+    escape='\\',               # Escape character
+    nullValue="NA",           # Write null as this
+    emptyValue="",            # Write empty string as this
+    dateFormat="yyyy-MM-dd",  # Date format
+    timestampFormat="yyyy-MM-dd'T'HH:mm:ss",  # Timestamp format
+    quoteAll=False,           # Quote all values (not just strings)
+    quoteHandling="QUOTE_ALL", # QUOTE_MINIMAL, QUOTE_ALL, QUOTE_NON_NUMERIC, QUOTE_NONE
+    charToEscapeQuoteEscaping='\\',
+    compression="none"        # none, gzip, bzip2, lz4, snappy, zstd
+)
+
+# Write modes
+df.write.mode("overwrite").csv("path/to/output.csv")  # overwrite
+df.write.mode("append").csv("path/to/output.csv")     # append
+df.write.mode("ignore").csv("path/to/output.csv")     # ignore if exists
+df.write.mode("errorifexists").csv("path/to/output.csv")  # error (default)
+
+# Single file output
+df.coalesce(1).write.csv("path/to/output.csv", header=True)
+
+# Partition by column
+df.write.partitionBy("department", "year").csv("path/to/output.csv", header=True)</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapsible">
+                    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                        <h4>⚠️ CSV Common Issues & Solutions</h4>
+                        <span class="collapsible-arrow">▼</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="collapsible-inner">
+                            <div class="code-block before-block" data-language="python">
+                                <pre># ❌ ISSUE 1: Slow schema inference
+df = spark.read.csv("large_file.csv", header=True, inferSchema=True)
+# Scans data twice - once for schema, once for data
+
+# ❌ ISSUE 2: Malformed records causing failures
+df = spark.read.csv("messy_data.csv", header=True, mode="FAILFAST")
+# Fails on first bad record
+
+# ❌ ISSUE 3: Special characters breaking parsing
+df = spark.read.csv("data.csv", header=True)
+# Fails if text contains separator (e.g., "Hello, World")</pre>
+                            </div>
+                            <div class="code-block after-block" data-language="python">
+                                <pre># ✅ SOLUTION 1: Define schema explicitly
+schema = StructType([
+    StructField("id", IntegerType(), True),
+    StructField("name", StringType(), True),
+    StructField("salary", DoubleType(), True),
+    StructField("department", StringType(), True),
+    StructField("hire_date", DateType(), True)
+])
+df = spark.read.csv("large_file.csv", header=True, schema=schema)
+
+# ✅ SOLUTION 2: Handle bad records gracefully
+df = spark.read.csv("messy_data.csv", header=True, mode="DROPMALFORMED")
+# OR: Parse with permissive mode
+df = spark.read.csv("messy_data.csv", header=True, mode="PERMISSIVE")
+
+# ✅ SOLUTION 3: Configure quote/escape handling
+df = spark.read.csv(
+    "data.csv",
+    header=True,
+    quote='"',
+    escape='\\',
+    sep=","
+)
+
+# Check for bad records
+print(f"Total rows: {df.count()}")
+print(f"Rows with nulls: {df.filter(df['id'].isNull()).count()}")</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Parquet Files -->
+            <div class="card">
+                <h3 class="card-title">📦 Parquet File Handling</h3>
+
+                <div class="info-box success">
+                    <h5>✨ Why Parquet?</h5>
+                    <p>• Columnar format - read only needed columns</p>
+                    <p>• Built-in compression (Snappy, Gzip)</p>
+                    <p>• Efficient encoding and predicate pushdown</p>
+                    <p>• Schema evolution support</p>
+                    <p>• Up to 10x faster than CSV for analytical queries</p>
+                </div>
+
+                <div class="collapsible">
+                    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                        <h4>🔍 Reading & Writing Parquet</h4>
+                        <span class="collapsible-arrow">▼</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="collapsible-inner">
+                            <div class="code-block" data-language="python">
+                                <pre># ============== READING PARQUET ==============
+
+# Basic reading
+df = spark.read.parquet("path/to/data.parquet")
+
+# Read multiple files
+df = spark.read.parquet("s3://bucket/prefix/*.parquet")
+df = spark.read.parquet("path/to/data/")
+
+# Merge schema from multiple files
+df = spark.read.option("mergeSchema", "true").parquet("path/to/data/")
+
+# Read specific columns (predicate pushdown)
+df = spark.read.parquet("path/to/data.parquet").select("id", "name", "salary")
+
+# Read with filters (partition pruning)
+df = spark.read.parquet("path/to/data.parquet").filter("year = 2024")
+
+# ============== WRITING PARQUET ==============
+
+# Basic writing
+df.write.parquet("path/to/output.parquet")
+
+# With compression
+df.write.mode("overwrite").parquet(
+    "path/to/output.parquet",
+    compression="snappy"  # none, snappy, gzip, lzo, zstd
+)
+
+# With partitioning (creates subdirectories)
+df.write.mode("overwrite") \
+    .partitionBy("year", "month", "department") \
+    .parquet("path/to/output/")
+
+# With specific row group size
+df.write.option("parquet.block.size", "134217728").parquet("path/")  # 128MB
+
+# Write with schema merge
+df.write.mode("overwrite").option("mergeSchema", "true").parquet("path/")</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapsible">
+                    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                        <h4>⚠️ Parquet Common Issues & Solutions</h4>
+                        <span class="collapsible-arrow">▼</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="collapsible-inner">
+                            <div class="code-block before-block" data-language="python">
+                                <pre># ❌ ISSUE 1: Too many small files
+df.write.parquet("path/to/output")
+# Creates thousands of small files
+
+# ❌ ISSUE 2: Partition column type issues
+df.write.partitionBy("year", "month").parquet("path/")
+# year=2024.0, month=1 instead of year=2024, month=1
+
+# ❌ ISSUE 3: Schema mismatch
+df1 = spark.read.parquet("path/to/data")
+df2 = spark.read.parquet("path/to/data")
+# Columns have different types but no error until query</pre>
+                            </div>
+                            <div class="code-block after-block" data-language="python">
+                                <pre># ✅ SOLUTION 1: Coalesce before write
+df.repartition(10).write.parquet("path/to/output")
+# Creates exactly 10 files
+
+# ✅ SOLUTION 2: Cast partition columns to integers
+df = df.withColumn("year", col("year").cast("int"))
+df = df.withColumn("month", col("month").cast("int"))
+df.write.partitionBy("year", "month").parquet("path/")
+
+# ✅ SOLUTION 3: Merge schemas and validate
+df = spark.read.option("mergeSchema", "true").parquet("path/to/data")
+
+# Validate schema compatibility
+expected_schema = StructType([...])
+if df.schema != expected_schema:
+    raise ValueError("Schema mismatch!")
+
+# Check for schema evolution
+print("Schema:", df.schema.simpleString())</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- JSON Files -->
+            <div class="card">
+                <h3 class="card-title">📋 JSON File Handling</h3>
+
+                <div class="collapsible">
+                    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                        <h4>🔍 Reading JSON Files</h4>
+                        <span class="collapsible-arrow">▼</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="collapsible-inner">
+                            <div class="code-block" data-language="python">
+                                <pre># ============== READING JSON ==============
+
+# Standard JSON (one object per line - NDJSON)
+df = spark.read.json("path/to/data.json")
+
+# Multi-line JSON (one object spanning multiple lines)
+df = spark.read.option("multiLine", "true").json("path/to/multiline.json")
+
+# From multiple files
+df = spark.read.json(["file1.json", "file2.json", "file3.json"])
+
+# With schema
+from pyspark.sql.types import StructType, ArrayType, MapType
+
+schema = StructType([
+    StructField("id", IntegerType(), False),
+    StructField("name", StringType(), True),
+    StructField("address", StructType([
+        StructField("city", StringType(), True),
+        StructField("zip", StringType(), True)
+    ]), True),
+    StructField("skills", ArrayType(StringType()), True),
+    StructField("metadata", MapType(StringType(), StringType()), True)
+])
+
+df = spark.read.schema(schema).json("path/to/data.json")
+
+# Compression support (auto-detected)
+df = spark.read.json("path/to/data.json.gz")
+df = spark.read.json("path/to/data.json.bz2")
+
+# Parse JSON strings as JSON objects
+from pyspark.sql.functions import from_json, col
+
+df = spark.createDataFrame([
+    ('{"name": "Alice", "age": 30}',),
+    ('{"name": "Bob", "age": 25}',)
+], ["json_string"])
+
+schema = "name STRING, age INT"
+df_parsed = df.withColumn("data", from_json(col("json_string"), schema))</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapsible">
+                    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                        <h4>🔍 Writing JSON Files</h4>
+                        <span class="collapsible-arrow">▼</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="collapsible-inner">
+                            <div class="code-block" data-language="python">
+                                <pre># ============== WRITING JSON ==============
+
+# Basic writing (one line per row)
+df.write.json("path/to/output.json")
+
+# Pretty print (multi-line)
+df.write.mode("overwrite").option("pretty", "true").json("path/to/output")
+
+# Single file output
+df.coalesce(1).write.mode("overwrite").json("path/to/output.json")
+
+# With compression
+df.write.mode("overwrite").json("path/to/output.json", compression="gzip")
+
+# Convert to JSON string column
+from pyspark.sql.functions import to_json, struct
+
+df_json = df.withColumn("json_data", to_json(struct("*")))
+
+# Pretty print nested JSON
+df.select(to_json(struct("name", "salary", "department")).alias("employee")).show()</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapsible">
+                    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                        <h4>⚠️ JSON Common Issues & Solutions</h4>
+                        <span class="collapsible-arrow">▼</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="collapsible-inner">
+                            <div class="code-block before-block" data-language="python">
+                                <pre># ❌ ISSUE 1: Multi-line JSON not parsed
+df = spark.read.json("multiline_data.json")
+# Empty DataFrame - each object spans multiple lines
+
+# ❌ ISSUE 2: Mixed schemas in JSON lines
+# Line 1: {"name": "Alice", "age": 30}
+# Line 2: {"name": "Bob", "salary": 5000}
+# Result: all nulls due to schema conflict
+
+# ❌ ISSUE 3: Large JSON objects causing memory issues
+df = spark.read.json("huge_data.json")
+# Entire JSON parsed into memory</pre>
+                            </div>
+                            <div class="code-block after-block" data-language="python">
+                                <pre># ✅ SOLUTION 1: Enable multiLine option
+df = spark.read.option("multiLine", "true").json("multiline_data.json")
+
+# ✅ SOLUTION 2: Handle mixed schemas with permissive mode
+df = spark.read.option("mode", "PERMISSIVE").json("mixed_data.json")
+# Or drop records with schema conflicts
+df = spark.read.option("columnNameOfCorruptRecord", "_corrupt").json("mixed_data.json")
+
+# Filter valid records
+valid_df = df.filter(col("_corrupt").isNull())
+
+# ✅ SOLUTION 3: Process in batches using RDD
+def process_json_batch(json_string):
+    import json
+    records = json.loads(json_string)
+    return process(records)
+
+rdd = spark.sparkContext.textFile("huge_data.json")
+processed = rdd.map(process_json_batch)</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ORC Files -->
+            <div class="card">
+                <h3 class="card-title">📊 ORC File Handling</h3>
+                <div class="code-block" data-language="python">
+                    <pre># ============== ORC FILES ==============
+
+# Reading ORC
+df_orc = spark.read.orc("path/to/data.orc")
+
+# Writing ORC
+df.write.mode("overwrite").orc("path/to/output.orc")
+
+# ORC with Hive-style partitioning
+df.write.partitionBy("year", "month").orc("path/to/output/")
+
+# ORC with bloom filters (for faster lookups)
+df_orc = spark.read \
+    .option("orc.bloom.filter.columns", "id,name,email") \
+    .option("orc.bloom.filter.fpp", "0.01") \
+    .orc("path/to/data.orc")
+
+# ORC with vectorized reader (faster)
+spark.conf.set("spark.sql.orc.enableVectorizedReader", "true")</pre>
+                </div>
+            </div>
+
+            <!-- JDBC/Database -->
+            <div class="card">
+                <h3 class="card-title">🗄️ JDBC/Database Handling</h3>
+
+                <div class="collapsible">
+                    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                        <h4>🔍 Reading from Database</h4>
+                        <span class="collapsible-arrow">▼</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="collapsible-inner">
+                            <div class="code-block" data-language="python">
+                                <pre># ============== JDBC CONNECTIONS ==============
+
+# PostgreSQL
+df_db = spark.read \
+    .format("jdbc") \
+    .option("url", "jdbc:postgresql://host:5432/database") \
+    .option("dbtable", "employees") \
+    .option("user", "username") \
+    .option("password", "password") \
+    .option("driver", "org.postgresql.Driver") \
+    .load()
+
+# MySQL
+df_mysql = spark.read \
+    .format("jdbc") \
+    .option("url", "jdbc:mysql://host:3306/database") \
+    .option("dbtable", "employees") \
+    .option("user", "username") \
+    .option("password", "password") \
+    .option("driver", "com.mysql.jdbc.Driver") \
+    .load()
+
+# From SQL query (must have alias)
+df = spark.read \
+    .jdbc(
+        url="jdbc:postgresql://host:5432/database",
+        table="(SELECT id, name, salary FROM employees WHERE salary > 5000) AS emp",
+        properties={"user": "username", "password": "password"}
+    )
+
+# With predicates (parallel read)
+props = {"user": "username", "password": "password"}
+df = spark.read.jdbc(
+    url="jdbc:postgresql://host:5432/database",
+    table="employees",
+    column="id",
+    lowerBound=1,
+    upperBound=1000000,
+    numPartitions=10,
+    properties=props
+)
+
+# With custom WHERE clause
+df = spark.read.jdbc(
+    url="jdbc:postgresql://host:5432/database",
+    table="employees",
+    predicates=["salary < 5000", "salary >= 5000 AND salary < 10000", "salary >= 10000"],
+    properties=props
+)</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapsible">
+                    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                        <h4>🔍 Writing to Database</h4>
+                        <span class="collapsible-arrow">▼</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="collapsible-inner">
+                            <div class="code-block" data-language="python">
+                                <pre># ============== WRITING TO DATABASE ==============
+
+# Basic write
+df.write \
+    .format("jdbc") \
+    .option("url", "jdbc:postgresql://host:5432/database") \
+    .option("dbtable", "employees_new") \
+    .option("user", "username") \
+    .option("password", "password") \
+    .mode("overwrite") \
+    .save()
+
+# Append to table
+df.write \
+    .jdbc(
+        url="jdbc:postgresql://host:5432/database",
+        table="employees",
+        mode="append",
+        properties={"user": "username", "password": "password"}
+    )
+
+# Batch size for inserts
+df.write \
+    .format("jdbc") \
+    .option("url", "jdbc:postgresql://host:5432/database") \
+    .option("dbtable", "employees") \
+    .option("user", "username") \
+    .option("password", "password") \
+    .option("batchsize", "1000") \
+    .mode("overwrite") \
+    .save()
+
+# Truncate before write
+df.write \
+    .jdbc(url, table, mode="overwrite", 
+          options={"truncate": "true", **props})</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapsible">
+                    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                        <h4>⚠️ JDBC Common Issues & Solutions</h4>
+                        <span class="collapsible-arrow">▼</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="collapsible-inner">
+                            <div class="code-block before-block" data-language="python">
+                                <pre># ❌ ISSUE 1: Loading entire table into single partition
+df = spark.read.jdbc(url, "large_table", properties=props)
+# All data in one partition - slow
+
+# ❌ ISSUE 2: Connection timeout
+df = spark.read.jdbc(url, "table", properties=props)
+# Fails after default timeout
+
+# ❌ ISSUE 3: Wrong data type mapping
+# Date columns become strings, decimals lose precision</pre>
+                            </div>
+                            <div class="code-block after-block" data-language="python">
+                                <pre># ✅ SOLUTION 1: Parallel read with partition column
+df = spark.read.jdbc(
+    url, "large_table",
+    column="id",
+    lowerBound=1,
+    upperBound=10000000,
+    numPartitions=20,  # 20 parallel reads
+    properties=props
+)
+
+# ✅ SOLUTION 2: Increase timeout and fetch size
+df = spark.read \
+    .option("fetchsize", "10000") \
+    .option("queryTimeout", 300) \
+    .jdbc(url, "table", properties=props)
+
+# ✅ SOLUTION 3: Explicit type mapping
+df = spark.read \
+    .option("dateFormat", "yyyy-MM-dd") \
+    .option("timestampFormat", "yyyy-MM-dd HH:mm:ss") \
+    .option("decimalDigits", 10) \
+    .jdbc(url, "table", properties=props)
+
+# Convert types after reading
+df = df.withColumn("date_col", col("date_col").cast("date"))
+df = df.withColumn("decimal_col", col("decimal_col").cast("decimal(10,2)"))</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Delta Lake -->
+            <div class="card">
+                <h3 class="card-title">🏔️ Delta Lake Handling</h3>
+                <div class="code-block" data-language="python">
+                    <pre># ============== DELTA LAKE ==============
+# Requires: delta-core package
+# spark-submit --packages io.delta:delta-core_2.12:2.4.0
+
+from delta.tables import DeltaTable
+
+# Reading Delta table
+df = spark.read.format("delta").load("path/to/delta-table")
+
+# Time travel - read specific version
+df_v1 = spark.read.format("delta").option("versionAsOf", 1).load("path/to/delta")
+df_v2 = spark.read.format("delta").option("timestampAsOf", "2024-01-15").load("path/to/delta")
+
+# Writing to Delta
+df.write.format("delta").mode("overwrite").save("path/to/delta-table")
+
+# Merge (Upsert)
+delta_table = DeltaTable.forPath(spark, "path/to/delta-table")
+updates_df = spark.createDataFrame([...])  # New data
+
+delta_table.upsert(updates_df, "target.id = source.id")
+
+# Full merge with conditions
+delta_table.upsert(updates_df) \
+    .whenMatchedUpdate(
+        condition="target.salary != source.salary",
+        set={"name": "source.name", "salary": "source.salary"}
+    ) \
+    .whenMatchedDelete(condition="source.status = 'inactive'") \
+    .whenNotMatchedInsertAll() \
+    .execute()
+
+# Delete
+delta_table.delete(col("status") == "inactive")
+
+# Update
+delta_table.update(
+    condition=col("salary") > 100000,
+    set={"salary": col("salary") * 1.1}
+)
+
+# Vacuum old versions
+delta_table.vacuum(retentionHours=168)  # Delete versions older than 7 days</pre>
+                </div>
+            </div>
+
+            <!-- File Format Comparison -->
+            <div class="card">
+                <h3 class="card-title">📊 File Format Comparison</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Format</th>
+                                <th>Use Case</th>
+                                <th>Compression</th>
+                                <th>Speed</th>
+                                <th>Schema Evolution</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="tag tag-blue">CSV</span></td>
+                                <td>Simple data, human readable</td>
+                                <td>External</td>
+                                <td>Slow</td>
+                                <td>Limited</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-green">Parquet</span></td>
+                                <td>Analytical workloads</td>
+                                <td>Built-in (Snappy)</td>
+                                <td>Fast</td>
+                                <td>Full</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-purple">ORC</span></td>
+                                <td>Hive/Hadoop</td>
+                                <td>Built-in (Zlib)</td>
+                                <td>Fast</td>
+                                <td>Full</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-orange">JSON</span>
+                                <td>Semi-structured data</td>
+                                <td>External</td>
+                                <td>Medium</td>
+                                <td>Partial</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-pink">Delta</span></td>
+                                <td>ACID transactions</td>
+                                <td>Built-in</td>
+                                <td>Fast</td>
+                                <td>Full + Time Travel</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- WINDOW FUNCTIONS SECTION -->
+        <section class="section" id="window-functions">
+            <div class="section-header">
+                <div class="section-icon purple">🪟</div>
+                <div>
+                    <h2 class="section-title">Window Functions</h2>
+                    <p class="section-subtitle">Complete guide with performance considerations</p>
+                </div>
+            </div>
+
+            <!-- Dataset for Window Functions -->
+            <div class="dataset-display">
+                <pre># Dataset for Window Function Examples
+employees = spark.createDataFrame([
+    (1, "Alice", "Sales", 5000, "2020-01-15", 3),
+    (2, "Bob", "Engineering", 7500, "2019-03-20", 5),
+    (3, "Charlie", "Sales", 5500, "2021-06-10", 1),
+    (4, "Diana", "Engineering", 8000, "2018-09-05", 7),
+    (5, "Eve", "HR", 4500, "2020-11-30", 2),
+    (6, "Frank", "Sales", 5200, "2022-02-14", 0),
+    (7, "Grace", "Engineering", 7200, "2019-08-25", 4),
+    (8, "Henry", "HR", 4800, "2021-04-18", 1),
+    (9, "Ivy", "Sales", 5800, "2020-07-22", 2),
+    (10, "Jack", "Engineering", 7800, "2018-12-01", 6),
+], ["id", "name", "department", "salary", "hire_date", "years_employed"])
+
+sales = spark.createDataFrame([
+    ("2024-01", "Electronics", "North", 50000, 150),
+    ("2024-01", "Electronics", "South", 30000, 100),
+    ("2024-01", "Clothing", "North", 20000, 80),
+    ("2024-01", "Clothing", "South", 25000, 90),
+    ("2024-02", "Electronics", "North", 60000, 180),
+    ("2024-02", "Electronics", "South", 35000, 120),
+    ("2024-02", "Clothing", "North", 22000, 85),
+    ("2024-02", "Clothing", "South", 28000, 95),
+    ("2024-03", "Electronics", "North", 55000, 160),
+    ("2024-03", "Electronics", "South", 32000, 110),
+    ("2024-03", "Clothing", "North", 24000, 88),
+    ("2024-03", "Clothing", "South", 26000, 92),
+], ["month", "category", "region", "revenue", "quantity"])</pre>
+            </div>
+
+            <!-- Ranking Functions -->
+            <div class="card">
+                <h3 class="card-title">🏆 Ranking Functions</h3>
+                <div class="code-block" data-language="python">
+                    <pre>from pyspark.sql.window import Window
+from pyspark.sql.functions import row_number, rank, dense_rank, percent_rank, ntile
+
+# ============== RANKING FUNCTIONS ==============
+
+# Define window specification
+window_spec = Window.partitionBy("department").orderBy(col("salary").desc())
+
+# Row Number - Sequential numbering (no gaps)
+employees.withColumn("row_number", row_number().over(window_spec)).show()
+
+# Output:
+# +----+--------+--------+------+----------+
+# |  id|    name|department|salary|row_number|
+# +----+--------+--------+------+----------+
+# |   4|   Diana|Engineering|  8000|         1|
+# |  10|    Jack|Engineering|  7800|         2|
+# |   2|     Bob|Engineering|  7500|         3|
+# |   7|   Grace|Engineering|  7200|         4|
+# +----+--------+--------+------+----------+
+
+# Rank - With gaps (1, 2, 2, 4)
+employees.withColumn("rank", rank().over(window_spec)).show()
+
+# Dense Rank - Without gaps (1, 2, 2, 3)
+employees.withColumn("dense_rank", dense_rank().over(window_spec)).show()
+
+# Percent Rank - Percentage position (0.0 to 1.0)
+employees.withColumn("percent_rank", percent_rank().over(window_spec)).show()
+
+# NTile - Divide into buckets (e.g., ntile(4) for quartiles)
+employees.withColumn("quartile", ntile(4).over(window_spec)).show()
+
+# ============== TOP N PER GROUP ==============
+# Get top 2 earners per department
+from pyspark.sql.functions import col
+
+window_top2 = Window.partitionBy("department").orderBy(col("salary").desc())
+top_earners = employees.withColumn("rn", row_number().over(window_top2)) \
+    .filter(col("rn") <= 2) \
+    .drop("rn")
+
+# ============== BOTTOM N PER GROUP ==============
+window_bottom2 = Window.partitionBy("department").orderBy(col("salary").asc())
+bottom_earners = employees.withColumn("rn", row_number().over(window_bottom2)) \
+    .filter(col("rn") <= 2) \
+    .drop("rn")</pre>
+                </div>
+                <div class="output-block">
+                    <strong>Top 2 Earners per Department:</strong><br>
+                    +----+--------+--------+------+<br>
+                    |  id|    name|department|salary|<br>
+                    +----+--------+--------+------+<br>
+                    |   4|   Diana|Engineering|  8000|<br>
+                    |  10|    Jack|Engineering|  7800|<br>
+                    |   9|     Ivy|      Sales|  5800|<br>
+                    |   3| Charlie|      Sales|  5500|<br>
+                    |   5|     Eve|        HR|  4500|<br>
+                    |   8|   Henry|        HR|  4800|<br>
+                    +----+--------+--------+------+
+                </div>
+            </div>
+
+            <!-- Aggregate Functions -->
+            <div class="card">
+                <h3 class="card-title">📊 Aggregate Functions in Windows</h3>
+                <div class="code-block" data-language="python">
+                    <pre>from pyspark.sql.functions import sum, avg, min, max, count, collect_list
+
+# ============== AGGREGATE FUNCTIONS ==============
+
+# Window with all rows in partition
+window_all = Window.partitionBy("department")
+
+# Running sum within department
+employees.withColumn("dept_total", sum("salary").over(window_all)).show()
+
+# Running average
+employees.withColumn("dept_avg", avg("salary").over(window_all)).show()
+
+# Running min/max
+employees.withColumn("dept_min", min("salary").over(window_all)) \
+         .withColumn("dept_max", max("salary").over(window_all)).show()
+
+# Count within partition
+employees.withColumn("dept_count", count("*").over(window_all)).show()
+
+# Collect list
+employees.withColumn("names", collect_list("name").over(window_all)).show()
+
+# ============== RUNNING TOTALS (Cumulative) ==============
+
+# Define window with ordering for running calculations
+window_cumulative = Window.partitionBy("department") \
+    .orderBy("hire_date") \
+    .rowsBetween(Window.unboundedPreceding, Window.currentRow)
+
+employees.withColumn("hire_date", col("hire_date").cast("date")) \
+    .withColumn("running_salary_sum", sum("salary").over(window_cumulative)) \
+    .withColumn("running_avg", avg("salary").over(window_cumulative)) \
+    .withColumn("running_count", count("*").over(window_cumulative)).show()
+
+# ============== ROW FRAME SPECIFICATIONS ==============
+# rowsBetween(start, end) where:
+# Window.currentRow = 0
+# Window.unboundedPreceding = -inf
+# Window.unboundedFollowing = +inf
+
+# Current row only
+window_current = Window.partitionBy("department").orderBy("hire_date") \
+    .rowsBetween(Window.currentRow, Window.currentRow)
+
+# Last N rows
+window_last3 = Window.partitionBy("department").orderBy("hire_date") \
+    .rowsBetween(-3, Window.currentRow)
+
+# All rows before and after current
+window_around = Window.partitionBy("department").orderBy("hire_date") \
+    .rowsBetween(-2, 2)</pre>
+                </div>
+            </div>
+
+            <!-- Lag and Lead -->
+            <div class="card">
+                <h3 class="card-title">⬅️➡️ Lag and Lead Functions</h3>
+                <div class="code-block" data-language="python">
+                    <pre>from pyspark.sql.functions import lag, lead, col, coalesce
+
+# ============== LAG AND LEAD ==============
+
+# Define window with ordering
+window_ordered = Window.partitionBy("department").orderBy("hire_date")
+
+# Lag - Get previous value
+employees.withColumn("hire_date", col("hire_date").cast("date")) \
+    .withColumn("prev_salary", lag("salary", 1).over(window_ordered)) \
+    .withColumn("prev2_salary", lag("salary", 2).over(window_ordered)).show()
+
+# Lead - Get next value
+employees.withColumn("next_salary", lead("salary", 1).over(window_ordered)) \
+    .withColumn("next_name", lead("name", 1).over(window_ordered)).show()
+
+# With default value for first/last rows
+employees.withColumn("prev_salary", 
+    coalesce(lag("salary", 1).over(window_ordered), lit(0))
+).show()
+
+# ============== PRACTICAL EXAMPLE: Salary Change ==============
+window_with_default = Window.partitionBy("department").orderBy("hire_date")
+
+salary_changes = employees \
+    .withColumn("hire_date", col("hire_date").cast("date")) \
+    .withColumn("prev_salary", lag("salary", 1).over(window_with_default)) \
+    .withColumn("salary_change", col("salary") - coalesce(col("prev_salary"), col("salary"))) \
+    .withColumn("pct_change", 
+        when(col("prev_salary").isNotNull(), 
+             (col("salary") - col("prev_salary")) / col("prev_salary") * 100
+        ).otherwise(lit(0))
+    ).select("name", "department", "salary", "hire_date", 
+             "prev_salary", "salary_change", "pct_change")
+
+# ============== COMPARE TO NEIGHBORING PERIODS ==============
+# Using sales data
+window_by_month = Window.partitionBy("category", "region").orderBy("month")
+
+sales_with_trend = sales.withColumn("prev_revenue", lag("revenue", 1).over(window_by_month)) \
+    .withColumn("next_revenue", lead("revenue", 1).over(window_by_month)) \
+    .withColumn("revenue_change", col("revenue") - col("prev_revenue")) \
+    .withColumn("vs_avg", col("revenue") - avg("revenue").over(
+        Window.partitionBy("category", "region")
+    ))</pre>
+                </div>
+                <div class="output-block">
+                    <strong>Salary Changes Within Department:</strong><br>
+                    +----+--------+--------+----------+------------+--------------+<br>
+                    |name|department|salary|hire_date|prev_salary|salary_change|<br>
+                    +----+--------+--------+----------+------------+--------------+<br>
+                    |Grace|Engineering|  7200|2019-08-25|        null|          null|<br>
+                    |  Bob|Engineering|  7500|2019-03-20|        7200|         300.0|<br>
+                    +----+--------+--------+----------+------------+--------------+
+                </div>
+            </div>
+
+            <!-- First and Last -->
+            <div class="card">
+                <h3 class="card-title">🏃 First and Last Functions</h3>
+                <div class="code-block" data-language="python">
+                    <pre>from pyspark.sql.functions import first, last
+
+# ============== FIRST AND LAST ==============
+
+# First value in window (respecting ORDER)
+window_ordered = Window.partitionBy("department").orderBy("hire_date")
+
+employees.withColumn("first_hired", first("name").over(window_ordered)) \
+    .withColumn("last_hired", last("name").over(window_ordered)).show()
+
+# First/last with ignoreNulls
+employees.withColumn("first_valid_salary", 
+    first("salary", ignoreNulls=True).over(window_ordered)
+).withColumn("last_valid_salary",
+    last("salary", ignoreNulls=True).over(window_ordered)
+).show()
+
+# ============== FIRST BY ANOTHER COLUMN ==============
+# Get name of highest paid employee per department
+window_by_salary = Window.partitionBy("department").orderBy(col("salary").desc())
+
+employees.withColumn("highest_paid", first("name").over(window_by_salary)) \
+    .withColumn("lowest_paid", last("name").over(window_by_salary)).show()
+
+# ============== PRACTICAL: Status Changes ==============
+# Get first and last status for each user session
+logs_df = spark.createDataFrame([
+    ("user1", "2024-01-01 10:00", "login"),
+    ("user1", "2024-01-01 10:05", "view"),
+    ("user1", "2024-01-01 10:10", "logout"),
+    ("user2", "2024-01-01 11:00", "login"),
+    ("user2", "2024-01-01 11:30", "purchase"),
+], ["user_id", "timestamp", "action"])
+
+window_session = Window.partitionBy("user_id").orderBy("timestamp")
+
+session_summary = logs_df \
+    .withColumn("first_action", first("action").over(window_session)) \
+    .withColumn("last_action", last("action").over(window_session))</pre>
+                </div>
+            </div>
+
+            <!-- Multiple Windows -->
+            <div class="card">
+                <h3 class="card-title">🔄 Multiple Window Specifications</h3>
+                <div class="code-block" data-language="python">
+                    <pre>from pyspark.sql.window import Window
+from pyspark.sql.functions import sum, avg, max, min, row_number
+
+# ============== MULTIPLE WINDOWS ==============
+
+# Define multiple window specifications
+window_by_dept = Window.partitionBy("department")
+window_by_dept_salary = Window.partitionBy("department").orderBy(col("salary").desc())
+window_by_dept_hire = Window.partitionBy("department").orderBy("hire_date")
+window_global = Window.partitionBy("department").orderBy("hire_date") \
+    .rowsBetween(Window.unboundedPreceding, Window.currentRow)
+
+# Apply multiple windows in single query
+result = employees \
+    # Ranking within department
+    .withColumn("salary_rank", row_number().over(window_by_dept_salary)) \
+    # Dept statistics
+    .withColumn("dept_avg", avg("salary").over(window_by_dept)) \
+    .withColumn("dept_max", max("salary").over(window_by_dept)) \
+    .withColumn("dept_min", min("salary").over(window_by_dept)) \
+    # Salary relative to department
+    .withColumn("vs_dept_avg", col("salary") - col("dept_avg")) \
+    .withColumn("vs_dept_max", col("salary") - col("dept_max")) \
+    # Cumulative salary by hire date
+    .withColumn("cumulative_salary", sum("salary").over(window_global)) \
+    # Order by hire date within dept
+    .withColumn("hire_order", row_number().over(window_by_dept_hire))
+
+# ============== CONDITIONAL WINDOWS ==============
+# Different aggregations for different columns
+window_running = Window.partitionBy("department").orderBy("hire_date") \
+    .rowsBetween(Window.unboundedPreceding, Window.currentRow)
+window_full = Window.partitionBy("department")
+
+result = employees \
+    .withColumn("running_salary", sum("salary").over(window_running)) \
+    .withColumn("running_avg", avg("salary").over(window_running)) \
+    .withColumn("full_dept_salary", sum("salary").over(window_full)) \
+    .withColumn("full_dept_count", count("*").over(window_full))</pre>
+                </div>
+            </div>
+
+            <!-- Window Performance Issues -->
+            <div class="card">
+                <h3 class="card-title">⚠️ Window Function Performance Issues</h3>
+
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <span class="issue-icon">⚠️</span>
+                        <span class="issue-title">Issue 1: Large Window Frames</span>
+                    </div>
+                    <div class="comparison-block">
+                        <div class="code-block before-block" data-language="python">
+                            <pre># ❌ SLOW: Unbounded preceding with large data
+window = Window.partitionBy("department") \
+    .orderBy("hire_date") \
+    .rowsBetween(Window.unboundedPreceding, Window.currentRow)
+
+df.withColumn("running_total", sum("salary").over(window))</pre>
+                        </div>
+                        <div class="code-block after-block" data-language="python">
+                            <pre># ✅ FAST: Use rangeBetween for better optimization
+window = Window.partitionBy("department") \
+    .orderBy("hire_date") \
+    .rangeBetween(Window.unboundedPreceding, Window.currentRow)
+
+# ✅ OR: Process in smaller batches
+# If possible, use a bounded window
+window_100_rows = Window.partitionBy("department") \
+    .orderBy("hire_date") \
+    .rowsBetween(-100, Window.currentRow)  # Only last 100 rows</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <span class="issue-icon">⚠️</span>
+                        <span class="issue-title">Issue 2: Too Many Window Functions</span>
+                    </div>
+                    <div class="comparison-block">
+                        <div class="code-block before-block" data-language="python">
+                            <pre># ❌ SLOW: Multiple passes over data
+result = df.withColumn("rank1", row_number().over(Window...))
+result = result.withColumn("rank2", rank().over(Window...))
+result = result.withColumn("sum1", sum(...).over(Window...))
+result = result.withColumn("avg1", avg(...).over(Window...))
+result = result.withColumn("lag1", lag(...).over(Window...))</pre>
+                        </div>
+                        <div class="code-block after-block" data-language="python">
+                            <pre># ✅ FAST: Combine into single select
+result = df.select(
+    "*",
+    row_number().over(window1).alias("rank1"),
+    rank().over(window1).alias("rank2"),
+    sum("salary").over(window2).alias("sum1"),
+    avg("salary").over(window2).alias("avg1"),
+    lag("salary").over(window1).alias("lag1")
+)
+# Single pass through data</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <span class="issue-icon">⚠️</span>
+                        <span class="issue-title">Issue 3: Skewed Partitions</span>
+                    </div>
+                    <div class="comparison-block">
+                        <div class="code-block before-block" data-language="python">
+                            <pre># ❌ SLOW: One partition has 90% of data
+window = Window.partitionBy("department")  # Sales has 90% of rows
+df.withColumn("rank", row_number().over(window))</pre>
+                        </div>
+                        <div class="code-block after-block" data-language="python">
+                            <pre># ✅ FAST: Enable AQE for skew handling
+spark.conf.set("spark.sql.adaptive.enabled", "true")
+spark.conf.set("spark.sql.adaptive.skewJoin.enabled", "true")
+
+# ✅ OR: Pre-process skewed partitions
+from pyspark.sql.functions import col, when
+
+skewed_depts = ["Sales"]  # Known skewed departments
+for dept in skewed_depts:
+    dept_df = df.filter(col("department") == dept)
+    # Process with salting or split into chunks
+    processed = process_window_robust(dept_df)
+    # Union back
+
+# ✅ OR: Repartition before window function
+df_repartitioned = df.repartition(100, "department")</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <span class="issue-icon">⚠️</span>
+                        <span class="issue-title">Issue 4: Missing Partition By</span>
+                    </div>
+                    <div class="comparison-block">
+                        <div class="code-block before-block" data-language="python">
+                            <pre># ❌ SLOW: Global window without partitionBy
+window = Window.orderBy("hire_date")  # All data in one partition!
+df.withColumn("running_id", row_number().over(window))</pre>
+                        </div>
+                        <div class="code-block after-block" data-language="python">
+                            <pre># ✅ FAST: Always partition when possible
+window = Window.partitionBy("department").orderBy("hire_date")
+df.withColumn("running_id", row_number().over(window))
+
+# If you need global order, consider using a different approach
+# e.g., add a monotonic column first
+from pyspark.sql.functions import monotonically_increasing_id
+df_with_id = df.withColumn("global_id", monotonically_increasing_id())
+window_global = Window.orderBy("global_id")</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <span class="issue-icon">⚠️</span>
+                        <span class="issue-title">Issue 5: Complex Window Expressions</span>
+                    </div>
+                    <div class="comparison-block">
+                        <div class="code-block before-block" data-language="python">
+                            <pre># ❌ SLOW: Complex calculations in window
+window = Window.partitionBy("department").orderBy("hire_date")
+df.withColumn("complex_calc", 
+    when(
+        sum(when(col("salary") > 5000, col("salary") * 0.1).over(window)) > 1000,
+        "high"
+    ).otherwise("low")
+)</pre>
+                        </div>
+                        <div class="code-block after-block" data-language="python">
+                            <pre># ✅ FAST: Pre-calculate complex expressions
+df_with_intermediate = df \
+    .withColumn("bonus", when(col("salary") > 5000, col("salary") * 0.1).otherwise(0)) \
+    .withColumn("running_bonus", sum("bonus").over(window)) \
+    .withColumn("complex_calc", 
+        when(col("running_bonus") > 1000, "high").otherwise("low")
+    )</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PERFORMANCE ISSUES SECTION -->
+        <section class="section" id="performance-issues">
+            <div class="section-header">
+                <div class="section-icon red">⚠️</div>
+                <div>
+                    <h2 class="section-title">Comprehensive Performance Issues</h2>
+                    <p class="section-subtitle">All common issues with before/after solutions</p>
+                </div>
+            </div>
+
+            <!-- Memory Issues -->
+            <div class="card">
+                <h3 class="card-title">💾 Memory-Related Issues</h3>
+
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <span class="issue-icon">💾</span>
+                        <span class="issue-title">OOM: Out of Memory Errors</span>
+                    </div>
+                    <div class="code-block before-block" data-language="python">
+                        <pre># ❌ CAUSES:
+# 1. Caching too much data
+df.cache()  # Caches ALL partitions
+large_df.cache()
+
+# 2. Collect on large data
+all_data = df.collect()  # Brings everything to driver
+
+# 3. Too many partitions with large data
+df.repartition(10000)  # Too many small partitions
+
+# 4. UDFs creating large objects
+@udf(returnType=ArrayType(StringType()))
+def slow_func(x):
+    return [expensive_operation(x) for _ in range(1000)]</pre>
+                    </div>
+                    <div class="code-block after-block" data-language="python">
+                        <pre># ✅ SOLUTIONS:
+# 1. Cache selectively
+df_filtered = df.filter(col("status") == "active")
+df_filtered.cache()  # Cache only what's needed
+
+# 2. Use take() or write() instead of collect()
+sample = df.take(1000)  # Only first 1000 rows
+df.write.mode("overwrite").parquet("output/")  # Write directly
+
+# 3. Optimal partition count
+# Formula: (total_data_size / partition_size) where partition_size = 128-256MB
+num_partitions = max(200, total_data_gb * 4)  # ~256MB per partition
+df_optimized = df.repartition(num_partitions)
+
+# 4. Use native functions instead of UDFs
+df.withColumn("result", 
+    when(col("salary") > 5000, array(*[lit(f"val_{i}") for i in range(100)]))
+)
+
+# 5. Increase memory configuration
+spark = SparkSession.builder \
+    .config("spark.executor.memory", "8g") \
+    .config("spark.memory.fraction", "0.8") \
+    .config("spark.executor.memoryOverhead", "2g") \
+    .getOrCreate()</pre>
+                    </div>
+                </div>
+
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <span class="issue-icon">🗑️</span>
+                        <span class="issue-title">GC Overhead Errors</span>
+                    </div>
+                    <div class="code-block before-block" data-language="python">
+                        <pre># ❌ CAUSES:
+# 1. Creating too many objects
+for i in range(1000):
+    df = df.withColumn(f"col_{i}", lit(i))  # 1000 new columns
+
+# 2. Python UDFs
+@udf(returnType=StringType())
+def process(x):
+    data = []  # Creates many intermediate objects
+    for item in expensive_operation(x):
+        data.append(str(item))
+    return ",".join(data)
+
+# 3. Repeated operations without caching
+result1 = df.filter(...).select(...)  # Recomputed
+result2 = df.filter(...).groupBy(...)  # Recomputed</pre>
+                    </div>
+                    <div class="code-block after-block" data-language="python">
+                        <pre># ✅ SOLUTIONS:
+# 1. Batch column operations
+new_cols = {f"col_{i}": lit(i) for i in range(100)}
+df = df.select("*", *[v.alias(k) for k, v in new_cols.items()])
+
+# 2. Use Pandas UDF (vectorized)
+import pandas as pd
+from pyspark.sql.functions import pandas_udf
+
+@pandas_udf("string")
+def process_vectorized(s: pd.Series) -> pd.Series:
+    return s.apply(lambda x: ",".join(str(x) for x in range(100)))
+
+# 3. Cache intermediate results
+df_cached = df.filter(...).cache()
+result1 = df_cached.select(...)
+result2 = df_cached.groupBy(...)
+
+# 4. Use Kryo serialization
+spark.conf.set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
+
+# 5. Increase memory or use off-heap
+spark.conf.set("spark.memory.offHeap.enabled", "true")
+spark.conf.set("spark.memory.offHeap.size", "4g")</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shuffle Issues -->
+            <div class="card">
+                <h3 class="card-title">🔀 Shuffle-Related Issues</h3>
+
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <span class="issue-icon">🔀</span>
+                        <span class="issue-title">Excessive Shuffling</span>
+                    </div>
+                    <div class="code-block before-block" data-language="python">
+                        <pre># ❌ CAUSES:
+# 1. Multiple operations that trigger shuffle
+result = df.filter(...)     # No shuffle
+result = result.select(...) # No shuffle  
+result = result.groupBy(...) # Shuffle!
+result = result.orderBy(...) # Shuffle again!
+result = result.filter(...)  # No shuffle
+
+# 2. Repartition without reason
+df.repartition(100)  # Unnecessary shuffle
+df.select("a", "b")  # Shuffle again
+
+# 3. Join on non-partitioned keys
+df1.join(df2, "key")  # Shuffles both tables</pre>
+                    </div>
+                    <div class="code-block after-block" data-language="python">
+                        <pre># ✅ SOLUTIONS:
+# 1. Combine operations before shuffle
+result = df.filter(...) \
+    .select(...) \
+    .groupBy("key") \
+    .agg(sum("value"))  # Single shuffle
+
+# 2. Repartition strategically
+# Only when necessary for joins/groupBy
+df_optimized = df.repartition(100, "join_key")  # Partition by join key
+
+# 3. Broadcast small tables
+small_df = spark.createDataFrame([...])  # Small lookup
+result = large_df.join(broadcast(small_df), "key")  # No shuffle
+
+# 4. Coalesce after shuffle operations
+result = df.groupBy("key").agg(sum("value")) \
+    .coalesce(10)  # Reduce partitions after expensive operation
+
+# 5. Enable AQE for automatic optimization
+spark.conf.set("spark.sql.adaptive.enabled", "true")
+spark.conf.set("spark.sql.adaptive.coalescePartitions.enabled", "true")</pre>
+                    </div>
+                </div>
+
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <span class="issue-icon">⚖️</span>
+                        <span class="issue-title">Data Skew in Shuffles</span>
+                    </div>
+                    <div class="code-block before-block" data-language="python">
+                        <pre># ❌ CAUSES:
+# 1. Natural skew in data
+# Department = "Sales" has 90% of data
+df.groupBy("department").sum("salary")
+
+# 2. Skewed joins
+# One key has majority of rows
+df1.join(df2, "skewed_key")
+
+# 3. String keys with high cardinality skew
+df.groupBy("long_string_column").count()</pre>
+                    </div>
+                    <div class="code-block after-block" data-language="python">
+                        <pre># ✅ SOLUTIONS:
+# 1. Enable AQE skew handling (Spark 3.0+)
+spark.conf.set("spark.sql.adaptive.skewJoin.enabled", "true")
+spark.conf.set("spark.sql.adaptive.skewJoin.skewedPartitionFactor", "5")
+
+# 2. Manual salting for joins
+NUM_SALT = 50
+
+# Salt the small table
+df2_salted = df2.withColumn("salt_key",
+    concat(col("key"), lit("_"), 
+           (rand() * NUM_SALT).cast("int"))
+)
+
+# Explode the large table
+df1_exploded = df1.withColumn("salt_key",
+    concat(col("key"), lit("_"),
+           explode(array([lit(i) for i in range(NUM_SALT)])))
+)
+
+# Join on salted key
+result = df1_exploded.join(df2_salted, "salt_key").drop("salt_key")
+
+# 3. Filter outliers separately
+skewed_keys = df.groupBy("key").count() \
+    .filter(col("count") > threshold) \
+    .select("key")
+
+outlier_data = df.join(broadcast(skewed_keys), "key", "leftsemi")
+normal_data = df.join(broadcast(skewed_keys), "key", "leftanti")
+
+# Process separately and union
+outlier_result = process_outliers(outlier_data)
+normal_result = process_normal(normal_data)
+final_result = outlier_result.union(normal_result)</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CPU Issues -->
+            <div class="card">
+                <h3 class="card-title">⚙️ CPU-Related Issues</h3>
+
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <span class="issue-icon">🐢</span>
+                        <span class="issue-title">Slow Task Execution</span>
+                    </div>
+                    <div class="code-block before-block" data-language="python">
+                        <pre># ❌ CAUSES:
+# 1. Too few partitions (under-utilization)
+df = spark.read.parquet("huge_data.parquet")  # Only 2 partitions
+df.rdd.getNumPartitions()  # 2!
+
+# 2. Python UDFs (slow serialization)
+@udf(returnType=IntegerType())
+def expensive_python(x):
+    result = []
+    for i in range(1000):
+        result.append(complex_calculation(i, x))
+    return sum(result)
+
+df.withColumn("result", expensive_python(col("data")))
+
+# 3. Not using parallelism
+rdd.map(lambda x: process(x)).collect()  # Single-threaded looking</pre>
+                    </div>
+                    <div class="code-block after-block" data-language="python">
+                        <pre># ✅ SOLUTIONS:
+# 1. Increase partitions
+df = df.repartition(200)  # More parallel tasks
+print(f"Partitions: {df.rdd.getNumPartitions()}")
+
+# 2. Replace Python UDFs with native functions
+df.withColumn("result", 
+    sum([lit(i) for i in range(1000)])  # Vectorized
+)
+
+# OR use Pandas UDF
+@pandas_udf("int")
+def fast_vectorized(s: pd.Series) -> pd.Series:
+    return s.apply(lambda x: sum(complex_calculation(i, x) for i in range(1000)))
+
+# 3. Ensure proper parallelism
+spark.conf.set("spark.default.parallelism", "200")
+
+# 4. Use coalesce for better distribution
+df_balanced = df.coalesce(spark.sparkContext.defaultParallelism)
+
+# 5. Monitor CPU usage
+# Check Spark UI for task duration variance
+# Add more cores if tasks are CPU-bound</pre>
+                    </div>
+                </div>
+
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <span class="issue-icon">📊</span>
+                        <span class="issue-title">Small File Problem</span>
+                    </div>
+                    <div class="code-block before-block" data-language="python">
+                        <pre># ❌ CAUSES:
+# 1. Writing after filtering many times
+df.filter(cond1).write.parquet("output1")
+df.filter(cond2).write.parquet("output2")
+df.filter(cond3).write.parquet("output3")
+# Creates many small files per directory
+
+# 2. Many partitions from source
+df = spark.read.parquet("s3://bucket/data/")  
+# Has 10,000 files = 10,000 partitions
+
+# 3. Frequent appends
+for partition in partitions:
+    df.filter(f"date = '{partition}'") \
+      .write.mode("append").parquet("output")</pre>
+                    </div>
+                    <div class="code-block after-block" data-language="python">
+                        <pre># ✅ SOLUTIONS:
+# 1. Coalesce before writing
+df.repartition(10).write.parquet("output")
+
+# 2. Consolidate writes
+all_conditions = df.filter(cond1).withColumn("category", lit("A"))
+all_conditions = all_conditions.union(df.filter(cond2).withColumn("category", lit("B")))
+all_conditions = all_conditions.union(df.filter(cond3).withColumn("category", lit("C")))
+all_conditions.repartition(10).write.parquet("output")
+
+# 3. Use partitionBy for organization
+df.write.partitionBy("year", "month").parquet("output")
+# Creates: year=2024/month=01/ files
+
+# 4. Compact small files periodically
+spark.read.parquet("output/") \
+    .repartition(100) \
+    .write.mode("overwrite") \
+    .parquet("output_compacted/")
+
+# 5. Set target file size
+spark.conf.set("spark.sql.files.maxPartitionBytes", "128MB")</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- I/O Issues -->
+            <div class="card">
+                <h3 class="card-title">📁 I/O-Related Issues</h3>
+
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <span class="issue-icon">📁</span>
+                        <span class="issue-title">Slow File Reads</span>
+                    </div>
+                    <div class="code-block before-block" data-language="python">
+                        <pre># ❌ CAUSES:
+# 1. Using CSV instead of Parquet
+df = spark.read.csv("huge_data.csv", header=True, inferSchema=True)
+# CSV: ~100 MB/s read speed
+
+# 2. Reading entire file when only few columns needed
+df = spark.read.parquet("data.parquet")  # Reads all columns
+df.select("id", "name").show()  # But only uses 2 columns
+
+# 3. Not using partition pruning
+df = spark.read.parquet("data/")  # Reads all partitions
+df.filter("year = 2024").show()  # But only needs 2024
+
+# 4. Compressed text files
+df = spark.read.text("data.gz")  # Decompression overhead</pre>
+                    </div>
+                    <div class="code-block after-block" data-language="python">
+                        <pre># ✅ SOLUTIONS:
+# 1. Use Parquet instead of CSV
+df = spark.read.parquet("huge_data.parquet")
+# Parquet: ~500+ MB/s read speed with column pruning
+
+# 2. Use column pruning
+df = spark.read.parquet("data.parquet").select("id", "name")
+# Only reads id and name columns
+
+# 3. Use partition pruning
+df = spark.read.parquet("data/year=2024/month=01/")  # Direct read
+# Or rely on Spark's automatic pruning
+spark.conf.set("spark.sql.optimizer.partitionPruning", "true")
+
+# 4. Coalesce small files before reading
+df = spark.read.parquet("many_small_files/").coalesce(10)
+# Reads more efficiently
+
+# 5. Use bloom filters for lookups
+df = spark.read \
+    .option("spark.sql.parquet.bloom.filter.enabled", "true") \
+    .option("spark.sql.parquet.bloom.filter.columns", "id") \
+    .parquet("data/")</pre>
+                    </div>
+                </div>
+
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <span class="issue-icon">💾</span>
+                        <span class="issue-title">Slow File Writes</span>
+                    </div>
+                    <div class="code-block before-block" data-language="python">
+                        <pre># ❌ CAUSES:
+# 1. Writing to many small files
+df.write.parquet("output/")  # Creates 1000+ files
+
+# 2. Using uncompressed format
+df.write.mode("overwrite").csv("output/", header=True)
+# No compression = larger files = slower reads
+
+# 3. Writing with many partitions
+df.repartition(10000).write.parquet("output/")</pre>
+                    </div>
+                    <div class="code-block after-block" data-language="python">
+                        <pre># ✅ SOLUTIONS:
+# 1. Coalesce to fewer files
+df.repartition(10).write.parquet("output/")
+
+# 2. Use compression
+df.write \
+    .mode("overwrite") \
+    .option("compression", "snappy") \
+    .parquet("output/")
+
+# 3. Optimal file count
+# Target: 128-256MB per file
+# Files = Total_Size / Target_Size
+num_files = max(10, total_size_gb * 4)  # ~256MB per file
+df.repartition(num_files).write.parquet("output/")
+
+# 4. Use bucketing for frequent joins
+df.write \
+    .bucketBy(10, "join_key") \
+    .sortBy("sort_key") \
+    .saveAsTable("bucketed_table")
+
+# 5. Write with partitionBy for query optimization
+df.write.partitionBy("year", "month").parquet("output/")</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Query Optimization Issues -->
+            <div class="card">
+                <h3 class="card-title">🔍 Query Optimization Issues</h3>
+
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <span class="issue-icon">🔍</span>
+                        <span class="issue-title">Predicate Pushdown Not Working</span>
+                    </div>
+                    <div class="code-block before-block" data-language="python">
+                        <pre># ❌ CAUSES:
+# 1. Functions on partition columns
+df.filter(year(col("date")) == 2024)  # Can't push down
+df.filter(date_format(col("date"), "yyyy") == "2024")  # Can't push down
+
+# 2. Or conditions
+df.filter((col("a") > 5) | (col("b") < 10))  # Limited pushdown
+
+# 3. Non-deterministic functions
+df.filter(rand() > 0.5)  # No pushdown</pre>
+                    </div>
+                    <div class="code-block after-block" data-language="python">
+                        <pre># ✅ SOLUTIONS:
+# 1. Use partition columns directly
+df.filter(col("year") == 2024)  # Pushdown works!
+
+# OR: Create partition column from source
+df = df.withColumn("year", year(col("date")))
+df.write.partitionBy("year").parquet("output/")
+
+# Then read with partition pruning
+df = spark.read.parquet("output/").filter(col("year") == 2024)
+
+# 2. Break up OR conditions
+df1 = df.filter(col("a") > 5)
+df2 = df.filter(col("b") < 10)
+result = df1.union(df2)
+
+# 3. Avoid functions on filter columns
+# Before: where(date_format(col("date"), "yyyy-MM-dd") > "2024-01-01")
+# After: where(col("date") > lit("2024-01-01").cast("date"))</pre>
+                    </div>
+                </div>
+
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <span class="issue-icon">📋</span>
+                        <span class="issue-title">Catalyst Optimizer Not Optimizing</span>
+                    </div>
+                    <div class="code-block before-block" data-language="python">
+                        <pre># ❌ CAUSES:
+# 1. Using RDDs instead of DataFrames
+rdd = sc.parallelize([1, 2, 3])
+rdd.map(lambda x: x * 2).collect()  # No optimization!
+
+# 2. Python UDFs prevent optimization
+@udf(returnType=IntegerType())
+def add_one(x):
+    return x + 1
+
+df.withColumn("result", add_one(col("value")))  # UDF breaks optimization
+
+# 3. Complex Python logic in map
+rdd.map(lambda x: complex_python_function(x))</pre>
+                    </div>
+                    <div class="code-block after-block" data-language="python">
+                        <pre># ✅ SOLUTIONS:
+# 1. Use DataFrames instead of RDDs
+df = spark.createDataFrame([(1,), (2,), (3,)], ["value"])
+df.withColumn("result", col("value") * 2).collect()  # Fully optimized!
+
+# 2. Replace UDFs with built-in functions
+df.withColumn("result", col("value") + 1)  # Optimized!
+
+# 3. Use Pandas UDFs when UDF is necessary
+@pandas_udf("int")
+def add_one_vectorized(s: pd.Series) -> pd.Series:
+    return s + 1
+
+df.withColumn("result", add_one_vectorized(col("value")))  # Optimized!
+
+# 4. Check explain plan
+df.filter(...).groupBy(...).agg(...).explain(True)
+
+# 5. Enable AQE for runtime optimization
+spark.conf.set("spark.sql.adaptive.enabled", "true")</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Network Issues -->
+            <div class="card">
+                <h3 class="card-title">🌐 Network-Related Issues</h3>
+
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <span class="issue-icon">🌐</span>
+                        <span class="issue-title">Excessive Data Transfer</span>
+                    </div>
+                    <div class="code-block before-block" data-language="python">
+                        <pre># ❌ CAUSES:
+# 1. Broadcasting large tables
+large_lookup = spark.createDataFrame(large_data)  # 500MB
+result = df.join(broadcast(large_lookup), "key")
+# Sends 500MB to each executor!
+
+# 2. Collect and process in driver
+all_data = df.collect()  # Transfers TB to driver
+for row in all_data:
+    process(row)
+
+# 3. Cross joins
+df1.crossJoin(df2)  # Massive data transfer if both large</pre>
+                    </div>
+                    <div class="code-block after-block" data-language="python">
+                        <pre># ✅ SOLUTIONS:
+# 1. Set proper broadcast threshold
+spark.conf.set("spark.sql.autoBroadcastJoinThreshold", "100MB")
+spark.conf.set("spark.sql.broadcastTimeout", "600")
+
+# 2. Use broadcast only for small data
+small_lookup = spark.createDataFrame(small_data)  # 10MB
+result = df.join(broadcast(small_lookup), "key")
+
+# 3. Process in parallel on executors
+df.foreach(lambda row: process(row))  # Runs on executors
+
+# OR use rdd.map for parallel processing
+df.rdd.map(lambda row: process(row)).collect()
+
+# 4. Avoid cross joins, use partitioned joins
+# Instead of: df1.crossJoin(df2)
+# Use: df1.join(df2, "key").repartition(n)
+
+# 5. Reduce network traffic with select
+result = df.join(other, "key").select("id", "name")  # Only needed columns</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Debugging Performance -->
+            <div class="card">
+                <h3 class="card-title">🔬 Debugging Performance Issues</h3>
+                <div class="code-block" data-language="python">
+                    <pre># ============== PERFORMANCE DEBUGGING ==============
+
+# 1. Check Explain Plan
+df.filter(...).groupBy(...).agg(...).explain(True)
+# Look for: WholeStageCodegen, Exchange, Filter
+
+# 2. Check Partition Statistics
+df.groupBy(spark_partition_id()).count().orderBy(col("count").desc()).show(20)
+
+# 3. Check for Skew
+df.groupBy("key").count().orderBy(col("count").desc()).show(10)
+
+# 4. Check Memory Usage
+df.explain(True)
+# Look for: InMemoryTableScan (cached data)
+
+# 5. Monitor with Accumulators
+error_count = spark.sparkContext.accumulator(0)
+def count_errors(x):
+    global error_count
+    if is_error(x):
+        error_count.add(1)
+    return x
+df.rdd.map(count_errors).collect()
+print(f"Errors: {error_count.value}")
+
+# 6. Time operations
+import time
+start = time.time()
+result = df.filter(...).collect()
+print(f"Time: {time.time() - start} seconds")
+
+# 7. Profile with Spark UI
+# - Jobs tab: Check job durations
+# - Stages tab: Check task durations (look for variance)
+# - Storage tab: Check cached data
+# - Environment tab: Check configurations
+
+# 8. Enable event logging
+spark = SparkSession.builder \
+    .config("spark.eventLog.enabled", "true") \
+    .config("spark.eventLog.dir", "hdfs:///spark-events") \
+    .getOrCreate()</pre>
+                </div>
+            </div>
+
+            <!-- Performance Checklist -->
+            <div class="card">
+                <h3 class="card-title">✅ Performance Checklist</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Check</th>
+                                <th>Solution</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="tag tag-purple">Memory</span></td>
+                                <td>Cache usage too high</td>
+                                <td>Unpersist after use, use MEMORY_AND_DISK</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-blue">Memory</span></td>
+                                <td>Driver OOM</td>
+                                <td>Increase driver memory, use take() not collect()</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-green">CPU</span></td>
+                                <td>Low CPU utilization</td>
+                                <td>Increase partitions, enable parallelism</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-orange">IO</span></td>
+                                <td>Too many small files</td>
+                                <td>Coalesce before write, use partitionBy</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-pink">IO</span></td>
+                                <td>Using CSV for analytics</td>
+                                <td>Convert to Parquet with compression</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-red">Shuffle</span></td>
+                                <td>Data skew</td>
+                                <td>Enable AQE, use salting</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-cyan">Shuffle</span></td>
+                                <td>Too many shuffles</td>
+                                <td>Combine operations, broadcast small tables</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-yellow">Query</span></td>
+                                <td>UDF performance</td>
+                                <td>Replace with built-ins, use Pandas UDF</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-green">Query</span></td>
+                                <td>No predicate pushdown</td>
+                                <td>Use partition columns directly</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-purple">Network</span></td>
+                                <td>Large broadcasts</td>
+                                <td>Reduce broadcast size, set proper threshold</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>🔮 Complete PySpark Reference Guide</p>
+            <p style="margin-top: 10px; font-size: 12px;">File Handling | Window Functions | Performance Issues</p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleCollapsible(header) {
+            header.parentElement.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PySpark Comprehensive Single-File Guide</title>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg2: #111522;
+      --card: rgba(30, 30, 50, 0.8);
+      --text: #f8f8fb;
+      --muted: #94a3b8;
+      --accent: #8b5cf6;
+      --code: #0b0b14;
+      --gradient: linear-gradient(135deg, #8b5cf6, #ec4899);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Inter, Arial;
+      background: var(--bg); color: var(--text);
+    }
+    /* Top navigation (independent, embedded) */
+    .topnav {
+      position: sticky; top: 0; z-index: 1000;
+      display: flex; gap: 12px; align-items: center;
+      padding: 12px 20px; background: rgba(10,10,15,0.95);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .topnav a {
+      color: #fff; text-decoration: none; font-weight: 600;
+      padding: 8px 12px; border-radius: 8px;
+    }
+    .topnav a.active, .topnav a:hover { background: rgba(139,92,246,0.25); }
+
+    main { padding: 20px 24px 80px; max-width: 1100px; margin: 0 auto; }
+
+    h1 { font-size: 28px; margin: 20px 0; }
+    h2 { font-size: 22px; margin: 28px 0 6px; }
+    h3 { font-size: 18px; margin: 16px 0 8px; }
+
+    .section { margin: 34px 0; padding: 0 0 8px; }
+
+    .card {
+      background: var(--card); border-radius: 12px;
+      padding: 18px 16px; border: 1px solid rgba(255,255,255,0.08);
+      margin: 14px 0;
+    }
+
+    .card-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+    .card-description { color: var(--muted); font-size: 13px; margin-bottom: 8px; }
+
+    .code-block {
+      background: #0b0b14; color: #e6e6e6; border-radius: 8px;
+      padding: 12px 14px; border: 1px solid rgba(255,255,255,0.08);
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas;
+      font-size: 12px; overflow-x: auto;
+    }
+    .code-block[data-language]::before {
+      content: attr(data-language);
+      float: right; font-size: 10px; font-weight: 700;
+      color: #8b5cf6;
+    }
+    pre { margin: 0; white-space: pre; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .dataset-display {
+      background: rgba(59, 130, 246, 0.08);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      border-radius: 8px; padding: 12px;
+    }
+
+    /* Simple responsive tweaks */
+    @media (max-width: 900px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Independent top navigation (content lives in this file only) -->
+  <nav class="topnav" aria-label="Site navigation">
+    <a href="#advanced-guide" class="active">Advanced Guide</a>
+    <a href="#mastery-guide">Mastery Guide</a>
+    <a href="#interview-examples">Interview Examples</a>
+  </nav>
+
+  <main>
+    <!-- Section 1: Advanced Guide (Content copied from pyspark-advanced-guide.html) -->
+    <section id="advanced-guide" class="section">
+      <h2>Advanced Guide</h2>
+
+      <!-- FILE HANDLING SECTION -->
+      <div class="card" id="file-handling">
+        <div class="card-title">📁 File Handling Guide</div>
+        <div class="card-description">Complete guide to reading/writing different file formats</div>
+
+        <!-- Sample Dataset -->
+        <div class="card" aria-label="Sample Datasets">
+          <h3 class="card-title">📋 Sample Datasets for Examples</h3>
+          <div class="dataset-display">
+            <pre>from pyspark.sql import SparkSession
+from pyspark.sql.functions import *
+
+spark = SparkSession.builder.appName("FileHandling").getOrCreate()
+
+# Dataset 1: Employees
+employees = spark.createDataFrame([
+    (1, "Alice", "Sales", 5000, "2020-01-15", "New York", "active"),
+    (2, "Bob", "Engineering", 7500, "2019-03-20", "San Francisco", "active"),
+    (3, "Charlie", "Sales", 5500, "2021-06-10", "New York", "active"),
+    (4, "Diana", "Engineering", 8000, "2018-09-05", "San Francisco", "inactive"),
+    (5, "Eve", "HR", 4500, "2020-11-30", "Boston", "active"),
+], ["id", "name", "department", "salary", "hire_date", "city", "status"])
+
+# Dataset 2: Sales Records
+sales = spark.createDataFrame([
+    ("2024-01", "Electronics", 50000, 150),
+    ("2024-01", "Clothing", 30000, 200),
+    ("2024-02", "Electronics", 60000, 180),
+    ("2024-02", "Clothing", 35000, 250),
+    ("2024-03", "Electronics", 55000, 160),
+], ["month", "category", "revenue", "quantity"])
+
+# Dataset 3: JSON Data
+json_data = [
+    {"id": 1, "name": "Alice", "skills": ["Python", "SQL", "Spark"]},
+    {"id": 2, "name": "Bob", "skills": ["Java", "Scala", "Kafka"]},
+    {"id": 3, "name": "Charlie", "skills": ["Python", "TensorFlow"]},
+]
+
+# Dataset 4: Logs (Multi-line)
+logs = [
+    '{"timestamp": "2024-01-15 10:30:00", "level": "INFO", "message": "Application started"}',
+    '{"timestamp": "2024-01-15 10:30:05", "level": "ERROR", "message": "Connection failed"}',
+    '{"timestamp": "2024-01-15 10:30:10", "level": "WARN", "message": "Retrying..."}',
+]</pre>
+          </div>
+        </div>
+
+        <!-- CSV Files -->
+        <div class="card">
+          <h3 class="card-title">📄 CSV File Handling</h3>
+          
+          <div class="collapsible" style="margin:0 0 8px 0;">
+            <div class="collapsible-header" onclick="toggleCollapsible(this)" style="cursor:pointer;">
+              <h4>🔍 Reading CSV Files - All Options</h4>
+              <span class="collapsible-arrow">▼</span>
+            </div>
+            <div class="collapsible-content" style="padding:12px 0;">
+              <div class="collapsible-inner">
+                <div class="code-block" data-language="python">
+<pre># ============== READING CSV FILES ==============
+
+# Basic reading
+
+# With header
+
+# With schema inference
+
+# With custom schema (FASTER - recommended)
+from pyspark.sql.types import StructType, StructField, StringType, IntegerType
+
+schema = StructType([
+    StructField("id", IntegerType(), False),
+    StructField("name", StringType(), True),
+    StructField("salary", IntegerType(), True),
+    StructField("department", StringType(), True)
+])
+
+df = spark.read.csv("path/to/file.csv", header=True, schema=schema)
+</pre>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="collapsible" style="margin:0 0 8px 0;">
+            <div class="collapsible-header" onclick="toggleCollapsible(this)">
+              <h4>🔍 Writing CSV Files - All Options</h4>
+              <span class="collapsible-arrow">▼</span>
+            </div>
+            <div class="collapsible-content" style="padding:12px 0;">
+              <div class="collapsible-inner">
+                <div class="code-block" data-language="python">
+<pre># ============== WRITING CSV FILES ==============
+
+# Basic writing
+
+# With options
+    "path/to/output.csv",
+    header=True,               # Write header row
+    sep=",",                   # Separator
+    encoding="UTF-8",          # File encoding
+    quote='"',                  # Quote character
+    escape='\\',               # Escape character
+    nullValue="NA",            # Represent null values
+    emptyValue="",             # Represent empty values
+    dateFormat="yyyy-MM-dd",   # Date format
+    timestampFormat="yyyy-MM-dd'T'HH:mm:ss",  # Timestamp format
+    quoteAll=False,              # Quote all values
+    compression="none"          # none, gzip, bzip2, lz4, snappy, zstd
+)
+
+# Write modes
+
+# Single file output
+
+# Partition by column
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Parquet Files -->
+        <div class="card" aria-label="Parquet">
+          <h3 class="card-title">📦 Parquet File Handling</h3>
+          <div class="info-box" style="margin-bottom:12px;">
+            <h5>✨ Why Parquet?</h5>
+            <p>• Columnar format - read only needed columns</p>
+            <p>• Built-in compression (Snappy, Gzip)</p>
+            <p>• Efficient encoding and predicate pushdown</p>
+            <p>• Schema evolution support</p>
+            <p>• Up to 10x faster than CSV for analytical queries</p>
+          </div>
+
+          <div class="collapsible" style="margin:0 0 8px 0;">
+            <div class="collapsible-header" onclick="toggleCollapsible(this)">
+              <h4>🔍 Reading & Writing Parquet</h4>
+              <span class="collapsible-arrow">▼</span>
+            </div>
+            <div class="collapsible-content" style="padding:12px 0;">
+              <div class="collapsible-inner">
+                <div class="code-block" data-language="python">
+<pre># ============== READING PARQUET ================
+
+# Basic reading
+
+# Read multiple files
+
+# Merge schema from multiple files
+
+# Read specific columns (predicate pushdown)
+
+# Read with filters (partition pruning)
+
+# ============== WRITING PARQUET ==============
+
+# Basic writing
+
+# With compression
+    "path/to/output.parquet",
+    compression="snappy"  # none, snappy, gzip, lzo, zstd
+)
+
+# With partitioning (creates subdirectories)
+    .partitionBy("year", "month", "department") \
+    .parquet("path/to/output/")
+
+# With specific row group size
+
+# Write with schema merge
+</pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: Window Functions -->
+      <section id="window-functions" class="section" aria-labelledby="win-funcs">
+        <h2 id="win-funcs" style="margin-top:0;">🪟 Window Functions</h2>
+
+        <div class="card">
+          <div class="card-title">Ranking Functions</div>
+          <div class="code-block" data-language="python">
+<pre>from pyspark.sql.window import Window
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- Section 2: Mastery Guide (Content copied from pyspark-complete-guide.html) -->
+    <section id="mastery-guide" class="section" aria-labelledby="mastery-title">
+      <h2 id="mastery-title" style="margin-top:0;">Mastery Guide</h2>
+
+      <!-- Introduction to Spark -->
+      <section class="card" aria-label="What is Spark">
+        <div class="card-title">🎯 What is Apache Spark?</div>
+        <p class="card-description">Apache Spark is an open-source, distributed computing system for fast, in-memory analytics. It supports batch, streaming, machine learning, and interactive queries with a unified API.</p>
+        <div class="dataset-display" style="margin-top:8px;">
+          <pre>Comparison: Spark vs Hadoop MapReduce
+- Speed: Spark in-memory vs disk-based
+- APIs: High-level DataFrame API vs low-level MapReduce
+- SQL: Spark SQL vs Hive on Hadoop
+- Streaming: Structured Streaming in Spark</pre>
+        </div>
+      </section>
+
+      <!-- Evolution -->
+      <section class="card" aria-label="Evolution">
+        <div class="card-title">📜 Evolution of Apache Spark</div>
+        <div class="card-description">From research project to industry standard</div>
+
+        <div class="dataset-display" style="margin-top:8px;">
+          <pre># Timeline highlights (condensed)
+2009: Spark created at UC Berkeley AMPLab
+2010: Open sourced
+2011: MLlib development
+2012: First standalone cluster release
+2014: Spark becomes Apache top-level project
+2015: DataFrames API introduced
+2016: Unified Dataset/DataFrame APIs, Structured Streaming
+2019: AQE, GPU support, Kubernetes native
+2023: Current stable (3.x)
+</pre>
+        </div>
+      </section>
+
+      <!-- Architecture -->
+      <section class="card" aria-label="Architecture">
+        <div class="card-title">🏗️ Complete Spark Architecture</div>
+
+        <div class="flowchart" aria-label="Architecture Diagram" style="padding:12px;">
+          <div class="flowchart-row" style="gap:12px;">
+            <div class="flow-node data" style="min-width:180px;">
+              <h5>📝 User Code</h5><p>PySpark Application</p>
+            </div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-node driver" style="min-width:180px;">
+              <h5>🔗 SparkSession</h5><p>Entry Point</p>
+            </div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-node driver" style="min-width:180px;">
+              <h5>🧠 SparkContext</h5><p>Cluster connection</p>
+            </div>
+          </div>
+          <div class="flow-arrow-down" style="text-align:center; margin:6px 0;">⬇</div>
+          <div class="flowchart-row" style="gap:12px;">
+            <div class="flow-node driver" style="min-width:180px;">
+              <h5>📊 DAGScheduler</h5><p>Creates DAG of stages</p>
+            </div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-node driver" style="min-width:180px;">
+              <h5>📋 TaskScheduler</h5><p>Low-level Scheduling</p>
+            </div>
+          </div>
+          <div class="flow-arrow-down" style="text-align:center; margin:6px 0;">⬇</div>
+          <div class="flowchart-row" style="gap:12px;">
+            <div class="flow-node cluster" style="min-width:180px;">
+              <h5>☁️ Cluster Manager</h5><p>YARN / K8s / Standalone</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-box success" style="margin-top:12px;">
+          <h5>✨ Key components</h5>
+          <p>DAGScheduler, TaskScheduler, SchedulerBackend, and the Cluster Manager coordinate execution.</p>
+        </div>
+      </section>
+    </section>
+
+    <!-- Section 2b: SparkContext (Mastery content) -->
+    <section class="card" aria-label="SparkContext">
+      <div class="card-title">🔑 SparkContext & SparkSession</div>
+      <p class="card-description">SparkContext is the primary entry point to Spark functionality, representing the connection to a Spark cluster. SparkSession is the unified entry point that encompasses SparkContext and SQL features.</p>
+      <div class="code-block" data-language="python">
+<pre># SparkSession (preferred)
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder \
+  .appName("MyApp") \
+  .master("local[*]") \
+  .getOrCreate()
+
+sc = spark.sparkContext
+
+# SparkContext (older style)
+from pyspark import SparkContext
+sc = SparkContext("local[*]", "MyApp")
+</pre>
+      </div>
+    </section>
+
+    <!-- Section 3: Interview Examples -->
+    <section id="interview-examples" class="section" aria-labelledby="interview-title">
+      <h2 id="interview-title" style="margin-top:0;">Interview Questions & Examples</h2>
+
+      <!-- Basic Level -->
+      <section class="card" aria-label="Basic Level">
+        <div class="card-title">🔰 Basic Level Questions</div>
+        <div class="question-card" aria-label="Question 1">
+          <div class="question-header" style="display:flex; gap:8px; align-items:center;">
+            <span class="question-number" style="width:28px; height:28px; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; background:var(--gradient);">1</span>
+            <span class="question-text" style="font-weight:600;">What is PySpark and how does it differ from Apache Spark?</span>
+            <span class="question-level level-basic" style="font-size:11px; padding:4px 8px; border-radius:8px; background:#e6f4ea; color:#1e7d33;">Basic</span>
+          </div>
+          <div class="answer-block" style="margin-top:8px;">
+            <h5>💡 Answer</h5>
+            <p>PySpark is the Python API for Apache Spark. Apache Spark is the core engine; PySpark provides a Pythonic interface to Spark's distributed processing framework. Differences are mainly language bindings and serialization between Python and the JVM-based Spark engine.</p>
+          </div>
+        </div>
+        
+        <div class="question-card" aria-label="Question 2">
+          <div class="question-header" style="display:flex; gap:8px; align-items:center;">
+            <span class="question-number" style="width:28px; height:28px; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; background:var(--gradient);">2</span>
+            <span class="question-text" style="font-weight:600;">What is SparkContext and SparkSession?</span>
+            <span class="question-level level-basic" style="font-size:11px; padding:4px 8px; border-radius:8px; background:#e6f4ea; color:#1e7d33;">Basic</span>
+          </div>
+          <div class="answer-block" style="margin-top:8px;">
+            <h5>💡 Answer</h5>
+            <p>SparkContext is the entry point to Spark functionality (older API). SparkSession is the unified entry point since Spark 2.x, combining SQLContext and SparkContext.</p>
+          </div>
+        </div>
+        
+        <!-- Additional basic questions would continue here in a full expansion -->
+      </section>
+
+      <!-- Intermediate / Advanced could follow here similarly -->
+      <section class="card" aria-label="Advanced Level">
+        <div class="card-title">🚀 Advanced Level Questions</div>
+        <div class="question-card" aria-label="Question 16">
+          <div class="question-header" style="display:flex; gap:8px; align-items:center;">
+            <span class="question-number" style="width:28px; height:28px; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; background:var(--gradient);">16</span>
+            <span class="question-text" style="font-weight:600;">What is the Catalyst Optimizer and how does it work?</span>
+            <span class="question-level level-advanced" style="font-size:11px; padding:4px 8px; border-radius:8px; background:#f0eefb; color:#5b48c5;">Advanced</span>
+          </div>
+          <div class="answer-block" style="margin-top:8px;">
+            <h5>💡 Answer</h5>
+            <p>The Catalyst Optimizer is Spark’s query optimizer. It analyzes and rewrites logical plans into efficient physical plans, applying rules for predicate pushdown, constant folding, and more. Phases include Analysis, Logical Optimization, Physical Planning, and Cost-based optimization.</p>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    // Simple collapsible helper (used in sections above)
+    function toggleCollapsible(el) {
+      const content = el.nextElementSibling;
+      const isOpen = el.parentElement.classList.contains('collapsible');
+      // Toggle open/close
+      content.style.maxHeight = content.style.maxHeight ? null : content.scrollHeight + 'px';
+      el.parentElement.classList.toggle('open');
+    }
+
+    // Basic navigation highlight (optional)
+    document.querySelectorAll('.topnav a').forEach(a => {
+      a.addEventListener('click', () => {
+        document.querySelectorAll('.topnav a').forEach(x => x.classList.remove('active'));
+        a.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
