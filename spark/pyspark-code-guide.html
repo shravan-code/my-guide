@@ -1290,9 +1290,7 @@ joined = orders.join(broadcast(customers), "customer_id", "left")
 spark.conf.set("spark.sql.autoBroadcastJoinThreshold", "-1")
 joined = orders.join(broadcast(customers.select("customer_id", "segment")), "customer_id", "left")
 
-joined.show()</code></pre><div class="two-col" style="margin-top:0.3rem"><div class="panel"><h3>PostgreSQL</h3><pre class="code"><code>SELECT a.id, a.val, b.flag, b.score
-FROM df_a a
-CROSS JOIN df_b b;</code></pre></div></div>
+joined.show()</code></pre>
         </div>
 <div class="join-diagram">
   <svg width="110" height="85" viewBox="0 0 110 85" xmlns="http://www.w3.org/2000/svg">
@@ -1434,9 +1432,7 @@ joined.show()</code></pre>
     .count()
     .na.fill(0))
 
-pivoted.show()</code></pre><div class="two-col" style="margin-top:0.3rem"><div class="panel"><h3>PostgreSQL</h3><pre class="code"><code>SELECT o.order_id, o.region, o.product_id, d.discount
-FROM orders o
-JOIN discounts d USING (region, product_id);</code></pre></div></div>
+pivoted.show()</code></pre>
     </section>
 <section class="concept glass reveal" id="nulls">
       <h2>17) Handling Nulls</h2>
@@ -1602,9 +1598,7 @@ clean = (df
     .dropna(subset=["order_id"])
 )
 
-clean.show()</code></pre><div class="two-col" style="margin-top:0.3rem"><div class="panel"><h3>PostgreSQL</h3><pre class="code"><code>SELECT a.id, a.region AS region_a, b.code
-FROM df_a a
-LEFT JOIN df_b b ON a.region IS NOT DISTINCT FROM b.region;</code></pre></div></div>
+clean.show()</code></pre>
     </section>
 <section class="concept glass reveal" id="datetime">
       <h2>18) Date and Time Functions</h2>
@@ -1629,8 +1623,7 @@ LEFT JOIN df_b b ON a.region IS NOT DISTINCT FROM b.region;</code></pre></div></
 df.select(
     current_date().alias("event_date"),
     current_timestamp().alias("event_ts")
-).show(1)</code></pre><div class="two-col" style="margin-top:0.3rem"><div class="panel"><h3>PostgreSQL</h3><pre class="code"><code>SELECT COALESCE(col, default_val) AS col FROM df;
--- equivalent to fillna; drop is handled by WHERE col IS NOT NULL</code></pre></div></div>
+).show(1)</code></pre>
         </div>
         <div class="panel">
           <h3>PostgreSQL</h3>
