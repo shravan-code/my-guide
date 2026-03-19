@@ -1,0 +1,157 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap");
+
+:root {
+  --dg-bg: #f7f9ff;
+  --dg-bg-alt: #eef3ff;
+  --dg-text: #101633;
+  --dg-muted: #3a4676;
+  --dg-glass: rgba(255, 255, 255, 0.64);
+  --dg-border: rgba(255, 255, 255, 0.68);
+  --dg-shadow: 0 24px 60px rgba(16, 22, 51, 0.16);
+  --dg-a: #ff6f61;
+  --dg-b: #25d4b7;
+  --dg-c: #4e7dff;
+}
+
+body.dg-dark,
+body.dark {
+  --dg-bg: #090f21;
+  --dg-bg-alt: #0d1731;
+  --dg-text: #ecf1ff;
+  --dg-muted: #b2c0e8;
+  --dg-glass: rgba(13, 23, 49, 0.58);
+  --dg-border: rgba(171, 196, 255, 0.24);
+  --dg-shadow: 0 26px 70px rgba(0, 0, 0, 0.5);
+  --dg-a: #ff956d;
+  --dg-b: #2de8c8;
+  --dg-c: #7c98ff;
+}
+
+body {
+  --bg-primary: var(--dg-bg);
+  --bg-secondary: color-mix(in srgb, var(--dg-bg-alt) 88%, #0000);
+  --bg-card: color-mix(in srgb, var(--dg-glass) 92%, #0000);
+  --bg-glass: color-mix(in srgb, var(--dg-glass) 84%, #0000);
+  --accent-purple: var(--dg-c);
+  --accent-pink: var(--dg-a);
+  --accent-blue: var(--dg-c);
+  --accent-cyan: var(--dg-b);
+  --accent-green: #10b981;
+  --accent-orange: #f59e0b;
+  --accent-red: #ef4444;
+  --text-primary: var(--dg-text);
+  --text-secondary: var(--dg-muted);
+  --text-muted: color-mix(in srgb, var(--dg-muted) 78%, #7f8fb7);
+  --gradient-1: linear-gradient(135deg, var(--dg-c), var(--dg-a));
+  --gradient-2: linear-gradient(135deg, var(--dg-c), var(--dg-b));
+  --gradient-3: linear-gradient(135deg, var(--dg-b), var(--dg-c));
+  --shadow-glow: 0 0 40px color-mix(in srgb, var(--dg-c) 36%, transparent);
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 10% 15%, color-mix(in srgb, var(--dg-a) 20%, transparent), transparent 38%),
+    radial-gradient(circle at 82% 8%, color-mix(in srgb, var(--dg-c) 20%, transparent), transparent 40%),
+    linear-gradient(140deg, var(--dg-bg), var(--dg-bg-alt));
+  color: var(--dg-text);
+}
+
+body::before {
+  background:
+    radial-gradient(ellipse at 20% 20%, color-mix(in srgb, var(--dg-c) 16%, transparent) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, color-mix(in srgb, var(--dg-a) 12%, transparent) 0%, transparent 50%);
+}
+
+.sidebar,
+.topbar,
+.hero,
+.card,
+.feature-card,
+.comparison-card,
+.topic,
+.container,
+.footer,
+.table-container,
+.code-block,
+.toggle-btn {
+  box-shadow: var(--dg-shadow);
+}
+
+.sidebar,
+.hero,
+.card,
+.feature-card,
+.comparison-card,
+.table-container,
+.footer,
+.code-block,
+.toggle-btn {
+  border-color: var(--dg-border) !important;
+}
+
+.sidebar,
+.card,
+.feature-card,
+.comparison-card,
+.footer,
+.table-container {
+  background: var(--dg-glass) !important;
+  backdrop-filter: blur(16px);
+}
+
+.code-block {
+  background: color-mix(in srgb, var(--dg-bg-alt) 86%, black 14%) !important;
+}
+
+.logo-text,
+.hero h1,
+.section-title,
+.stat-number {
+  background: linear-gradient(135deg, var(--dg-text) 0%, var(--dg-c) 55%, var(--dg-a) 100%) !important;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-item,
+.card-description,
+.hero p,
+.topic p,
+td,
+th,
+.section-subtitle {
+  color: var(--dg-muted) !important;
+}
+
+.nav-item.active,
+.toggle-btn,
+.hero-badge {
+  background: var(--gradient-2) !important;
+  color: #fff !important;
+}
+
+.dg-actions {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 2200;
+  display: flex;
+  gap: 0.45rem;
+}
+
+.dg-actions a,
+.dg-actions button {
+  border: 1px solid var(--dg-border);
+  background: var(--dg-glass);
+  color: var(--dg-text);
+  border-radius: 999px;
+  padding: 0.45rem 0.7rem;
+  font: inherit;
+  font-size: 0.84rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .dg-actions {
+    right: 10px;
+    bottom: 10px;
+  }
+}

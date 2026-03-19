@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data-Guide | PySpark Advanced Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    .page-wrap { width: min(1160px, calc(100% - 2rem)); margin: 1rem auto 3rem; }
+    .header-card, .block { border-radius: 20px; padding: 1rem; }
+    .header-card { margin-bottom: 1rem; }
+    .header-card h1 { margin: 0.4rem 0; font-size: clamp(1.6rem, 4vw, 2.5rem); }
+    .stack { display: grid; gap: 0.85rem; }
+    .block h2 { margin: 0 0 0.55rem; font-size: 1.1rem; font-family: "Sora", "Trebuchet MS", sans-serif; }
+    .lane { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.65rem; margin-top: 0.5rem; }
+    .chip { border: 1px solid var(--glass-border); border-radius: 12px; background: color-mix(in srgb, var(--accent-c) 10%, var(--glass)); padding: 0.52rem; font-size: 0.9rem; color: var(--muted); }
+    .chip strong { display: block; color: var(--text); margin-bottom: 0.2rem; }
+    .steps { margin: 0; padding-left: 1.15rem; color: var(--muted); }
+    .steps li { margin-bottom: 0.3rem; }
+    .links { margin-top: 1rem; display: flex; gap: 0.55rem; flex-wrap: wrap; }
+    .links a { text-decoration: none; border: 1px solid var(--glass-border); background: var(--glass); color: var(--text); border-radius: 999px; padding: 0.35rem 0.68rem; }
+    @media (max-width: 900px) { .lane { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <header class="topbar glass">
+    <a class="brand" href="../index.html">Data-Guide</a>
+    <nav class="menu" aria-label="Spark navigation">
+      <a href="pyspark-complete-guide.html">Complete</a>
+      <a href="pyspark-advanced-guide.html">Advanced</a>
+      <a href="pyspark-interview-examples.html">Interview</a>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+      <span class="toggle-icon" aria-hidden="true">🌙</span>
+      <span class="toggle-text">Dark</span>
+    </button>
+  </header>
+
+  <main class="page-wrap stack">
+    <section class="header-card glass">
+      <p class="eyebrow">Spark / Advanced Track</p>
+      <h1>File Handling, Window Functions, and Performance Debugging</h1>
+      <p class="hero-copy">This page restructures the advanced PySpark guide into operational sections you can directly apply to data pipelines.</p>
+    </section>
+
+    <section class="block glass">
+      <h2>1) File Handling Guide</h2>
+      <p class="hero-copy">Covers format-level read/write strategy, schema control, and partition-aware I/O design.</p>
+      <div class="lane">
+        <div class="chip"><strong>CSV and JSON</strong>Header handling, schema enforcement, malformed records, and ingestion reliability.</div>
+        <div class="chip"><strong>Parquet and ORC</strong>Columnar storage benefits, compression, predicate pushdown, and analytics performance.</div>
+        <div class="chip"><strong>JDBC and Delta</strong>Database connectors, partitioned reads, write modes, ACID lakehouse workflows.</div>
+      </div>
+    </section>
+
+    <section class="block glass">
+      <h2>2) Window Functions</h2>
+      <p class="hero-copy">Includes practical patterns for ranking, cumulative metrics, and temporal analytics with controlled frames.</p>
+      <div class="lane">
+        <div class="chip"><strong>Ranking</strong>`row_number`, `rank`, `dense_rank`, top-N and bottom-N strategies per partition.</div>
+        <div class="chip"><strong>Analytical Windows</strong>Running totals, moving windows, `lag`/`lead`, and first/last value derivations.</div>
+        <div class="chip"><strong>Performance Caveats</strong>Large frames, skewed partitions, too many windows, and missing partition keys.</div>
+      </div>
+    </section>
+
+    <section class="block glass">
+      <h2>3) Comprehensive Performance Issues</h2>
+      <ol class="steps">
+        <li><strong>Memory:</strong> executor pressure, spills, and incorrect storage level decisions.</li>
+        <li><strong>Shuffle:</strong> expensive joins, skewed keys, and unnecessary repartition storms.</li>
+        <li><strong>CPU:</strong> suboptimal parallelism and expensive non-vectorized operations.</li>
+        <li><strong>I/O:</strong> small file explosion, wrong storage format, and inefficient write layout.</li>
+        <li><strong>Query optimization:</strong> overuse of UDFs, poor projection/filter order, and plan inflation.</li>
+        <li><strong>Debugging:</strong> explain plans, stage-level bottlenecks, and checklist-based triage.</li>
+      </ol>
+    </section>
+
+    <div class="links">
+      <a href="pyspark-complete-guide.html">Open Complete Track</a>
+      <a href="pyspark-interview-examples.html">Open Interview Track</a>
+      <a href="../index.html#spark-tracks">Back to Spark Menu</a>
+    </div>
+  </main>
+
+  <script src="../app.js"></script>
+</body>
+</html>
