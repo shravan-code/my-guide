@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data-Guide | PySpark Code Track</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 320px;
+      height: 100vh;
+      padding: 1rem 0.8rem;
+      background:
+        radial-gradient(circle at 16% 16%, color-mix(in srgb, var(--accent-b) 22%, transparent), transparent 44%),
+        radial-gradient(circle at 85% 10%, color-mix(in srgb, var(--accent-c) 24%, transparent), transparent 52%),
+        color-mix(in srgb, var(--bg-alt) 84%, var(--glass));
+      border-right: 1px solid color-mix(in srgb, var(--accent-c) 28%, var(--glass-border));
+      backdrop-filter: blur(16px);
+      box-shadow: 16px 0 38px color-mix(in srgb, var(--accent-c) 14%, transparent);
+      overflow-y: auto;
+      z-index: 1000;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid color-mix(in srgb, var(--accent-c) 28%, var(--glass-border));
+    }
+    .logo-text {
+      font-family: "Sora", "Trebuchet MS", sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      background: linear-gradient(120deg, var(--accent-a), var(--accent-c));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .nav-title {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: color-mix(in srgb, var(--accent-c) 44%, var(--muted));
+      margin: 0.85rem 0 0.35rem;
+      padding-left: 0.45rem;
+      font-weight: 700;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      text-decoration: none;
+      color: var(--muted);
+      padding: 0.45rem 0.55rem;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      background: color-mix(in srgb, var(--glass) 88%, transparent);
+      font-size: 0.83rem;
+      margin-bottom: 0.2rem;
+      transition: all 0.2s ease;
+    }
+    .nav-item:hover,
+    .nav-item.active {
+      background: linear-gradient(
+        118deg,
+        color-mix(in srgb, var(--accent-c) 26%, transparent),
+        color-mix(in srgb, var(--accent-b) 22%, transparent)
+      );
+      border-color: color-mix(in srgb, var(--accent-c) 34%, var(--glass-border));
+      box-shadow: 0 10px 24px color-mix(in srgb, var(--accent-c) 24%, transparent);
+      color: var(--text);
+      transform: translateX(3px);
+    }
+    .main-content {
+      margin-left: 320px;
+      padding: 1rem 1rem 2rem;
+      min-height: 100vh;
+    }
+
+    .page-wrap { width: min(1160px, calc(100% - 2rem)); margin: 1rem auto 3rem; }
+    .hero,
+    .concept {
+      border-radius: 22px;
+      padding: 1rem;
+      margin-bottom: 0.9rem;
+      border: 1px solid color-mix(in srgb, var(--accent-c) 28%, var(--glass-border));
+    }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 14% 16%, color-mix(in srgb, var(--accent-a) 26%, transparent), transparent 42%),
+        radial-gradient(circle at 88% 12%, color-mix(in srgb, var(--accent-b) 24%, transparent), transparent 48%),
+        linear-gradient(
+          130deg,
+          color-mix(in srgb, var(--accent-c) 12%, var(--glass)),
+          color-mix(in srgb, var(--accent-a) 8%, var(--glass))
+        );
+      box-shadow: 0 22px 44px color-mix(in srgb, var(--accent-c) 18%, transparent);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: -10%;
+      right: -10%;
+      bottom: -56%;
+      height: 68%;
+      filter: blur(28px);
+      opacity: 0.5;
+      background: linear-gradient(90deg, color-mix(in srgb, var(--accent-b) 34%, transparent), color-mix(in srgb, var(--accent-c) 30%, transparent));
+      pointer-events: none;
+    }
+    .hero > * { position: relative; z-index: 1; }
+    .concept {
+      background: linear-gradient(
+        150deg,
+        color-mix(in srgb, var(--accent-b) 10%, var(--glass)),
+        color-mix(in srgb, var(--accent-c) 8%, var(--glass))
+      );
+      box-shadow: 0 16px 34px color-mix(in srgb, var(--accent-c) 16%, transparent);
+    }
+    .hero h1 { margin: 0.45rem 0 0.6rem; font-size: clamp(1.6rem, 4vw, 2.7rem); max-width: 20ch; }
+    .hero p,
+    .concept p { margin: 0 0 0.65rem; color: var(--muted); line-height: 1.6; }
+
+    .pill-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.4rem; }
+    .pill-row span {
+      border: 1px solid color-mix(in srgb, var(--accent-c) 30%, var(--glass-border));
+      background: linear-gradient(
+        124deg,
+        color-mix(in srgb, var(--accent-b) 14%, var(--glass)),
+        color-mix(in srgb, var(--accent-c) 13%, var(--glass))
+      );
+      border-radius: 999px;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.74rem;
+      color: var(--text);
+    }
+
+    .toc {
+      border-radius: 18px;
+      padding: 0.8rem;
+      margin-bottom: 0.9rem;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.45rem;
+      border: 1px solid color-mix(in srgb, var(--accent-c) 28%, var(--glass-border));
+      background: linear-gradient(
+        140deg,
+        color-mix(in srgb, var(--accent-c) 10%, var(--glass)),
+        color-mix(in srgb, var(--accent-b) 8%, var(--glass))
+      );
+    }
+    .toc a {
+      text-decoration: none;
+      color: var(--text);
+      border: 1px solid color-mix(in srgb, var(--accent-c) 28%, var(--glass-border));
+      border-radius: 10px;
+      padding: 0.4rem 0.52rem;
+      background: linear-gradient(
+        120deg,
+        color-mix(in srgb, var(--accent-c) 20%, transparent),
+        color-mix(in srgb, var(--accent-b) 14%, transparent)
+      );
+      font-size: 0.84rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .toc a:hover,
+    .toc a:focus-visible {
+      transform: translateY(-3px);
+      border-color: color-mix(in srgb, var(--accent-c) 44%, var(--glass-border));
+      box-shadow: 0 12px 24px color-mix(in srgb, var(--accent-c) 24%, transparent);
+    }
+
+    .concept h2 { margin: 0 0 0.4rem; font-family: "Sora", "Trebuchet MS", sans-serif; font-size: 1.18rem; }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin-bottom: 0.3rem; }
+    .panel {
+      border: 1px solid color-mix(in srgb, var(--accent-c) 28%, var(--glass-border));
+      border-radius: 14px;
+      padding: 0.65rem;
+      background: linear-gradient(
+        132deg,
+        color-mix(in srgb, var(--accent-b) 14%, var(--glass)),
+        color-mix(in srgb, var(--accent-c) 10%, var(--glass))
+      );
+    }
+    .panel h3 { margin: 0 0 0.4rem; font-size: 0.95rem; }
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 10px;
+      border: 1px solid color-mix(in srgb, var(--accent-c) 26%, var(--glass-border));
+      background: color-mix(in srgb, var(--bg-alt) 70%, transparent);
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    th, td { padding: 0.4rem 0.46rem; text-align: left; border-bottom: 1px solid var(--glass-border); vertical-align: top; }
+    th {
+      background: linear-gradient(
+        120deg,
+        color-mix(in srgb, var(--accent-c) 24%, transparent),
+        color-mix(in srgb, var(--accent-b) 14%, transparent)
+      );
+    }
+    tr:last-child td { border-bottom: none; }
+
+    .code {
+      margin-top: 0.45rem;
+      padding: 0.75rem;
+      border-radius: 12px;
+      border: 1px solid color-mix(in srgb, var(--accent-c) 30%, var(--glass-border));
+      background: linear-gradient(
+        140deg,
+        color-mix(in srgb, var(--bg-alt) 84%, white 16%),
+        color-mix(in srgb, var(--accent-c) 11%, white 89%)
+      );
+      color: #172246;
+      overflow-x: auto;
+      box-shadow: inset 0 1px 0 color-mix(in srgb, white 30%, transparent);
+    }
+    .code code { font-family: "JetBrains Mono", Consolas, monospace; font-size: 0.79rem; line-height: 1.45; white-space: pre; }
+    body.dark .code {
+      background: linear-gradient(
+        145deg,
+        color-mix(in srgb, var(--bg-alt) 84%, black 16%),
+        color-mix(in srgb, var(--accent-c) 12%, black 88%)
+      );
+      color: #d9e6ff;
+    }
+
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.45s ease, transform 0.45s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    .join-diagram {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0.6rem 0;
+    }
+    .join-diagram svg {
+      max-width: 100%;
+      height: auto;
+    }
+    #joining { opacity: 1 !important; transform: none !important; }
+    .join-block {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .join-block .join-content { flex: 1; min-width: 0; }
+    .join-block .join-diagram {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .join-block .join-diagram svg {
+      width: 120px;
+      height: 90px;
+    }
+    .join-block .join-diagram figcaption { display: none; }
+    .join-block .two-col { margin-bottom: 0.3rem; }
+    .join-block .code { margin-top: 0.3rem; }
+    .join-block {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .join-block .join-content { flex: 1; min-width: 0; }
+    .join-block .join-diagram {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .join-block .join-diagram svg {
+      width: 120px;
+      height: 90px;
+    }
+    .join-block .join-diagram figcaption { display: none; }
+    .join-block .two-col { margin-bottom: 0.3rem; }
+    .join-block .code { margin-top: 0.3rem; }
+
+    .join-caption {
+      text-align: center;
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+
+    @media (max-width: 980px) {
+      .toc { grid-template-columns: 1fr 1fr; }
+      .two-col { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 680px) {
+      .toc { grid-template-columns: 1fr; }
+  
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 320px;
+      height: 100vh;
+      padding: 1rem 0.8rem;
+      background:
+        radial-gradient(circle at 16% 16%, color-mix(in srgb, var(--accent-b) 22%, transparent), transparent 44%),
+        radial-gradient(circle at 85% 10%, color-mix(in srgb, var(--accent-c) 24%, transparent), transparent 52%),
+        color-mix(in srgb, var(--bg-alt) 84%, var(--glass));
+      border-right: 1px solid color-mix(in srgb, var(--accent-c) 28%, var(--glass-border));
+      backdrop-filter: blur(16px);
+      box-shadow: 16px 0 38px color-mix(in srgb, var(--accent-c) 14%, transparent);
+      overflow-y: auto;
+      z-index: 1000;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid color-mix(in srgb, var(--accent-c) 28%, var(--glass-border));
+    }
+    .logo-text {
+      font-family: "Sora", "Trebuchet MS", sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      background: linear-gradient(120deg, var(--accent-a), var(--accent-c));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .nav-title {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: color-mix(in srgb, var(--accent-c) 44%, var(--muted));
+      margin: 0.85rem 0 0.35rem;
+      padding-left: 0.45rem;
+      font-weight: 700;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      text-decoration: none;
+      color: var(--muted);
+      padding: 0.45rem 0.55rem;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      background: color-mix(in srgb, var(--glass) 88%, transparent);
+      font-size: 0.83rem;
+      margin-bottom: 0.2rem;
+      transition: all 0.2s ease;
+    }
+    .nav-item:hover,
+    .nav-item.active {
+      background: linear-gradient(
+        118deg,
+        color-mix(in srgb, var(--accent-c) 26%, transparent),
+        color-mix(in srgb, var(--accent-b) 22%, transparent)
+      );
+      border-color: color-mix(in srgb, var(--accent-c) 34%, var(--glass-border));
+      box-shadow: 0 10px 24px color-mix(in srgb, var(--accent-c) 24%, transparent);
+      color: var(--text);
+      transform: translateX(3px);
+    }
+    .main-content {
+      margin-left: 320px;
+      padding: 1rem 1rem 2rem;
+      min-height: 100vh;
+    }
+
+    .page-wrap { width: calc(100% - 1rem); }
+    }
+  </style>
+</head>
+<body>
+        <nav class="sidebar" id="sidebar">
+      <div class="logo">
+        <span class="logo-text">PySpark Code</span>
+      </div>
+
+      <div class="nav-title">Fundamentals</div>
+      <a href="#intro" class="nav-item"><span>1</span> Introduction</a>
+      <a href="#spark-session" class="nav-item"><span>2</span> SparkSession</a>
+      <a href="#read-write" class="nav-item"><span>3</span> Reading/Writing</a>
+      
+      <div class="nav-title">File Formats</div>
+      <a href="#csv" class="nav-item"><span>4</span> CSV Files</a>
+      <a href="#json" class="nav-item"><span>5</span> JSON Files</a>
+      <a href="#parquet" class="nav-item"><span>6</span> Parquet</a>
+      <a href="#avro" class="nav-item"><span>7</span> Avro</a>
+      <a href="#cloud-io" class="nav-item"><span>8</span> Cloud (AWS/Azure/GCP)</a>
+      <a href="#cloud-libs" class="nav-item"><span>9</span> Cloud Libraries</a>
+      <a href="#excel-compression" class="nav-item"><span>10</span> Excel &amp; Comp</a>
+
+      <div class="nav-title">Dataframes</div>
+      <a href="#columns-ref" class="nav-item"><span>11</span> Ref Columns</a>
+      <a href="#columns-select" class="nav-item"><span>12</span> Select Columns</a>
+      <a href="#filtering" class="nav-item"><span>13</span> Filtering</a>
+      <a href="#grouping" class="nav-item"><span>14</span> Grouping</a>
+      <a href="#joining" class="nav-item"><span>15</span> Joining</a>
+      <a href="#pivoting" class="nav-item"><span>16</span> Pivoting</a>
+      <a href="#nulls" class="nav-item"><span>17</span> Nulls</a>
+
+      <div class="nav-title">Functions</div>
+      <a href="#datetime" class="nav-item"><span>18</span> Date/Time</a>
+      <a href="#math" class="nav-item"><span>19</span> Math</a>
+      <a href="#string" class="nav-item"><span>20</span> String</a>
+      <a href="#window" class="nav-item"><span>21</span> Window</a>
+      <a href="#lead-lag" class="nav-item"><span>22</span> Lead/Lag</a>
+      <a href="#rows-between" class="nav-item"><span>23</span> Rows Between</a>
+    </nav>
+
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <header class="topbar glass">
+    <a class="brand" href="../index.html">Data-Guide</a>
+    <nav class="menu" aria-label="Spark navigation">
+      <a href="index.html">Spark Hub</a>
+      <a href="spark-theory.html">Theory</a>
+      <a href="pyspark-code-guide.html" class="active" aria-current="page">Code</a>
+      <a href="pyspark-complete-guide.html">Complete</a>
+      <a href="pyspark-advanced-guide.html">Advanced</a>
+      <a href="pyspark-interview-examples.html">Interview</a>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+      <span class="toggle-icon" aria-hidden="true">🌙</span>
+      <span class="toggle-text">Dark</span>
+    </button>
+  </header>
+
+  <main class="main-content">
+    <div class="page-wrap">
+    <section class="hero glass reveal">
+      <p class="eyebrow">Spark / Code Track</p>
+      <h1>PySpark Coding Roadmap</h1>
+      <p>This section follows a practical PySpark coding sequence inspired by the Spark Playground introduction path and expands it with production-ready examples.</p>
+      <div class="pill-row">
+        <span>SparkSession</span>
+        <span>I/O</span>
+        <span>DataFrames</span>
+        <span>Joins</span>
+        <span>Nulls</span>
+        <span>Windows</span>
+      </div>
+    </section>
+
+            <section class="toc glass reveal" aria-label="Code topics">
+      <a href="#intro">1. Introduction to PySpark</a>
+      <a href="#spark-session">2. Setting Up SparkSession</a>
+      <a href="#read-write">3. Reading and Writing Files</a>
+      <a href="#csv">4. Working with CSV Files</a>
+      <a href="#json">5. Working with JSON Files</a>
+      <a href="#parquet">6. Working with Parquet</a>
+      <a href="#avro">7. Working with Avro</a>
+      <a href="#cloud-io">8. Cloud AWS Azure GCP</a>
+      <a href="#cloud-libs">9. Common Cloud Libraries</a>
+      <a href="#excel-compression">10. Excel and Compression</a>
+      <a href="#columns-ref">11. Referring to Columns</a>
+      <a href="#columns-select">12. Selecting Columns</a>
+      <a href="#filtering">13. Filtering Data</a>
+      <a href="#grouping">14. Grouping Data</a>
+      <a href="#joining">15. Joining Data</a>
+      <a href="#pivoting">16. Pivoting Data</a>
+      <a href="#nulls">17. Handling Nulls</a>
+      <a href="#datetime">18. Date and Time Functions</a>
+      <a href="#math">19. Math Functions</a>
+      <a href="#string">20. String Functions</a>
+      <a href="#window">21. Window Functions</a>
+      <a href="#lead-lag">22. Lead and Lag</a>
+      <a href="#rows-between">23. Rows Between</a>
+    </section>
+<section class="concept glass reveal" id="intro">
+      <h2>1) Introduction to PySpark</h2>
+      <p>PySpark combines Python and Apache Spark so you can process large datasets with distributed execution while keeping coding simple and expressive.</p>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>region</th><th>amount</th></tr></thead><tbody><tr><td>1</td><td>APAC</td><td>120.0</td></tr><tr><td>2</td><td>EMEA</td><td>90.0</td></tr><tr><td>3</td><td>APAC</td><td>220.0</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>region</th><th>amount</th></tr></thead><tbody><tr><td>1</td><td>APAC</td><td>120.0</td></tr><tr><td>2</td><td>EMEA</td><td>90.0</td></tr><tr><td>3</td><td>APAC</td><td>220.0</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName("intro-pyspark").getOrCreate()
+
+data = [(1, "APAC", 120.0), (2, "EMEA", 90.0), (3, "APAC", 220.0)]
+df = spark.createDataFrame(data, ["order_id", "region", "amount"])
+df.show()</code></pre>
+    </section>
+<section class="concept glass reveal" id="spark-session">
+      <h2>2) Setting Up SparkSession</h2>
+      <p>SparkSession is the entry point for DataFrame and SQL APIs. Configure app name, shuffle partitions, and other runtime defaults at startup.</p>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>Config Key</th><th>Value</th></tr></thead><tbody><tr><td>appName</td><td>spark-session-setup</td></tr><tr><td>spark.sql.shuffle.partitions</td><td>120</td></tr><tr><td>spark.sql.adaptive.enabled</td><td>true</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>Check</th><th>Expected Output</th></tr></thead><tbody><tr><td>SparkSession created</td><td>Yes</td></tr><tr><td>Spark version printed</td><td>3.x</td></tr><tr><td>AQE status</td><td>true</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>spark = (
+    SparkSession.builder
+    .appName("spark-session-setup")
+    .config("spark.sql.shuffle.partitions", "120")
+    .config("spark.sql.adaptive.enabled", "true")
+    .getOrCreate()
+)
+
+print("Spark version:", spark.version)</code></pre>
+    </section>
+<section class="concept glass reveal" id="read-write">
+      <h2>3) Reading and Writing Files</h2>
+      <p>Use explicit formats and modes to make pipelines reproducible. Prefer Parquet for analytics storage and schema consistency.</p>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>customer_id</th><th>event_date</th><th>amount</th><th>raw_col</th></tr></thead><tbody><tr><td>101</td><td>C1</td><td>2026-03-01</td><td>180.0</td><td>x</td></tr><tr><td>102</td><td>C2</td><td>2026-03-01</td><td>90.0</td><td>y</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>customer_id</th><th>event_date</th><th>amount</th></tr></thead><tbody><tr><td>101</td><td>C1</td><td>2026-03-01</td><td>180.0</td></tr><tr><td>102</td><td>C2</td><td>2026-03-01</td><td>90.0</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>orders = spark.read.format("parquet").load("/lake/raw/orders")
+
+clean = orders.select("order_id", "customer_id", "event_date", "amount")
+
+(clean
+    .write
+    .mode("overwrite")
+    .format("parquet")
+    .save("/lake/curated/orders"))</code></pre>
+    </section>
+<section class="concept glass reveal" id="csv">
+      <h2>4) Working with CSV Files</h2>
+      <p>For CSV, set parsing options intentionally. Header, delimiter, and schema handling have major impact on reliability and performance.</p>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>id (csv text)</th><th>region (csv text)</th><th>amount (csv text)</th></tr></thead><tbody><tr><td>1</td><td>APAC</td><td>120</td></tr><tr><td>2</td><td>EMEA</td><td>90</td></tr><tr><td>3</td><td>APAC</td><td>220</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>id</th><th>region</th><th>amount</th></tr></thead><tbody><tr><td>1</td><td>APAC</td><td>120</td></tr><tr><td>2</td><td>EMEA</td><td>90</td></tr><tr><td>3</td><td>APAC</td><td>220</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>sales_csv = (spark.read
+    .option("header", True)
+    .option("inferSchema", True)
+    .option("mode", "PERMISSIVE")
+    .csv("/data/csv/sales.csv"))
+
+sales_csv.printSchema()
+sales_csv.show(5)</code></pre>
+    </section>
+<section class="concept glass reveal" id="json">
+      <h2>5) Working with JSON Files</h2>
+      <p>JSON is common for event data and nested payloads. Normalize nested fields before heavy joins and aggregations.</p>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>event_id</th><th>event_time</th><th>payload</th></tr></thead><tbody><tr><td>E1</td><td>2026-03-01 10:00:00</td><td>{"user_id":"U1","event_type":"view"}</td></tr><tr><td>E2</td><td>2026-03-01 10:02:00</td><td>{"user_id":"U2","event_type":"click"}</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>event_id</th><th>event_time</th><th>user_id</th><th>event_type</th></tr></thead><tbody><tr><td>E1</td><td>2026-03-01 10:00:00</td><td>U1</td><td>view</td></tr><tr><td>E2</td><td>2026-03-01 10:02:00</td><td>U2</td><td>click</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>events = (spark.read
+    .option("multiLine", False)
+    .json("/data/json/events"))
+
+flat = events.select(
+    "event_id",
+    "event_time",
+    "payload.user_id",
+    "payload.event_type"
+)
+flat.show(5)</code></pre>
+    </section>
+<section class="concept glass reveal" id="parquet">
+      <h2>6) Working with Parquet</h2>
+      <p>Parquet is a columnar format optimized for analytics. Use partitioning and compression when writing to reduce scan cost and storage size.</p>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>event_date</th><th>region</th><th>amount</th></tr></thead><tbody><tr><td>201</td><td>2026-03-02</td><td>APAC</td><td>350.0</td></tr><tr><td>202</td><td>2026-03-02</td><td>EMEA</td><td>120.0</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>event_date</th><th>region</th><th>amount</th><th>compression</th></tr></thead><tbody><tr><td>201</td><td>2026-03-02</td><td>APAC</td><td>350.0</td><td>snappy</td></tr><tr><td>202</td><td>2026-03-02</td><td>EMEA</td><td>120.0</td><td>snappy</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>orders_parquet = spark.read.parquet("/lake/raw/orders_parquet")
+
+(orders_parquet
+    .write
+    .mode("overwrite")
+    .option("compression", "snappy")
+    .partitionBy("event_date")
+    .parquet("/lake/curated/orders_parquet"))
+
+spark.read.parquet("/lake/curated/orders_parquet").show(5)</code></pre>
+    </section>
+<section class="concept glass reveal" id="avro">
+      <h2>7) Working with Avro</h2>
+      <p>Avro is row-oriented and schema-friendly, often used for event exchange. Spark can read and write Avro datasets with optional compression.</p>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>event_id</th><th>event_type</th><th>event_time</th></tr></thead><tbody><tr><td>E101</td><td>view</td><td>2026-03-02 10:00:00</td></tr><tr><td>E102</td><td>purchase</td><td>2026-03-02 10:03:00</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>event_id</th><th>event_type</th><th>event_time</th><th>compression</th></tr></thead><tbody><tr><td>E101</td><td>view</td><td>2026-03-02 10:00:00</td><td>snappy</td></tr><tr><td>E102</td><td>purchase</td><td>2026-03-02 10:03:00</td><td>snappy</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>events_avro = spark.read.format("avro").load("/lake/raw/events_avro")
+
+(events_avro
+    .write
+    .mode("overwrite")
+    .format("avro")
+    .option("compression", "snappy")
+    .save("/lake/curated/events_avro"))
+
+spark.read.format("avro").load("/lake/curated/events_avro").show(5)</code></pre>
+    </section>
+<section class="concept glass reveal" id="cloud-io">
+      <h2>8) Cloud AWS Azure GCP</h2>
+      <p>The same Spark DataFrame code works across cloud storages by changing the URI scheme: <code>s3a://</code>, <code>abfss://</code>, and <code>gs://</code>.</p>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>Cloud</th><th>Read Path</th><th>Format</th></tr></thead><tbody><tr><td>AWS</td><td>s3a://de-bucket/sales/orders</td><td>parquet</td></tr><tr><td>Azure</td><td>abfss://curated@acct.dfs.core.windows.net/sales/orders</td><td>parquet</td></tr><tr><td>GCP</td><td>gs://de-bucket/sales/orders</td><td>parquet</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>Cloud</th><th>Write Path</th><th>Mode</th><th>Compression</th></tr></thead><tbody><tr><td>AWS</td><td>s3a://de-bucket/sales/orders_curated</td><td>overwrite</td><td>snappy</td></tr><tr><td>Azure</td><td>abfss://curated@acct.dfs.core.windows.net/sales/orders_curated</td><td>overwrite</td><td>snappy</td></tr><tr><td>GCP</td><td>gs://de-bucket/sales/orders_curated</td><td>overwrite</td><td>snappy</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>aws_path = "s3a://de-bucket/sales/orders"
+azure_path = "abfss://curated@acct.dfs.core.windows.net/sales/orders"
+gcp_path = "gs://de-bucket/sales/orders"
+
+df_aws = spark.read.parquet(aws_path)
+df_azure = spark.read.parquet(azure_path)
+df_gcp = spark.read.parquet(gcp_path)
+
+df_aws.write.mode("overwrite").option("compression", "snappy").parquet("s3a://de-bucket/sales/orders_curated")
+df_azure.write.mode("overwrite").option("compression", "snappy").parquet("abfss://curated@acct.dfs.core.windows.net/sales/orders_curated")
+df_gcp.write.mode("overwrite").option("compression", "snappy").parquet("gs://de-bucket/sales/orders_curated")</code></pre>
+    </section>
+<section class="concept glass reveal" id="cloud-libs">
+      <h2>9) Common Cloud Libraries</h2>
+      <p>Cloud Parquet access depends on the right filesystem connectors. Add required packages and configs before reading from cloud URIs.</p>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>Cloud</th><th>Common Library</th><th>URI Scheme</th></tr></thead><tbody><tr><td>AWS</td><td>org.apache.hadoop:hadoop-aws</td><td>s3a://</td></tr><tr><td>Azure</td><td>ABFS connector (Hadoop Azure)</td><td>abfss://</td></tr><tr><td>GCP</td><td>com.google.cloud.bigdataoss:gcs-connector</td><td>gs://</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>Validation</th><th>Expected Result</th></tr></thead><tbody><tr><td>spark.read.parquet(s3a://...)</td><td>Loads AWS parquet files</td></tr><tr><td>spark.read.parquet(abfss://...)</td><td>Loads Azure parquet files</td></tr><tr><td>spark.read.parquet(gs://...)</td><td>Loads GCP parquet files</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>spark = (
+    SparkSession.builder
+    .appName("cloud-parquet-libraries")
+    .config(
+        "spark.jars.packages",
+        "org.apache.hadoop:hadoop-aws:3.3.4,"
+        "com.google.cloud.bigdataoss:gcs-connector:hadoop3-2.2.17"
+    )
+    .getOrCreate()
+)
+
+# After connector + auth setup, standard parquet reads work
+aws_df = spark.read.parquet("s3a://de-bucket/sales/orders")
+azure_df = spark.read.parquet("abfss://curated@acct.dfs.core.windows.net/sales/orders")
+gcp_df = spark.read.parquet("gs://de-bucket/sales/orders")</code></pre>
+    </section>
+<section class="concept glass reveal" id="excel-compression">
+      <h2>10) Excel and Compression</h2>
+      <p>Excel support usually uses the <code>com.crealytics.spark.excel</code> connector. Read Excel, then write compressed parquet/csv for scalable processing.</p>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>region</th><th>amount</th></tr></thead><tbody><tr><td>301</td><td>APAC</td><td>210.0</td></tr><tr><td>302</td><td>EMEA</td><td>88.0</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>Output Type</th><th>Path</th><th>Compression</th></tr></thead><tbody><tr><td>Parquet</td><td>/lake/curated/excel_orders_parquet</td><td>snappy</td></tr><tr><td>CSV</td><td>/lake/curated/excel_orders_csv</td><td>gzip</td></tr><tr><td>Excel</td><td>/lake/curated/excel_orders_export.xlsx</td><td>n/a</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>excel_df = (spark.read
+    .format("com.crealytics.spark.excel")
+    .option("header", "true")
+    .option("inferSchema", "true")
+    .option("dataAddress", "'Sheet1'!A1")
+    .load("/data/input/orders.xlsx"))
+
+excel_df.write.mode("overwrite").option("compression", "snappy").parquet("/lake/curated/excel_orders_parquet")
+excel_df.write.mode("overwrite").option("compression", "gzip").csv("/lake/curated/excel_orders_csv")
+
+(excel_df.write
+    .format("com.crealytics.spark.excel")
+    .option("header", "true")
+    .option("dataAddress", "'Sheet1'!A1")
+    .mode("overwrite")
+    .save("/lake/curated/excel_orders_export.xlsx"))</code></pre>
+    </section>
+<section class="concept glass reveal" id="columns-ref">
+      <h2>11) Referring to Columns</h2>
+      <p>Use <code>col()</code>, bracket syntax, or SQL expressions depending on readability and dynamic use cases.</p>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>region</th><th>amount</th></tr></thead><tbody><tr><td>1</td><td>APAC</td><td>120.0</td></tr><tr><td>2</td><td>EMEA</td><td>90.0</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>region</th><th>amount_with_tax</th></tr></thead><tbody><tr><td>1</td><td>APAC</td><td>141.6</td></tr><tr><td>2</td><td>EMEA</td><td>106.2</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>from pyspark.sql.functions import col, expr
+
+selected = df.select(
+    col("order_id"),
+    df["region"],
+    expr("amount * 1.18 as amount_with_tax")
+)
+
+selected.show()</code></pre>
+    </section>
+<section class="concept glass reveal" id="columns-select">
+      <h2>12) Selecting Columns</h2>
+      <p>Project only the columns you need. Early projection reduces memory, network, and shuffle volume downstream.</p>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>region</th><th>amount</th><th>currency</th><th>status</th></tr></thead><tbody><tr><td>1</td><td>APAC</td><td>120.0</td><td>USD</td><td>ok</td></tr><tr><td>2</td><td>EMEA</td><td>90.0</td><td>EUR</td><td>ok</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>region</th><th>gross_amount</th></tr></thead><tbody><tr><td>1</td><td>APAC</td><td>120.0</td></tr><tr><td>2</td><td>EMEA</td><td>90.0</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>projection = (df
+    .select("order_id", "region", "amount")
+    .withColumnRenamed("amount", "gross_amount"))
+
+projection.show(5)</code></pre>
+    </section>
+<section class="concept glass reveal" id="filtering">
+      <h2>13) Filtering Data</h2>
+      <p>Filtering removes rows that don't match a condition. Spark pushes filters down into the scan operators (filter pushdown) so only relevant partitions are read — this is one of the most effective performance optimizations. Use <code>filter()</code> or <code>where()</code> interchangeably; both accept column expressions, SQL-style strings, or combined conditions.</p>
+
+      <h3>Basic Comparison Filters</h3>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>region</th><th>amount</th><th>status</th></tr></thead><tbody><tr><td>1</td><td>APAC</td><td>120.0</td><td>delivered</td></tr><tr><td>2</td><td>US</td><td>95.0</td><td>pending</td></tr><tr><td>3</td><td>EMEA</td><td>250.0</td><td>delivered</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>region</th><th>amount</th><th>status</th></tr></thead><tbody><tr><td>1</td><td>APAC</td><td>120.0</td><td>delivered</td></tr><tr><td>3</td><td>EMEA</td><td>250.0</td><td>delivered</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>from pyspark.sql.functions import col
+
+# filter() and where() are identical
+filtered = df.filter(col("amount") > 100)
+filtered = df.where("amount > 100")
+
+# Multiple chained filters (AND)
+filtered = (df
+    .filter(col("amount") > 100)
+    .filter(col("status") == "delivered"))
+
+# OR with | operator
+filtered = df.filter((col("amount") > 200) | (col("region") == "APAC"))
+
+# AND with & operator
+filtered = df.filter((col("amount") > 100) & (col("status").isin("delivered", "shipped")))
+
+filtered.show()</code></pre>
+
+      <h3>isin — Match Any Value in a List</h3>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>region</th><th>amount</th></tr></thead><tbody><tr><td>1</td><td>APAC</td><td>120.0</td></tr><tr><td>2</td><td>US</td><td>95.0</td></tr><tr><td>3</td><td>EMEA</td><td>250.0</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>region</th><th>amount</th></tr></thead><tbody><tr><td>1</td><td>APAC</td><td>120.0</td></tr><tr><td>3</td><td>EMEA</td><td>250.0</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>from pyspark.sql.functions import col
+
+# isin — matches any value in the list
+filtered = df.filter(col("region").isin("APAC", "EMEA"))
+
+# Negate with ~ (NOT)
+filtered = df.filter(~col("region").isin("APAC", "EMEA"))
+
+filtered.show()</code></pre>
+
+      <h3>between — Range Check</h3>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>amount</th></tr></thead><tbody><tr><td>1</td><td>50.0</td></tr><tr><td>2</td><td>150.0</td></tr><tr><td>3</td><td>250.0</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>amount</th></tr></thead><tbody><tr><td>2</td><td>150.0</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code># between is inclusive on both ends
+filtered = df.filter(col("amount").between(100, 200))
+
+filtered.show()</code></pre>
+
+      <h3>Null Checks — isNull / isNotNull</h3>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>region</th><th>amount</th></tr></thead><tbody><tr><td>1</td><td>APAC</td><td>120.0</td></tr><tr><td>2</td><td>null</td><td>95.0</td></tr><tr><td>3</td><td>EMEA</td><td>null</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>region</th><th>amount</th></tr></thead><tbody><tr><td>1</td><td>APAC</td><td>120.0</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>from pyspark.sql.functions import col
+
+# Keep rows where BOTH columns are non-null
+complete = df.filter(col("region").isNotNull() & col("amount").isNotNull())
+
+# Keep rows where EITHER column is null
+partial = df.filter(col("region").isNull() | col("amount").isNull())
+
+complete.show()</code></pre>
+
+      <h3>String Patterns — startswith / endswith / contains</h3>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>product</th></tr></thead><tbody><tr><td>1</td><td>Widget Pro Max</td></tr><tr><td>2</td><td>Gadget Basic</td></tr><tr><td>3</td><td>Widget Lite</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>product</th></tr></thead><tbody><tr><td>1</td><td>Widget Pro Max</td></tr><tr><td>3</td><td>Widget Lite</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>from pyspark.sql.functions import col
+
+# Starts with
+starts_w = df.filter(col("product").startswith("Widget"))
+
+# Ends with
+ends_max = df.filter(col("product").endswith("Max"))
+
+# Contains (substring anywhere)
+has_basic = df.filter(col("product").contains("Basic"))
+
+starts_w.show()</code></pre>
+
+      <h3>like / rlike — SQL LIKE and Regex</h3>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>email</th></tr></thead><tbody><tr><td>1</td><td>user1@company.com</td></tr><tr><td>2</td><td>admin@test.io</td></tr><tr><td>3</td><td>user2@company.com</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>email</th></tr></thead><tbody><tr><td>1</td><td>user1@company.com</td></tr><tr><td>3</td><td>user2@company.com</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>from pyspark.sql.functions import col
+
+# LIKE — % matches any chars, _ matches one char
+corp_emails = df.filter(col("email").like("%@company.com"))
+
+# rlike — full regex support
+dev_emails = df.filter(col("email").rlike(r"^[a-z]+[0-9]*@(dev|test)\.io$"))
+
+corp_emails.show()</code></pre>
+    </section>
+<section class="concept glass reveal" id="grouping">
+      <h2>14) Grouping Data</h2>
+      <p>Grouping is a wide operation and triggers shuffle. Keep group keys and aggregated columns minimal for better performance.</p>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>region</th><th>amount</th></tr></thead><tbody><tr><td>APAC</td><td>120.0</td></tr><tr><td>APAC</td><td>220.0</td></tr><tr><td>EMEA</td><td>90.0</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>region</th><th>total_amount</th><th>avg_amount</th></tr></thead><tbody><tr><td>APAC</td><td>340.0</td><td>170.0</td></tr><tr><td>EMEA</td><td>90.0</td><td>90.0</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>from pyspark.sql.functions import sum as Fsum, avg
+
+agg = (df
+    .groupBy("region")
+    .agg(
+        Fsum("amount").alias("total_amount"),
+        avg("amount").alias("avg_amount")
+    ))
+
+agg.show()</code></pre>
+    </section>
+<section class="concept glass" id="joining" style="opacity:1;transform:none">
+      <h2>15) Joining Data</h2>
+      <p>Joins combine rows from two DataFrames based on a key column. Spark uses shuffle-based joins by default for large tables, which redistributes data across partitions — an expensive operation. For small dimension tables, wrap them with <code>broadcast()</code> to enable a map-side join that avoids shuffle entirely. Choosing the right join type and join order is critical for both correctness and performance.</p>
+
+      <h3>Inner Join — Matching Keys Only</h3>
+      <div class="join-block">
+        <div class="join-content">
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table A (orders)</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>customer_id</th></tr></thead><tbody><tr><td>101</td><td>C1</td></tr><tr><td>102</td><td>C2</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Input Table B (customers)</h3>
+          <div class="table-wrap"><table><thead><tr><th>customer_id</th><th>name</th></tr></thead><tbody><tr><td>C1</td><td>Alice</td></tr><tr><td>C3</td><td>Bob</td></tr></tbody></table></div>
+        </div>
+      </div>
+
+      <pre class="code"><code># Inner join — only rows where key exists in BOTH tables
+joined = orders.join(customers, "customer_id", "inner")
+# Result: order 101 + Alice | order 102 → dropped (no C2 match)
+
+joined.show()
+# +---------+----------+----+
+# |order_id |customer_id|name|
+# +---------+----------+----+
+# |      101|         C1|Alice|
+# +---------+----------+----+</code></pre>
+        </div>
+<div class="join-diagram">
+  <svg width="110" height="85" viewBox="0 0 110 85" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="46" cy="42" rx="34" ry="28"
+      fill="#6363f1" fill-opacity="0.3"
+      stroke="#6363f1" stroke-width="1.5" stroke-opacity="0.9"/>
+    <ellipse cx="64" cy="42" rx="34" ry="28"
+      fill="#f59e0b" fill-opacity="0.3"
+      stroke="#f59e0b" stroke-width="1.5" stroke-opacity="0.9"/>
+    <text x="55" y="46" text-anchor="middle"
+      font-family="Sora,sans-serif" font-size="10" font-weight="700" fill="white">
+      A ∩ B
+    </text>
+  </svg>
+</div>
+      </div>
+      <h3>Left Join — Keep All Left Rows</h3>
+      <div class="join-block">
+        <div class="join-content">
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table A (orders)</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>customer_id</th></tr></thead><tbody><tr><td>101</td><td>C1</td></tr><tr><td>102</td><td>C2</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Input Table B (customers)</h3>
+          <div class="table-wrap"><table><thead><tr><th>customer_id</th><th>name</th></tr></thead><tbody><tr><td>C1</td><td>Alice</td></tr><tr><td>C3</td><td>Bob</td></tr></tbody></table></div>
+        </div>
+      </div>
+
+      <pre class="code"><code># Left join — all left rows, nulls for unmatched right rows
+joined = orders.join(customers, "customer_id", "left")
+# Result: order 101 + Alice | order 102 + null
+
+joined.show()
+# +---------+----------+----+
+# |order_id |customer_id|name|
+# +---------+----------+----+
+# |      101|         C1|Alice|
+# |      102|         C2| null|
+# +---------+----------+----+</code></pre>
+        </div>
+<div class="join-diagram">
+  <svg width="110" height="85" viewBox="0 0 110 85" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="46" cy="42" rx="34" ry="28"
+      fill="#6363f1" fill-opacity="0.3"
+      stroke="#6363f1" stroke-width="1.5" stroke-opacity="0.9"/>
+    <ellipse cx="64" cy="42" rx="34" ry="28"
+      fill="#f59e0b" fill-opacity="0.3"
+      stroke="#f59e0b" stroke-width="1.5" stroke-opacity="0.9"/>
+    <text x="55" y="46" text-anchor="middle"
+      font-family="Sora,sans-serif" font-size="10" font-weight="700" fill="white">
+      A
+    </text>
+  </svg>
+</div>
+      </div>
+      <h3>Right Join — Keep All Right Rows</h3>
+      <div class="join-block">
+        <div class="join-content">
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table A (orders)</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>customer_id</th></tr></thead><tbody><tr><td>101</td><td>C1</td></tr><tr><td>102</td><td>C2</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Input Table B (customers)</h3>
+          <div class="table-wrap"><table><thead><tr><th>customer_id</th><th>name</th></tr></thead><tbody><tr><td>C1</td><td>Alice</td></tr><tr><td>C3</td><td>Bob</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>customer_id</th><th>name</th></tr></thead><tbody><tr><td>101</td><td>C1</td><td>Alice</td></tr><tr><td>null</td><td>C3</td><td>Bob</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code># Right join — all right rows, nulls for unmatched left rows
+joined = orders.join(customers, "customer_id", "right")
+# Result: Alice + order 101 | Bob + null
+
+joined.show()
+# +---------+----------+----+
+# |order_id |customer_id|name|
+# +---------+----------+----+
+# |      101|         C1|Alice|
+# |    null|         C3|  Bob|
+# +---------+----------+----+</code></pre>
+        </div>
+<div class="join-diagram">
+  <svg width="110" height="85" viewBox="0 0 110 85" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="46" cy="42" rx="34" ry="28"
+      fill="#6363f1" fill-opacity="0.3"
+      stroke="#6363f1" stroke-width="1.5" stroke-opacity="0.9"/>
+    <ellipse cx="64" cy="42" rx="34" ry="28"
+      fill="#f59e0b" fill-opacity="0.3"
+      stroke="#f59e0b" stroke-width="1.5" stroke-opacity="0.9"/>
+    <text x="55" y="46" text-anchor="middle"
+      font-family="Sora,sans-serif" font-size="10" font-weight="700" fill="white">
+      B
+    </text>
+  </svg>
+</div>
+      </div>
+      <h3>Full Outer Join — All Rows from Both</h3>
+      <div class="join-block">
+        <div class="join-content">
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table A (orders)</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>customer_id</th></tr></thead><tbody><tr><td>101</td><td>C1</td></tr><tr><td>102</td><td>C2</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Input Table B (customers)</h3>
+          <div class="table-wrap"><table><thead><tr><th>customer_id</th><th>name</th></tr></thead><tbody><tr><td>C1</td><td>Alice</td></tr><tr><td>C3</td><td>Bob</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>customer_id</th><th>name</th></tr></thead><tbody><tr><td>101</td><td>C1</td><td>Alice</td></tr><tr><td>102</td><td>C2</td><td>null</td></tr><tr><td>null</td><td>C3</td><td>Bob</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code># Full outer — all rows from both, nulls where no match
+joined = orders.join(customers, "customer_id", "outer")
+# Result: 101+Alice, 102+null, null+Bob
+
+joined.show()
+# +---------+----------+----+
+# |order_id |customer_id|name|
+# +---------+----------+----+
+# |      101|         C1|Alice|
+# |      102|         C2| null|
+# |    null|         C3|  Bob|
+# +---------+----------+----+</code></pre>
+        </div>
+<div class="join-diagram">
+  <svg width="110" height="85" viewBox="0 0 110 85" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="46" cy="42" rx="34" ry="28"
+      fill="#6363f1" fill-opacity="0.3"
+      stroke="#6363f1" stroke-width="1.5" stroke-opacity="0.9"/>
+    <ellipse cx="64" cy="42" rx="34" ry="28"
+      fill="#f59e0b" fill-opacity="0.3"
+      stroke="#f59e0b" stroke-width="1.5" stroke-opacity="0.9"/>
+    <text x="55" y="46" text-anchor="middle"
+      font-family="Sora,sans-serif" font-size="10" font-weight="700" fill="white">
+      A ∪ B
+    </text>
+  </svg>
+</div>
+      </div>
+      <h3>Left Semi Join — Left Rows That Have a Match</h3>
+      <div class="join-block">
+        <div class="join-content">
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table A (orders)</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>customer_id</th></tr></thead><tbody><tr><td>101</td><td>C1</td></tr><tr><td>102</td><td>C2</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Input Table B (customers)</h3>
+          <div class="table-wrap"><table><thead><tr><th>customer_id</th><th>name</th></tr></thead><tbody><tr><td>C1</td><td>Alice</td></tr><tr><td>C3</td><td>Bob</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>customer_id</th></tr></thead><tbody><tr><td>101</td><td>C1</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code># Left semi — LIKE " EXISTS " in SQL
+# Returns only columns from the LEFT table
+joined = orders.join(customers, "customer_id", "leftsemi")
+# Result: only order 101 (C1 has a match in customers)
+
+joined.show()
+# +---------+
+# |order_id |
+# +---------+
+# |      101|
+# +---------+</code></pre>
+        </div>
+<div class="join-diagram">
+  <svg width="110" height="85" viewBox="0 0 110 85" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="46" cy="42" rx="34" ry="28"
+      fill="#6363f1" fill-opacity="0.3"
+      stroke="#6363f1" stroke-width="1.5" stroke-opacity="0.9"/>
+    <ellipse cx="64" cy="42" rx="34" ry="28"
+      fill="#f59e0b" fill-opacity="0.3"
+      stroke="#f59e0b" stroke-width="1.5" stroke-opacity="0.9"/>
+    <text x="55" y="46" text-anchor="middle"
+      font-family="Sora,sans-serif" font-size="10" font-weight="700" fill="white">
+      A ∩ B
+    </text>
+  </svg>
+</div>
+      </div>
+      <h3>Left Anti Join — Left Rows With No Match</h3>
+      <div class="join-block">
+        <div class="join-content">
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table A (orders)</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>customer_id</th></tr></thead><tbody><tr><td>101</td><td>C1</td></tr><tr><td>102</td><td>C2</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Input Table B (customers)</h3>
+          <div class="table-wrap"><table><thead><tr><th>customer_id</th><th>name</th></tr></thead><tbody><tr><td>C1</td><td>Alice</td></tr><tr><td>C3</td><td>Bob</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>customer_id</th></tr></thead><tbody><tr><td>102</td><td>C2</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code># Left anti — LIKE " NOT EXISTS " in SQL
+# Returns only columns from the LEFT table, unmatched rows only
+joined = orders.join(customers, "customer_id", "leftanti")
+# Result: only order 102 (C2 has no match in customers)
+
+joined.show()
+# +---------+
+# |order_id |
+# +---------+
+# |      102|
+# +---------+</code></pre>
+        </div>
+<div class="join-diagram">
+  <svg width="110" height="85" viewBox="0 0 110 85" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="46" cy="42" rx="34" ry="28"
+      fill="#6363f1" fill-opacity="0.3"
+      stroke="#6363f1" stroke-width="1.5" stroke-opacity="0.9"/>
+    <ellipse cx="64" cy="42" rx="34" ry="28"
+      fill="#f59e0b" fill-opacity="0.3"
+      stroke="#f59e0b" stroke-width="1.5" stroke-opacity="0.9"/>
+    <text x="55" y="46" text-anchor="middle"
+      font-family="Sora,sans-serif" font-size="10" font-weight="700" fill="white">
+      A \ B
+    </text>
+  </svg>
+</div>
+      </div>
+      <h3>Cross Join — Cartesian Product</h3>
+      <div class="join-block">
+        <div class="join-content">
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table A (regions)</h3>
+          <div class="table-wrap"><table><thead><tr><th>region</th></tr></thead><tbody><tr><td>APAC</td></tr><tr><td>EMEA</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Input Table B (statuses)</h3>
+          <div class="table-wrap"><table><thead><tr><th>status</th></tr></thead><tbody><tr><td>active</td></tr><tr><td>inactive</td></tr></tbody></table></div>
+        </div>
+      </div>
+
+      <pre class="code"><code># Cross join — every row in A × every row in B
+# WARNING: explodes data. Use with extreme caution.
+cross = regions.crossJoin(statuses)
+# Result: 2 × 2 = 4 rows
+
+cross.show()
+# +-----+--------+
+# |region|  status|
+# +-----+--------+
+# | APAC|  active|
+# | APAC|inactive|
+# | EMEA|  active|
+# | EMEA|inactive|
+# +-----+--------+</code></pre>
+        </div>
+<div class="join-diagram">
+  <svg width="110" height="85" viewBox="0 0 110 85" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="46" cy="42" rx="34" ry="28"
+      fill="#6363f1" fill-opacity="0.3"
+      stroke="#6363f1" stroke-width="1.5" stroke-opacity="0.9"/>
+    <ellipse cx="64" cy="42" rx="34" ry="28"
+      fill="#f59e0b" fill-opacity="0.3"
+      stroke="#f59e0b" stroke-width="1.5" stroke-opacity="0.9"/>
+    <text x="55" y="46" text-anchor="middle"
+      font-family="Sora,sans-serif" font-size="10" font-weight="700" fill="white">
+      A × B
+    </text>
+  </svg>
+</div>
+      </div>
+      <h3>Broadcast (Map-Side) Join — For Small Tables</h3>
+      <div class="join-block">
+        <div class="join-content">
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table A (fact/orders)</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>customer_id</th><th>amount</th></tr></thead><tbody><tr><td>101</td><td>C1</td><td>120.0</td></tr><tr><td>102</td><td>C2</td><td>95.0</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Input Table B (dim/customers)</h3>
+          <div class="table-wrap"><table><thead><tr><th>customer_id</th><th>name</th><th>segment</th></tr></thead><tbody><tr><td>C1</td><td>Alice</td><td>Premium</td></tr><tr><td>C3</td><td>Bob</td><td>Basic</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>customer_id</th><th>segment</th></tr></thead><tbody><tr><td>101</td><td>C1</td><td>Premium</td></tr><tr><td>102</td><td>C2</td><td>null</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>from pyspark.sql.functions import broadcast
+
+# Broadcast sends a copy of the small table to every executor
+# Eliminates shuffle — critical for performance with dimension tables
+# Threshold: Spark auto-broadcasts tables smaller than 10MB (spark.sql.autoBroadcastJoinThreshold)
+
+joined = orders.join(broadcast(customers), "customer_id", "left")
+
+# If auto-broadcast is too aggressive, disable it and use hint:
+spark.conf.set("spark.sql.autoBroadcastJoinThreshold", "-1")
+joined = orders.join(broadcast(customers.select("customer_id", "segment")), "customer_id", "left")
+
+joined.show()</code></pre>
+        </div>
+<div class="join-diagram">
+  <svg width="110" height="85" viewBox="0 0 110 85" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="46" cy="42" rx="34" ry="28"
+      fill="#6363f1" fill-opacity="0.3"
+      stroke="#6363f1" stroke-width="1.5" stroke-opacity="0.9"/>
+    <ellipse cx="64" cy="42" rx="34" ry="28"
+      fill="#f59e0b" fill-opacity="0.3"
+      stroke="#f59e0b" stroke-width="1.5" stroke-opacity="0.9"/>
+    <text x="55" y="46" text-anchor="middle"
+      font-family="Sora,sans-serif" font-size="10" font-weight="700" fill="white">
+      A ↔ B
+    </text>
+  </svg>
+</div>
+      </div>
+      <h3>Self Join — Join a Table to Itself</h3>
+      <div class="join-block">
+        <div class="join-content">
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table A (employees)</h3>
+          <div class="table-wrap"><table><thead><tr><th>emp_id</th><th>name</th><th>manager_id</th></tr></thead><tbody><tr><td>1</td><td>Alice</td><td>null</td></tr><tr><td>2</td><td>Bob</td><td>1</td></tr><tr><td>3</td><td>Carol</td><td>1</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Input Table B (same employees, aliased)</h3>
+          <div class="table-wrap"><table><thead><tr><th>emp_id</th><th>name</th></tr></thead><tbody><tr><td>1</td><td>Alice</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>employee</th><th>manager</th></tr></thead><tbody><tr><td>Alice</td><td>null</td></tr><tr><td>Bob</td><td>Alice</td></tr><tr><td>Carol</td><td>Alice</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code># Self join — useful for hierarchical data (e.g., employee + manager)
+employees = spark.createDataFrame([
+    (1, "Alice", None),
+    (2, "Bob", 1),
+    (3, "Carol", 1),
+], ["emp_id", "name", "manager_id"])
+
+# Alias the same table twice
+emp = employees.alias("emp")
+mgr = employees.alias("mgr")
+
+self_joined = emp.join(mgr, emp["manager_id"] == mgr["emp_id"], "left")
+
+self_joined.select(emp["name"].alias("employee"), mgr["name"].alias("manager")).show()
+# +--------+--------+
+# |employee|manager |
+# +--------+--------+
+# |   Alice|    null|
+# |     Bob|   Alice|
+# |   Carol|   Alice|
+# +--------+--------+</code></pre>
+        </div>
+<div class="join-diagram">
+  <svg width="110" height="85" viewBox="0 0 110 85" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="46" cy="42" rx="34" ry="28"
+      fill="#6363f1" fill-opacity="0.3"
+      stroke="#6363f1" stroke-width="1.5" stroke-opacity="0.9"/>
+    <ellipse cx="64" cy="42" rx="34" ry="28"
+      fill="#f59e0b" fill-opacity="0.3"
+      stroke="#f59e0b" stroke-width="1.5" stroke-opacity="0.9"/>
+    <text x="55" y="46" text-anchor="middle"
+      font-family="Sora,sans-serif" font-size="10" font-weight="700" fill="white">
+      A ↔ A
+    </text>
+  </svg>
+</div>
+      </div>
+      <h3>Multi-Column Join</h3>
+      <div class="join-block">
+        <div class="join-content">
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table A (fact/sales)</h3>
+          <div class="table-wrap"><table><thead><tr><th>region</th><th>product_id</th><th>amount</th></tr></thead><tbody><tr><td>APAC</td><td>P1</td><td>120.0</td></tr><tr><td>EMEA</td><td>P1</td><td>90.0</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Input Table B (dim/pricing)</h3>
+          <div class="table-wrap"><table><thead><tr><th>region</th><th>product_id</th><th>unit_price</th></tr></thead><tbody><tr><td>APAC</td><td>P1</td><td>100.0</td></tr><tr><td>APAC</td><td>P2</td><td>75.0</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>region</th><th>product_id</th><th>amount</th><th>unit_price</th></tr></thead><tbody><tr><td>APAC</td><td>P1</td><td>120.0</td><td>100.0</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code># Join on multiple columns
+fact = spark.read.parquet("/lake/fact/orders")
+dim = spark.read.parquet("/lake/dim/pricing")
+
+joined = fact.join(dim, ["region", "product_id", "pricing_date"], "left")
+
+# Or with explicit condition
+joined = fact.join(dim,
+    (fact["region"] == dim["region"]) &
+    (fact["product_id"] == dim["product_id"]),
+    "left"
+)
+
+joined.show()</code></pre>
+        </div>
+<div class="join-diagram">
+  <svg width="110" height="85" viewBox="0 0 110 85" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="46" cy="42" rx="34" ry="28"
+      fill="#6363f1" fill-opacity="0.3"
+      stroke="#6363f1" stroke-width="1.5" stroke-opacity="0.9"/>
+    <ellipse cx="64" cy="42" rx="34" ry="28"
+      fill="#f59e0b" fill-opacity="0.3"
+      stroke="#f59e0b" stroke-width="1.5" stroke-opacity="0.9"/>
+    <text x="55" y="46" text-anchor="middle"
+      font-family="Sora,sans-serif" font-size="10" font-weight="700" fill="white">
+      A & B
+    </text>
+  </svg>
+</div>
+      </div>
+    </section>
+<section class="concept glass reveal" id="pivoting">
+      <h2>16) Pivoting Data</h2>
+      <p>Pivot reshapes row values into columns and is useful for reporting. Keep pivot cardinality controlled to avoid memory blowups.</p>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>region</th><th>event_type</th></tr></thead><tbody><tr><td>APAC</td><td>view</td></tr><tr><td>APAC</td><td>click</td></tr><tr><td>EMEA</td><td>purchase</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>region</th><th>view</th><th>click</th><th>purchase</th></tr></thead><tbody><tr><td>APAC</td><td>1</td><td>1</td><td>0</td></tr><tr><td>EMEA</td><td>0</td><td>0</td><td>1</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>pivoted = (df
+    .groupBy("region")
+    .pivot("event_type", ["view", "click", "purchase"])
+    .count()
+    .na.fill(0))
+
+pivoted.show()</code></pre>
+    </section>
+<section class="concept glass reveal" id="nulls">
+      <h2>17) Handling Nulls</h2>
+      <p>Null represents missing or unknown data in Spark. Operations on null propagate null (e.g., <code>1 + null = null</code>), and aggregate functions ignore nulls by default (<code>sum([1, null, 2]) = 3</code>). Always define an explicit null strategy: drop rows, fill with a value, replace conditionally, or use null-safe operators to avoid silent data-quality bugs.</p>
+
+      <h3>Detect Nulls — isNull / isNotNull</h3>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>region</th><th>amount</th></tr></thead><tbody><tr><td>1</td><td>APAC</td><td>120.0</td></tr><tr><td>2</td><td>null</td><td>95.0</td></tr><tr><td>3</td><td>EMEA</td><td>null</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>region</th><th>amount</th></tr></thead><tbody><tr><td>2</td><td>null</td><td>95.0</td></tr><tr><td>3</td><td>EMEA</td><td>null</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>from pyspark.sql.functions import col
+
+# Keep rows where AT LEAST ONE column is null
+has_nulls = df.filter(col("region").isNull() | col("amount").isNull())
+
+# Keep rows where ALL columns are non-null
+complete = df.filter(col("region").isNotNull() & col("amount").isNotNull())
+
+has_nulls.show()</code></pre>
+
+      <h3>Drop Rows with Nulls — na.drop / drop</h3>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>region</th><th>amount</th><th>priority</th></tr></thead><tbody><tr><td>1</td><td>APAC</td><td>120.0</td><td>H</td></tr><tr><td>2</td><td>null</td><td>95.0</td><td>M</td></tr><tr><td>3</td><td>EMEA</td><td>null</td><td>L</td></tr><tr><td>4</td><td>US</td><td>80.0</td><td>H</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>region</th><th>amount</th><th>priority</th></tr></thead><tbody><tr><td>1</td><td>APAC</td><td>120.0</td><td>H</td></tr><tr><td>4</td><td>US</td><td>80.0</td><td>H</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code># Drop rows where ANY column is null
+no_nulls = df.na.drop()
+
+# Drop rows where ALL columns are null (keep rows with at least one value)
+df.na.drop(how="any")  # default — same as above
+
+# Drop rows where ALL columns are null
+df.na.drop(how="all")
+
+# Drop only if specific columns have null
+df.na.drop(subset=["region", "amount"])
+
+no_nulls.show()</code></pre>
+
+      <h3>Fill Nulls — na.fill / fillna</h3>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>region</th><th>amount</th><th>priority</th></tr></thead><tbody><tr><td>1</td><td>APAC</td><td>120.0</td><td>H</td></tr><tr><td>2</td><td>null</td><td>95.0</td><td>M</td></tr><tr><td>3</td><td>EMEA</td><td>null</td><td>L</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>region</th><th>amount</th><th>priority</th></tr></thead><tbody><tr><td>1</td><td>APAC</td><td>120.0</td><td>H</td></tr><tr><td>2</td><td>UNKNOWN</td><td>95.0</td><td>M</td></tr><tr><td>3</td><td>EMEA</td><td>0.0</td><td>L</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code># Fill all nulls with a single value (type must match column)
+filled = df.na.fill("UNKNOWN")
+
+# Fill nulls per column — dict maps column → fill value
+filled = df.na.fill({
+    "region": "UNKNOWN",
+    "amount": 0.0,
+    "priority": "N/A"
+})
+
+# String columns get filled with string, numeric with numeric
+filled.show()</code></pre>
+
+      <h3>coalesce — First Non-Null Value</h3>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>primary_contact</th><th>backup_contact</th><th>region</th></tr></thead><tbody><tr><td>1</td><td>null</td><td>alice@co.com</td><td>APAC</td></tr><tr><td>2</td><td>bob@co.com</td><td>null</td><td>EMEA</td></tr><tr><td>3</td><td>null</td><td>null</td><td>US</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>contact</th><th>region</th></tr></thead><tbody><tr><td>1</td><td>alice@co.com</td><td>APAC</td></tr><tr><td>2</td><td>bob@co.com</td><td>EMEA</td></tr><tr><td>3</td><td>N/A</td><td>US</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>from pyspark.sql.functions import coalesce, lit
+
+# coalesce returns the first non-null argument
+result = df.withColumn("contact",
+    coalesce("primary_contact", "backup_contact")
+)
+
+# Chain with fallback literal for when all are null
+result = df.withColumn("contact",
+    coalesce("primary_contact", "backup_contact", lit("N/A"))
+)
+
+result.select("order_id", "contact", "region").show()</code></pre>
+
+      <h3>when / otherwise — Conditional Fill</h3>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>region</th><th>amount</th></tr></thead><tbody><tr><td>1</td><td>APAC</td><td>120.0</td></tr><tr><td>2</td><td>null</td><td>95.0</td></tr><tr><td>3</td><td>EMEA</td><td>150.0</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>region</th><th>amount</th><th>tier</th></tr></thead><tbody><tr><td>1</td><td>APAC</td><td>120.0</td><td>Standard</td></tr><tr><td>2</td><td>null</td><td>95.0</td><td>Unknown</td></tr><tr><td>3</td><td>EMEA</td><td>150.0</td><td>Premium</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>from pyspark.sql.functions import when, col, lit
+
+# Conditional fill based on column value
+result = df.withColumn("tier",
+    when(col("region").isNull(), lit("Unknown"))
+    .when(col("amount") > 140, lit("Premium"))
+    .otherwise(lit("Standard"))
+)
+
+result.show()</code></pre>
+
+      <h3>na.replace — Replace Specific Values</h3>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>region</th><th>status</th></tr></thead><tbody><tr><td>1</td><td>APAC</td><td>UNKNOWN</td></tr><tr><td>2</td><td>EMEA</td><td>active</td></tr><tr><td>3</td><td>US</td><td>UNKNOWN</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>region</th><th>status</th></tr></thead><tbody><tr><td>1</td><td>APAC</td><td>pending</td></tr><tr><td>2</td><td>EMEA</td><td>active</td></tr><tr><td>3</td><td>US</td><td>pending</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code># Replace specific values (not just nulls) in specific columns
+replaced = df.na.replace("UNKNOWN", "pending", subset=["status"])
+
+# Replace multiple old→new pairs
+replaced = df.na.replace(
+    oldValue="UNKNOWN",
+    newValue="N/A",
+    subset=["region"]
+)
+
+# Replace in all columns (no subset)
+df.na.replace(["N/A", "null", "NA"], [None, None, None])
+
+replaced.show()</code></pre>
+
+      <h3>Null-Safe Join — &lt;=&gt; (SPARK-18525)</h3>
+      <pre class="code"><code># Null-safe equality join: null == null is TRUE
+# Standard join: null == null is NULL (row is dropped)
+joined = df1.join(df2, df1["key"] <=> df2["key"], "inner")
+
+# Equivalent in filter
+df.filter(df["key"].eqNullSafe("value"))  # null-safe equality
+
+result.show()</code></pre>
+
+      <h3>fillna / dropna Aliases</h3>
+      <pre class="code"><code># fillna and dropna are Pandas-style aliases (same as na.fill / na.drop)
+clean = (df
+    .fillna({"region": "UNKNOWN", "amount": 0.0})
+    .dropna(subset=["order_id"])
+)
+
+clean.show()</code></pre>
+    </section>
+<section class="concept glass reveal" id="datetime">
+      <h2>18) Date and Time Functions</h2>
+      <p>Date functions support partitioning, SLA windows, and trend analytics. Parse to timestamp early and derive useful calendar fields.</p>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>event_time</th></tr></thead><tbody><tr><td>2026-03-01 10:12:33</td></tr><tr><td>2026-03-01 11:45:18</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>event_ts</th><th>event_day</th><th>event_hour</th></tr></thead><tbody><tr><td>2026-03-01 10:12:33</td><td>2026-03-01</td><td>2026-03-01 10:00:00</td></tr><tr><td>2026-03-01 11:45:18</td><td>2026-03-01</td><td>2026-03-01 11:00:00</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>from pyspark.sql.functions import to_timestamp, date_format, date_trunc
+
+time_df = (df
+    .withColumn("event_ts", to_timestamp("event_time"))
+    .withColumn("event_day", date_format("event_ts", "yyyy-MM-dd"))
+    .withColumn("event_hour", date_trunc("hour", "event_ts")))
+
+time_df.select("event_ts", "event_day", "event_hour").show(5)</code></pre>
+    </section>
+<section class="concept glass reveal" id="math">
+      <h2>19) Math Functions</h2>
+      <p>Built-in math functions are optimized and vectorized. Prefer them over Python UDFs for arithmetic transformations.</p>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>amount</th></tr></thead><tbody><tr><td>-81.349</td></tr><tr><td>144.1</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>amount_abs</th><th>amount_round2</th><th>amount_root</th></tr></thead><tbody><tr><td>81.349</td><td>-81.35</td><td>9.019</td></tr><tr><td>144.1</td><td>144.10</td><td>12.004</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>from pyspark.sql.functions import round as Fround, abs as Fabs, sqrt
+
+math_df = (df
+    .withColumn("amount_abs", Fabs("amount"))
+    .withColumn("amount_round2", Fround("amount", 2))
+    .withColumn("amount_root", sqrt("amount_abs")))
+
+math_df.show(5)</code></pre>
+    </section>
+<section class="concept glass reveal" id="string">
+      <h2>20) String Functions</h2>
+      <p>String cleanup is common in ingestion pipelines. Normalize casing, trim spaces, and apply regex cleanup before joins.</p>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>region</th><th>customer_name</th><th>customer_id</th></tr></thead><tbody><tr><td> apac </td><td>Ana#Lee</td><td>C1</td></tr><tr><td> emea </td><td>Sam@K</td><td>C2</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>region_clean</th><th>customer_clean</th><th>region_customer</th></tr></thead><tbody><tr><td>APAC</td><td>AnaLee</td><td>APAC-C1</td></tr><tr><td>EMEA</td><td>SamK</td><td>EMEA-C2</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>from pyspark.sql.functions import trim, upper, regexp_replace, concat_ws
+
+str_df = (df
+    .withColumn("region_clean", upper(trim("region")))
+    .withColumn("customer_clean", regexp_replace("customer_name", "[^A-Za-z0-9 ]", ""))
+    .withColumn("region_customer", concat_ws("-", "region_clean", "customer_id")))
+
+str_df.select("region_clean", "customer_clean", "region_customer").show(5)</code></pre>
+    </section>
+<section class="concept glass reveal" id="window">
+      <h2>21) Window Functions</h2>
+      <p>Window functions compute row-level analytics without collapsing rows. Use partition and order keys aligned with business questions.</p>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>region</th><th>amount</th></tr></thead><tbody><tr><td>APAC</td><td>220.0</td></tr><tr><td>APAC</td><td>120.0</td></tr><tr><td>EMEA</td><td>90.0</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>region</th><th>amount</th><th>row_num</th><th>dense_rank</th></tr></thead><tbody><tr><td>APAC</td><td>220.0</td><td>1</td><td>1</td></tr><tr><td>APAC</td><td>120.0</td><td>2</td><td>2</td></tr><tr><td>EMEA</td><td>90.0</td><td>1</td><td>1</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>from pyspark.sql import Window
+from pyspark.sql.functions import row_number, dense_rank
+
+w = Window.partitionBy("region").orderBy(df.amount.desc())
+
+windowed = (df
+    .withColumn("row_num", row_number().over(w))
+    .withColumn("dense_rank", dense_rank().over(w)))
+
+windowed.show()</code></pre>
+    </section>
+<section class="concept glass reveal" id="lead-lag">
+      <h2>22) Lead and Lag</h2>
+      <p><code>lag</code> and <code>lead</code> compare current row values with previous or next rows inside the same ordered partition.</p>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>customer_id</th><th>event_time</th><th>amount</th></tr></thead><tbody><tr><td>C1</td><td>2026-03-01 10:00:00</td><td>100.0</td></tr><tr><td>C1</td><td>2026-03-01 10:05:00</td><td>180.0</td></tr><tr><td>C1</td><td>2026-03-01 10:10:00</td><td>120.0</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>event_time</th><th>amount</th><th>prev_amount</th><th>next_amount</th></tr></thead><tbody><tr><td>10:00</td><td>100.0</td><td>null</td><td>180.0</td></tr><tr><td>10:05</td><td>180.0</td><td>100.0</td><td>120.0</td></tr><tr><td>10:10</td><td>120.0</td><td>180.0</td><td>null</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>from pyspark.sql import Window
+from pyspark.sql.functions import lag, lead
+
+w = Window.partitionBy("customer_id").orderBy("event_time")
+
+seq = (df
+    .withColumn("prev_amount", lag("amount", 1).over(w))
+    .withColumn("next_amount", lead("amount", 1).over(w)))
+
+seq.show(20)</code></pre>
+    </section>
+<section class="concept glass reveal" id="rows-between">
+      <h2>23) Rows Between</h2>
+      <p><code>rowsBetween</code> defines moving frames for running totals and rolling metrics. It is useful for trend and anomaly analysis.</p>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>region</th><th>event_time</th><th>amount</th></tr></thead><tbody><tr><td>APAC</td><td>10:00</td><td>100.0</td></tr><tr><td>APAC</td><td>10:05</td><td>180.0</td></tr><tr><td>APAC</td><td>10:10</td><td>120.0</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output Table</h3>
+          <div class="table-wrap"><table><thead><tr><th>event_time</th><th>running_total</th><th>moving_avg_3</th></tr></thead><tbody><tr><td>10:00</td><td>100.0</td><td>100.0</td></tr><tr><td>10:05</td><td>280.0</td><td>140.0</td></tr><tr><td>10:10</td><td>400.0</td><td>133.33</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>from pyspark.sql import Window
+from pyspark.sql.functions import sum as Fsum, avg
+
+w_running = Window.partitionBy("region").orderBy("event_time").rowsBetween(Window.unboundedPreceding, Window.currentRow)
+w_moving3 = Window.partitionBy("region").orderBy("event_time").rowsBetween(-2, 0)
+
+stats = (df
+    .withColumn("running_total", Fsum("amount").over(w_running))
+    .withColumn("moving_avg_3", avg("amount").over(w_moving3)))
+
+stats.show(30)</code></pre>
+    </section>
+    </div>
+  </main>
+
+  <script src="../app.js"></script>
+  <script>
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("in");
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal").forEach((el) => revealObs.observe(el));
+
+    const navObs = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const id = entry.target.getAttribute("id");
+        const link = document.querySelector(`.sidebar a[href="#${id}"]`);
+        document.querySelectorAll(".sidebar .nav-item").forEach((a) => a.classList.remove("active"));
+        if (link) link.classList.add("active");
+      });
+    }, { rootMargin: "-15% 0px -65% 0px" });
+
+    document.querySelectorAll("section[id]").forEach((sec) => navObs.observe(sec));
+  </script>
+</body>
+</html>

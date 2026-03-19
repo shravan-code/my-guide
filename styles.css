@@ -5,7 +5,7 @@
   --muted: #3a4676;
   --glass: rgba(255, 255, 255, 0.6);
   --glass-border: rgba(255, 255, 255, 0.6);
-  --shadow: 0 24px 60px rgba(16, 22, 51, 0.16);
+  --shadow: 0 28px 65px rgba(16, 22, 51, 0.18);
   --accent-a: #ff6f61;
   --accent-b: #25d4b7;
   --accent-c: #4e7dff;
@@ -37,8 +37,9 @@ body {
 body {
   font-family: "Space Grotesk", "Segoe UI", sans-serif;
   background:
-    radial-gradient(circle at 15% 20%, color-mix(in srgb, var(--accent-a) 28%, transparent) 0%, transparent 35%),
-    radial-gradient(circle at 80% 10%, color-mix(in srgb, var(--accent-c) 26%, transparent) 0%, transparent 40%),
+    radial-gradient(circle at 10% 14%, color-mix(in srgb, var(--accent-a) 32%, transparent) 0%, transparent 34%),
+    radial-gradient(circle at 86% 8%, color-mix(in srgb, var(--accent-c) 31%, transparent) 0%, transparent 38%),
+    radial-gradient(circle at 70% 72%, color-mix(in srgb, var(--accent-b) 20%, transparent) 0%, transparent 34%),
     linear-gradient(140deg, var(--bg), var(--bg-alt));
   color: var(--text);
   transition: background 0.4s ease, color 0.3s ease;
@@ -48,33 +49,38 @@ body {
 .bg-orb {
   position: fixed;
   border-radius: 50%;
-  filter: blur(70px);
+  filter: blur(82px);
   z-index: -1;
-  opacity: 0.7;
+  opacity: 0.8;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: orbFloatGlobal 13s ease-in-out infinite;
 }
 
 .orb-a {
-  width: 230px;
-  height: 230px;
+  width: 250px;
+  height: 250px;
   background: var(--accent-a);
   top: 70px;
   left: -50px;
 }
 
 .orb-b {
-  width: 280px;
-  height: 280px;
+  width: 300px;
+  height: 300px;
   background: var(--accent-b);
   top: 45%;
   right: -100px;
+  animation-delay: 2.2s;
 }
 
 .orb-c {
-  width: 220px;
-  height: 220px;
+  width: 240px;
+  height: 240px;
   background: var(--accent-c);
   bottom: -60px;
   left: 24%;
+  animation-delay: 4.1s;
 }
 
 .topbar {
@@ -85,11 +91,17 @@ body {
   width: min(1160px, calc(100% - 2rem));
   padding: 0.75rem 1rem;
   border-radius: 16px;
+  border: 1px solid color-mix(in srgb, var(--accent-c) 28%, var(--glass-border));
+  background:
+    radial-gradient(circle at 10% 14%, color-mix(in srgb, var(--accent-a) 18%, transparent), transparent 50%),
+    radial-gradient(circle at 90% 6%, color-mix(in srgb, var(--accent-b) 18%, transparent), transparent 54%),
+    color-mix(in srgb, var(--bg-alt) 80%, var(--glass));
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
   backdrop-filter: blur(14px);
+  box-shadow: 0 16px 36px color-mix(in srgb, var(--accent-c) 16%, transparent);
 }
 
 .brand {
@@ -131,22 +143,34 @@ body {
   color: var(--muted);
   padding: 0.34rem 0.62rem;
   border-radius: 999px;
+  border: 1px solid transparent;
+  background: color-mix(in srgb, var(--glass) 88%, transparent);
   transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .menu a:hover,
 .menu a:focus-visible {
-  background: color-mix(in srgb, var(--accent-c) 20%, transparent);
+  background: linear-gradient(
+    116deg,
+    color-mix(in srgb, var(--accent-c) 24%, transparent),
+    color-mix(in srgb, var(--accent-b) 16%, transparent)
+  );
+  border-color: color-mix(in srgb, var(--accent-c) 30%, var(--glass-border));
   color: var(--text);
   transform: translateY(-1px);
-  box-shadow: 0 10px 22px color-mix(in srgb, var(--accent-c) 25%, transparent);
+  box-shadow: 0 12px 24px color-mix(in srgb, var(--accent-c) 25%, transparent);
 }
 
 .menu a.active,
 .menu .menu-trigger.active {
-  background: color-mix(in srgb, var(--accent-c) 24%, transparent);
+  background: linear-gradient(
+    116deg,
+    color-mix(in srgb, var(--accent-c) 30%, transparent),
+    color-mix(in srgb, var(--accent-b) 20%, transparent)
+  );
+  border-color: color-mix(in srgb, var(--accent-c) 36%, var(--glass-border));
   color: var(--text);
-  box-shadow: 0 10px 22px color-mix(in srgb, var(--accent-c) 25%, transparent);
+  box-shadow: 0 12px 26px color-mix(in srgb, var(--accent-c) 28%, transparent);
 }
 
 .menu .menu-trigger.active::after {
@@ -160,10 +184,12 @@ body {
   min-width: 320px;
   padding: 0.55rem;
   border-radius: 14px;
-  border: 1px solid var(--glass-border);
-  background: color-mix(in srgb, var(--bg-alt) 80%, var(--glass));
+  border: 1px solid color-mix(in srgb, var(--accent-c) 28%, var(--glass-border));
+  background:
+    radial-gradient(circle at 16% 12%, color-mix(in srgb, var(--accent-b) 14%, transparent), transparent 48%),
+    color-mix(in srgb, var(--bg-alt) 80%, var(--glass));
   backdrop-filter: blur(16px);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 20px 45px color-mix(in srgb, var(--accent-c) 16%, rgba(0, 0, 0, 0.22));
   opacity: 0;
   pointer-events: none;
   transform: translateY(8px);
@@ -206,8 +232,12 @@ body {
 }
 
 .theme-toggle {
-  border: 1px solid var(--glass-border);
-  background: var(--glass);
+  border: 1px solid color-mix(in srgb, var(--accent-c) 30%, var(--glass-border));
+  background: linear-gradient(
+    120deg,
+    color-mix(in srgb, var(--accent-c) 12%, var(--glass)),
+    color-mix(in srgb, var(--accent-b) 9%, var(--glass))
+  );
   color: var(--text);
   border-radius: 999px;
   padding: 0.45rem 0.85rem;
@@ -216,6 +246,14 @@ body {
   gap: 0.5rem;
   align-items: center;
   cursor: pointer;
+  box-shadow: 0 8px 18px color-mix(in srgb, var(--accent-c) 18%, transparent);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 22px color-mix(in srgb, var(--accent-c) 22%, transparent);
 }
 
 main {
@@ -224,8 +262,12 @@ main {
 }
 
 .glass {
-  background: var(--glass);
-  border: 1px solid var(--glass-border);
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--glass) 90%, transparent),
+    color-mix(in srgb, var(--accent-c) 8%, var(--glass))
+  );
+  border: 1px solid color-mix(in srgb, var(--accent-c) 24%, var(--glass-border));
   box-shadow: var(--shadow);
   backdrop-filter: blur(16px);
 }
@@ -234,6 +276,8 @@ main {
   border-radius: 24px;
   padding: clamp(1.5rem, 3vw, 2.6rem);
   margin-bottom: 1.2rem;
+  border: 1px solid color-mix(in srgb, var(--accent-c) 26%, var(--glass-border));
+  box-shadow: 0 24px 48px color-mix(in srgb, var(--accent-c) 16%, transparent);
   animation: rise 0.8s ease both;
 }
 
@@ -450,10 +494,14 @@ main {
 .spark-track {
   text-decoration: none;
   color: var(--text);
-  border: 1px solid var(--glass-border);
+  border: 1px solid color-mix(in srgb, var(--accent-c) 28%, var(--glass-border));
   border-radius: 14px;
   padding: 0.85rem;
-  background: color-mix(in srgb, var(--accent-b) 10%, var(--glass));
+  background: linear-gradient(
+    132deg,
+    color-mix(in srgb, var(--accent-b) 14%, var(--glass)),
+    color-mix(in srgb, var(--accent-c) 10%, var(--glass))
+  );
   transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -536,6 +584,11 @@ main {
 @keyframes floatLogo {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-7px); }
+}
+
+@keyframes orbFloatGlobal {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(0, -14px, 0) scale(1.08); }
 }
 
 @media (max-width: 920px) {

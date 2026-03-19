@@ -9,22 +9,136 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
   <style>
-    .page-wrap { width: min(1200px, calc(100% - 2rem)); margin: 1rem auto 3rem; }
-    .hero, .concept { border-radius: 22px; padding: 1rem; margin-bottom: 0.9rem; }
+    .page-wrap { width: min(1160px, calc(100% - 2rem)); margin: 1rem auto 3rem; }
+    .hero,
+    .concept {
+      border-radius: 22px;
+      padding: 1rem;
+      margin-bottom: 0.9rem;
+      border: 1px solid color-mix(in srgb, var(--accent-c) 28%, var(--glass-border));
+    }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 14% 16%, color-mix(in srgb, var(--accent-a) 26%, transparent), transparent 42%),
+        radial-gradient(circle at 88% 12%, color-mix(in srgb, var(--accent-b) 24%, transparent), transparent 48%),
+        linear-gradient(
+          130deg,
+          color-mix(in srgb, var(--accent-c) 12%, var(--glass)),
+          color-mix(in srgb, var(--accent-a) 8%, var(--glass))
+        );
+      box-shadow: 0 22px 44px color-mix(in srgb, var(--accent-c) 18%, transparent);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: -10%;
+      right: -10%;
+      bottom: -56%;
+      height: 68%;
+      filter: blur(28px);
+      opacity: 0.5;
+      background: linear-gradient(90deg, color-mix(in srgb, var(--accent-b) 34%, transparent), color-mix(in srgb, var(--accent-c) 30%, transparent));
+      pointer-events: none;
+    }
+    .hero > * { position: relative; z-index: 1; }
+    .concept {
+      background: linear-gradient(
+        150deg,
+        color-mix(in srgb, var(--accent-b) 10%, var(--glass)),
+        color-mix(in srgb, var(--accent-c) 8%, var(--glass))
+      );
+      box-shadow: 0 16px 34px color-mix(in srgb, var(--accent-c) 16%, transparent);
+    }
     .hero h1 { margin: 0.45rem 0 0.6rem; font-size: clamp(1.6rem, 4vw, 2.7rem); }
-    .hero p, .concept p { margin: 0 0 0.65rem; color: var(--muted); line-height: 1.6; }
-    .toc { border-radius: 18px; padding: 0.8rem; margin-bottom: 0.9rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.45rem; }
-    .toc a { text-decoration: none; color: var(--text); border: 1px solid var(--glass-border); border-radius: 10px; padding: 0.4rem 0.52rem; background: color-mix(in srgb, var(--accent-c) 10%, var(--glass)); font-size: 0.84rem; }
+    .hero p,
+    .concept p { margin: 0 0 0.65rem; color: var(--muted); line-height: 1.6; }
+    .toc {
+      border-radius: 18px;
+      padding: 0.8rem;
+      margin-bottom: 0.9rem;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.45rem;
+      border: 1px solid color-mix(in srgb, var(--accent-c) 28%, var(--glass-border));
+      background: linear-gradient(
+        140deg,
+        color-mix(in srgb, var(--accent-c) 10%, var(--glass)),
+        color-mix(in srgb, var(--accent-b) 8%, var(--glass))
+      );
+    }
+    .toc a {
+      text-decoration: none;
+      color: var(--text);
+      border: 1px solid color-mix(in srgb, var(--accent-c) 28%, var(--glass-border));
+      border-radius: 10px;
+      padding: 0.4rem 0.52rem;
+      background: linear-gradient(
+        120deg,
+        color-mix(in srgb, var(--accent-c) 20%, transparent),
+        color-mix(in srgb, var(--accent-b) 14%, transparent)
+      );
+      font-size: 0.84rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .toc a:hover,
+    .toc a:focus-visible {
+      transform: translateY(-3px);
+      border-color: color-mix(in srgb, var(--accent-c) 44%, var(--glass-border));
+      box-shadow: 0 12px 24px color-mix(in srgb, var(--accent-c) 24%, transparent);
+    }
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
-    .panel { border: 1px solid var(--glass-border); border-radius: 14px; padding: 0.65rem; background: color-mix(in srgb, var(--accent-b) 9%, var(--glass)); }
+    .panel {
+      border: 1px solid color-mix(in srgb, var(--accent-c) 28%, var(--glass-border));
+      border-radius: 14px;
+      padding: 0.65rem;
+      background: linear-gradient(
+        132deg,
+        color-mix(in srgb, var(--accent-b) 14%, var(--glass)),
+        color-mix(in srgb, var(--accent-c) 10%, var(--glass))
+      );
+    }
     .panel h3 { margin: 0 0 0.4rem; font-size: 0.95rem; }
-    .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--glass-border); }
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 10px;
+      border: 1px solid color-mix(in srgb, var(--accent-c) 26%, var(--glass-border));
+      background: color-mix(in srgb, var(--bg-alt) 70%, transparent);
+    }
     table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
     th, td { padding: 0.42rem 0.5rem; text-align: left; border-bottom: 1px solid var(--glass-border); }
-    th { background: color-mix(in srgb, var(--accent-c) 16%, transparent); }
+    th {
+      background: linear-gradient(
+        120deg,
+        color-mix(in srgb, var(--accent-c) 24%, transparent),
+        color-mix(in srgb, var(--accent-b) 14%, transparent)
+      );
+    }
     tr:last-child td { border-bottom: none; }
-    .code { margin-top: 0.45rem; padding: 0.75rem; border-radius: 12px; border: 1px solid var(--glass-border); background: color-mix(in srgb, var(--bg-alt) 82%, black 18%); color: #d9e6ff; overflow-x: auto; }
+    .code {
+      margin-top: 0.45rem;
+      padding: 0.75rem;
+      border-radius: 12px;
+      border: 1px solid color-mix(in srgb, var(--accent-c) 30%, var(--glass-border));
+      background: linear-gradient(
+        140deg,
+        color-mix(in srgb, var(--bg-alt) 84%, white 16%),
+        color-mix(in srgb, var(--accent-c) 11%, white 89%)
+      );
+      color: #172246;
+      overflow-x: auto;
+      box-shadow: inset 0 1px 0 color-mix(in srgb, white 30%, transparent);
+    }
     .code code { font-family: "JetBrains Mono", Consolas, monospace; font-size: 0.79rem; line-height: 1.45; }
+    body.dark .code {
+      background: linear-gradient(
+        145deg,
+        color-mix(in srgb, var(--bg-alt) 84%, black 16%),
+        color-mix(in srgb, var(--accent-c) 12%, black 88%)
+      );
+      color: #d9e6ff;
+    }
     .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.45s ease, transform 0.45s ease; }
     .reveal.in { opacity: 1; transform: translateY(0); }
     @media (max-width: 980px) { .toc { grid-template-columns: 1fr 1fr; } .two-col { grid-template-columns: 1fr; } }
@@ -41,6 +155,7 @@
     <nav class="menu" aria-label="Spark navigation">
       <a href="index.html">Spark Hub</a>
       <a href="spark-theory.html">Theory</a>
+      <a href="pyspark-code-guide.html">Code</a>
       <a href="pyspark-complete-guide.html">Complete</a>
       <a href="pyspark-advanced-guide.html">Advanced</a>
       <a href="pyspark-interview-examples.html" class="active" aria-current="page">Interview</a>

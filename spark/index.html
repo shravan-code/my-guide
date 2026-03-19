@@ -10,12 +10,58 @@
   <link rel="stylesheet" href="../styles.css" />
   <style>
     .wrap { width: min(1160px, calc(100% - 2rem)); margin: 1rem auto 3rem; }
-    .hero { border-radius: 24px; padding: clamp(1.5rem, 3vw, 2.4rem); margin-bottom: 1rem; }
+    .hero {
+      border-radius: 24px;
+      padding: clamp(1.5rem, 3vw, 2.4rem);
+      margin-bottom: 1rem;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid color-mix(in srgb, var(--accent-c) 34%, var(--glass-border));
+      background:
+        radial-gradient(circle at 14% 16%, color-mix(in srgb, var(--accent-a) 28%, transparent), transparent 42%),
+        radial-gradient(circle at 88% 12%, color-mix(in srgb, var(--accent-b) 24%, transparent), transparent 48%),
+        linear-gradient(
+          132deg,
+          color-mix(in srgb, var(--accent-c) 12%, var(--glass)),
+          color-mix(in srgb, var(--accent-a) 8%, var(--glass))
+        );
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: -10%;
+      right: -10%;
+      bottom: -56%;
+      height: 68%;
+      filter: blur(28px);
+      opacity: 0.5;
+      background: linear-gradient(90deg, color-mix(in srgb, var(--accent-b) 32%, transparent), color-mix(in srgb, var(--accent-c) 28%, transparent));
+      pointer-events: none;
+    }
+    .hero > * { position: relative; z-index: 1; }
     .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.8rem; }
-    .card { border-radius: 16px; padding: 0.95rem; text-decoration: none; color: var(--text); background: var(--glass); border: 1px solid var(--glass-border); box-shadow: var(--shadow); }
+    .card {
+      border-radius: 16px;
+      padding: 0.95rem;
+      text-decoration: none;
+      color: var(--text);
+      border: 1px solid color-mix(in srgb, var(--accent-c) 30%, var(--glass-border));
+      background: linear-gradient(
+        138deg,
+        color-mix(in srgb, var(--accent-c) 13%, var(--glass)),
+        color-mix(in srgb, var(--accent-b) 11%, var(--glass))
+      );
+      box-shadow: 0 16px 30px color-mix(in srgb, var(--accent-c) 16%, transparent);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
     .card h2 { margin: 0 0 0.5rem; font-family: "Sora", "Trebuchet MS", sans-serif; font-size: 1.05rem; }
     .card p { margin: 0; color: var(--muted); }
-    .card:hover { transform: translateY(-4px); transition: transform 0.2s ease; }
+    .card:hover,
+    .card:focus-visible {
+      transform: translateY(-5px);
+      border-color: color-mix(in srgb, var(--accent-c) 44%, var(--glass-border));
+      box-shadow: 0 20px 36px color-mix(in srgb, var(--accent-c) 22%, transparent);
+    }
     @media (max-width: 900px) { .cards { grid-template-columns: 1fr; } }
   </style>
 </head>
@@ -29,6 +75,7 @@
     <nav class="menu" aria-label="Spark menu">
       <a href="index.html" class="active" aria-current="page">Spark Hub</a>
       <a href="spark-theory.html">Theory</a>
+      <a href="pyspark-code-guide.html">Code</a>
       <a href="pyspark-complete-guide.html">Complete</a>
       <a href="pyspark-advanced-guide.html">Advanced</a>
       <a href="pyspark-interview-examples.html">Interview</a>
@@ -50,6 +97,10 @@
       <a class="card" href="spark-theory.html">
         <h2>Theory</h2>
         <p>Foundational Spark concepts, execution internals, and optimization principles in guided order.</p>
+      </a>
+      <a class="card" href="pyspark-code-guide.html">
+        <h2>Code Track</h2>
+        <p>Step-by-step PySpark coding topics: SparkSession, I/O, columns, filters, joins, pivoting, nulls, and windows.</p>
       </a>
       <a class="card" href="pyspark-complete-guide.html">
         <h2>Complete Mastery</h2>

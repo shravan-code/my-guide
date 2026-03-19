@@ -9,45 +9,158 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
   <style>
-    .page-wrap { width: min(1200px, calc(100% - 2rem)); margin: 1rem auto 3rem; }
-    .hero { border-radius: 24px; padding: clamp(1.4rem, 3vw, 2.4rem); margin-bottom: 1rem; }
+    .page-wrap { width: min(1160px, calc(100% - 2rem)); margin: 1rem auto 3rem; }
+    .hero {
+      border-radius: 24px;
+      padding: clamp(1.4rem, 3vw, 2.4rem);
+      margin-bottom: 1rem;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid color-mix(in srgb, var(--accent-c) 34%, var(--glass-border));
+      background:
+        radial-gradient(circle at 14% 16%, color-mix(in srgb, var(--accent-a) 26%, transparent), transparent 42%),
+        radial-gradient(circle at 88% 12%, color-mix(in srgb, var(--accent-b) 24%, transparent), transparent 48%),
+        linear-gradient(
+          130deg,
+          color-mix(in srgb, var(--accent-c) 12%, var(--glass)),
+          color-mix(in srgb, var(--accent-a) 8%, var(--glass))
+        );
+      box-shadow: 0 22px 44px color-mix(in srgb, var(--accent-c) 18%, transparent);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: -10%;
+      right: -10%;
+      bottom: -56%;
+      height: 68%;
+      filter: blur(28px);
+      opacity: 0.5;
+      background: linear-gradient(90deg, color-mix(in srgb, var(--accent-b) 34%, transparent), color-mix(in srgb, var(--accent-c) 30%, transparent));
+      pointer-events: none;
+    }
+    .hero > * { position: relative; z-index: 1; }
     .hero h1 { margin: 0.45rem 0 0.65rem; font-size: clamp(1.6rem, 4vw, 2.9rem); max-width: 16ch; }
     .hero p { margin: 0; color: var(--muted); max-width: 70ch; }
 
-    .toc { border-radius: 18px; padding: 0.85rem; margin-bottom: 1rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.45rem; }
-    .toc a {
-      text-decoration: none; color: var(--text); border: 1px solid var(--glass-border);
-      border-radius: 10px; padding: 0.45rem 0.55rem; background: color-mix(in srgb, var(--accent-c) 9%, var(--glass));
-      font-size: 0.86rem; transition: transform 0.2s ease;
+    .toc {
+      border-radius: 18px;
+      padding: 0.85rem;
+      margin-bottom: 1rem;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.45rem;
+      border: 1px solid color-mix(in srgb, var(--accent-c) 28%, var(--glass-border));
+      background: linear-gradient(
+        140deg,
+        color-mix(in srgb, var(--accent-c) 10%, var(--glass)),
+        color-mix(in srgb, var(--accent-b) 8%, var(--glass))
+      );
     }
-    .toc a:hover { transform: translateY(-2px); }
+    .toc a {
+      text-decoration: none;
+      color: var(--text);
+      border: 1px solid color-mix(in srgb, var(--accent-c) 28%, var(--glass-border));
+      border-radius: 10px;
+      padding: 0.45rem 0.55rem;
+      background: linear-gradient(
+        120deg,
+        color-mix(in srgb, var(--accent-c) 20%, transparent),
+        color-mix(in srgb, var(--accent-b) 14%, transparent)
+      );
+      font-size: 0.86rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .toc a:hover,
+    .toc a:focus-visible {
+      transform: translateY(-3px);
+      border-color: color-mix(in srgb, var(--accent-c) 44%, var(--glass-border));
+      box-shadow: 0 12px 24px color-mix(in srgb, var(--accent-c) 24%, transparent);
+    }
 
-    .concept { border-radius: 20px; padding: 1rem; margin-bottom: 0.9rem; }
+    .concept {
+      border-radius: 20px;
+      padding: 1rem;
+      margin-bottom: 0.9rem;
+      border: 1px solid color-mix(in srgb, var(--accent-c) 24%, var(--glass-border));
+      background: linear-gradient(
+        150deg,
+        color-mix(in srgb, var(--accent-b) 10%, var(--glass)),
+        color-mix(in srgb, var(--accent-c) 8%, var(--glass))
+      );
+      box-shadow: 0 16px 34px color-mix(in srgb, var(--accent-c) 16%, transparent);
+    }
     .concept h2 { margin: 0 0 0.45rem; font-family: "Sora", "Trebuchet MS", sans-serif; font-size: 1.2rem; }
     .concept p { margin: 0 0 0.7rem; color: var(--muted); line-height: 1.6; }
 
     .two-col { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 0.7rem; }
     .panel {
-      border: 1px solid var(--glass-border); border-radius: 14px; padding: 0.7rem;
-      background: color-mix(in srgb, var(--accent-b) 8%, var(--glass));
+      border: 1px solid color-mix(in srgb, var(--accent-c) 28%, var(--glass-border));
+      border-radius: 14px;
+      padding: 0.7rem;
+      background: linear-gradient(
+        132deg,
+        color-mix(in srgb, var(--accent-b) 14%, var(--glass)),
+        color-mix(in srgb, var(--accent-c) 10%, var(--glass))
+      );
     }
     .panel h3 { margin: 0 0 0.45rem; font-size: 0.96rem; }
 
-    .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--glass-border); }
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 10px;
+      border: 1px solid color-mix(in srgb, var(--accent-c) 26%, var(--glass-border));
+      background: color-mix(in srgb, var(--bg-alt) 70%, transparent);
+    }
     table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
     th, td { padding: 0.45rem 0.52rem; text-align: left; border-bottom: 1px solid var(--glass-border); }
-    th { background: color-mix(in srgb, var(--accent-c) 18%, transparent); }
+    th {
+      background: linear-gradient(
+        120deg,
+        color-mix(in srgb, var(--accent-c) 24%, transparent),
+        color-mix(in srgb, var(--accent-b) 14%, transparent)
+      );
+    }
     tr:last-child td { border-bottom: none; }
 
     .code {
-      margin: 0.5rem 0 0; padding: 0.75rem; border-radius: 12px;
-      border: 1px solid var(--glass-border); background: color-mix(in srgb, var(--bg-alt) 82%, black 18%);
-      color: #d9e6ff; overflow-x: auto;
+      margin: 0.5rem 0 0;
+      padding: 0.75rem;
+      border-radius: 12px;
+      border: 1px solid color-mix(in srgb, var(--accent-c) 30%, var(--glass-border));
+      background: linear-gradient(
+        140deg,
+        color-mix(in srgb, var(--bg-alt) 84%, white 16%),
+        color-mix(in srgb, var(--accent-c) 11%, white 89%)
+      );
+      color: #172246;
+      overflow-x: auto;
+      box-shadow: inset 0 1px 0 color-mix(in srgb, white 30%, transparent);
     }
     .code code { font-family: "JetBrains Mono", Consolas, monospace; font-size: 0.79rem; line-height: 1.45; }
 
+    body.dark .code {
+      background: linear-gradient(
+        145deg,
+        color-mix(in srgb, var(--bg-alt) 84%, black 16%),
+        color-mix(in srgb, var(--accent-c) 12%, black 88%)
+      );
+      color: #d9e6ff;
+    }
+
     .chipline { display: flex; gap: 0.42rem; flex-wrap: wrap; margin: 0.3rem 0 0.7rem; }
-    .chipline span { border: 1px solid var(--glass-border); background: var(--glass); border-radius: 999px; padding: 0.2rem 0.5rem; font-size: 0.74rem; color: var(--muted); }
+    .chipline span {
+      border: 1px solid color-mix(in srgb, var(--accent-c) 30%, var(--glass-border));
+      background: linear-gradient(
+        124deg,
+        color-mix(in srgb, var(--accent-b) 14%, var(--glass)),
+        color-mix(in srgb, var(--accent-c) 13%, var(--glass))
+      );
+      border-radius: 999px;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.74rem;
+      color: var(--text);
+    }
 
     .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.5s ease, transform 0.5s ease; }
     .reveal.in { opacity: 1; transform: translateY(0); }
@@ -75,6 +188,7 @@
     <nav class="menu" aria-label="Spark navigation">
       <a href="index.html">Spark Hub</a>
       <a href="spark-theory.html">Theory</a>
+      <a href="pyspark-code-guide.html">Code</a>
       <a href="pyspark-complete-guide.html" class="active" aria-current="page">Complete</a>
       <a href="pyspark-advanced-guide.html">Advanced</a>
       <a href="pyspark-interview-examples.html">Interview</a>
