@@ -9,20 +9,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
   <style>
-    .page-wrap { width: min(1160px, calc(100% - 2rem)); margin: 1rem auto 3rem; }
-    .header-card, .block { border-radius: 20px; padding: 1rem; }
-    .header-card { margin-bottom: 1rem; }
-    .header-card h1 { margin: 0.4rem 0; font-size: clamp(1.6rem, 4vw, 2.5rem); }
-    .stack { display: grid; gap: 0.85rem; }
-    .block h2 { margin: 0 0 0.55rem; font-size: 1.1rem; font-family: "Sora", "Trebuchet MS", sans-serif; }
-    .lane { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.65rem; margin-top: 0.5rem; }
-    .chip { border: 1px solid var(--glass-border); border-radius: 12px; background: color-mix(in srgb, var(--accent-c) 10%, var(--glass)); padding: 0.52rem; font-size: 0.9rem; color: var(--muted); }
-    .chip strong { display: block; color: var(--text); margin-bottom: 0.2rem; }
-    .steps { margin: 0; padding-left: 1.15rem; color: var(--muted); }
-    .steps li { margin-bottom: 0.3rem; }
-    .links { margin-top: 1rem; display: flex; gap: 0.55rem; flex-wrap: wrap; }
-    .links a { text-decoration: none; border: 1px solid var(--glass-border); background: var(--glass); color: var(--text); border-radius: 999px; padding: 0.35rem 0.68rem; }
-    @media (max-width: 900px) { .lane { grid-template-columns: 1fr; } }
+    .page-wrap { width: min(1200px, calc(100% - 2rem)); margin: 1rem auto 3rem; }
+    .hero, .concept { border-radius: 22px; padding: 1rem; margin-bottom: 0.9rem; }
+    .hero h1 { margin: 0.45rem 0 0.6rem; font-size: clamp(1.6rem, 4vw, 2.7rem); max-width: 20ch; }
+    .hero p, .concept p { margin: 0 0 0.65rem; color: var(--muted); line-height: 1.6; }
+    .toc { border-radius: 18px; padding: 0.8rem; margin-bottom: 0.9rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.45rem; }
+    .toc a { text-decoration: none; color: var(--text); border: 1px solid var(--glass-border); border-radius: 10px; padding: 0.4rem 0.52rem; background: color-mix(in srgb, var(--accent-c) 10%, var(--glass)); font-size: 0.84rem; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+    .panel { border: 1px solid var(--glass-border); border-radius: 14px; padding: 0.65rem; background: color-mix(in srgb, var(--accent-b) 9%, var(--glass)); }
+    .panel h3 { margin: 0 0 0.4rem; font-size: 0.96rem; }
+    .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--glass-border); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+    th, td { padding: 0.42rem 0.5rem; text-align: left; border-bottom: 1px solid var(--glass-border); }
+    th { background: color-mix(in srgb, var(--accent-c) 16%, transparent); }
+    tr:last-child td { border-bottom: none; }
+    .code { margin-top: 0.45rem; padding: 0.75rem; border-radius: 12px; border: 1px solid var(--glass-border); background: color-mix(in srgb, var(--bg-alt) 82%, black 18%); color: #d9e6ff; overflow-x: auto; }
+    .code code { font-family: "JetBrains Mono", Consolas, monospace; font-size: 0.79rem; line-height: 1.45; }
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.45s ease, transform 0.45s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    @media (max-width: 980px) { .toc { grid-template-columns: 1fr 1fr; } .two-col { grid-template-columns: 1fr; } }
+    @media (max-width: 680px) { .toc { grid-template-columns: 1fr; } .page-wrap { width: calc(100% - 1rem); } }
   </style>
 </head>
 <body>
@@ -33,8 +39,10 @@
   <header class="topbar glass">
     <a class="brand" href="../index.html">Data-Guide</a>
     <nav class="menu" aria-label="Spark navigation">
+      <a href="index.html">Spark Hub</a>
+      <a href="spark-theory.html">Theory</a>
       <a href="pyspark-complete-guide.html">Complete</a>
-      <a href="pyspark-advanced-guide.html">Advanced</a>
+      <a href="pyspark-advanced-guide.html" class="active" aria-current="page">Advanced</a>
       <a href="pyspark-interview-examples.html">Interview</a>
     </nav>
     <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
@@ -43,52 +51,153 @@
     </button>
   </header>
 
-  <main class="page-wrap stack">
-    <section class="header-card glass">
-      <p class="eyebrow">Spark / Advanced Track</p>
-      <h1>File Handling, Window Functions, and Performance Debugging</h1>
-      <p class="hero-copy">This page restructures the advanced PySpark guide into operational sections you can directly apply to data pipelines.</p>
+  <main class="page-wrap">
+    <section class="hero glass reveal">
+      <p class="eyebrow">Spark / Advanced Guide</p>
+      <h1>File Handling, Window Functions, and Deep Performance Tuning</h1>
+      <p>This page expands all advanced topics with practical examples, input/output tables, and production-safe code snippets.</p>
     </section>
 
-    <section class="block glass">
+    <section class="toc glass reveal">
+      <a href="#file-handling">1. File Handling</a>
+      <a href="#window-functions">2. Window Functions</a>
+      <a href="#memory-issues">3. Memory Issues</a>
+      <a href="#shuffle-issues">4. Shuffle Issues</a>
+      <a href="#cpu-issues">5. CPU Issues</a>
+      <a href="#io-issues">6. I/O Issues</a>
+      <a href="#query-issues">7. Query Optimization</a>
+      <a href="#network-issues">8. Network Issues</a>
+      <a href="#debugging">9. Debugging Checklist</a>
+    </section>
+
+    <section class="concept glass reveal" id="file-handling">
       <h2>1) File Handling Guide</h2>
-      <p class="hero-copy">Covers format-level read/write strategy, schema control, and partition-aware I/O design.</p>
-      <div class="lane">
-        <div class="chip"><strong>CSV and JSON</strong>Header handling, schema enforcement, malformed records, and ingestion reliability.</div>
-        <div class="chip"><strong>Parquet and ORC</strong>Columnar storage benefits, compression, predicate pushdown, and analytics performance.</div>
-        <div class="chip"><strong>JDBC and Delta</strong>Database connectors, partitioned reads, write modes, ACID lakehouse workflows.</div>
+      <p>Choosing the right format and read strategy defines base performance. Prefer columnar formats (Parquet/ORC) for analytics and enforce schema on raw text formats.</p>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input (CSV rows)</h3>
+          <div class="table-wrap"><table><thead><tr><th>id</th><th>name</th><th>salary</th><th>dept</th></tr></thead><tbody><tr><td>1</td><td>Ana</td><td>9000</td><td>Eng</td></tr><tr><td>2</td><td>Sam</td><td>bad</td><td>HR</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output (clean parquet)</h3>
+          <div class="table-wrap"><table><thead><tr><th>id</th><th>name</th><th>salary</th><th>dept</th></tr></thead><tbody><tr><td>1</td><td>Ana</td><td>9000</td><td>Eng</td></tr><tr><td>2</td><td>Sam</td><td>null</td><td>HR</td></tr></tbody></table></div>
+        </div>
       </div>
+      <pre class="code"><code>from pyspark.sql.types import StructType, StructField, IntegerType, StringType
+
+schema = StructType([
+    StructField("id", IntegerType(), True),
+    StructField("name", StringType(), True),
+    StructField("salary", IntegerType(), True),
+    StructField("dept", StringType(), True)
+])
+
+raw = spark.read.option("header", True).schema(schema).csv("/raw/emp.csv")
+raw.write.mode("overwrite").parquet("/curated/emp")</code></pre>
     </section>
 
-    <section class="block glass">
+    <section class="concept glass reveal" id="window-functions">
       <h2>2) Window Functions</h2>
-      <p class="hero-copy">Includes practical patterns for ranking, cumulative metrics, and temporal analytics with controlled frames.</p>
-      <div class="lane">
-        <div class="chip"><strong>Ranking</strong>`row_number`, `rank`, `dense_rank`, top-N and bottom-N strategies per partition.</div>
-        <div class="chip"><strong>Analytical Windows</strong>Running totals, moving windows, `lag`/`lead`, and first/last value derivations.</div>
-        <div class="chip"><strong>Performance Caveats</strong>Large frames, skewed partitions, too many windows, and missing partition keys.</div>
+      <p>Window functions compute row-aware analytics without collapsing rows like groupBy. Use partitioning and ordered frames carefully to avoid large shuffle costs.</p>
+      <div class="two-col">
+        <div class="panel"><h3>Input (dept salaries)</h3><div class="table-wrap"><table><thead><tr><th>emp</th><th>dept</th><th>salary</th></tr></thead><tbody><tr><td>A</td><td>Eng</td><td>9000</td></tr><tr><td>B</td><td>Eng</td><td>7000</td></tr><tr><td>C</td><td>HR</td><td>6000</td></tr></tbody></table></div></div>
+        <div class="panel"><h3>Output (ranked)</h3><div class="table-wrap"><table><thead><tr><th>emp</th><th>dept</th><th>salary</th><th>rank_in_dept</th></tr></thead><tbody><tr><td>A</td><td>Eng</td><td>9000</td><td>1</td></tr><tr><td>B</td><td>Eng</td><td>7000</td><td>2</td></tr><tr><td>C</td><td>HR</td><td>6000</td><td>1</td></tr></tbody></table></div></div>
+      </div>
+      <pre class="code"><code>from pyspark.sql import Window
+from pyspark.sql.functions import row_number, sum as Fsum
+
+w = Window.partitionBy("dept").orderBy("salary")
+ranked = df.withColumn("rank_in_dept", row_number().over(w.orderBy(df.salary.desc())))
+
+running = df.withColumn(
+    "running_salary",
+    Fsum("salary").over(Window.partitionBy("dept").orderBy("salary").rowsBetween(Window.unboundedPreceding, Window.currentRow))
+)</code></pre>
+    </section>
+
+    <section class="concept glass reveal" id="memory-issues">
+      <h2>3) Memory-Related Issues</h2>
+      <p>Typical symptoms are GC overhead, spill to disk, and executor OOM. Fix by reducing shuffle data, tuning partition size, and selecting sane persistence levels.</p>
+      <div class="panel">
+        <div class="table-wrap"><table><thead><tr><th>Symptom</th><th>Root cause</th><th>Fix</th></tr></thead><tbody><tr><td>Executor OOM</td><td>Wide rows + high concurrency</td><td>Increase memory, reduce columns</td></tr><tr><td>Frequent spills</td><td>Oversized partitions</td><td>Repartition and tune shuffle partitions</td></tr><tr><td>Cache eviction</td><td>Over-caching</td><td>Persist selective hot datasets only</td></tr></tbody></table></div>
+      </div>
+      <pre class="code"><code>spark.conf.set("spark.executor.memory", "8g")
+spark.conf.set("spark.sql.shuffle.partitions", "240")
+
+hot = heavy_df.persist()
+hot.count()</code></pre>
+    </section>
+
+    <section class="concept glass reveal" id="shuffle-issues">
+      <h2>4) Shuffle-Related Issues</h2>
+      <p>Shuffle is often the largest cost center. Avoid unnecessary repartitions, use broadcast joins for small dimensions, and enable AQE for skew handling.</p>
+      <pre class="code"><code>from pyspark.sql.functions import broadcast
+
+spark.conf.set("spark.sql.adaptive.enabled", "true")
+spark.conf.set("spark.sql.adaptive.skewJoin.enabled", "true")
+
+joined = fact.join(broadcast(dim), "id", "left")</code></pre>
+    </section>
+
+    <section class="concept glass reveal" id="cpu-issues">
+      <h2>5) CPU-Related Issues</h2>
+      <p>Low CPU usage indicates poor parallelism; high CPU with low throughput often means heavy UDF or expression complexity.</p>
+      <pre class="code"><code># Better: built-in functions over Python UDF where possible
+from pyspark.sql.functions import upper, regexp_replace
+
+optimized = df.withColumn("clean_name", upper(regexp_replace("name", "[^A-Za-z ]", "")))</code></pre>
+    </section>
+
+    <section class="concept glass reveal" id="io-issues">
+      <h2>6) I/O-Related Issues</h2>
+      <p>Small files and poor write partitioning kill read performance. Write larger files and partition by high-value query columns.</p>
+      <pre class="code"><code># Coalesce output files and partition intelligently
+curated = df.select("event_date", "region", "amount")
+curated.coalesce(64).write.mode("overwrite").partitionBy("event_date").parquet("/warehouse/sales")</code></pre>
+    </section>
+
+    <section class="concept glass reveal" id="query-issues">
+      <h2>7) Query Optimization Issues</h2>
+      <p>Common anti-patterns: early explode, late filters, and nested UDF chains. Push filters and projections as early as possible.</p>
+      <pre class="code"><code>optimized = (df
+    .select("id", "region", "amount")
+    .filter("amount > 100")
+    .groupBy("region")
+    .sum("amount"))
+
+optimized.explain("formatted")</code></pre>
+    </section>
+
+    <section class="concept glass reveal" id="network-issues">
+      <h2>8) Network-Related Issues</h2>
+      <p>Network hotspots appear in large shuffles and oversized broadcasts. Reduce shuffled data volume and limit cross-node transfer.</p>
+      <div class="panel">
+        <div class="table-wrap"><table><thead><tr><th>Pattern</th><th>Impact</th><th>Mitigation</th></tr></thead><tbody><tr><td>Large fact-fact join</td><td>Huge shuffle</td><td>Pre-aggregate and prune columns</td></tr><tr><td>Oversized broadcast</td><td>Memory pressure</td><td>Tune broadcast threshold</td></tr></tbody></table></div>
       </div>
     </section>
 
-    <section class="block glass">
-      <h2>3) Comprehensive Performance Issues</h2>
-      <ol class="steps">
-        <li><strong>Memory:</strong> executor pressure, spills, and incorrect storage level decisions.</li>
-        <li><strong>Shuffle:</strong> expensive joins, skewed keys, and unnecessary repartition storms.</li>
-        <li><strong>CPU:</strong> suboptimal parallelism and expensive non-vectorized operations.</li>
-        <li><strong>I/O:</strong> small file explosion, wrong storage format, and inefficient write layout.</li>
-        <li><strong>Query optimization:</strong> overuse of UDFs, poor projection/filter order, and plan inflation.</li>
-        <li><strong>Debugging:</strong> explain plans, stage-level bottlenecks, and checklist-based triage.</li>
-      </ol>
-    </section>
+    <section class="concept glass reveal" id="debugging">
+      <h2>9) Debugging Performance Checklist</h2>
+      <p>Debug systematically: plan, stage metrics, skew patterns, partition size, then config knobs.</p>
+      <pre class="code"><code># 1) Physical plan
+job_df.explain("formatted")
 
-    <div class="links">
-      <a href="pyspark-complete-guide.html">Open Complete Track</a>
-      <a href="pyspark-interview-examples.html">Open Interview Track</a>
-      <a href="../index.html#spark-tracks">Back to Spark Menu</a>
-    </div>
+# 2) Partition stats
+print("partitions:", job_df.rdd.getNumPartitions())
+
+# 3) Narrow sample validation
+job_df.limit(1000).cache().count()</code></pre>
+    </section>
   </main>
 
   <script src="../app.js"></script>
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("in");
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+  </script>
 </body>
 </html>

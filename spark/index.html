@@ -11,7 +11,7 @@
   <style>
     .wrap { width: min(1160px, calc(100% - 2rem)); margin: 1rem auto 3rem; }
     .hero { border-radius: 24px; padding: clamp(1.5rem, 3vw, 2.4rem); margin-bottom: 1rem; }
-    .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.8rem; }
     .card { border-radius: 16px; padding: 0.95rem; text-decoration: none; color: var(--text); background: var(--glass); border: 1px solid var(--glass-border); box-shadow: var(--shadow); }
     .card h2 { margin: 0 0 0.5rem; font-family: "Sora", "Trebuchet MS", sans-serif; font-size: 1.05rem; }
     .card p { margin: 0; color: var(--muted); }
@@ -27,6 +27,8 @@
   <header class="topbar glass">
     <a class="brand" href="../index.html">Data-Guide</a>
     <nav class="menu" aria-label="Spark menu">
+      <a href="index.html" class="active" aria-current="page">Spark Hub</a>
+      <a href="spark-theory.html">Theory</a>
       <a href="pyspark-complete-guide.html">Complete</a>
       <a href="pyspark-advanced-guide.html">Advanced</a>
       <a href="pyspark-interview-examples.html">Interview</a>
@@ -45,6 +47,10 @@
     </section>
 
     <section class="cards" aria-label="Spark tracks">
+      <a class="card" href="spark-theory.html">
+        <h2>Theory</h2>
+        <p>Foundational Spark concepts, execution internals, and optimization principles in guided order.</p>
+      </a>
       <a class="card" href="pyspark-complete-guide.html">
         <h2>Complete Mastery</h2>
         <p>Architecture, APIs, transformations, joins, partitioning, AQE, streaming, and best practices.</p>

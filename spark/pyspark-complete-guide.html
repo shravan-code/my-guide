@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data-Guide | PySpark Complete Mastery Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    .page-wrap { width: min(1200px, calc(100% - 2rem)); margin: 1rem auto 3rem; }
+    .hero { border-radius: 24px; padding: clamp(1.4rem, 3vw, 2.4rem); margin-bottom: 1rem; }
+    .hero h1 { margin: 0.45rem 0 0.65rem; font-size: clamp(1.6rem, 4vw, 2.9rem); max-width: 16ch; }
+    .hero p { margin: 0; color: var(--muted); max-width: 70ch; }
+
+    .toc { border-radius: 18px; padding: 0.85rem; margin-bottom: 1rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.45rem; }
+    .toc a {
+      text-decoration: none; color: var(--text); border: 1px solid var(--glass-border);
+      border-radius: 10px; padding: 0.45rem 0.55rem; background: color-mix(in srgb, var(--accent-c) 9%, var(--glass));
+      font-size: 0.86rem; transition: transform 0.2s ease;
+    }
+    .toc a:hover { transform: translateY(-2px); }
+
+    .concept { border-radius: 20px; padding: 1rem; margin-bottom: 0.9rem; }
+    .concept h2 { margin: 0 0 0.45rem; font-family: "Sora", "Trebuchet MS", sans-serif; font-size: 1.2rem; }
+    .concept p { margin: 0 0 0.7rem; color: var(--muted); line-height: 1.6; }
+
+    .two-col { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 0.7rem; }
+    .panel {
+      border: 1px solid var(--glass-border); border-radius: 14px; padding: 0.7rem;
+      background: color-mix(in srgb, var(--accent-b) 8%, var(--glass));
+    }
+    .panel h3 { margin: 0 0 0.45rem; font-size: 0.96rem; }
+
+    .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--glass-border); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+    th, td { padding: 0.45rem 0.52rem; text-align: left; border-bottom: 1px solid var(--glass-border); }
+    th { background: color-mix(in srgb, var(--accent-c) 18%, transparent); }
+    tr:last-child td { border-bottom: none; }
+
+    .code {
+      margin: 0.5rem 0 0; padding: 0.75rem; border-radius: 12px;
+      border: 1px solid var(--glass-border); background: color-mix(in srgb, var(--bg-alt) 82%, black 18%);
+      color: #d9e6ff; overflow-x: auto;
+    }
+    .code code { font-family: "JetBrains Mono", Consolas, monospace; font-size: 0.79rem; line-height: 1.45; }
+
+    .chipline { display: flex; gap: 0.42rem; flex-wrap: wrap; margin: 0.3rem 0 0.7rem; }
+    .chipline span { border: 1px solid var(--glass-border); background: var(--glass); border-radius: 999px; padding: 0.2rem 0.5rem; font-size: 0.74rem; color: var(--muted); }
+
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    .floating { animation: float 5s ease-in-out infinite; }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
+    @media (max-width: 980px) {
+      .toc { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .two-col { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 680px) {
+      .toc { grid-template-columns: 1fr; }
+      .page-wrap { width: calc(100% - 1rem); }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <header class="topbar glass">
+    <a class="brand" href="../index.html">Data-Guide</a>
+    <nav class="menu" aria-label="Spark navigation">
+      <a href="index.html">Spark Hub</a>
+      <a href="spark-theory.html">Theory</a>
+      <a href="pyspark-complete-guide.html" class="active" aria-current="page">Complete</a>
+      <a href="pyspark-advanced-guide.html">Advanced</a>
+      <a href="pyspark-interview-examples.html">Interview</a>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+      <span class="toggle-icon" aria-hidden="true">🌙</span>
+      <span class="toggle-text">Dark</span>
+    </button>
+  </header>
+
+  <main class="page-wrap">
+    <section class="hero glass reveal floating">
+      <p class="eyebrow">Spark / Complete Mastery</p>
+      <h1>PySpark Complete Mastery Guide</h1>
+      <p>Detailed, concept-by-concept explanation of Spark from foundation to production optimization. Every section includes context, input table, output table, and working PySpark snippets.</p>
+      <div class="chipline">
+        <span>Architecture</span><span>DataFrames</span><span>RDDs</span><span>Joins</span><span>Partitions</span><span>AQE</span><span>Streaming</span>
+      </div>
+    </section>
+
+    <section class="toc glass reveal" aria-label="Guide table of contents">
+      <a href="#spark-basics">1. What is Spark</a>
+      <a href="#evolution">2. Evolution</a>
+      <a href="#architecture">3. Architecture</a>
+      <a href="#cluster-config">4. Cluster Config</a>
+      <a href="#cloud-platforms">5. Cloud Platforms</a>
+      <a href="#sparkcontext">6. SparkContext</a>
+      <a href="#dataframes">7. DataFrames</a>
+      <a href="#rdds">8. RDDs</a>
+      <a href="#lazy-eval">9. Lazy Evaluation</a>
+      <a href="#transformations">10. Transformations</a>
+      <a href="#actions">11. Actions</a>
+      <a href="#joins">12. Joins</a>
+      <a href="#partitions">13. Partitions</a>
+      <a href="#skew">14. Data Skewness</a>
+      <a href="#memory">15. Memory Mgmt</a>
+      <a href="#aqe">16. AQE</a>
+      <a href="#caching">17. Caching</a>
+      <a href="#broadcast">18. Broadcast</a>
+      <a href="#streaming">19. Structured Streaming</a>
+      <a href="#optimization">20. Optimization</a>
+      <a href="#best-practices">21. Best Practices</a>
+    </section>
+
+    <section class="concept glass reveal" id="spark-basics">
+      <h2>1) What is Apache Spark?</h2>
+      <p>Apache Spark is a distributed data processing engine designed for large-scale batch and streaming workloads. It keeps intermediate computations in memory, reducing repeated disk I/O and making iterative workloads much faster.</p>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input table (sales_raw)</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>region</th><th>amount</th></tr></thead><tbody><tr><td>1</td><td>East</td><td>100</td></tr><tr><td>2</td><td>East</td><td>150</td></tr><tr><td>3</td><td>West</td><td>80</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output table (region_total)</h3>
+          <div class="table-wrap"><table><thead><tr><th>region</th><th>total_amount</th></tr></thead><tbody><tr><td>East</td><td>250</td></tr><tr><td>West</td><td>80</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>from pyspark.sql import SparkSession
+from pyspark.sql.functions import sum as Fsum
+
+spark = SparkSession.builder.appName("spark-basics").getOrCreate()
+df = spark.createDataFrame([(1,"East",100),(2,"East",150),(3,"West",80)], ["order_id","region","amount"])
+
+region_total = df.groupBy("region").agg(Fsum("amount").alias("total_amount"))
+region_total.show()</code></pre>
+    </section>
+
+    <section class="concept glass reveal" id="evolution">
+      <h2>2) Evolution of Spark</h2>
+      <p>Spark evolved from a fast batch engine into a unified analytics platform that supports SQL, machine learning, graph processing, and structured streaming in one runtime.</p>
+      <div class="panel">
+        <h3>Evolution table</h3>
+        <div class="table-wrap"><table><thead><tr><th>Phase</th><th>Capability</th><th>Impact</th></tr></thead><tbody><tr><td>Early Spark</td><td>RDD-based processing</td><td>Fast distributed transformations</td></tr><tr><td>Spark SQL</td><td>DataFrames + Catalyst</td><td>Declarative optimization</td></tr><tr><td>Modern Spark</td><td>AQE + Structured Streaming</td><td>Adaptive and real-time processing</td></tr></tbody></table></div>
+      </div>
+      <pre class="code"><code># Same job style evolved from RDD to DataFrame SQL
+rdd_total = spark.sparkContext.parallelize([("East",100),("East",150),("West",80)]) \
+    .reduceByKey(lambda a, b: a + b)
+
+df_total = df.groupBy("region").sum("amount")</code></pre>
+    </section>
+
+    <section class="concept glass reveal" id="architecture">
+      <h2>3) Complete Spark Architecture</h2>
+      <p>Driver coordinates execution plans and tasks. Executors run tasks on partitions and return partial results. Cluster managers allocate resources.</p>
+      <div class="panel">
+        <h3>Execution flow mapping</h3>
+        <div class="table-wrap"><table><thead><tr><th>Step</th><th>Component</th><th>Responsibility</th></tr></thead><tbody><tr><td>1</td><td>Driver</td><td>Build DAG and split into stages</td></tr><tr><td>2</td><td>Cluster Manager</td><td>Assign executors</td></tr><tr><td>3</td><td>Executors</td><td>Run tasks per partition</td></tr><tr><td>4</td><td>Driver</td><td>Merge and return action result</td></tr></tbody></table></div>
+      </div>
+      <pre class="code"><code>spark.conf.set("spark.sql.shuffle.partitions", "200")
+spark.conf.set("spark.executor.memory", "4g")
+spark.conf.set("spark.executor.cores", "2")
+
+df.explain("formatted")</code></pre>
+    </section>
+
+    <section class="concept glass reveal" id="cluster-config">
+      <h2>4) Cluster Configuration</h2>
+      <p>Correct executor sizing avoids underutilization and out-of-memory errors. Balance parallelism with CPU and memory limits.</p>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input assumptions</h3>
+          <div class="table-wrap"><table><thead><tr><th>Metric</th><th>Value</th></tr></thead><tbody><tr><td>Dataset size</td><td>100 GB</td></tr><tr><td>Node count</td><td>5</td></tr><tr><td>Cores per node</td><td>8</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Recommended baseline</h3>
+          <div class="table-wrap"><table><thead><tr><th>Setting</th><th>Value</th></tr></thead><tbody><tr><td>executor.memory</td><td>8g</td></tr><tr><td>executor.cores</td><td>4</td></tr><tr><td>shuffle.partitions</td><td>200</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>spark = (SparkSession.builder
+    .appName("cluster-config")
+    .config("spark.executor.instances", "10")
+    .config("spark.executor.memory", "8g")
+    .config("spark.executor.cores", "4")
+    .config("spark.sql.shuffle.partitions", "200")
+    .getOrCreate())</code></pre>
+    </section>
+
+    <section class="concept glass reveal" id="cloud-platforms">
+      <h2>5) Cloud Platforms</h2>
+      <p>Spark runs on multiple managed platforms with similar logic but different control planes and integrations.</p>
+      <div class="panel">
+        <div class="table-wrap"><table><thead><tr><th>Platform</th><th>Common Use</th><th>Storage Pairing</th></tr></thead><tbody><tr><td>AWS EMR</td><td>Batch lake jobs</td><td>S3</td></tr><tr><td>Azure Databricks</td><td>Collaborative notebooks + jobs</td><td>ADLS Gen2</td></tr><tr><td>GCP Dataproc</td><td>Elastic short-lived clusters</td><td>GCS</td></tr></tbody></table></div>
+      </div>
+      <pre class="code"><code># Example: cloud path usage remains similar
+df = spark.read.parquet("s3://bucket/sales/")
+# or abfss://container@account.dfs.core.windows.net/sales/
+# or gs://bucket/sales/</code></pre>
+    </section>
+
+    <section class="concept glass reveal" id="sparkcontext">
+      <h2>6) SparkContext and SparkSession</h2>
+      <p><code>SparkContext</code> is the low-level entry point for RDD APIs; <code>SparkSession</code> is the high-level unified interface for SQL/DataFrame work.</p>
+      <pre class="code"><code>sc = spark.sparkContext
+nums = sc.parallelize([1, 2, 3, 4, 5])
+print(nums.map(lambda x: x * 2).collect())
+
+spark.range(5).selectExpr("id", "id * 2 as doubled").show()</code></pre>
+    </section>
+
+    <section class="concept glass reveal" id="dataframes">
+      <h2>7) DataFrames</h2>
+      <p>DataFrames provide schema-aware, optimized transformations. Catalyst optimizer rewrites plans for better execution.</p>
+      <div class="two-col">
+        <div class="panel"><h3>Input (employees)</h3><div class="table-wrap"><table><thead><tr><th>emp_id</th><th>dept</th><th>salary</th></tr></thead><tbody><tr><td>1</td><td>Eng</td><td>9000</td></tr><tr><td>2</td><td>Eng</td><td>7000</td></tr><tr><td>3</td><td>HR</td><td>5000</td></tr></tbody></table></div></div>
+        <div class="panel"><h3>Output (salary_band)</h3><div class="table-wrap"><table><thead><tr><th>emp_id</th><th>dept</th><th>salary_band</th></tr></thead><tbody><tr><td>1</td><td>Eng</td><td>High</td></tr><tr><td>2</td><td>Eng</td><td>Medium</td></tr><tr><td>3</td><td>HR</td><td>Medium</td></tr></tbody></table></div></div>
+      </div>
+      <pre class="code"><code>from pyspark.sql.functions import when, col
+
+employees = spark.createDataFrame(
+    [(1,"Eng",9000),(2,"Eng",7000),(3,"HR",5000)],
+    ["emp_id","dept","salary"]
+)
+
+result = employees.withColumn(
+    "salary_band",
+    when(col("salary") >= 8000, "High").otherwise("Medium")
+)
+result.show()</code></pre>
+    </section>
+
+    <section class="concept glass reveal" id="rdds">
+      <h2>8) RDDs</h2>
+      <p>RDDs are low-level, immutable distributed collections with lineage-based fault recovery. They are useful for custom transformations not easily expressed in SQL/DataFrames.</p>
+      <pre class="code"><code>lines = spark.sparkContext.parallelize([
+    "spark makes big data processing fast",
+    "spark supports batch and streaming"
+])
+
+word_counts = (lines
+    .flatMap(lambda x: x.split())
+    .map(lambda w: (w, 1))
+    .reduceByKey(lambda a, b: a + b))
+
+print(word_counts.collect())</code></pre>
+    </section>
+
+    <section class="concept glass reveal" id="lazy-eval">
+      <h2>9) Lazy Evaluation</h2>
+      <p>Transformations build a logical plan and execute only when an action is called. This allows Spark to optimize the full pipeline before execution.</p>
+      <div class="panel">
+        <div class="table-wrap"><table><thead><tr><th>Step</th><th>Operation</th><th>Executes immediately?</th></tr></thead><tbody><tr><td>1</td><td>filter()</td><td>No</td></tr><tr><td>2</td><td>select()</td><td>No</td></tr><tr><td>3</td><td>count()</td><td>Yes</td></tr></tbody></table></div>
+      </div>
+      <pre class="code"><code>pipeline = df.filter("amount > 100").select("region", "amount")
+# no job yet
+rows = pipeline.count()  # triggers execution
+print(rows)</code></pre>
+    </section>
+
+    <section class="concept glass reveal" id="transformations">
+      <h2>10) Transformations</h2>
+      <p>Transformations produce a new DataFrame/RDD from an existing one. Common examples: <code>select</code>, <code>filter</code>, <code>withColumn</code>, <code>groupBy</code>, <code>join</code>.</p>
+      <pre class="code"><code>transformed = (df
+    .filter("amount > 90")
+    .withColumn("amount_tax", col("amount") * 1.18)
+    .select("order_id", "region", "amount_tax"))</code></pre>
+    </section>
+
+    <section class="concept glass reveal" id="actions">
+      <h2>11) Actions</h2>
+      <p>Actions trigger computation and return results to driver or storage: <code>count</code>, <code>collect</code>, <code>show</code>, <code>write</code>.</p>
+      <pre class="code"><code>print(df.count())
+df.show(5)
+df.limit(100).write.mode("overwrite").parquet("/tmp/output/sales_sample")</code></pre>
+    </section>
+
+    <section class="concept glass reveal" id="joins">
+      <h2>12) Joins</h2>
+      <p>Joins combine datasets by key. Correct join type and strategy directly impact shuffle size and performance.</p>
+      <div class="two-col">
+        <div class="panel"><h3>Input A (orders)</h3><div class="table-wrap"><table><thead><tr><th>order_id</th><th>cust_id</th></tr></thead><tbody><tr><td>101</td><td>C1</td></tr><tr><td>102</td><td>C2</td></tr></tbody></table></div></div>
+        <div class="panel"><h3>Input B (customers)</h3><div class="table-wrap"><table><thead><tr><th>cust_id</th><th>name</th></tr></thead><tbody><tr><td>C1</td><td>Ana</td></tr><tr><td>C3</td><td>Sam</td></tr></tbody></table></div></div>
+      </div>
+      <div class="panel" style="margin-top:0.6rem;"><h3>Output (left join)</h3><div class="table-wrap"><table><thead><tr><th>order_id</th><th>cust_id</th><th>name</th></tr></thead><tbody><tr><td>101</td><td>C1</td><td>Ana</td></tr><tr><td>102</td><td>C2</td><td>null</td></tr></tbody></table></div></div>
+      <pre class="code"><code>joined = orders.join(customers, on="cust_id", how="left")
+joined.show()</code></pre>
+    </section>
+
+    <section class="concept glass reveal" id="partitions">
+      <h2>13) Partitions</h2>
+      <p>Partitions are units of parallel work. Too few partitions underuse cluster resources; too many create overhead.</p>
+      <pre class="code"><code>print(df.rdd.getNumPartitions())
+balanced = df.repartition(200, "region")
+optimized = balanced.coalesce(80)</code></pre>
+    </section>
+
+    <section class="concept glass reveal" id="skew">
+      <h2>14) Data Skewness</h2>
+      <p>Skew happens when one key owns a disproportionate amount of rows, causing one executor to become a bottleneck.</p>
+      <div class="panel">
+        <div class="table-wrap"><table><thead><tr><th>Key</th><th>Rows</th><th>Observation</th></tr></thead><tbody><tr><td>K1</td><td>9,000,000</td><td>Hot key</td></tr><tr><td>K2</td><td>10,000</td><td>Normal</td></tr><tr><td>K3</td><td>8,000</td><td>Normal</td></tr></tbody></table></div>
+      </div>
+      <pre class="code"><code>from pyspark.sql.functions import concat_ws, lit, rand, floor
+
+fact_salted = fact.withColumn("salt", floor(rand() * 10)) \
+    .withColumn("join_key_salted", concat_ws("_", "join_key", "salt"))
+
+dim_salted = dim.crossJoin(spark.range(10).toDF("salt")) \
+    .withColumn("join_key_salted", concat_ws("_", "join_key", "salt"))</code></pre>
+    </section>
+
+    <section class="concept glass reveal" id="memory">
+      <h2>15) Memory Management</h2>
+      <p>Spark divides executor memory for execution and storage. Misconfigured memory causes spills, GC pauses, and OOM errors.</p>
+      <pre class="code"><code>spark.conf.set("spark.executor.memory", "8g")
+spark.conf.set("spark.memory.fraction", "0.6")
+spark.conf.set("spark.memory.storageFraction", "0.5")</code></pre>
+    </section>
+
+    <section class="concept glass reveal" id="aqe">
+      <h2>16) Adaptive Query Execution (AQE)</h2>
+      <p>AQE optimizes plans at runtime using observed statistics. It can switch join type, coalesce shuffle partitions, and split skewed partitions.</p>
+      <pre class="code"><code>spark.conf.set("spark.sql.adaptive.enabled", "true")
+spark.conf.set("spark.sql.adaptive.coalescePartitions.enabled", "true")
+spark.conf.set("spark.sql.adaptive.skewJoin.enabled", "true")</code></pre>
+    </section>
+
+    <section class="concept glass reveal" id="caching">
+      <h2>17) Caching and Persistence</h2>
+      <p>Cache only reused intermediate results. Choose persistence levels based on memory pressure and recomputation cost.</p>
+      <pre class="code"><code>from pyspark import StorageLevel
+
+heavy = df.filter("amount > 50").groupBy("region").sum("amount")
+heavy.persist(StorageLevel.MEMORY_AND_DISK)
+heavy.count()   # materialize cache
+heavy.unpersist()</code></pre>
+    </section>
+
+    <section class="concept glass reveal" id="broadcast">
+      <h2>18) Broadcast Variables</h2>
+      <p>Broadcast sends small reference data once to each executor, avoiding repeated transfer and reducing large shuffle joins.</p>
+      <pre class="code"><code>from pyspark.sql.functions import broadcast
+
+result = fact.join(broadcast(dim), on="product_id", how="left")
+result.explain()</code></pre>
+    </section>
+
+    <section class="concept glass reveal" id="streaming">
+      <h2>19) Structured Streaming</h2>
+      <p>Structured Streaming treats stream input as an unbounded table and runs incremental micro-batch execution with SQL/DataFrame APIs.</p>
+      <pre class="code"><code>stream_df = (spark.readStream
+    .format("json")
+    .schema("event_time timestamp, region string, amount double")
+    .load("/data/events"))
+
+agg = stream_df.groupBy("region").sum("amount")
+
+query = (agg.writeStream
+    .outputMode("complete")
+    .format("console")
+    .start())
+
+query.awaitTermination()</code></pre>
+    </section>
+
+    <section class="concept glass reveal" id="optimization">
+      <h2>20) Optimization Techniques</h2>
+      <p>Optimize end-to-end by reducing data early, choosing file formats wisely, tuning partition counts, and validating plans with explain outputs.</p>
+      <div class="panel">
+        <div class="table-wrap"><table><thead><tr><th>Problem</th><th>Technique</th><th>Expected Effect</th></tr></thead><tbody><tr><td>Too much scan</td><td>Projection + filter pushdown</td><td>Less I/O</td></tr><tr><td>Large shuffle</td><td>Broadcast join / repartition</td><td>Lower network cost</td></tr><tr><td>Small files</td><td>Coalesce before write</td><td>Better read efficiency</td></tr></tbody></table></div>
+      </div>
+      <pre class="code"><code>optimized = (df
+    .select("order_id", "region", "amount")
+    .filter("amount > 100")
+    .repartition(120, "region"))
+
+optimized.write.mode("overwrite").parquet("/warehouse/sales_curated")</code></pre>
+    </section>
+
+    <section class="concept glass reveal" id="best-practices">
+      <h2>21) Best Practices</h2>
+      <p>Use this production checklist before promoting jobs: schema-first design, partition-aware logic, controlled joins, AQE on, and strong observability.</p>
+      <div class="panel">
+        <div class="table-wrap"><table><thead><tr><th>Do</th><th>Avoid</th></tr></thead><tbody><tr><td>Define schema explicitly</td><td>inferSchema on large files</td></tr><tr><td>Select needed columns only</td><td>select *</td></tr><tr><td>Use built-in SQL functions</td><td>Heavy Python UDFs by default</td></tr><tr><td>Explain plans in CI checks</td><td>Shipping blind execution changes</td></tr></tbody></table></div>
+      </div>
+      <pre class="code"><code># concise production-safe pattern
+source = spark.read.schema(schema).parquet("/raw/orders")
+
+result = (source
+    .select("order_id", "region", "amount", "event_date")
+    .filter("event_date >= '2026-01-01'")
+    .groupBy("region")
+    .sum("amount"))
+
+result.write.mode("overwrite").partitionBy("region").parquet("/curated/orders")</code></pre>
+    </section>
+  </main>
+
+  <script src="../app.js"></script>
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in");
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+  </script>
+</body>
+</html>

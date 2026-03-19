@@ -9,22 +9,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
   <style>
-    .page-wrap { width: min(1160px, calc(100% - 2rem)); margin: 1rem auto 3rem; }
-    .hero-card, .panel { border-radius: 20px; padding: 1rem; }
-    .hero-card { margin-bottom: 1rem; }
-    .hero-card h1 { margin: 0.5rem 0; font-size: clamp(1.6rem, 4vw, 2.5rem); }
-    .panel { margin-bottom: 0.85rem; }
-    .panel h2 { margin: 0 0 0.55rem; font-family: "Sora", "Trebuchet MS", sans-serif; font-size: 1.12rem; }
-    .tier-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.65rem; }
-    .tier, .batch, .issue { border: 1px solid var(--glass-border); background: color-mix(in srgb, var(--accent-b) 10%, var(--glass)); border-radius: 12px; padding: 0.62rem; }
-    .tier strong, .batch strong, .issue strong { display: block; margin-bottom: 0.22rem; }
-    .tier p, .batch p, .issue p { margin: 0; color: var(--muted); font-size: 0.9rem; }
-    .batch-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.6rem; }
-    .issue-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; }
-    .links { display: flex; gap: 0.55rem; flex-wrap: wrap; }
-    .links a { text-decoration: none; border: 1px solid var(--glass-border); background: var(--glass); color: var(--text); border-radius: 999px; padding: 0.35rem 0.68rem; }
-    @media (max-width: 980px) { .tier-grid, .batch-grid, .issue-grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 640px) { .tier-grid, .batch-grid, .issue-grid { grid-template-columns: 1fr; } }
+    .page-wrap { width: min(1200px, calc(100% - 2rem)); margin: 1rem auto 3rem; }
+    .hero, .concept { border-radius: 22px; padding: 1rem; margin-bottom: 0.9rem; }
+    .hero h1 { margin: 0.45rem 0 0.6rem; font-size: clamp(1.6rem, 4vw, 2.7rem); }
+    .hero p, .concept p { margin: 0 0 0.65rem; color: var(--muted); line-height: 1.6; }
+    .toc { border-radius: 18px; padding: 0.8rem; margin-bottom: 0.9rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.45rem; }
+    .toc a { text-decoration: none; color: var(--text); border: 1px solid var(--glass-border); border-radius: 10px; padding: 0.4rem 0.52rem; background: color-mix(in srgb, var(--accent-c) 10%, var(--glass)); font-size: 0.84rem; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+    .panel { border: 1px solid var(--glass-border); border-radius: 14px; padding: 0.65rem; background: color-mix(in srgb, var(--accent-b) 9%, var(--glass)); }
+    .panel h3 { margin: 0 0 0.4rem; font-size: 0.95rem; }
+    .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--glass-border); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+    th, td { padding: 0.42rem 0.5rem; text-align: left; border-bottom: 1px solid var(--glass-border); }
+    th { background: color-mix(in srgb, var(--accent-c) 16%, transparent); }
+    tr:last-child td { border-bottom: none; }
+    .code { margin-top: 0.45rem; padding: 0.75rem; border-radius: 12px; border: 1px solid var(--glass-border); background: color-mix(in srgb, var(--bg-alt) 82%, black 18%); color: #d9e6ff; overflow-x: auto; }
+    .code code { font-family: "JetBrains Mono", Consolas, monospace; font-size: 0.79rem; line-height: 1.45; }
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.45s ease, transform 0.45s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    @media (max-width: 980px) { .toc { grid-template-columns: 1fr 1fr; } .two-col { grid-template-columns: 1fr; } }
+    @media (max-width: 680px) { .toc { grid-template-columns: 1fr; } .page-wrap { width: calc(100% - 1rem); } }
   </style>
 </head>
 <body>
@@ -35,9 +39,11 @@
   <header class="topbar glass">
     <a class="brand" href="../index.html">Data-Guide</a>
     <nav class="menu" aria-label="Spark navigation">
+      <a href="index.html">Spark Hub</a>
+      <a href="spark-theory.html">Theory</a>
       <a href="pyspark-complete-guide.html">Complete</a>
       <a href="pyspark-advanced-guide.html">Advanced</a>
-      <a href="pyspark-interview-examples.html">Interview</a>
+      <a href="pyspark-interview-examples.html" class="active" aria-current="page">Interview</a>
     </nav>
     <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
       <span class="toggle-icon" aria-hidden="true">🌙</span>
@@ -46,50 +52,122 @@
   </header>
 
   <main class="page-wrap">
-    <section class="hero-card glass">
-      <p class="eyebrow">Spark / Interview Track</p>
-      <h1>PySpark Interview Questions and Real Examples</h1>
-      <p class="hero-copy">Content is reorganized from the original interview file into three practical blocks: question tiers, 100-example map, and top production issues.</p>
+    <section class="hero glass reveal">
+      <p class="eyebrow">Spark / Interview + Examples</p>
+      <h1>PySpark Interview Questions with Practical Example Sets</h1>
+      <p>Detailed preparation flow with concept tiers, grouped examples, and issue-resolution drills in the same UI style.</p>
     </section>
 
-    <section class="panel glass">
-      <h2>1) Interview Question Tiers</h2>
-      <div class="tier-grid">
-        <article class="tier"><strong>Basic</strong><p>Spark concepts, context/session differences, transformations vs actions.</p></article>
-        <article class="tier"><strong>Intermediate</strong><p>Partitions, joins, shuffle behavior, persistence, and DAG interpretation.</p></article>
-        <article class="tier"><strong>Advanced</strong><p>AQE internals, skew handling, memory tuning, and execution-plan trade-offs.</p></article>
-        <article class="tier"><strong>Scenario-based</strong><p>Pipeline bottlenecks, scale incidents, debugging order, and design choices.</p></article>
+    <section class="toc glass reveal">
+      <a href="#basic">1. Basic Questions</a>
+      <a href="#intermediate">2. Intermediate</a>
+      <a href="#advanced">3. Advanced</a>
+      <a href="#scenario">4. Scenario Questions</a>
+      <a href="#examples">5. Example Batches</a>
+      <a href="#issues">6. Common Issues</a>
+    </section>
+
+    <section class="concept glass reveal" id="basic">
+      <h2>1) Basic Interview Questions</h2>
+      <p>These test Spark core understanding: execution model, APIs, and transformation/action semantics.</p>
+      <div class="panel">
+        <h3>Typical Q/A</h3>
+        <div class="table-wrap"><table><thead><tr><th>Question</th><th>Expected Answer Focus</th></tr></thead><tbody><tr><td>Difference between transformation and action?</td><td>Lazy plan vs execution trigger</td></tr><tr><td>SparkSession vs SparkContext?</td><td>High-level unified API vs low-level entry point</td></tr><tr><td>Why partitions matter?</td><td>Parallelism and task granularity</td></tr></tbody></table></div>
       </div>
+      <pre class="code"><code># quick demonstration often discussed in interviews
+df = spark.range(10)
+lazy_df = df.filter("id > 5")   # transformation (no execution)
+print(lazy_df.count())          # action (executes)</code></pre>
     </section>
 
-    <section class="panel glass">
-      <h2>2) Top 100 Example Groups</h2>
-      <div class="batch-grid">
-        <article class="batch"><strong>1-20</strong><p>DataFrame basics, filtering, projections, sorting, and null handling.</p></article>
-        <article class="batch"><strong>21-40</strong><p>GroupBy and aggregation patterns with practical metrics pipelines.</p></article>
-        <article class="batch"><strong>41-60</strong><p>Join strategies, union patterns, and combining data from multiple sources.</p></article>
-        <article class="batch"><strong>61-80</strong><p>File ingestion/output for CSV, JSON, Parquet, and structured schemas.</p></article>
-        <article class="batch"><strong>81-100</strong><p>Performance-oriented examples: AQE, broadcast, repartition, and caching.</p></article>
+    <section class="concept glass reveal" id="intermediate">
+      <h2>2) Intermediate Interview Questions</h2>
+      <p>Intermediate round checks your ability to reason about joins, repartitioning, and persistence behavior under scale.</p>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input table (fact)</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>cust_id</th><th>amount</th></tr></thead><tbody><tr><td>1</td><td>C1</td><td>100</td></tr><tr><td>2</td><td>C2</td><td>200</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output table (joined)</h3>
+          <div class="table-wrap"><table><thead><tr><th>order_id</th><th>cust_id</th><th>segment</th></tr></thead><tbody><tr><td>1</td><td>C1</td><td>Premium</td></tr><tr><td>2</td><td>C2</td><td>Basic</td></tr></tbody></table></div>
+        </div>
       </div>
+      <pre class="code"><code>from pyspark.sql.functions import broadcast
+
+joined = fact.join(broadcast(dim_customers), "cust_id", "left")
+joined.persist()
+joined.count()</code></pre>
     </section>
 
-    <section class="panel glass">
-      <h2>3) Common Performance Issues and Fixes</h2>
-      <div class="issue-grid">
-        <article class="issue"><strong>Issue 1-3</strong><p>Selecting all columns, skewed joins, and slow Python UDF usage.</p></article>
-        <article class="issue"><strong>Issue 4-6</strong><p>Missing repartition, over-caching, and accidental `collect()` on large data.</p></article>
-        <article class="issue"><strong>Issue 7-8</strong><p>No broadcast strategy and AQE disabled in variable-shape workloads.</p></article>
-        <article class="issue"><strong>Issue 9-10</strong><p>Wrong file format choices and schema inference overhead in large files.</p></article>
+    <section class="concept glass reveal" id="advanced">
+      <h2>3) Advanced Interview Questions</h2>
+      <p>Advanced rounds focus on performance internals: AQE behavior, skew, memory pressure, and physical plan changes.</p>
+      <div class="panel">
+        <div class="table-wrap"><table><thead><tr><th>Topic</th><th>What interviewer looks for</th></tr></thead><tbody><tr><td>AQE</td><td>Runtime plan adaptation and skew mitigation</td></tr><tr><td>Skew handling</td><td>Salting, skew join settings, pre-aggregation</td></tr><tr><td>Caching strategy</td><td>Selective persistence with lifecycle awareness</td></tr></tbody></table></div>
       </div>
+      <pre class="code"><code>spark.conf.set("spark.sql.adaptive.enabled", "true")
+spark.conf.set("spark.sql.adaptive.skewJoin.enabled", "true")
+
+critical = pipeline_df.repartition(200, "join_key")
+critical.explain("formatted")</code></pre>
     </section>
 
-    <div class="links">
-      <a href="pyspark-complete-guide.html">Open Complete Track</a>
-      <a href="pyspark-advanced-guide.html">Open Advanced Track</a>
-      <a href="../index.html#spark-tracks">Back to Spark Menu</a>
-    </div>
+    <section class="concept glass reveal" id="scenario">
+      <h2>4) Scenario-Based Questions</h2>
+      <p>Scenario questions evaluate debugging mindset: how you isolate bottlenecks and choose fixes in production.</p>
+      <div class="panel">
+        <div class="table-wrap"><table><thead><tr><th>Scenario</th><th>Signal</th><th>Response</th></tr></thead><tbody><tr><td>Job slowed 3x after release</td><td>Shuffle read spikes</td><td>Review joins and partitioning changes</td></tr><tr><td>Executor OOM on one stage</td><td>Single task very long</td><td>Check skew and repartition strategy</td></tr></tbody></table></div>
+      </div>
+      <pre class="code"><code># triage sequence
+job_df.explain("formatted")
+print(job_df.rdd.getNumPartitions())
+job_df.groupBy("join_key").count().orderBy("count", ascending=False).show(10)</code></pre>
+    </section>
+
+    <section class="concept glass reveal" id="examples">
+      <h2>5) Top 100 Examples Grouped</h2>
+      <p>The original 100-example set maps into reusable categories for quick revision and practice.</p>
+      <div class="panel">
+        <div class="table-wrap"><table><thead><tr><th>Batch</th><th>Focus</th><th>Representative snippet</th></tr></thead><tbody><tr><td>1-20</td><td>DataFrame basics</td><td>select, filter, sort</td></tr><tr><td>21-40</td><td>Aggregations</td><td>groupBy + agg</td></tr><tr><td>41-60</td><td>Joins</td><td>inner/left/semi</td></tr><tr><td>61-80</td><td>File types</td><td>CSV/JSON/Parquet IO</td></tr><tr><td>81-100</td><td>Optimization</td><td>AQE, broadcast, repartition</td></tr></tbody></table></div>
+      </div>
+      <pre class="code"><code># compact all-in-one pattern from common examples
+result = (spark.read.parquet("/raw/sales")
+    .select("region", "amount", "event_date")
+    .filter("event_date >= '2026-01-01'")
+    .groupBy("region")
+    .sum("amount"))</code></pre>
+    </section>
+
+    <section class="concept glass reveal" id="issues">
+      <h2>6) Common Performance Issues and Solutions</h2>
+      <p>These are the top interview troubleshooting themes from the source material, reformatted as quick decision aids.</p>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Input issue table</h3>
+          <div class="table-wrap"><table><thead><tr><th>Issue</th><th>Example anti-pattern</th></tr></thead><tbody><tr><td>Selecting all columns</td><td><code>select("*")</code></td></tr><tr><td>Python UDF on hot path</td><td>Row-wise custom UDF</td></tr><tr><td>No broadcast small dimension</td><td>Large shuffle join</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3>Output fix table</h3>
+          <div class="table-wrap"><table><thead><tr><th>Fix</th><th>Benefit</th></tr></thead><tbody><tr><td>Project needed columns only</td><td>Lower I/O and memory</td></tr><tr><td>Use built-in expressions</td><td>Vectorized execution</td></tr><tr><td>Use broadcast + AQE</td><td>Lower shuffle cost</td></tr></tbody></table></div>
+        </div>
+      </div>
+      <pre class="code"><code>from pyspark.sql.functions import broadcast
+
+clean = raw.select("id", "region", "amount")
+result = clean.join(broadcast(dim_region), "region", "left")
+spark.conf.set("spark.sql.adaptive.enabled", "true")</code></pre>
+    </section>
   </main>
 
   <script src="../app.js"></script>
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("in");
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+  </script>
 </body>
 </html>

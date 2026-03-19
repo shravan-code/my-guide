@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data-Guide | Spark Theory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 320px;
+      height: 100vh;
+      padding: 1rem 0.8rem;
+      background: color-mix(in srgb, var(--bg-alt) 84%, var(--glass));
+      border-right: 1px solid var(--glass-border);
+      backdrop-filter: blur(16px);
+      overflow-y: auto;
+      z-index: 1000;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .logo-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--accent-c), var(--accent-a));
+      color: #fff;
+      font-weight: 700;
+    }
+    .logo-text {
+      font-family: "Sora", "Trebuchet MS", sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .nav-title {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin: 0.85rem 0 0.35rem;
+      padding-left: 0.5rem;
+      font-weight: 700;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: var(--muted);
+      padding: 0.5rem 0.55rem;
+      border-radius: 10px;
+      font-size: 0.83rem;
+      margin-bottom: 0.22rem;
+      transition: all 0.2s ease;
+    }
+    .nav-item:hover,
+    .nav-item.active {
+      background: color-mix(in srgb, var(--accent-c) 20%, transparent);
+      color: var(--text);
+      transform: translateX(3px);
+    }
+
+    .main-content {
+      margin-left: 320px;
+      padding: 1rem 1rem 2rem;
+      min-height: 100vh;
+    }
+    .page-wrap { width: min(1200px, 100%); margin: 0 auto; }
+
+    .hero, .topic, .map, .topbar {
+      border-radius: 20px;
+      margin-bottom: 0.85rem;
+    }
+
+    .hero {
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 140px;
+    }
+    .hero h1 { margin: 0; font-size: clamp(1.8rem, 4vw, 3rem); }
+    .hero p { margin: 0; color: var(--muted); }
+    .hero-visual {
+      min-height: 180px;
+      border-radius: 14px;
+      border: 1px solid var(--glass-border);
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 24% 16%, color-mix(in srgb, var(--accent-b) 22%, transparent), transparent 42%),
+        linear-gradient(140deg, color-mix(in srgb, var(--accent-c) 18%, var(--glass)), color-mix(in srgb, var(--accent-a) 10%, var(--glass)));
+    }
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, color-mix(in srgb, var(--text) 8%, transparent) 1px, transparent 1px),
+        linear-gradient(to bottom, color-mix(in srgb, var(--text) 8%, transparent) 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.3;
+    }
+    .dot {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--accent-b) 56%, white);
+      animation: pulse 2.1s ease infinite;
+    }
+    .dot.d1 { left: 14%; bottom: 24%; }
+    .dot.d2 { left: 46%; top: 36%; animation-delay: 0.4s; }
+    .dot.d3 { right: 12%; top: 20%; animation-delay: 0.8s; }
+    .line {
+      position: absolute;
+      height: 2px;
+      background: color-mix(in srgb, var(--accent-c) 44%, var(--accent-b));
+      transform-origin: left center;
+    }
+    .l1 { left: 18%; bottom: 28%; width: 34%; transform: rotate(-21deg); }
+    .l2 { left: 50%; top: 39%; width: 29%; transform: rotate(-25deg); }
+
+    .map { padding: 0.8rem; }
+    .pill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.42rem; }
+    .pill {
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      padding: 0.32rem 0.55rem;
+      text-align: center;
+      color: var(--muted);
+      background: color-mix(in srgb, var(--accent-c) 10%, var(--glass));
+      font-size: 0.8rem;
+    }
+
+    .topic {
+      padding: 0.95rem;
+      display: grid;
+      gap: 0.7rem;
+    }
+    .topic-head {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .topic-badge {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      border: 1px solid var(--glass-border);
+      background: color-mix(in srgb, var(--accent-b) 14%, var(--glass));
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      animation: float 4s ease-in-out infinite;
+    }
+    .topic h2 { margin: 0; font-size: 1.05rem; font-family: "Sora", "Trebuchet MS", sans-serif; }
+    .topic-layout { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 0.7rem; }
+    .topic p { margin: 0; color: var(--muted); line-height: 1.62; }
+
+    .diag {
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      background: color-mix(in srgb, var(--accent-c) 9%, var(--glass));
+      padding: 0.62rem;
+    }
+    .sub-grid {
+      display: grid;
+      gap: 0.55rem;
+      margin-top: 0.55rem;
+    }
+    .sub-card {
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      background: color-mix(in srgb, var(--accent-b) 8%, var(--glass));
+      padding: 0.55rem;
+    }
+    .sub-card h4 {
+      margin: 0 0 0.32rem;
+      font-size: 0.86rem;
+      font-family: "Sora", "Trebuchet MS", sans-serif;
+    }
+    .method-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-top: 0.36rem;
+    }
+    .method-pill {
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      background: var(--glass);
+      padding: 0.2rem 0.45rem;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+    .diag .flow {
+      background: color-mix(in srgb, var(--accent-c) 10%, transparent);
+      border: 1px dashed var(--glass-border);
+      border-radius: 10px;
+      padding: 0.45rem;
+    }
+    .diag h3 { margin: 0 0 0.38rem; font-size: 0.88rem; }
+    .flow { display: flex; align-items: center; gap: 0.3rem; flex-wrap: wrap; }
+    .step {
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      background: color-mix(in srgb, var(--accent-b) 10%, var(--glass));
+      padding: 0.3rem 0.46rem;
+      font-size: 0.76rem;
+      color: var(--text);
+    }
+    .arrow { font-size: 0.75rem; color: var(--muted); }
+    .mini { margin-top: 0.45rem; font-size: 0.77rem; color: var(--muted); }
+
+    .flowchart-large {
+      border: 1px solid var(--glass-border);
+      border-radius: 14px;
+      padding: 0.8rem;
+      background: color-mix(in srgb, var(--accent-c) 8%, var(--glass));
+      margin-bottom: 0.9rem;
+    }
+    .flow-row { display: flex; align-items: center; justify-content: center; gap: 0.45rem; flex-wrap: wrap; }
+    .flow-box {
+      min-width: 120px;
+      text-align: center;
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      padding: 0.45rem 0.55rem;
+      background: var(--glass);
+      font-size: 0.78rem;
+    }
+    .flow-box strong { display: block; font-size: 0.8rem; margin-bottom: 0.12rem; }
+    .flow-mid-arrow { color: var(--muted); }
+
+    .reveal { opacity: 0; transform: translateY(15px); transition: opacity 0.45s ease, transform 0.45s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    @keyframes pulse {
+      0% { transform: scale(1); box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent-b) 44%, transparent); }
+      70% { transform: scale(1.2); box-shadow: 0 0 0 18px color-mix(in srgb, var(--accent-b) 0%, transparent); }
+      100% { transform: scale(1); box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent-b) 0%, transparent); }
+    }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+    @media (max-width: 1024px) {
+      .sidebar { width: 260px; }
+      .main-content { margin-left: 260px; }
+    }
+    @media (max-width: 900px) {
+      .hero, .topic-layout { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="sidebar" id="sidebar">
+    <div class="logo">
+      <div class="logo-icon">TH</div>
+      <span class="logo-text">Spark Theory</span>
+    </div>
+
+    <div class="nav-title">Foundation</div>
+    <a href="#intro" class="nav-item"><span>1</span> Introduction</a>
+    <a href="#architecture" class="nav-item"><span>2</span> Architecture</a>
+    <a href="#transform-actions" class="nav-item"><span>3</span> Transformations & Actions</a>
+    <a href="#rdd" class="nav-item"><span>4</span> RDD</a>
+    <a href="#dataframes" class="nav-item"><span>5</span> DataFrames / Datasets</a>
+    <a href="#lazy" class="nav-item"><span>6</span> Lazy Evaluation</a>
+    <a href="#catalyst" class="nav-item"><span>7</span> Catalyst</a>
+
+    <div class="nav-title">Execution</div>
+    <a href="#jobs-stages-tasks" class="nav-item"><span>8</span> Jobs / Stages / Tasks</a>
+    <a href="#joins" class="nav-item"><span>9</span> Join Strategies</a>
+    <a href="#aqe" class="nav-item"><span>10</span> AQE</a>
+
+    <div class="nav-title">Storage & Performance</div>
+    <a href="#file-formats" class="nav-item"><span>11</span> File Formats</a>
+    <a href="#partitioning" class="nav-item"><span>12</span> Partitioning / Bucketing</a>
+    <a href="#repartition" class="nav-item"><span>13</span> Repartition / Coalesce</a>
+    <a href="#executor-memory" class="nav-item"><span>14</span> Executor Memory</a>
+    <a href="#dpp" class="nav-item"><span>15</span> Dynamic Partition Pruning</a>
+    <a href="#dynamic-allocation" class="nav-item"><span>16</span> Dynamic Allocation</a>
+  </nav>
+
+  <main class="main-content" id="mainContent">
+    <div class="bg-orb orb-a" aria-hidden="true"></div>
+    <div class="bg-orb orb-b" aria-hidden="true"></div>
+    <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+    <div class="page-wrap">
+      <header class="topbar glass reveal">
+        <a class="brand" href="../index.html">Data-Guide</a>
+        <nav class="menu" aria-label="Spark navigation">
+          <a href="index.html">Spark Hub</a>
+          <a href="spark-theory.html" class="active" aria-current="page">Theory</a>
+          <a href="pyspark-complete-guide.html">Complete</a>
+          <a href="pyspark-advanced-guide.html">Advanced</a>
+          <a href="pyspark-interview-examples.html">Interview</a>
+        </nav>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+          <span class="toggle-icon" aria-hidden="true">🌙</span>
+          <span class="toggle-text">Dark</span>
+        </button>
+      </header>
+
+      <section class="hero glass reveal">
+        <h1>Spark Theory</h1>
+      </section>
+
+      <section class="topic glass reveal" id="intro">
+        <div class="topic-head"><span class="topic-badge">1</span><h2>Introduction to Apache Spark</h2></div>
+        <div class="topic-layout">
+          <div>
+            <p>Apache Spark is an open-source distributed computing engine for large-scale data processing. It lets teams run batch ETL, SQL analytics, machine learning, and streaming pipelines using one unified engine instead of separate tools for each workload.</p>
+            <p>Spark evolved from a Berkeley research project (2009) into an Apache top-level project (2014), then expanded with DataFrames, Spark SQL, Structured Streaming, and AQE. This evolution made Spark both developer-friendly and production-ready for modern data platforms.</p>
+            <div class="sub-grid">
+              <div class="sub-card">
+                <h4>What Spark solved</h4>
+                <p>It addressed slow disk-heavy MapReduce patterns, difficult low-level APIs, and fragmented data stacks by enabling in-memory execution, DAG optimization, and reusable high-level APIs.</p>
+              </div>
+              <div class="sub-card">
+                <h4>Why Spark became popular</h4>
+                <p>One engine for multiple workloads, strong cloud support, fault tolerance via lineage, and excellent ecosystem integration with data lakes and warehouses.</p>
+              </div>
+            </div>
+          </div>
+          <aside class="diag">
+            <h3>Spark Evolution Flow</h3>
+            <div class="flow">
+              <span class="step">2009 Research</span><span class="arrow">-></span>
+              <span class="step">RDD Era</span><span class="arrow">-></span>
+              <span class="step">DataFrames / SQL</span><span class="arrow">-></span>
+              <span class="step">Streaming + AQE</span>
+            </div>
+            <p class="mini">From speed-focused research engine to full data platform runtime.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="topic glass reveal" id="architecture">
+        <div class="topic-head"><span class="topic-badge">2</span><h2>Spark Architecture</h2></div>
+        <div class="topic-layout">
+          <div>
+            <p>Spark architecture has clear runtime components. The <strong>Driver</strong> builds and schedules the execution plan. The <strong>Cluster Manager</strong> allocates resources. <strong>Executors</strong> run tasks and store cached partitions. <strong>Worker nodes</strong> host executors. <strong>Jobs, stages, and tasks</strong> define execution granularity.</p>
+            <div class="sub-grid">
+              <div class="sub-card"><h4>Driver</h4><p>Parses user code, builds DAG, coordinates stage execution, and collects action results.</p></div>
+              <div class="sub-card"><h4>Cluster Manager</h4><p>Manages resources and launches executors (Standalone, YARN, Kubernetes, etc.).</p></div>
+              <div class="sub-card"><h4>Executors</h4><p>Run partition-level tasks, perform shuffle operations, and cache/persist intermediate data.</p></div>
+              <div class="sub-card"><h4>Tasks and Stages</h4><p>A job splits into stages at shuffle boundaries; each stage runs many parallel tasks.</p></div>
+            </div>
+          </div>
+          <aside class="diag">
+            <h3>Component Flowchart</h3>
+            <div class="flow">
+              <span class="step">User Code</span><span class="arrow">-></span>
+              <span class="step">Driver</span><span class="arrow">-></span>
+              <span class="step">Cluster Manager</span><span class="arrow">-></span>
+              <span class="step">Workers</span><span class="arrow">-></span>
+              <span class="step">Executors</span><span class="arrow">-></span>
+              <span class="step">Tasks</span>
+            </div>
+            <p class="mini">Control plane on top, distributed compute plane underneath.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="topic glass reveal" id="transform-actions">
+        <div class="topic-head"><span class="topic-badge">3</span><h2>Transformations and Actions</h2></div>
+        <div class="topic-layout">
+          <div class="sub-grid">
+            <div class="sub-card">
+              <h4>Block A: Transformations (Lazy)</h4>
+              <p>Transformations create a new DataFrame/RDD from existing data without executing immediately. Spark builds a logical plan and defers execution until an action appears, enabling whole-query optimization.</p>
+              <div class="method-list">
+                <span class="method-pill">select()</span><span class="method-pill">filter()</span><span class="method-pill">withColumn()</span>
+                <span class="method-pill">join()</span><span class="method-pill">groupBy()</span><span class="method-pill">repartition()</span>
+              </div>
+              <p class="mini">Used for shaping data pipelines and composing business logic.</p>
+            </div>
+            <div class="sub-card">
+              <h4>Block B: Actions (Execution Trigger)</h4>
+              <p>Actions trigger actual computation and either return results to the driver or write output to storage. They materialize the optimized physical plan as Spark jobs.</p>
+              <div class="method-list">
+                <span class="method-pill">count()</span><span class="method-pill">show()</span><span class="method-pill">collect()</span>
+                <span class="method-pill">take()</span><span class="method-pill">first()</span><span class="method-pill">write()</span>
+              </div>
+              <p class="mini">Used when you need final output, metrics, or persisted data products.</p>
+            </div>
+          </div>
+          <aside class="diag">
+            <h3>Execution Relationship</h3>
+            <div class="flow">
+              <span class="step">Transform</span><span class="arrow">-></span>
+              <span class="step">Transform</span><span class="arrow">-></span>
+              <span class="step">Transform</span><span class="arrow">-></span>
+              <span class="step">Action</span><span class="arrow">-></span>
+              <span class="step">Job Runs</span>
+            </div>
+            <p class="mini">No action means no execution; action triggers full plan evaluation.</p>
+          </aside>
+        </div>
+      </section>
+      <section class="topic glass reveal" id="rdd"><div class="topic-head"><span class="topic-badge">4</span><h2>Resilient Distributed Dataset (RDD)</h2></div><div class="topic-layout"><div><p>RDD is Spark's foundational immutable distributed data abstraction. It tracks lineage rather than storing every intermediate state, which enables selective recomputation on failure.</p><p>RDD provides fine-grained control but requires manual optimization. DataFrames are usually preferred in production due to optimizer support, but RDD remains valuable for low-level custom logic.</p></div><aside class="diag"><h3>Fault Recovery</h3><div class="flow"><span class="step">RDD A</span><span class="arrow">-></span><span class="step">RDD B</span><span class="arrow">-></span><span class="step">RDD C</span></div><p class="mini">Lineage allows targeted recomputation.</p></aside></div></section>
+      <section class="topic glass reveal" id="dataframes"><div class="topic-head"><span class="topic-badge">5</span><h2>DataFrames and Datasets</h2></div><div class="topic-layout"><div><p>DataFrames add schema and relational semantics, enabling Spark to apply advanced optimizations such as predicate pushdown, projection pruning, and expression simplification.</p><p>Datasets add typed semantics in JVM languages. For Python data engineering, DataFrames are the practical default for maintainable, high-performance workflows.</p></div><aside class="diag"><h3>Abstraction Ladder</h3><div class="flow"><span class="step">RDD</span><span class="arrow">-></span><span class="step">DataFrame</span><span class="arrow">-></span><span class="step">Optimized SQL plan</span></div><p class="mini">Higher abstraction yields stronger automatic tuning.</p></aside></div></section>
+      <section class="topic glass reveal" id="lazy"><div class="topic-head"><span class="topic-badge">6</span><h2>Lazy Evaluation</h2></div><div class="topic-layout"><div><p>Lazy evaluation delays physical execution until a result is required. This gives Spark visibility over the full plan and allows operation reordering for better cost profiles.</p><p>In real workloads, lazy evaluation reduces unnecessary compute by applying selectivity early and minimizing data movement before wide operations.</p></div><aside class="diag"><h3>Optimization Window</h3><div class="flow"><span class="step">Build plan</span><span class="arrow">-></span><span class="step">Optimize</span><span class="arrow">-></span><span class="step">Execute</span></div><p class="mini">Deferred execution improves global query efficiency.</p></aside></div></section>
+      <section class="topic glass reveal" id="catalyst"><div class="topic-head"><span class="topic-badge">7</span><h2>Catalyst Optimizer</h2></div><div class="topic-layout"><div><p>Catalyst transforms logical intent into efficient physical plans via rule-based and cost-aware passes. It performs simplification, pushdown, and operator-level rewrites.</p><p>Optimizer-friendly code is declarative, deterministic, and schema-explicit. Avoid opaque logic when built-ins can express intent.</p></div><aside class="diag"><h3>Catalyst Pipeline</h3><div class="flow"><span class="step">Logical plan</span><span class="arrow">-></span><span class="step">Optimization rules</span><span class="arrow">-></span><span class="step">Physical plan</span></div><p class="mini">Query clarity directly helps optimizer quality.</p></aside></div></section>
+      <section class="topic glass reveal" id="jobs-stages-tasks"><div class="topic-head"><span class="topic-badge">8</span><h2>Jobs, Stages, and Tasks</h2></div><div class="topic-layout"><div><p>An action creates a job. Jobs split into stages at shuffle boundaries. Stages split into tasks per partition. This hierarchy explains runtime behavior in Spark UI and cluster observability tools.</p><p>Slow stages usually indicate heavy shuffle or skew; long-tail tasks usually indicate uneven partition sizes or hot keys.</p></div><aside class="diag"><h3>Execution Hierarchy</h3><div class="flow"><span class="step">Job</span><span class="arrow">-></span><span class="step">Stages</span><span class="arrow">-></span><span class="step">Tasks</span></div><p class="mini">Partitioning strategy controls practical parallelism.</p></aside></div></section>
+      <section class="topic glass reveal" id="joins"><div class="topic-head"><span class="topic-badge">9</span><h2>Join Strategies</h2></div><div class="topic-layout"><div><p>Spark selects join strategies based on data shape and statistics. Broadcast hash joins suit small dimensions; sort-merge joins suit large-large joins; skew-aware handling is critical where key distributions are uneven.</p><p>Join strategy is often the highest-leverage performance decision in analytical pipelines.</p></div><aside class="diag"><h3>Join Decision</h3><div class="flow"><span class="step">Small + Large</span><span class="arrow">-></span><span class="step">Broadcast</span></div><div class="flow" style="margin-top:0.3rem;"><span class="step">Large + Large</span><span class="arrow">-></span><span class="step">Sort-Merge</span></div><p class="mini">Correct strategy minimizes network and shuffle cost.</p></aside></div></section>
+      <section class="topic glass reveal" id="aqe"><div class="topic-head"><span class="topic-badge">10</span><h2>Adaptive Query Execution (AQE)</h2></div><div class="topic-layout"><div><p>AQE revises plans at runtime using real statistics from completed stages. It can coalesce partitions, alter join strategies, and split skewed partitions dynamically.</p><p>It improves latency consistency when incoming data distributions vary over time.</p></div><aside class="diag"><h3>AQE Adaptation</h3><div class="flow"><span class="step">Initial plan</span><span class="arrow">-></span><span class="step">Runtime stats</span><span class="arrow">-></span><span class="step">Adaptive plan</span></div><p class="mini">AQE aligns execution with actual data behavior.</p></aside></div></section>
+      <section class="topic glass reveal" id="file-formats"><div class="topic-head"><span class="topic-badge">11</span><h2>Common File Formats</h2></div><div class="topic-layout"><div><p>CSV/JSON are flexible at ingest but expensive for analytics. Parquet/ORC are columnar and support selective reads and compression. Mature lakehouse architectures use text formats at boundaries and columnar formats in curated layers.</p><p>Format selection should follow query behavior and workload profile, not habit.</p></div><aside class="diag"><h3>Format Positioning</h3><div class="flow"><span class="step">Ingest</span><span class="arrow">-></span><span class="step">CSV / JSON</span></div><div class="flow" style="margin-top:0.3rem;"><span class="step">Curated</span><span class="arrow">-></span><span class="step">Parquet / ORC</span></div><p class="mini">Store by access pattern to avoid wasted I/O.</p></aside></div></section>
+      <section class="topic glass reveal" id="partitioning"><div class="topic-head"><span class="topic-badge">12</span><h2>Partitioning and Bucketing</h2></div><div class="topic-layout"><div><p>Partitioning physically groups data by directory-level keys to prune scans early. Bucketing uses hash grouping to improve join/aggregation locality. Done well, both reduce expensive data movement.</p><p>Bad partition strategy causes tiny-file explosions or broad scans. Balance key cardinality with query selectivity.</p></div><aside class="diag"><h3>Storage Layout</h3><div class="flow"><span class="step">Table</span><span class="arrow">-></span><span class="step">Partitions</span><span class="arrow">-></span><span class="step">Buckets</span></div><p class="mini">Physical layout choices drive downstream performance.</p></aside></div></section>
+      <section class="topic glass reveal" id="repartition"><div class="topic-head"><span class="topic-badge">13</span><h2>Repartition and Coalesce</h2></div><div class="topic-layout"><div><p>Repartition reshuffles to rebalance or increase partition count. Coalesce reduces partition count with minimal shuffle, usually before write operations.</p><p>Use repartition strategically after key-changing operations, and coalesce for output file quality and sink efficiency.</p></div><aside class="diag"><h3>Partition Control</h3><div class="flow"><span class="step">Imbalance</span><span class="arrow">-></span><span class="step">repartition()</span></div><div class="flow" style="margin-top:0.3rem;"><span class="step">Too many files</span><span class="arrow">-></span><span class="step">coalesce()</span></div><p class="mini">Partition shape controls speed and file layout.</p></aside></div></section>
+      <section class="topic glass reveal" id="executor-memory"><div class="topic-head"><span class="topic-badge">14</span><h2>Executor Memory</h2></div><div class="topic-layout"><div><p>Executor memory is shared between execution and storage. Memory pressure appears as spills, long GC, and out-of-memory failures. Good tuning blends memory sizing with row-width control and partition sizing.</p><p>Increasing memory alone is not enough; workload structure and caching decisions are equally important.</p></div><aside class="diag"><h3>Memory Split</h3><div class="flow"><span class="step">Executor heap</span><span class="arrow">-></span><span class="step">Execution</span><span class="arrow">+</span><span class="step">Storage</span></div><p class="mini">Balanced usage prevents spill-heavy execution.</p></aside></div></section>
+      <section class="topic glass reveal" id="dpp"><div class="topic-head"><span class="topic-badge">15</span><h2>Dynamic Partition Pruning</h2></div><div class="topic-layout"><div><p>Dynamic partition pruning applies join-derived runtime filters to skip irrelevant partitions before scanning large fact datasets. It is especially effective for star schema queries.</p><p>This reduces read amplification and improves query latency without major query rewrites.</p></div><aside class="diag"><h3>Pruning Path</h3><div class="flow"><span class="step">Filtered dimension</span><span class="arrow">-></span><span class="step">Prune fact partitions</span><span class="arrow">-></span><span class="step">Join</span></div><p class="mini">Prune first, then process less data.</p></aside></div></section>
+      <section class="topic glass reveal" id="dynamic-allocation"><div class="topic-head"><span class="topic-badge">16</span><h2>Dynamic Resource Allocation</h2></div><div class="topic-layout"><div><p>Dynamic allocation scales executors with workload pressure. It helps shared clusters stay efficient by adding capacity for bursts and reclaiming resources during idle periods.</p><p>Stable results require sensible min/max boundaries and healthy shuffle/service settings to avoid thrashing.</p></div><aside class="diag"><h3>Elasticity Loop</h3><div class="flow"><span class="step">Backlog up</span><span class="arrow">-></span><span class="step">Add executors</span></div><div class="flow" style="margin-top:0.3rem;"><span class="step">Backlog down</span><span class="arrow">-></span><span class="step">Remove executors</span></div><p class="mini">Elastic compute with guardrails improves cost/perf balance.</p></aside></div></section>
+    </div>
+  </main>
+
+  <script src="../app.js"></script>
+  <script>
+    document.querySelectorAll(".nav-item").forEach((item) => {
+      item.addEventListener("click", function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute("href").substring(1);
+        const target = document.getElementById(targetId);
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+    });
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute("id");
+          document.querySelectorAll(".nav-item").forEach((item) => {
+            item.classList.toggle("active", item.getAttribute("href") === "#" + id);
+          });
+        }
+      });
+    }, { root: null, rootMargin: "-20% 0px -65% 0px", threshold: 0 });
+
+    document.querySelectorAll(".topic[id]").forEach((el) => sectionObserver.observe(el));
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("in");
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+  </script>
+</body>
+</html>
