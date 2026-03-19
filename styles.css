@@ -34,6 +34,72 @@ body {
   min-height: 100%;
 }
 
+/* Shared header for Theory and Code pages (centered, floating header) */
+.code-topbar {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(900px, calc(100% - 2rem));
+  height: 68px;
+  border-radius: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: linear-gradient(115deg, rgba(20,20,40,.95), rgba(0,0,0,.25));
+  color: #fff;
+  z-index: 2000;
+  box-shadow: 0 14px 28px rgba(0,0,0,.25);
+  border: none;
+}
+.code-topbar-inner {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+}
+.menu.center {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  gap: 0.9rem;
+}
+@media (max-width: 860px) {
+  .code-topbar {
+    left: 0;
+    right: 0;
+    width: 100%;
+    border-radius: 0;
+  }
+  .main-content { margin-left: 0; }
+}
+
+/* Theory page: simple card block for highlights */
+.card {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 6px 14px rgba(0,0,0,.08);
+  margin: 1rem 0;
+}
+.card h3 { margin: 0 0 0.5rem; font-family: "Sora", sans-serif; font-size: 1.05rem; }
+.card p { margin: 0; color: var(--muted); }
+/* Revert to stable typography baseline */
+html { font-size: 16px; }
+body { font-size: 1rem; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.25rem; }
+
+@media (max-width: 768px) {
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.25rem; }
+  h3 { font-size: 1.1rem; }
+}
+
 body {
   font-family: "Space Grotesk", "Segoe UI", sans-serif;
   background:
@@ -102,6 +168,18 @@ body {
   gap: 1rem;
   backdrop-filter: blur(14px);
   box-shadow: 0 16px 36px color-mix(in srgb, var(--accent-c) 16%, transparent);
+  overflow: hidden;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  flex-wrap: nowrap;
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 .brand {
@@ -141,8 +219,8 @@ body {
   align-items: center;
   text-decoration: none;
   color: var(--muted);
-  padding: 0.34rem 0.62rem;
-  border-radius: 999px;
+  padding: 0.5rem 0.8rem;
+  border-radius: 12px;
   border: 1px solid transparent;
   background: color-mix(in srgb, var(--glass) 88%, transparent);
   transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
@@ -261,6 +339,9 @@ main {
   margin: 1rem auto 3rem;
 }
 
+/* Ensure hero headings are centered for consistency across pages (Code, Theory, etc.) */
+.hero h1 { text-align: center; }
+
 .glass {
   background: linear-gradient(
     145deg,
@@ -270,6 +351,67 @@ main {
   border: 1px solid color-mix(in srgb, var(--accent-c) 24%, var(--glass-border));
   box-shadow: var(--shadow);
   backdrop-filter: blur(16px);
+}
+
+/* Floating Code header attached to right of left sidebar */
+.code-topbar {
+  position: fixed;
+  top: 16px;
+  left: 320px; /* align with left sidebar */
+  width: calc(100% - 320px);
+  height: 68px;
+  border-radius: 28px;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  background: linear-gradient(115deg, rgba(20,20,40,.95), rgba(0,0,0,.25));
+  color: #fff;
+  z-index: 2000;
+  box-shadow: 0 14px 28px rgba(0,0,0,.25);
+  border: none;
+}
+
+.code-topbar-inner {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  height: 68px;
+}
+.code-content {
+  margin-left: 320px;
+  padding-top: 110px; /* space for the floating header */
+}
+
+@media (max-width: 860px) {
+  .code-topbar {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 2rem);
+  }
+  .code-content {
+    margin-left: 0;
+    padding-top: 110px;
+  }
+}
+
+/* Remove card styling from content sections */
+.glass {
+  /* keep global glass look if used elsewhere; header now floats */
+}
+
+/* Remove card styling from content sections */
+.hero.glass,
+.logo-stage.glass,
+.spark-tracks.glass,
+.topic.glass {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  border-radius: 0;
 }
 
 .hero {
