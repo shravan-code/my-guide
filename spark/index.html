@@ -10,59 +10,44 @@
   <link rel="stylesheet" href="../styles.css" />
   <style>
     .wrap { width: min(1160px, calc(100% - 2rem)); margin: 1rem auto 3rem; }
-    .hero {
-      border-radius: 24px;
-      padding: clamp(1.5rem, 3vw, 2.4rem);
-      margin-bottom: 1rem;
-      position: relative;
-      overflow: hidden;
-      border: 1px solid color-mix(in srgb, var(--accent-c) 34%, var(--glass-border));
-      background:
-        radial-gradient(circle at 14% 16%, color-mix(in srgb, var(--accent-a) 28%, transparent), transparent 42%),
-        radial-gradient(circle at 88% 12%, color-mix(in srgb, var(--accent-b) 24%, transparent), transparent 48%),
-        linear-gradient(
-          132deg,
-          color-mix(in srgb, var(--accent-c) 12%, var(--glass)),
-          color-mix(in srgb, var(--accent-a) 8%, var(--glass))
-        );
+
+    /* Hero Responsive */
+    .hero h1 { font-size: clamp(1.3rem, 4vw, 2.2rem); }
+    .hero p { font-size: clamp(0.85rem, 2vw, 1rem); }
+
+    /* Spark Tracks Grid - Responsive */
+    .spark-tracks { padding: clamp(1rem, 3vw, 1.5rem); }
+    .spark-tracks h2 { font-size: clamp(1rem, 3vw, 1.3rem); }
+    .spark-track-grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
+      gap: 0.75rem; 
+      margin-top: 1rem;
     }
-    .hero::after {
-      content: "";
-      position: absolute;
-      left: -10%;
-      right: -10%;
-      bottom: -56%;
-      height: 68%;
-      filter: blur(28px);
-      opacity: 0.5;
-      background: linear-gradient(90deg, color-mix(in srgb, var(--accent-b) 32%, transparent), color-mix(in srgb, var(--accent-c) 28%, transparent));
-      pointer-events: none;
+    .spark-track h3 { font-size: clamp(0.9rem, 2.5vw, 1.1rem); }
+    .spark-track p { font-size: clamp(0.75rem, 2vw, 0.87rem); }
+
+    /* Tablet - 2 columns */
+    @media (max-width: 900px) {
+      .spark-track-grid { grid-template-columns: repeat(2, 1fr); }
+      .wrap { margin: 0.75rem auto 2rem; }
+      .hero { padding: clamp(1rem, 4vw, 1.5rem); }
     }
-    .hero > * { position: relative; z-index: 1; }
-    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.8rem; }
-    .card {
-      border-radius: 16px;
-      padding: 0.95rem;
-      text-decoration: none;
-      color: var(--text);
-      border: 1px solid color-mix(in srgb, var(--accent-c) 30%, var(--glass-border));
-      background: linear-gradient(
-        138deg,
-        color-mix(in srgb, var(--accent-c) 13%, var(--glass)),
-        color-mix(in srgb, var(--accent-b) 11%, var(--glass))
-      );
-      box-shadow: 0 16px 30px color-mix(in srgb, var(--accent-c) 16%, transparent);
-      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+
+    /* Mobile - 1 column */
+    @media (max-width: 600px) {
+      .spark-track-grid { grid-template-columns: 1fr; }
+      .spark-tracks { padding: 0.9rem; }
+      .hero h1 { font-size: 1.2rem; }
+      .hero { padding: 1rem; }
+      .topbar { padding: 0.6rem 0.75rem; }
+      .menu a { padding: 0.3rem 0.5rem; font-size: 0.85rem; }
     }
-    .card h2 { margin: 0 0 0.5rem; font-family: "Sora", "Trebuchet MS", sans-serif; font-size: 1.05rem; }
-    .card p { margin: 0; color: var(--muted); }
-    .card:hover,
-    .card:focus-visible {
-      transform: translateY(-5px);
-      border-color: color-mix(in srgb, var(--accent-c) 44%, var(--glass-border));
-      box-shadow: 0 20px 36px color-mix(in srgb, var(--accent-c) 22%, transparent);
+
+    /* Large Desktop */
+    @media (min-width: 1400px) {
+      .spark-track-grid { grid-template-columns: repeat(4, 1fr); }
     }
-    @media (max-width: 900px) { .cards { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -76,9 +61,6 @@
       <a href="index.html" class="active" aria-current="page">Spark Hub</a>
       <a href="spark-theory.html">Theory</a>
       <a href="pyspark-code-guide.html">Code</a>
-      <a href="pyspark-complete-guide.html">Complete</a>
-      <a href="pyspark-advanced-guide.html">Advanced</a>
-      <a href="pyspark-interview-examples.html">Interview</a>
     </nav>
     <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
       <span class="toggle-icon" aria-hidden="true">🌙</span>
@@ -93,27 +75,120 @@
       <p class="hero-copy">Foundations for full coverage, advanced patterns for performance engineering, and interview-focused prep for revision.</p>
     </section>
 
-    <section class="cards" aria-label="Spark tracks">
-      <a class="card" href="spark-theory.html">
-        <h2>Theory</h2>
-        <p>Foundational Spark concepts, execution internals, and optimization principles in guided order.</p>
-      </a>
-      <a class="card" href="pyspark-code-guide.html">
-        <h2>Code Track</h2>
-        <p>Step-by-step PySpark coding topics: SparkSession, I/O, columns, filters, joins, pivoting, nulls, and windows.</p>
-      </a>
-      <a class="card" href="pyspark-complete-guide.html">
-        <h2>Complete Mastery</h2>
-        <p>Architecture, APIs, transformations, joins, partitioning, AQE, streaming, and best practices.</p>
-      </a>
-      <a class="card" href="pyspark-advanced-guide.html">
-        <h2>Advanced Engineering</h2>
-        <p>File handling, window functions, skew mitigation, and practical performance debugging patterns.</p>
-      </a>
-      <a class="card" href="pyspark-interview-examples.html">
-        <h2>Interview and Examples</h2>
-        <p>Question tiers, 100-example map, and the most common production issue fix patterns.</p>
-      </a>
+    <section class="spark-tracks glass" aria-label="Spark architecture flow">
+      <div class="spark-heading">
+        <h2>Data Flow Pipeline</h2>
+      </div>
+      <div class="spark-track-grid">
+        <div class="spark-track" style="text-align:center; cursor:default;">
+          <h3 style="color: var(--accent-a);">📁 Data Sources</h3>
+          <p style="font-size:0.85rem;">CSV, JSON, Parquet, S3, HDFS, JDBC, Kafka</p>
+        </div>
+        <div class="spark-track" style="text-align:center; cursor:default;">
+          <h3 style="color: var(--accent-c);">🐍 PySpark Driver</h3>
+          <p style="font-size:0.85rem;">SparkContext, Catalyst, Tungsten, DAG Scheduler</p>
+        </div>
+        <div class="spark-track" style="text-align:center; cursor:default;">
+          <h3 style="color: var(--accent-b);">⚡ Cluster Workers</h3>
+          <p style="font-size:0.85rem;">YARN/K8s, Executors, Task Scheduling, Shuffle</p>
+        </div>
+        <div class="spark-track" style="text-align:center; cursor:default;">
+          <h3 style="color: #22c55e;">💾 Output</h3>
+          <p style="font-size:0.85rem;">Data Lakes, Dashboards, Warehouses, Streaming</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="spark-tracks glass" aria-label="Driver components">
+      <div class="spark-heading">
+        <h2>Driver Components</h2>
+      </div>
+      <div class="spark-track-grid">
+        <div class="spark-track" style="text-align:center; cursor:default;">
+          <h3>Catalyst</h3>
+          <p>Query optimizer for logical and physical plans</p>
+        </div>
+        <div class="spark-track" style="text-align:center; cursor:default;">
+          <h3>Tungsten</h3>
+          <p>Off-heap memory, cache-aware, code generation</p>
+        </div>
+        <div class="spark-track" style="text-align:center; cursor:default;">
+          <h3>DAG Scheduler</h3>
+          <p>Breaks jobs into stages and tasks</p>
+        </div>
+        <div class="spark-track" style="text-align:center; cursor:default;">
+          <h3>Task Scheduler</h3>
+          <p>Launches tasks on executors via cluster manager</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="spark-tracks glass" aria-label="Execution stages">
+      <div class="spark-heading">
+        <h2>Execution Pipeline</h2>
+      </div>
+      <div class="spark-track-grid">
+        <div class="spark-track" style="text-align:center; cursor:default;">
+          <h3>1️⃣ Ingest</h3>
+          <p>Read from sources</p>
+        </div>
+        <div class="spark-track" style="text-align:center; cursor:default;">
+          <h3>2️⃣ Transform</h3>
+          <p>Select, filter, join</p>
+        </div>
+        <div class="spark-track" style="text-align:center; cursor:default;">
+          <h3>3️⃣ Partition</h3>
+          <p>Shuffle and partition</p>
+        </div>
+        <div class="spark-track" style="text-align:center; cursor:default;">
+          <h3>4️⃣ Optimize</h3>
+          <p>AQE, broadcast, cache</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="spark-tracks glass" aria-label="Cluster managers">
+      <div class="spark-heading">
+        <h2>Cluster Managers</h2>
+      </div>
+      <div class="spark-track-grid">
+        <div class="spark-track" style="text-align:center; cursor:default;">
+          <h3>☸️ YARN</h3>
+          <p>Hadoop resource manager</p>
+        </div>
+        <div class="spark-track" style="text-align:center; cursor:default;">
+          <h3>🐳 Kubernetes</h3>
+          <p>Container orchestration</p>
+        </div>
+        <div class="spark-track" style="text-align:center; cursor:default;">
+          <h3>⚙️ Standalone</h3>
+          <p>Built-in manager</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="spark-tracks glass" aria-label="Data formats">
+      <div class="spark-heading">
+        <h2>Supported Formats</h2>
+      </div>
+      <div class="spark-track-grid">
+        <div class="spark-track" style="text-align:center; cursor:default;">
+          <h3>📄 CSV / JSON</h3>
+          <p>Flat files</p>
+        </div>
+        <div class="spark-track" style="text-align:center; cursor:default;">
+          <h3>🗄️ Parquet</h3>
+          <p>Columnar format</p>
+        </div>
+        <div class="spark-track" style="text-align:center; cursor:default;">
+          <h3>🪣 S3 / GCS</h3>
+          <p>Cloud storage</p>
+        </div>
+        <div class="spark-track" style="text-align:center; cursor:default;">
+          <h3>📨 Kafka</h3>
+          <p>Streaming</p>
+        </div>
+      </div>
     </section>
   </main>
 
