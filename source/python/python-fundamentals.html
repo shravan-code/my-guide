@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Guide | Python Fundamentals</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 300px;
+      height: 100vh;
+      padding: 1.2rem 0.8rem;
+      background: var(--glass);
+      backdrop-filter: blur(var(--glass-blur));
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      border-right: 1px solid var(--glass-border);
+      box-shadow: var(--shadow-md);
+      overflow-y: auto;
+      z-index: 1000;
+    }
+
+    .sidebar::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .sidebar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+      background: var(--glass-border);
+      border-radius: 3px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .logo-text {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .nav-title {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin: 1.2rem 0 0.5rem;
+      padding-left: 0.6rem;
+      font-weight: 600;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: var(--text-secondary);
+      padding: 0.55rem 0.7rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
+      background: transparent;
+      font-size: 0.88rem;
+      font-weight: 500;
+      margin-bottom: 0.15rem;
+      transition: all var(--transition);
+    }
+
+    .nav-item:hover {
+      color: var(--text);
+      background: var(--bg-alt);
+      border-color: var(--glass-border);
+    }
+
+    .nav-item.active {
+      color: var(--text);
+      background: var(--bg-alt);
+      border-color: var(--glow-border);
+      box-shadow: var(--shadow-sm), inset 0 0 0 1px var(--glow-border);
+    }
+
+    .main-content {
+      margin-left: 300px;
+      padding: 1.5rem 2rem 3rem;
+      min-height: 100vh;
+    }
+
+    .page-wrap {
+      width: min(1100px, 100%);
+      margin: 0 auto;
+    }
+
+    .page-wrap .topbar {
+      width: 100%;
+      margin: 0 0 1.2rem;
+      position: relative;
+      z-index: 100;
+    }
+
+    .topbar {
+      border-radius: var(--radius-lg);
+      position: relative;
+      z-index: 100;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 2rem 2rem 1rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.3rem, 4vw, 2rem);
+    }
+
+    .topic-section {
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+      border-radius: var(--radius);
+      background: var(--glass);
+      backdrop-filter: blur(var(--glass-blur));
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--shadow);
+    }
+
+    .topic-section h2 {
+      margin: 0 0 0.75rem;
+      font-size: 1.1rem;
+      font-family: "Sora", sans-serif;
+      color: var(--text);
+    }
+
+    .topic-section p {
+      margin: 0 0 0.75rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .topic-section ul {
+      margin: 0;
+      padding-left: 1.5rem;
+      color: var(--text-secondary);
+    }
+
+    .topic-section li {
+      margin-bottom: 0.35rem;
+      line-height: 1.5;
+    }
+
+    .code-block {
+      background: var(--bg-alt);
+      border: 1px solid var(--glow-border);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      margin: 0.75rem 0;
+      overflow-x: auto;
+    }
+
+    .code-block code {
+      font-family: "Fira Code", "Consolas", monospace;
+      font-size: 0.85rem;
+      color: var(--text);
+      white-space: pre;
+    }
+
+    .keyword { color: #c678dd; }
+    .function { color: #61afef; }
+    .string { color: #98c379; }
+    .number { color: #d19a66; }
+    .comment { color: #5c6370; font-style: italic; }
+    .operator { color: #56b6c2; }
+
+    .concept-pill {
+      display: inline-block;
+      background: var(--bg-alt);
+      border: 1px solid var(--glow-border);
+      border-radius: 20px;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin: 0.2rem;
+    }
+
+    .split-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .split-item {
+      background: var(--bg-alt);
+      border: 1px solid var(--glow-border);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+    }
+
+    .split-item h3 {
+      margin: 0 0 0.5rem;
+      font-size: 0.95rem;
+      font-family: "Sora", sans-serif;
+      color: var(--text);
+    }
+
+    .split-item p {
+      margin: 0;
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+      }
+
+      .main-content {
+        margin-left: 0;
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="sidebar" id="sidebar">
+    <div class="logo">
+      <span class="logo-text">Python Fundamentals</span>
+    </div>
+
+    <div class="nav-title">Getting Started</div>
+    <a href="#what-is-python" class="nav-item active"><span>1</span> What is Python?</a>
+    <a href="#why-python" class="nav-item"><span>2</span> Why Python?</a>
+    <a href="#syntax-basics" class="nav-item"><span>3</span> Syntax Basics</a>
+
+    <div class="nav-title">Data Structures</div>
+    <a href="#data-types" class="nav-item"><span>4</span> Data Types</a>
+    <a href="#collections" class="nav-item"><span>5</span> Lists & Dictionaries</a>
+
+    <div class="nav-title">Control Flow</div>
+    <a href="#conditionals-loops" class="nav-item"><span>6</span> Conditionals & Loops</a>
+    <a href="#functions-modules" class="nav-item"><span>7</span> Functions & Modules</a>
+
+    <div class="nav-title">Practical</div>
+    <a href="#working-with-files" class="nav-item"><span>8</span> Working with Files</a>
+    <a href="#next-steps" class="nav-item"><span>9</span> Next Steps</a>
+  </nav>
+
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <header class="topbar glass reveal in">
+    <a class="brand" href="../../index.html">Data Guide</a>
+    <nav class="menu" aria-label="Python menu">
+      <a href="index.html">Python Hub</a>
+      <a href="python-fundamentals.html" class="active" aria-current="page">Fundamentals</a>
+      <a href="python-oops.html">OOPs</a>
+      <a href="python-basics.html">Basics</a>
+      <a href="python-advanced.html">Advanced</a>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+      <span class="toggle-icon" aria-hidden="true">☾</span>
+      <span class="toggle-text">Dark</span>
+    </button>
+  </header>
+
+  <main class="main-content">
+    <div class="page-wrap">
+      <section class="hero">
+        <h1>Python Fundamentals</h1>
+      </section>
+
+      <section class="topic-section" id="what-is-python">
+        <h2>What is Python?</h2>
+        <p>
+          Python is a high-level, interpreted programming language known for its clean syntax and readability.
+          Created by Guido van Rossum in 1991, it emphasizes code simplicity and supports multiple
+          programming paradigms including procedural, object-oriented, and functional programming.
+        </p>
+        <div class="concept-pill">Easy to Learn</div>
+        <div class="concept-pill">Versatile</div>
+        <div class="concept-pill">Powerful</div>
+        <div class="concept-pill">Open Source</div>
+      </section>
+
+      <section class="topic-section" id="why-python">
+        <h2>Why Python for Data Engineering?</h2>
+        <p>
+          Python has become the de facto language for data engineering due to its rich ecosystem of
+          libraries and frameworks designed for data processing, analysis, and machine learning.
+        </p>
+        <div class="split-grid">
+          <div class="split-item">
+            <h3>Data Processing</h3>
+            <p>Pandas, NumPy, Dask for handling large datasets efficiently.</p>
+          </div>
+          <div class="split-item">
+            <h3>Big Data</h3>
+            <p>PySpark, Koalas, Databricks integration for distributed computing.</p>
+          </div>
+          <div class="split-item">
+            <h3>ETL Pipelines</h3>
+            <p>Airflow, Prefect, Luigi for orchestrating data workflows.</p>
+          </div>
+          <div class="split-item">
+            <h3>Cloud Integration</h3>
+            <p>Native support for AWS, Azure, GCP services and APIs.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="topic-section" id="syntax-basics">
+        <h2>Python Syntax Basics</h2>
+        <p>Python uses indentation to define code blocks, making it visually clean and easy to read.</p>
+        <div class="code-block">
+<code><span class="comment"># Your first Python program</span>
+<span class="function">print</span>(<span class="string">"Hello, World!"</span>)
+
+<span class="comment"># Variables and types</span>
+name = <span class="string">"Alice"</span>      <span class="comment"># str</span>
+age = <span class="number">25</span>                <span class="comment"># int</span>
+height = <span class="number">5.7</span>             <span class="comment"># float</span>
+is_student = <span class="keyword">True</span>       <span class="comment"># bool</span></code>
+        </div>
+      </section>
+
+      <section class="topic-section" id="data-types">
+        <h2>Data Types in Python</h2>
+        <p>Python has several built-in data types that form the foundation of data manipulation.</p>
+        <ul>
+          <li><strong>Text Type:</strong> <code>str</code> - "Hello World"</li>
+          <li><strong>Numeric Types:</strong> <code>int</code>, <code>float</code>, <code>complex</code></li>
+          <li><strong>Sequence Types:</strong> <code>list</code>, <code>tuple</code>, <code>range</code></li>
+          <li><strong>Mapping Type:</strong> <code>dict</code> - {"name": "Alice", "age": 25}</li>
+          <li><strong>Set Types:</strong> <code>set</code>, <code>frozenset</code></li>
+          <li><strong>Boolean Type:</strong> <code>bool</code> - True / False</li>
+          <li><strong>Binary Types:</strong> <code>bytes</code>, <code>bytearray</code>, <code>memoryview</code></li>
+        </ul>
+      </section>
+
+      <section class="topic-section" id="collections">
+        <h2>Collections: Lists and Dictionaries</h2>
+        <p>Lists and dictionaries are the most commonly used data structures in Python for data engineering.</p>
+        <div class="code-block">
+<code><span class="comment"># Lists - ordered, mutable collections</span>
+numbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]
+numbers.append(<span class="number">6</span>)
+<span class="function">print</span>(numbers)  <span class="comment"># [1, 2, 3, 4, 5, 6]</span>
+
+<span class="comment"># Dictionaries - key-value pairs</span>
+person = {
+    <span class="string">"name"</span>: <span class="string">"Alice"</span>,
+    <span class="string">"age"</span>: <span class="number">25</span>,
+    <span class="string">"city"</span>: <span class="string">"New York"</span>
+}
+<span class="function">print</span>(person[<span class="string">"name"</span>])  <span class="comment"># Alice</span></code>
+        </div>
+      </section>
+
+      <section class="topic-section" id="conditionals-loops">
+        <h2>Control Flow: Conditionals and Loops</h2>
+        <div class="code-block">
+<code><span class="comment"># If-else statements</span>
+temperature = <span class="number">30</span>
+<span class="keyword">if</span> temperature > <span class="number">35</span>:
+    <span class="function">print</span>(<span class="string">"Hot day"</span>)
+<span class="keyword">elif</span> temperature > <span class="number">20</span>:
+    <span class="function">print</span>(<span class="string">"Nice weather"</span>)
+<span class="keyword">else</span>:
+    <span class="function">print</span>(<span class="string">"Cold day"</span>)
+
+<span class="comment"># For loop</span>
+<span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(<span class="number">5</span>):
+    <span class="function">print</span>(i)  <span class="comment"># 0, 1, 2, 3, 4</span>
+
+<span class="comment"># List comprehension</span>
+squares = [x**<span class="number">2</span> <span class="keyword">for</span> x <span class="keyword">in</span> <span class="function">range</span>(<span class="number">10</span>)]</code>
+        </div>
+      </section>
+
+      <section class="topic-section" id="functions-modules">
+        <h2>Functions and Modules</h2>
+        <p>Functions help organize code into reusable blocks. Modules are files containing Python code that can be imported.</p>
+        <div class="code-block">
+<code><span class="comment"># Defining a function</span>
+<span class="keyword">def</span> <span class="function">calculate_average</span>(numbers):
+    <span class="string">"""Calculate the average of a list of numbers."""</span>
+    <span class="keyword">return</span> <span class="function">sum</span>(numbers) / <span class="function">len</span>(numbers)
+
+<span class="comment"># Using the function</span>
+avg = <span class="function">calculate_average</span>([<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>])
+<span class="function">print</span>(avg)  <span class="comment"># 20.0</span>
+
+<span class="comment"># Importing modules</span>
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</code>
+        </div>
+      </section>
+
+      <section class="topic-section" id="working-with-files">
+        <h2>Working with Files</h2>
+        <p>Python makes it easy to read from and write to files, essential for ETL pipelines.</p>
+        <div class="code-block">
+<code><span class="comment"># Reading a CSV file with Pandas</span>
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+df = pd.<span class="function">read_csv</span>(<span class="string">"data.csv"</span>)
+<span class="function">print</span>(df.head())
+
+<span class="comment"># Writing to a file</span>
+df.<span class="function">to_csv</span>(<span class="string">"output.csv"</span>, index=<span class="keyword">False</span>)
+
+<span class="comment"># Reading with context manager</span>
+<span class="keyword">with</span> <span class="function">open</span>(<span class="string">"file.txt"</span>, <span class="string">"r"</span>) <span class="keyword">as</span> f:
+    content = f.<span class="function">read</span>()</code>
+        </div>
+      </section>
+
+      <section class="topic-section" id="next-steps">
+        <h2>Next Steps</h2>
+        <p>Now that you understand the fundamentals, explore these topics:</p>
+        <ul>
+          <li><strong>Python Basics:</strong> Deep dive into strings, lists, dictionaries, and control flow</li>
+          <li><strong>Object-Oriented Programming:</strong> Classes, inheritance, and encapsulation</li>
+          <li><strong>Error Handling:</strong> Try-except blocks and custom exceptions</li>
+          <li><strong>Pandas:</strong> DataFrames and series for data manipulation</li>
+        </ul>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="../app.js"></script>
+  <script>
+    const navItems = Array.from(document.querySelectorAll(".nav-item"));
+    const sections = document.querySelectorAll(".topic-section[id]");
+
+    const setActiveNav = (id) => {
+      navItems.forEach((item) => {
+        const isActive = item.getAttribute("href") === "#" + id;
+        item.classList.toggle("active", isActive);
+        if (isActive) {
+          item.setAttribute("aria-current", "location");
+        } else {
+          item.removeAttribute("aria-current");
+        }
+      });
+    };
+
+    navItems.forEach((item) => {
+      item.addEventListener("click", function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute("href").substring(1);
+        const target = document.getElementById(targetId);
+        if (!target) return;
+
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        history.replaceState(null, "", "#" + targetId);
+        setActiveNav(targetId);
+      });
+    });
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute("id");
+          setActiveNav(id);
+        }
+      });
+    }, { root: null, rootMargin: "-18% 0px -68% 0px", threshold: 0 });
+
+    document.querySelectorAll(".topic-section[id]").forEach((el) => sectionObserver.observe(el));
+
+    const initialId = (window.location.hash || "#what-is-python").substring(1);
+    setActiveNav(initialId);
+  </script>
+</body>
+
+</html>
