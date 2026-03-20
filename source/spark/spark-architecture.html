@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Data-Guide | Spark Architecture</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="/source/styles.css" />
   <style>
     .sidebar {
@@ -288,9 +291,11 @@
       .sidebar {
         width: 260px;
       }
+
       .main-content {
         margin-left: 260px;
       }
+
       .split {
         grid-template-columns: 1fr;
       }
@@ -300,6 +305,7 @@
       .sidebar {
         display: none;
       }
+
       .main-content {
         margin-left: 0;
         padding: 1rem;
@@ -307,6 +313,7 @@
     }
   </style>
 </head>
+
 <body>
   <nav class="sidebar" id="sidebar">
     <div class="logo">
@@ -340,7 +347,7 @@
   <main class="main-content">
     <div class="page-wrap">
       <header class="topbar glass reveal">
-        <a class="brand" href="../index.html">Data Guide</a>
+        <a class="brand" href="/index.html">Data Guide</a>
         <nav class="menu" aria-label="Spark navigation">
           <a href="index.html">Spark Hub</a>
           <a href="spark-theory.html">Theory</a>
@@ -358,9 +365,12 @@
       </section>
 
       <section class="topic glass reveal" id="driver">
-        <div class="topic-head"><span class="topic-badge">1</span><h2>Driver Program</h2></div>
+        <div class="topic-head"><span class="topic-badge">1</span>
+          <h2>Driver Program</h2>
+        </div>
         <div class="topic-media">
-          <p>The driver is the entry point that runs the main() function and creates SparkContext. It coordinates the entire job execution.</p>
+          <p>The driver is the entry point that runs the main() function and creates SparkContext. It coordinates the
+            entire job execution.</p>
         </div>
         <div class="split">
           <div class="split-item">
@@ -375,7 +385,9 @@
       </section>
 
       <section class="topic glass reveal" id="cluster-manager">
-        <div class="topic-head"><span class="topic-badge">2</span><h2>Cluster Manager</h2></div>
+        <div class="topic-head"><span class="topic-badge">2</span>
+          <h2>Cluster Manager</h2>
+        </div>
         <div class="topic-media">
           <p>Allocates resources across the cluster. Spark supports multiple cluster managers.</p>
         </div>
@@ -394,9 +406,12 @@
       </section>
 
       <section class="topic glass reveal" id="executors">
-        <div class="topic-head"><span class="topic-badge">3</span><h2>Executors</h2></div>
+        <div class="topic-head"><span class="topic-badge">3</span>
+          <h2>Executors</h2>
+        </div>
         <div class="topic-media">
-          <p>Worker processes that run tasks and store data in memory or disk. Each application gets its own executors.</p>
+          <p>Worker processes that run tasks and store data in memory or disk. Each application gets its own executors.
+          </p>
         </div>
         <div class="split">
           <div class="split-item">
@@ -411,7 +426,9 @@
       </section>
 
       <section class="topic glass reveal" id="catalyst">
-        <div class="topic-head"><span class="topic-badge">4</span><h2>Catalyst Optimizer</h2></div>
+        <div class="topic-head"><span class="topic-badge">4</span>
+          <h2>Catalyst Optimizer</h2>
+        </div>
         <div class="topic-media">
           <p>Tree-based query optimizer that transforms logical plans to optimized physical plans.</p>
         </div>
@@ -430,7 +447,9 @@
       </section>
 
       <section class="topic glass reveal" id="tungsten">
-        <div class="topic-head"><span class="topic-badge">5</span><h2>Tungsten</h2></div>
+        <div class="topic-head"><span class="topic-badge">5</span>
+          <h2>Tungsten</h2>
+        </div>
         <div class="topic-media">
           <p>Whole-stage code generation engine that produces optimized bytecode for query execution.</p>
         </div>
@@ -447,7 +466,9 @@
       </section>
 
       <section class="topic glass reveal" id="dag">
-        <div class="topic-head"><span class="topic-badge">6</span><h2>DAG Scheduler</h2></div>
+        <div class="topic-head"><span class="topic-badge">6</span>
+          <h2>DAG Scheduler</h2>
+        </div>
         <div class="topic-media">
           <p>Breaks the logical execution plan into stages with boundary at shuffle boundaries.</p>
         </div>
@@ -466,7 +487,9 @@
       </section>
 
       <section class="topic glass reveal" id="rdd">
-        <div class="topic-head"><span class="topic-badge">7</span><h2>Resilient Distributed Datasets (RDD)</h2></div>
+        <div class="topic-head"><span class="topic-badge">7</span>
+          <h2>Resilient Distributed Datasets (RDD)</h2>
+        </div>
         <div class="topic-media">
           <p>Core immutable distributed data abstraction. Tracks lineage for fault tolerance.</p>
         </div>
@@ -483,9 +506,12 @@
       </section>
 
       <section class="topic glass reveal" id="dataframes">
-        <div class="topic-head"><span class="topic-badge">8</span><h2>DataFrames</h2></div>
+        <div class="topic-head"><span class="topic-badge">8</span>
+          <h2>DataFrames</h2>
+        </div>
         <div class="topic-media">
-          <p>Distributed collection of data organized into named columns, similar to a table in a relational database.</p>
+          <p>Distributed collection of data organized into named columns, similar to a table in a relational database.
+          </p>
         </div>
         <div class="callout">
           <p>DataFrames provide higher-level abstraction than RDDs with Catalyst optimization benefits.</p>
@@ -493,9 +519,12 @@
       </section>
 
       <section class="topic glass reveal" id="datasets">
-        <div class="topic-head"><span class="topic-badge">9</span><h2>Datasets</h2></div>
+        <div class="topic-head"><span class="topic-badge">9</span>
+          <h2>Datasets</h2>
+        </div>
         <div class="topic-media">
-          <p>Type-safe extension of DataFrames with JVM objects. Combines benefits of RDDs with DataFrame optimizations.</p>
+          <p>Type-safe extension of DataFrames with JVM objects. Combines benefits of RDDs with DataFrame optimizations.
+          </p>
         </div>
         <div class="callout">
           <p>Available in Scala and Java. Provides compile-time type safety.</p>
@@ -503,7 +532,9 @@
       </section>
 
       <section class="topic glass reveal" id="memory-management">
-        <div class="topic-head"><span class="topic-badge">10</span><h2>Memory Management</h2></div>
+        <div class="topic-head"><span class="topic-badge">10</span>
+          <h2>Memory Management</h2>
+        </div>
         <div class="topic-media">
           <p>Unified memory management separates execution and storage memory with dynamic sharing.</p>
         </div>
@@ -520,7 +551,9 @@
       </section>
 
       <section class="topic glass reveal" id="shuffle">
-        <div class="topic-head"><span class="topic-badge">11</span><h2>Shuffle Operations</h2></div>
+        <div class="topic-head"><span class="topic-badge">11</span>
+          <h2>Shuffle Operations</h2>
+        </div>
         <div class="topic-media">
           <p>Redistributes data across partitions, causing data to move between executors across the network.</p>
         </div>
@@ -585,4 +618,5 @@
     document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
   </script>
 </body>
+
 </html>
