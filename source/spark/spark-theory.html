@@ -7,386 +7,317 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="/source/styles.css" />
   <style>
     .sidebar {
       position: fixed;
       left: 0;
       top: 0;
-      width: 320px;
+      width: 300px;
       height: 100vh;
-      padding: 1rem 0.8rem;
-      background:
-        radial-gradient(circle at 16% 16%, color-mix(in srgb, var(--accent-b) 22%, transparent), transparent 44%),
-        radial-gradient(circle at 85% 10%, color-mix(in srgb, var(--accent-c) 24%, transparent), transparent 52%),
-        color-mix(in srgb, var(--bg-alt) 84%, var(--glass));
-      border-right: 1px solid color-mix(in srgb, var(--accent-c) 28%, var(--glass-border));
-      backdrop-filter: blur(16px);
-      box-shadow: 16px 0 38px color-mix(in srgb, var(--accent-c) 14%, transparent);
+      padding: 1.2rem 0.8rem;
+      background: var(--glass);
+      backdrop-filter: blur(var(--glass-blur));
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      border-right: 1px solid var(--glass-border);
+      box-shadow: var(--shadow-md);
       overflow-y: auto;
       z-index: 1000;
+    }
+
+    .sidebar::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .sidebar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+      background: var(--glass-border);
+      border-radius: 3px;
     }
 
     .logo {
       display: flex;
       align-items: center;
-      gap: 0.35rem;
-      margin-bottom: 1rem;
-      padding-bottom: 0.8rem;
-      border-bottom: 1px solid color-mix(in srgb, var(--accent-c) 28%, var(--glass-border));
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--glass-border);
     }
+
     .logo-text {
-      font-family: "Sora", "Trebuchet MS", sans-serif;
+      font-family: "Sora", sans-serif;
       font-size: 1.05rem;
       font-weight: 700;
       color: var(--text);
-      background: linear-gradient(120deg, var(--accent-a), var(--accent-c));
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
     }
 
     .nav-title {
-      font-size: 0.68rem;
+      font-size: 0.7rem;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: color-mix(in srgb, var(--accent-c) 44%, var(--muted));
-      margin: 0.85rem 0 0.35rem;
-      padding-left: 0.45rem;
-      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin: 1.2rem 0 0.5rem;
+      padding-left: 0.6rem;
+      font-weight: 600;
     }
+
     .nav-item {
       display: flex;
       align-items: center;
-      gap: 0.45rem;
+      gap: 0.5rem;
       text-decoration: none;
-      color: var(--muted);
-      padding: 0.45rem 0.55rem;
-      border-radius: 10px;
+      color: var(--text-secondary);
+      padding: 0.55rem 0.7rem;
+      border-radius: var(--radius-sm);
       border: 1px solid transparent;
-      background: color-mix(in srgb, var(--glass) 88%, transparent);
-      font-size: 0.83rem;
-      margin-bottom: 0.2rem;
-      transition: all 0.2s ease;
+      background: transparent;
+      font-size: 0.88rem;
+      font-weight: 500;
+      margin-bottom: 0.15rem;
+      transition: all var(--transition);
     }
-    .nav-item:hover,
-    .nav-item.active {
-      background: linear-gradient(
-        118deg,
-        color-mix(in srgb, var(--accent-c) 26%, transparent),
-        color-mix(in srgb, var(--accent-b) 22%, transparent)
-      );
-      border-color: color-mix(in srgb, var(--accent-c) 34%, var(--glass-border));
-      box-shadow: 0 10px 24px color-mix(in srgb, var(--accent-c) 24%, transparent);
+
+    .nav-item:hover {
       color: var(--text);
-      transform: translateX(3px);
+      background: var(--bg-alt);
+      border-color: var(--glass-border);
+    }
+
+    .nav-item.active {
+      color: var(--text);
+      background: var(--bg-alt);
+      border-color: var(--glow-border);
+      box-shadow: var(--shadow-sm), inset 0 0 0 1px var(--glow-border);
     }
 
     .main-content {
-      margin-left: 320px;
-      padding: 1rem 1rem 2rem;
+      margin-left: 300px;
+      padding: 1.5rem 2rem 3rem;
       min-height: 100vh;
     }
+
     .page-wrap {
-      width: min(1220px, 100%);
+      width: min(1100px, 100%);
       margin: 0 auto;
     }
 
     .page-wrap .topbar {
       width: 100%;
-      margin: 0 0 0.9rem;
-    }
-
-    .hero,
-    .topic,
-    .topbar {
-      border-radius: 20px;
-      margin-bottom: 0.9rem;
+      margin: 0 0 1.2rem;
     }
 
     .topbar {
-      border: 1px solid color-mix(in srgb, var(--accent-c) 30%, var(--glass-border));
-      background:
-        radial-gradient(circle at 8% 10%, color-mix(in srgb, var(--accent-a) 18%, transparent), transparent 48%),
-        radial-gradient(circle at 92% 4%, color-mix(in srgb, var(--accent-b) 20%, transparent), transparent 54%),
-        color-mix(in srgb, var(--bg-alt) 80%, var(--glass));
-      box-shadow: 0 16px 38px color-mix(in srgb, var(--accent-c) 16%, transparent);
+      border-radius: var(--radius-lg);
     }
 
     .hero {
-      padding: 1rem;
+      padding: 2rem;
       text-align: center;
-      min-height: 110px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       position: relative;
       overflow: hidden;
-      border: 1px solid color-mix(in srgb, var(--accent-c) 34%, var(--glass-border));
-      background:
-        radial-gradient(circle at 14% 18%, color-mix(in srgb, var(--accent-a) 28%, transparent), transparent 45%),
-        radial-gradient(circle at 84% 12%, color-mix(in srgb, var(--accent-b) 24%, transparent), transparent 49%),
-        linear-gradient(
-          128deg,
-          color-mix(in srgb, var(--accent-c) 14%, var(--glass)),
-          color-mix(in srgb, var(--accent-a) 10%, var(--glass))
-        );
-      box-shadow: 0 22px 48px color-mix(in srgb, var(--accent-c) 20%, transparent);
     }
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: auto -10% -62% -10%;
-      height: 72%;
-      background: linear-gradient(90deg, color-mix(in srgb, var(--accent-b) 35%, transparent), color-mix(in srgb, var(--accent-c) 32%, transparent));
-      filter: blur(30px);
-      opacity: 0.46;
-      pointer-events: none;
-    }
+
     .hero h1 {
       margin: 0;
-      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-size: clamp(1.6rem, 4vw, 2.5rem);
       position: relative;
       z-index: 1;
       width: 100%;
       text-align: center;
-      text-shadow: 0 8px 18px color-mix(in srgb, var(--accent-c) 28%, transparent);
-    }
-    .hero p {
-      margin: 0.45rem auto 0;
-      max-width: 72ch;
-      color: var(--muted);
     }
 
     .topic {
-      padding: 1rem;
+      padding: 1.25rem;
       display: grid;
       gap: 0.75rem;
       scroll-margin-top: 0.9rem;
-      border: 1px solid color-mix(in srgb, var(--accent-c) 22%, var(--glass-border));
-      background: linear-gradient(
-        155deg,
-        color-mix(in srgb, var(--accent-b) 10%, var(--glass)),
-        color-mix(in srgb, var(--accent-c) 9%, var(--glass))
-      );
-      box-shadow: 0 16px 34px color-mix(in srgb, var(--accent-c) 15%, transparent);
+      border-radius: var(--radius);
+      background: var(--glass);
+      backdrop-filter: blur(var(--glass-blur));
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--shadow);
+      transition: all var(--transition);
     }
+
     .topic-head {
       display: flex;
       align-items: center;
       gap: 0.5rem;
     }
+
     .topic-badge {
       width: 34px;
       height: 34px;
-      border-radius: 10px;
-      border: 1px solid color-mix(in srgb, var(--accent-c) 30%, var(--glass-border));
-      background: linear-gradient(
-        135deg,
-        color-mix(in srgb, var(--accent-b) 22%, var(--glass)),
-        color-mix(in srgb, var(--accent-c) 22%, var(--glass))
-      );
+      border-radius: var(--radius-sm);
+      background: var(--bg-alt);
+      border: 1px solid var(--glow-border);
       display: inline-flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      box-shadow: 0 8px 16px color-mix(in srgb, var(--accent-c) 18%, transparent);
+      font-size: 0.85rem;
+      box-shadow: var(--shadow-sm);
     }
+
     .topic h2 {
       margin: 0;
-      font-size: 1.08rem;
-      font-family: "Sora", "Trebuchet MS", sans-serif;
+      font-size: 1.05rem;
+      font-family: "Sora", sans-serif;
     }
 
     .topic-media {
       display: flex;
       align-items: center;
       gap: 0.65rem;
-      border: 1px solid color-mix(in srgb, var(--accent-c) 28%, var(--glass-border));
-      border-radius: 12px;
-      padding: 0.55rem;
-      background: linear-gradient(
-        130deg,
-        color-mix(in srgb, var(--accent-c) 15%, var(--glass)),
-        color-mix(in srgb, var(--accent-b) 11%, var(--glass))
-      );
+      border-radius: var(--radius-sm);
+      padding: 0.75rem;
     }
+
     .topic-media p {
       margin: 0;
-      color: var(--muted);
-      line-height: 1.55;
+      color: var(--text-secondary);
+      line-height: 1.5;
       font-size: 0.9rem;
     }
 
     .topic p {
       margin: 0;
-      color: var(--muted);
-      line-height: 1.65;
+      color: var(--text-secondary);
+      line-height: 1.6;
     }
 
     .subhead {
       margin: 0.1rem 0 0.35rem;
       font-size: 0.9rem;
-      font-family: "Sora", "Trebuchet MS", sans-serif;
+      font-family: "Sora", sans-serif;
       color: var(--text);
     }
 
     .callout {
-      border: 1px solid color-mix(in srgb, var(--accent-b) 34%, var(--glass-border));
-      border-radius: 12px;
-      padding: 0.6rem;
-      background: linear-gradient(
-        128deg,
-        color-mix(in srgb, var(--accent-b) 14%, var(--glass)),
-        color-mix(in srgb, var(--accent-a) 10%, var(--glass))
-      );
+      border-radius: var(--radius-sm);
+      padding: 0.75rem;
+      background: var(--bg-alt);
+      border: 1px solid var(--glow-border);
     }
 
-    .callout p { margin: 0; }
+    .callout p {
+      margin: 0;
+      color: var(--text-secondary);
+    }
 
     .split {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.55rem;
+      gap: 0.75rem;
+    }
+
+    .split-item {
+      border-radius: var(--radius-sm);
+      padding: 0.75rem;
+      background: var(--bg-alt);
+      border: 1px solid var(--glow-border);
+    }
+
+    .split-item h3 {
+      margin: 0 0 0.3rem;
+      font-size: 0.9rem;
+      font-family: "Sora", sans-serif;
+      color: var(--text);
+    }
+
+    .split-item p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .note {
+      margin-top: 0.5rem;
+      padding: 0.75rem;
+      border-radius: var(--radius-sm);
+      background: var(--bg-alt);
+      border: 1px solid var(--glow-border);
+    }
+
+    .note p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .diagram {
+      margin: 0.75rem 0;
+      padding: 1rem;
+      border-radius: var(--radius);
+      background: var(--bg-alt);
+      border: 1px solid var(--glow-border);
+    }
+
+    .diagram svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
     }
 
     .flowchart {
-      border: 1px solid color-mix(in srgb, var(--accent-b) 28%, var(--glass-border));
-      border-radius: 12px;
-      padding: 0.7rem;
-      background: linear-gradient(
-        130deg,
-        color-mix(in srgb, var(--accent-b) 12%, var(--glass)),
-        color-mix(in srgb, var(--accent-c) 10%, var(--glass))
-      );
+      margin: 0.75rem 0;
     }
+
     .flowchart h3 {
-      margin: 0 0 0.45rem;
-      font-size: 0.88rem;
-      font-family: "Sora", "Trebuchet MS", sans-serif;
+      margin: 0 0 0.5rem;
+      font-size: 0.9rem;
+      font-family: "Sora", sans-serif;
+      color: var(--text-secondary);
     }
+
     .flow-row {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.35rem;
       flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
     }
+
     .flow-node {
-      border: 1px solid color-mix(in srgb, var(--accent-c) 34%, var(--glass-border));
-      border-radius: 10px;
-      background: linear-gradient(
-        135deg,
-        color-mix(in srgb, var(--accent-c) 18%, var(--glass)),
-        color-mix(in srgb, var(--accent-b) 14%, var(--glass))
-      );
-      padding: 0.32rem 0.5rem;
-      min-width: 95px;
-      text-align: center;
-      font-size: 0.76rem;
+      background: var(--bg-alt);
+      border: 1px solid var(--glow-border);
+      border-radius: var(--radius-sm);
+      padding: 0.35rem 0.65rem;
+      font-weight: 500;
       color: var(--text);
+      box-shadow: var(--shadow-sm);
     }
+
     .flow-arrow {
-      color: color-mix(in srgb, var(--accent-c) 45%, var(--muted));
-      font-size: 0.76rem;
+      color: var(--muted);
+      font-weight: 600;
     }
 
-    .table-wrap {
-      overflow-x: auto;
-      border: 1px solid color-mix(in srgb, var(--accent-c) 26%, var(--glass-border));
-      border-radius: 12px;
-      background: linear-gradient(
-        140deg,
-        color-mix(in srgb, var(--accent-c) 12%, var(--glass)),
-        color-mix(in srgb, var(--accent-b) 7%, var(--glass))
-      );
-    }
-    .theory-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.8rem;
-    }
-    .theory-table th,
-    .theory-table td {
-      padding: 0.5rem 0.55rem;
-      text-align: left;
-      border-bottom: 1px solid var(--glass-border);
-      vertical-align: top;
-    }
-    .theory-table th {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      background: linear-gradient(
-        120deg,
-        color-mix(in srgb, var(--accent-c) 24%, transparent),
-        color-mix(in srgb, var(--accent-b) 14%, transparent)
-      );
-      color: var(--text);
-    }
-    .theory-table tr:last-child td { border-bottom: none; }
-
-    .code-block {
-      border: 1px solid color-mix(in srgb, var(--accent-c) 28%, var(--glass-border));
-      border-radius: 12px;
-      background: linear-gradient(
-        140deg,
-        color-mix(in srgb, var(--bg-alt) 84%, white 16%),
-        color-mix(in srgb, var(--accent-c) 11%, white 89%)
-      );
-      color: #172246;
-      padding: 0.75rem;
-      overflow-x: auto;
-      box-shadow: inset 0 1px 0 color-mix(in srgb, white 30%, transparent);
-    }
-    .code-block code {
-      font-family: Consolas, "Courier New", monospace;
-      font-size: 0.79rem;
-      line-height: 1.5;
-      white-space: pre;
-    }
-
-    body.dark .code-block {
-      background: linear-gradient(
-        145deg,
-        color-mix(in srgb, var(--bg-alt) 84%, black 16%),
-        color-mix(in srgb, var(--accent-c) 12%, black 88%)
-      );
-      color: #d9e6ff;
-    }
-
-    .bg-orb {
-      opacity: 0.82;
-      filter: blur(90px);
-      animation: orbDrift 10s ease-in-out infinite;
-    }
-
-    .orb-a { animation-delay: 0s; }
-    .orb-b { animation-delay: 1.6s; }
-    .orb-c { animation-delay: 3.2s; }
-
-    @keyframes orbDrift {
-      0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-      50% { transform: translate3d(0, -16px, 0) scale(1.08); }
-    }
-
-    .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.45s ease, transform 0.45s ease; }
-    .reveal.in { opacity: 1; transform: translateY(0); }
-
-    @media (max-width: 1024px) {
-      .sidebar { width: 260px; }
-      .main-content { margin-left: 260px; }
-    }
-    @media (max-width: 860px) {
+    @media (max-width: 768px) {
       .sidebar {
-        position: static;
-        width: 100%;
-        height: auto;
-        border-right: none;
-        border-bottom: 1px solid var(--glass-border);
+        width: 260px;
       }
-      .main-content { margin-left: 0; }
-      .split { grid-template-columns: 1fr; }
+      .main-content {
+        margin-left: 260px;
+      }
+      .split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .sidebar {
+        display: none;
+      }
+      .main-content {
+        margin-left: 0;
+        padding: 1rem;
+      }
     }
   </style>
 </head>
@@ -420,21 +351,22 @@
     <a href="#dynamic-allocation" class="nav-item"><span>17</span> Dynamic Allocation</a>
   </nav>
 
-  <main class="main-content">
-    <div class="bg-orb orb-a" aria-hidden="true"></div>
-    <div class="bg-orb orb-b" aria-hidden="true"></div>
-    <div class="bg-orb orb-c" aria-hidden="true"></div>
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
 
+  <main class="main-content">
     <div class="page-wrap">
       <header class="topbar glass reveal">
-        <a class="brand" href="../index.html">Data-Guide</a>
+        <a class="brand" href="../index.html">Data Guide</a>
         <nav class="menu" aria-label="Spark navigation">
           <a href="index.html">Spark Hub</a>
-          <a href="spark-theory.html" class="active" aria-current="page">Theory</a>
+          <a href="spark-theory.html">Theory</a>
           <a href="spark-code.html">Code</a>
+          <a href="spark-architecture.html">Architecture</a>
         </nav>
         <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
-          <span class="toggle-icon" aria-hidden="true">🌙</span>
+          <span class="toggle-icon" aria-hidden="true">☾</span>
           <span class="toggle-text">Dark</span>
         </button>
       </header>
@@ -908,7 +840,7 @@ spark.conf.set("spark.dynamicAllocation.schedulerBacklogTimeout", "1s")
     </div>
   </main>
 
-  <script src="../app.js"></script>
+  <script src="/source/app.js"></script>
   <script>
     const navItems = Array.from(document.querySelectorAll(".nav-item"));
 

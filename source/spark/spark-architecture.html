@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data-Guide | Spark Architecture</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/source/styles.css" />
+  <style>
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 300px;
+      height: 100vh;
+      padding: 1.2rem 0.8rem;
+      background: var(--glass);
+      backdrop-filter: blur(var(--glass-blur));
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      border-right: 1px solid var(--glass-border);
+      box-shadow: var(--shadow-md);
+      overflow-y: auto;
+      z-index: 1000;
+    }
+
+    .sidebar::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .sidebar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+      background: var(--glass-border);
+      border-radius: 3px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .logo-text {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .nav-title {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin: 1.2rem 0 0.5rem;
+      padding-left: 0.6rem;
+      font-weight: 600;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: var(--text-secondary);
+      padding: 0.55rem 0.7rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
+      background: transparent;
+      font-size: 0.88rem;
+      font-weight: 500;
+      margin-bottom: 0.15rem;
+      transition: all var(--transition);
+    }
+
+    .nav-item:hover {
+      color: var(--text);
+      background: var(--bg-alt);
+      border-color: var(--glass-border);
+    }
+
+    .nav-item.active {
+      color: var(--text);
+      background: var(--bg-alt);
+      border-color: var(--glow-border);
+      box-shadow: var(--shadow-sm), inset 0 0 0 1px var(--glow-border);
+    }
+
+    .main-content {
+      margin-left: 300px;
+      padding: 1.5rem 2rem 3rem;
+      min-height: 100vh;
+    }
+
+    .page-wrap {
+      width: min(1100px, 100%);
+      margin: 0 auto;
+    }
+
+    .page-wrap .topbar {
+      width: 100%;
+      margin: 0 0 1.2rem;
+    }
+
+    .topbar {
+      border-radius: var(--radius-lg);
+    }
+
+    .hero {
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(1.6rem, 4vw, 2.5rem);
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      text-align: center;
+    }
+
+    .topic {
+      padding: 1.25rem;
+      display: grid;
+      gap: 0.75rem;
+      scroll-margin-top: 0.9rem;
+      border-radius: var(--radius);
+      background: var(--glass);
+      backdrop-filter: blur(var(--glass-blur));
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--shadow);
+      transition: all var(--transition);
+    }
+
+    .topic-head {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .topic-badge {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-alt);
+      border: 1px solid var(--glow-border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .topic h2 {
+      margin: 0;
+      font-size: 1.05rem;
+      font-family: "Sora", sans-serif;
+    }
+
+    .topic-media {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      border-radius: var(--radius-sm);
+      padding: 0.75rem;
+    }
+
+    .topic-media p {
+      margin: 0;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      font-size: 0.9rem;
+    }
+
+    .topic p {
+      margin: 0;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .subhead {
+      margin: 0.1rem 0 0.35rem;
+      font-size: 0.9rem;
+      font-family: "Sora", sans-serif;
+      color: var(--text);
+    }
+
+    .callout {
+      border-radius: var(--radius-sm);
+      padding: 0.75rem;
+      background: var(--bg-alt);
+      border: 1px solid var(--glow-border);
+    }
+
+    .callout p {
+      margin: 0;
+      color: var(--text-secondary);
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    .split-item {
+      border-radius: var(--radius-sm);
+      padding: 0.75rem;
+      background: var(--bg-alt);
+      border: 1px solid var(--glow-border);
+    }
+
+    .split-item h3 {
+      margin: 0 0 0.3rem;
+      font-size: 0.9rem;
+      font-family: "Sora", sans-serif;
+      color: var(--text);
+    }
+
+    .split-item p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .diagram {
+      margin: 0.75rem 0;
+      padding: 1rem;
+      border-radius: var(--radius);
+      background: var(--bg-alt);
+      border: 1px solid var(--glow-border);
+    }
+
+    .diagram svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .flowchart {
+      margin: 0.75rem 0;
+    }
+
+    .flowchart h3 {
+      margin: 0 0 0.5rem;
+      font-size: 0.9rem;
+      font-family: "Sora", sans-serif;
+      color: var(--text-secondary);
+    }
+
+    .flow-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+    }
+
+    .flow-node {
+      background: var(--bg-alt);
+      border: 1px solid var(--glow-border);
+      border-radius: var(--radius-sm);
+      padding: 0.35rem 0.65rem;
+      font-weight: 500;
+      color: var(--text);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .flow-arrow {
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 260px;
+      }
+      .main-content {
+        margin-left: 260px;
+      }
+      .split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .sidebar {
+        display: none;
+      }
+      .main-content {
+        margin-left: 0;
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="sidebar" id="sidebar">
+    <div class="logo">
+      <span class="logo-text">Spark Architecture</span>
+    </div>
+
+    <div class="nav-title">Core Components</div>
+    <a href="#driver" class="nav-item active"><span>1</span> Driver</a>
+    <a href="#cluster-manager" class="nav-item"><span>2</span> Cluster Manager</a>
+    <a href="#executors" class="nav-item"><span>3</span> Executors</a>
+
+    <div class="nav-title">Execution Engine</div>
+    <a href="#catalyst" class="nav-item"><span>4</span> Catalyst Optimizer</a>
+    <a href="#tungsten" class="nav-item"><span>5</span> Tungsten</a>
+    <a href="#dag" class="nav-item"><span>6</span> DAG Scheduler</a>
+
+    <div class="nav-title">Data Processing</div>
+    <a href="#rdd" class="nav-item"><span>7</span> RDD</a>
+    <a href="#dataframes" class="nav-item"><span>8</span> DataFrames</a>
+    <a href="#datasets" class="nav-item"><span>9</span> Datasets</a>
+
+    <div class="nav-title">Memory & Storage</div>
+    <a href="#memory-management" class="nav-item"><span>10</span> Memory Management</a>
+    <a href="#shuffle" class="nav-item"><span>11</span> Shuffle</a>
+  </nav>
+
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <main class="main-content">
+    <div class="page-wrap">
+      <header class="topbar glass reveal">
+        <a class="brand" href="../index.html">Data Guide</a>
+        <nav class="menu" aria-label="Spark navigation">
+          <a href="index.html">Spark Hub</a>
+          <a href="spark-theory.html">Theory</a>
+          <a href="spark-code.html">Code</a>
+          <a href="spark-architecture.html" class="active" aria-current="page">Architecture</a>
+        </nav>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+          <span class="toggle-icon" aria-hidden="true">☾</span>
+          <span class="toggle-text">Dark</span>
+        </button>
+      </header>
+
+      <section class="hero glass reveal">
+        <h1>Spark Architecture</h1>
+      </section>
+
+      <section class="topic glass reveal" id="driver">
+        <div class="topic-head"><span class="topic-badge">1</span><h2>Driver Program</h2></div>
+        <div class="topic-media">
+          <p>The driver is the entry point that runs the main() function and creates SparkContext. It coordinates the entire job execution.</p>
+        </div>
+        <div class="split">
+          <div class="split-item">
+            <h3>SparkContext</h3>
+            <p>Connection to the cluster, manages resources and schedules tasks.</p>
+          </div>
+          <div class="split-item">
+            <h3>DAGScheduler</h3>
+            <p>Creates DAG of stages from RDD operations.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="topic glass reveal" id="cluster-manager">
+        <div class="topic-head"><span class="topic-badge">2</span><h2>Cluster Manager</h2></div>
+        <div class="topic-media">
+          <p>Allocates resources across the cluster. Spark supports multiple cluster managers.</p>
+        </div>
+        <div class="flowchart">
+          <h3>Supported Managers</h3>
+          <div class="flow-row">
+            <span class="flow-node">Standalone</span>
+            <span class="flow-arrow">|</span>
+            <span class="flow-node">YARN</span>
+            <span class="flow-arrow">|</span>
+            <span class="flow-node">Kubernetes</span>
+            <span class="flow-arrow">|</span>
+            <span class="flow-node">Mesos</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="topic glass reveal" id="executors">
+        <div class="topic-head"><span class="topic-badge">3</span><h2>Executors</h2></div>
+        <div class="topic-media">
+          <p>Worker processes that run tasks and store data in memory or disk. Each application gets its own executors.</p>
+        </div>
+        <div class="split">
+          <div class="split-item">
+            <h3>Task Execution</h3>
+            <p>Run tasks assigned by the driver, report results back.</p>
+          </div>
+          <div class="split-item">
+            <h3>Memory</h3>
+            <p>Cache user data in memory for fast access.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="topic glass reveal" id="catalyst">
+        <div class="topic-head"><span class="topic-badge">4</span><h2>Catalyst Optimizer</h2></div>
+        <div class="topic-media">
+          <p>Tree-based query optimizer that transforms logical plans to optimized physical plans.</p>
+        </div>
+        <div class="flowchart">
+          <h3>Optimization Flow</h3>
+          <div class="flow-row">
+            <span class="flow-node">Unresolved Logical Plan</span>
+            <span class="flow-arrow">-></span>
+            <span class="flow-node">Analyzed Plan</span>
+            <span class="flow-arrow">-></span>
+            <span class="flow-node">Optimized Plan</span>
+            <span class="flow-arrow">-></span>
+            <span class="flow-node">Physical Plans</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="topic glass reveal" id="tungsten">
+        <div class="topic-head"><span class="topic-badge">5</span><h2>Tungsten</h2></div>
+        <div class="topic-media">
+          <p>Whole-stage code generation engine that produces optimized bytecode for query execution.</p>
+        </div>
+        <div class="split">
+          <div class="split-item">
+            <h3>Memory Management</h3>
+            <p>Sun JDK Memory Manager with off-heap storage.</p>
+          </div>
+          <div class="split-item">
+            <h3>Cache-aware</h3>
+            <p>Optimized data structures leveraging CPU cache.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="topic glass reveal" id="dag">
+        <div class="topic-head"><span class="topic-badge">6</span><h2>DAG Scheduler</h2></div>
+        <div class="topic-media">
+          <p>Breaks the logical execution plan into stages with boundary at shuffle boundaries.</p>
+        </div>
+        <div class="flowchart">
+          <h3>DAG Creation</h3>
+          <div class="flow-row">
+            <span class="flow-node">RDD Operations</span>
+            <span class="flow-arrow">-></span>
+            <span class="flow-node">Build DAG</span>
+            <span class="flow-arrow">-></span>
+            <span class="flow-node">Create Stages</span>
+            <span class="flow-arrow">-></span>
+            <span class="flow-node">Submit Tasks</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="topic glass reveal" id="rdd">
+        <div class="topic-head"><span class="topic-badge">7</span><h2>Resilient Distributed Datasets (RDD)</h2></div>
+        <div class="topic-media">
+          <p>Core immutable distributed data abstraction. Tracks lineage for fault tolerance.</p>
+        </div>
+        <div class="split">
+          <div class="split-item">
+            <h3>Transformations</h3>
+            <p>map, filter, flatMap, groupByKey, reduceByKey</p>
+          </div>
+          <div class="split-item">
+            <h3>Actions</h3>
+            <p>collect, count, reduce, take, saveAsTextFile</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="topic glass reveal" id="dataframes">
+        <div class="topic-head"><span class="topic-badge">8</span><h2>DataFrames</h2></div>
+        <div class="topic-media">
+          <p>Distributed collection of data organized into named columns, similar to a table in a relational database.</p>
+        </div>
+        <div class="callout">
+          <p>DataFrames provide higher-level abstraction than RDDs with Catalyst optimization benefits.</p>
+        </div>
+      </section>
+
+      <section class="topic glass reveal" id="datasets">
+        <div class="topic-head"><span class="topic-badge">9</span><h2>Datasets</h2></div>
+        <div class="topic-media">
+          <p>Type-safe extension of DataFrames with JVM objects. Combines benefits of RDDs with DataFrame optimizations.</p>
+        </div>
+        <div class="callout">
+          <p>Available in Scala and Java. Provides compile-time type safety.</p>
+        </div>
+      </section>
+
+      <section class="topic glass reveal" id="memory-management">
+        <div class="topic-head"><span class="topic-badge">10</span><h2>Memory Management</h2></div>
+        <div class="topic-media">
+          <p>Unified memory management separates execution and storage memory with dynamic sharing.</p>
+        </div>
+        <div class="split">
+          <div class="split-item">
+            <h3>Execution Memory</h3>
+            <p>Used for shuffles, joins, aggregations, and sorting.</p>
+          </div>
+          <div class="split-item">
+            <h3>Storage Memory</h3>
+            <p>Used for caching and internal metadata.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="topic glass reveal" id="shuffle">
+        <div class="topic-head"><span class="topic-badge">11</span><h2>Shuffle Operations</h2></div>
+        <div class="topic-media">
+          <p>Redistributes data across partitions, causing data to move between executors across the network.</p>
+        </div>
+        <div class="callout">
+          <p>Expensive operation - minimize shuffles and use narrow transformations when possible.</p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="/source/app.js"></script>
+  <script>
+    const navItems = Array.from(document.querySelectorAll(".nav-item"));
+    const sections = document.querySelectorAll(".topic[id]");
+
+    const setActiveNav = (id) => {
+      navItems.forEach((item) => {
+        const isActive = item.getAttribute("href") === "#" + id;
+        item.classList.toggle("active", isActive);
+        if (isActive) {
+          item.setAttribute("aria-current", "location");
+        } else {
+          item.removeAttribute("aria-current");
+        }
+      });
+    };
+
+    navItems.forEach((item) => {
+      item.addEventListener("click", function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute("href").substring(1);
+        const target = document.getElementById(targetId);
+        if (!target) return;
+
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        history.replaceState(null, "", "#" + targetId);
+        setActiveNav(targetId);
+      });
+    });
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute("id");
+          setActiveNav(id);
+        }
+      });
+    }, { root: null, rootMargin: "-18% 0px -68% 0px", threshold: 0 });
+
+    document.querySelectorAll(".topic[id]").forEach((el) => sectionObserver.observe(el));
+
+    const initialId = (window.location.hash || "#driver").substring(1);
+    setActiveNav(initialId);
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("in");
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+  </script>
+</body>
+</html>

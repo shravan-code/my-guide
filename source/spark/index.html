@@ -4,10 +4,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Data Guide</title>
+  <title>Data Guide | Spark Hub</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="/source/styles.css" />
   <style>
     .wrap {
@@ -18,15 +20,30 @@
 
     .hero {
       text-align: center;
-      padding: 2rem;
+      padding: 2rem 2rem 1rem;
     }
 
     .hero h1 {
-      font-size: clamp(1.4rem, 4vw, 2.2rem);
+      font-size: clamp(1.3rem, 4vw, 2rem);
     }
 
-    .hero p {
-      color: var(--text-secondary);
+    .inspire {
+      max-width: min(900px, 90vw);
+      margin: 0 auto 1.5rem;
+      padding: 2.5rem 1rem;
+      text-align: center;
+    }
+
+    .inspire p {
+      font-size: clamp(0.95rem, 2.2vw, 1.15rem);
+      line-height: 1.8;
+      font-style: italic;
+      color: var(--text-primary);
+    }
+
+    .inspire p strong {
+      color: var(--text-primary);
+      font-weight: 700;
     }
 
     .spark-tracks {
@@ -82,13 +99,12 @@
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
   <header class="topbar">
-    <a class="brand" href="index.html">Data Guide</a>
-    <nav class="menu" aria-label="Main menu">
-      <a href="#" class="active">Python</a>
-      <a href="#">Pandas</a>
-      <a href="#">NumPy</a>
-      <a href="source/spark/index.html">Spark</a>
-      <a href="#">SQL</a>
+    <a class="brand" href="/index.html">Data Guide</a>
+    <nav class="menu" aria-label="Spark menu">
+      <a href="index.html" class="active" aria-current="page">Spark Hub</a>
+      <a href="spark-theory.html">Theory</a>
+      <a href="spark-code.html">Code</a>
+      <a href="spark-architecture.html">Architecture</a>
     </nav>
     <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
       <span class="toggle-icon" aria-hidden="true">☾</span>
@@ -96,41 +112,21 @@
     </button>
   </header>
 
-  <main>
-    <section class="hero glass">
-      <p class="eyebrow">Your Data Engineering Guide</p>
-      <h1>Comprehensive resources for Python, Spark, SQL, and modern data tooling.</h1>
-      <p class="hero-copy">Start learning today with hands-on examples and practical explanations.</p>
-    </section>
+    <main class="main-content">
+    <div class="page-wrap">
 
-    <section class="grid">
-      <div class="card">
-        <h3>Python</h3>
-        <p>Core programming fundamentals</p>
-      </div>
-      <div class="card">
-        <h3>Pandas</h3>
-        <p>Data manipulation and analysis</p>
-      </div>
-      <div class="card">
-        <h3>NumPy</h3>
-        <p>Numerical computing basics</p>
-      </div>
-      <div class="card">
-        <h3>Spark</h3>
-        <p>Distributed data processing</p>
-      </div>
-      <div class="card">
-        <h3>SQL</h3>
-        <p>Database queries and design</p>
-      </div>
-      <div class="card">
-        <h3>Coming Soon</h3>
-        <p>More topics in development</p>
-      </div>
-    </section>
+      <section class="inspire glass-card">
+        <p>
+          Where mountains of data once took hours to climb, <strong>Spark ignites</strong> the path forward.
+          It's not just processing—it's transformation. From batch to stream, from prototype to production,
+          <strong>unified analytics</strong> meets you at the speed of thought. Whether you're a curious beginner
+          or a seasoned engineer, Spark scales with your ambition, turning complexity into clarity and data into
+          decisions.
+          <strong>Light the fire. Process at scale.</strong>
+        </p>
+      </section>
+    </div>
   </main>
-
   <script src="/source/app.js"></script>
 </body>
 
