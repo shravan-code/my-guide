@@ -4,20 +4,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Data Guide | Spark Hub</title>
+  <title>Data Guide | SQL</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="/source/styles.css" />
   <style>
-    .wrap {
-      width: min(1100px, calc(100% - 2rem));
-      margin: 1.5rem auto 3rem;
-      padding: 0 1rem;
-    }
-
     .hero {
       text-align: center;
       padding: 2rem 2rem 1rem;
@@ -46,47 +40,47 @@
       font-weight: 700;
     }
 
-    .spark-tracks {
+    .sql-tracks {
       padding: clamp(1rem, 2.5vw, 1.5rem);
     }
 
-    .spark-tracks h2 {
+    .sql-tracks h2 {
       font-size: clamp(1rem, 2vw, 1.25rem);
     }
 
-    .spark-track-grid {
+    .sql-track-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 0.75rem;
       margin-top: 1rem;
     }
 
-    .spark-track {
+    .sql-track {
       text-align: center;
     }
 
-    .spark-track h3 {
+    .sql-track h3 {
       font-size: clamp(0.9rem, 2vw, 1rem);
     }
 
-    .spark-track p {
+    .sql-track p {
       font-size: clamp(0.75rem, 1.5vw, 0.82rem);
     }
 
     @media (max-width: 900px) {
-      .spark-track-grid {
+      .sql-track-grid {
         grid-template-columns: repeat(2, 1fr);
       }
     }
 
     @media (max-width: 600px) {
-      .spark-track-grid {
+      .sql-track-grid {
         grid-template-columns: 1fr;
       }
     }
 
     @media (min-width: 1400px) {
-      .spark-track-grid {
+      .sql-track-grid {
         grid-template-columns: repeat(4, 1fr);
       }
     }
@@ -100,11 +94,10 @@
 
   <header class="topbar">
     <a class="brand" href="/index.html">Data Guide</a>
-    <nav class="menu" aria-label="Spark menu">
-      <a href="index.html" class="active" aria-current="page">Spark Hub</a>
-      <a href="spark-theory.html">Theory</a>
-      <a href="spark-code.html">Code</a>
-      <a href="spark-architecture.html">Architecture</a>
+    <nav class="menu" aria-label="SQL menu">
+      <a href="index.html" class="active" aria-current="page">SQL Hub</a>
+      <a href="sql-queries.html">Queries</a>
+      <a href="sql-joins.html">Joins</a>
     </nav>
     <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
       <span class="toggle-icon" aria-hidden="true">☾</span>
@@ -114,20 +107,52 @@
 
   <main class="main-content">
     <div class="page-wrap">
+      <section class="hero">
+        <h1>SQL</h1>
+      </section>
 
       <section class="inspire glass-card">
         <p>
-          Where mountains of data once took hours to climb, <strong>Spark ignites</strong> the path forward.
-          It's not just processing—it's transformation. From batch to stream, from prototype to production,
-          <strong>unified analytics</strong> meets you at the speed of thought. Whether you're a curious beginner
-          or a seasoned engineer, Spark scales with your ambition, turning complexity into clarity and data into
-          decisions.
-          <strong>Light the fire. Process at scale.</strong>
+          The <strong>language of data</strong>. SQL speaks to databases with clarity and precision.
+          Select, filter, join, aggregate—extract <strong>gold from mountains of raw data</strong>.
+          From startups to enterprises, SQL powers decisions at every scale. Whether you're pulling
+          reports or building dashboards, SQL turns questions into answers.
+          <strong>Data speaks SQL. Now learn to listen.</strong>
         </p>
+      </section>
+
+      <section class="sql-tracks">
+        <h2>Explore SQL</h2>
+        <div class="sql-track-grid">
+          <article class="sql-track glass-card">
+            <a href="sql-queries.html">
+              <h3>Queries</h3>
+              <p>SELECT, WHERE, GROUP BY, ORDER BY</p>
+            </a>
+          </article>
+          <article class="sql-track glass-card">
+            <a href="sql-joins.html">
+              <h3>Joins</h3>
+              <p>INNER, LEFT, RIGHT, FULL joins</p>
+            </a>
+          </article>
+          <article class="sql-track glass-card">
+            <a href="sql-subqueries.html">
+              <h3>Subqueries</h3>
+              <p>Nested queries and CTEs</p>
+            </a>
+          </article>
+          <article class="sql-track glass-card">
+            <a href="https://www.w3schools.com/sql/" target="_blank" rel="noopener">
+              <h3>Docs ↗</h3>
+              <p>SQL reference and tutorials</p>
+            </a>
+          </article>
+        </div>
       </section>
     </div>
   </main>
-  <script src="../app.js"></script>
+  <script src="/source/app.js"></script>
 </body>
 
 </html>

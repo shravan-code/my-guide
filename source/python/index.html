@@ -4,20 +4,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Data Guide | Spark Hub</title>
+  <title>Data Guide | Python</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="/source/styles.css" />
   <style>
-    .wrap {
-      width: min(1100px, calc(100% - 2rem));
-      margin: 1.5rem auto 3rem;
-      padding: 0 1rem;
-    }
-
     .hero {
       text-align: center;
       padding: 2rem 2rem 1rem;
@@ -46,47 +40,47 @@
       font-weight: 700;
     }
 
-    .spark-tracks {
+    .python-tracks {
       padding: clamp(1rem, 2.5vw, 1.5rem);
     }
 
-    .spark-tracks h2 {
+    .python-tracks h2 {
       font-size: clamp(1rem, 2vw, 1.25rem);
     }
 
-    .spark-track-grid {
+    .python-track-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 0.75rem;
       margin-top: 1rem;
     }
 
-    .spark-track {
+    .python-track {
       text-align: center;
     }
 
-    .spark-track h3 {
+    .python-track h3 {
       font-size: clamp(0.9rem, 2vw, 1rem);
     }
 
-    .spark-track p {
+    .python-track p {
       font-size: clamp(0.75rem, 1.5vw, 0.82rem);
     }
 
     @media (max-width: 900px) {
-      .spark-track-grid {
+      .python-track-grid {
         grid-template-columns: repeat(2, 1fr);
       }
     }
 
     @media (max-width: 600px) {
-      .spark-track-grid {
+      .python-track-grid {
         grid-template-columns: 1fr;
       }
     }
 
     @media (min-width: 1400px) {
-      .spark-track-grid {
+      .python-track-grid {
         grid-template-columns: repeat(4, 1fr);
       }
     }
@@ -100,11 +94,10 @@
 
   <header class="topbar">
     <a class="brand" href="/index.html">Data Guide</a>
-    <nav class="menu" aria-label="Spark menu">
-      <a href="index.html" class="active" aria-current="page">Spark Hub</a>
-      <a href="spark-theory.html">Theory</a>
-      <a href="spark-code.html">Code</a>
-      <a href="spark-architecture.html">Architecture</a>
+    <nav class="menu" aria-label="Python menu">
+      <a href="index.html" class="active" aria-current="page">Python Hub</a>
+      <a href="python-basics.html">Basics</a>
+      <a href="python-advanced.html">Advanced</a>
     </nav>
     <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
       <span class="toggle-icon" aria-hidden="true">☾</span>
@@ -114,20 +107,52 @@
 
   <main class="main-content">
     <div class="page-wrap">
+      <section class="hero">
+        <h1>Python</h1>
+      </section>
 
       <section class="inspire glass-card">
         <p>
-          Where mountains of data once took hours to climb, <strong>Spark ignites</strong> the path forward.
-          It's not just processing—it's transformation. From batch to stream, from prototype to production,
-          <strong>unified analytics</strong> meets you at the speed of thought. Whether you're a curious beginner
-          or a seasoned engineer, Spark scales with your ambition, turning complexity into clarity and data into
-          decisions.
-          <strong>Light the fire. Process at scale.</strong>
+          The language of possibilities. <strong>Python</strong> empowers you to transform data into insights,
+          automate the mundane, and build the extraordinary. From scripting to science, from web to AI,
+          <strong>elegant syntax</strong> meets boundless versatility. Whether you're counting to ten or
+          building neural networks, Python grows with your ambition.
+          <strong>Simple is better than complex. Now get coding.</strong>
         </p>
+      </section>
+
+      <section class="python-tracks">
+        <h2>Explore Python</h2>
+        <div class="python-track-grid">
+          <article class="python-track glass-card">
+            <a href="python-basics.html">
+              <h3>Basics</h3>
+              <p>Variables, loops, functions, and core concepts</p>
+            </a>
+          </article>
+          <article class="python-track glass-card">
+            <a href="python-advanced.html">
+              <h3>Advanced</h3>
+              <p>OOP, decorators, generators, and best practices</p>
+            </a>
+          </article>
+          <article class="python-track glass-card">
+            <a href="../pandas/index.html">
+              <h3>Pandas</h3>
+              <p>Data manipulation and analysis</p>
+            </a>
+          </article>
+          <article class="python-track glass-card">
+            <a href="https://docs.python.org/3/" target="_blank" rel="noopener">
+              <h3>Docs ↗</h3>
+              <p>Official Python documentation</p>
+            </a>
+          </article>
+        </div>
       </section>
     </div>
   </main>
-  <script src="../app.js"></script>
+  <script src="/source/app.js"></script>
 </body>
 
 </html>

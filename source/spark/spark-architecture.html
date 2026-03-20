@@ -10,7 +10,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="/source/styles.css" />
+  <link rel="stylesheet" href="../styles.css" />
   <style>
     .sidebar {
       position: fixed;
@@ -333,6 +333,7 @@
         transform: scaleY(0);
         opacity: 0;
       }
+
       to {
         transform: scaleY(1);
         opacity: 1;
@@ -374,6 +375,7 @@
         opacity: 0;
         transform: translateX(-50%) scale(0);
       }
+
       to {
         opacity: 1;
         transform: translateX(-50%) scale(1);
@@ -391,29 +393,80 @@
         opacity: 0;
         transform: translateY(-10px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
 
-    .flow-level:nth-child(1) .flow-node-interactive { animation-delay: 0.1s; }
-    .flow-level:nth-child(1) .flow-vertical-line { animation-delay: 0.3s; }
-    .flow-level:nth-child(3) .flow-node-interactive { animation-delay: 0.4s; }
-    .flow-level:nth-child(3) .flow-vertical-line { animation-delay: 0.6s; }
-    .flow-level:nth-child(5) .flow-node-interactive { animation-delay: 0.7s; }
-    .flow-level:nth-child(5) .flow-vertical-line { animation-delay: 0.9s; }
-    .flow-level:nth-child(7) .flow-node-interactive { animation-delay: 1s; }
-    .flow-level:nth-child(7) .flow-vertical-line { animation-delay: 1.2s; }
-    .flow-level:nth-child(9) .flow-node-interactive { animation-delay: 1.3s; }
-    .flow-level:nth-child(9) .flow-vertical-line { animation-delay: 1.5s; }
-    .flow-level:nth-child(11) .flow-node-interactive { animation-delay: 1.6s; }
-    .flow-level:nth-child(11) .flow-vertical-line { animation-delay: 1.8s; }
-    .flow-level:nth-child(13) .flow-node-interactive { animation-delay: 1.9s; }
-    .flow-level:nth-child(13) .flow-vertical-line { animation-delay: 2.1s; }
-    .flow-level:nth-child(15) .flow-node-interactive { animation-delay: 2.2s; }
-    .flow-level:nth-child(15) .flow-vertical-line { animation-delay: 2.4s; }
-    .flow-level:nth-child(17) .flow-node-interactive { animation-delay: 2.5s; }
+    .flow-level:nth-child(1) .flow-node-interactive {
+      animation-delay: 0.1s;
+    }
+
+    .flow-level:nth-child(1) .flow-vertical-line {
+      animation-delay: 0.3s;
+    }
+
+    .flow-level:nth-child(3) .flow-node-interactive {
+      animation-delay: 0.4s;
+    }
+
+    .flow-level:nth-child(3) .flow-vertical-line {
+      animation-delay: 0.6s;
+    }
+
+    .flow-level:nth-child(5) .flow-node-interactive {
+      animation-delay: 0.7s;
+    }
+
+    .flow-level:nth-child(5) .flow-vertical-line {
+      animation-delay: 0.9s;
+    }
+
+    .flow-level:nth-child(7) .flow-node-interactive {
+      animation-delay: 1s;
+    }
+
+    .flow-level:nth-child(7) .flow-vertical-line {
+      animation-delay: 1.2s;
+    }
+
+    .flow-level:nth-child(9) .flow-node-interactive {
+      animation-delay: 1.3s;
+    }
+
+    .flow-level:nth-child(9) .flow-vertical-line {
+      animation-delay: 1.5s;
+    }
+
+    .flow-level:nth-child(11) .flow-node-interactive {
+      animation-delay: 1.6s;
+    }
+
+    .flow-level:nth-child(11) .flow-vertical-line {
+      animation-delay: 1.8s;
+    }
+
+    .flow-level:nth-child(13) .flow-node-interactive {
+      animation-delay: 1.9s;
+    }
+
+    .flow-level:nth-child(13) .flow-vertical-line {
+      animation-delay: 2.1s;
+    }
+
+    .flow-level:nth-child(15) .flow-node-interactive {
+      animation-delay: 2.2s;
+    }
+
+    .flow-level:nth-child(15) .flow-vertical-line {
+      animation-delay: 2.4s;
+    }
+
+    .flow-level:nth-child(17) .flow-node-interactive {
+      animation-delay: 2.5s;
+    }
 
     .flow-branch .flow-node-interactive {
       animation: slideDown 0.5s ease-out forwards;
@@ -434,6 +487,7 @@
         opacity: 0;
         transform: scaleX(0);
       }
+
       to {
         opacity: 1;
         transform: scaleX(1);
@@ -453,6 +507,7 @@
         opacity: 0;
         transform: translateY(-10px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -460,8 +515,17 @@
     }
 
     @keyframes pulse {
-      0%, 100% { opacity: 0.4; transform: translateY(0); }
-      50% { opacity: 1; transform: translateY(3px); }
+
+      0%,
+      100% {
+        opacity: 0.4;
+        transform: translateY(0);
+      }
+
+      50% {
+        opacity: 1;
+        transform: translateY(3px);
+      }
     }
 
     .flow-node-interactive {
@@ -679,26 +743,26 @@
         width: 100%;
         max-width: 160px;
       }
-      }
+    }
 
-      .flow-node-interactive {
-        min-width: 100px;
-        padding: 0.5rem 0.75rem;
-        font-size: 0.8rem;
-      }
+    .flow-node-interactive {
+      min-width: 100px;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.8rem;
+    }
 
-      .flow-node-interactive .tooltip {
-        width: 180px;
-        font-size: 0.75rem;
-      }
+    .flow-node-interactive .tooltip {
+      width: 180px;
+      font-size: 0.75rem;
+    }
 
-      .flow-branch {
-        gap: 1rem;
-      }
+    .flow-branch {
+      gap: 1rem;
+    }
 
-      .flow-branch::before {
-        width: 80%;
-      }
+    .flow-branch::before {
+      width: 80%;
+    }
     }
   </style>
 </head>
@@ -814,7 +878,8 @@
                 Unresolved Logical Plan
                 <span class="tooltip">
                   <strong>Unresolved Logical Plan</strong>
-                  Initial query plan with unresolved attributes and relations. Catalyst analyzes and resolves references.
+                  Initial query plan with unresolved attributes and relations. Catalyst analyzes and resolves
+                  references.
                 </span>
               </div>
             </div>
@@ -1186,7 +1251,7 @@
     </div>
   </main>
 
-  <script src="/source/app.js"></script>
+  <script src="../app.js"></script>
   <script>
     const navItems = Array.from(document.querySelectorAll(".nav-item"));
     const sections = document.querySelectorAll(".topic[id]");
