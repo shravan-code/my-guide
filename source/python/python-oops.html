@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,382 +10,22 @@
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
-  <style>
-    :root { --sidebar-width: 300px; }
-    .sidebar {
-      position: fixed;
-      left: 0;
-      top: 0;
-      width: 300px;
-      height: 100vh;
-      padding: 1.2rem 0.8rem;
-      background: var(--glass);
-      backdrop-filter: blur(var(--glass-blur));
-      -webkit-backdrop-filter: blur(var(--glass-blur));
-      border-right: 1px solid var(--glass-border);
-      box-shadow: var(--shadow-md);
-      overflow-y: auto;
-      z-index: 1000;
-    }
-
-    .sidebar::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    .sidebar::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    .sidebar::-webkit-scrollbar-thumb {
-      background: var(--glass-border);
-      border-radius: 3px;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 1.5rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid var(--glass-border);
-    }
-
-    .logo-text {
-      font-family: "Sora", sans-serif;
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .nav-title {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--muted);
-      margin: 1.2rem 0 0.5rem;
-      padding-left: 0.6rem;
-      font-weight: 600;
-    }
-
-    .nav-item {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      text-decoration: none;
-      color: var(--text-secondary);
-      padding: 0.55rem 0.7rem;
-      border-radius: var(--radius-sm);
-      border: 1px solid transparent;
-      background: transparent;
-      font-size: 0.88rem;
-      font-weight: 500;
-      margin-bottom: 0.15rem;
-      transition: all var(--transition);
-    }
-
-    .nav-item:hover {
-      color: var(--text);
-      background: var(--bg-alt);
-      border-color: var(--glass-border);
-    }
-
-    .nav-item.active {
-      color: var(--text);
-      background: var(--bg-alt);
-      border-color: var(--glow-border);
-      box-shadow: var(--shadow-sm), inset 0 0 0 1px var(--glow-border);
-    }
-
-    .main-content {
-      margin-left: var(--sidebar-width);
-      padding: 1.5rem 2rem 3rem;
-      min-height: 100vh;
-    }
-
-    .page-wrap {
-      width: min(1100px, 100%);
-      margin: 0 auto 0 var(--sidebar-width);
-    }
-
-    .page-wrap .topbar {
-      width: 100%;
-      margin: 0 0 1.2rem;
-      position: relative;
-      z-index: 100;
-    }
-
-    .topbar {
-      border-radius: var(--radius-lg);
-      position: relative;
-      z-index: 1000;
-      margin-left: var(--sidebar-width);
-      position: sticky;
-      top: 0;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 2rem 2rem 1rem;
-    }
-
-    .hero h1 {
-      font-size: clamp(1.3rem, 4vw, 2rem);
-    }
-
-    .topic-section {
-      padding: 1.25rem;
-      margin-bottom: 1rem;
-      border-radius: var(--radius);
-      background: var(--glass);
-      backdrop-filter: blur(var(--glass-blur));
-      -webkit-backdrop-filter: blur(var(--glass-blur));
-      border: 1px solid var(--glass-border);
-      box-shadow: var(--shadow);
-    }
-
-    .topic-section h2 {
-      margin: 0 0 0.75rem;
-      font-size: 1.1rem;
-      font-family: "Sora", sans-serif;
-      color: var(--text);
-    }
-
-    .topic-section h3 {
-      margin: 1rem 0 0.5rem;
-      font-size: 0.95rem;
-      font-family: "Sora", sans-serif;
-      color: var(--text);
-    }
-
-    .topic-section p {
-      margin: 0 0 0.75rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    .topic-section ul,
-    .topic-section ol {
-      margin: 0 0 0.75rem;
-      padding-left: 1.5rem;
-      color: var(--text-secondary);
-    }
-
-    .topic-section li {
-      margin-bottom: 0.35rem;
-      line-height: 1.5;
-    }
-
-    .code-block {
-      background: var(--bg-alt);
-      border: 1px solid var(--glow-border);
-      border-radius: var(--radius-sm);
-      padding: 1rem;
-      margin: 0.75rem 0;
-      overflow-x: auto;
-    }
-
-    .code-block code {
-      font-family: "Fira Code", "Consolas", monospace;
-      font-size: 0.85rem;
-      color: var(--text);
-      white-space: pre;
-    }
-
-    .keyword {
-      color: #c678dd;
-    }
-
-    .function {
-      color: #61afef;
-    }
-
-    .string {
-      color: #98c379;
-    }
-
-    .number {
-      color: #d19a66;
-    }
-
-    .comment {
-      color: #5c6370;
-      font-style: italic;
-    }
-
-    .operator {
-      color: #56b6c2;
-    }
-
-    .class-name {
-      color: #e5c07b;
-    }
-
-    .decorator {
-      color: #c678dd;
-    }
-
-    .method {
-      color: #61afef;
-    }
-
-    .concept-pill {
-      display: inline-block;
-      background: var(--bg-alt);
-      border: 1px solid var(--glow-border);
-      border-radius: 20px;
-      padding: 0.25rem 0.75rem;
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      margin: 0.2rem;
-    }
-
-    .level-badge {
-      display: inline-block;
-      background: var(--text);
-      color: var(--bg);
-      border-radius: 20px;
-      padding: 0.15rem 0.5rem;
-      font-size: 0.7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      margin-bottom: 0.5rem;
-    }
-
-    .level-badge.basic {
-      background: #98c379;
-    }
-
-    .level-badge.intermediate {
-      background: #e5c07b;
-    }
-
-    .level-badge.advanced {
-      background: #e06c75;
-    }
-
-    .split-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1rem;
-      margin: 1rem 0;
-    }
-
-    .split-item {
-      background: var(--bg-alt);
-      border: 1px solid var(--glow-border);
-      border-radius: var(--radius-sm);
-      padding: 1rem;
-    }
-
-    .split-item h4 {
-      margin: 0 0 0.5rem;
-      font-size: 0.9rem;
-      font-family: "Sora", sans-serif;
-      color: var(--text);
-    }
-
-    .split-item p {
-      margin: 0;
-      font-size: 0.85rem;
-    }
-
-    .concept-card {
-      background: var(--bg-alt);
-      border: 1px solid var(--glow-border);
-      border-radius: var(--radius-sm);
-      padding: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .concept-card h3 {
-      margin: 0 0 0.5rem;
-      color: var(--text);
-    }
-
-    .concept-card p {
-      margin: 0 0 0.5rem;
-      font-size: 0.9rem;
-    }
-
-    .warning-box {
-      background: rgba(224, 108, 117, 0.1);
-      border: 1px solid #e06c75;
-      border-radius: var(--radius-sm);
-      padding: 0.75rem;
-      margin: 0.75rem 0;
-    }
-
-    .warning-box p {
-      margin: 0;
-      color: #e06c75;
-      font-size: 0.85rem;
-    }
-
-    .tip-box {
-      background: rgba(152, 195, 121, 0.1);
-      border: 1px solid #98c379;
-      border-radius: var(--radius-sm);
-      padding: 0.75rem;
-      margin: 0.75rem 0;
-    }
-
-    .tip-box p {
-      margin: 0;
-      color: #98c379;
-      font-size: 0.85rem;
-    }
-
-    @media (max-width: 768px) {
-      .sidebar {
-        display: none;
-      }
-
-      .main-content {
-        margin-left: 0;
-        padding: 1rem;
-      }
-      .topbar { margin-left: 0; }
-    }
-  </style>
+  <link rel="stylesheet" href="python.css" />
 </head>
-
-<body>
-  <nav class="sidebar" id="sidebar">
-    <div class="logo">
-      <span class="logo-text">Python OOPs</span>
-    </div>
-
-    <div class="nav-title">Basic Concepts</div>
-    <a href="#what-is-oop" class="nav-item active"><span>1</span> What is OOP?</a>
-    <a href="#classes-objects" class="nav-item"><span>2</span> Classes & Objects</a>
-    <a href="#method-types" class="nav-item"><span>3</span> Instance vs Class vs Static</a>
-
-    <div class="nav-title">Intermediate</div>
-    <a href="#encapsulation" class="nav-item"><span>4</span> Encapsulation</a>
-    <a href="#inheritance" class="nav-item"><span>5</span> Inheritance</a>
-    <a href="#polymorphism" class="nav-item"><span>6</span> Polymorphism</a>
-    <a href="#abstraction" class="nav-item"><span>7</span> Abstraction</a>
-
-    <div class="nav-title">Advanced</div>
-    <a href="#composition" class="nav-item"><span>8</span> Composition</a>
-    <a href="#decorator-pattern" class="nav-item"><span>9</span> Decorator Pattern</a>
-    <a href="#descriptor-protocol" class="nav-item"><span>10</span> Descriptors</a>
-    <a href="#metaclasses" class="nav-item"><span>11</span> Metaclasses</a>
-    <a href="#magic-methods" class="nav-item"><span>12</span> Magic Methods</a>
-    <a href="#data-classes" class="nav-item"><span>13</span> Data Classes</a>
-  </nav>
-
+<body class="with-sidebar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
   <header class="topbar glass reveal in">
     <a class="brand" href="../../index.html">Data Guide</a>
+    <button id="sidebar-toggle" class="sidebar-toggle" type="button" aria-label="Toggle sidebar">
+      <span class="hamburger" aria-hidden="true"></span>
+    </button>
     <nav class="menu" aria-label="Python menu">
       <a href="index.html">Python Hub</a>
       <a href="python-fundamentals.html">Fundamentals</a>
       <a href="python-oops.html" class="active" aria-current="page">OOPs</a>
-
     </nav>
     <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
       <span class="toggle-icon" aria-hidden="true">☾</span>
@@ -394,7 +33,33 @@
     </button>
   </header>
 
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
   <main class="main-content">
+    <nav class="sidebar" id="sidebar">
+      <div class="logo">
+        <span class="logo-text">Python OOPs</span>
+      </div>
+
+      <div class="nav-title">Basic Concepts</div>
+      <a href="#what-is-oop" class="nav-item active"><span>1</span> What is OOP?</a>
+      <a href="#classes-objects" class="nav-item"><span>2</span> Classes & Objects</a>
+      <a href="#method-types" class="nav-item"><span>3</span> Instance vs Class vs Static</a>
+
+      <div class="nav-title">Intermediate</div>
+      <a href="#encapsulation" class="nav-item"><span>4</span> Encapsulation</a>
+      <a href="#inheritance" class="nav-item"><span>5</span> Inheritance</a>
+      <a href="#polymorphism" class="nav-item"><span>6</span> Polymorphism</a>
+      <a href="#abstraction" class="nav-item"><span>7</span> Abstraction</a>
+
+      <div class="nav-title">Advanced</div>
+      <a href="#composition" class="nav-item"><span>8</span> Composition</a>
+      <a href="#decorator-pattern" class="nav-item"><span>9</span> Decorator Pattern</a>
+      <a href="#descriptor-protocol" class="nav-item"><span>10</span> Descriptors</a>
+      <a href="#metaclasses" class="nav-item"><span>11</span> Metaclasses</a>
+      <a href="#magic-methods" class="nav-item"><span>12</span> Magic Methods</a>
+      <a href="#data-classes" class="nav-item"><span>13</span> Data Classes</a>
+    </nav>
     <div class="page-wrap">
       <section class="hero">
         <h1>Python OOPs</h1>
@@ -424,7 +89,7 @@
           is an instance of a class with actual values.
         </p>
         <div class="code-block">
-          <code><span class="comment"># Defining a class</span>
+<code><span class="comment"># Defining a class</span>
 <span class="keyword">class</span> <span class="class-name">Dog</span>:
     <span class="comment"># Class attribute (shared by all instances)</span>
     species = <span class="string">"Canis familiaris"</span>
@@ -469,7 +134,7 @@ max_dog = <span class="class-name">Dog</span>(<span class="string">"Max"</span>,
           </div>
         </div>
         <div class="code-block">
-          <code><span class="keyword">class</span> <span class="class-name">MathOperations</span>:
+<code><span class="keyword">class</span> <span class="class-name">MathOperations</span>:
     pi = <span class="number">3.14159</span>  <span class="comment"># Class attribute</span>
     
     <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, value):
@@ -504,7 +169,7 @@ obj = <span class="class-name">MathOperations</span>(<span class="number">10</sp
           Python uses naming conventions: <code>_protected</code> and <code>__private</code>.
         </p>
         <div class="code-block">
-          <code><span class="keyword">class</span> <span class="class-name">BankAccount</span>:
+<code><span class="keyword">class</span> <span class="class-name">BankAccount</span>:
     <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, balance):
         <span class="method">self</span>.__balance = balance  <span class="comment"># Private attribute (name mangling)</span>
         <span class="method">self</span>._account_id = <span class="string">"ACC123"</span>  <span class="comment"># Protected attribute</span>
@@ -545,7 +210,7 @@ account.deposit(<span class="number">500</span>)
           promoting code reuse and creating hierarchical relationships.
         </p>
         <div class="code-block">
-          <code><span class="comment"># Parent class</span>
+<code><span class="comment"># Parent class</span>
 <span class="keyword">class</span> <span class="class-name">Animal</span>:
     <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, name):
         <span class="method">self</span>.name = name
@@ -591,7 +256,7 @@ cat = <span class="class-name">Cat</span>(<span class="string">"Whiskers"</span>
           It enables the same interface to work with different data types.
         </p>
         <div class="code-block">
-          <code><span class="comment"># Polymorphism with inheritance</span>
+<code><span class="comment"># Polymorphism with inheritance</span>
 <span class="keyword">class</span> <span class="class-name">Shape</span>:
     <span class="keyword">def</span> <span class="function">area</span>(<span class="method">self</span>):
         <span class="keyword">pass</span>
@@ -636,7 +301,7 @@ shapes = [<span class="class-name">Rectangle</span>(<span class="number">4</span
           In Python, we use abstract classes and methods to achieve abstraction.
         </p>
         <div class="code-block">
-          <code><span class="keyword">from</span> abc <span class="keyword">import</span> ABC, abstractmethod
+<code><span class="keyword">from</span> abc <span class="keyword">import</span> ABC, abstractmethod
 
 <span class="keyword">class</span> <span class="class-name">DataProcessor</span>(ABC):
     <span class="comment"># Abstract class - cannot be instantiated directly</span>
@@ -677,7 +342,7 @@ processor.validate()    <span class="comment"># Validating data...</span></code>
           It provides flexibility and looser coupling than inheritance.
         </p>
         <div class="code-block">
-          <code><span class="keyword">class</span> <span class="class-name">Engine</span>:
+<code><span class="keyword">class</span> <span class="class-name">Engine</span>:
     <span class="keyword">def</span> <span class="function">start</span>(<span class="method">self</span>):
         <span class="keyword">return</span> <span class="string">"Engine starting..."</span>
 
@@ -711,7 +376,7 @@ car = <span class="class-name">Car</span>(<span class="string">"Tesla Model 3"</
           wrap other functions or classes.
         </p>
         <div class="code-block">
-          <code><span class="comment"># Function decorator</span>
+<code><span class="comment"># Function decorator</span>
 <span class="keyword">def</span> <span class="function">timer</span>(func):
     <span class="keyword">import</span> time
     <span class="keyword">def</span> <span class="function">wrapper</span>(*args, **kwargs):
@@ -755,7 +420,7 @@ car = <span class="class-name">Car</span>(<span class="string">"Tesla Model 3"</
           <code>__set__</code>, and <code>__delete__</code> methods.
         </p>
         <div class="code-block">
-          <code><span class="keyword">class</span> <span class="class-name">RangeValidator</span>:
+<code><span class="keyword">class</span> <span class="class-name">RangeValidator</span>:
     <span class="comment"># Descriptor for validating numeric ranges</span>
     <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, min_val=<span class="number">0</span>, max_val=<span class="number">100</span>):
         <span class="method">self</span>.min_val = min_val
@@ -793,7 +458,7 @@ student.score = <span class="number">150</span>  <span class="comment"># ValueEr
           tools for enforcing coding standards and framework development.
         </p>
         <div class="code-block">
-          <code><span class="keyword">class</span> <span class="class-name">Meta</span>(type):
+<code><span class="keyword">class</span> <span class="class-name">Meta</span>(type):
     <span class="comment"># Metaclass - controls class creation</span>
     <span class="keyword">def</span> <span class="function">__new__</span>(<span class="method">cls</span>, name, bases, attrs):
         <span class="function">print</span>(<span class="string">f"Creating class: {name}"</span>)
@@ -834,7 +499,7 @@ db2 = <span class="class-name">Database</span>()
           customize class behavior with Python's built-in operations.
         </p>
         <div class="code-block">
-          <code><span class="keyword">class</span> <span class="class-name">Vector</span>:
+<code><span class="keyword">class</span> <span class="class-name">Vector</span>:
     <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, x, y):
         <span class="method">self</span>.x = x
         <span class="method">self</span>.y = y
@@ -878,7 +543,7 @@ v2 = <span class="class-name">Vector</span>(<span class="number">4</span>, <span
           like <code>__init__</code>, <code>__repr__</code>, and <code>__eq__</code>.
         </p>
         <div class="code-block">
-          <code><span class="keyword">from</span> dataclasses <span class="keyword">import</span> dataclass, field
+<code><span class="keyword">from</span> dataclasses <span class="keyword">import</span> dataclass, field
 <span class="keyword">from</span> typing <span class="keyword">import</span> List
 
 <span class="decorator">@dataclass</span>
@@ -950,9 +615,37 @@ team = <span class="class-name">Team</span>(<span class="string">"Data Team"</sp
   </main>
 
   <script src="../app.js"></script>
+  <script src="python.js"></script>
   <script>
+    const sidebar = document.getElementById("sidebar");
+    const sidebarToggle = document.getElementById("sidebar-toggle");
+    const sidebarOverlay = document.getElementById("sidebar-overlay");
+
+    const closeSidebar = () => {
+      sidebar.classList.remove("open");
+      sidebarOverlay.classList.remove("active");
+    };
+
+    const openSidebar = () => {
+      sidebar.classList.add("open");
+      sidebarOverlay.classList.add("active");
+    };
+
+    if (sidebarToggle) {
+      sidebarToggle.addEventListener("click", () => {
+        if (sidebar.classList.contains("open")) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+      });
+    }
+
+    if (sidebarOverlay) {
+      sidebarOverlay.addEventListener("click", closeSidebar);
+    }
+
     const navItems = Array.from(document.querySelectorAll(".nav-item"));
-    const sections = document.querySelectorAll(".topic-section[id]");
 
     const setActiveNav = (id) => {
       navItems.forEach((item) => {
@@ -972,10 +665,10 @@ team = <span class="class-name">Team</span>(<span class="string">"Data Team"</sp
         const targetId = this.getAttribute("href").substring(1);
         const target = document.getElementById(targetId);
         if (!target) return;
-
         target.scrollIntoView({ behavior: "smooth", block: "start" });
         history.replaceState(null, "", "#" + targetId);
         setActiveNav(targetId);
+        closeSidebar();
       });
     });
 
@@ -994,5 +687,4 @@ team = <span class="class-name">Team</span>(<span class="string">"Data Team"</sp
     setActiveNav(initialId);
   </script>
 </body>
-
 </html>

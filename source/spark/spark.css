@@ -1,0 +1,727 @@
+/* ============================================
+   Spark Pages - Shared Layout CSS
+   ============================================ */
+
+:root {
+  --sidebar-width: 260px;
+  --topbar-height: 64px;
+}
+
+/* ---- Body and main layout ---- */
+body.with-sidebar {
+  overflow-y: auto;
+  height: auto;
+  min-height: 100vh;
+}
+
+/* Ensure main content fills height */
+body.with-sidebar .main-content {
+  min-height: 100vh;
+  display: block;
+}
+
+/* ---- Grid layout: content area only ---- */
+body.with-sidebar main {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+body.with-sidebar main>.page-wrap {
+  padding: 1.5rem 1rem 3rem;
+  min-width: 0;
+  max-width: 100%;
+}
+
+body:not(.with-sidebar) main {
+  width: min(900px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 1.5rem 0 3rem;
+}
+
+body:not(.with-sidebar) .page-wrap {
+  padding: 0;
+  max-width: none;
+}
+
+/* ---- Sidebar: fixed position with own scroll ---- */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-width);
+  height: 100vh;
+  padding: 0 0 0 10px;
+  background: var(--glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-right: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-md);
+  overflow-y: auto;
+  z-index: 1100;
+  transition: all var(--transition);
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: var(--glass-border);
+  border-radius: 3px;
+}
+
+/* Sidebar inner content padding */
+.sidebar>* {
+  padding: 1rem 0.8rem;
+}
+
+/* Adjust main content to be flush with sidebar */
+body.with-sidebar .main-content {
+  margin-left: 260px;
+}
+
+/* ---- Sidebar Logo ---- */
+.sidebar .logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.sidebar .logo-text {
+  font-family: "Sora", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* ---- Sidebar Nav ---- */
+.sidebar .nav-title {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin: 1.2rem 0 0.5rem;
+  padding-left: 0.6rem;
+  font-weight: 600;
+}
+
+.sidebar .nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--text-secondary);
+  padding: 0.55rem 0.7rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  background: transparent;
+  font-size: 0.88rem;
+  font-weight: 500;
+  margin-bottom: 0.15rem;
+  transition: all var(--transition);
+}
+
+.sidebar .nav-item:hover {
+  color: var(--text);
+  background: var(--bg-alt);
+  border-color: var(--glass-border);
+}
+
+.sidebar .nav-item.active {
+  color: var(--text);
+  background: var(--bg-alt);
+  border-color: var(--glow-border);
+  box-shadow: var(--shadow-sm), inset 0 0 0 1px var(--glow-border);
+}
+
+/* ---- Main content area ---- */
+.main-content {
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Page wrap inside main-content */
+body.with-sidebar .main-content>.page-wrap {
+  padding: 1.5rem 2rem 3rem;
+  min-width: 0;
+  max-width: min(1250px, 100%);
+}
+
+/* For non-sidebar pages */
+main:not(.main-content) .page-wrap,
+.page-wrap {
+  padding: 1.5rem 1.5rem 2rem;
+  min-width: 0;
+  max-width: min(1200px, 100%);
+}
+
+/* ---- Topic Sections ---- */
+.topic {
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  border-radius: var(--radius);
+  background: var(--glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow);
+  scroll-margin-top: calc(var(--topbar-height) + 1rem);
+  transition: all var(--transition);
+}
+
+.topic:hover {
+  box-shadow: var(--shadow-md), var(--shadow-glow);
+}
+
+.topic h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.05rem;
+  font-family: "Sora", sans-serif;
+  color: var(--text);
+}
+
+.topic p {
+  margin: 0 0 0.75rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.topic-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.topic-badge {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-alt);
+  border: 1px solid var(--glow-border);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+}
+
+.topic-media {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  border-radius: var(--radius-sm);
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+}
+
+.topic-media p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.subhead {
+  margin: 0.75rem 0 0.35rem;
+  font-size: 0.9rem;
+  font-family: "Sora", sans-serif;
+  color: var(--text);
+}
+
+.callout {
+  border-radius: var(--radius-sm);
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  background: var(--bg-alt);
+  border: 1px solid var(--glow-border);
+}
+
+.callout p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* ---- Split Grid ---- */
+.split {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 0.5rem 0;
+}
+
+.split-item {
+  border-radius: var(--radius-sm);
+  padding: 0.75rem;
+  background: var(--bg-alt);
+  border: 1px solid var(--glow-border);
+}
+
+.split-item h3 {
+  margin: 0 0 0.3rem;
+  font-size: 0.9rem;
+  font-family: "Sora", sans-serif;
+  color: var(--text);
+}
+
+.split-item p {
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+/* ---- Flowchart ---- */
+.flowchart {
+  margin: 0.75rem 0;
+}
+
+.flowchart h3 {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+  font-family: "Sora", sans-serif;
+  color: var(--text-secondary);
+}
+
+.flow-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.flow-node {
+  background: var(--bg-alt);
+  border: 1px solid var(--glow-border);
+  border-radius: var(--radius-sm);
+  padding: 0.35rem 0.65rem;
+  font-weight: 500;
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+}
+
+.flow-arrow {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* ---- Hero on sidebar pages ---- */
+.hero {
+  text-align: center;
+  padding: 1.5rem 2rem 1rem;
+  scroll-margin-top: var(--topbar-height);
+}
+
+.hero h1 {
+  font-size: clamp(1.3rem, 4vw, 2rem);
+}
+
+/* ---- Hub page hero: minimal, no glass ---- */
+body:not(.with-sidebar) .hero {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 2rem 0 1rem;
+  animation: none;
+  scroll-margin-top: var(--topbar-height);
+}
+
+body:not(.with-sidebar) .hero:hover {
+  box-shadow: none;
+  transform: none;
+}
+
+body:not(.with-sidebar) .hero h1 {
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+/* ---- Inspire (hub page) ---- */
+.inspire {
+  padding: 1.5rem;
+  margin: 1rem 0;
+  text-align: center;
+  border-radius: var(--radius);
+  background: var(--glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow);
+}
+
+.inspire p {
+  font-size: clamp(0.95rem, 2.2vw, 1.15rem);
+  line-height: 1.8;
+  color: var(--text);
+  margin: 0;
+}
+
+/* ---- Sidebar toggle button (hamburger) ---- */
+.sidebar-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  color: var(--text);
+  border-radius: var(--radius-sm);
+  padding: 0.4rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition);
+  flex-shrink: 0;
+}
+
+.sidebar-toggle:hover {
+  box-shadow: var(--shadow);
+  transform: translateY(-1px);
+}
+
+.hamburger {
+  display: block;
+  position: relative;
+  width: 18px;
+  height: 12px;
+}
+
+.hamburger::before,
+.hamburger::after,
+.hamburger {
+  background: var(--text);
+  border-radius: 2px;
+  transition: all var(--transition);
+}
+
+.hamburger::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+}
+
+.hamburger {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  transform: translateY(-50%);
+}
+
+.hamburger::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+}
+
+/* ---- Sidebar overlay ---- */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 2500;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.sidebar-overlay.active {
+  display: block;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 920px) {
+  :root {
+    --sidebar-width: 240px;
+  }
+
+  body.with-sidebar .main-content {
+    margin-left: 240px;
+  }
+
+  body.with-sidebar main>.page-wrap {
+    padding: 1.5rem 0.75rem 2rem;
+  }
+}
+
+/* ---- Interactive Flow (Architecture Hero) ---- */
+.interactive-flow {
+  margin: 1.5rem 0;
+}
+
+.interactive-flow h3 {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  font-family: "Space Grotesk", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.flow-diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding: 1rem;
+  background: var(--bg-alt);
+  border-radius: var(--radius);
+  border: 1px solid var(--glass-border);
+}
+
+.flow-level {
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  justify-content: center;
+}
+
+.flow-node-interactive {
+  position: relative;
+  background: var(--glass);
+  border: 1px solid var(--glow-border);
+  border-radius: var(--radius);
+  padding: 0.85rem 1.25rem;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  cursor: default;
+  transition: all var(--transition);
+  width: 100%;
+  animation: fadeIn 0.5s ease both;
+}
+
+.flow-node-interactive:hover {
+  border-color: var(--glow-border);
+  box-shadow: var(--shadow), 0 0 20px var(--glow-border);
+  transform: scale(1.02);
+}
+
+.tooltip {
+  display: none;
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 16px);
+  transform: translateY(-50%);
+  background: var(--bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem;
+  width: max-content;
+  max-width: 320px;
+  box-shadow: var(--shadow-lg);
+  z-index: 100;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  text-align: left;
+}
+
+.tooltip strong {
+  display: block;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+  font-size: 0.85rem;
+}
+
+.flow-node-interactive:hover .tooltip {
+  display: block;
+  animation: fadeIn 0.2s ease;
+}
+
+.flow-vertical-line {
+  width: 2px;
+  height: 24px;
+  background: linear-gradient(to bottom, var(--glass-border), var(--glow-border));
+  animation: fadeIn 0.5s ease both;
+}
+
+.flow-arrow-down {
+  font-size: 1.2rem;
+  color: var(--muted);
+  animation: fadeIn 0.5s ease both;
+}
+
+/* ---- Cluster/Worker visualization ---- */
+.cluster-box {
+  border: 2px dashed var(--glow-border);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  margin: 0.75rem 0;
+  background: var(--bg-alt);
+}
+
+.cluster-box h4 {
+  margin: 0 0 0.75rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.worker-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.worker-node {
+  background: var(--glass);
+  border: 1px solid var(--glow-border);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.executor-box {
+  background: var(--bg-alt);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  padding: 0.4rem 0.6rem;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.task-box {
+  background: var(--bg-elevated);
+  border: 1px solid var(--glow-border);
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+/* ---- Concept sections (for spark-code.html) ---- */
+.concept {
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  border-radius: var(--radius);
+  background: var(--glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow);
+  scroll-margin-top: calc(var(--topbar-height) + 1rem);
+  transition: all var(--transition);
+}
+
+.concept:hover {
+  box-shadow: var(--shadow-md), var(--shadow-glow);
+}
+
+.concept h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.05rem;
+  font-family: "Sora", sans-serif;
+  color: var(--text);
+}
+
+.concept p {
+  margin: 0 0 0.6rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.concept .two-col {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 0.5rem 0;
+}
+
+.concept .panel {
+  border-radius: var(--radius-sm);
+  padding: 0.75rem;
+  background: var(--bg-alt);
+  border: 1px solid var(--glow-border);
+}
+
+.concept .panel h3 {
+  margin: 0 0 0.4rem;
+  font-size: 0.9rem;
+  font-family: "Sora", sans-serif;
+  color: var(--text);
+}
+
+@media (max-width: 640px) {
+  .sidebar-toggle {
+    display: flex;
+  }
+
+  .sidebar {
+    top: var(--topbar-height);
+    left: 0;
+    width: var(--sidebar-width);
+    height: calc(100vh - var(--topbar-height));
+    transform: translateX(-100%);
+    transition: transform var(--transition);
+    z-index: 1500;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  body.with-sidebar .main-content {
+    margin-left: 0;
+  }
+
+  body.with-sidebar main>.page-wrap {
+    padding: 1rem 0.75rem;
+  }
+
+  .split {
+    grid-template-columns: 1fr;
+  }
+
+  .concept .two-col {
+    grid-template-columns: 1fr;
+  }
+
+  .flow-diagram {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .flow-node-interactive {
+    font-size: 0.82rem;
+    padding: 0.7rem 1rem;
+  }
+
+  .tooltip {
+    display: none !important;
+  }
+}

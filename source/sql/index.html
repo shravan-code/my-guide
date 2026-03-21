@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,80 +10,7 @@
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
-  <style>
-    .hero {
-      text-align: center;
-      padding: 2rem 2rem 1rem;
-    }
-
-    .hero h1 {
-      font-size: clamp(1.3rem, 4vw, 2rem);
-    }
-
-    .inspire {
-      max-width: min(900px, 90vw);
-      margin: 0 auto 1.5rem;
-      padding: 2.5rem 1rem;
-      text-align: center;
-    }
-
-    .inspire p {
-      font-size: clamp(0.95rem, 2.2vw, 1.15rem);
-      line-height: 1.8;
-      font-style: italic;
-      color: var(--text-primary);
-    }
-
-    .inspire p strong {
-      color: var(--text-primary);
-      font-weight: 700;
-    }
-
-    .sql-tracks {
-      padding: clamp(1rem, 2.5vw, 1.5rem);
-    }
-
-    .sql-tracks h2 {
-      font-size: clamp(1rem, 2vw, 1.25rem);
-    }
-
-    .sql-track-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 0.75rem;
-      margin-top: 1rem;
-    }
-
-    .sql-track {
-      text-align: center;
-    }
-
-    .sql-track h3 {
-      font-size: clamp(0.9rem, 2vw, 1rem);
-    }
-
-    .sql-track p {
-      font-size: clamp(0.75rem, 1.5vw, 0.82rem);
-    }
-
-    @media (max-width: 900px) {
-      .sql-track-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 600px) {
-      .sql-track-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (min-width: 1400px) {
-      .sql-track-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="../hub.css" />
 </head>
 
 <body>
@@ -92,10 +18,10 @@
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
-  <header class="topbar">
+  <header class="topbar glass reveal in">
     <a class="brand" href="../../index.html">Data Guide</a>
     <nav class="menu" aria-label="SQL menu">
-      <a href="../../index.html" class="active" aria-current="page">SQL Hub</a>
+      <a href="index.html" class="active" aria-current="page">SQL Hub</a>
       <a href="sql-queries.html">Queries</a>
       <a href="sql-joins.html">Joins</a>
     </nav>
@@ -105,13 +31,13 @@
     </button>
   </header>
 
-  <main class="main-content">
+  <main>
     <div class="page-wrap">
       <section class="hero">
         <h1>SQL</h1>
       </section>
 
-      <section class="inspire glass-card">
+      <section class="inspire">
         <p>
           The <strong>language of data</strong>. SQL speaks to databases with clarity and precision.
           Select, filter, join, aggregate—extract <strong>gold from mountains of raw data</strong>.
@@ -121,33 +47,25 @@
         </p>
       </section>
 
-      <section class="sql-tracks">
+      <section class="tracks">
         <h2>Explore SQL</h2>
-        <div class="sql-track-grid">
-          <article class="sql-track glass-card">
-            <a href="sql-queries.html">
-              <h3>Queries</h3>
-              <p>SELECT, WHERE, GROUP BY, ORDER BY</p>
-            </a>
-          </article>
-          <article class="sql-track glass-card">
-            <a href="sql-joins.html">
-              <h3>Joins</h3>
-              <p>INNER, LEFT, RIGHT, FULL joins</p>
-            </a>
-          </article>
-          <article class="sql-track glass-card">
-            <a href="sql-subqueries.html">
-              <h3>Subqueries</h3>
-              <p>Nested queries and CTEs</p>
-            </a>
-          </article>
-          <article class="sql-track glass-card">
-            <a href="https://www.w3schools.com/sql/" target="_blank" rel="noopener">
-              <h3>Docs ↗</h3>
-              <p>SQL reference and tutorials</p>
-            </a>
-          </article>
+        <div class="track-grid">
+          <a href="sql-queries.html" class="track">
+            <h3>Queries</h3>
+            <p>SELECT, WHERE, GROUP BY, ORDER BY</p>
+          </a>
+          <a href="sql-joins.html" class="track">
+            <h3>Joins</h3>
+            <p>INNER, LEFT, RIGHT, FULL joins</p>
+          </a>
+          <a href="sql-subqueries.html" class="track">
+            <h3>Subqueries</h3>
+            <p>Nested queries and CTEs</p>
+          </a>
+          <a href="https://www.w3schools.com/sql/" target="_blank" rel="noopener" class="track">
+            <h3>Docs ↗</h3>
+            <p>SQL reference and tutorials</p>
+          </a>
         </div>
       </section>
     </div>

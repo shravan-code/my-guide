@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,71 +8,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="source/styles.css" />
-  <style>
-    .wrap {
-      width: min(1100px, calc(100% - 2rem));
-      margin: 1.5rem auto 3rem;
-      padding: 0 1rem;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 2rem;
-    }
-
-    .hero h1 {
-      font-size: clamp(1.4rem, 4vw, 2.2rem);
-    }
-
-    .hero p {
-      color: var(--text-secondary);
-    }
-
-    .spark-tracks {
-      padding: clamp(1rem, 2.5vw, 1.5rem);
-    }
-
-    .spark-tracks h2 {
-      font-size: clamp(1rem, 2vw, 1.25rem);
-    }
-
-    .spark-track-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 0.75rem;
-      margin-top: 1rem;
-    }
-
-    .spark-track {
-      text-align: center;
-    }
-
-    .spark-track h3 {
-      font-size: clamp(0.9rem, 2vw, 1rem);
-    }
-
-    .spark-track p {
-      font-size: clamp(0.75rem, 1.5vw, 0.82rem);
-    }
-
-    @media (max-width: 900px) {
-      .spark-track-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 600px) {
-      .spark-track-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (min-width: 1400px) {
-      .spark-track-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
-  </style>
 </head>
 
 <body>
@@ -81,7 +15,7 @@
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
-  <header class="topbar">
+  <header class="topbar glass reveal in">
     <a class="brand" href="index.html">Data Guide</a>
     <nav class="menu" aria-label="Main menu">
       <a href="source/python/index.html">Python</a>
@@ -97,13 +31,31 @@
   </header>
 
   <main>
-    <section class="hero glass">
-      <p class="eyebrow">Your Data Engineering Guide</p>
-      <h1>Comprehensive resources for Python, Spark, SQL, and modern data tooling.</h1>
-      <p class="hero-copy">Start learning today with hands-on examples and practical explanations.</p>
-    </section>
+    <div class="page-wrap">
+      <section class="hero">
+        <p class="eyebrow">Your Data Engineering Guide</p>
+        <h1>Comprehensive resources for Python, Spark, SQL, and modern data tooling.</h1>
+        <p class="hero-copy">Start learning today with hands-on examples and practical explanations.</p>
+      </section>
 
-
+      <div class="logo-stage">
+        <a href="source/python/index.html" class="logo-item">
+          <span>Python</span>
+        </a>
+        <a href="source/spark/index.html" class="logo-item">
+          <span>Spark</span>
+        </a>
+        <a href="source/sql/index.html" class="logo-item">
+          <span>SQL</span>
+        </a>
+        <a href="source/numpy/index.html" class="logo-item">
+          <span>NumPy</span>
+        </a>
+        <a href="source/pandas/index.html" class="logo-item">
+          <span>Pandas</span>
+        </a>
+      </div>
+    </div>
   </main>
 
   <script src="source/app.js"></script>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,80 +10,7 @@
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
-  <style>
-    .hero {
-      text-align: center;
-      padding: 2rem 2rem 1rem;
-    }
-
-    .hero h1 {
-      font-size: clamp(1.3rem, 4vw, 2rem);
-    }
-
-    .inspire {
-      max-width: min(900px, 90vw);
-      margin: 0 auto 1.5rem;
-      padding: 2.5rem 1rem;
-      text-align: center;
-    }
-
-    .inspire p {
-      font-size: clamp(0.95rem, 2.2vw, 1.15rem);
-      line-height: 1.8;
-      font-style: italic;
-      color: var(--text-primary);
-    }
-
-    .inspire p strong {
-      color: var(--text-primary);
-      font-weight: 700;
-    }
-
-    .pandas-tracks {
-      padding: clamp(1rem, 2.5vw, 1.5rem);
-    }
-
-    .pandas-tracks h2 {
-      font-size: clamp(1rem, 2vw, 1.25rem);
-    }
-
-    .pandas-track-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 0.75rem;
-      margin-top: 1rem;
-    }
-
-    .pandas-track {
-      text-align: center;
-    }
-
-    .pandas-track h3 {
-      font-size: clamp(0.9rem, 2vw, 1rem);
-    }
-
-    .pandas-track p {
-      font-size: clamp(0.75rem, 1.5vw, 0.82rem);
-    }
-
-    @media (max-width: 900px) {
-      .pandas-track-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 600px) {
-      .pandas-track-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (min-width: 1400px) {
-      .pandas-track-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="../hub.css" />
 </head>
 
 <body>
@@ -92,10 +18,10 @@
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
-  <header class="topbar">
+  <header class="topbar glass reveal in">
     <a class="brand" href="../../index.html">Data Guide</a>
     <nav class="menu" aria-label="Pandas menu">
-      <a href="../../index.html" class="active" aria-current="page">Pandas Hub</a>
+      <a href="index.html" class="active" aria-current="page">Pandas Hub</a>
       <a href="pandas-series.html">Series</a>
       <a href="pandas-dataframes.html">DataFrames</a>
     </nav>
@@ -105,13 +31,13 @@
     </button>
   </header>
 
-  <main class="main-content">
+  <main>
     <div class="page-wrap">
       <section class="hero">
         <h1>Pandas</h1>
       </section>
 
-      <section class="inspire glass-card">
+      <section class="inspire">
         <p>
           <strong>Python's powerhouse</strong> for data manipulation. Pandas turns messy spreadsheets into
           clean insights with grace and speed. Filter, aggregate, transform—master the art of
@@ -120,33 +46,25 @@
         </p>
       </section>
 
-      <section class="pandas-tracks">
+      <section class="tracks">
         <h2>Explore Pandas</h2>
-        <div class="pandas-track-grid">
-          <article class="pandas-track glass-card">
-            <a href="pandas-series.html">
-              <h3>Series</h3>
-              <p>One-dimensional data structures</p>
-            </a>
-          </article>
-          <article class="pandas-track glass-card">
-            <a href="pandas-dataframes.html">
-              <h3>DataFrames</h3>
-              <p>Two-dimensional tabular data</p>
-            </a>
-          </article>
-          <article class="pandas-track glass-card">
-            <a href="../numpy/index.html">
-              <h3>NumPy</h3>
-              <p>Numerical computing foundation</p>
-            </a>
-          </article>
-          <article class="pandas-track glass-card">
-            <a href="https://pandas.pydata.org/docs/" target="_blank" rel="noopener">
-              <h3>Docs ↗</h3>
-              <p>Official Pandas documentation</p>
-            </a>
-          </article>
+        <div class="track-grid">
+          <a href="pandas-series.html" class="track">
+            <h3>Series</h3>
+            <p>One-dimensional data structures</p>
+          </a>
+          <a href="pandas-dataframes.html" class="track">
+            <h3>DataFrames</h3>
+            <p>Two-dimensional tabular data</p>
+          </a>
+          <a href="../numpy/index.html" class="track">
+            <h3>NumPy</h3>
+            <p>Numerical computing foundation</p>
+          </a>
+          <a href="https://pandas.pydata.org/docs/" target="_blank" rel="noopener" class="track">
+            <h3>Docs ↗</h3>
+            <p>Official Pandas documentation</p>
+          </a>
         </div>
       </section>
     </div>

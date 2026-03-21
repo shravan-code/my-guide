@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,268 +10,22 @@
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
-  <style>
-    .sidebar {
-      position: fixed;
-      left: 0;
-      top: 0;
-      width: 300px;
-      height: 100vh;
-      padding: 1.2rem 0.8rem;
-      background: var(--glass);
-      backdrop-filter: blur(var(--glass-blur));
-      -webkit-backdrop-filter: blur(var(--glass-blur));
-      border-right: 1px solid var(--glass-border);
-      box-shadow: var(--shadow-md);
-      overflow-y: auto;
-      z-index: 1000;
-    }
-
-    .sidebar::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    .sidebar::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    .sidebar::-webkit-scrollbar-thumb {
-      background: var(--glass-border);
-      border-radius: 3px;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 1.5rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid var(--glass-border);
-    }
-
-    .logo-text {
-      font-family: "Sora", sans-serif;
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .nav-title {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--muted);
-      margin: 1.2rem 0 0.5rem;
-      padding-left: 0.6rem;
-      font-weight: 600;
-    }
-
-    .nav-item {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      text-decoration: none;
-      color: var(--text-secondary);
-      padding: 0.55rem 0.7rem;
-      border-radius: var(--radius-sm);
-      border: 1px solid transparent;
-      background: transparent;
-      font-size: 0.88rem;
-      font-weight: 500;
-      margin-bottom: 0.15rem;
-      transition: all var(--transition);
-    }
-
-    .nav-item:hover {
-      color: var(--text);
-      background: var(--bg-alt);
-      border-color: var(--glass-border);
-    }
-
-    .nav-item.active {
-      color: var(--text);
-      background: var(--bg-alt);
-      border-color: var(--glow-border);
-      box-shadow: var(--shadow-sm), inset 0 0 0 1px var(--glow-border);
-    }
-
-    .main-content {
-      margin-left: 300px;
-      padding: 1.5rem 2rem 3rem;
-      min-height: 100vh;
-    }
-
-    .page-wrap {
-      width: min(1100px, 100%);
-      margin: 0 auto;
-    }
-
-    .page-wrap .topbar {
-      width: 100%;
-      margin: 0 0 1.2rem;
-      position: relative;
-      z-index: 100;
-    }
-
-    .topbar {
-      border-radius: var(--radius-lg);
-      position: relative;
-      z-index: 100;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 2rem 2rem 1rem;
-    }
-
-    .hero h1 {
-      font-size: clamp(1.3rem, 4vw, 2rem);
-    }
-
-    .topic-section {
-      padding: 1.25rem;
-      margin-bottom: 1rem;
-      border-radius: var(--radius);
-      background: var(--glass);
-      backdrop-filter: blur(var(--glass-blur));
-      -webkit-backdrop-filter: blur(var(--glass-blur));
-      border: 1px solid var(--glass-border);
-      box-shadow: var(--shadow);
-    }
-
-    .topic-section h2 {
-      margin: 0 0 0.75rem;
-      font-size: 1.1rem;
-      font-family: "Sora", sans-serif;
-      color: var(--text);
-    }
-
-    .topic-section p {
-      margin: 0 0 0.75rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    .topic-section ul {
-      margin: 0;
-      padding-left: 1.5rem;
-      color: var(--text-secondary);
-    }
-
-    .topic-section li {
-      margin-bottom: 0.35rem;
-      line-height: 1.5;
-    }
-
-    .code-block {
-      background: var(--bg-alt);
-      border: 1px solid var(--glow-border);
-      border-radius: var(--radius-sm);
-      padding: 1rem;
-      margin: 0.75rem 0;
-      overflow-x: auto;
-    }
-
-    .code-block code {
-      font-family: "Fira Code", "Consolas", monospace;
-      font-size: 0.85rem;
-      color: var(--text);
-      white-space: pre;
-    }
-
-    .keyword { color: #c678dd; }
-    .function { color: #61afef; }
-    .string { color: #98c379; }
-    .number { color: #d19a66; }
-    .comment { color: #5c6370; font-style: italic; }
-    .operator { color: #56b6c2; }
-
-    .concept-pill {
-      display: inline-block;
-      background: var(--bg-alt);
-      border: 1px solid var(--glow-border);
-      border-radius: 20px;
-      padding: 0.25rem 0.75rem;
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      margin: 0.2rem;
-    }
-
-    .split-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1rem;
-      margin: 1rem 0;
-    }
-
-    .split-item {
-      background: var(--bg-alt);
-      border: 1px solid var(--glow-border);
-      border-radius: var(--radius-sm);
-      padding: 1rem;
-    }
-
-    .split-item h3 {
-      margin: 0 0 0.5rem;
-      font-size: 0.95rem;
-      font-family: "Sora", sans-serif;
-      color: var(--text);
-    }
-
-    .split-item p {
-      margin: 0;
-      font-size: 0.85rem;
-    }
-
-    @media (max-width: 768px) {
-      .sidebar {
-        display: none;
-      }
-
-      .main-content {
-        margin-left: 0;
-        padding: 1rem;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="python.css" />
 </head>
-
-<body>
-  <nav class="sidebar" id="sidebar">
-    <div class="logo">
-      <span class="logo-text">Python Fundamentals</span>
-    </div>
-
-    <div class="nav-title">Getting Started</div>
-    <a href="#what-is-python" class="nav-item active"><span>1</span> What is Python?</a>
-    <a href="#why-python" class="nav-item"><span>2</span> Why Python?</a>
-    <a href="#syntax-basics" class="nav-item"><span>3</span> Syntax Basics</a>
-
-    <div class="nav-title">Data Structures</div>
-    <a href="#data-types" class="nav-item"><span>4</span> Data Types</a>
-    <a href="#collections" class="nav-item"><span>5</span> Lists & Dictionaries</a>
-
-    <div class="nav-title">Control Flow</div>
-    <a href="#conditionals-loops" class="nav-item"><span>6</span> Conditionals & Loops</a>
-    <a href="#functions-modules" class="nav-item"><span>7</span> Functions & Modules</a>
-
-    <div class="nav-title">Practical</div>
-    <a href="#working-with-files" class="nav-item"><span>8</span> Working with Files</a>
-    <a href="#next-steps" class="nav-item"><span>9</span> Next Steps</a>
-  </nav>
-
+<body class="with-sidebar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
   <header class="topbar glass reveal in">
     <a class="brand" href="../../index.html">Data Guide</a>
+    <button id="sidebar-toggle" class="sidebar-toggle" type="button" aria-label="Toggle sidebar">
+      <span class="hamburger" aria-hidden="true"></span>
+    </button>
     <nav class="menu" aria-label="Python menu">
       <a href="index.html">Python Hub</a>
       <a href="python-fundamentals.html" class="active" aria-current="page">Fundamentals</a>
       <a href="python-oops.html">OOPs</a>
-      <a href="python-basics.html">Basics</a>
-      <a href="python-advanced.html">Advanced</a>
     </nav>
     <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
       <span class="toggle-icon" aria-hidden="true">☾</span>
@@ -280,7 +33,31 @@
     </button>
   </header>
 
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
   <main class="main-content">
+    <nav class="sidebar" id="sidebar">
+      <div class="logo">
+        <span class="logo-text">Python Fundamentals</span>
+      </div>
+
+      <div class="nav-title">Getting Started</div>
+      <a href="#what-is-python" class="nav-item active"><span>1</span> What is Python?</a>
+      <a href="#why-python" class="nav-item"><span>2</span> Why Python?</a>
+      <a href="#syntax-basics" class="nav-item"><span>3</span> Syntax Basics</a>
+
+      <div class="nav-title">Data Structures</div>
+      <a href="#data-types" class="nav-item"><span>4</span> Data Types</a>
+      <a href="#collections" class="nav-item"><span>5</span> Lists & Dictionaries</a>
+
+      <div class="nav-title">Control Flow</div>
+      <a href="#conditionals-loops" class="nav-item"><span>6</span> Conditionals & Loops</a>
+      <a href="#functions-modules" class="nav-item"><span>7</span> Functions & Modules</a>
+
+      <div class="nav-title">Practical</div>
+      <a href="#working-with-files" class="nav-item"><span>8</span> Working with Files</a>
+      <a href="#next-steps" class="nav-item"><span>9</span> Next Steps</a>
+    </nav>
     <div class="page-wrap">
       <section class="hero">
         <h1>Python Fundamentals</h1>
@@ -436,10 +213,10 @@ df.<span class="function">to_csv</span>(<span class="string">"output.csv"</span>
         <h2>Next Steps</h2>
         <p>Now that you understand the fundamentals, explore these topics:</p>
         <ul>
-          <li><strong>Python Basics:</strong> Deep dive into strings, lists, dictionaries, and control flow</li>
           <li><strong>Object-Oriented Programming:</strong> Classes, inheritance, and encapsulation</li>
           <li><strong>Error Handling:</strong> Try-except blocks and custom exceptions</li>
           <li><strong>Pandas:</strong> DataFrames and series for data manipulation</li>
+          <li><strong>Virtual Environments:</strong> Isolated Python environments for projects</li>
         </ul>
       </section>
 
@@ -447,9 +224,37 @@ df.<span class="function">to_csv</span>(<span class="string">"output.csv"</span>
   </main>
 
   <script src="../app.js"></script>
+  <script src="python.js"></script>
   <script>
+    const sidebar = document.getElementById("sidebar");
+    const sidebarToggle = document.getElementById("sidebar-toggle");
+    const sidebarOverlay = document.getElementById("sidebar-overlay");
+
+    const closeSidebar = () => {
+      sidebar.classList.remove("open");
+      sidebarOverlay.classList.remove("active");
+    };
+
+    const openSidebar = () => {
+      sidebar.classList.add("open");
+      sidebarOverlay.classList.add("active");
+    };
+
+    if (sidebarToggle) {
+      sidebarToggle.addEventListener("click", () => {
+        if (sidebar.classList.contains("open")) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+      });
+    }
+
+    if (sidebarOverlay) {
+      sidebarOverlay.addEventListener("click", closeSidebar);
+    }
+
     const navItems = Array.from(document.querySelectorAll(".nav-item"));
-    const sections = document.querySelectorAll(".topic-section[id]");
 
     const setActiveNav = (id) => {
       navItems.forEach((item) => {
@@ -469,10 +274,10 @@ df.<span class="function">to_csv</span>(<span class="string">"output.csv"</span>
         const targetId = this.getAttribute("href").substring(1);
         const target = document.getElementById(targetId);
         if (!target) return;
-
         target.scrollIntoView({ behavior: "smooth", block: "start" });
         history.replaceState(null, "", "#" + targetId);
         setActiveNav(targetId);
+        closeSidebar();
       });
     });
 
@@ -491,5 +296,4 @@ df.<span class="function">to_csv</span>(<span class="string">"output.csv"</span>
     setActiveNav(initialId);
   </script>
 </body>
-
 </html>

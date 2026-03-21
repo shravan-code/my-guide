@@ -1,226 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Data-Guide | PySpark Code Track</title>
+  <title>Data Guide | PySpark Code Track</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
-  <style>
-    .main-content {
-      margin-left: 300px;
-      padding: 1.5rem 2rem 3rem;
-      min-height: 100vh;
-    }
-
-    .page-wrap {
-      width: min(1100px, 100%);
-      margin: 0 auto;
-    }
-
-    .page-wrap .topbar {
-      width: 100%;
-      margin: 0 0 1.2rem;
-    }
-
-    .topbar {
-      border-radius: var(--radius-lg);
-    }
-
-    .hero {
-      position: relative;
-      overflow: hidden;
-      text-align: center;
-      padding: 2rem;
-    }
-
-    .hero h1 {
-      margin: 0.4rem 0 0.5rem;
-      font-size: clamp(1.5rem, 4vw, 2.4rem);
-      text-align: center;
-    }
-
-    .hero p {
-      margin: 0 0 0.6rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-top: 0.4rem;
-      justify-content: center;
-    }
-
-    .pill-row span {
-      border-radius: 999px;
-      padding: 0.3rem 0.75rem;
-      font-size: 0.8rem;
-      font-weight: 500;
-      background: var(--bg-alt);
-      border: 1px solid var(--glow-border);
-      color: var(--text);
-    }
-
-    #joining {
-      opacity: 1 !important;
-      transform: none !important;
-    }
-
-    .join-diagram {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0.65rem 0;
-    }
-
-    .join-diagram svg {
-      max-width: 100%;
-      height: auto;
-    }
-
-    .join-block {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .join-block .join-content {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .join-block .join-diagram {
-      flex: 0 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .join-block .join-diagram svg {
-      width: 120px;
-      height: 90px;
-    }
-
-    .join-block .join-diagram figcaption {
-      display: none;
-    }
-
-    .join-block .two-col {
-      margin-bottom: 0.3rem;
-    }
-
-    .join-block .code {
-      margin-top: 0.3rem;
-    }
-
-    .join-caption {
-      text-align: center;
-      font-size: 0.75rem;
-      color: var(--muted);
-      margin-bottom: 0.3rem;
-    }
-
-    @media (max-width: 980px) {
-      .toc {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .concept .two-col {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .sidebar {
-        width: 260px;
-      }
-
-      .main-content {
-        margin-left: 260px;
-        padding: 1rem;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .sidebar {
-        display: none;
-      }
-
-      .main-content {
-        margin-left: 0;
-        padding: 0.75rem;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="spark.css" />
 </head>
-
-<body>
-  <nav class="sidebar" id="sidebar">
-    <div class="logo">
-      <span class="logo-text">PySpark Code</span>
-    </div>
-
-    <div class="nav-title">Fundamentals</div>
-    <a href="#intro" class="nav-item"><span>1</span> Introduction</a>
-    <a href="#spark-session" class="nav-item"><span>2</span> SparkSession</a>
-    <a href="#read-write" class="nav-item"><span>3</span> Reading/Writing</a>
-
-    <div class="nav-title">File Formats</div>
-    <a href="#csv" class="nav-item"><span>4</span> CSV Files</a>
-    <a href="#json" class="nav-item"><span>5</span> JSON Files</a>
-    <a href="#parquet" class="nav-item"><span>6</span> Parquet</a>
-    <a href="#avro" class="nav-item"><span>7</span> Avro</a>
-    <a href="#cloud-io" class="nav-item"><span>8</span> Cloud (AWS/Azure/GCP)</a>
-    <a href="#cloud-libs" class="nav-item"><span>9</span> Cloud Libraries</a>
-    <a href="#excel-compression" class="nav-item"><span>10</span> Excel &amp; Comp</a>
-
-    <div class="nav-title">Dataframes</div>
-    <a href="#columns-ref" class="nav-item"><span>11</span> Ref Columns</a>
-    <a href="#columns-select" class="nav-item"><span>12</span> Select Columns</a>
-    <a href="#filtering" class="nav-item"><span>13</span> Filtering</a>
-    <a href="#grouping" class="nav-item"><span>14</span> Grouping</a>
-    <a href="#joining" class="nav-item"><span>15</span> Joining</a>
-    <a href="#pivoting" class="nav-item"><span>16</span> Pivoting</a>
-    <a href="#nulls" class="nav-item"><span>17</span> Nulls</a>
-
-    <div class="nav-title">Functions</div>
-    <a href="#datetime" class="nav-item"><span>18</span> Date/Time</a>
-    <a href="#math" class="nav-item"><span>19</span> Math</a>
-    <a href="#string" class="nav-item"><span>20</span> String</a>
-    <a href="#window" class="nav-item"><span>21</span> Window</a>
-    <a href="#lead-lag" class="nav-item"><span>22</span> Lead/Lag</a>
-    <a href="#rows-between" class="nav-item"><span>23</span> Rows Between</a>
-  </nav>
-
+<body class="with-sidebar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
-  <main class="main-content">
-    <div class="page-wrap">
-      <header class="topbar glass reveal">
-        <a class="brand" href="../../index.html">Data Guide</a>
-        <nav class="menu" aria-label="Spark navigation">
-          <a href="../../index.html">Spark Hub</a>
-          <a href="spark-theory.html">Theory</a>
-          <a href="spark-code.html">Code</a>
-          <a href="spark-architecture.html">Architecture</a>
-        </nav>
-        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
-          <span class="toggle-icon" aria-hidden="true">☾</span>
-          <span class="toggle-text">Dark</span>
-        </button>
-      </header>
+  <header class="topbar glass reveal in">
+    <a class="brand" href="../../index.html">Data Guide</a>
+    <button id="sidebar-toggle" class="sidebar-toggle" type="button" aria-label="Toggle sidebar">
+      <span class="hamburger" aria-hidden="true"></span>
+    </button>
+    <nav class="menu" aria-label="Spark navigation">
+      <a href="index.html">Spark Hub</a>
+      <a href="spark-theory.html">Theory</a>
+      <a href="spark-code.html" class="active" aria-current="page">Code</a>
+      <a href="spark-architecture.html">Architecture</a>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+      <span class="toggle-icon" aria-hidden="true">☾</span>
+      <span class="toggle-text">Dark</span>
+    </button>
+  </header>
 
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <main class="main-content">
+    <nav class="sidebar" id="sidebar">
+      <div class="logo">
+        <span class="logo-text">PySpark Code</span>
+      </div>
+
+      <div class="nav-title">Fundamentals</div>
+      <a href="#intro" class="nav-item"><span>1</span> Introduction</a>
+      <a href="#spark-session" class="nav-item"><span>2</span> SparkSession</a>
+      <a href="#read-write" class="nav-item"><span>3</span> Reading/Writing</a>
+
+      <div class="nav-title">File Formats</div>
+      <a href="#csv" class="nav-item"><span>4</span> CSV Files</a>
+      <a href="#json" class="nav-item"><span>5</span> JSON Files</a>
+      <a href="#parquet" class="nav-item"><span>6</span> Parquet</a>
+      <a href="#avro" class="nav-item"><span>7</span> Avro</a>
+      <a href="#cloud-io" class="nav-item"><span>8</span> Cloud (AWS/Azure/GCP)</a>
+      <a href="#cloud-libs" class="nav-item"><span>9</span> Cloud Libraries</a>
+      <a href="#excel-compression" class="nav-item"><span>10</span> Excel &amp; Comp</a>
+
+      <div class="nav-title">Dataframes</div>
+      <a href="#columns-ref" class="nav-item"><span>11</span> Ref Columns</a>
+      <a href="#columns-select" class="nav-item"><span>12</span> Select Columns</a>
+      <a href="#filtering" class="nav-item"><span>13</span> Filtering</a>
+      <a href="#grouping" class="nav-item"><span>14</span> Grouping</a>
+      <a href="#joining" class="nav-item"><span>15</span> Joining</a>
+      <a href="#pivoting" class="nav-item"><span>16</span> Pivoting</a>
+      <a href="#nulls" class="nav-item"><span>17</span> Nulls</a>
+
+      <div class="nav-title">Functions</div>
+      <a href="#datetime" class="nav-item"><span>18</span> Date/Time</a>
+      <a href="#math" class="nav-item"><span>19</span> Math</a>
+      <a href="#string" class="nav-item"><span>20</span> String</a>
+      <a href="#window" class="nav-item"><span>21</span> Window</a>
+      <a href="#lead-lag" class="nav-item"><span>22</span> Lead/Lag</a>
+      <a href="#rows-between" class="nav-item"><span>23</span> Rows Between</a>
+    </nav>
+
+    <div class="page-wrap">
       <section class="hero glass reveal">
         <h1>Spark Code</h1>
       </section>
@@ -9451,26 +9303,6 @@ WINDOW w AS (PARTITION BY region ORDER BY event_time);</code></pre>
   </main>
 
   <script src="../app.js"></script>
-  <script>
-    const revealObs = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) entry.target.classList.add("in");
-      });
-    }, { threshold: 0.12 });
-
-    document.querySelectorAll(".reveal").forEach((el) => revealObs.observe(el));
-
-    const navObs = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        const id = entry.target.getAttribute("id");
-        const link = document.querySelector(`.sidebar a[href="#${id}"]`);
-        document.querySelectorAll(".sidebar .nav-item").forEach((a) => a.classList.remove("active"));
-        if (link) link.classList.add("active");
-      });
-    }, { rootMargin: "-15% 0px -65% 0px" });
-
-    document.querySelectorAll("section[id]").forEach((sec) => navObs.observe(sec));
-  </script>
+  <script src="spark.js"></script>
 </body>
-
 </html>

@@ -18,6 +18,9 @@
   --radius-sm: 8px;
   --radius-lg: 20px;
   --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --topbar-height: 64px;
+  --sidebar-width: 300px;
+  --has-sidebar: 0;
 }
 
 body.dark {
@@ -132,14 +135,16 @@ body.dark .orb-c {
 }
 
 /* Topbar */
-.topbar {
+  .topbar {
   position: sticky;
   top: 0;
-  z-index: 40;
-  margin: 1rem auto 0;
-  width: min(1100px, calc(100% - 2rem));
+  z-index: 2000;
+  margin: 0;
+  width: 100%;
+  left: 0;
+  right: 0;
+  border-radius: 0;
   padding: 0.7rem 1.2rem;
-  border-radius: var(--radius-lg);
   background: var(--glass);
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
@@ -331,8 +336,8 @@ body.dark .orb-c {
 /* Main Content */
 main {
   width: min(1100px, calc(100% - 2rem));
-  margin: 1.5rem auto 3rem;
-  padding: 0 1rem;
+  margin: 0 auto 3rem;
+  padding: 1.5rem 1rem 0;
 }
 
 /* Hero */
@@ -464,7 +469,7 @@ body.dark .hero:hover {
   border: 1px solid var(--glass-border);
   box-shadow: var(--shadow);
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 0.75rem;
   transition: all var(--transition);
 }
@@ -494,9 +499,9 @@ body.dark .hero:hover {
 }
 
 .logo-item span {
-  font-size: 0.78rem;
-  color: var(--text-secondary);
-  font-weight: 500;
+  font-size: 0.85rem;
+  color: var(--text);
+  font-weight: 600;
 }
 
 .logo-item:hover {
@@ -610,107 +615,22 @@ body.dark .logo-item:hover {
   font-size: 0.9rem;
 }
 
-/* Sidebar */
-.sidebar {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 300px;
-  height: 100vh;
-  padding: 1.2rem 0.8rem;
-  background: var(--glass);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border-right: 1px solid var(--glass-border);
-  box-shadow: var(--shadow-md);
-  overflow-y: auto;
-  z-index: 1000;
-  transition: all var(--transition);
+/* Sidebar - layout handled by python.css for Python pages */
+  .sidebar {
+  /* positioning is overridden by python.css when loaded */
+  position: static;
 }
 
-.sidebar::-webkit-scrollbar {
-  width: 6px;
-}
-
-.sidebar::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.sidebar::-webkit-scrollbar-thumb {
-  background: var(--glass-border);
-  border-radius: 3px;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--glass-border);
-}
-
-.logo-text {
-  font-family: "Sora", sans-serif;
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--text);
-}
-
-.nav-title {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--muted);
-  margin: 1.2rem 0 0.5rem;
-  padding-left: 0.6rem;
-  font-weight: 600;
-}
-
-.nav-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  text-decoration: none;
-  color: var(--text-secondary);
-  padding: 0.55rem 0.7rem;
-  border-radius: var(--radius-sm);
-  border: 1px solid transparent;
-  background: transparent;
-  font-size: 0.88rem;
-  font-weight: 500;
-  margin-bottom: 0.15rem;
-  transition: all var(--transition);
-}
-
-.nav-item:hover {
-  color: var(--text);
-  background: var(--bg-alt);
-  border-color: var(--glass-border);
-}
-
-.nav-item.active {
-  color: var(--text);
-  background: var(--bg-alt);
-  border-color: var(--glow-border);
-  box-shadow: var(--shadow-sm), inset 0 0 0 1px var(--glow-border);
-}
-
-/* Main Content Area */
+/* Main Content Area - layout overridden by python.css for Python pages */
 .main-content {
-  margin-left: 300px;
-  padding: 1.5rem 2rem 3rem;
-  min-height: 100vh;
+  /* margins and grid layout overridden by python.css */
+  margin: 0;
+  padding: 0;
 }
 
 .page-wrap {
-  width: min(1100px, 100%);
-  margin: 0 auto;
-}
-
-.page-wrap .topbar {
-  width: 100%;
-  margin: 0 0 1.2rem;
+  /* width and margins overridden by python.css */
+  margin: 0;
 }
 
 /* Concept Sections */
@@ -836,28 +756,15 @@ body.dark .logo-item:hover {
   }
 
   .logo-stage {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   }
 
-  .sidebar {
-    width: 260px;
-  }
-
-  .main-content {
-    margin-left: 260px;
-  }
+  /* sidebar grid layout handled by python.css */
 }
 
 @media (max-width: 640px) {
   .topbar {
-    width: calc(100% - 1rem);
     padding: 0.6rem 0.9rem;
-    margin-top: 0.5rem;
-  }
-
-  main {
-    width: calc(100% - 1rem);
-    margin-top: 1rem;
   }
 
   .theme-toggle {
@@ -883,19 +790,7 @@ body.dark .logo-item:hover {
     grid-template-columns: 1fr;
   }
 
-  .sidebar {
-    transform: translateX(-100%);
-    transition: transform var(--transition);
-  }
-
-  .sidebar.open {
-    transform: translateX(0);
-  }
-
-  .main-content {
-    margin-left: 0;
-    padding: 1rem;
-  }
+  /* sidebar mobile behavior handled by python.css */
 }
 
 /* Global Table Styles */

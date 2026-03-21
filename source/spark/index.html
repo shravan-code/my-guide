@@ -11,86 +11,7 @@
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
-  <style>
-    .wrap {
-      width: min(1100px, calc(100% - 2rem));
-      margin: 1.5rem auto 3rem;
-      padding: 0 1rem;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 2rem 2rem 1rem;
-    }
-
-    .hero h1 {
-      font-size: clamp(1.3rem, 4vw, 2rem);
-    }
-
-    .inspire {
-      max-width: min(900px, 90vw);
-      margin: 0 auto 1.5rem;
-      padding: 2.5rem 1rem;
-      text-align: center;
-    }
-
-    .inspire p {
-      font-size: clamp(0.95rem, 2.2vw, 1.15rem);
-      line-height: 1.8;
-      font-style: italic;
-      color: var(--text-primary);
-    }
-
-    .inspire p strong {
-      color: var(--text-primary);
-      font-weight: 700;
-    }
-
-    .spark-tracks {
-      padding: clamp(1rem, 2.5vw, 1.5rem);
-    }
-
-    .spark-tracks h2 {
-      font-size: clamp(1rem, 2vw, 1.25rem);
-    }
-
-    .spark-track-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 0.75rem;
-      margin-top: 1rem;
-    }
-
-    .spark-track {
-      text-align: center;
-    }
-
-    .spark-track h3 {
-      font-size: clamp(0.9rem, 2vw, 1rem);
-    }
-
-    .spark-track p {
-      font-size: clamp(0.75rem, 1.5vw, 0.82rem);
-    }
-
-    @media (max-width: 900px) {
-      .spark-track-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 600px) {
-      .spark-track-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (min-width: 1400px) {
-      .spark-track-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="spark.css" />
 </head>
 
 <body>
@@ -98,10 +19,10 @@
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
-  <header class="topbar">
+  <header class="topbar glass reveal in">
     <a class="brand" href="../../index.html">Data Guide</a>
     <nav class="menu" aria-label="Spark menu">
-      <a href="../../index.html" class="active" aria-current="page">Spark Hub</a>
+      <a href="index.html" class="active" aria-current="page">Spark Hub</a>
       <a href="spark-theory.html">Theory</a>
       <a href="spark-code.html">Code</a>
       <a href="spark-architecture.html">Architecture</a>
@@ -112,10 +33,13 @@
     </button>
   </header>
 
-  <main class="main-content">
+  <main>
     <div class="page-wrap">
+      <section class="hero">
+        <h1>Spark : The Star</h1>
+      </section>
 
-      <section class="inspire glass-card">
+      <section class="inspire">
         <p>
           Where mountains of data once took hours to climb, <strong>Spark ignites</strong> the path forward.
           It's not just processing—it's transformation. From batch to stream, from prototype to production,
@@ -127,6 +51,7 @@
       </section>
     </div>
   </main>
+
   <script src="../app.js"></script>
 </body>
 

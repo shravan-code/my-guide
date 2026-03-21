@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,80 +10,7 @@
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
-  <style>
-    .hero {
-      text-align: center;
-      padding: 2rem 2rem 1rem;
-    }
-
-    .hero h1 {
-      font-size: clamp(1.3rem, 4vw, 2rem);
-    }
-
-    .inspire {
-      max-width: min(900px, 90vw);
-      margin: 0 auto 1.5rem;
-      padding: 2.5rem 1rem;
-      text-align: center;
-    }
-
-    .inspire p {
-      font-size: clamp(0.95rem, 2.2vw, 1.15rem);
-      line-height: 1.8;
-      font-style: italic;
-      color: var(--text-primary);
-    }
-
-    .inspire p strong {
-      color: var(--text-primary);
-      font-weight: 700;
-    }
-
-    .numpy-tracks {
-      padding: clamp(1rem, 2.5vw, 1.5rem);
-    }
-
-    .numpy-tracks h2 {
-      font-size: clamp(1rem, 2vw, 1.25rem);
-    }
-
-    .numpy-track-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 0.75rem;
-      margin-top: 1rem;
-    }
-
-    .numpy-track {
-      text-align: center;
-    }
-
-    .numpy-track h3 {
-      font-size: clamp(0.9rem, 2vw, 1rem);
-    }
-
-    .numpy-track p {
-      font-size: clamp(0.75rem, 1.5vw, 0.82rem);
-    }
-
-    @media (max-width: 900px) {
-      .numpy-track-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 600px) {
-      .numpy-track-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (min-width: 1400px) {
-      .numpy-track-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="../hub.css" />
 </head>
 
 <body>
@@ -92,10 +18,10 @@
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
-  <header class="topbar">
+  <header class="topbar glass reveal in">
     <a class="brand" href="../../index.html">Data Guide</a>
     <nav class="menu" aria-label="NumPy menu">
-      <a href="../../index.html" class="active" aria-current="page">NumPy Hub</a>
+      <a href="index.html" class="active" aria-current="page">NumPy Hub</a>
       <a href="numpy-arrays.html">Arrays</a>
       <a href="numpy-operations.html">Operations</a>
     </nav>
@@ -105,13 +31,13 @@
     </button>
   </header>
 
-  <main class="main-content">
+  <main>
     <div class="page-wrap">
       <section class="hero">
         <h1>NumPy</h1>
       </section>
 
-      <section class="inspire glass-card">
+      <section class="inspire">
         <p>
           The <strong>foundation of numerical computing</strong> in Python. NumPy speaks the language of
           arrays—fast, efficient, vectorized. Crunch millions of numbers in milliseconds. Build the
@@ -121,33 +47,25 @@
         </p>
       </section>
 
-      <section class="numpy-tracks">
+      <section class="tracks">
         <h2>Explore NumPy</h2>
-        <div class="numpy-track-grid">
-          <article class="numpy-track glass-card">
-            <a href="numpy-arrays.html">
-              <h3>Arrays</h3>
-              <p>Creating and manipulating arrays</p>
-            </a>
-          </article>
-          <article class="numpy-track glass-card">
-            <a href="numpy-operations.html">
-              <h3>Operations</h3>
-              <p>Mathematical and statistical functions</p>
-            </a>
-          </article>
-          <article class="numpy-track glass-card">
-            <a href="../pandas/index.html">
-              <h3>Pandas</h3>
-              <p>High-level data analysis</p>
-            </a>
-          </article>
-          <article class="numpy-track glass-card">
-            <a href="https://numpy.org/doc/stable/" target="_blank" rel="noopener">
-              <h3>Docs ↗</h3>
-              <p>Official NumPy documentation</p>
-            </a>
-          </article>
+        <div class="track-grid">
+          <a href="numpy-arrays.html" class="track">
+            <h3>Arrays</h3>
+            <p>Creating and manipulating arrays</p>
+          </a>
+          <a href="numpy-operations.html" class="track">
+            <h3>Operations</h3>
+            <p>Mathematical and statistical functions</p>
+          </a>
+          <a href="../pandas/index.html" class="track">
+            <h3>Pandas</h3>
+            <p>High-level data analysis</p>
+          </a>
+          <a href="https://numpy.org/doc/stable/" target="_blank" rel="noopener" class="track">
+            <h3>Docs ↗</h3>
+            <p>Official NumPy documentation</p>
+          </a>
         </div>
       </section>
     </div>
