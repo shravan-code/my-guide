@@ -12,6 +12,7 @@
     rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
   <style>
+    :root { --sidebar-width: 300px; }
     .sidebar {
       position: fixed;
       left: 0;
@@ -97,14 +98,14 @@
     }
 
     .main-content {
-      margin-left: 300px;
+      margin-left: var(--sidebar-width);
       padding: 1.5rem 2rem 3rem;
       min-height: 100vh;
     }
 
     .page-wrap {
       width: min(1100px, 100%);
-      margin: 0 auto;
+      margin: 0 auto 0 var(--sidebar-width);
     }
 
     .page-wrap .topbar {
@@ -117,7 +118,10 @@
     .topbar {
       border-radius: var(--radius-lg);
       position: relative;
-      z-index: 100;
+      z-index: 1000;
+      margin-left: var(--sidebar-width);
+      position: sticky;
+      top: 0;
     }
 
     .hero {
@@ -160,7 +164,8 @@
       line-height: 1.6;
     }
 
-    .topic-section ul, .topic-section ol {
+    .topic-section ul,
+    .topic-section ol {
       margin: 0 0 0.75rem;
       padding-left: 1.5rem;
       color: var(--text-secondary);
@@ -187,15 +192,42 @@
       white-space: pre;
     }
 
-    .keyword { color: #c678dd; }
-    .function { color: #61afef; }
-    .string { color: #98c379; }
-    .number { color: #d19a66; }
-    .comment { color: #5c6370; font-style: italic; }
-    .operator { color: #56b6c2; }
-    .class-name { color: #e5c07b; }
-    .decorator { color: #c678dd; }
-    .method { color: #61afef; }
+    .keyword {
+      color: #c678dd;
+    }
+
+    .function {
+      color: #61afef;
+    }
+
+    .string {
+      color: #98c379;
+    }
+
+    .number {
+      color: #d19a66;
+    }
+
+    .comment {
+      color: #5c6370;
+      font-style: italic;
+    }
+
+    .operator {
+      color: #56b6c2;
+    }
+
+    .class-name {
+      color: #e5c07b;
+    }
+
+    .decorator {
+      color: #c678dd;
+    }
+
+    .method {
+      color: #61afef;
+    }
 
     .concept-pill {
       display: inline-block;
@@ -220,9 +252,17 @@
       margin-bottom: 0.5rem;
     }
 
-    .level-badge.basic { background: #98c379; }
-    .level-badge.intermediate { background: #e5c07b; }
-    .level-badge.advanced { background: #e06c75; }
+    .level-badge.basic {
+      background: #98c379;
+    }
+
+    .level-badge.intermediate {
+      background: #e5c07b;
+    }
+
+    .level-badge.advanced {
+      background: #e06c75;
+    }
 
     .split-grid {
       display: grid;
@@ -305,6 +345,7 @@
         margin-left: 0;
         padding: 1rem;
       }
+      .topbar { margin-left: 0; }
     }
   </style>
 </head>
@@ -345,7 +386,7 @@
       <a href="index.html">Python Hub</a>
       <a href="python-fundamentals.html">Fundamentals</a>
       <a href="python-oops.html" class="active" aria-current="page">OOPs</a>
-      <a href="python-advanced.html">Advanced</a>
+
     </nav>
     <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
       <span class="toggle-icon" aria-hidden="true">☾</span>
@@ -383,7 +424,7 @@
           is an instance of a class with actual values.
         </p>
         <div class="code-block">
-<code><span class="comment"># Defining a class</span>
+          <code><span class="comment"># Defining a class</span>
 <span class="keyword">class</span> <span class="class-name">Dog</span>:
     <span class="comment"># Class attribute (shared by all instances)</span>
     species = <span class="string">"Canis familiaris"</span>
@@ -428,7 +469,7 @@ max_dog = <span class="class-name">Dog</span>(<span class="string">"Max"</span>,
           </div>
         </div>
         <div class="code-block">
-<code><span class="keyword">class</span> <span class="class-name">MathOperations</span>:
+          <code><span class="keyword">class</span> <span class="class-name">MathOperations</span>:
     pi = <span class="number">3.14159</span>  <span class="comment"># Class attribute</span>
     
     <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, value):
@@ -463,7 +504,7 @@ obj = <span class="class-name">MathOperations</span>(<span class="number">10</sp
           Python uses naming conventions: <code>_protected</code> and <code>__private</code>.
         </p>
         <div class="code-block">
-<code><span class="keyword">class</span> <span class="class-name">BankAccount</span>:
+          <code><span class="keyword">class</span> <span class="class-name">BankAccount</span>:
     <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, balance):
         <span class="method">self</span>.__balance = balance  <span class="comment"># Private attribute (name mangling)</span>
         <span class="method">self</span>._account_id = <span class="string">"ACC123"</span>  <span class="comment"># Protected attribute</span>
@@ -504,7 +545,7 @@ account.deposit(<span class="number">500</span>)
           promoting code reuse and creating hierarchical relationships.
         </p>
         <div class="code-block">
-<code><span class="comment"># Parent class</span>
+          <code><span class="comment"># Parent class</span>
 <span class="keyword">class</span> <span class="class-name">Animal</span>:
     <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, name):
         <span class="method">self</span>.name = name
@@ -550,7 +591,7 @@ cat = <span class="class-name">Cat</span>(<span class="string">"Whiskers"</span>
           It enables the same interface to work with different data types.
         </p>
         <div class="code-block">
-<code><span class="comment"># Polymorphism with inheritance</span>
+          <code><span class="comment"># Polymorphism with inheritance</span>
 <span class="keyword">class</span> <span class="class-name">Shape</span>:
     <span class="keyword">def</span> <span class="function">area</span>(<span class="method">self</span>):
         <span class="keyword">pass</span>
@@ -595,7 +636,7 @@ shapes = [<span class="class-name">Rectangle</span>(<span class="number">4</span
           In Python, we use abstract classes and methods to achieve abstraction.
         </p>
         <div class="code-block">
-<code><span class="keyword">from</span> abc <span class="keyword">import</span> ABC, abstractmethod
+          <code><span class="keyword">from</span> abc <span class="keyword">import</span> ABC, abstractmethod
 
 <span class="keyword">class</span> <span class="class-name">DataProcessor</span>(ABC):
     <span class="comment"># Abstract class - cannot be instantiated directly</span>
@@ -636,7 +677,7 @@ processor.validate()    <span class="comment"># Validating data...</span></code>
           It provides flexibility and looser coupling than inheritance.
         </p>
         <div class="code-block">
-<code><span class="keyword">class</span> <span class="class-name">Engine</span>:
+          <code><span class="keyword">class</span> <span class="class-name">Engine</span>:
     <span class="keyword">def</span> <span class="function">start</span>(<span class="method">self</span>):
         <span class="keyword">return</span> <span class="string">"Engine starting..."</span>
 
@@ -670,7 +711,7 @@ car = <span class="class-name">Car</span>(<span class="string">"Tesla Model 3"</
           wrap other functions or classes.
         </p>
         <div class="code-block">
-<code"><span class="comment"># Function decorator</span>
+          <code><span class="comment"># Function decorator</span>
 <span class="keyword">def</span> <span class="function">timer</span>(func):
     <span class="keyword">import</span> time
     <span class="keyword">def</span> <span class="function">wrapper</span>(*args, **kwargs):
@@ -714,7 +755,7 @@ car = <span class="class-name">Car</span>(<span class="string">"Tesla Model 3"</
           <code>__set__</code>, and <code>__delete__</code> methods.
         </p>
         <div class="code-block">
-<code><span class="keyword">class</span> <span class="class-name">RangeValidator</span>:
+          <code><span class="keyword">class</span> <span class="class-name">RangeValidator</span>:
     <span class="comment"># Descriptor for validating numeric ranges</span>
     <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, min_val=<span class="number">0</span>, max_val=<span class="number">100</span>):
         <span class="method">self</span>.min_val = min_val
@@ -752,7 +793,7 @@ student.score = <span class="number">150</span>  <span class="comment"># ValueEr
           tools for enforcing coding standards and framework development.
         </p>
         <div class="code-block">
-<code><span class="keyword">class</span> <span class="class-name">Meta</span>(type):
+          <code><span class="keyword">class</span> <span class="class-name">Meta</span>(type):
     <span class="comment"># Metaclass - controls class creation</span>
     <span class="keyword">def</span> <span class="function">__new__</span>(<span class="method">cls</span>, name, bases, attrs):
         <span class="function">print</span>(<span class="string">f"Creating class: {name}"</span>)
@@ -793,7 +834,7 @@ db2 = <span class="class-name">Database</span>()
           customize class behavior with Python's built-in operations.
         </p>
         <div class="code-block">
-<code><span class="keyword">class</span> <span class="class-name">Vector</span>:
+          <code><span class="keyword">class</span> <span class="class-name">Vector</span>:
     <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, x, y):
         <span class="method">self</span>.x = x
         <span class="method">self</span>.y = y
@@ -837,7 +878,7 @@ v2 = <span class="class-name">Vector</span>(<span class="number">4</span>, <span
           like <code>__init__</code>, <code>__repr__</code>, and <code>__eq__</code>.
         </p>
         <div class="code-block">
-<code><span class="keyword">from</span> dataclasses <span class="keyword">import</span> dataclass, field
+          <code><span class="keyword">from</span> dataclasses <span class="keyword">import</span> dataclass, field
 <span class="keyword">from</span> typing <span class="keyword">import</span> List
 
 <span class="decorator">@dataclass</span>
@@ -900,7 +941,8 @@ team = <span class="class-name">Team</span>(<span class="string">"Data Team"</sp
           </div>
         </div>
         <div class="tip-box">
-          <p><strong>Pro Tip:</strong> Prefer composition over inheritance for flexibility. Use inheritance for "is-a" relationships and composition for "has-a" relationships.</p>
+          <p><strong>Pro Tip:</strong> Prefer composition over inheritance for flexibility. Use inheritance for "is-a"
+            relationships and composition for "has-a" relationships.</p>
         </div>
       </section>
 
