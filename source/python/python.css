@@ -146,6 +146,31 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+/* ---- Level Badge spacing ---- */
+.topic-section .level-badge {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+/* ---- Topic Section h2 spacing ---- */
+.topic-section h2 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.1rem;
+}
+
+/* ---- Topic Section p spacing ---- */
+.topic-section > p {
+  margin: 0 0 0.75rem 0;
+  line-height: 1.6;
+}
+
+/* ---- Nested split-grid in code-block container fix ---- */
+.split-grid .code-block {
+  margin: 0.5rem 0;
+  padding: 0.5rem;
 }
 
 .section-badge.getting-started {
@@ -347,7 +372,7 @@ body.dark .section-badge.next-steps {
 /* ---- Split Grid ---- */
 .split-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1rem;
   margin: 1rem 0;
 }
@@ -356,21 +381,32 @@ body.dark .section-badge.next-steps {
   background: var(--bg-alt);
   border: 1px solid var(--glow-border);
   border-radius: var(--radius-sm);
-  padding: 1rem;
+  padding: 0.875rem 1rem;
+  margin: 0;
 }
 
 .split-item h3,
 .split-item h4 {
   margin: 0 0 0.5rem;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-family: "Sora", sans-serif;
   color: var(--text);
 }
 
 .split-item p {
   margin: 0;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: var(--text-secondary);
+}
+
+.split-item ul {
+  margin: 0.25rem 0 0 0.75rem;
+  padding-left: 0;
+}
+
+.split-item li {
+  margin-bottom: 0.25rem;
+  font-size: 0.82rem;
 }
 
 /* ---- Tip & Warning Boxes ---- */
@@ -572,4 +608,86 @@ body:not(.has-sidebar) .hero h1 {
   .page-wrap {
     padding: 1rem;
   }
+}
+
+/* ---- Flow Diagram (SVG containers) ---- */
+.flow-diagram {
+  margin: 1.25rem 0;
+  padding: 1rem;
+  background: var(--bg-alt);
+  border: 1px solid var(--glow-border);
+  border-radius: var(--radius-sm);
+  overflow-x: auto;
+  overflow-y: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 120px;
+}
+
+.flow-diagram svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  max-height: 300px;
+  flex-shrink: 0;
+}
+
+/* ---- Topic Section Sub-heading spacing ---- */
+.topic-section h3 {
+  margin: 1.25rem 0 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--glow-border);
+  font-size: 0.95rem;
+}
+
+.topic-section h3:first-of-type {
+  margin-top: 0.75rem;
+  padding-top: 0;
+  border-top: none;
+}
+
+/* ---- List inside topic-section ---- */
+.topic-section ul,
+.topic-section ol {
+  margin: 0.5rem 0 0.75rem 1.25rem;
+  padding-left: 0;
+}
+
+.topic-section ul li,
+.topic-section ol li {
+  margin-bottom: 0.35rem;
+  line-height: 1.5;
+}
+
+/* ---- Table styling inside topic-section ---- */
+.topic-section table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.75rem 0;
+  font-size: 0.85rem;
+}
+
+.topic-section table th,
+.topic-section table td {
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  border: 1px solid var(--glow-border);
+  color: var(--text-secondary);
+}
+
+.topic-section table th {
+  background: var(--bg-alt);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.topic-section table tr:nth-child(even) td {
+  background: rgba(255,255,255,0.02);
+}
+
+/* ---- Warning and Tip boxes spacing ---- */
+.topic-section .warning-box,
+.topic-section .tip-box {
+  margin: 1rem 0;
 }

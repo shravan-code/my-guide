@@ -56,9 +56,15 @@
       <a href="#composition" class="nav-item"><span>8</span> Composition</a>
       <a href="#decorator-pattern" class="nav-item"><span>9</span> Decorator Pattern</a>
       <a href="#descriptor-protocol" class="nav-item"><span>10</span> Descriptors</a>
-      <a href="#metaclasses" class="nav-item"><span>11</span> Metaclasses</a>
-      <a href="#magic-methods" class="nav-item"><span>12</span> Magic Methods</a>
-      <a href="#data-classes" class="nav-item"><span>13</span> Data Classes</a>
+      <a href="#slots" class="nav-item"><span>11</span> __slots__</a>
+      <a href="#protocols" class="nav-item"><span>12</span> Protocols</a>
+      <a href="#context-managers" class="nav-item"><span>13</span> Context Managers</a>
+      <a href="#callable-objects" class="nav-item"><span>14</span> Callable Objects</a>
+      <a href="#metaclasses" class="nav-item"><span>15</span> Metaclasses</a>
+      <a href="#magic-methods" class="nav-item"><span>16</span> Magic Methods</a>
+      <a href="#data-classes" class="nav-item"><span>17</span> Data Classes</a>
+      <a href="#solid-principles" class="nav-item"><span>18</span> SOLID Principles</a>
+      <a href="#design-patterns" class="nav-item"><span>19</span> Design Patterns</a>
     </nav>
     <div class="page-wrap">
       <section class="hero">
@@ -577,6 +583,302 @@ team = <span class="class-name">Team</span>(<span class="string">"Data Team"</sp
         </div>
       </section>
 
+      <section class="topic-section" id="slots">
+        <span class="level-badge advanced">Advanced</span>
+        <h2>__slots__ for Memory Optimization</h2>
+        <p>
+          <code>__slots__</code> restricts instance attributes, saving memory and speeding up attribute access.
+          Classes with <code>__slots__</code> cannot have <code>__dict__</code>.
+        </p>
+        <div class="code-block">
+<code><span class="keyword">class</span> <span class="class-name">RegularClass</span>:
+    <span class="comment"># Can add any attribute dynamically</span>
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, name):
+        <span class="method">self</span>.name = name
+
+<span class="keyword">class</span> <span class="class-name">OptimizedClass</span>:
+    __slots__ = [<span class="string">'name'</span>, <span class="string">'value'</span>]  <span class="comment"># Only these attributes allowed</span>
+    
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, name, value):
+        <span class="method">self</span>.name = name
+        <span class="method">self</span>.value = value
+
+<span class="comment"># Memory comparison</span>
+<span class="keyword">import</span> sys
+regular = <span class="class-name">RegularClass</span>(<span class="string">"test"</span>)
+optimized = <span class="class-name">OptimizedClass</span>(<span class="string">"test"</span>, <span class="number">42</span>)
+
+<span class="function">print</span>(sys.<span class="function">getsizeof</span>(regular.__dict__))   <span class="comment"># Larger (has __dict__)</span>
+<span class="function">print</span>(hasattr(regular, <span class="string">'__dict__'</span>))          <span class="comment"># True</span>
+<span class="function">print</span>(hasattr(optimized, <span class="string">'__dict__'</span>))         <span class="comment"># False</span>
+<span class="function">print</span>(optimized.name)                      <span class="comment"># test</span>
+
+<span class="comment"># Cannot add new attributes</span>
+<span class="comment"># optimized.new_attr = 10  # AttributeError!</span></code>
+        </div>
+        <div class="tip-box">
+          <p><strong>Tip:</strong> Use <code>__slots__</code> when creating many instances (thousands+) for significant memory savings.</p>
+        </div>
+      </section>
+
+      <section class="topic-section" id="protocols">
+        <span class="level-badge advanced">Advanced</span>
+        <h2>Protocols (Structural Subtyping)</h2>
+        <p>
+          Protocols define interfaces for duck typing. Python 3.8+ supports <code>from typing import Protocol</code>
+          for static type checking without inheritance.
+        </p>
+        <div class="code-block">
+<code><span class="keyword">from</span> typing <span class="keyword">import</span> Protocol
+
+<span class="keyword">class</span> <span class="class-name">Readable</span>(Protocol):
+    <span class="comment"># Protocol - defines interface without inheritance</span>
+    <span class="keyword">def</span> <span class="function">read</span>(<span class="method">self</span>) -> str:
+        ...
+
+<span class="keyword">class</span> <span class="class-name">FileReader</span>:
+    <span class="keyword">def</span> <span class="function">read</span>(<span class="method">self</span>) -> str:
+        <span class="keyword">return</span> <span class="string">"File contents"</span>
+
+<span class="keyword">class</span> <span class="class-name">APIClient</span>:
+    <span class="keyword">def</span> <span class="function">read</span>(<span class="method">self</span>) -> str:
+        <span class="keyword">return</span> <span class="string">"API response"</span>
+
+<span class="keyword">class</span> <span class="class-name">Database</span>:
+    <span class="comment"># Different method name - not compatible</span>
+    <span class="keyword">def</span> <span class="function">fetch</span>(<span class="method">self</span>) -> str:
+        <span class="keyword">return</span> <span class="string">"DB data"</span>
+
+<span class="keyword">def</span> <span class="function">process</span>(source: <span class="class-name">Readable</span>):
+    <span class="keyword">return</span> source.<span class="function">read</span>()
+
+file = <span class="class-name">FileReader</span>()
+api = <span class="class-name">APIClient</span>()
+
+<span class="function">print</span>(<span class="function">process</span>(file))  <span class="comment"># Works! Has read() method</span>
+<span class="function">print</span>(<span class="function">process</span>(api))   <span class="comment"># Works! Has read() method</span>
+
+<span class="comment"># Type check with mypy: db = Database() -> process(db) would error</span></code>
+        </div>
+      </section>
+
+      <section class="topic-section" id="context-managers">
+        <span class="level-badge advanced">Advanced</span>
+        <h2>Context Managers</h2>
+        <p>
+          Context managers handle resource setup and cleanup using the <code>with</code> statement.
+          They implement <code>__enter__</code> and <code>__exit__</code> or use the <code>@contextmanager</code> decorator.
+        </p>
+        <div class="code-block">
+<code><span class="keyword">class</span> <span class="class-name">DatabaseConnection</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, db_name):
+        <span class="method">self</span>.db_name = db_name
+        <span class="method">self</span>.connected = <span class="keyword">False</span>
+    
+    <span class="keyword">def</span> <span class="function">__enter__</span>(<span class="method">self</span>):
+        <span class="function">print</span>(<span class="string">f"Connecting to {self.db_name}..."</span>)
+        <span class="method">self</span>.connected = <span class="keyword">True</span>
+        <span class="keyword">return</span> <span class="method">self</span>
+    
+    <span class="keyword">def</span> <span class="function">__exit__</span>(<span class="method">self</span>, exc_type, exc_val, exc_tb):
+        <span class="function">print</span>(<span class="string">f"Disconnecting from {self.db_name}..."</span>)
+        <span class="method">self</span>.connected = <span class="keyword">False</span>
+        <span class="keyword">return</span> <span class="keyword">False</span>  <span class="comment"># Don't suppress exceptions
+    
+    <span class="keyword">def</span> <span class="function">query</span>(<span class="method">self</span>, sql):
+        <span class="keyword">return</span> <span class="string">f"Executed: {sql}"</span>
+
+<span class="keyword">with</span> <span class="class-name">DatabaseConnection</span>(<span class="string">"mydb"</span>) <span class="keyword">as</span> db:
+    <span class="function">print</span>(db.<span class="function">query</span>(<span class="string">"SELECT * FROM users"</span>))
+    <span class="function">print</span>(db.connected)  <span class="comment"># True
+
+<span class="comment"># Using @contextmanager decorator</span>
+<span class="keyword">from</span> contextlib <span class="keyword">import</span> contextmanager
+
+<span class="decorator">@contextmanager</span>
+<span class="keyword">def</span> <span class="function">timer</span>():
+    <span class="keyword">import</span> time
+    start = time.<span class="function">time</span>()
+    <span class="keyword">yield</span>
+    <span class="function">print</span>(<span class="string">f"Took {time.<span class="function">time</span>() - start:.2f}s"</span>)
+
+<span class="keyword">with</span> <span class="function">timer</span>():
+    <span class="keyword">import</span> time
+    time.<span class="function">sleep</span>(<span class="number">0.1</span>)</code>
+        </div>
+      </section>
+
+      <section class="topic-section" id="callable-objects">
+        <span class="level-badge advanced">Advanced</span>
+        <h2>Callable Objects</h2>
+        <p>
+          Objects can be made callable by implementing <code>__call__</code>. This allows instances
+          to behave like functions while maintaining state.
+        </p>
+        <div class="code-block">
+<code><span class="keyword">class</span> <span class="class-name">Multiplier</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, factor):
+        <span class="method">self</span>.factor = factor
+    
+    <span class="keyword">def</span> <span class="function">__call__</span>(<span class="method">self</span>, value):
+        <span class="keyword">return</span> value * <span class="method">self</span>.factor
+
+doubler = <span class="class-name">Multiplier</span>(<span class="number">2</span>)
+tripler = <span class="class-name">Multiplier</span>(<span class="number">3</span>)
+
+<span class="function">print</span>(<span class="function">doubler</span>(<span class="number">5</span>))   <span class="comment"># 10 - looks like a function!</span>
+<span class="function">print</span>(<span class="function">tripler</span>(<span class="number">5</span>))   <span class="comment"># 15</span>
+<span class="function">print</span>(callable(doubler))  <span class="comment"># True</span>
+
+<span class="comment"># Counter with state</span>
+<span class="keyword">class</span> <span class="class-name">Counter</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>):
+        <span class="method">self</span>.count = <span class="number">0</span>
+    
+    <span class="keyword">def</span> <span class="function">__call__</span>(<span class="method">self</span>):
+        <span class="method">self</span>.count += <span class="number">1</span>
+        <span class="keyword">return</span> <span class="method">self</span>.count
+
+counter = <span class="class-name">Counter</span>()
+<span class="function">print</span>(<span class="function">counter</span>())  <span class="comment"># 1</span>
+<span class="function">print</span>(<span class="function">counter</span>())  <span class="comment"># 2</span>
+<span class="function">print</span>(<span class="function">counter</span>())  <span class="comment"># 3</span></code>
+        </div>
+      </section>
+
+      <section class="topic-section" id="solid-principles">
+        <span class="level-badge advanced">Advanced</span>
+        <h2>SOLID Principles</h2>
+        <p>
+          SOLID is an acronym for five design principles that make software more maintainable and scalable.
+        </p>
+        <div class="code-block">
+<code><span class="comment"># S - Single Responsibility Principle (SRP)</span>
+<span class="comment"># A class should have only one reason to change</span>
+<span class="keyword">class</span> <span class="class-name">User</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, name, email):
+        <span class="method">self</span>.name = name
+        <span class="method">self</span>.email = email
+
+<span class="comment"># Separate concerns</span>
+<span class="keyword">class</span> <span class="class-name">UserRepository</span>:
+    <span class="keyword">def</span> <span class="function">save</span>(<span class="method">self</span>, user): <span class="comment"># Only handles persistence</span>
+        <span class="keyword">pass</span>
+
+<span class="keyword">class</span> <span class="class-name">UserNotifier</span>:
+    <span class="keyword">def</span> <span class="function">send_email</span>(<span class="method">self</span>, user): <span class="comment"># Only handles notifications</span>
+        <span class="keyword">pass</span>
+
+<span class="comment"># O - Open/Closed Principle (OCP)</span>
+<span class="comment"># Open for extension, closed for modification</span>
+<span class="keyword">from</span> abc <span class="keyword">import</span> ABC, abstractmethod
+
+<span class="keyword">class</span> <span class="class-name">Discount</span>(ABC):
+    <span class="decorator">@abstractmethod</span>
+    <span class="keyword">def</span> <span class="function">calculate</span>(<span class="method">self</span>, price): <span class="keyword">pass</span>
+
+<span class="keyword">class</span> <span class="class-name">NoDiscount</span>(<span class="class-name">Discount</span>):
+    <span class="keyword">def</span> <span class="function">calculate</span>(<span class="method">self</span>, price): <span class="keyword">return</span> price
+
+<span class="keyword">class</span> <span class="class-name">PercentDiscount</span>(<span class="class-name">Discount</span>):
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, percent):
+        <span class="method">self</span>.percent = percent
+    <span class="keyword">def</span> <span class="function">calculate</span>(<span class="method">self</span>, price): <span class="keyword">return</span> price * (<span class="number">1</span> - <span class="method">self</span>.percent/<span class="number">100</span>)
+
+<span class="comment"># L - Liskov Substitution Principle (LSP)</span>
+<span class="comment"># Objects of a superclass should be replaceable with subclass objects</span>
+<span class="comment"># If Bird is parent, Penguin (cannot fly) should not break code expecting Bird
+
+<span class="comment"># I - Interface Segregation Principle (ISP)</span>
+<span class="comment"># Clients should not be forced to implement interfaces they don't use</span>
+<span class="comment"># Split large interfaces into smaller ones
+
+<span class="comment"># D - Dependency Inversion Principle (DIP)</span>
+<span class="comment"># Depend on abstractions, not concretions</span>
+<span class="keyword">class</span> <span class="class-name">OrderService</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, payment_gateway):  <span class="comment"># Depends on abstraction</span>
+        <span class="method">self</span>.payment = payment_gateway  <span class="comment"># duck typed</span></code>
+        </div>
+      </section>
+
+      <section class="topic-section" id="design-patterns">
+        <span class="level-badge advanced">Advanced</span>
+        <h2>Design Patterns in Python</h2>
+        <p>
+          Design patterns are reusable solutions to common software design problems.
+        </p>
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Factory Pattern</h4>
+            <p>Creates objects without specifying exact class.</p>
+          </div>
+          <div class="split-item">
+            <h4>Singleton Pattern</h4>
+            <p>Ensures only one instance exists.</p>
+          </div>
+          <div class="split-item">
+            <h4>Observer Pattern</h4>
+            <p>Notifies dependents of state changes.</p>
+          </div>
+          <div class="split-item">
+            <h4>Strategy Pattern</h4>
+            <p>Selects algorithm at runtime.</p>
+          </div>
+        </div>
+        <div class="code-block">
+<code><span class="comment"># Factory Pattern</span>
+<span class="keyword">class</span> <span class="class-name">Dog</span>:
+    <span class="keyword">def</span> <span class="function">speak</span>(<span class="method">self</span>): <span class="keyword">return</span> <span class="string">"Woof!"</span>
+
+<span class="keyword">class</span> <span class="class-name">Cat</span>:
+    <span class="keyword">def</span> <span class="function">speak</span>(<span class="method">self</span>): <span class="keyword">return</span> <span class="string">"Meow!"</span>
+
+<span class="keyword">class</span> <span class="class-name">AnimalFactory</span>:
+    <span class="keyword">@staticmethod</span>
+    <span class="keyword">def</span> <span class="function">create</span>(animal_type):
+        animals = {<span class="string">"dog"</span>: <span class="class-name">Dog</span>, <span class="string">"cat"</span>: <span class="class-name">Cat</span>}
+        <span class="keyword">return</span> animals[animal_type]()
+
+pet = <span class="class-name">AnimalFactory</span>.<span class="function">create</span>(<span class="string">"dog"</span>)
+<span class="function">print</span>(pet.<span class="function">speak</span>())  <span class="comment"># Woof!</span>
+
+<span class="comment"># Observer Pattern</span>
+<span class="keyword">class</span> <span class="class-name">Observable</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>):
+        <span class="method">self</span>._observers = []
+    
+    <span class="keyword">def</span> <span class="function">attach</span>(<span class="method">self</span>, observer):
+        <span class="method">self</span>._observers.append(observer)
+    
+    <span class="keyword">def</span> <span class="function">notify</span>(<span class="method">self</span>, data):
+        <span class="keyword">for</span> obs <span class="keyword">in</span> <span class="method">self</span>._observers:
+            obs.<span class="function">update</span>(data)
+
+<span class="keyword">class</span> <span class="class-name">Observer</span>:
+    <span class="keyword">def</span> <span class="function">update</span>(<span class="method">self</span>, data):
+        <span class="function">print</span>(<span class="string">f"Received: {data}"</span>)
+
+subject = <span class="class-name">Observable</span>()
+subject.<span class="function">attach</span>(<span class="class-name">Observer</span>())
+subject.<span class="function">notify</span>(<span class="string">"Hello!"</span>)  <span class="comment"># Received: Hello!</span>
+
+<span class="comment"># Strategy Pattern</span>
+<span class="keyword">class</span> <span class="class-name">SortStrategy</span>:
+    <span class="keyword">def</span> <span class="function">sort</span>(<span class="method">self</span>, data): <span class="keyword">pass</span>
+
+<span class="keyword">class</span> <span class="class-name">QuickSort</span>(<span class="class-name">SortStrategy</span>):
+    <span class="keyword">def</span> <span class="function">sort</span>(<span class="method">self</span>, data): <span class="keyword">return</span> <span class="function">sorted</span>(data)  <span class="comment"># simplified</span>
+
+<span class="keyword">class</span> <span class="class-name">Context</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, strategy):
+        <span class="method">self</span>._strategy = strategy
+    <span class="keyword">def</span> <span class="function">execute</span>(<span class="method">self</span>, data): <span class="keyword">return</span> <span class="method">self</span>._strategy.<span class="function">sort</span>(data)
+
+ctx = <span class="class-name">Context</span>(<span class="class-name">QuickSort</span>())
+<span class="function">print</span>(ctx.<span class="function">execute</span>([<span class="number">3</span>,<span class="number">1</span>,<span class="number">2</span>]))  <span class="comment"># [1, 2, 3]</span></code>
+        </div>
+      </section>
+
       <section class="topic-section">
         <h2>OOPs Summary</h2>
         <div class="split-grid">
@@ -603,6 +905,22 @@ team = <span class="class-name">Team</span>(<span class="string">"Data Team"</sp
           <div class="split-item">
             <h4>Composition</h4>
             <p>Build complex objects from simpler ones.</p>
+          </div>
+          <div class="split-item">
+            <h4>__slots__</h4>
+            <p>Memory optimization by restricting attributes.</p>
+          </div>
+          <div class="split-item">
+            <h4>Protocols</h4>
+            <p>Structural subtyping without inheritance.</p>
+          </div>
+          <div class="split-item">
+            <h4>Context Managers</h4>
+            <p>Resource cleanup with <code>with</code> statement.</p>
+          </div>
+          <div class="split-item">
+            <h4>SOLID</h4>
+            <p>Five principles for maintainable OOP code.</p>
           </div>
         </div>
         <div class="tip-box">
