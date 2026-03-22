@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Guide | Azure Services</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../python/python.css" />
+</head>
+
+<body class="with-sidebar">
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <header class="topbar glass reveal in">
+    <a class="brand" href="../../index.html">Data Guide</a>
+    <button id="sidebar-toggle" class="sidebar-toggle" type="button" aria-label="Toggle sidebar">
+      <span class="hamburger" aria-hidden="true"></span>
+    </button>
+    <nav class="menu" aria-label="Cloud menu">
+      <a href="index.html">Hub</a>
+      <div class="menu-dropdown">
+        <button class="menu-trigger">Topics</button>
+        <div class="dropdown-panel">
+          <a href="cloud-topics.html"><strong>Overview</strong><span>All cloud topics</span></a>
+          <a href="cloud-basics.html"><strong>Basics</strong><span>IaaS, PaaS, SaaS, deployment models</span></a>
+          <a href="cloud-services.html"><strong>Services</strong><span>Service comparison across providers</span></a>
+          <a href="cloud-storage.html"><strong>Storage</strong><span>Object, block, file, data lakes</span></a>
+          <a href="cloud-compute.html"><strong>Compute</strong><span>VMs, containers, Kubernetes</span></a>
+          <a href="cloud-serverless.html"><strong>Serverless</strong><span>Functions and managed services</span></a>
+        </div>
+      </div>
+      <div class="menu-dropdown">
+        <button class="menu-trigger">Providers</button>
+        <div class="dropdown-panel">
+          <a href="cloud-aws.html"><strong>AWS</strong><span>Amazon Web Services</span></a>
+          <a href="cloud-azure.html" class="active"><strong>Azure</strong><span>Microsoft Azure</span></a>
+          <a href="cloud-gcp.html"><strong>GCP</strong><span>Google Cloud Platform</span></a>
+        </div>
+      </div>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+      <span class="toggle-icon" aria-hidden="true">☾</span>
+      <span class="toggle-text">Dark</span>
+    </button>
+  </header>
+
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <main class="main-content">
+    <nav class="sidebar" id="sidebar">
+      <div class="logo">
+        <span class="logo-text">Azure Services</span>
+      </div>
+
+      <div class="nav-title">Overview</div>
+      <a href="#overview" class="nav-item active"><span>1</span> Azure Overview</a>
+      <a href="#global-infra" class="nav-item"><span>2</span> Global Infrastructure</a>
+
+      <div class="nav-title">Core Services</div>
+      <a href="#compute" class="nav-item"><span>3</span> Compute</a>
+      <a href="#storage" class="nav-item"><span>4</span> Storage</a>
+      <a href="#database" class="nav-item"><span>5</span> Database</a>
+      <a href="#networking" class="nav-item"><span>6</span> Networking</a>
+
+      <div class="nav-title">Data & Analytics</div>
+      <a href="#analytics" class="nav-item"><span>7</span> Analytics</a>
+      <a href="#big-data" class="nav-item"><span>8</span> Big Data</a>
+      <a href="#ml-ai" class="nav-item"><span>9</span> ML & AI</a>
+
+      <div class="nav-title">Developer Tools</div>
+      <a href="#sdk" class="nav-item"><span>10</span> Azure SDK</a>
+      <a href="#cli" class="nav-item"><span>11</span> Azure CLI</a>
+      <a href="#bicep" class="nav-item"><span>12</span> Bicep & Terraform</a>
+      <a href="#devops" class="nav-item"><span>13</span> DevOps Tools</a>
+
+      <div class="nav-title">Security</div>
+      <a href="#entra" class="nav-item"><span>14</span> Entra ID & Security</a>
+      <a href="#monitoring" class="nav-item"><span>15</span> Monitoring</a>
+    </nav>
+
+    <div class="page-wrap">
+      <section class="hero">
+        <h1>Azure Services</h1>
+      </section>
+
+      <!-- Section 1: Overview -->
+      <section class="topic-section" id="overview">
+        <span class="level-badge basic">Basic</span>
+        <h2>Azure Overview</h2>
+        <p>Microsoft Azure is the world's leading enterprise cloud platform with 200+ services. It offers strong integration with Microsoft ecosystem and enterprise features.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Key Facts</h4>
+            <ul>
+              <li><strong>Launch:</strong> 2010</li>
+              <li><strong>Market Share:</strong> ~23% (second largest)</li>
+              <li><strong>Regions:</strong> 60+ worldwide</li>
+              <li><strong>Services:</strong> 200+</li>
+              <li><strong>Free Tier:</strong> 12 months + always free</li>
+            </ul>
+          </div>
+          <div class="split-item">
+            <h4>Key Benefits</h4>
+            <ul>
+              <li>Microsoft ecosystem integration</li>
+              <li>Enterprise-grade security</li>
+              <li>Hybrid cloud (Azure Arc)</li>
+              <li>Strong compliance certifications</li>
+              <li>Open source friendly</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="code-block">
+<code><span class="comment"># Azure Portal</span>
+https://portal.azure.com
+
+<span class="comment"># Azure Regions (selected)</span>
+eastus           <span class="comment"># East US (Virginia)</span>
+eastus2          <span class="comment"># East US 2 (Virginia)</span>
+westus           <span class="comment"># West US (California)</span>
+westus2          <span class="comment"># West US 2 (Washington)</span>
+westeurope       <span class="comment"># West Europe (Netherlands)</span>
+northeurope      <span class="comment"># North Europe (Ireland)</span>
+southeastasia    <span class="comment"># Southeast Asia (Singapore)</span>
+uksouth          <span class="comment"># UK South (London)</span>
+
+<span class="comment"># Always Free Services (permanent)</span>
+- Functions: 1M requests/month
+- Cosmos DB: 1000 RU/s, 25GB storage
+- Blob Storage: 5GB LRS Hot
+- Bandwidth: 100GB/month out
+- App Service: 10 apps (B1)
+
+<span class="comment"># Azure Subscriptions</span>
+<span class="comment"># Free, Pay-As-You-Go, Enterprise Agreement</span>
+<span class="comment"># CSP (Cloud Solution Provider)</span>
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 2: Global Infrastructure -->
+      <section class="topic-section" id="global-infra">
+        <span class="level-badge basic">Basic</span>
+        <h2>Global Infrastructure</h2>
+        <p>Azure has the most regions of any cloud provider, with strong compliance and data residency options.</p>
+
+        <div class="flowchart">
+          <h3>Azure Infrastructure Hierarchy</h3>
+          <div class="flow-row">
+            <span class="flow-node">Azure Global Infrastructure</span>
+          </div>
+          <div class="flow-row" style="margin-top: 0.5rem;">
+            <span class="flow-node">Regions (60+)</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Availability Zones</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Edge Zones</span>
+          </div>
+          <div class="flow-row" style="margin-top: 0.5rem; font-size: 0.85rem;">
+            <span class="flow-node" style="background: var(--glass);">Geographic areas</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node" style="background: var(--glass);">Data centers</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node" style="background: var(--glass);">CDN PoPs</span>
+          </div>
+        </div>
+
+        <div class="code-block">
+<code><span class="comment"># Azure Global Services</span>
+
+<span class="comment"># 1. Content Delivery</span>
+Azure CDN          <span class="comment"># Global content delivery</span>
+Azure Front Door   <span class="comment"># Global load balancer + CDN</span>
+
+<span class="comment"># 2. Identity & Security</span>
+Microsoft Entra ID <span class="comment"># Global identity (Azure AD)</span>
+Azure Firewall     <span class="comment"># Cloud-native firewall</span>
+DDoS Protection    <span class="comment"># Standard/Basic</span>
+
+<span class="comment"># 3. Management</span>
+Azure Monitor      <span class="comment"># Monitoring platform</span>
+Azure Policy       <span class="comment"># Governance</span>
+Management Groups  <span class="comment"># Hierarchical organization</span>
+
+<span class="comment"># Resource Hierarchy</span>
+<span class="comment"># Tenant → Management Groups → Subscriptions → Resource Groups → Resources</span>
+<span class="comment"># Management Groups are optional</span>
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 3: Compute -->
+      <section class="topic-section" id="compute">
+        <span class="level-badge basic">Basic</span>
+        <h2>Compute Services</h2>
+        <p>Azure offers diverse compute options from VMs to serverless with strong Microsoft integration.</p>
+
+        <div class="code-block">
+<code><span class="comment"># Virtual Machines</span>
+
+<span class="comment"># VM Size Families</span>
+General Purpose:  B, D, Das, Dsv    <span class="comment"># Web servers, apps</span>
+Compute Opt:      F, Fs, N, Ns      <span class="comment"># Batch, CPU-intensive</span>
+Memory Opt:       E, Ed, Ev, Evs    <span class="comment"># Databases, cache</span>
+Storage Opt:      Ls, Lsv           <span class="comment"># Big data, DB</span>
+GPU:              NC, ND, NV        <span class="comment"># ML, graphics</span>
+
+<span class="comment"># Create VM</span>
+az vm create \
+    --resource-group myRG \
+    --name myVM \
+    --image Ubuntu2204 \
+    --admin-username azureuser \
+    --generate-ssh-keys \
+    --size Standard_B2s
+
+<span class="comment"># VM Scale Sets - Auto-scaling VM groups</span>
+az vmss create \
+    --resource-group myRG \
+    --name myVMSS \
+    --image Ubuntu2204 \
+    --vm-size Standard_B2s \
+    --instance-count 3 \
+    --enable-auto-scale true
+
+<span class="comment"># App Service - PaaS Web Apps</span>
+az webapp up \
+    --resource-group myRG \
+    --name my-app \
+    --runtime NODE:18-lts
+
+<span class="comment"># Container Instances - Serverless containers</span>
+az container create \
+    --resource-group myRG \
+    --name mycontainer \
+    --image nginx \
+    --cpu <span class="number">1</span> --memory <span class="number">1.5</span> \
+    --ports <span class="number">80</span>
+
+<span class="comment"># AKS - Azure Kubernetes Service</span>
+az aks create \
+    --resource-group myRG \
+    --name myAKSCluster \
+    --node-count <span class="number">3</span> \
+    --enable-managed-identity
+
+<span class="comment"># Azure Functions - Serverless</span>
+func init my-app --python
+func new --name http-trigger --template "HTTP trigger"
+func azure functionapp publish my-app
+
+<span class="comment"># Azure Container Apps</span>
+az containerapp create \
+    --name myapp \
+    --resource-group myRG \
+    --image nginx \
+    --target-port <span class="number">80</span> \
+    --ingress external
+
+<span class="comment"># Other Compute Services</span>
+Batch              <span class="comment"># HPC/batch processing</span>
+Service Fabric     <span class="comment"># Microservices platform</span>
+Azure Spring Apps  <span class="comment"># Managed Spring Boot</span>
+Azure Dedicated Host <span class="comment"># Dedicated VM hosts</span>
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 4: Storage -->
+      <section class="topic-section" id="storage">
+        <span class="level-badge basic">Basic</span>
+        <h2>Storage Services</h2>
+        <p>Azure Storage provides scalable, durable object, file, queue, and table storage.</p>
+
+        <div class="code-block">
+<code><span class="comment"># Storage Account - Top-level container</span>
+az storage account create \
+    --name mystorageaccount \
+    --resource-group myRG \
+    --location eastus \
+    --sku Standard_LRS \
+    --kind StorageV2
+
+<span class="comment"># Blob Storage - Object storage</span>
+<span class="comment"># Container → Blob (Block/Page/Append)</span>
+
+<span class="comment"># Create container and upload</span>
+az storage container create \
+    --name my-container \
+    --account-name mystorageaccount
+
+az storage blob upload \
+    --container-name my-container \
+    --file ./local-file.txt \
+    --name data/local-file.txt
+
+<span class="comment"># Blob Access Tiers</span>
+Hot       <span class="comment"># Frequent access (default)</span>
+Cool      <span class="comment"># Infrequent (30+ days)</span>
+Cold      <span class="comment"># Rare access (90+ days)</span>
+Archive   <span class="comment"># Long-term (180+ days)</span>
+
+<span class="comment"># Storage Redundancy</span>
+LRS     <span class="comment"># Locally Redundant (3 copies)</span>
+ZRS     <span class="comment"># Zone Redundant (3 AZs)</span>
+GRS     <span class="comment"># Geo-Redundant (6 copies)</span>
+GZRS    <span class="comment"># Geo-Zone-Redundant (6 copies)</span>
+
+<span class="comment"># Data Lake Storage Gen2</span>
+<span class="comment"># Hierarchical namespace on Blob Storage</span>
+az storage account create \
+    --name mydatalake \
+    --resource-group myRG \
+    --hns  <span class="comment"># Enables hierarchical namespace</span>
+
+<span class="comment"># Azure Files - SMB/NFS file shares</span>
+az storage share create \
+    --name my-share \
+    --account-name mystorageaccount
+
+<span class="comment"># Managed Disks</span>
+Standard HDD    <span class="comment"># S4, S10, S20</span>
+Standard SSD   <span class="comment"># E1, E2, E4</span>
+Premium SSD    <span class="comment"># P1, P2, P3</span>
+Ultra Disk     <span class="comment"># Custom IOPS/throughput</span>
+
+<span class="comment"># Other Storage Services</span>
+Queue Storage   <span class="comment"># Message queues</span>
+Table Storage   <span class="comment"># NoSQL key-value</span>
+Azure Backup    <span class="comment"># Backup service</span>
+Data Box        <span class="comment"># Physical data transfer</span>
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 5: Database -->
+      <section class="topic-section" id="database">
+        <span class="level-badge basic">Basic</span>
+        <h2>Database Services</h2>
+        <p>Azure offers managed databases for relational, NoSQL, and specialized workloads.</p>
+
+        <div class="code-block">
+<code><span class="comment"># Azure SQL Database - Managed SQL Server</span>
+az sql server create \
+    --name myserver \
+    --resource-group myRG \
+    --admin-user admin \
+    --admin-password mypassword
+
+az sql db create \
+    --resource-group myRG \
+    --server myserver \
+    --name mydb \
+    --edition Basic
+
+<span class="comment"># SQL Server on VMs (IaaS)</span>
+<span class="comment"># Full SQL Server on Azure VM</span>
+
+<span class="comment"># Cosmos DB - Multi-model, globally distributed</span>
+az cosmosdb create \
+    --resource-group myRG \
+    --name mycosmos \
+    --kind GlobalDocumentDB \
+    --capabilities EnableServerless
+
+az cosmosdb sql database create \
+    --resource-group myRG \
+    --account-name mycosmos \
+    --name mydb
+
+<span class="comment"># Cosmos DB APIs</span>
+SQL (Core)    <span class="comment"># Document DB (recommended)</span>
+MongoDB       <span class="comment"># MongoDB compatible</span>
+Cassandra     <span class="comment"># Wide-column</span>
+Gremlin       <span class="comment"># Graph</span>
+Table         <span class="comment"># Key-value</span>
+
+<span class="comment"># Azure Database for PostgreSQL</span>
+az postgres flexible-server create \
+    --resource-group myRG \
+    --name myserver \
+    --admin-user admin \
+    --admin-password mypassword \
+    --sku-name Standard_D2s_v3
+
+<span class="comment"># Azure Cache for Redis</span>
+az redis create \
+    --resource-group myRG \
+    --name mycache \
+    --sku Basic \
+    --capacity 0
+
+<span class="comment"># Other Database Services</span>
+Azure Database for MySQL     <span class="comment"># Managed MySQL</span>
+Azure Database for MariaDB   <span class="comment"># Managed MariaDB</span>
+Azure Synapse Analytics      <span class="comment"># Data warehouse</span>
+Azure Data Explorer          <span class="comment"># Kusto/ADX</span>
+Azure Table Storage          <span class="comment"># NoSQL key-value</span>
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 6: Networking -->
+      <section class="topic-section" id="networking">
+        <span class="level-badge intermediate">Intermediate</span>
+        <h2>Networking Services</h2>
+        <p>Azure networking provides virtual networks, load balancing, and global connectivity.</p>
+
+        <div class="code-block">
+<code><span class="comment"># VNet - Virtual Network</span>
+az network vnet create \
+    --resource-group myRG \
+    --name myVNet \
+    --address-prefixes 10.0.0.0/16
+
+<span class="comment"># Subnets</span>
+az network vnet subnet create \
+    --resource-group myRG \
+    --vnet-name myVNet \
+    --name default \
+    --address-prefixes 10.0.0.0/24
+
+<span class="comment"># NSG - Network Security Group</span>
+az network nsg create \
+    --resource-group myRG \
+    --name myNSG
+
+az network nsg rule create \
+    --resource-group myRG \
+    --nsg-name myNSG \
+    --name AllowHTTP \
+    --priority 100 \
+    --access Allow \
+    --protocol Tcp \
+    --destination-port-ranges 80
+
+<span class="comment"># Load Balancers</span>
+<span class="comment"># Standard (zone-redundant) vs Basic</span>
+az network lb create \
+    --resource-group myRG \
+    --name myLB \
+    --sku Standard
+
+<span class="comment"># Application Gateway (L7)</span>
+az network application-gateway create \
+    --resource-group myRG \
+    --name myAppGW \
+    --sku Standard_v2
+
+<span class="comment"># Azure Front Door (Global L7)</span>
+<span class="comment"># Global load balancing + CDN</span>
+<span class="comment"># URL-based routing, SSL offload</span>
+
+<span class="comment"># Azure DNS</span>
+az network dns zone create \
+    --resource-group myRG \
+    --name example.com
+
+<span class="comment"># VPN Gateway</span>
+az network vnet-gateway create \
+    --resource-group myRG \
+    --name myVNetGateway \
+    --vpn-type RouteBased \
+    --sku VpnGw2
+
+<span class="comment"># ExpressRoute - Private dedicated connection</span>
+<span class="comment"># Direct connection to Azure (up to 100 Gbps)</span>
+
+<span class="comment"># Private Link / Private Endpoint</span>
+<span class="comment"># Access Azure services privately</span>
+az network private-endpoint create \
+    --resource-group myRG \
+    --name myEndpoint \
+    --vnet-name myVNet \
+    --subnet default \
+    --private-connection-resource-id /subscriptions/...
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 7: Analytics -->
+      <section class="topic-section" id="analytics">
+        <span class="level-badge intermediate">Intermediate</span>
+        <h2>Analytics Services</h2>
+        <p>Azure provides unified analytics with Synapse Analytics, Data Factory, and Power BI.</p>
+
+        <div class="code-block">
+<code><span class="comment"># Azure Synapse Analytics</span>
+<span class="comment"># Unified: SQL pool, Spark pool, Data Explorer</span>
+<span class="comment"># Serverless and dedicated SQL pools</span>
+<span class="comment"># Integration with Power BI, Data Factory</span>
+
+<span class="comment"># Serverless SQL Pool (pay per query)</span>
+<span class="comment"># Query data lakes directly with SQL</span>
+<span class="keyword">SELECT</span> *
+<span class="keyword">FROM</span> OPENROWSET(
+    BULK <span class="string">'https://myaccount.dfs.core.windows.net/data/*.parquet'</span>,
+    FORMAT = <span class="string">'PARQUET'</span>
+) <span class="keyword">AS</span> rows;
+
+<span class="comment"># Spark Pool</span>
+<span class="comment"># Apache Spark for big data processing</span>
+<span class="comment"># Supports Python, Scala, .NET, SQL</span>
+
+<span class="comment"># Data Factory - ETL/ELT</span>
+az datafactory factory create \
+    --resource-group myRG \
+    --name myFactory
+
+<span class="comment"># Data Factory Components</span>
+Linked Services  <span class="comment"># Connection strings</span>
+Datasets         <span class="comment"># Data structures</span>
+Pipelines        <span class="comment"># Workflow activities</span>
+Triggers         <span class="comment"># Schedule/event triggers</span>
+
+<span class="comment"># Event Hubs - Streaming</span>
+az eventhubs namespace create \
+    --resource-group myRG \
+    --name mynamespace \
+    --sku Standard
+
+az eventhubs eventhub create \
+    --resource-group myRG \
+    --namespace-name mynamespace \
+    --name myeventhub
+
+<span class="comment"># Stream Analytics</span>
+<span class="comment"># Real-time SQL-like queries on streams</span>
+<span class="keyword">SELECT</span>
+    <span class="function">System.Timestamp</span>() <span class="keyword">AS</span> WindowEnd,
+    deviceId,
+    <span class="function">AVG</span>(temperature) <span class="keyword">AS</span> avgTemp
+<span class="keyword">FROM</span> iothub
+<span class="keyword">GROUP BY</span> TumblingWindow(<span class="keyword">Minute</span>, <span class="number">5</span>), deviceId
+
+<span class="comment"># Power BI - Business Intelligence</span>
+<span class="comment"># Dashboards, reports, datasets</span>
+<span class="comment"># Embedded analytics</span>
+
+<span class="comment"># Data Lake Storage Gen2</span>
+<span class="comment"># Hierarchical namespace for big data</span>
+
+<span class="comment"># HDInsight (being retired)</span>
+<span class="comment"># Migrate to Synapse Spark pools</span>
+
+<span class="comment"># Azure Databricks</span>
+<span class="comment"># Managed Apache Spark service</span>
+az databricks workspace create \
+    --resource-group myRG \
+    --name myWorkspace \
+    --location eastus \
+    --sku standard
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 8: Big Data -->
+      <section class="topic-section" id="big-data">
+        <span class="level-badge intermediate">Intermediate</span>
+        <h2>Big Data Services</h2>
+        <p>Azure provides comprehensive big data processing from ingestion to analytics.</p>
+
+        <div class="code-block">
+<code><span class="comment"># Azure Data Lake Architecture</span>
+
+<span class="comment"># 1. Ingest</span>
+Event Hubs           <span class="comment"># Real-time streaming</span>
+Data Factory         <span class="comment"># Batch ETL</span>
+Data Box             <span class="comment"># Physical transfer</span>
+Azure Data Explorer  <span class="comment"># Time series ingest</span>
+
+<span class="comment"># 2. Store</span>
+Data Lake Gen2       <span class="comment"># Hierarchical storage</span>
+Blob Storage         <span class="comment"># Object storage</span>
+Cosmos DB            <span class="comment"># Multi-model</span>
+
+<span class="comment"># 3. Process</span>
+Data Factory         <span class="comment"># Visual ETL</span>
+Synapse Spark        <span class="comment"># Spark processing</span>
+Azure Databricks     <span class="comment"># Managed Spark</span>
+Stream Analytics     <span class="comment"># Real-time SQL</span>
+
+<span class="comment"># 4. Analyze</span>
+Synapse SQL          <span class="comment"># SQL pools</span>
+Power BI             <span class="comment"># Visualization</span>
+Azure Data Explorer  <span class="comment"># Log analytics</span>
+
+<span class="comment"># 5. ML/AI</span>
+Azure ML             <span class="comment"># Machine Learning</span>
+Cognitive Services   <span class="comment"># Pre-built AI</span>
+OpenAI Service       <span class="comment"># GPT models</span>
+
+<span class="comment"># Data Catalog (Microsoft Purview)</span>
+<span class="comment"># Data governance and discovery</span>
+<span class="comment"># Lineage tracking, classification</span>
+        </code>
+        </div>
+
+        <div class="flowchart">
+          <h3>Azure Data Architecture</h3>
+          <div class="flow-row">
+            <span class="flow-node">Sources</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Event Hubs</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Data Lake Gen2</span>
+          </div>
+          <div class="flow-row" style="margin-top: 0.5rem;">
+            <span class="flow-node">Data Factory</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Synapse</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Power BI</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 9: ML & AI -->
+      <section class="topic-section" id="ml-ai">
+        <span class="level-badge intermediate">Intermediate</span>
+        <h2>Machine Learning & AI</h2>
+        <p>Azure provides end-to-end ML through Azure ML Studio and pre-built AI services.</p>
+
+        <div class="code-block">
+<code><span class="comment"># Azure Machine Learning</span>
+
+<span class="comment"># SDK v2</span>
+<span class="keyword">from</span> azure.ai.ml <span class="keyword">import</span> MLClient
+<span class="keyword">from</span> azure.ai.ml <span class="keyword">import</span> command
+<span class="keyword">from</span> azure.identity <span class="keyword">import</span> DefaultAzureCredential
+
+<span class="comment"># Connect to workspace</span>
+credential = DefaultAzureCredential()
+ml_client = MLClient(credential, subscription_id, resource_group, workspace_name)
+
+<span class="comment"># Create compute</span>
+compute = ml_client.compute.<span class="function">get_or_create</span>(
+    name=<span class="string">"cpu-cluster"</span>,
+    type=<span class="string">"amlcompute"</span>,
+    size=<span class="string">"Standard_DS3_v2"</span>,
+    min_instances=<span class="number">0</span>,
+    max_instances=<span class="number">4</span>
+)
+
+<span class="comment"># Submit training job</span>
+job = command(
+    code=<span class="string">"./src"</span>,
+    command=<span class="string">"python train.py"</span>,
+    environment=<span class="string">"azureml:sklearn-1.0@latest"</span>,
+    compute=<span class="string">"cpu-cluster"</span>
+)
+returned_job = ml_client.jobs.<span class="function">create_or_update</span>(job)
+
+<span class="comment"># Deploy endpoint</span>
+<span class="comment"># Online (real-time) or Batch endpoints</span>
+
+<span class="comment"># Cognitive Services / Azure AI Services</span>
+<span class="comment"># Pre-built AI models</span>
+
+Text Analytics    <span class="comment"># Sentiment, NER, key phrases</span>
+Vision            <span class="comment"># Image analysis, OCR</span>
+Speech            <span class="comment"># STT, TTS, transcription</span>
+Translator        <span class="comment"># Machine translation</span>
+Document Intell.  <span class="comment"># Form/document extraction</span>
+Custom Vision     <span class="comment"># Custom image classification</span>
+Decision          <span class="comment"># Content moderation</span>
+
+<span class="comment"># Azure OpenAI Service</span>
+<span class="comment"># GPT-4, GPT-3.5, Embeddings, DALL-E</span>
+az cognitiveservices account create \
+    --name myopenai \
+    --resource-group myRG \
+    --kind OpenAI \
+    --sku S0 \
+    --location eastus
+
+<span class="comment"># Azure AI Search</span>
+<span class="comment"># Enterprise search with AI enrichment</span>
+<span class="comment"># Vector search, semantic search</span>
+az search service create \
+    --name mysearch \
+    --resource-group myRG \
+    --sku Standard
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 10: Azure SDK -->
+      <section class="topic-section" id="sdk">
+        <span class="level-badge basic">Basic</span>
+        <h2>Azure SDK</h2>
+        <p>Azure SDK provides official libraries for Python, JavaScript, Java, .NET, and Go.</p>
+
+        <div class="code-block">
+<code><span class="comment"># Azure SDK for Python</span>
+<span class="comment"># Install SDK packages</span>
+pip install azure-identity
+pip install azure-storage-blob
+pip install azure-mgmt-resource
+pip install azure-mgmt-compute
+pip install azure-ai-textanalytics
+
+<span class="comment"># Authentication with DefaultAzureCredential</span>
+<span class="keyword">from</span> azure.identity <span class="keyword">import</span> DefaultAzureCredential
+<span class="keyword">from</span> azure.storage.blob <span class="keyword">import</span> BlobServiceClient
+
+<span class="comment"># DefaultAzureCredential tries multiple methods:</span>
+<span class="comment"># 1. Environment variables</span>
+<span class="comment"># 2. Managed Identity</span>
+<span class="comment"># 3. Azure CLI login</span>
+<span class="comment"># 4. Visual Studio Code</span>
+<span class="comment"># 5. Interactive browser</span>
+
+credential = DefaultAzureCredential()
+
+<span class="comment"># Blob Storage operations</span>
+blob_service = BlobServiceClient(
+    account_url=<span class="string">"https://myaccount.blob.core.windows.net"</span>,
+    credential=credential
+)
+
+<span class="comment"># Get container client</span>
+container_client = blob_service.<span class="function">get_container_client</span>(<span class="string">"my-container"</span>)
+
+<span class="comment"># Upload blob</span>
+blob_client = container_client.<span class="function">get_blob_client</span>(<span class="string">"data.txt"</span>)
+blob_client.<span class="function">upload_blob</span>(<span class="string">"Hello, Azure!"</span>)
+
+<span class="comment"># List blobs</span>
+<span class="keyword">for</span> blob <span class="keyword">in</span> container_client.<span class="function">list_blobs</span>():
+    <span class="function">print</span>(blob.name, blob.size)
+
+<span class="comment"># Cosmos DB operations</span>
+<span class="keyword">from</span> azure.cosmos <span class="keyword">import</span> CosmosClient
+
+client = CosmosClient(
+    account_url=<span class="string">"https://myaccount.documents.azure.com:443/"</span>,
+    credential=credential
+)
+database = client.<span class="function">get_database_client</span>(<span class="string">"mydb"</span>)
+container = database.<span class="function">get_container_client</span>(<span class="string">"items"</span>)
+
+<span class="comment"># Query documents</span>
+results = container.<span class="function">query_items</span>(
+    query=<span class="string">"SELECT * FROM c WHERE c.category = @cat"</span>,
+    parameters=[{<span class="string">"name"</span>: <span class="string">"@cat"</span>, <span class="string">"value"</span>: <span class="string">"electronics"</span>}],
+    enable_cross_partition_query=<span class="keyword">True</span>
+)
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 11: Azure CLI -->
+      <section class="topic-section" id="cli">
+        <span class="level-badge basic">Basic</span>
+        <h2>Azure CLI</h2>
+        <p>Azure CLI (az) is the cross-platform command-line tool for managing Azure resources.</p>
+
+        <div class="code-block">
+<code><span class="comment"># Installation</span>
+<span class="comment"># Windows</span>
+winget install Microsoft.AzureCLI
+
+<span class="comment"># macOS</span>
+brew install azure-cli
+
+<span class="comment"># Linux</span>
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+<span class="comment"># Login</span>
+az login                           <span class="comment"># Browser-based</span>
+az login --service-principal       <span class="comment"># Service principal</span>
+az login --identity                <span class="comment"># Managed Identity</span>
+
+<span class="comment"># Set subscription</span>
+az account set --subscription "My Subscription"
+
+<span class="comment"># Common CLI Commands</span>
+
+<span class="comment"># Resource Groups</span>
+az group create --name myRG --location eastus
+az group list --output table
+az group delete --name myRG --yes
+
+<span class="comment"># VMs</span>
+az vm list --output table
+az vm start --resource-group myRG --name myVM
+az vm stop --resource-group myRG --name myVM
+az vm deallocate --resource-group myRG --name myVM
+
+<span class="comment"># Storage</span>
+az storage account list --output table
+az storage blob list --account-name mystorage --container-name mycontainer
+
+<span class="comment"># Functions</span>
+az functionapp list --output table
+az functionapp start --resource-group myRG --name myapp
+
+<span class="comment"># AKS</span>
+az aks list --output table
+az aks get-credentials --resource-group myRG --name myAKS
+
+<span class="comment"># Useful commands</span>
+az version                           <span class="comment"># CLI version</span>
+az account show                      <span class="comment"># Current account</span>
+az account list-locations --output table  <span class="comment"># Available regions</span>
+
+<span class="comment"># Output formats</span>
+--output json    <span class="comment"># JSON (default)</span>
+--output table   <span class="comment"># Table format</span>
+--output yaml    <span class="comment"># YAML format</span>
+--output tsv     <span class="comment"># Tab-separated</span>
+
+<span class="comment"># Query with JMESPath</span>
+az vm list --query "[].{Name:name, Location:location, Size:hardwareProfile.vmSize}" --output table
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 12: Bicep & Terraform -->
+      <section class="topic-section" id="bicep">
+        <span class="level-badge intermediate">Intermediate</span>
+        <h2>Bicep & Terraform</h2>
+        <p>Define Azure infrastructure using Bicep (Azure DSL) or Terraform (multi-cloud IaC).</p>
+
+        <div class="code-block">
+<code><span class="comment"># Bicep - Azure's DSL for infrastructure</span>
+
+<span class="comment"># main.bicep</span>
+<span class="keyword">param</span> location <span class="keyword">string</span> = resourceGroup().location
+<span class="keyword">param</span> storageAccountName <span class="keyword">string</span> = <span class="string">'st${uniqueString(resourceGroup().id)}'</span>
+
+<span class="keyword">resource</span> storageAccount <span class="string">'Microsoft.Storage/storageAccounts@2023-01-01'</span> = {
+  name: storageAccountName
+  location: location
+  kind: <span class="string">'StorageV2'</span>
+  sku: {
+    name: <span class="string">'Standard_LRS'</span>
+  }
+}
+
+<span class="keyword">resource</span> functionApp <span class="string">'Microsoft.Web/sites@2023-01-01'</span> = {
+  name: <span class="string">'func-${uniqueString(resourceGroup().id)}'</span>
+  location: location
+  kind: <span class="string">'functionapp'</span>
+  properties: {
+    siteConfig: {
+      appSettings: [
+        {
+          name: <span class="string">'AzureWebJobsStorage'</span>
+          value: storageAccount.properties.primaryEndpoints.blob
+        }
+      ]
+    }
+  }
+}
+
+<span class="comment"># Deploy Bicep</span>
+az deployment group create \
+    --resource-group myRG \
+    --template-file main.bicep
+
+<span class="comment"># ARM Templates (JSON) - Generated from Bicep</span>
+<span class="comment"># Bicep is transpiled to ARM JSON</span>
+
+<span class="comment"># Terraform - Multi-cloud IaC</span>
+
+<span class="comment"># main.tf</span>
+<span class="keyword">provider</span> <span class="string">"azurerm"</span> {
+  features {}
+}
+
+<span class="keyword">resource</span> <span class="string">"azurerm_resource_group"</span> <span class="string">"example"</span> {
+  name     = <span class="string">"myResourceGroup"</span>
+  location = <span class="string">"East US"</span>
+}
+
+<span class="keyword">resource</span> <span class="string">"azurerm_storage_account"</span> <span class="string">"example"</span> {
+  name                     = <span class="string">"mystorageaccount"</span>
+  resource_group_name      = azurerm_resource_group.example.name
+  location                 = azurerm_resource_group.example.location
+  account_tier             = <span class="string">"Standard"</span>
+  account_replication_type = <span class="string">"LRS"</span>
+}
+
+<span class="comment"># Terraform commands</span>
+terraform init
+terraform plan
+terraform apply
+terraform destroy
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 13: DevOps -->
+      <section class="topic-section" id="devops">
+        <span class="level-badge intermediate">Intermediate</span>
+        <h2>DevOps Tools</h2>
+        <p>Azure DevOps provides end-to-end DevOps tools including repos, boards, pipelines, and artifacts.</p>
+
+        <div class="code-block">
+<code><span class="comment"># Azure DevOps Services</span>
+
+<span class="comment"># 1. Azure Repos - Git repositories</span>
+git clone https://dev.azure.com/org/project/_git/repo
+
+<span class="comment"># 2. Azure Pipelines - CI/CD</span>
+<span class="comment"># azure-pipelines.yml</span>
+<span class="keyword">trigger</span>:
+  - main
+
+<span class="keyword">pool</span>:
+  vmImage: <span class="string">'ubuntu-latest'</span>
+
+<span class="keyword">steps</span>:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: <span class="string">'3.11'</span>
+
+  - script: |
+      pip install -r requirements.txt
+      pytest tests/
+    displayName: <span class="string">'Run Tests'</span>
+
+  - task: AzureWebApp@1
+    inputs:
+      azureSubscription: <span class="string">'my-connection'</span>
+      appType: <span class="string">'webApp'</span>
+      appName: <span class="string">'my-app'</span>
+      package: <span class="string">'$(System.DefaultWorkingDirectory)'</span>
+
+<span class="comment"># 3. Azure Boards - Work tracking</span>
+<span class="comment"># Kanban boards, backlogs, sprints</span>
+<span class="comment"># Agile, Scrum, CMMI templates</span>
+
+<span class="comment"># 4. Azure Artifacts - Package management</span>
+<span class="comment"># NuGet, npm, Maven, Python, Universal</span>
+<span class="comment"># Feed management, versioning</span>
+
+<span class="comment"># GitHub Actions (alternative)</span>
+<span class="comment"># .github/workflows/deploy.yml</span>
+name: Deploy to Azure
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'my-app'
+          images: 'myregistry.azurecr.io/my-app:latest'
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 14: Entra ID -->
+      <section class="topic-section" id="entra">
+        <span class="level-badge intermediate">Intermediate</span>
+        <h2>Microsoft Entra ID & Security</h2>
+        <p>Microsoft Entra ID (formerly Azure AD) provides identity and access management for Azure and Microsoft 365.</p>
+
+        <div class="code-block">
+<code><span class="comment"># Entra ID - Identity Platform</span>
+
+<span class="comment"># Key Concepts</span>
+Users            <span class="comment"># Individual identities</span>
+Groups           <span class="comment"># User collections</span>
+Service Principals <span class="comment"># App identities</span>
+Managed Identities <span class="comment"># Azure resource identities</span>
+App Registrations  <span class="comment"># OAuth apps</span>
+
+<span class="comment"># App Registration (OAuth)</span>
+az ad app create \
+    --display-name my-app \
+    --sign-in-audience AzureADMyOrg
+
+<span class="comment"># Create Service Principal</span>
+az ad sp create --id {app-id}
+
+<span class="comment"># Role-Based Access Control (RBAC)</span>
+<span class="comment"># Assign roles to identities</span>
+az role assignment create \
+    --assignee user@domain.com \
+    --role "Contributor" \
+    --scope /subscriptions/{sub-id}
+
+<span class="comment"># Built-in Roles</span>
+Owner               <span class="comment"># Full access + assign roles</span>
+Contributor         <span class="comment"># Full access, no role assignment</span>
+Reader              <span class="comment"># Read-only</span>
+VM Contributor      <span class="comment"># Manage VMs</span>
+Storage Blob Data   <span class="comment"># Blob read/write</span>
+
+<span class="comment"># Managed Identity</span>
+<span class="comment"># No credentials to manage</span>
+az vm identity assign --name myVM --resource-group myRG
+
+<span class="comment"># Security Services</span>
+Microsoft Defender  <span class="comment"># Cloud security posture</span>
+Sentinel           <span class="comment"># SIEM and SOAR</span>
+Key Vault          <span class="comment"># Secret/key management</span>
+Conditional Access <span class="comment"># Policy-based access</span>
+Privileged Identity <span class="comment"># PIM - Just-in-time access</span>
+
+<span class="comment"># Key Vault</span>
+az keyvault create \
+    --name mykeyvault \
+    --resource-group myRG \
+    --location eastus
+
+az keyvault secret set \
+    --vault-name mykeyvault \
+    --name mysecret \
+    --value "my-secret-value"
+
+<span class="comment"># Access Key Vault from code</span>
+<span class="keyword">from</span> azure.identity <span class="keyword">import</span> DefaultAzureCredential
+<span class="keyword">from</span> azure.keyvault.secrets <span class="keyword">import</span> SecretClient
+
+client = SecretClient(
+    vault_url=<span class="string">"https://mykeyvault.vault.azure.net"</span>,
+    credential=DefaultAzureCredential()
+)
+secret = client.<span class="function">get_secret</span>(<span class="string">"mysecret"</span>)
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 15: Monitoring -->
+      <section class="topic-section" id="monitoring">
+        <span class="level-badge intermediate">Intermediate</span>
+        <h2>Monitoring & Observability</h2>
+        <p>Azure Monitor provides comprehensive monitoring with metrics, logs, and alerts.</p>
+
+        <div class="code-block">
+<code><span class="comment"># Azure Monitor - Unified monitoring</span>
+
+<span class="comment"># Metrics Explorer</span>
+<span class="comment"># Built-in metrics for all Azure resources</span>
+<span class="comment"># VM CPU, Storage transactions, DB DTUs</span>
+
+<span class="comment"># Log Analytics - Query logs with KQL</span>
+<span class="comment"># Kusto Query Language</span>
+<span class="keyword">Heartbeat
+| where TimeGenerated > ago(1h)
+| summarize count() by Computer, _ResourceId
+| order by count_ desc</span>
+
+<span class="comment"># Application Insights - APM</span>
+<span class="comment"># Application performance monitoring</span>
+<span class="keyword">from</span> azure.monitor.opentelemetry <span class="keyword">import</span> AzureMonitorOpentelemetry
+
+<span class="comment"># Python FastAPI example</span>
+<span class="keyword">from</span> opentelemetry.instrumentation.fastapi <span class="keyword">import</span> FastAPIInstrumentor
+FastAPIInstrumentor.<span class="function">instrument_app</span>(app)
+
+<span class="comment"># Alerts</span>
+az monitor metrics alert create \
+    --name "High CPU" \
+    --resource-group myRG \
+    --condition "avg Percentage CPU > 80" \
+    --scopes /subscriptions/.../vm/myVM
+
+<span class="comment"># Azure Log Analytics workspace</span>
+az monitor log-analytics workspace create \
+    --resource-group myRG \
+    --workspace-name myWorkspace
+
+<span class="comment"># KQL Queries</span>
+<span class="comment"># Application Performance</span>
+<span class="keyword">requests
+| where success == true
+| summarize avgDuration = avg(duration) by bin(timestamp, 1h)
+| render timechart</span>
+
+<span class="comment"># Infrastructure</span>
+<span class="keyword">Heartbeat
+| summarize LastHeartbeat = max(TimeGenerated) by Computer
+| where LastHeartbeat < ago(5m)</span>
+
+<span class="comment"># Other Monitoring Services</span>
+Application Insights <span class="comment"># APM for web apps</span>
+Network Watcher      <span class="comment"># Network monitoring</span>
+Service Health       <span class="comment"># Azure service status</span>
+Advisor              <span class="comment"># Best practice recommendations</span>
+Cost Management      <span class="comment"># Spending analysis</span>
+        </code>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="../app.js"></script>
+</body>
+</html>

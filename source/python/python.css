@@ -371,18 +371,21 @@ body.dark .section-badge.next-steps {
 }
 
 .level-badge.basic {
-  background: #98c379;
-  color: #1a1a1a;
+  background: #22c55e;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
 }
 
 .level-badge.intermediate {
-  background: #e5c07b;
-  color: #1a1a1a;
+  background: #f59e0b;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
 }
 
 .level-badge.advanced {
-  background: #e06c75;
+  background: #ef4444;
   color: #fff;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
 }
 
 /* ---- Split Grid ---- */

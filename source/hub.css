@@ -49,9 +49,14 @@
 
 .track:hover {
   background: var(--bg-alt);
-  border-color: var(--glow-border);
-  box-shadow: var(--shadow);
+  border-color: rgba(99, 102, 241, 0.25);
+  box-shadow: var(--shadow), 0 0 20px rgba(99, 102, 241, 0.08);
   transform: translateY(-2px);
+}
+
+body.dark .track:hover {
+  border-color: rgba(129, 140, 248, 0.3);
+  box-shadow: var(--shadow), 0 0 20px rgba(129, 140, 248, 0.1);
 }
 
 .track h3 {
