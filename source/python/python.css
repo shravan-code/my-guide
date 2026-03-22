@@ -190,81 +190,81 @@
 }
 
 .section-badge.getting-started {
-  background: rgba(97, 175, 239, 0.15);
-  color: #61afef;
-  border: 1px solid rgba(97, 175, 239, 0.3);
+  background: var(--bg-alt);
+  color: var(--text);
+  border: 1px solid var(--glass-border);
 }
 
 .section-badge.data-structures {
-  background: rgba(152, 195, 121, 0.15);
-  color: #98c379;
-  border: 1px solid rgba(152, 195, 121, 0.3);
+  background: var(--bg-alt);
+  color: var(--text);
+  border: 1px solid var(--glass-border);
 }
 
 .section-badge.control-flow {
-  background: rgba(198, 120, 221, 0.15);
-  color: #c678dd;
-  border: 1px solid rgba(198, 120, 221, 0.3);
+  background: var(--bg-alt);
+  color: var(--text);
+  border: 1px solid var(--glass-border);
 }
 
 .section-badge.memory-management {
-  background: rgba(229, 192, 123, 0.15);
-  color: #e5c07b;
-  border: 1px solid rgba(229, 192, 123, 0.3);
+  background: var(--bg-alt);
+  color: var(--text);
+  border: 1px solid var(--glass-border);
 }
 
 .section-badge.performance {
-  background: rgba(86, 182, 194, 0.15);
-  color: #56b6c2;
-  border: 1px solid rgba(86, 182, 194, 0.3);
+  background: var(--bg-alt);
+  color: var(--text);
+  border: 1px solid var(--glass-border);
 }
 
 .section-badge.storage {
-  background: rgba(224, 108, 117, 0.15);
-  color: #e06c75;
-  border: 1px solid rgba(224, 108, 117, 0.3);
+  background: var(--bg-alt);
+  color: var(--text);
+  border: 1px solid var(--glass-border);
 }
 
 .section-badge.next-steps {
-  background: rgba(171, 152, 255, 0.15);
-  color: #ab98ff;
-  border: 1px solid rgba(171, 152, 255, 0.3);
+  background: var(--bg-alt);
+  color: var(--text);
+  border: 1px solid var(--glass-border);
 }
 
 /* Dark mode section badges */
 body.dark .section-badge.getting-started {
-  background: rgba(97, 175, 239, 0.2);
-  color: #61afef;
+  background: var(--bg-alt);
+  color: var(--text);
 }
 
 body.dark .section-badge.data-structures {
-  background: rgba(152, 195, 121, 0.2);
-  color: #98c379;
+  background: var(--bg-alt);
+  color: var(--text);
 }
 
 body.dark .section-badge.control-flow {
-  background: rgba(198, 120, 221, 0.2);
-  color: #c678dd;
+  background: var(--bg-alt);
+  color: var(--text);
 }
 
 body.dark .section-badge.memory-management {
-  background: rgba(229, 192, 123, 0.2);
-  color: #e5c07b;
+  background: var(--bg-alt);
+  color: var(--text);
 }
 
 body.dark .section-badge.performance {
-  background: rgba(86, 182, 194, 0.2);
-  color: #56b6c2;
+  background: var(--bg-alt);
+  color: var(--text);
 }
 
 body.dark .section-badge.storage {
-  background: rgba(224, 108, 117, 0.2);
-  color: #e06c75;
+  background: var(--bg-alt);
+  color: var(--text);
 }
 
 body.dark .section-badge.next-steps {
-  background: rgba(171, 152, 255, 0.2);
-  color: #ab98ff;
+  background: var(--bg-alt);
+  color: var(--text);
 }
 
 .topic-section h3 {
@@ -310,40 +310,48 @@ body.dark .section-badge.next-steps {
 }
 
 .keyword {
-  color: #c678dd;
+  color: var(--text);
+  font-weight: 600;
 }
 
 .function {
-  color: #61afef;
+  color: var(--text);
+  font-weight: 500;
 }
 
 .string {
-  color: #98c379;
+  color: var(--text);
+  opacity: 0.9;
 }
 
 .number {
-  color: #d19a66;
+  color: var(--text);
+  opacity: 0.9;
 }
 
 .comment {
-  color: #5c6370;
+  color: var(--muted);
   font-style: italic;
 }
 
 .operator {
-  color: #56b6c2;
+  color: var(--text);
+  opacity: 0.8;
 }
 
 .class-name {
-  color: #e5c07b;
+  color: var(--text);
+  font-weight: 600;
 }
 
 .decorator {
-  color: #c678dd;
+  color: var(--text);
+  font-style: italic;
 }
 
 .method {
-  color: #61afef;
+  color: var(--text);
+  font-weight: 500;
 }
 
 /* ---- Pills & Badges ---- */
@@ -371,21 +379,18 @@ body.dark .section-badge.next-steps {
 }
 
 .level-badge.basic {
-  background: #22c55e;
-  color: #fff;
-  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+  background: var(--text);
+  color: var(--bg);
 }
 
 .level-badge.intermediate {
-  background: #f59e0b;
-  color: #fff;
-  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+  background: var(--text);
+  color: var(--bg);
 }
 
 .level-badge.advanced {
-  background: #ef4444;
-  color: #fff;
-  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+  background: var(--text);
+  color: var(--bg);
 }
 
 /* ---- Split Grid ---- */
@@ -437,14 +442,14 @@ body.dark .section-badge.next-steps {
   border-radius: 4px;
   font-family: "Fira Code", "Consolas", monospace;
   font-size: 0.85em;
-  color: var(--accent);
-  border: 1px solid var(--glow-border);
+  color: var(--text);
+  border: 1px solid var(--glass-border);
 }
 
 /* ---- Tip & Warning Boxes ---- */
 .tip-box {
-  background: rgba(152, 195, 121, 0.1);
-  border: 1px solid #98c379;
+  background: var(--bg-alt);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-sm);
   padding: 0.75rem;
   margin: 0.75rem 0;
@@ -452,13 +457,13 @@ body.dark .section-badge.next-steps {
 
 .tip-box p {
   margin: 0;
-  color: #98c379;
+  color: var(--text-secondary);
   font-size: 0.85rem;
 }
 
 .warning-box {
-  background: rgba(224, 108, 117, 0.1);
-  border: 1px solid #e06c75;
+  background: var(--bg-alt);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-sm);
   padding: 0.75rem;
   margin: 0.75rem 0;
@@ -466,7 +471,7 @@ body.dark .section-badge.next-steps {
 
 .warning-box p {
   margin: 0;
-  color: #e06c75;
+  color: var(--text-secondary);
   font-size: 0.85rem;
 }
 

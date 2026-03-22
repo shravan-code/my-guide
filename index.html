@@ -6,164 +6,146 @@
   <title>Data Guide</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="source/styles.css" />
+  <link rel="stylesheet" href="source/hub.css" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg: #000000;
-      --text: #ffffff;
-      --border: rgba(255, 255, 255, 0.1);
-      --glass: rgba(255, 255, 255, 0.02);
-      --muted: rgba(255, 255, 255, 0.4);
+    /* Spark-style overrides for main page */
+    body {
+      overflow-y: auto;
+      height: auto;
+      min-height: 100vh;
     }
 
-    .light {
-      --bg: #ffffff;
-      --text: #000000;
-      --border: rgba(0, 0, 0, 0.1);
-      --glass: rgba(0, 0, 0, 0.01);
-      --muted: rgba(0, 0, 0, 0.4);
+    main {
+      width: min(1300px, calc(100% - 4rem));
+      margin: 0 auto;
+      padding: 1.5rem 0 3rem;
+      display: block;
+      min-height: auto;
     }
 
-    html, body {
-      overflow: hidden;
-      height: 100vh;
-      width: 100vw;
-      margin: 0;
+    .page-wrap {
       padding: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Space Grotesk', system-ui, sans-serif;
-      transition: background 0.7s ease, color 0.7s ease;
+      max-width: none;
     }
 
-    /* Background */
-    .bg-layer {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .gradient-blur {
-      position: absolute;
-      filter: blur(160px);
-      opacity: 0.15;
-      background: var(--text);
-    }
-
-    .gradient-blur.top-right {
-      top: 0;
-      right: 0;
-      width: 50%;
-      height: 50%;
-    }
-
-    .gradient-blur.bottom-left {
-      bottom: 0;
-      left: 0;
-      width: 50%;
-      height: 50%;
-      opacity: 0.08;
-    }
-
-    .dot-grid {
-      position: absolute;
-      inset: 0;
-      background-image: radial-gradient(circle, var(--text) 1px, transparent 1px);
-      background-size: 32px 32px;
-      opacity: 0.03;
-    }
-
-    /* Navigation */
     .topbar {
-      position: relative;
-      z-index: 50;
+      height: var(--topbar-height);
+      padding: 0 1.5rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 24px 40px;
-      border-bottom: 1px solid var(--border);
-      background: var(--glass);
-      backdrop-filter: blur(20px);
     }
 
     .brand-area {
       display: flex;
       align-items: center;
-      gap: 48px;
+      gap: 3rem;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 0.5rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
       text-decoration: none;
       color: var(--text);
+      transition: color var(--transition);
     }
 
     .brand-icon {
-      width: 40px;
-      height: 40px;
+      width: 20px;
+      height: 20px;
+      stroke: var(--text);
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    .brand:hover {
+      background: linear-gradient(135deg, #6366f1, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .brand:hover .brand-icon {
+      stroke: #6366f1;
+    }
+
+    .menu {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 2px solid var(--text);
-      background: var(--text);
-      color: var(--bg);
+      gap: 1.5rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
     }
 
-    .brand-icon svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; }
-
-    .brand-text {
-      font-size: 20px;
-      font-weight: 900;
-      letter-spacing: -0.03em;
-      text-transform: uppercase;
-    }
-
-    .brand-text span { opacity: 0.4; font-weight: 400; }
-
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-    }
-
-    .nav-links a {
-      color: var(--muted);
+    .menu a {
+      color: var(--text-secondary);
       text-decoration: none;
-      transition: opacity 0.3s;
+      padding: 0.4rem 0;
+      position: relative;
+      transition: color var(--transition);
     }
 
-    .nav-links a:hover { opacity: 1; color: var(--text); }
+    .menu a:hover, .menu a.active {
+      color: var(--text);
+    }
+
+    .menu a:hover {
+      color: var(--text);
+      text-shadow: 0 0 20px rgba(99, 102, 241, 0.5), 0 0 40px rgba(236, 72, 153, 0.3);
+    }
+
+    .menu a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--glow-color), var(--glow-pink));
+      border-radius: 1px;
+      box-shadow: 0 0 10px var(--glow-color), 0 0 20px rgba(236, 72, 153, 0.3);
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% {
+        box-shadow: 0 0 10px var(--glow-color), 0 0 20px rgba(236, 72, 153, 0.3);
+      }
+      50% {
+        box-shadow: 0 0 20px var(--glow-color), 0 0 40px rgba(236, 72, 153, 0.5);
+      }
+    }
 
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 0.75rem;
     }
 
-    .portfolio-btn {
-      padding: 8px 20px;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--text);
+    .portfolio-link {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-secondary);
       text-decoration: none;
-      transition: all 0.3s;
+      padding: 0.4rem 1rem;
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      transition: all var(--transition);
     }
 
-    .portfolio-btn:hover {
-      background: var(--text);
-      color: var(--bg);
+    .portfolio-link:hover {
+      color: var(--text);
+      background: var(--bg-alt);
+      border-color: var(--glow-border);
     }
 
     .theme-toggle {
@@ -172,107 +154,310 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid var(--border);
-      background: transparent;
+      border: 1px solid var(--glass-border);
+      background: var(--glass);
+      backdrop-filter: blur(var(--glass-blur));
       color: var(--text);
+      border-radius: var(--radius-sm);
       cursor: pointer;
-      transition: all 0.3s;
+      transition: all var(--transition);
+      box-shadow: var(--shadow-sm);
     }
 
     .theme-toggle:hover {
-      background: var(--text);
-      color: var(--bg);
+      background: var(--bg-alt);
+      box-shadow: var(--shadow);
+      transform: translateY(-1px);
     }
 
     .theme-toggle svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
 
-    /* Main Content */
-    main {
-      height: calc(100vh - 89px);
-      display: grid;
-      grid-template-columns: 5fr 7fr;
-      gap: 32px;
-      padding: 32px;
-      position: relative;
-      z-index: 10;
+    .toggle-text {
+      font-size: 0.7rem;
+      margin-left: 0.4rem;
     }
 
-    .left-section {
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 2rem 0 1rem;
+      scroll-margin-top: var(--topbar-height);
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin: 0;
+      font-family: "Sora", sans-serif;
+    }
+
+    .hero-copy {
+      margin: 0.75rem auto 0;
+      color: var(--text-secondary);
+      text-align: center;
+      max-width: 55ch;
+      font-size: 0.95rem;
+    }
+
+    /* Tools Marquee */
+    .tools-marquee {
+      margin-top: 1.5rem;
+      overflow: hidden;
+      mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 1rem;
+      width: max-content;
+      animation: marquee 30s linear infinite;
+    }
+
+    .marquee-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .tool-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.4rem 1rem;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      transition: all var(--transition);
+    }
+
+    .tool-tag:hover {
+      color: var(--text);
+      border-color: var(--glow-border);
+      box-shadow: 0 0 15px rgba(99, 102, 241, 0.15);
+    }
+
+    /* Inspire Section */
+    .inspire {
+      max-width: min(900px, 90vw);
+      margin: 0 auto 1.5rem;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      border-radius: var(--radius);
+      background: var(--glass);
+      backdrop-filter: blur(var(--glass-blur));
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--shadow);
+    }
+
+    .inspire p {
+      font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    .inspire p strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    /* Tracks Section */
+    .tracks {
+      padding: 1.5rem 0;
+    }
+
+    .tracks h2 {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      margin: 0 0 1rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 600;
+      color: var(--text);
+      text-align: center;
+    }
+
+    .track-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .track {
+      text-decoration: none;
+      color: var(--text);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      background: transparent;
+      text-align: center;
+      transition: all var(--transition);
+    }
+
+    .track:hover {
+      background: var(--bg-alt);
+      border-color: rgba(99, 102, 241, 0.25);
+      box-shadow: var(--shadow), 0 0 20px rgba(99, 102, 241, 0.08);
+      transform: translateY(-2px);
+    }
+
+    body.dark .track:hover {
+      border-color: rgba(129, 140, 248, 0.3);
+      box-shadow: var(--shadow), 0 0 20px rgba(129, 140, 248, 0.1);
+    }
+
+    .track-icon {
+      width: 40px;
+      height: 40px;
+      margin: 0 auto 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      background: var(--bg-alt);
+      border: 1px solid var(--glow-border);
+    }
+
+    .track-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--text);
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    .track h3 {
+      font-size: clamp(0.9rem, 2vw, 1rem);
+      margin: 0 0 0.3rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 600;
+    }
+
+    .track p {
+      font-size: clamp(0.75rem, 1.5vw, 0.82rem);
+      margin: 0;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Libraries Section */
+    .libraries {
+      padding: 1.5rem 0;
+      margin-top: 1rem;
+      border-top: 1px solid var(--glass-border);
+    }
+
+    .libraries h2 {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      margin: 0 0 1rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 600;
+      color: var(--text);
+      text-align: center;
+    }
+
+    /* Content Split Layout */
+    .content-split {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 2rem;
+      margin-top: 1.5rem;
+      align-items: start;
+    }
+
+    .left-content {
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      gap: 1rem;
     }
 
     .section-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.4em;
+      font-size: 0.7rem;
       text-transform: uppercase;
-      opacity: 0.4;
-      margin-bottom: 16px;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      font-weight: 600;
     }
 
-    .hero-title {
-      font-size: clamp(56px, 7vw, 100px);
-      font-weight: 900;
-      letter-spacing: -0.05em;
-      text-transform: uppercase;
-      line-height: 0.85;
-      margin-bottom: 48px;
-    }
-
-    .hero-title .italic {
-      opacity: 0.2;
-      font-style: italic;
-    }
-
+    /* Topics List */
     .topics {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      max-width: 380px;
-      margin-bottom: 48px;
+      gap: 0.5rem;
     }
 
     .topic-item {
-      display: flex;
+      display: grid;
+      grid-template-columns: 40px 1fr 24px;
       align-items: center;
-      padding: 16px 20px;
-      border: 1px solid var(--border);
-      cursor: pointer;
-      transition: all 0.3s;
+      gap: 1rem;
+      padding: 0.85rem 1rem;
       text-decoration: none;
       color: var(--text);
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      transition: all var(--transition);
     }
 
     .topic-item:hover {
-      background: var(--text);
-      color: var(--bg);
-      border-color: var(--text);
+      background: var(--bg-alt);
+      border-color: var(--glow-color);
+      transform: translateX(4px);
+      box-shadow: var(--shadow), 0 0 25px rgba(99, 102, 241, 0.15), 0 0 50px rgba(236, 72, 153, 0.08);
+    }
+
+    body.dark .topic-item:hover {
+      box-shadow: var(--shadow), 0 0 30px rgba(129, 140, 248, 0.2), 0 0 60px rgba(244, 114, 182, 0.12);
     }
 
     .topic-icon {
-      width: 18px;
-      height: 18px;
-      margin-right: 16px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-alt);
+      border: 1px solid var(--glow-border);
+      border-radius: var(--radius-sm);
     }
 
-    .topic-icon svg { width: 100%; height: 100%; stroke: currentColor; fill: none; stroke-width: 2; }
+    .topic-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--text);
+      fill: none;
+      stroke-width: 1.5;
+    }
 
     .topic-title {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
+      font-family: "Sora", sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
     }
 
     .topic-arrow {
-      margin-left: auto;
-      width: 16px;
-      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       opacity: 0;
       transform: translateX(-8px);
-      transition: all 0.3s;
+      transition: all var(--transition);
+    }
+
+    .topic-arrow svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--text);
+      fill: none;
+      stroke-width: 2;
     }
 
     .topic-item:hover .topic-arrow {
@@ -280,526 +465,509 @@
       transform: translateX(0);
     }
 
-    .topic-arrow svg { width: 100%; height: 100%; stroke: currentColor; fill: none; stroke-width: 2; }
-
+    /* CTA Link */
     .cta-link {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 16px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      cursor: pointer;
+      gap: 0.75rem;
+      margin-top: 1rem;
       text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: color var(--transition);
+    }
+
+    .cta-link:hover {
       color: var(--text);
     }
 
     .cta-line {
-      width: 48px;
-      height: 2px;
-      background: var(--text);
-      transition: width 0.5s;
+      width: 32px;
+      height: 1px;
+      background: var(--glass-border);
+      transition: width var(--transition);
     }
 
-    .cta-link:hover .cta-line { width: 80px; }
+    .cta-link:hover .cta-line {
+      width: 48px;
+      background: var(--text);
+    }
 
-    /* Right Section */
-    .right-section {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    /* Right Content - Glass Panel */
+    .right-content {
+      position: sticky;
+      top: calc(var(--topbar-height) + 1.5rem);
     }
 
     .glass-panel {
-      width: 100%;
-      height: 100%;
-      max-height: 520px;
-      display: flex;
-      flex-direction: column;
-      border: 2px solid var(--border);
       background: var(--glass);
-      backdrop-filter: blur(20px);
-      overflow: hidden;
+      backdrop-filter: blur(var(--glass-blur));
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-md), var(--shadow-glow);
+      transition: all var(--transition);
+    }
+
+    .glass-panel:hover {
+      box-shadow: var(--shadow-lg), 0 0 40px rgba(99, 102, 241, 0.12), 0 0 80px rgba(236, 72, 153, 0.06);
+      border-color: var(--glow-border);
     }
 
     .panel-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 24px;
-      border-bottom: 1px solid var(--border);
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--glass-border);
     }
 
     .panel-header-left {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 0.6rem;
     }
 
-    .panel-header-left svg { width: 14px; height: 14px; opacity: 0.4; stroke: currentColor; fill: none; stroke-width: 2; }
+    .panel-header-left svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--muted);
+      fill: none;
+      stroke-width: 2;
+    }
 
     .panel-header-text {
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.15em;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--muted);
       text-transform: uppercase;
-      opacity: 0.4;
+      letter-spacing: 0.05em;
     }
 
-    .panel-dots { display: flex; gap: 4px; }
-    .panel-dot { width: 4px; height: 4px; background: var(--text); opacity: 0.2; }
+    .panel-dots {
+      display: flex;
+      gap: 0.35rem;
+    }
+
+    .panel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--glow-border);
+    }
 
     .panel-content {
-      flex: 1;
-      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .panel-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .panel-info {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-    }
-
-    .content-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
-    }
-
-    .content-left {
-      display: flex;
-      flex-direction: column;
-      gap: 28px;
+      gap: 1rem;
     }
 
     .block-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.15em;
+      font-size: 0.7rem;
       text-transform: uppercase;
-      opacity: 0.3;
-      margin-bottom: 8px;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+      font-weight: 600;
     }
 
     .block-text {
-      font-size: 14px;
-      font-weight: 500;
+      font-size: 0.88rem;
       line-height: 1.6;
-      max-width: 280px;
+      color: var(--text-secondary);
+      margin: 0;
     }
 
     .block-metric {
-      font-size: 48px;
-      font-weight: 900;
-      letter-spacing: -0.05em;
+      font-size: 2rem;
+      font-weight: 700;
+      font-family: "Sora", sans-serif;
+      color: var(--text);
+      line-height: 1;
     }
 
     .block-sublabel {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      opacity: 0.4;
-      margin-top: 4px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
     }
 
-    .code-block {
-      position: relative;
-      padding: 20px;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      font-family: 'Space Grotesk', monospace;
-      font-size: 11px;
-      line-height: 1.8;
+    .glass-panel .code-block {
+      background: var(--bg-alt);
+      border: 1px solid var(--glow-border);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      overflow-x: auto;
     }
 
     .code-icon {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      opacity: 0.2;
-    }
-
-    .code-icon svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; }
-
-    .code-line { display: flex; gap: 16px; }
-    .code-num { opacity: 0.2; user-select: none; }
-
-    .decorative {
-      margin-top: 24px;
-      height: 60px;
-      border-top: 1px dashed var(--border);
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .code-icon svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--muted);
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .code-line {
+      display: flex;
+      gap: 0.75rem;
+      font-family: "Fira Code", "Consolas", monospace;
+      font-size: 0.78rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    .code-num {
+      color: var(--muted);
+      opacity: 0.5;
+      min-width: 1.5rem;
+      user-select: none;
+    }
+
+    /* Decorative */
+    .decorative {
+      padding-top: 1rem;
+      border-top: 1px solid var(--glass-border);
     }
 
     .decorative-shapes {
       display: flex;
-      gap: 60px;
-      opacity: 0.1;
+      justify-content: center;
+      gap: 1.5rem;
     }
 
     .shape-item {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 8px;
+      gap: 0.5rem;
     }
 
     .shape-diamond {
-      width: 24px;
-      height: 24px;
-      border: 2px solid var(--text);
+      width: 6px;
+      height: 6px;
+      background: var(--glow-border);
       transform: rotate(45deg);
     }
 
     .shape-line {
-      width: 1px;
-      height: 30px;
-      background: var(--text);
+      width: 20px;
+      height: 1px;
+      background: var(--glass-border);
     }
 
     .panel-footer {
-      padding: 14px 24px;
-      border-top: 1px solid var(--border);
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.15em;
+      margin-top: 1.25rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--glass-border);
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--muted);
       text-transform: uppercase;
-      opacity: 0.4;
+      letter-spacing: 0.05em;
     }
 
-    /* Footer */
-    footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 50;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 40px;
-      border-top: 1px solid var(--border);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      background: var(--glass);
-      backdrop-filter: blur(20px);
+    /* Gradient Text */
+    .gradient-text {
+      background: linear-gradient(135deg, var(--glow-color), var(--glow-pink), var(--glow-cyan));
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradient-shift 4s ease infinite;
     }
 
-    .footer-left {
-      display: flex;
-      align-items: center;
-      gap: 40px;
+    @keyframes gradient-shift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
-
-    .footer-status {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--text);
-      animation: pulse 1.5s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-
-    .footer-right {
-      display: flex;
-      gap: 32px;
-      opacity: 0.4;
-    }
-
-    .footer-right a {
-      color: var(--text);
-      text-decoration: none;
-      transition: opacity 0.3s;
-    }
-
-    .footer-right a:hover { opacity: 1; }
 
     /* Responsive */
-    @media (max-width: 1024px) {
-      main { grid-template-columns: 1fr; overflow-y: auto; }
-      .right-section { display: none; }
-      .nav-links { display: none; }
+    @media (max-width: 900px) {
+      .menu { display: none; }
+      .topbar { padding: 0 1rem; }
+      .content-split { grid-template-columns: 1fr; }
+      .right-content { position: static; }
     }
 
     @media (max-width: 600px) {
-      .topbar { padding: 16px 20px; }
-      main { padding: 20px; }
-      .hero-title { font-size: 44px; }
-      footer { padding: 14px 20px; }
+      .track-grid { grid-template-columns: repeat(2, 1fr); }
+      main { padding: 1rem 0; }
+      .topic-item { grid-template-columns: 36px 1fr; gap: 0.75rem; padding: 0.75rem; }
+      .topic-icon { width: 36px; height: 36px; }
+      .topic-arrow { display: none; }
+      .panel-grid { grid-template-columns: 1fr; }
+      .panel-footer { flex-direction: column; gap: 0.25rem; }
     }
   </style>
 </head>
 <body>
-  <!-- Background -->
-  <div class="bg-layer">
-    <div class="gradient-blur top-right"></div>
-    <div class="gradient-blur bottom-left"></div>
-    <div class="dot-grid"></div>
-  </div>
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
 
-  <!-- Navigation -->
-  <nav class="topbar">
+  <header class="topbar glass reveal in">
     <div class="brand-area">
-      <a href="index.html" class="brand">
-        <div class="brand-icon">
-          <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-        </div>
-        <span class="brand-text">Data<span>Guide</span></span>
+      <a class="brand" href="index.html">
+        <svg class="brand-icon" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        Data Guide
       </a>
-      <div class="nav-links">
-        <a href="source/python/index.html">Python</a>
-        <a href="source/spark/index.html">Spark</a>
-        <a href="source/sql/index.html">SQL</a>
+      <nav class="menu" aria-label="Main menu">
         <a href="source/cloud/index.html">Cloud</a>
+        <a href="source/data/index.html">Big Data</a>
+        <a href="source/python/index.html">Python</a>
+        <div class="menu-dropdown">
+          <button class="menu-trigger">Libraries</button>
+          <div class="dropdown-panel">
+            <a href="source/pandas/index.html"><strong>Pandas</strong><span>DataFrames and analysis</span></a>
+            <a href="source/numpy/index.html"><strong>NumPy</strong><span>Numerical computing</span></a>
+            <a href="source/spark/index.html"><strong>Spark</strong><span>Distributed processing</span></a>
+          </div>
+        </div>
+        <a href="source/sql/index.html">SQL</a>
         <a href="roadmap.html">Roadmap</a>
-      </div>
+      </nav>
     </div>
     <div class="header-actions">
-      <a href="portfolio.html" class="portfolio-btn">Portfolio</a>
-      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <a href="portfolio.html" class="portfolio-link">Portfolio</a>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+        <span class="toggle-icon" aria-hidden="true">☾</span>
+        <span class="toggle-text">Dark</span>
       </button>
     </div>
-  </nav>
+  </header>
 
-  <!-- Main Content -->
   <main>
-    <div class="left-section">
-      <div class="section-label">Data Engineering // Resources // V2</div>
-      <h1 class="hero-title">
-        Build<br/>
-        <span class="italic">Pipelines</span>
-      </h1>
-
-      <div class="topics">
-        <a href="source/python/index.html" class="topic-item">
-          <div class="topic-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-          </div>
-          <span class="topic-title">Python</span>
-          <div class="topic-arrow">
-            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </div>
-        </a>
-        <a href="source/spark/index.html" class="topic-item">
-          <div class="topic-icon">
-            <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-          </div>
-          <span class="topic-title">Spark & PySpark</span>
-          <div class="topic-arrow">
-            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </div>
-        </a>
-        <a href="source/sql/index.html" class="topic-item">
-          <div class="topic-icon">
-            <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-          </div>
-          <span class="topic-title">SQL</span>
-          <div class="topic-arrow">
-            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </div>
-        </a>
-        <a href="source/cloud/index.html" class="topic-item">
-          <div class="topic-icon">
-            <svg viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
-          </div>
-          <span class="topic-title">Cloud & AWS</span>
-          <div class="topic-arrow">
-            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </div>
-        </a>
-      </div>
-
-      <a href="roadmap.html" class="cta-link">
-        <span class="cta-line"></span>
-        <span>View Roadmap</span>
-      </a>
-    </div>
-
-    <div class="right-section">
-      <div class="glass-panel">
-        <div class="panel-header">
-          <div class="panel-header-left">
-            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            <span class="panel-header-text">Featured // <span id="panel-label">PYTHON</span></span>
-          </div>
-          <div class="panel-dots">
-            <div class="panel-dot"></div>
-            <div class="panel-dot"></div>
-            <div class="panel-dot"></div>
+    <div class="page-wrap">
+      <section class="hero">
+        <p class="eyebrow">Your Data Engineering Guide</p>
+        <h1>Build <span class="gradient-text">Pipelines</span></h1>
+        <p class="hero-copy">Comprehensive resources for Python, Spark, SQL, Cloud, and modern data tooling.</p>
+        
+        <div class="tools-marquee">
+          <div class="marquee-track">
+            <span class="tool-tag">Python</span>
+            <span class="tool-tag">PySpark</span>
+            <span class="tool-tag">SQL</span>
+            <span class="tool-tag">AWS</span>
+            <span class="tool-tag">Databricks</span>
+            <span class="tool-tag">Pandas</span>
+            <span class="tool-tag">NumPy</span>
+            <span class="tool-tag">Docker</span>
+            <span class="tool-tag">Airflow</span>
+            <span class="tool-tag">Kafka</span>
+            <span class="tool-tag">Spark</span>
+            <span class="tool-tag">Glue</span>
+            <span class="tool-tag">Redshift</span>
+            <span class="tool-tag">S3</span>
+            <span class="tool-tag">Lambda</span>
+            <span class="tool-tag">Terraform</span>
+            <!-- Duplicate for seamless loop -->
+            <span class="tool-tag">Python</span>
+            <span class="tool-tag">PySpark</span>
+            <span class="tool-tag">SQL</span>
+            <span class="tool-tag">AWS</span>
+            <span class="tool-tag">Databricks</span>
+            <span class="tool-tag">Pandas</span>
+            <span class="tool-tag">NumPy</span>
+            <span class="tool-tag">Docker</span>
+            <span class="tool-tag">Airflow</span>
+            <span class="tool-tag">Kafka</span>
+            <span class="tool-tag">Spark</span>
+            <span class="tool-tag">Glue</span>
+            <span class="tool-tag">Redshift</span>
+            <span class="tool-tag">S3</span>
+            <span class="tool-tag">Lambda</span>
+            <span class="tool-tag">Terraform</span>
           </div>
         </div>
+      </section>
 
-        <div class="panel-content">
-          <div class="content-grid">
-            <div class="content-left">
-              <div>
-                <div class="block-label">Overview</div>
-                <p class="block-text" id="panel-desc">Learn Python fundamentals, data structures, OOP, and memory optimization for data engineering workflows.</p>
+      <section class="content-split">
+        <div class="left-content">
+          <div class="section-label">Data Engineering // Resources // V2</div>
+
+          <div class="topics">
+            <a href="source/python/index.html" class="topic-item">
+              <div class="topic-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
               </div>
-              <div>
-                <div class="block-label">Key Metric</div>
-                <div class="block-metric" id="panel-metric">12+</div>
-                <div class="block-sublabel">Topics Covered</div>
+              <span class="topic-title">Python</span>
+              <div class="topic-arrow">
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </div>
-            </div>
-            <div class="code-block">
-              <div class="code-icon">
-                <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </a>
+            <a href="source/spark/index.html" class="topic-item">
+              <div class="topic-icon">
+                <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
               </div>
-              <div id="panel-code">
-                <div class="code-line"><span class="code-num">1</span><span>import pandas as pd</span></div>
-                <div class="code-line"><span class="code-num">2</span><span>from pyspark.sql import SparkSession</span></div>
-                <div class="code-line"><span class="code-num">3</span><span></span></div>
-                <div class="code-line"><span class="code-num">4</span><span>df = spark.read.parquet("data/")</span></div>
-                <div class="code-line"><span class="code-num">5</span><span>df.write.mode("append").save()</span></div>
+              <span class="topic-title">Spark & PySpark</span>
+              <div class="topic-arrow">
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </div>
-            </div>
+            </a>
+            <a href="source/pandas/index.html" class="topic-item">
+              <div class="topic-icon">
+                <svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 12l4-4 4 4 4-6"/></svg>
+              </div>
+              <span class="topic-title">Pandas</span>
+              <div class="topic-arrow">
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </div>
+            </a>
+            <a href="source/numpy/index.html" class="topic-item">
+              <div class="topic-icon">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg>
+              </div>
+              <span class="topic-title">NumPy</span>
+              <div class="topic-arrow">
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </div>
+            </a>
+            <a href="source/sql/index.html" class="topic-item">
+              <div class="topic-icon">
+                <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+              </div>
+              <span class="topic-title">SQL</span>
+              <div class="topic-arrow">
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </div>
+            </a>
+            <a href="source/cloud/index.html" class="topic-item">
+              <div class="topic-icon">
+                <svg viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+              </div>
+              <span class="topic-title">Cloud & AWS</span>
+              <div class="topic-arrow">
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </div>
+            </a>
+            <a href="source/data/index.html" class="topic-item">
+              <div class="topic-icon">
+                <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+              </div>
+              <span class="topic-title">Big Data</span>
+              <div class="topic-arrow">
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </div>
+            </a>
           </div>
-          <div class="decorative">
-            <div class="decorative-shapes">
-              <div class="shape-item"><div class="shape-diamond"></div><div class="shape-line"></div></div>
-              <div class="shape-item"><div class="shape-diamond"></div><div class="shape-line"></div></div>
-              <div class="shape-item"><div class="shape-diamond"></div><div class="shape-line"></div></div>
-              <div class="shape-item"><div class="shape-diamond"></div><div class="shape-line"></div></div>
+
+          <a href="roadmap.html" class="cta-link">
+            <span class="cta-line"></span>
+            <span>View Roadmap</span>
+          </a>
+        </div>
+
+        <div class="right-content">
+          <div class="glass-panel">
+            <div class="panel-header">
+              <div class="panel-header-left">
+                <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                <span class="panel-header-text">Featured // <span id="panel-label">PYTHON</span></span>
+              </div>
+              <div class="panel-dots">
+                <div class="panel-dot"></div>
+                <div class="panel-dot"></div>
+                <div class="panel-dot"></div>
+              </div>
+            </div>
+
+            <div class="panel-content">
+              <div class="panel-grid">
+                <div class="panel-info">
+                  <div>
+                    <div class="block-label">Overview</div>
+                    <p class="block-text" id="panel-desc">Learn Python fundamentals, data structures, OOP, and memory optimization for data engineering workflows.</p>
+                  </div>
+                  <div>
+                    <div class="block-label">Key Metric</div>
+                    <div class="block-metric" id="panel-metric">12+</div>
+                    <div class="block-sublabel" id="panel-sublabel">Topics Covered</div>
+                  </div>
+                </div>
+                <div class="code-block">
+                  <div class="code-icon">
+                    <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                  </div>
+                  <div id="panel-code">
+                    <div class="code-line"><span class="code-num">1</span><span>import pandas as pd</span></div>
+                    <div class="code-line"><span class="code-num">2</span><span>from pyspark.sql import SparkSession</span></div>
+                    <div class="code-line"><span class="code-num">3</span><span></span></div>
+                    <div class="code-line"><span class="code-num">4</span><span>df = spark.read.parquet("data/")</span></div>
+                    <div class="code-line"><span class="code-num">5</span><span>df.write.mode("append").save()</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="decorative">
+                <div class="decorative-shapes">
+                  <div class="shape-item"><div class="shape-diamond"></div><div class="shape-line"></div></div>
+                  <div class="shape-item"><div class="shape-diamond"></div><div class="shape-line"></div></div>
+                  <div class="shape-item"><div class="shape-diamond"></div><div class="shape-line"></div></div>
+                  <div class="shape-item"><div class="shape-diamond"></div><div class="shape-line"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel-footer">
+              <span>PIPELINE: BATCH-ETL-01</span>
+              <span>FRAMEWORK: PYSPARK/PANDAS</span>
             </div>
           </div>
         </div>
-
-        <div class="panel-footer">
-          <span>PIPELINE: BATCH-ETL-01</span>
-          <span>FRAMEWORK: PYSPARK/PANDAS</span>
-        </div>
-      </div>
+      </section>
     </div>
   </main>
-
-  <!-- Footer -->
-  <footer>
-    <div class="footer-left">
-      <div class="footer-status">
-        <div class="status-dot"></div>
-        <span>DATA_GUIDE_ACTIVE</span>
-      </div>
-      <span style="opacity: 0.3">3+ Years Experience</span>
-    </div>
-    <div class="footer-right">
-      <a href="https://github.com/ShravanKumar-404" target="_blank">GitHub</a>
-      <a href="https://linkedin.com/in/sk404" target="_blank">LinkedIn</a>
-      <a href="portfolio.html">Portfolio</a>
-    </div>
-  </footer>
 
   <script>
     // Topics data
     const topics = [
-      { 
-        id: "python",
-        label: "PYTHON",
-        desc: "Learn Python fundamentals, data structures, OOP, and memory optimization for data engineering workflows.",
-        metric: "12+",
-        sublabel: "Topics Covered",
-        code: [
-          "import pandas as pd",
-          "from pyspark.sql import SparkSession",
-          "",
-          "df = spark.read.parquet('data/')",
-          "df.write.mode('append').save()"
-        ]
-      },
-      { 
-        id: "spark",
-        label: "PYSPARK",
-        desc: "Master distributed data processing with Apache Spark, RDDs, DataFrames, and optimization techniques.",
-        metric: "10+",
-        sublabel: "Core Concepts",
-        code: [
-          "spark = SparkSession.builder",
-          "  .appName('ETL')",
-          "  .config('spark.executor.memory', '4g')",
-          "  .getOrCreate()",
-          ""
-        ]
-      },
-      { 
-        id: "sql",
-        label: "SQL",
-        desc: "Advanced SQL with joins, subqueries, window functions, CTEs, and query optimization strategies.",
-        metric: "15+",
-        sublabel: "Query Patterns",
-        code: [
-          "SELECT t1.id, t1.name,",
-          "  SUM(t2.amount) as total",
-          "FROM customers t1",
-          "JOIN orders t2 ON t1.id = t2.customer_id",
-          "GROUP BY t1.id, t1.name"
-        ]
-      },
-      { 
-        id: "cloud",
-        label: "CLOUD & AWS",
-        desc: "Cloud-native data engineering with AWS services including S3, Glue, Athena, Redshift, and Lambda.",
-        metric: "8+",
-        sublabel: "AWS Services",
-        code: [
-          "import boto3",
-          "s3 = boto3.client('s3')",
-          "s3.upload_file('data.csv',",
-          "  'my-bucket', 'input/data.csv')"
-        ]
-      }
+      { label: "PYTHON", desc: "Learn Python fundamentals, data structures, OOP, and memory optimization for data engineering workflows.", metric: "12+", sublabel: "Topics Covered", code: ["import pandas as pd", "from pyspark.sql import SparkSession", "", "df = spark.read.parquet('data/')", "df.write.mode('append').save()"] },
+      { label: "PYSPARK", desc: "Master distributed data processing with Apache Spark, RDDs, DataFrames, and optimization techniques.", metric: "10+", sublabel: "Core Concepts", code: ["spark = SparkSession.builder", "  .appName('ETL')", "  .config('spark.executor.memory', '4g')", "  .getOrCreate()"] },
+      { label: "PANDAS", desc: "DataFrames, data manipulation, cleaning, filtering, and analysis with Python's premier data library.", metric: "15+", sublabel: "Methods", code: ["import pandas as pd", "", "df = pd.read_csv('data.csv')", "df.groupby('category').agg({", "  'value': ['sum', 'mean']", "})"] },
+      { label: "NUMPY", desc: "Numerical computing with multi-dimensional arrays, mathematical functions, and vectorized operations.", metric: "20+", sublabel: "Operations", code: ["import numpy as np", "", "arr = np.array([1, 2, 3, 4, 5])", "matrix = np.random.randn(1000, 50)", "result = np.dot(matrix, arr)"] },
+      { label: "SQL", desc: "Advanced SQL with joins, subqueries, window functions, CTEs, and query optimization strategies.", metric: "15+", sublabel: "Query Patterns", code: ["SELECT t1.id, t1.name,", "  SUM(t2.amount) as total", "FROM customers t1", "JOIN orders t2 ON t1.id = t2.customer_id", "GROUP BY t1.id, t1.name"] },
+      { label: "CLOUD & AWS", desc: "Cloud-native data engineering with AWS services including S3, Glue, Athena, Redshift, and Lambda.", metric: "8+", sublabel: "AWS Services", code: ["import boto3", "s3 = boto3.client('s3')", "s3.upload_file('data.csv',", "  'my-bucket', 'input/data.csv')"] },
+      { label: "BIG DATA", desc: "Data pipeline architecture, ETL/ELT workflows, orchestration, and distributed processing concepts.", metric: "10+", sublabel: "Patterns", code: ["# ETL Pipeline Pattern", "def extract(): ...", "def transform(df): ...", "def load(df): ..."] }
     ];
 
-    let activeTopic = 0;
-
-    // Theme toggle
-    const toggle = document.getElementById('theme-toggle');
-    const icon = toggle.querySelector('svg');
-
-    function setTheme(dark) {
-      document.body.classList.toggle('light', !dark);
-      icon.innerHTML = dark 
-        ? '<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>'
-        : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
-      localStorage.setItem('theme', dark ? 'dark' : 'light');
-    }
-
-    const saved = localStorage.getItem('theme');
-    if (saved === 'light') setTheme(false);
-
-    toggle.addEventListener('click', () => {
-      const isDark = !document.body.classList.contains('light');
-      setTheme(!isDark);
-    });
-
-    // Topic hover - update panel
     const topicItems = document.querySelectorAll('.topic-item');
     const panelLabel = document.getElementById('panel-label');
     const panelDesc = document.getElementById('panel-desc');
     const panelMetric = document.getElementById('panel-metric');
-    const panelSublabel = document.querySelector('.block-sublabel');
+    const panelSublabel = document.getElementById('panel-sublabel');
     const panelCode = document.getElementById('panel-code');
 
     function updatePanel(idx) {
-      activeTopic = idx;
       const t = topics[idx];
-
       panelLabel.textContent = t.label;
       panelDesc.textContent = t.desc;
       panelMetric.textContent = t.metric;
@@ -813,5 +981,6 @@
       item.addEventListener('mouseenter', () => updatePanel(idx));
     });
   </script>
+  <script src="source/app.js"></script>
 </body>
 </html>
