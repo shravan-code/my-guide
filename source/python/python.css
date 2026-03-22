@@ -107,10 +107,10 @@
 }
 
 .page-wrap {
-  padding: 1.5rem 0rem 0rem;
+  padding: 1.5rem 1.5rem 2rem;
   min-width: 0;
-  max-width: min(1200px, 100%);
-  margin: 0 auto;
+  max-width: 100%;
+  width: 100%;
 }
 
 /* ---- Topic Sections ---- */
@@ -123,6 +123,12 @@
   -webkit-backdrop-filter: blur(var(--glass-blur));
   border: 1px solid var(--glass-border);
   box-shadow: var(--shadow);
+  transition: all var(--transition);
+}
+
+.topic-section:hover {
+  border-color: var(--glow-border);
+  box-shadow: var(--shadow-md);
 }
 
 .topic-section h2 {
@@ -169,8 +175,18 @@
 
 /* ---- Nested split-grid in code-block container fix ---- */
 .split-grid .code-block {
-  margin: 0.5rem 0;
-  padding: 0.5rem;
+  margin: 0.5rem 0 0;
+  padding: 0.75rem;
+}
+
+.split-grid .code-block code {
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.split-item .code-block {
+  background: var(--bg);
+  border-color: var(--glass-border);
 }
 
 .section-badge.getting-started {
@@ -381,8 +397,9 @@ body.dark .section-badge.next-steps {
   background: var(--bg-alt);
   border: 1px solid var(--glow-border);
   border-radius: var(--radius-sm);
-  padding: 0.875rem 1rem;
+  padding: 1rem;
   margin: 0;
+  overflow: hidden;
 }
 
 .split-item h3,
@@ -407,6 +424,18 @@ body.dark .section-badge.next-steps {
 .split-item li {
   margin-bottom: 0.25rem;
   font-size: 0.82rem;
+}
+
+/* ---- Inline Code ---- */
+.topic-section p code,
+.topic-section li code {
+  background: var(--bg-alt);
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  font-family: "Fira Code", "Consolas", monospace;
+  font-size: 0.85em;
+  color: var(--accent);
+  border: 1px solid var(--glow-border);
 }
 
 /* ---- Tip & Warning Boxes ---- */
@@ -441,11 +470,22 @@ body.dark .section-badge.next-steps {
 /* ---- Hero on sidebar pages ---- */
 .hero {
   text-align: center;
-  padding: 1.5rem 2rem 1rem;
+  padding: 1rem 1rem 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .hero h1 {
   font-size: clamp(1.3rem, 4vw, 2rem);
+  margin: 0 0 0.5rem;
+}
+
+.hero-copy {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin: 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* ---- Hub page hero: minimal, no glass ---- */
@@ -608,29 +648,58 @@ body:not(.has-sidebar) .hero h1 {
   .page-wrap {
     padding: 1rem;
   }
+
+  .hero {
+    padding: 0.75rem 0.5rem 1rem;
+  }
 }
 
 /* ---- Flow Diagram (SVG containers) ---- */
 .flow-diagram {
   margin: 1.25rem 0;
-  padding: 1rem;
+  padding: 1.25rem;
   background: var(--bg-alt);
   border: 1px solid var(--glow-border);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius);
   overflow-x: auto;
   overflow-y: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 120px;
+  min-height: 140px;
 }
 
 .flow-diagram svg {
   display: block;
   max-width: 100%;
   height: auto;
-  max-height: 300px;
   flex-shrink: 0;
+}
+
+/* ---- Flow Diagram SVG Colors (using CSS variables) ---- */
+.flow-diagram text {
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+}
+
+.flow-diagram .flow-title {
+  fill: var(--text);
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.flow-diagram .flow-label {
+  fill: var(--text);
+  font-size: 12px;
+}
+
+.flow-diagram .flow-label-light {
+  fill: var(--text-secondary);
+  font-size: 11px;
+}
+
+.flow-diagram .flow-muted {
+  fill: var(--muted);
+  font-size: 11px;
 }
 
 /* ---- Topic Section Sub-heading spacing ---- */
@@ -650,7 +719,7 @@ body:not(.has-sidebar) .hero h1 {
 /* ---- List inside topic-section ---- */
 .topic-section ul,
 .topic-section ol {
-  margin: 0.5rem 0 0.75rem 1.25rem;
+  margin: 0.5rem 0 0.75rem 1.5rem;
   padding-left: 0;
 }
 
@@ -658,6 +727,11 @@ body:not(.has-sidebar) .hero h1 {
 .topic-section ol li {
   margin-bottom: 0.35rem;
   line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.topic-section ol li::marker {
+  color: var(--accent);
 }
 
 /* ---- Table styling inside topic-section ---- */
@@ -690,4 +764,181 @@ body:not(.has-sidebar) .hero h1 {
 .topic-section .warning-box,
 .topic-section .tip-box {
   margin: 1rem 0;
+}
+
+/* ---- Takeaways Grid ---- */
+.takeaways-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.takeaway-card {
+  background: var(--bg-alt);
+  border: 1px solid var(--glow-border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  transition: all var(--transition);
+}
+
+.takeaway-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  border-color: var(--glass-border);
+}
+
+.takeaway-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--glass);
+  border: 1px solid var(--glow-border);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+}
+
+.takeaway-icon svg {
+  width: 20px;
+  height: 20px;
+  color: var(--text);
+}
+
+.takeaway-card h4 {
+  margin: 0 0 0.5rem;
+  font-family: "Sora", sans-serif;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.takeaway-card p {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ---- Section 14 Nav Item ---- */
+#key-takeaways {
+  animation-delay: 0.1s;
+}
+
+/* ---- Sub Blocks ---- */
+.sub-block {
+  background: var(--bg-alt);
+  border: 1px solid var(--glow-border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin: 0.75rem 0;
+  border-left: 3px solid var(--glow-border);
+}
+
+.sub-block-title {
+  font-family: "Sora", sans-serif;
+  font-size: 0.95rem;
+  color: var(--text);
+  margin: 0 0 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sub-block-title::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--glow-border);
+  flex-shrink: 0;
+}
+
+.sub-block p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin: 0 0 0.5rem;
+  line-height: 1.6;
+}
+
+.sub-block .code-block {
+  margin: 0.5rem 0;
+  padding: 0.75rem;
+}
+
+.sub-block .code-block code {
+  font-size: 0.8rem;
+}
+
+.sub-block ul {
+  margin: 0.25rem 0 0.5rem 1rem;
+  padding-left: 0.75rem;
+}
+
+.sub-block li {
+  font-size: 0.82rem;
+  margin-bottom: 0.25rem;
+}
+
+.sub-block-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.example-label {
+  display: inline-block;
+  background: var(--bg);
+  border: 1px solid var(--glow-border);
+  border-radius: 4px;
+  padding: 0.1rem 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ---- Flowchart ---- */
+.flowchart {
+  margin: 1rem 0;
+  padding: 0.75rem;
+  background: var(--bg-alt);
+  border-radius: var(--radius);
+  border: 1px solid var(--glass-border);
+}
+
+.flowchart h3 {
+  margin: 0 0 0.75rem;
+  font-size: 0.9rem;
+  font-family: "Sora", sans-serif;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.flow-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.flow-node {
+  background: var(--glass);
+  border: 1px solid var(--glow-border);
+  border-radius: var(--radius-sm);
+  padding: 0.4rem 0.75rem;
+  font-weight: 500;
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+  white-space: nowrap;
+}
+
+.flow-arrow {
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.9rem;
 }

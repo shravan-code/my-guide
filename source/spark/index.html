@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,6 +10,7 @@
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../hub.css" />
   <link rel="stylesheet" href="spark.css" />
 </head>
 
@@ -36,7 +36,7 @@
   <main>
     <div class="page-wrap">
       <section class="hero">
-        <h1>Spark : The Star</h1>
+        <h1>Spark</h1>
       </section>
 
       <section class="inspire">
@@ -49,10 +49,30 @@
           <strong>Light the fire. Process at scale.</strong>
         </p>
       </section>
+
+      <section class="tracks">
+        <h2>Explore Spark</h2>
+        <div class="track-grid">
+          <a href="spark-theory.html" class="track">
+            <h3>Theory</h3>
+            <p>RDDs, DataFrames, and Catalyst</p>
+          </a>
+          <a href="spark-code.html" class="track">
+            <h3>Code</h3>
+            <p>PySpark programming guide</p>
+          </a>
+          <a href="spark-architecture.html" class="track">
+            <h3>Architecture</h3>
+            <p>Cluster, drivers, and executors</p>
+          </a>
+          <a href="https://spark.apache.org/docs/latest/" target="_blank" rel="noopener" class="track">
+            <h3>Docs ↗</h3>
+            <p>Official Spark documentation</p>
+          </a>
+        </div>
+      </section>
     </div>
   </main>
-
   <script src="../app.js"></script>
 </body>
-
 </html>
