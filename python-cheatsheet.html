@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Guide | Python Cheatsheet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="source/styles.css" />
+  <style>
+    main {
+      width: min(1300px, calc(100% - 4rem));
+      margin: 0 auto;
+      padding: 1.5rem 0 3rem;
+    }
+
+    .topbar {
+      height: var(--topbar-height);
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      color: var(--text);
+      transition: color var(--transition);
+    }
+
+    .brand-icon { width: 20px; height: 20px; stroke: var(--text); fill: none; stroke-width: 1.5; }
+
+    .brand:hover {
+      background: linear-gradient(135deg, var(--glow-color), var(--glow-pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .brand:hover .brand-icon { stroke: var(--glow-color); }
+
+    .menu {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .menu a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 0.4rem 0;
+      position: relative;
+      transition: color var(--transition);
+    }
+
+    .menu a:hover {
+      color: var(--text);
+      text-shadow: 0 0 20px rgba(99, 102, 241, 0.5), 0 0 40px rgba(236, 72, 153, 0.3);
+    }
+
+    .menu a.active { color: var(--text); }
+
+    .menu a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--glow-color), var(--glow-pink));
+      border-radius: 1px;
+      box-shadow: 0 0 10px var(--glow-color), 0 0 20px rgba(236, 72, 153, 0.3);
+    }
+
+    .header-actions { display: flex; align-items: center; gap: 0.75rem; }
+
+    .back-link {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 0.4rem 1rem;
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      transition: all var(--transition);
+    }
+
+    .back-link:hover {
+      color: var(--text);
+      background: var(--bg-alt);
+      border-color: var(--glow-border);
+    }
+
+    .theme-toggle {
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--glass-border);
+      background: var(--glass);
+      backdrop-filter: blur(var(--glass-blur));
+      color: var(--text);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .theme-toggle:hover {
+      box-shadow: var(--shadow), 0 0 25px rgba(99, 102, 241, 0.25);
+      border-color: var(--glow-color);
+      transform: translateY(-2px) scale(1.05);
+    }
+
+    .toggle-icon { font-size: 1rem; }
+    .toggle-text { display: none; }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 2rem 0 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 700;
+      margin: 0 0 0.5rem;
+      font-family: "Sora", sans-serif;
+      background: linear-gradient(135deg, var(--glow-color), var(--glow-pink), var(--glow-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Nav pills */
+    .nav-pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .nav-pills a {
+      padding: 0.4rem 1rem;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all var(--transition);
+    }
+
+    .nav-pills a:hover, .nav-pills a.active {
+      color: var(--text);
+      border-color: var(--glow-border);
+      box-shadow: 0 0 15px rgba(99, 102, 241, 0.15);
+    }
+
+    /* Section */
+    .cheat-section {
+      margin-bottom: 2rem;
+    }
+
+    .section-title {
+      font-family: "Sora", sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 0 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--glass-border);
+      color: var(--text);
+    }
+
+    /* Code Grid */
+    .code-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 1rem;
+    }
+
+    .code-card {
+      background: var(--glass);
+      backdrop-filter: blur(var(--glass-blur));
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      transition: all var(--transition);
+    }
+
+    .code-card:hover {
+      border-color: var(--glow-border);
+      box-shadow: var(--shadow), 0 0 20px rgba(99, 102, 241, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .code-card h3 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 0.5rem;
+    }
+
+    .code-card p {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      margin: 0 0 0.75rem;
+      line-height: 1.5;
+    }
+
+    .code-block {
+      background: var(--bg-alt);
+      border: 1px solid var(--glow-border);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem;
+      font-family: "Fira Code", "Consolas", monospace;
+      font-size: 0.78rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    .code-label {
+      display: inline-block;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--glow-color);
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+
+    @media (max-width: 900px) { .menu { display: none; } }
+    @media (max-width: 600px) { .code-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <header class="topbar glass reveal in">
+    <a class="brand" href="index.html">
+      <svg class="brand-icon" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+      Data Guide
+    </a>
+    <nav class="menu" aria-label="Cheatsheet menu">
+      <a href="cheatsheet.html" class="active" aria-current="page">Cheatsheet</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="portfolio.html">Portfolio</a>
+    </nav>
+    <div class="header-actions">
+      <a href="cheatsheet.html" class="back-link">All Cheatsheets</a>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+        <span class="toggle-icon" aria-hidden="true">☾</span>
+        <span class="toggle-text">Dark</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Python Cheatsheet</h1>
+      <p>Quick reference for Python fundamentals, data structures, and common patterns.</p>
+    </section>
+
+    <nav class="nav-pills">
+      <a href="python-cheatsheet.html" class="active">Python</a>
+      <a href="spark-cheatsheet.html">PySpark</a>
+      <a href="postgresql-cheatsheet.html">PostgreSQL</a>
+      <a href="numpy-cheatsheet.html">NumPy</a>
+      <a href="pandas-cheatsheet.html">Pandas</a>
+    </nav>
+
+    <section class="cheat-section">
+      <h2 class="section-title">Data Structures</h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">List</span>
+          <h3>List Operations</h3>
+          <p>Mutable ordered collection.</p>
+          <div class="code-block"># Create
+lst = [1, 2, 3]
+lst = list(range(10))
+
+# Methods
+lst.append(4)        # Add to end
+lst.insert(0, 0)     # Insert at index
+lst.extend([5, 6])   # Extend
+lst.pop()            # Remove last
+lst.remove(3)        # Remove by value
+lst.sort()           # Sort in place
+lst[::-1]            # Reverse</div>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Dict</span>
+          <h3>Dictionary Operations</h3>
+          <p>Key-value pair storage.</p>
+          <div class="code-block"># Create
+d = {'a': 1, 'b': 2}
+d = dict(zip(keys, vals))
+
+# Access
+d.get('key', default)
+d['key']
+
+# Methods
+d.keys()
+d.values()
+d.items()
+d.update({'c': 3})
+d.pop('a')
+d.setdefault('x', 0)</div>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Set</span>
+          <h3>Set Operations</h3>
+          <p>Unique unordered collection.</p>
+          <div class="code-block"># Create
+s = {1, 2, 3}
+s = set([1, 2, 2, 3])
+
+# Operations
+s.add(4)
+s.remove(1)
+s.discard(99)  # No error if missing
+
+# Set math
+a | b  # Union
+a & b  # Intersection
+a - b  # Difference
+a ^ b  # Symmetric diff</div>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Tuple</span>
+          <h3>Tuple Unpacking</h3>
+          <p>Immutable ordered collection.</p>
+          <div class="code-block"># Create
+t = (1, 2, 3)
+t = tuple([1, 2, 3])
+
+# Unpacking
+a, b, c = t
+first, *rest = t
+first, *middle, last = t
+
+# Swap
+a, b = b, a
+
+# Named tuple
+from collections import namedtuple
+Point = namedtuple('Point', ['x', 'y'])
+p = Point(1, 2)</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cheat-section">
+      <h2 class="section-title">Comprehensions</h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">List</span>
+          <h3>List Comprehension</h3>
+          <p>Create lists in a single line.</p>
+          <div class="code-block"># Basic
+squares = [x**2 for x in range(10)]
+
+# With condition
+evens = [x for x in range(20) if x % 2 == 0]
+
+# Nested
+flat = [x for row in matrix for x in row]
+
+# With function
+words = [w.strip().lower() for w in text]</div>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Dict</span>
+          <h3>Dict Comprehension</h3>
+          <p>Create dictionaries concisely.</p>
+          <div class="code-block"># From two lists
+d = {k: v for k, v in zip(keys, values)}
+
+# With condition
+d = {k: v for k, v in items if v > 0}
+
+# Transform
+word_len = {w: len(w) for w in words}
+
+# Invert dict
+inv = {v: k for k, v in d.items()}</div>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Set</span>
+          <h3>Set Comprehension</h3>
+          <p>Create sets with transformations.</p>
+          <div class="code-block"># Basic
+unique = {x % 5 for x in range(100)}
+
+# With condition
+primes = {x for x in range(100) 
+    if all(x % i != 0 for i in range(2, int(x**0.5)+1))}
+
+# From strings
+chars = {c.lower() for c in text if c.isalpha()}</div>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Generator</span>
+          <h3>Generator Expression</h3>
+          <p>Memory-efficient iteration.</p>
+          <div class="code-block"># Generator (lazy)
+gen = (x**2 for x in range(1000000))
+
+# In function
+total = sum(x**2 for x in range(100))
+
+# Generator function
+def counter(n):
+    for i in range(n):
+        yield i
+
+# Chain generators
+import itertools
+result = itertools.chain(gen1, gen2)</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cheat-section">
+      <h2 class="section-title">Functions</h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Basics</span>
+          <h3>Function Basics</h3>
+          <p>Define and call functions.</p>
+          <div class="code-block"># Basic function
+def greet(name, greeting="Hello"):
+    """Return a greeting."""
+    return f"{greeting}, {name}!"
+
+# *args, **kwargs
+def flexible(*args, **kwargs):
+    print(args, kwargs)
+
+# Lambda
+square = lambda x: x ** 2
+
+# Multiple return
+def stats(data):
+    return min(data), max(data), sum(data)</div>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Decorators</span>
+          <h3>Function Decorators</h3>
+          <p>Wrap functions to extend behavior.</p>
+          <div class="code-block">import time
+from functools import wraps
+
+def timer(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        print(f"{func.__name__}: {time.time()-start:.2f}s")
+        return result
+    return wrapper
+
+@timer
+def slow_function():
+    time.sleep(1)</div>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Functional</span>
+          <h3>Functional Tools</h3>
+          <p>Map, filter, reduce operations.</p>
+          <div class="code-block"># Map
+list(map(str.upper, names))
+
+# Filter
+list(filter(lambda x: x > 0, nums))
+
+# Reduce
+from functools import reduce
+reduce(lambda a, b: a + b, nums)
+
+# Sorted with key
+sorted(data, key=lambda x: x['age'], reverse=True)</div>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Closures</span>
+          <h3>Closures & Scope</h3>
+          <p>Functions that capture variables.</p>
+          <div class="code-block"># Closure
+def make_multiplier(n):
+    def multiplier(x):
+        return x * n
+    return multiplier
+
+times2 = make_multiplier(2)
+times2(5)  # 10
+
+# Nonlocal
+def counter():
+    count = 0
+    def increment():
+        nonlocal count
+        count += 1
+        return count
+    return increment</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cheat-section">
+      <h2 class="section-title">File I/O & Errors</h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Files</span>
+          <h3>File Operations</h3>
+          <p>Read and write files safely.</p>
+          <div class="code-block"># Read entire file
+with open('file.txt', 'r') as f:
+    content = f.read()
+
+# Read lines
+with open('file.txt') as f:
+    lines = f.readlines()
+
+# Write file
+with open('output.txt', 'w') as f:
+    f.write('Hello World')
+
+# Append
+with open('log.txt', 'a') as f:
+    f.write('new line\n')</div>
+        </div>
+        <div class="code-card">
+          <span class="code-label">JSON</span>
+          <h3>JSON Handling</h3>
+          <p>Parse and write JSON data.</p>
+          <div class="code-block">import json
+
+# Read JSON
+with open('data.json') as f:
+    data = json.load(f)
+
+# Write JSON
+with open('out.json', 'w') as f:
+    json.dump(data, f, indent=2)
+
+# String
+json_str = json.dumps(data)
+data = json.loads(json_str)</div>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Exceptions</span>
+          <h3>Error Handling</h3>
+          <p>Handle exceptions gracefully.</p>
+          <div class="code-block">try:
+    result = risky_operation()
+except ValueError as e:
+    print(f"Value error: {e}")
+except (TypeError, KeyError) as e:
+    print(f"Type error: {e}")
+except Exception as e:
+    logger.error(f"Unexpected: {e}")
+    raise
+else:
+    print("Success")
+finally:
+    cleanup()</div>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Custom</span>
+          <h3>Custom Exceptions</h3>
+          <p>Create your own exception classes.</p>
+          <div class="code-block">class CustomError(Exception):
+    def __init__(self, message, code):
+        super().__init__(message)
+        self.code = code
+
+class ValidationError(CustomError):
+    pass
+
+# Usage
+raise ValidationError("Invalid input", code=400)
+
+# Catching
+try:
+    validate(data)
+except ValidationError as e:
+    print(f"Error {e.code}: {e}")</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cheat-section">
+      <h2 class="section-title">Classes & OOP</h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Class</span>
+          <h3>Class Basics</h3>
+          <p>Define classes with methods.</p>
+          <div class="code-block">class Person:
+    species = "Human"  # Class variable
+    
+    def __init__(self, name, age):
+        self.name = name  # Instance var
+        self.age = age
+    
+    def greet(self):
+        return f"Hi, I'm {self.name}"
+    
+    def __str__(self):
+        return f"Person({self.name})"
+
+p = Person("Alice", 30)
+print(p.greet())</div>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Inheritance</span>
+          <h3>Inheritance</h3>
+          <p>Create specialized classes.</p>
+          <div class="code-block">class Employee(Person):
+    def __init__(self, name, age, emp_id):
+        super().__init__(name, age)
+        self.emp_id = emp_id
+    
+    def greet(self):
+        base = super().greet()
+        return f"{base}, ID: {self.emp_id}"
+
+# Multiple inheritance
+class A: pass
+class B: pass
+class C(A, B): pass</div>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Properties</span>
+          <h3>Properties & Methods</h3>
+          <p>Controlled attribute access.</p>
+          <div class="code-block">class Circle:
+    def __init__(self, radius):
+        self._radius = radius
+    
+    @property
+    def radius(self):
+        return self._radius
+    
+    @radius.setter
+    def radius(self, value):
+        if value < 0:
+            raise ValueError("Negative!")
+        self._radius = value
+    
+    @property
+    def area(self):
+        return 3.14159 * self._radius ** 2</div>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Dataclass</span>
+          <h3>Data Classes</h3>
+          <p>Simplified class creation.</p>
+          <div class="code-block">from dataclasses import dataclass, field
+
+@dataclass
+class User:
+    name: str
+    email: str
+    age: int = 0
+    tags: list = field(default_factory=list)
+    
+    def is_adult(self):
+        return self.age >= 18
+
+user = User("Alice", "alice@example.com", 30)
+print(user)  # User(name='Alice', ...)</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cheat-section">
+      <h2 class="section-title">Concurrency</h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Threading</span>
+          <h3>Threading</h3>
+          <p>Run tasks concurrently (I/O bound).</p>
+          <div class="code-block">import threading
+from concurrent.futures import ThreadPoolExecutor
+
+def task(n):
+    return n * 2
+
+# Thread pool
+with ThreadPoolExecutor(max_workers=4) as executor:
+    futures = [executor.submit(task, i) for i in range(10)]
+    results = [f.result() for f in futures]
+
+# Thread
+t = threading.Thread(target=task, args=(5,))
+t.start()
+t.join()</div>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Multiprocessing</span>
+          <h3>Multiprocessing</h3>
+          <p>Parallel execution (CPU bound).</p>
+          <div class="code-block">from multiprocessing import Pool
+from concurrent.futures import ProcessPoolExecutor
+
+def heavy_task(n):
+    return sum(i**2 for i in range(n))
+
+# Process pool
+with Pool(4) as pool:
+    results = pool.map(heavy_task, [1000]*10)
+
+# ProcessPoolExecutor
+with ProcessPoolExecutor(max_workers=4) as executor:
+    results = list(executor.map(heavy_task, data))</div>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Async</span>
+          <h3>Async/Await</h3>
+          <p>Asynchronous programming.</p>
+          <div class="code-block">import asyncio
+import aiohttp
+
+async def fetch(url):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as resp:
+            return await resp.text()
+
+async def main():
+    urls = ['url1', 'url2', 'url3']
+    tasks = [fetch(url) for url in urls]
+    results = await asyncio.gather(*tasks)
+    return results
+
+asyncio.run(main())</div>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Queue</span>
+          <h3>Queue</h3>
+          <p>Thread-safe data sharing.</p>
+          <div class="code-block">from queue import Queue
+from threading import Thread
+
+def producer(q):
+    for i in range(5):
+        q.put(i)
+
+def consumer(q):
+    while True:
+        item = q.get()
+        print(f"Processing {item}")
+        q.task_done()
+
+q = Queue()
+Thread(target=producer, args=(q,)).start()
+Thread(target=consumer, args=(q,)).start()
+q.join()</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cheat-section">
+      <h2 class="section-title">Useful Modules</h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Collections</span>
+          <h3>collections Module</h3>
+          <p>Specialized container datatypes.</p>
+          <div class="code-block">from collections import Counter, defaultdict, deque
+
+# Counter
+counts = Counter(['a', 'b', 'a', 'c', 'a'])
+counts.most_common(2)  # [('a', 3), ('b', 1)]
+
+# defaultdict
+dd = defaultdict(list)
+dd['key'].append('value')
+
+# deque (fast append/pop both ends)
+d = deque([1, 2, 3])
+d.appendleft(0)
+d.rotate(1)</div>
+        </div>
+        <div class="code-card">
+          <span class="code-label">itertools</span>
+          <h3>itertools Module</h3>
+          <p>Iterator building blocks.</p>
+          <div class="code-block">from itertools import chain, product, groupby
+
+# Chain iterables
+combined = chain(list1, list2, list3)
+
+# Cartesian product
+pairs = list(product([1,2], ['a','b']))
+
+# Group by
+for key, group in groupby(sorted_data, key=lambda x: x['cat']):
+    print(key, list(group))
+
+# Combinations
+from itertools import combinations
+combos = list(combinations([1,2,3,4], 2))</div>
+        </div>
+        <div class="code-card">
+          <span class="code-label">datetime</span>
+          <h3>datetime Module</h3>
+          <p>Date and time handling.</p>
+          <div class="code-block">from datetime import datetime, timedelta
+
+# Current time
+now = datetime.now()
+
+# Parse string
+dt = datetime.strptime('2024-01-15', '%Y-%m-%d')
+
+# Format
+now.strftime('%Y-%m-%d %H:%M:%S')
+
+# Arithmetic
+tomorrow = now + timedelta(days=1)
+diff = now - other_date
+diff.days  # Number of days</div>
+        </div>
+        <div class="code-card">
+          <span class="code-label">logging</span>
+          <h3>logging Module</h3>
+          <p>Professional logging setup.</p>
+          <div class="code-block">import logging
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('app.log'),
+        logging.StreamHandler()
+    ]
+)
+
+logger = logging.getLogger(__name__)
+logger.info("Processing started")
+logger.error("Something went wrong", exc_info=True)</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="source/app.js"></script>
+</body>
+</html>
