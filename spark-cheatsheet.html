@@ -30,20 +30,42 @@
     .hero { text-align: center; padding: 2rem 0 1.5rem; margin-bottom: 1.5rem; }
     .hero h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 700; margin: 0 0 0.5rem; font-family: "Sora", sans-serif; background: linear-gradient(135deg, var(--glow-color), var(--glow-pink), var(--glow-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .hero p { color: var(--text-secondary); font-size: 0.95rem; max-width: 600px; margin: 0 auto; }
-    .nav-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-bottom: 2rem; }
-    .nav-pills a { padding: 0.4rem 1rem; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 999px; font-size: 0.8rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; transition: all var(--transition); }
-    .nav-pills a:hover, .nav-pills a.active { color: var(--text); border-color: var(--glow-border); box-shadow: 0 0 15px rgba(99, 102, 241, 0.15); }
+
     .cheat-section { margin-bottom: 2rem; }
     .section-title { font-family: "Sora", sans-serif; font-size: 1.1rem; font-weight: 600; margin: 0 0 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--glass-border); color: var(--text); }
-    .code-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1rem; }
+    .code-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
     .code-card { background: var(--glass); backdrop-filter: blur(var(--glass-blur)); border: 1px solid var(--glass-border); border-radius: var(--radius); padding: 1.25rem; transition: all var(--transition); }
     .code-card:hover { border-color: var(--glow-border); box-shadow: var(--shadow), 0 0 20px rgba(99, 102, 241, 0.1); transform: translateY(-2px); }
     .code-card h3 { font-size: 0.9rem; font-weight: 600; color: var(--text); margin: 0 0 0.5rem; }
     .code-card p { font-size: 0.82rem; color: var(--text-secondary); margin: 0 0 0.75rem; line-height: 1.5; }
     .code-block { background: var(--bg-alt); border: 1px solid var(--glow-border); border-radius: var(--radius-sm); padding: 0.85rem; font-family: "Fira Code", "Consolas", monospace; font-size: 0.78rem; line-height: 1.6; color: var(--text-secondary); overflow-x: auto; white-space: pre; }
     .code-label { display: inline-block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--glow-color); font-weight: 600; margin-bottom: 0.35rem; }
+
+    /* Difficulty badges */
+    .difficulty-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+    .difficulty-basic { background: #10b981; color: white; }
+    .difficulty-medium { background: #f59e0b; color: white; }
+    .difficulty-advanced { background: #ef4444; color: white; }
+
+    .section-difficulty {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+
     @media (max-width: 900px) { .menu { display: none; } }
-    @media (max-width: 600px) { .code-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -57,9 +79,11 @@
       Data Guide
     </a>
     <nav class="menu" aria-label="Cheatsheet menu">
-      <a href="cheatsheet.html" class="active" aria-current="page">Cheatsheet</a>
-      <a href="roadmap.html">Roadmap</a>
-      <a href="portfolio.html">Portfolio</a>
+      <a href="python-cheatsheet.html">Python</a>
+      <a href="spark-cheatsheet.html" class="active">PySpark</a>
+      <a href="postgresql-cheatsheet.html">PostgreSQL</a>
+      <a href="numpy-cheatsheet.html">NumPy</a>
+      <a href="pandas-cheatsheet.html">Pandas</a>
     </nav>
     <div class="header-actions">
       <a href="cheatsheet.html" class="back-link">All Cheatsheets</a>
@@ -72,20 +96,14 @@
 
   <main>
     <section class="hero">
-      <h1>PySpark Cheatsheet</h1>
+      <h1>PySpark Cheatsheet <span class="difficulty-badge difficulty-advanced">Advanced</span></h1>
       <p>Quick reference for Apache Spark with PySpark DataFrame API and common operations.</p>
     </section>
 
-    <nav class="nav-pills">
-      <a href="python-cheatsheet.html">Python</a>
-      <a href="spark-cheatsheet.html" class="active">PySpark</a>
-      <a href="postgresql-cheatsheet.html">PostgreSQL</a>
-      <a href="numpy-cheatsheet.html">NumPy</a>
-      <a href="pandas-cheatsheet.html">Pandas</a>
-    </nav>
+
 
     <section class="cheat-section">
-      <h2 class="section-title">Session & Configuration</h2>
+      <h2 class="section-title">Session & Configuration <span class="section-difficulty difficulty-basic">Basic</span></h2>
       <div class="code-grid">
         <div class="code-card">
           <span class="code-label">Session</span>
@@ -127,7 +145,7 @@ spark.conf.getAll()</div>
     </section>
 
     <section class="cheat-section">
-      <h2 class="section-title">Reading Data</h2>
+      <h2 class="section-title">Reading Data <span class="section-difficulty difficulty-medium">Medium</span></h2>
       <div class="code-grid">
         <div class="code-card">
           <span class="code-label">Parquet</span>
@@ -211,7 +229,7 @@ df = spark.read.json(spark.sparkContext.parallelize([json_str]))</div>
     </section>
 
     <section class="cheat-section">
-      <h2 class="section-title">Transformations</h2>
+      <h2 class="section-title">Transformations <span class="section-difficulty difficulty-medium">Medium</span></h2>
       <div class="code-grid">
         <div class="code-card">
           <span class="code-label">Select</span>
@@ -297,7 +315,7 @@ df.na.fill({"age": 0, "city": "Unknown"})</div>
     </section>
 
     <section class="cheat-section">
-      <h2 class="section-title">Joins</h2>
+      <h2 class="section-title">Joins <span class="section-difficulty difficulty-advanced">Advanced</span></h2>
       <div class="code-grid">
         <div class="code-card">
           <span class="code-label">Join Types</span>
@@ -362,7 +380,7 @@ spark.sql("""
     </section>
 
     <section class="cheat-section">
-      <h2 class="section-title">Writing Data</h2>
+      <h2 class="section-title">Writing Data <span class="section-difficulty difficulty-medium">Medium</span></h2>
       <div class="code-grid">
         <div class="code-card">
           <span class="code-label">Parquet</span>
@@ -440,7 +458,7 @@ df = spark.table("my_bucketed_table")</div>
     </section>
 
     <section class="cheat-section">
-      <h2 class="section-title">UDFs & Functions</h2>
+      <h2 class="section-title">UDFs & Functions <span class="section-difficulty difficulty-advanced">Advanced</span></h2>
       <div class="code-grid">
         <div class="code-card">
           <span class="code-label">UDF</span>
@@ -538,7 +556,7 @@ F.when(F.col("x") > 0, "positive")
     </section>
 
     <section class="cheat-section">
-      <h2 class="section-title">Performance</h2>
+      <h2 class="section-title">Performance <span class="section-difficulty difficulty-advanced">Advanced</span></h2>
       <div class="code-grid">
         <div class="code-card">
           <span class="code-label">Repartition</span>
