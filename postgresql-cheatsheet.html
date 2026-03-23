@@ -19,7 +19,27 @@
     .menu a { color: var(--text-secondary); text-decoration: none; padding: 0.4rem 0; position: relative; transition: color var(--transition); }
     .menu a:hover { color: var(--text); text-shadow: 0 0 20px rgba(99, 102, 241, 0.5), 0 0 40px rgba(236, 72, 153, 0.3); }
     .menu a.active { color: var(--text); }
-    .menu a.active::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--glow-color), var(--glow-pink)); border-radius: 1px; box-shadow: 0 0 10px var(--glow-color), 0 0 20px rgba(236, 72, 153, 0.3); }
+    .menu a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--glow-color), var(--glow-pink));
+      border-radius: 1px;
+      box-shadow: 0 0 10px var(--glow-color), 0 0 20px rgba(236, 72, 153, 0.3);
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% {
+        box-shadow: 0 0 10px var(--glow-color), 0 0 20px rgba(236, 72, 153, 0.3);
+      }
+      50% {
+        box-shadow: 0 0 20px var(--glow-color), 0 0 40px rgba(236, 72, 153, 0.5);
+      }
+    }
     .header-actions { display: flex; align-items: center; gap: 0.75rem; }
     .back-link { font-size: 0.82rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; padding: 0.4rem 1rem; border: 1px solid var(--glass-border); border-radius: var(--radius-sm); transition: all var(--transition); }
     .back-link:hover { color: var(--text); background: var(--bg-alt); border-color: var(--glow-border); }
@@ -31,7 +51,14 @@
     .hero h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 700; margin: 0 0 0.5rem; font-family: "Sora", sans-serif; background: linear-gradient(135deg, var(--glow-color), var(--glow-pink), var(--glow-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .hero p { color: var(--text-secondary); font-size: 0.95rem; max-width: 600px; margin: 0 auto; }
 
-    .cheat-section { margin-bottom: 2rem; }
+    .cheat-section {
+      margin-bottom: 2rem;
+      scroll-margin-top: 100px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
     .section-title { font-family: "Sora", sans-serif; font-size: 1.1rem; font-weight: 600; margin: 0 0 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--glass-border); color: var(--text); }
     .code-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
     .code-card { background: var(--glass); backdrop-filter: blur(var(--glass-blur)); border: 1px solid var(--glass-border); border-radius: var(--radius); padding: 1.25rem; transition: all var(--transition); }
@@ -65,7 +92,130 @@
       vertical-align: middle;
     }
 
+    /* Pill navigation */
+    .pill-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    .pill-nav a {
+      padding: 0.4rem 1rem;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all var(--transition);
+    }
+    .pill-nav a:hover {
+      color: var(--text);
+      border-color: var(--glow-border);
+      box-shadow: 0 0 15px rgba(99, 102, 241, 0.15);
+    }
+
+    /* Sidebar navigation */
+    .sidebar {
+      position: fixed;
+      top: var(--topbar-height);
+      left: 0;
+      width: 200px;
+      height: calc(100vh - var(--topbar-height));
+      background: var(--glass);
+      border-right: 1px solid var(--glass-border);
+      padding: 1.5rem 1rem;
+      overflow-y: auto;
+      z-index: 100;
+    }
+    .sidebar nav h3 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin: 0 0 1rem;
+      color: var(--text);
+    }
+    .sidebar nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .sidebar nav li {
+      margin-bottom: 0.5rem;
+    }
+    .sidebar nav a {
+      display: block;
+      padding: 0.4rem 0.6rem;
+      border-radius: var(--radius-sm);
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.82rem;
+      transition: all var(--transition);
+    }
+    .sidebar nav a:hover,
+    .sidebar nav a.active {
+      color: var(--text);
+      background: var(--bg-alt);
+    }
+    .sidebar nav a.active {
+      font-weight: 600;
+      border-left: 2px solid var(--glow-color);
+    }
+    @media (max-width: 1100px) {
+      .sidebar {
+        display: none;
+      }
+    }
+
+    @media (min-width: 1101px) {
+      main {
+        width: min(1300px, calc(100% - 220px - 4rem));
+        margin-left: 220px;
+      }
+    }
+
     @media (max-width: 900px) { .menu { display: none; } }
+
+    /* Scroll to top button */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .scroll-to-top:hover {
+      background: var(--bg-alt);
+      border-color: var(--glow-border);
+      box-shadow: var(--shadow);
+      transform: translateY(-2px);
+    }
+    .scroll-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    .scroll-to-top svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
   </style>
 </head>
 <body>
@@ -86,7 +236,7 @@
       <a href="pandas-cheatsheet.html">Pandas</a>
     </nav>
     <div class="header-actions">
-      <a href="cheatsheet.html" class="back-link">All Cheatsheets</a>
+
       <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
         <span class="toggle-icon" aria-hidden="true">☾</span>
         <span class="toggle-text">Dark</span>
@@ -94,15 +244,36 @@
     </div>
   </header>
 
+  <aside class="sidebar">
+    <nav>
+      <h3>Contents</h3>
+      <ul>
+        <li><a href="#window-functions">Window Functions</a></li>
+        <li><a href="#ctes-recursive">CTEs & Recursive Queries</a></li>
+        <li><a href="#aggregation">Aggregation</a></li>
+        <li><a href="#json-operations">JSON Operations</a></li>
+        <li><a href="#upsert-manipulation">Upsert & Manipulation</a></li>
+        <li><a href="#performance">Performance</a></li>
+      </ul>
+    </nav>
+  </aside>
+
   <main>
     <section class="hero">
-      <h1>PostgreSQL Cheatsheet <span class="difficulty-badge difficulty-medium">Intermediate</span></h1>
+      <h1>PostgreSQL Cheatsheet</h1>
       <p>Quick reference for PostgreSQL queries, window functions, CTEs, and performance optimization.</p>
     </section>
 
+    <nav class="pill-nav">
+      <a href="#window-functions">Window Functions</a>
+      <a href="#ctes-recursive">CTEs & Recursive Queries</a>
+      <a href="#aggregation">Aggregation</a>
+      <a href="#json-operations">JSON Operations</a>
+      <a href="#upsert-manipulation">Upsert & Manipulation</a>
+      <a href="#performance">Performance</a>
+    </nav>
 
-
-    <section class="cheat-section">
+    <section class="cheat-section" id="window-functions">
       <h2 class="section-title">Window Functions <span class="section-difficulty difficulty-advanced">Advanced</span></h2>
       <div class="code-grid">
         <div class="code-card">
@@ -165,7 +336,7 @@ FROM orders;</div>
       </div>
     </section>
 
-    <section class="cheat-section">
+    <section class="cheat-section" id="ctes-recursive">
       <h2 class="section-title">CTEs & Recursive Queries <span class="section-difficulty difficulty-advanced">Advanced</span></h2>
       <div class="code-grid">
         <div class="code-card">
@@ -261,7 +432,7 @@ CROSS JOIN LATERAL (
       </div>
     </section>
 
-    <section class="cheat-section">
+    <section class="cheat-section" id="aggregation">
       <h2 class="section-title">Aggregation <span class="section-difficulty difficulty-medium">Medium</span></h2>
       <div class="code-grid">
         <div class="code-card">
@@ -327,7 +498,7 @@ GROUP BY category;</div>
       </div>
     </section>
 
-    <section class="cheat-section">
+    <section class="cheat-section" id="json-operations">
       <h2 class="section-title">JSON Operations <span class="section-difficulty difficulty-medium">Medium</span></h2>
       <div class="code-grid">
         <div class="code-card">
@@ -422,7 +593,7 @@ USING BRIN ((data->>'timestamp'));</div>
       </div>
     </section>
 
-    <section class="cheat-section">
+    <section class="cheat-section" id="upsert-manipulation">
       <h2 class="section-title">Upsert & Manipulation <span class="section-difficulty difficulty-medium">Medium</span></h2>
       <div class="code-grid">
         <div class="code-card">
@@ -518,7 +689,7 @@ WHERE u.id = stats.user_id;</div>
       </div>
     </section>
 
-    <section class="cheat-section">
+    <section class="cheat-section" id="performance">
       <h2 class="section-title">Performance <span class="section-difficulty difficulty-advanced">Advanced</span></h2>
       <div class="code-grid">
         <div class="code-card">
@@ -614,6 +785,56 @@ ORDER BY pg_total_relation_size(schemaname||'.'||tablename) DESC;</div>
     </section>
   </main>
 
+  <script>
+    // Highlight active section in sidebar
+    document.addEventListener('DOMContentLoaded', function() {
+      const sections = document.querySelectorAll('.cheat-section');
+      const navLinks = document.querySelectorAll('.sidebar nav a');
+      
+      function updateActiveLink() {
+        let currentSection = '';
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.clientHeight;
+          if (scrollY >= (sectionTop - 200)) {
+            currentSection = section.getAttribute('id');
+          }
+        });
+        
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === `#${currentSection}`) {
+            link.classList.add('active');
+          }
+        });
+      }
+      
+      window.addEventListener('scroll', updateActiveLink);
+      updateActiveLink(); // Call once on load
+    });
+  </script>
+  <button class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
   <script src="source/app.js"></script>
+  <script>
+    // Scroll to top button functionality
+    const scrollToTopBtn = document.querySelector('.scroll-to-top');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        scrollToTopBtn.classList.add('show');
+      } else {
+        scrollToTopBtn.classList.remove('show');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
 </body>
 </html>

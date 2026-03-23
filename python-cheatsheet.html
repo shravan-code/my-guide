@@ -82,6 +82,16 @@
       background: linear-gradient(90deg, var(--glow-color), var(--glow-pink));
       border-radius: 1px;
       box-shadow: 0 0 10px var(--glow-color), 0 0 20px rgba(236, 72, 153, 0.3);
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% {
+        box-shadow: 0 0 10px var(--glow-color), 0 0 20px rgba(236, 72, 153, 0.3);
+      }
+      50% {
+        box-shadow: 0 0 20px var(--glow-color), 0 0 40px rgba(236, 72, 153, 0.5);
+      }
     }
 
     .header-actions { display: flex; align-items: center; gap: 0.75rem; }
@@ -124,6 +134,56 @@
 
     .toggle-icon { font-size: 1rem; }
     .toggle-text { display: none; }
+    .mobile-nav-toggle {
+      display: none;
+      width: 36px; height: 36px;
+      align-items: center; justify-content: center;
+      border: 1px solid var(--glass-border);
+      background: var(--glass);
+      backdrop-filter: blur(var(--glass-blur));
+      color: var(--text);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+    .mobile-nav-toggle:hover {
+      box-shadow: var(--shadow), 0 0 25px rgba(99, 102, 241, 0.25);
+      border-color: var(--glow-color);
+      transform: translateY(-2px) scale(1.05);
+    }
+
+    .mobile-nav-dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      width: 200px;
+      background: var(--glass);
+      backdrop-filter: blur(var(--glass-blur));
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      padding: 0.5rem;
+      z-index: 2000;
+    }
+    .mobile-nav-dropdown.open {
+      display: flex;
+      flex-direction: column;
+    }
+    .mobile-nav-dropdown a {
+      display: block;
+      padding: 0.6rem 0.8rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      transition: all var(--transition);
+    }
+    .mobile-nav-dropdown a:hover,
+    .mobile-nav-dropdown a.active {
+      color: var(--text);
+      background: var(--bg-alt);
+    }
 
     /* Hero */
     .hero {
@@ -155,6 +215,11 @@
     /* Section */
     .cheat-section {
       margin-bottom: 2rem;
+      scroll-margin-top: 100px;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     .section-title {
@@ -275,7 +340,109 @@
       box-shadow: 0 0 15px rgba(99, 102, 241, 0.15);
     }
 
-    @media (max-width: 900px) { .menu { display: none; } }
+    /* Sidebar navigation */
+    .sidebar {
+      position: fixed;
+      top: var(--topbar-height);
+      left: 0;
+      width: 200px;
+      height: calc(100vh - var(--topbar-height));
+      background: var(--glass);
+      border-right: 1px solid var(--glass-border);
+      padding: 1.5rem 1rem;
+      overflow-y: auto;
+      z-index: 100;
+    }
+    .sidebar nav h3 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin: 0 0 1rem;
+      color: var(--text);
+    }
+    .sidebar nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .sidebar nav li {
+      margin-bottom: 0.5rem;
+    }
+    .sidebar nav a {
+      display: block;
+      padding: 0.4rem 0.6rem;
+      border-radius: var(--radius-sm);
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.82rem;
+      transition: all var(--transition);
+    }
+    .sidebar nav a:hover,
+    .sidebar nav a.active {
+      color: var(--text);
+      background: var(--bg-alt);
+    }
+    .sidebar nav a.active {
+      font-weight: 600;
+      border-left: 2px solid var(--glow-color);
+    }
+    @media (max-width: 1100px) {
+      .sidebar {
+        display: none;
+      }
+    }
+
+    @media (min-width: 1101px) {
+      main {
+        width: min(1300px, calc(100% - 220px - 4rem));
+        margin-left: 220px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .menu { display: none; }
+      .mobile-nav-toggle { display: flex; }
+    }
+
+    /* Scroll to top button */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .scroll-to-top:hover {
+      background: var(--bg-alt);
+      border-color: var(--glow-border);
+      box-shadow: var(--shadow);
+      transform: translateY(-2px);
+    }
+    .scroll-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    .scroll-to-top svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+
   </style>
 </head>
 <body>
@@ -288,6 +455,7 @@
       <svg class="brand-icon" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
       Data Guide
     </a>
+
     <nav class="menu" aria-label="Cheatsheet menu">
       <a href="python-cheatsheet.html" class="active">Python</a>
       <a href="spark-cheatsheet.html">PySpark</a>
@@ -296,17 +464,47 @@
       <a href="pandas-cheatsheet.html">Pandas</a>
     </nav>
     <div class="header-actions">
-      <a href="cheatsheet.html" class="back-link">All Cheatsheets</a>
+      <button class="mobile-nav-toggle" aria-label="Toggle navigation menu">
+        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+
       <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
         <span class="toggle-icon" aria-hidden="true">☾</span>
         <span class="toggle-text">Dark</span>
       </button>
     </div>
+    <div class="mobile-nav-dropdown">
+      <a href="python-cheatsheet.html" class="active">Python</a>
+      <a href="spark-cheatsheet.html">PySpark</a>
+      <a href="postgresql-cheatsheet.html">PostgreSQL</a>
+      <a href="numpy-cheatsheet.html">NumPy</a>
+      <a href="pandas-cheatsheet.html">Pandas</a>
+    </div>
   </header>
+
+  <aside class="sidebar">
+    <nav>
+      <h3>Contents</h3>
+      <ul>
+        <li><a href="#data-structures">Data Structures</a></li>
+        <li><a href="#comprehensions">Comprehensions</a></li>
+        <li><a href="#functions">Functions</a></li>
+        <li><a href="#file-io-errors">File I/O & Errors</a></li>
+        <li><a href="#classes-oop">Classes & OOP</a></li>
+        <li><a href="#concurrency">Concurrency</a></li>
+        <li><a href="#useful-modules">Useful Modules</a></li>
+        <li><a href="#tips-tricks">Tips & Tricks</a></li>
+      </ul>
+    </nav>
+  </aside>
 
   <main>
     <section class="hero">
-      <h1>Python Cheatsheet <span class="difficulty-badge difficulty-medium">Intermediate</span></h1>
+      <h1>Python Cheatsheet</h1>
       <p>Quick reference for Python fundamentals, data structures, and common patterns.</p>
     </section>
 
@@ -1042,6 +1240,83 @@ merged = dict1 | dict2  # {'a':1, 'b':3, 'c':4}</div>
     </section>
   </main>
 
+  <script>
+    // Highlight active section in sidebar
+    document.addEventListener('DOMContentLoaded', function() {
+      const sections = document.querySelectorAll('.cheat-section');
+      const navLinks = document.querySelectorAll('.sidebar nav a');
+      
+      function updateActiveLink() {
+        let currentSection = '';
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.clientHeight;
+          if (scrollY >= (sectionTop - 200)) {
+            currentSection = section.getAttribute('id');
+          }
+        });
+        
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === `#${currentSection}`) {
+            link.classList.add('active');
+          }
+        });
+      }
+      
+      window.addEventListener('scroll', updateActiveLink);
+      updateActiveLink(); // Call once on load
+    });
+  </script>
+  <button class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
   <script src="source/app.js"></script>
+
+  <script>
+    // Scroll to top button functionality
+    const scrollToTopBtn = document.querySelector('.scroll-to-top');
+    console.log('Scroll to top button found:', scrollToTopBtn);
+    if (scrollToTopBtn) {
+      window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+        console.log('Scroll position:', scrollY);
+        if (scrollY > 300) {
+          scrollToTopBtn.classList.add('show');
+          console.log('Added show class');
+        } else {
+          scrollToTopBtn.classList.remove('show');
+          console.log('Removed show class');
+        }
+      });
+      
+      scrollToTopBtn.addEventListener('click', () => {
+        console.log('Scroll to top clicked');
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    } else {
+      console.error('Scroll-to-top button not found');
+    }
+  </script>
+  <script>
+    // Mobile navigation toggle
+    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+    const mobileNavDropdown = document.querySelector('.mobile-nav-dropdown');
+    if (mobileNavToggle && mobileNavDropdown) {
+      mobileNavToggle.addEventListener('click', () => {
+        mobileNavDropdown.classList.toggle('open');
+      });
+      // Close dropdown when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!mobileNavDropdown.contains(e.target) && !mobileNavToggle.contains(e.target)) {
+          mobileNavDropdown.classList.remove('open');
+        }
+      });
+    }
+  </script>
+
 </body>
 </html>

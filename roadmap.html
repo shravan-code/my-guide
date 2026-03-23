@@ -196,6 +196,46 @@
       border-bottom: 1px solid var(--glass-border);
     }
 
+    /* Scroll to top button */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .scroll-to-top:hover {
+      background: var(--bg-alt);
+      border-color: var(--glow-border);
+      box-shadow: var(--shadow);
+      transform: translateY(-2px);
+    }
+    .scroll-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    .scroll-to-top svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+
     @media (max-width: 768px) {
       .topic-grid {
         margin-left: 0;
@@ -809,7 +849,29 @@
     </div>
   </main>
 
+  <button class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
   <script src="source/app.js"></script>
+  <script>
+    // Scroll to top button functionality
+    const scrollToTopBtn = document.querySelector('.scroll-to-top');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        scrollToTopBtn.classList.add('show');
+      } else {
+        scrollToTopBtn.classList.remove('show');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
 </body>
 
 </html>
