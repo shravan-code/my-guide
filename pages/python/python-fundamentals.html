@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Guide | Python Fundamentals</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../../assets/css/styles.css" />
+  <link rel="stylesheet" href="python.css" />
+</head>
+<body class="with-sidebar">
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <header class="topbar glass reveal in">
+    <a class="brand" href="../../index.html">Data Guide</a>
+    <button id="sidebar-toggle" class="sidebar-toggle" type="button" aria-label="Toggle sidebar">
+      <span class="hamburger" aria-hidden="true"></span>
+    </button>
+    <nav class="menu" aria-label="Python menu">
+      <a href="index.html">Hub</a>
+      <a href="python-fundamentals.html" class="active" aria-current="page">Fundamentals</a>
+      <a href="python-oops.html">OOPs</a>
+      <a href="methods.html">Methods</a>
+      <a href="memory-performance.html">Memory</a>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+      <span class="toggle-icon" aria-hidden="true">☾</span>
+      <span class="toggle-text">Dark</span>
+    </button>
+  </header>
+
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <main class="main-content">
+    <nav class="sidebar" id="sidebar">
+      <div class="logo">
+        <span class="logo-text">Python Fundamentals</span>
+      </div>
+
+      <div class="nav-title">Getting Started</div>
+      <a href="#what-is-python" class="nav-item active"><span>1</span> What is Python?</a>
+      <a href="#why-python" class="nav-item"><span>2</span> Why Python?</a>
+      <a href="#syntax-basics" class="nav-item"><span>3</span> Syntax Basics</a>
+
+      <div class="nav-title">Data Structures</div>
+      <a href="#data-types" class="nav-item"><span>4</span> Data Types</a>
+      <a href="#collections" class="nav-item"><span>5</span> Lists & Dictionaries</a>
+
+      <div class="nav-title">Control Flow</div>
+      <a href="#conditionals-loops" class="nav-item"><span>6</span> Conditionals & Loops</a>
+      <a href="#functions-modules" class="nav-item"><span>7</span> Functions & Modules</a>
+
+      <div class="nav-title">Memory Management</div>
+      <a href="#memory-basics" class="nav-item"><span>8</span> Memory Basics</a>
+      <a href="#garbage-collection" class="nav-item"><span>9</span> Garbage Collection</a>
+      <a href="#memory-optimization" class="nav-item"><span>10</span> Memory Optimization</a>
+
+      <div class="nav-title">Performance</div>
+      <a href="#big-o-notation" class="nav-item"><span>11</span> Big O Notation</a>
+      <a href="#profiling" class="nav-item"><span>12</span> Profiling Code</a>
+
+      <div class="nav-title">Storage</div>
+      <a href="#file-formats" class="nav-item"><span>13</span> File Formats</a>
+      <a href="#data-serialization" class="nav-item"><span>14</span> Data Serialization</a>
+      <a href="#working-with-files" class="nav-item"><span>15</span> Working with Files</a>
+
+      <div class="nav-title">Practical</div>
+      <a href="#next-steps" class="nav-item"><span>16</span> Next Steps</a>
+    </nav>
+    <div class="page-wrap">
+      <section class="hero">
+        <h1>Python Fundamentals</h1>
+      </section>
+
+      <section class="topic-section" id="what-is-python">
+        <h2><span class="section-badge getting-started">Getting Started</span> What is Python?</h2>
+        <p>
+          Python is a high-level, interpreted programming language known for its clean syntax and readability.
+          Created by Guido van Rossum in 1991, it emphasizes code simplicity and supports multiple
+          programming paradigms including procedural, object-oriented, and functional programming.
+        </p>
+        <div class="concept-pill">Easy to Learn</div>
+        <div class="concept-pill">Versatile</div>
+        <div class="concept-pill">Powerful</div>
+        <div class="concept-pill">Open Source</div>
+      </section>
+
+      <section class="topic-section" id="why-python">
+        <h2><span class="section-badge getting-started">Getting Started</span> Why Python for Data Engineering?</h2>
+        <p>
+          Python has become the de facto language for data engineering due to its rich ecosystem of
+          libraries and frameworks designed for data processing, analysis, and machine learning.
+        </p>
+        <div class="split-grid">
+          <div class="split-item">
+            <h3>Data Processing</h3>
+            <p>Pandas, NumPy, Dask for handling large datasets efficiently.</p>
+          </div>
+          <div class="split-item">
+            <h3>Big Data</h3>
+            <p>PySpark, Koalas, Databricks integration for distributed computing.</p>
+          </div>
+          <div class="split-item">
+            <h3>ETL Pipelines</h3>
+            <p>Airflow, Prefect, Luigi for orchestrating data workflows.</p>
+          </div>
+          <div class="split-item">
+            <h3>Cloud Integration</h3>
+            <p>Native support for AWS, Azure, GCP services and APIs.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="topic-section" id="syntax-basics">
+        <h2><span class="section-badge getting-started">Getting Started</span> Python Syntax Basics</h2>
+        <p>Python uses indentation to define code blocks, making it visually clean and easy to read.</p>
+        <div class="code-block">
+<code><span class="comment"># Your first Python program</span>
+<span class="function">print</span>(<span class="string">"Hello, World!"</span>)
+
+<span class="comment"># Variables and types</span>
+name = <span class="string">"Alice"</span>      <span class="comment"># str</span>
+age = <span class="number">25</span>                <span class="comment"># int</span>
+height = <span class="number">5.7</span>             <span class="comment"># float</span>
+is_student = <span class="keyword">True</span>       <span class="comment"># bool</span></code>
+        </div>
+      </section>
+
+      <section class="topic-section" id="data-types">
+        <h2><span class="section-badge data-structures">Data Structures</span> Data Types in Python</h2>
+        <p>Python has several built-in data types that form the foundation of data manipulation.</p>
+        <ul>
+          <li><strong>Text Type:</strong> <code>str</code> - "Hello World"</li>
+          <li><strong>Numeric Types:</strong> <code>int</code>, <code>float</code>, <code>complex</code></li>
+          <li><strong>Sequence Types:</strong> <code>list</code>, <code>tuple</code>, <code>range</code></li>
+          <li><strong>Mapping Type:</strong> <code>dict</code> - {"name": "Alice", "age": 25}</li>
+          <li><strong>Set Types:</strong> <code>set</code>, <code>frozenset</code></li>
+          <li><strong>Boolean Type:</strong> <code>bool</code> - True / False</li>
+          <li><strong>Binary Types:</strong> <code>bytes</code>, <code>bytearray</code>, <code>memoryview</code></li>
+        </ul>
+      </section>
+
+      <section class="topic-section" id="collections">
+        <h2><span class="section-badge data-structures">Data Structures</span> Collections: Lists and Dictionaries</h2>
+        <p>Lists and dictionaries are the most commonly used data structures in Python for data engineering.</p>
+        <div class="code-block">
+<code><span class="comment"># Lists - ordered, mutable collections</span>
+numbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]
+numbers.append(<span class="number">6</span>)
+<span class="function">print</span>(numbers)  <span class="comment"># [1, 2, 3, 4, 5, 6]</span>
+
+<span class="comment"># Dictionaries - key-value pairs</span>
+person = {
+    <span class="string">"name"</span>: <span class="string">"Alice"</span>,
+    <span class="string">"age"</span>: <span class="number">25</span>,
+    <span class="string">"city"</span>: <span class="string">"New York"</span>
+}
+<span class="function">print</span>(person[<span class="string">"name"</span>])  <span class="comment"># Alice</span></code>
+        </div>
+      </section>
+
+      <section class="topic-section" id="conditionals-loops">
+        <h2><span class="section-badge control-flow">Control Flow</span> Control Flow: Conditionals and Loops</h2>
+        <div class="code-block">
+<code><span class="comment"># If-else statements</span>
+temperature = <span class="number">30</span>
+<span class="keyword">if</span> temperature > <span class="number">35</span>:
+    <span class="function">print</span>(<span class="string">"Hot day"</span>)
+<span class="keyword">elif</span> temperature > <span class="number">20</span>:
+    <span class="function">print</span>(<span class="string">"Nice weather"</span>)
+<span class="keyword">else</span>:
+    <span class="function">print</span>(<span class="string">"Cold day"</span>)
+
+<span class="comment"># For loop</span>
+<span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(<span class="number">5</span>):
+    <span class="function">print</span>(i)  <span class="comment"># 0, 1, 2, 3, 4</span>
+
+<span class="comment"># List comprehension</span>
+squares = [x**<span class="number">2</span> <span class="keyword">for</span> x <span class="keyword">in</span> <span class="function">range</span>(<span class="number">10</span>)]</code>
+        </div>
+      </section>
+
+      <section class="topic-section" id="functions-modules">
+        <h2><span class="section-badge control-flow">Control Flow</span> Functions and Modules</h2>
+        <p>Functions help organize code into reusable blocks. Modules are files containing Python code that can be imported.</p>
+        <div class="code-block">
+<code><span class="comment"># Defining a function</span>
+<span class="keyword">def</span> <span class="function">calculate_average</span>(numbers):
+    <span class="string">"""Calculate the average of a list of numbers."""</span>
+    <span class="keyword">return</span> <span class="function">sum</span>(numbers) / <span class="function">len</span>(numbers)
+
+<span class="comment"># Using the function</span>
+avg = <span class="function">calculate_average</span>([<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>])
+<span class="function">print</span>(avg)  <span class="comment"># 20.0</span>
+
+<span class="comment"># Importing modules</span>
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</code>
+        </div>
+      </section>
+
+      <section class="topic-section" id="memory-basics">
+        <h2><span class="section-badge memory-management">Memory</span> Memory Basics</h2>
+        <p>Python handles memory automatically, but understanding how it works helps write efficient code.</p>
+        <div class="code-block">
+<code><span class="comment"># Everything is an object in Python</span>
+<span class="comment"># Each object has: type, reference count, value</span>
+
+<span class="comment"># Memory addresses (id)</span>
+a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]
+b = a
+<span class="function">print</span>(<span class="function">id</span>(a) == <span class="function">id</span>(b))  <span class="comment"># True - same object</span>
+
+<span class="comment"># Shallow vs Deep copy</span>
+<span class="keyword">import</span> copy
+original = [[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>]]
+shallow = copy.<span class="function">copy</span>(original)      <span class="comment"># New list, same nested objects</span>
+deep = copy.<span class="function">deepcopy</span>(original)   <span class="comment"># Completely independent copy</span>
+
+<span class="comment"># Check memory usage</span>
+<span class="keyword">import</span> sys
+<span class="function">print</span>(<span class="function">sys</span>.<span class="function">getsizeof</span>(<span class="string">"hello"</span>))  <span class="comment"># Bytes used by string object</span></code>
+        </div>
+      </section>
+
+      <section class="topic-section" id="garbage-collection">
+        <h2><span class="section-badge memory-management">Memory</span> Garbage Collection</h2>
+        <p>Python automatically reclaims memory by cleaning up objects no longer in use.</p>
+        <div class="split-grid">
+          <div class="split-item">
+            <h3>Reference Counting</h3>
+            <p>Each object tracks how many references point to it. When count reaches zero, memory is freed immediately.</p>
+          </div>
+          <div class="split-item">
+            <h3>Generational GC</h3>
+            <p>Objects are grouped by age. Young objects are collected frequently; old objects less often.</p>
+          </div>
+        </div>
+        <div class="code-block">
+<code><span class="comment"># Circular references can prevent immediate cleanup</span>
+a = {}
+b = {}
+a[<span class="string">'next'</span>] = b
+b[<span class="string">'prev'</span>] = a
+<span class="keyword">del</span> a, b  <span class="comment"># GC must detect and clean circular refs</span>
+
+<span class="comment"># Manual garbage collection</span>
+<span class="keyword">import</span> gc
+gc.<span class="function">collect</span>()  <span class="comment"># Force garbage collection</span>
+
+<span class="comment"># Check reference count</span>
+<span class="function">print</span>(sys.<span class="function">getrefcount</span>(a) - <span class="number">1</span>)  <span class="comment"># Subtract reference from getrefcount itself</span></code>
+        </div>
+      </section>
+
+      <section class="topic-section" id="memory-optimization">
+        <h2><span class="section-badge memory-management">Memory</span> Memory Optimization</h2>
+        <p>Techniques to reduce memory usage and improve performance.</p>
+        <div class="code-block">
+<code><span class="comment"># Use generators for large sequences (lazy evaluation)</span>
+<span class="keyword">def</span> <span class="function">read_large_file</span>(path):
+    <span class="keyword">with</span> <span class="function">open</span>(path) <span class="keyword">as</span> f:
+        <span class="keyword">for</span> line <span class="keyword">in</span> f:
+            <span class="keyword">yield</span> line  <span class="comment"># One line at a time, not all in memory</span>
+
+<span class="comment"># List vs Generator memory</span>
+<span class="keyword">import</span> sys
+numbers = [<span class="number">x</span> ** <span class="number">2</span> <span class="keyword">for</span> x <span class="keyword">in</span> <span class="function">range</span>(<span class="number">1000000</span>)]
+gen = (x ** <span class="number">2</span> <span class="keyword">for</span> x <span class="keyword">in</span> <span class="function">range</span>(<span class="number">1000000</span>))
+<span class="function">print</span>(<span class="function">sys</span>.<span class="function">getsizeof</span>(numbers))  <span class="comment"># ~8 MB</span>
+<span class="function">print</span>(<span class="function">sys</span>.<span class="function">getsizeof</span>(gen))       <span class="comment"># ~200 bytes!</span>
+
+<span class="comment"># Use __slots__ to reduce class memory</span>
+<span class="keyword">class</span> <span class="class-name">Point</span>:
+    __slots__ = [<span class="string">'x'</span>, <span class="string">'y'</span>]  <span class="comment"># Prevents __dict__ creation</span>
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, x, y):
+        self.x = x
+        self.y = y
+
+<span class="comment"># Weak references - don't prevent GC</span>
+<span class="keyword">import</span> weakref
+data = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]
+weak = weakref.<span class="function">ref</span>(data)
+<span class="function">print</span>(weak())  <span class="comment"># [1, 2, 3]</span>
+<span class="keyword">del</span> data
+<span class="function">print</span>(weak())  <span class="comment"># None - object was garbage collected</span></code>
+        </div>
+      </section>
+
+      <section class="topic-section" id="big-o-notation">
+        <h2><span class="section-badge performance">Performance</span> Big O Notation</h2>
+        <p>Describes how algorithm performance scales with input size. Critical for data engineering.</p>
+        <ul>
+          <li><strong>O(1)</strong> - Constant: Array index access, hash lookup</li>
+          <li><strong>O(log n)</strong> - Logarithmic: Binary search in sorted data</li>
+          <li><strong>O(n)</strong> - Linear: Simple loop, list iteration</li>
+          <li><strong>O(n log n)</strong> - Linearithmic: Efficient sorting (merge, quick)</li>
+          <li><strong>O(n²)</strong> - Quadratic: Nested loops, naive sorting</li>
+          <li><strong>O(2^n)</strong> - Exponential: Recursive fibonacci without memoization</li>
+        </ul>
+        <div class="code-block">
+<code><span class="comment"># O(1) - Hash lookup</span>
+<span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict
+cache = defaultdict(<span class="keyword">lambda</span>: <span class="number">0</span>)
+cache[<span class="string">"key"</span>] = <span class="number">42</span>
+<span class="function">print</span>(cache[<span class="string">"key"</span>])  <span class="comment"># Instant lookup regardless of size</span>
+
+<span class="comment"># O(n) - Linear search</span>
+<span class="keyword">def</span> <span class="function">find_max</span>(items):
+    max_val = items[<span class="number">0</span>]
+    <span class="keyword">for</span> item <span class="keyword">in</span> items:
+        <span class="keyword">if</span> item > max_val:
+            max_val = item
+    <span class="keyword">return</span> max_val
+
+<span class="comment"># O(n log n) - Sorting before searching</span>
+<span class="keyword">import</span> bisect
+sorted_list = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>]
+idx = bisect.<span class="function">bisect_left</span>(sorted_list, <span class="number">5</span>)
+<span class="function">print</span>(idx)  <span class="comment"># 2 - position of 5</span></code>
+        </div>
+      </section>
+
+      <section class="topic-section" id="profiling">
+        <h2><span class="section-badge performance">Performance</span> Profiling Code</h2>
+        <p>Measure where your code spends time and memory to identify bottlenecks.</p>
+        <div class="code-block">
+<code><span class="comment"># Basic timing with time module</span>
+<span class="keyword">import</span> time
+start = time.<span class="function">time</span>()
+<span class="comment"># ... your code here ...</span>
+elapsed = time.<span class="function">time</span>() - start
+<span class="function">print</span>(<span class="string">f"Took {elapsed:.3f} seconds"</span>)
+
+<span class="comment"># Using cProfile for detailed analysis</span>
+<span class="comment"># python -m cProfile -s cumulative script.py</span>
+
+<span class="comment"># Line-by-line profiling</span>
+<span class="keyword">from</span> line_profiler <span class="keyword">import</span> LineProfiler
+lp = <span class="function">LineProfiler</span>()
+lp.<span class="function">add_function</span>(your_function)
+lp.<span class="function">runctx</span>(<span class="string">'result = your_function(data)'</span>, <span class="function">locals</span>(), <span class="function">globals</span>())
+lp.<span class="function">print_stats</span>()
+
+<span class="comment"># Memory profiling</span>
+<span class="comment"># pip install memory_profiler</span>
+<span class="comment"># python -m memory_profiler script.py</span>
+
+<span class="comment"># Track memory within code</span>
+<span class="keyword">from</span> memory_profiler <span class="keyword">import</span> profile
+<span class="decorator">@profile</span>
+<span class="keyword">def</span> <span class="function">memory_intensive</span>():
+    data = [<span class="number">i</span> ** <span class="number">2</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(<span class="number">100000</span>)]
+    <span class="keyword">return</span> data</code>
+        </div>
+      </section>
+
+      <section class="topic-section" id="file-formats">
+        <h2><span class="section-badge storage">Storage</span> File Formats</h2>
+        <p>Choosing the right format impacts performance and storage efficiency.</p>
+        <div class="split-grid">
+          <div class="split-item">
+            <h3>CSV / TSV</h3>
+            <p>Human-readable, universal compatibility. Slow for large files, no schema enforcement.</p>
+          </div>
+          <div class="split-item">
+            <h3>JSON</h3>
+            <p>Hierarchical data, web APIs. Verbose syntax, larger file sizes.</p>
+          </div>
+          <div class="split-item">
+            <h3>Parquet</h3>
+            <p>Columnar storage, compressed. Excellent for analytics, requires specialized tools.</p>
+          </div>
+          <div class="split-item">
+            <h3>ORC</h3>
+            <p>Optimized row columnar. Similar to Parquet, Hive-optimized.</p>
+          </div>
+        </div>
+        <div class="code-block">
+<code><span class="comment"># Reading different formats with Pandas</span>
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+<span class="comment"># CSV - universal but slow</span>
+df = pd.<span class="function">read_csv</span>(<span class="string">"data.csv"</span>)
+
+<span class="comment"># JSON - nested data</span>
+df = pd.<span class="function">read_json</span>(<span class="string">"data.json"</span>)
+
+<span class="comment"># Parquet - best for analytics</span>
+df = pd.<span class="function">read_parquet</span>(<span class="string">"data.parquet"</span>)
+
+<span class="comment"># Excel files</span>
+df = pd.<span class="function">read_excel</span>(<span class="string">"data.xlsx"</span>, sheet_name=<span class="string">"Sheet1"</span>)
+
+<span class="comment"># Writing with compression</span>
+df.<span class="function">to_parquet</span>(<span class="string">"data.parquet.gz"</span>, compression=<span class="string">"gzip"</span>)</code>
+        </div>
+      </section>
+
+      <section class="topic-section" id="data-serialization">
+        <h2><span class="section-badge storage">Storage</span> Data Serialization</h2>
+        <p>Convert Python objects to bytes for storage or transmission.</p>
+        <div class="code-block">
+<code><span class="comment"># Pickle - Python object serialization</span>
+<span class="keyword">import</span> pickle
+data = {<span class="string">"name"</span>: <span class="string">"Alice"</span>, <span class="string">"scores"</span>: [<span class="number">90</span>, <span class="number">85</span>, <span class="number">92</span>]}
+<span class="keyword">with</span> <span class="function">open</span>(<span class="string">"data.pkl"</span>, <span class="string">"wb"</span>) <span class="keyword">as</span> f:
+    pickle.<span class="function">dump</span>(data, f)
+<span class="keyword">with</span> <span class="function">open</span>(<span class="string">"data.pkl"</span>, <span class="string">"rb"</span>) <span class="keyword">as</span> f:
+    loaded = pickle.<span class="function">load</span>(f)
+
+<span class="comment"># JSON - cross-language compatible</span>
+<span class="keyword">import</span> json
+json_str = json.<span class="function">dumps</span>(data)
+parsed = json.<span class="function">loads</span>(json_str)
+
+<span class="comment"># MessagePack - compact binary format</span>
+<span class="comment"># pip install msgpack</span>
+<span class="keyword">import</span> msgpack
+packed = msgpack.<span class="function">packb</span>(data)
+unpacked = msgpack.<span class="function">unpackb</span>(packed, raw=<span class="keyword">False</span>)
+
+<span class="comment"># Arrow - columnar format for analytics</span>
+<span class="keyword">import</span> pyarrow <span class="keyword">as</span> pa
+<span class="keyword">import</span> pyarrow.parquet <span class="keyword">as</span> pq
+table = pa.<span class="function">Table</span>.<span class="function">from_pandas</span>(df)
+pq.<span class="function">write_table</span>(table, <span class="string">"data.parquet"</span>)</code>
+        </div>
+      </section>
+
+      <section class="topic-section" id="working-with-files">
+        <h2><span class="section-badge storage">Storage</span> Working with Files</h2>
+        <p>Python makes it easy to read from and write to files, essential for ETL pipelines.</p>
+        <div class="code-block">
+<code><span class="comment"># Reading a CSV file with Pandas</span>
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+df = pd.<span class="function">read_csv</span>(<span class="string">"data.csv"</span>)
+<span class="function">print</span>(df.head())
+
+<span class="comment"># Writing to a file</span>
+df.<span class="function">to_csv</span>(<span class="string">"output.csv"</span>, index=<span class="keyword">False</span>)
+
+<span class="comment"># Reading with context manager</span>
+<span class="keyword">with</span> <span class="function">open</span>(<span class="string">"file.txt"</span>, <span class="string">"r"</span>) <span class="keyword">as</span> f:
+    content = f.<span class="function">read</span>()</code>
+        </div>
+      </section>
+
+      <section class="topic-section" id="next-steps">
+        <h2><span class="section-badge next-steps">What's Next</span> Next Steps</h2>
+        <p>Now that you understand the fundamentals, explore these topics:</p>
+        <ul>
+          <li><strong>Object-Oriented Programming:</strong> Classes, inheritance, and encapsulation</li>
+          <li><strong>Error Handling:</strong> Try-except blocks and custom exceptions</li>
+          <li><strong>Pandas:</strong> DataFrames and series for data manipulation</li>
+          <li><strong>Virtual Environments:</strong> Isolated Python environments for projects</li>
+          <li><strong>Async Programming:</strong> Concurrent I/O operations</li>
+          <li><strong>Type Hints:</strong> Static type checking with mypy</li>
+        </ul>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="../../assets/js/app.js"></script>
+  <script src="python.js"></script>
+  <script>
+    const sidebar = document.getElementById("sidebar");
+    const sidebarToggle = document.getElementById("sidebar-toggle");
+    const sidebarOverlay = document.getElementById("sidebar-overlay");
+
+    const closeSidebar = () => {
+      sidebar.classList.remove("open");
+      sidebarOverlay.classList.remove("active");
+    };
+
+    const openSidebar = () => {
+      sidebar.classList.add("open");
+      sidebarOverlay.classList.add("active");
+    };
+
+    if (sidebarToggle) {
+      sidebarToggle.addEventListener("click", () => {
+        if (sidebar.classList.contains("open")) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+      });
+    }
+
+    if (sidebarOverlay) {
+      sidebarOverlay.addEventListener("click", closeSidebar);
+    }
+
+    const navItems = Array.from(document.querySelectorAll(".nav-item"));
+
+    const setActiveNav = (id) => {
+      navItems.forEach((item) => {
+        const isActive = item.getAttribute("href") === "#" + id;
+        item.classList.toggle("active", isActive);
+        if (isActive) {
+          item.setAttribute("aria-current", "location");
+        } else {
+          item.removeAttribute("aria-current");
+        }
+      });
+    };
+
+    navItems.forEach((item) => {
+      item.addEventListener("click", function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute("href").substring(1);
+        const target = document.getElementById(targetId);
+        if (!target) return;
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        history.replaceState(null, "", "#" + targetId);
+        setActiveNav(targetId);
+        closeSidebar();
+      });
+    });
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute("id");
+          setActiveNav(id);
+        }
+      });
+    }, { root: null, rootMargin: "-18% 0px -68% 0px", threshold: 0 });
+
+    document.querySelectorAll(".topic-section[id]").forEach((el) => sectionObserver.observe(el));
+
+    const initialId = (window.location.hash || "#what-is-python").substring(1);
+    setActiveNav(initialId);
+  </script>
+</body>
+</html>
