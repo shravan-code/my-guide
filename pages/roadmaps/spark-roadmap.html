@@ -7,8 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="source/styles.css" />
-  <link rel="stylesheet" href="source/hub.css" />
+  <link rel="stylesheet" href="../../assets/css/styles.css" />
+  <link rel="stylesheet" href="../../assets/css/hub.css" />
   <style>
     /* Roadmap specific styles */
     .roadmap-container {
@@ -202,7 +202,7 @@
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
   <header class="topbar glass reveal in">
-    <a class="brand" href="index.html">Data Guide</a>
+    <a class="brand" href="../../index.html">Data Guide</a>
     <nav class="menu" aria-label="Main menu">
       <a href="roadmap.html">Data Engineering</a>
       <a href="python-roadmap.html">Python</a>
@@ -239,7 +239,7 @@
           </div>
           <div class="topic-grid">
             <div class="topic-card">
-              <h4><a href="source/spark/spark-architecture.html">Spark Architecture</a></h4>
+              <h4><a href="../spark/spark-architecture.html">Spark Architecture</a></h4>
               <p>Core components and cluster topology.</p>
               <ul>
                 <li>Driver program</li>
@@ -250,7 +250,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/spark/spark-theory.html">SparkSession & SparkContext</a></h4>
+              <h4><a href="../spark/spark-theory.html">SparkSession & SparkContext</a></h4>
               <p>Entry points for Spark functionality.</p>
               <ul>
                 <li>Creating SparkSession</li>
@@ -261,7 +261,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/spark/spark-theory.html">Lazy Evaluation & DAG</a></h4>
+              <h4><a href="../spark/spark-theory.html">Lazy Evaluation & DAG</a></h4>
               <p>Spark's execution model and optimization.</p>
               <ul>
                 <li>Transformations vs Actions</li>
@@ -272,7 +272,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/spark/spark-theory.html">Spark UI</a></h4>
+              <h4><a href="../spark/spark-theory.html">Spark UI</a></h4>
               <p>Monitoring and debugging interface.</p>
               <ul>
                 <li>Jobs, stages, tasks</li>
@@ -297,7 +297,7 @@
           </div>
           <div class="topic-grid">
             <div class="topic-card">
-              <h4><a href="source/spark/spark-code.html">Creating RDDs</a></h4>
+              <h4><a href="../spark/spark-code.html">Creating RDDs</a></h4>
               <p>Various ways to create RDDs.</p>
               <ul>
                 <li>parallelize()</li>
@@ -308,7 +308,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/spark/spark-code.html">Transformations</a></h4>
+              <h4><a href="../spark/spark-code.html">Transformations</a></h4>
               <p>Operations that produce new RDDs.</p>
               <ul>
                 <li>map, filter, flatMap</li>
@@ -319,7 +319,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/spark/spark-code.html">Actions</a></h4>
+              <h4><a href="../spark/spark-code.html">Actions</a></h4>
               <p>Operations that trigger computation.</p>
               <ul>
                 <li>collect, count, first</li>
@@ -330,7 +330,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/spark/spark-code.html">Pair RDDs</a></h4>
+              <h4><a href="../spark/spark-code.html">Pair RDDs</a></h4>
               <p>Key-value operations for distributed data.</p>
               <ul>
                 <li>Key-value transformations</li>
@@ -355,7 +355,7 @@
           </div>
           <div class="topic-grid">
             <div class="topic-card">
-              <h4><a href="source/spark/spark-code.html">DataFrame Creation</a></h4>
+              <h4><a href="../spark/spark-code.html">DataFrame Creation</a></h4>
               <p>Creating DataFrames from various sources.</p>
               <ul>
                 <li>read.csv, read.json, read.parquet</li>
@@ -366,7 +366,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/spark/spark-theory.html">Schema Definition</a></h4>
+              <h4><a href="../spark/spark-theory.html">Schema Definition</a></h4>
               <p>Structuring your data.</p>
               <ul>
                 <li>Schema inference</li>
@@ -377,7 +377,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/spark/spark-code.html">SQL Queries</a></h4>
+              <h4><a href="../spark/spark-code.html">SQL Queries</a></h4>
               <p>Running SQL queries on DataFrames.</p>
               <ul>
                 <li>df.createOrReplaceTempView</li>
@@ -388,7 +388,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/spark/spark-theory.html">Catalyst Optimizer</a></h4>
+              <h4><a href="../spark/spark-theory.html">Catalyst Optimizer</a></h4>
               <p>Query optimization engine.</p>
               <ul>
                 <li>Logical plan</li>
@@ -413,7 +413,7 @@
           </div>
           <div class="topic-grid">
             <div class="topic-card">
-              <h4><a href="source/spark/spark-code.html">File Formats</a></h4>
+              <h4><a href="../spark/spark-code.html">File Formats</a></h4>
               <p>Reading different file types.</p>
               <ul>
                 <li>CSV with options</li>
@@ -424,7 +424,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/spark/spark-code.html">JDBC Databases</a></h4>
+              <h4><a href="../spark/spark-code.html">JDBC Databases</a></h4>
               <p>Connecting to relational databases.</p>
               <ul>
                 <li>Connection properties</li>
@@ -435,7 +435,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/spark/spark-code.html">Hive Integration</a></h4>
+              <h4><a href="../spark/spark-code.html">Hive Integration</a></h4>
               <p>Working with Hive tables.</p>
               <ul>
                 <li>Hive metastore</li>
@@ -446,7 +446,7 @@
               <span class="skill-badge optional">Optional</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/spark/spark-code.html">Writing Data</a></h4>
+              <h4><a href="../spark/spark-code.html">Writing Data</a></h4>
               <p>Output modes and strategies.</p>
               <ul>
                 <li>Save modes: append, overwrite, ignore, error</li>
@@ -471,7 +471,7 @@
           </div>
           <div class="topic-grid">
             <div class="topic-card">
-              <h4><a href="source/spark/spark-theory.html">Stream Basics</a></h4>
+              <h4><a href="../spark/spark-theory.html">Stream Basics</a></h4>
               <p>Core streaming concepts.</p>
               <ul>
                 <li>Streaming DataFrame/Dataset</li>
@@ -482,7 +482,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/spark/spark-theory.html">Window Operations</a></h4>
+              <h4><a href="../spark/spark-theory.html">Window Operations</a></h4>
               <p>Aggregations over time windows.</p>
               <ul>
                 <li>Window functions</li>
@@ -493,7 +493,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/spark/spark-theory.html">Watermarking</a></h4>
+              <h4><a href="../spark/spark-theory.html">Watermarking</a></h4>
               <p>Handling late-arriving data.</p>
               <ul>
                 <li>Watermark definition</li>
@@ -504,7 +504,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/spark/spark-theory.html">Output Modes</a></h4>
+              <h4><a href="../spark/spark-theory.html">Output Modes</a></h4>
               <p>Different ways to output streaming results.</p>
               <ul>
                 <li>Append mode</li>
@@ -529,7 +529,7 @@
           </div>
           <div class="topic-grid">
             <div class="topic-card">
-              <h4><a href="source/spark/spark-theory.html">Partitioning Strategies</a></h4>
+              <h4><a href="../spark/spark-theory.html">Partitioning Strategies</a></h4>
               <p>Data distribution across cluster.</p>
               <ul>
                 <li>Partition pruning</li>
@@ -540,7 +540,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/spark/spark-theory.html">Caching & Persistence</a></h4>
+              <h4><a href="../spark/spark-theory.html">Caching & Persistence</a></h4>
               <p>Storing intermediate results.</p>
               <ul>
                 <li>cache() vs persist()</li>
@@ -551,7 +551,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/spark/spark-theory.html">Broadcast Variables</a></h4>
+              <h4><a href="../spark/spark-theory.html">Broadcast Variables</a></h4>
               <p>Efficient data sharing across tasks.</p>
               <ul>
                 <li>broadcast() function</li>
@@ -562,7 +562,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/spark/spark-theory.html">Shuffle Optimization</a></h4>
+              <h4><a href="../spark/spark-theory.html">Shuffle Optimization</a></h4>
               <p>Reducing network overhead.</p>
               <ul>
                 <li>Shuffle files and spill</li>
@@ -587,7 +587,7 @@
           </div>
           <div class="topic-grid">
             <div class="topic-card">
-              <h4><a href="source/spark/spark-code.html">Python UDFs</a></h4>
+              <h4><a href="../spark/spark-code.html">Python UDFs</a></h4>
               <p>User-defined functions in Python.</p>
               <ul>
                 <li>Regular UDFs</li>
@@ -598,7 +598,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/spark/spark-code.html">SparkSession.builder</a></h4>
+              <h4><a href="../spark/spark-code.html">SparkSession.builder</a></h4>
               <p>Creating Spark sessions in PySpark.</p>
               <ul>
                 <li>Builder pattern</li>
@@ -609,7 +609,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/spark/spark-code.html">Data Manipulation</a></h4>
+              <h4><a href="../spark/spark-code.html">Data Manipulation</a></h4>
               <p>Common PySpark patterns.</p>
               <ul>
                 <li>DataFrame operations</li>
@@ -620,7 +620,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/spark/spark-code.html">Pandas Integration</a></h4>
+              <h4><a href="../spark/spark-code.html">Pandas Integration</a></h4>
               <p>Interoperability with Pandas.</p>
               <ul>
                 <li>toPandas() and createDataFrame</li>
@@ -644,7 +644,7 @@
           </div>
           <div class="topic-grid">
             <div class="topic-card">
-              <h4><a href="source/spark/spark-theory.html">MLlib Basics</a></h4>
+              <h4><a href="../spark/spark-theory.html">MLlib Basics</a></h4>
               <p>Machine learning library for Spark.</p>
               <ul>
                 <li>ML pipelines</li>
@@ -655,7 +655,7 @@
               <span class="skill-badge optional">Optional</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/spark/spark-theory.html">Graph Processing</a></h4>
+              <h4><a href="../spark/spark-theory.html">Graph Processing</a></h4>
               <p>GraphX and GraphFrames.</p>
               <ul>
                 <li>GraphX RDD API</li>
@@ -666,7 +666,7 @@
               <span class="skill-badge optional">Optional</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/spark/spark-architecture.html">Spark on Kubernetes</a></h4>
+              <h4><a href="../spark/spark-architecture.html">Spark on Kubernetes</a></h4>
               <p>Deploying Spark on K8s.</p>
               <ul>
                 <li>Kubernetes-native deployment</li>
@@ -677,7 +677,7 @@
               <span class="skill-badge nice-to-have">Nice to Have</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/spark/spark-theory.html">Delta Lake</a></h4>
+              <h4><a href="../spark/spark-theory.html">Delta Lake</a></h4>
               <p>Reliable data lake storage.</p>
               <ul>
                 <li>ACID transactions</li>
@@ -696,19 +696,19 @@
       <section class="tracks">
         <h2>Quick Reference</h2>
         <div class="track-grid">
-          <a href="source/spark/index.html" class="track">
+          <a href="../spark/index.html" class="track">
             <h3>Spark Hub</h3>
             <p>All Spark resources</p>
           </a>
-          <a href="source/spark/spark-theory.html" class="track">
+          <a href="../spark/spark-theory.html" class="track">
             <h3>Theory</h3>
             <p>Spark concepts and architecture</p>
           </a>
-          <a href="source/spark/spark-code.html" class="track">
+          <a href="../spark/spark-code.html" class="track">
             <h3>Code Examples</h3>
             <p>Practical Spark code</p>
           </a>
-          <a href="source/spark/spark-architecture.html" class="track">
+          <a href="../spark/spark-architecture.html" class="track">
             <h3>Architecture</h3>
             <p>Cluster and component details</p>
           </a>
