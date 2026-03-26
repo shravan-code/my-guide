@@ -336,25 +336,10 @@ main {
 
 /* Hero */
 .hero {
-  border-radius: var(--radius-lg);
   padding: clamp(1.5rem, 4vw, 2.5rem);
   margin-bottom: 1.5rem;
-  background: var(--glass);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--shadow-lg), var(--shadow-glow);
   text-align: center;
   animation: fadeIn 0.6s ease both;
-  transition: all var(--transition);
-}
-
-.hero:hover {
-  box-shadow: var(--shadow-lg), 0 0 80px rgba(0, 0, 0, 0.04);
-}
-
-body.dark .hero:hover {
-  box-shadow: var(--shadow-lg), 0 0 80px rgba(255, 255, 255, 0.02);
 }
 
 .hero h1 {
@@ -940,20 +925,33 @@ td code {
 /* Global Code Styles */
 pre.code, .code, .code-block {
   margin-top: 0.75rem;
-  padding: 0.85rem;
-  border-radius: var(--radius-sm);
-  background: var(--bg-alt);
-  border: 1px solid var(--glow-border);
+  padding: 0.95rem;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  border-left: 3px solid var(--glow-color);
+  background: var(--code-bg);
   overflow-x: auto;
-  box-shadow: var(--shadow-sm);
+  font-family: "JetBrains Mono", Consolas, monospace;
+  font-size: 0.85rem;
+  line-height: 1.5;
 }
 
 pre.code code, .code code, .code-block code {
-  font-family: "JetBrains Mono", Consolas, monospace;
-  font-size: 0.8rem;
-  line-height: 1.55;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
   white-space: pre;
-  color: var(--text);
+  color: var(--code-text);
+  background: transparent;
+}
+
+:root {
+  --code-bg: #f8f9fa;
+  --code-text: #24292e;
+}
+
+body.dark {
+  --code-bg: #1a1f2e;
+  --code-text: #c9d1d9;
 }
 
 /* Pill Styles */

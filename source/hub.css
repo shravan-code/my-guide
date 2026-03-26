@@ -42,23 +42,17 @@
   text-decoration: none;
   color: var(--text);
   border: 1px solid var(--glass-border);
-  border-radius: var(--radius);
-  padding: 0.9rem;
-  background: transparent;
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1rem;
+  background: var(--bg-alt);
   text-align: center;
   transition: all var(--transition);
 }
 
 .track:hover {
-  background: var(--bg-alt);
-  border-color: rgba(99, 102, 241, 0.25);
-  box-shadow: var(--shadow), 0 0 20px rgba(99, 102, 241, 0.08);
+  border-color: var(--glow-border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   transform: translateY(-2px);
-}
-
-body.dark .track:hover {
-  border-color: rgba(129, 140, 248, 0.3);
-  box-shadow: var(--shadow), 0 0 20px rgba(129, 140, 248, 0.1);
 }
 
 .track h3 {

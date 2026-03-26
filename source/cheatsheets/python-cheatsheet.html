@@ -11,6 +11,7 @@
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="cheatsheet-base.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.css" rel="stylesheet" />
   <style>
     main {
       width: min(1300px, calc(100% - 4rem));
@@ -450,6 +451,127 @@
         display: none;
       }
     }
+  
+  pre[class*="language-"],
+  code[class*="language-"] {
+    color: var(--code-text);
+    background: var(--code-bg);
+  }
+
+  .token.comment,
+  .token.prolog,
+  .token.doctype,
+  .token.cdata {
+    color: var(--code-comment);
+  }
+
+  .token.punctuation {
+    color: var(--code-punctuation);
+  }
+
+  .token.property,
+  .token.tag,
+  .token.boolean,
+  .token.number,
+  .token.constant,
+  .token.symbol,
+  .token.deleted {
+    color: var(--code-number);
+  }
+
+  .token.selector,
+  .token.attr-name,
+  .token.string,
+  .token.char,
+  .token.builtin,
+  .token.inserted {
+    color: var(--code-string);
+  }
+
+  .token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string { color: inherit; }
+
+  .token.atrule,
+  .token.attr-value,
+  .token.keyword {
+    color: var(--code-keyword);
+  }
+
+  .token.function,
+  .token.class-name {
+    color: var(--code-function);
+  }
+
+  .token.regex,
+  .token.important,
+  .token.variable {
+    color: var(--code-variable);
+  }
+
+  :root {
+    --code-comment: #708090;
+    --code-punctuation: #999;
+    --code-number: #005cc5;
+    --code-string: #032f62;
+    --code-operator: #d73a49;
+    --code-keyword: #d73a49;
+    --code-function: #6f42c1;
+    --code-variable: #e36209;
+  }
+
+  body.dark pre[class*="language-"],
+  body.dark code[class*="language-"] {
+    color: #e1e4e8;
+    background: var(--code-bg);
+  }
+
+  body.dark .token.comment,
+  body.dark .token.prolog,
+  body.dark .token.doctype,
+  body.dark .token.cdata {
+    color: #6a737d;
+  }
+
+  body.dark .token.punctuation {
+    color: #e1e4e8;
+  }
+
+  body.dark .token.property,
+  body.dark .token.tag,
+  body.dark .token.boolean,
+  body.dark .token.number,
+  body.dark .token.constant,
+  body.dark .token.symbol,
+  body.dark .token.deleted {
+    color: #79b8ff;
+  }
+
+  body.dark .token.selector,
+  body.dark .token.attr-name,
+  body.dark .token.string,
+  body.dark .token.char,
+  body.dark .token.builtin,
+  body.dark .token.inserted {
+    color: #9ecbff;
+  }
+
+  body.dark .token.operator, body.dark .token.entity, body.dark .token.url, body.dark .language-css .token.string, body.dark .style .token.string { color: inherit; }
+
+  body.dark .token.atrule,
+  body.dark .token.attr-value,
+  body.dark .token.keyword {
+    color: #f97583;
+  }
+
+  body.dark .token.function,
+  body.dark .token.class-name {
+    color: #b392f0;
+  }
+
+  body.dark .token.regex,
+  body.dark .token.important,
+  body.dark .token.variable {
+    color: #ffab70;
+  }
   </style>
   <link rel="stylesheet" href="cheatsheets.css" />
 </head>
@@ -461,11 +583,7 @@
 
   <header class="topbar glass reveal in">
     <a class="brand" href="../../index.html">
-      <svg class="brand-icon" viewBox="0 0 24 24">
-        <ellipse cx="12" cy="5" rx="9" ry="3" />
-        <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
-        <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
-      </svg>
+      
       Data Guide
     </a>
     <nav class="menu" aria-label="Cheatsheet menu">
@@ -507,106 +625,117 @@
   <main>
 
     <div class="page-wrap">
-      <section class="hero">
-        <p class="eyebrow">Quick Reference</p>
-        <h1>Python Cheatsheet</h1>
-        <p class="hero-copy">A focused guide to Python Cheatsheet.</p>
-        <p>Quick reference for Python fundamentals, data structures, and common patterns.</p>
-      </section>
-
-      <nav class="pill-nav">
-        <a href="#data-structures" data-category="basics">Data Structures</a>
-        <a href="#comprehensions" data-category="basics">Comprehensions</a>
-        <a href="#functions" data-category="intermediate">Functions</a>
-        <a href="#file-io-errors" data-category="intermediate">File I/O & Errors</a>
-        <a href="#classes-oop" data-category="intermediate">Classes & OOP</a>
-        <a href="#concurrency" data-category="advanced">Concurrency</a>
-        <a href="#useful-modules" data-category="advanced">Useful Modules</a>
-        <a href="#tips-tricks" data-category="advanced">Tips & Tricks</a>
-        <a href="#best-practices" data-category="advanced">Best Practices</a>
+      <nav class="sidebar-nav">
+        <div class="nav-category basics">Basics</div>
+        <a href="#data-structures">Data Structures</a>
+        <a href="#comprehensions">Comprehensions</a>
+        <div class="nav-category intermediate">Intermediate</div>
+        <a href="#functions">Functions</a>
+        <a href="#file-io-errors">File I/O & Errors</a>
+        <a href="#classes-oop">Classes & OOP</a>
+        <div class="nav-category advanced">Advanced</div>
+        <a href="#concurrency">Concurrency</a>
+        <a href="#useful-modules">Useful Modules</a>
+        <a href="#tips-tricks">Tips & Tricks</a>
+        <a href="#best-practices">Best Practices</a>
       </nav>
 
-      <section class="cheat-section" id="data-structures">
+      <div class="content-area">
+        <section class="hero">
+          <h1>Python Cheatsheet</h1>
+          <p class="hero-copy">A focused guide to Python Cheatsheet.</p>
+          <p>Quick reference for Python fundamentals, data structures, and common patterns.</p>
+        </section>
+
+        <section class="cheat-section" id="data-structures">
         <h2 class="section-title">Data Structures <span class="section-difficulty difficulty-basic">Basic</span></h2>
         <div class="code-grid">
           <div class="code-card">
             <span class="code-label">List</span>
             <h3 id="list">List Operations</h3>
             <p>Mutable ordered collection.</p>
-            <div class="code-block"># Create
-              lst = [1, 2, 3] # lst is [1, 2, 3]
-              lst = list(range(10)) # lst becomes [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+<pre class="code-block"><code class="language-python">
+# Create
+lst = [1, 2, 3] # lst is [1, 2, 3]
+lst = list(range(10)) # lst becomes [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-              # Methods
-              lst.append(4) # lst becomes [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 4]
-              lst.insert(0, 0) # lst becomes [0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 4]
-              lst.extend([5, 6]) # lst becomes [0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 4, 5, 6]
-              lst.pop() # returns 6, lst becomes [0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 4, 5]
-              lst.remove(3) # lst becomes [0, 0, 1, 2, 4, 5, 6, 7, 8, 9, 4, 5]
-              lst.sort() # lst becomes [0, 0, 1, 2, 4, 4, 5, 5, 6, 7, 8, 9]
-              lst[::-1] # returns [9, 8, 7, 6, 5, 5, 4, 4, 2, 1, 0, 0]</div>
+# Methods
+lst.append(4) # lst becomes [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 4]
+lst.insert(0, 0) # lst becomes [0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 4]
+lst.extend([5, 6]) # lst becomes [0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 4, 5, 6]
+lst.pop() # returns 6, lst becomes [0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 4, 5]
+lst.remove(3) # lst becomes [0, 0, 1, 2, 4, 5, 6, 7, 8, 9, 4, 5]
+lst.sort() # lst becomes [0, 0, 1, 2, 4, 4, 5, 5, 6, 7, 8, 9]
+lst[::-1] # returns [9, 8, 7, 6, 5, 5, 4, 4, 2, 1, 0, 0]
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Dict</span>
             <h3>Dictionary Operations</h3>
             <p>Key-value pair storage.</p>
-            <div class="code-block"># Create
-              d = {'a': 1, 'b': 2} # d is {'a': 1, 'b': 2}
-              keys = ['x', 'y']
-              vals = [10, 20]
-              d = dict(zip(keys, vals)) # d becomes {'x': 10, 'y': 20}
+<pre class="code-block"><code class="language-python">
+# Create
+d = {'a': 1, 'b': 2} # d is {'a': 1, 'b': 2}
+keys = ['x', 'y']
+vals = [10, 20]
+d = dict(zip(keys, vals)) # d becomes {'x': 10, 'y': 20}
 
-              # Access
-              d.get('key', 'default') # returns 'default' (key missing)
-              d['key'] # raises KeyError (if key missing)
+# Access
+d.get('key', 'default') # returns 'default' (key missing)
+d['key'] # raises KeyError (if key missing)
 
-              # Methods
-              d.keys() # returns dict_keys(['x', 'y'])
-              d.values() # returns dict_values([10, 20])
-              d.items() # returns dict_items([('x', 10), ('y', 20)])
-              d.update({'c': 3}) # d becomes {'x': 10, 'y': 20, 'c': 3}
-              d.pop('c') # removes 'c', returns 3, d becomes {'x': 10, 'y': 20}
-              d.setdefault('x', 0) # returns 10 (key exists), d unchanged</div>
+# Methods
+d.keys() # returns dict_keys(['x', 'y'])
+d.values() # returns dict_values([10, 20])
+d.items() # returns dict_items([('x', 10), ('y', 20)])
+d.update({'c': 3}) # d becomes {'x': 10, 'y': 20, 'c': 3}
+d.pop('c') # removes 'c', returns 3, d becomes {'x': 10, 'y': 20}
+d.setdefault('x', 0) # returns 10 (key exists), d unchanged
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Set</span>
             <h3>Set Operations</h3>
             <p>Unique unordered collection.</p>
-            <div class="code-block"># Create
-              s = {1, 2, 3}
-              s = set([1, 2, 2, 3])
+<pre class="code-block"><code class="language-python">
+# Create
+s = {1, 2, 3}
+s = set([1, 2, 2, 3])
 
-              # Operations
-              s.add(4)
-              s.remove(1)
-              s.discard(99) # No error if missing
+# Operations
+s.add(4)
+s.remove(1)
+s.discard(99) # No error if missing
 
-              # Set math
-              a | b # Union
-              a & b # Intersection
-              a - b # Difference
-              a ^ b # Symmetric diff</div>
+# Set math
+a | b # Union
+a & b # Intersection
+a - b # Difference
+a ^ b # Symmetric diff
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Tuple</span>
             <h3>Tuple Unpacking</h3>
             <p>Immutable ordered collection.</p>
-            <div class="code-block"># Create
-              t = (1, 2, 3)
-              t = tuple([1, 2, 3])
+<pre class="code-block"><code class="language-python">
+# Create
+t = (1, 2, 3)
+t = tuple([1, 2, 3])
 
-              # Unpacking
-              a, b, c = t
-              first, *rest = t
-              first, *middle, last = t
+# Unpacking
+a, b, c = t
+first, *rest = t
+first, *middle, last = t
 
-              # Swap
-              a, b = b, a
+# Swap
+a, b = b, a
 
-              # Named tuple
-              from collections import namedtuple
-              Point = namedtuple('Point', ['x', 'y'])
-              p = Point(1, 2)</div>
+# Named tuple
+from collections import namedtuple
+Point = namedtuple('Point', ['x', 'y'])
+p = Point(1, 2)
+</code></pre>
           </div>
         </div>
       </section>
@@ -618,72 +747,80 @@
             <span class="code-label">List</span>
             <h3>List Comprehension</h3>
             <p>Create lists in a single line.</p>
-            <div class="code-block"># Basic
-              squares = [x**2 for x in range(10)]
-              # squares = [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+<pre class="code-block"><code class="language-python">
+# Basic
+squares = [x**2 for x in range(10)]
+# squares = [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
 
-              # With condition
-              evens = [x for x in range(20) if x % 2 == 0]
-              # evens = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+# With condition
+evens = [x for x in range(20) if x % 2 == 0]
+# evens = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
 
-              # Nested
-              matrix = [[1,2,3], [4,5,6], [7,8,9]]
-              flat = [x for row in matrix for x in row]
-              # flat = [1,2,3,4,5,6,7,8,9]
+# Nested
+matrix = [[1,2,3], [4,5,6], [7,8,9]]
+flat = [x for row in matrix for x in row]
+# flat = [1,2,3,4,5,6,7,8,9]
 
-              # With function
-              text = [' Hello ', 'World ']
-              words = [w.strip().lower() for w in text]
-              # words = ['hello', 'world']</div>
+# With function
+text = [' Hello ', 'World ']
+words = [w.strip().lower() for w in text]
+# words = ['hello', 'world']
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Dict</span>
             <h3>Dict Comprehension</h3>
             <p>Create dictionaries concisely.</p>
-            <div class="code-block"># From two lists
-              d = {k: v for k, v in zip(keys, values)}
+<pre class="code-block"><code class="language-python">
+# From two lists
+d = {k: v for k, v in zip(keys, values)}
 
-              # With condition
-              d = {k: v for k, v in items if v > 0}
+# With condition
+d = {k: v for k, v in items if v > 0}
 
-              # Transform
-              word_len = {w: len(w) for w in words}
+# Transform
+word_len = {w: len(w) for w in words}
 
-              # Invert dict
-              inv = {v: k for k, v in d.items()}</div>
+# Invert dict
+inv = {v: k for k, v in d.items()}
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Set</span>
             <h3>Set Comprehension</h3>
             <p>Create sets with transformations.</p>
-            <div class="code-block"># Basic
-              unique = {x % 5 for x in range(100)}
+<pre class="code-block"><code class="language-python">
+# Basic
+unique = {x % 5 for x in range(100)}
 
-              # With condition
-              primes = {x for x in range(100)
-              if all(x % i != 0 for i in range(2, int(x**0.5)+1))}
+# With condition
+primes = {x for x in range(100)
+if all(x % i != 0 for i in range(2, int(x**0.5)+1))}
 
-              # From strings
-              chars = {c.lower() for c in text if c.isalpha()}</div>
+# From strings
+chars = {c.lower() for c in text if c.isalpha()}
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Generator</span>
             <h3>Generator Expression</h3>
             <p>Memory-efficient iteration.</p>
-            <div class="code-block"># Generator (lazy)
-              gen = (x**2 for x in range(1000000))
+<pre class="code-block"><code class="language-python">
+# Generator (lazy)
+gen = (x**2 for x in range(1000000))
 
-              # In function
-              total = sum(x**2 for x in range(100))
+# In function
+total = sum(x**2 for x in range(100))
 
-              # Generator function
-              def counter(n):
-              for i in range(n):
-              yield i
+# Generator function
+def counter(n):
+for i in range(n):
+yield i
 
-              # Chain generators
-              import itertools
-              result = itertools.chain(gen1, gen2)</div>
+# Chain generators
+import itertools
+result = itertools.chain(gen1, gen2)
+</code></pre>
           </div>
         </div>
       </section>
@@ -695,80 +832,88 @@
             <span class="code-label">Basics</span>
             <h3>Function Basics</h3>
             <p>Define and call functions.</p>
-            <div class="code-block"># Basic function
-              def greet(name, greeting="Hello"):
-              """Return a greeting."""
-              return f"{greeting}, {name}!"
+<pre class="code-block"><code class="language-python">
+# Basic function
+def greet(name, greeting="Hello"):
+"""Return a greeting."""
+return f"{greeting}, {name}!"
 
-              # *args, **kwargs
-              def flexible(*args, **kwargs):
-              print(args, kwargs)
+# *args, **kwargs
+def flexible(*args, **kwargs):
+print(args, kwargs)
 
-              # Lambda
-              square = lambda x: x ** 2
+# Lambda
+square = lambda x: x ** 2
 
-              # Multiple return
-              def stats(data):
-              return min(data), max(data), sum(data)</div>
+# Multiple return
+def stats(data):
+return min(data), max(data), sum(data)
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Decorators</span>
             <h3>Function Decorators</h3>
             <p>Wrap functions to extend behavior.</p>
-            <div class="code-block">import time
-              from functools import wraps
+<pre class="code-block"><code class="language-python">
+import time
+from functools import wraps
 
-              def timer(func):
-              @wraps(func)
-              def wrapper(*args, **kwargs):
-              start = time.time()
-              result = func(*args, **kwargs)
-              print(f"{func.__name__}: {time.time()-start:.2f}s")
-              return result
-              return wrapper
+def timer(func):
+@wraps(func)
+def wrapper(*args, **kwargs):
+start = time.time()
+result = func(*args, **kwargs)
+print(f"{func.__name__}: {time.time()-start:.2f}s")
+return result
+return wrapper
 
-              @timer
-              def slow_function():
-              time.sleep(1)</div>
+@timer
+def slow_function():
+time.sleep(1)
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Functional</span>
             <h3>Functional Tools</h3>
             <p>Map, filter, reduce operations.</p>
-            <div class="code-block"># Map
-              list(map(str.upper, names))
+<pre class="code-block"><code class="language-python">
+# Map
+list(map(str.upper, names))
 
-              # Filter
-              list(filter(lambda x: x > 0, nums))
+# Filter
+list(filter(lambda x: x > 0, nums))
 
-              # Reduce
-              from functools import reduce
-              reduce(lambda a, b: a + b, nums)
+# Reduce
+from functools import reduce
+reduce(lambda a, b: a + b, nums)
 
-              # Sorted with key
-              sorted(data, key=lambda x: x['age'], reverse=True)</div>
+# Sorted with key
+sorted(data, key=lambda x: x['age'], reverse=True)
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Closures</span>
             <h3>Closures & Scope</h3>
             <p>Functions that capture variables.</p>
-            <div class="code-block"># Closure
-              def make_multiplier(n):
-              def multiplier(x):
-              return x * n
-              return multiplier
+<pre class="code-block"><code class="language-python">
+# Closure
+def make_multiplier(n):
+def multiplier(x):
+return x * n
+return multiplier
 
-              times2 = make_multiplier(2)
-              times2(5) # 10
+times2 = make_multiplier(2)
+times2(5) # 10
 
-              # Nonlocal
-              def counter():
-              count = 0
-              def increment():
-              nonlocal count
-              count += 1
-              return count
-              return increment</div>
+# Nonlocal
+def counter():
+count = 0
+def increment():
+nonlocal count
+count += 1
+return count
+return increment
+</code></pre>
           </div>
         </div>
       </section>
@@ -780,78 +925,86 @@
             <span class="code-label">Files</span>
             <h3>File Operations</h3>
             <p>Read and write files safely.</p>
-            <div class="code-block"># Read entire file
-              with open('file.txt', 'r') as f:
-              content = f.read()
+<pre class="code-block"><code class="language-python">
+# Read entire file
+with open('file.txt', 'r') as f:
+content = f.read()
 
-              # Read lines
-              with open('file.txt') as f:
-              lines = f.readlines()
+# Read lines
+with open('file.txt') as f:
+lines = f.readlines()
 
-              # Write file
-              with open('output.txt', 'w') as f:
-              f.write('Hello World')
+# Write file
+with open('output.txt', 'w') as f:
+f.write('Hello World')
 
-              # Append
-              with open('log.txt', 'a') as f:
-              f.write('new line\n')</div>
+# Append
+with open('log.txt', 'a') as f:
+f.write('new line\n')
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">JSON</span>
             <h3>JSON Handling</h3>
             <p>Parse and write JSON data.</p>
-            <div class="code-block">import json
+<pre class="code-block"><code class="language-python">
+import json
 
-              # Read JSON
-              with open('data.json') as f:
-              data = json.load(f)
+# Read JSON
+with open('data.json') as f:
+data = json.load(f)
 
-              # Write JSON
-              with open('out.json', 'w') as f:
-              json.dump(data, f, indent=2)
+# Write JSON
+with open('out.json', 'w') as f:
+json.dump(data, f, indent=2)
 
-              # String
-              json_str = json.dumps(data)
-              data = json.loads(json_str)</div>
+# String
+json_str = json.dumps(data)
+data = json.loads(json_str)
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Exceptions</span>
             <h3>Error Handling</h3>
             <p>Handle exceptions gracefully.</p>
-            <div class="code-block">try:
-              result = risky_operation()
-              except ValueError as e:
-              print(f"Value error: {e}")
-              except (TypeError, KeyError) as e:
-              print(f"Type error: {e}")
-              except Exception as e:
-              logger.error(f"Unexpected: {e}")
-              raise
-              else:
-              print("Success")
-              finally:
-              cleanup()</div>
+<pre class="code-block"><code class="language-python">
+try:
+result = risky_operation()
+except ValueError as e:
+print(f"Value error: {e}")
+except (TypeError, KeyError) as e:
+print(f"Type error: {e}")
+except Exception as e:
+logger.error(f"Unexpected: {e}")
+raise
+else:
+print("Success")
+finally:
+cleanup()
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Custom</span>
             <h3>Custom Exceptions</h3>
             <p>Create your own exception classes.</p>
-            <div class="code-block">class CustomError(Exception):
-              def __init__(self, message, code):
-              super().__init__(message)
-              self.code = code
+<pre class="code-block"><code class="language-python">
+class CustomError(Exception):
+def __init__(self, message, code):
+super().__init__(message)
+self.code = code
 
-              class ValidationError(CustomError):
-              pass
+class ValidationError(CustomError):
+pass
 
-              # Usage
-              raise ValidationError("Invalid input", code=400)
+# Usage
+raise ValidationError("Invalid input", code=400)
 
-              # Catching
-              try:
-              validate(data)
-              except ValidationError as e:
-              print(f"Error {e.code}: {e}")</div>
+# Catching
+try:
+validate(data)
+except ValidationError as e:
+print(f"Error {e.code}: {e}")
+</code></pre>
           </div>
         </div>
       </section>
@@ -863,75 +1016,83 @@
             <span class="code-label">Class</span>
             <h3>Class Basics</h3>
             <p>Define classes with methods.</p>
-            <div class="code-block">class Person:
-              species = "Human" # Class variable
+<pre class="code-block"><code class="language-python">
+class Person:
+species = "Human" # Class variable
 
-              def __init__(self, name, age):
-              self.name = name # Instance var
-              self.age = age
+def __init__(self, name, age):
+self.name = name # Instance var
+self.age = age
 
-              def greet(self):
-              return f"Hi, I'm {self.name}"
+def greet(self):
+return f"Hi, I'm {self.name}"
 
-              def __str__(self):
-              return f"Person({self.name})"
+def __str__(self):
+return f"Person({self.name})"
 
-              p = Person("Alice", 30)
-              print(p.greet())</div>
+p = Person("Alice", 30)
+print(p.greet())
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Inheritance</span>
             <h3>Inheritance</h3>
             <p>Create specialized classes.</p>
-            <div class="code-block">class Employee(Person):
-              def __init__(self, name, age, emp_id):
-              super().__init__(name, age)
-              self.emp_id = emp_id
+<pre class="code-block"><code class="language-python">
+class Employee(Person):
+def __init__(self, name, age, emp_id):
+super().__init__(name, age)
+self.emp_id = emp_id
 
-              def greet(self):
-              base = super().greet()
-              return f"{base}, ID: {self.emp_id}"
+def greet(self):
+base = super().greet()
+return f"{base}, ID: {self.emp_id}"
 
-              # Multiple inheritance
-              class A: pass
-              class B: pass
-              class C(A, B): pass</div>
+# Multiple inheritance
+class A: pass
+class B: pass
+class C(A, B): pass
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Properties</span>
             <h3>Properties & Methods</h3>
             <p>Controlled attribute access.</p>
-            <div class="code-block">class Circle:
-              def __init__(self, radius):
-              self._radius = radius
+<pre class="code-block"><code class="language-python">
+class Circle:
+def __init__(self, radius):
+self._radius = radius
 
-              @property
-              def radius(self):
-              return self._radius
+@property
+def radius(self):
+return self._radius
 
-              @radius.setter
-              def radius(self, value):
-              if value < 0: raise ValueError("Negative!") self._radius=value @property def area(self): return 3.14159 *
-                self._radius ** 2</div>
+@radius.setter
+def radius(self, value):
+if value < 0: raise ValueError("Negative!") self._radius=value @property def area(self): return 3.14159 *
+self._radius ** 2
+</code></pre>
             </div>
             <div class="code-card">
               <span class="code-label">Dataclass</span>
               <h3>Data Classes</h3>
               <p>Simplified class creation.</p>
-              <div class="code-block">from dataclasses import dataclass, field
+<pre class="code-block"><code class="language-python">
+from dataclasses import dataclass, field
 
-                @dataclass
-                class User:
-                name: str
-                email: str
-                age: int = 0
-                tags: list = field(default_factory=list)
+@dataclass
+class User:
+name: str
+email: str
+age: int = 0
+tags: list = field(default_factory=list)
 
-                def is_adult(self):
-                return self.age >= 18
+def is_adult(self):
+return self.age >= 18
 
-                user = User("Alice", "alice@example.com", 30)
-                print(user) # User(name='Alice', ...)</div>
+user = User("Alice", "alice@example.com", 30)
+print(user) # User(name='Alice', ...)
+</code></pre>
             </div>
           </div>
       </section>
@@ -943,81 +1104,89 @@
             <span class="code-label">Threading</span>
             <h3>Threading</h3>
             <p>Run tasks concurrently (I/O bound).</p>
-            <div class="code-block">import threading
-              from concurrent.futures import ThreadPoolExecutor
+<pre class="code-block"><code class="language-python">
+import threading
+from concurrent.futures import ThreadPoolExecutor
 
-              def task(n):
-              return n * 2
+def task(n):
+return n * 2
 
-              # Thread pool
-              with ThreadPoolExecutor(max_workers=4) as executor:
-              futures = [executor.submit(task, i) for i in range(10)]
-              results = [f.result() for f in futures]
+# Thread pool
+with ThreadPoolExecutor(max_workers=4) as executor:
+futures = [executor.submit(task, i) for i in range(10)]
+results = [f.result() for f in futures]
 
-              # Thread
-              t = threading.Thread(target=task, args=(5,))
-              t.start()
-              t.join()</div>
+# Thread
+t = threading.Thread(target=task, args=(5,))
+t.start()
+t.join()
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Multiprocessing</span>
             <h3>Multiprocessing</h3>
             <p>Parallel execution (CPU bound).</p>
-            <div class="code-block">from multiprocessing import Pool
-              from concurrent.futures import ProcessPoolExecutor
+<pre class="code-block"><code class="language-python">
+from multiprocessing import Pool
+from concurrent.futures import ProcessPoolExecutor
 
-              def heavy_task(n):
-              return sum(i**2 for i in range(n))
+def heavy_task(n):
+return sum(i**2 for i in range(n))
 
-              # Process pool
-              with Pool(4) as pool:
-              results = pool.map(heavy_task, [1000]*10)
+# Process pool
+with Pool(4) as pool:
+results = pool.map(heavy_task, [1000]*10)
 
-              # ProcessPoolExecutor
-              with ProcessPoolExecutor(max_workers=4) as executor:
-              results = list(executor.map(heavy_task, data))</div>
+# ProcessPoolExecutor
+with ProcessPoolExecutor(max_workers=4) as executor:
+results = list(executor.map(heavy_task, data))
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Async</span>
             <h3>Async/Await</h3>
             <p>Asynchronous programming.</p>
-            <div class="code-block">import asyncio
-              import aiohttp
+<pre class="code-block"><code class="language-python">
+import asyncio
+import aiohttp
 
-              async def fetch(url):
-              async with aiohttp.ClientSession() as session:
-              async with session.get(url) as resp:
-              return await resp.text()
+async def fetch(url):
+async with aiohttp.ClientSession() as session:
+async with session.get(url) as resp:
+return await resp.text()
 
-              async def main():
-              urls = ['url1', 'url2', 'url3']
-              tasks = [fetch(url) for url in urls]
-              results = await asyncio.gather(*tasks)
-              return results
+async def main():
+urls = ['url1', 'url2', 'url3']
+tasks = [fetch(url) for url in urls]
+results = await asyncio.gather(*tasks)
+return results
 
-              asyncio.run(main())</div>
+asyncio.run(main())
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Queue</span>
             <h3>Queue</h3>
             <p>Thread-safe data sharing.</p>
-            <div class="code-block">from queue import Queue
-              from threading import Thread
+<pre class="code-block"><code class="language-python">
+from queue import Queue
+from threading import Thread
 
-              def producer(q):
-              for i in range(5):
-              q.put(i)
+def producer(q):
+for i in range(5):
+q.put(i)
 
-              def consumer(q):
-              while True:
-              item = q.get()
-              print(f"Processing {item}")
-              q.task_done()
+def consumer(q):
+while True:
+item = q.get()
+print(f"Processing {item}")
+q.task_done()
 
-              q = Queue()
-              Thread(target=producer, args=(q,)).start()
-              Thread(target=consumer, args=(q,)).start()
-              q.join()</div>
+q = Queue()
+Thread(target=producer, args=(q,)).start()
+Thread(target=consumer, args=(q,)).start()
+q.join()
+</code></pre>
           </div>
         </div>
       </section>
@@ -1029,172 +1198,180 @@
             <span class="code-label">Collections</span>
             <h3>collections Module</h3>
             <p>Specialized container datatypes.</p>
-            <div class="code-block">from collections import Counter, defaultdict, deque, OrderedDict, namedtuple
+<pre class="code-block"><code class="language-python">
+from collections import Counter, defaultdict, deque, OrderedDict, namedtuple
 
-              # Counter
-              counts = Counter(['a', 'b', 'a', 'c', 'a'])
-              # Counter({'a': 3, 'b': 1, 'c': 1})
-              counts.most_common(2) # [('a', 3), ('b', 1)]
-              counts['a'] # 3
-              counts.elements() # iterator: 'a','a','a','b','c'
-              counts.subtract(['a', 'a']) # Counter({'a': 1, 'b': 1, 'c': 1})
-              counts.update(['d', 'd', 'd']) # Counter({'d': 3, 'a': 1, 'b': 1, 'c': 1})
+# Counter
+counts = Counter(['a', 'b', 'a', 'c', 'a'])
+# Counter({'a': 3, 'b': 1, 'c': 1})
+counts.most_common(2) # [('a', 3), ('b', 1)]
+counts['a'] # 3
+counts.elements() # iterator: 'a','a','a','b','c'
+counts.subtract(['a', 'a']) # Counter({'a': 1, 'b': 1, 'c': 1})
+counts.update(['d', 'd', 'd']) # Counter({'d': 3, 'a': 1, 'b': 1, 'c': 1})
 
-              # defaultdict
-              dd = defaultdict(list)
-              dd['key'].append('value') # {'key': ['value']}
-              dd['missing'] # [] (auto-created empty list)
+# defaultdict
+dd = defaultdict(list)
+dd['key'].append('value') # {'key': ['value']}
+dd['missing'] # [] (auto-created empty list)
 
-              # deque (fast append/pop both ends)
-              d = deque([1, 2, 3])
-              d.appendleft(0) # deque([0, 1, 2, 3])
-              d.rotate(1) # deque([3, 0, 1, 2])
-              d.popleft() # 3, deque([0, 1, 2])
-              d.extend([4,5]) # deque([0, 1, 2, 4, 5])
-              d.extendleft([-1,-2]) # deque([-2, -1, 0, 1, 2, 4, 5])
+# deque (fast append/pop both ends)
+d = deque([1, 2, 3])
+d.appendleft(0) # deque([0, 1, 2, 3])
+d.rotate(1) # deque([3, 0, 1, 2])
+d.popleft() # 3, deque([0, 1, 2])
+d.extend([4,5]) # deque([0, 1, 2, 4, 5])
+d.extendleft([-1,-2]) # deque([-2, -1, 0, 1, 2, 4, 5])
 
-              # OrderedDict ( insertion order remembers )
-              od = OrderedDict([('a', 1), ('b', 2)])
-              od.move_to_end('a') # OrderedDict([('b', 2), ('a', 1)])
-              od.popitem(last=False) # ('b', 2)
+# OrderedDict ( insertion order remembers )
+od = OrderedDict([('a', 1), ('b', 2)])
+od.move_to_end('a') # OrderedDict([('b', 2), ('a', 1)])
+od.popitem(last=False) # ('b', 2)
 
-              # namedtuple
-              Point = namedtuple('Point', ['x', 'y'])
-              p = Point(1, 2)
-              p.x, p.y # (1, 2)</div>
+# namedtuple
+Point = namedtuple('Point', ['x', 'y'])
+p = Point(1, 2)
+p.x, p.y # (1, 2)
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">itertools</span>
             <h3>itertools Module</h3>
             <p>Iterator building blocks.</p>
-            <div class="code-block">from itertools import chain, product, groupby, islice, takewhile, dropwhile,
-              permutations, combinations, compress
+<pre class="code-block"><code class="language-python">
+from itertools import chain, product, groupby, islice, takewhile, dropwhile,
+permutations, combinations, compress
 
-              # Chain iterables
-              list1 = [1,2,3]
-              list2 = [4,5]
-              list3 = [6]
-              combined = chain(list1, list2, list3) # iterator: 1,2,3,4,5,6
-              list(combined) # [1,2,3,4,5,6]
+# Chain iterables
+list1 = [1,2,3]
+list2 = [4,5]
+list3 = [6]
+combined = chain(list1, list2, list3) # iterator: 1,2,3,4,5,6
+list(combined) # [1,2,3,4,5,6]
 
-              # Cartesian product
-              pairs = list(product([1,2], ['a','b'])) # [(1,'a'),(1,'b'),(2,'a'),(2,'b')]
+# Cartesian product
+pairs = list(product([1,2], ['a','b'])) # [(1,'a'),(1,'b'),(2,'a'),(2,'b')]
 
-              # Group by
-              data = [{'cat': 'A', 'val': 1}, {'cat': 'B', 'val': 2}, {'cat': 'A', 'val': 3}]
-              sorted_data = sorted(data, key=lambda x: x['cat'])
-              for key, group in groupby(sorted_data, key=lambda x: x['cat']):
-              print(key, list(group))
-              # Output: A [{'cat': 'A', 'val': 1}, {'cat': 'A', 'val': 3}]
-              # B [{'cat': 'B', 'val': 2}]
+# Group by
+data = [{'cat': 'A', 'val': 1}, {'cat': 'B', 'val': 2}, {'cat': 'A', 'val': 3}]
+sorted_data = sorted(data, key=lambda x: x['cat'])
+for key, group in groupby(sorted_data, key=lambda x: x['cat']):
+print(key, list(group))
+# Output: A [{'cat': 'A', 'val': 1}, {'cat': 'A', 'val': 3}]
+# B [{'cat': 'B', 'val': 2}]
 
-              # Combinations
-              combos = list(combinations([1,2,3,4], 2))
-              # [(1,2), (1,3), (1,4), (2,3), (2,4), (3,4)]
+# Combinations
+combos = list(combinations([1,2,3,4], 2))
+# [(1,2), (1,3), (1,4), (2,3), (2,4), (3,4)]
 
-              # Permutations
-              perms = list(permutations([1,2,3], 2))
-              # [(1,2), (1,3), (2,1), (2,3), (3,1), (3,2)]
+# Permutations
+perms = list(permutations([1,2,3], 2))
+# [(1,2), (1,3), (2,1), (2,3), (3,1), (3,2)]
 
-              # islice (slice iterator)
-              iterator = iter(range(10))
-              sliced = list(islice(iterator, 2, 8, 2)) # [2,4,6]
+# islice (slice iterator)
+iterator = iter(range(10))
+sliced = list(islice(iterator, 2, 8, 2)) # [2,4,6]
 
-              # takewhile (take while condition true)
-              nums = [1,2,3,4,5,1,2]
-              taken = list(takewhile(lambda x: x<4, nums)) # [1,2,3] # dropwhile (drop while condition true)
-                dropped=list(dropwhile(lambda x: x<4, nums)) # [4,5,1,2] # compress (filter based on selectors)
-                selectors=[1,0,1,0,1] compressed=list(compress(['a','b','c','d','e'], selectors)) # ['a','c','e']</div>
+# takewhile (take while condition true)
+nums = [1,2,3,4,5,1,2]
+taken = list(takewhile(lambda x: x<4, nums)) # [1,2,3] # dropwhile (drop while condition true)
+dropped=list(dropwhile(lambda x: x<4, nums)) # [4,5,1,2] # compress (filter based on selectors)
+selectors=[1,0,1,0,1] compressed=list(compress(['a','b','c','d','e'], selectors)) # ['a','c','e']
+</code></pre>
             </div>
             <div class="code-card">
               <span class="code-label">datetime</span>
               <h3>datetime Module</h3>
               <p>Date and time handling.</p>
-              <div class="code-block">from datetime import datetime, timedelta, date, time, timezone
+<pre class="code-block"><code class="language-python">
+from datetime import datetime, timedelta, date, time, timezone
 
-                # Current time
-                now = datetime.now() # 2024-03-15 10:30:45.123456
-                today = date.today() # 2024-03-15
-                current_time = time.now() # 10:30:45.123456
+# Current time
+now = datetime.now() # 2024-03-15 10:30:45.123456
+today = date.today() # 2024-03-15
+current_time = time.now() # 10:30:45.123456
 
-                # Parse string
-                dt = datetime.strptime('2024-01-15', '%Y-%m-%d') # datetime(2024,1,15,0,0)
+# Parse string
+dt = datetime.strptime('2024-01-15', '%Y-%m-%d') # datetime(2024,1,15,0,0)
 
-                # Format
-                now.strftime('%Y-%m-%d %H:%M:%S') # '2024-03-15 10:30:45'
-                now.strftime('%B %d, %Y') # 'March 15, 2024'
+# Format
+now.strftime('%Y-%m-%d %H:%M:%S') # '2024-03-15 10:30:45'
+now.strftime('%B %d, %Y') # 'March 15, 2024'
 
-                # Arithmetic
-                tomorrow = now + timedelta(days=1) # datetime tomorrow same time
-                yesterday = now - timedelta(days=1) # datetime yesterday
-                diff = now - datetime(2024,1,1) # timedelta days=74
-                diff.days # 74
-                diff.seconds # seconds part
+# Arithmetic
+tomorrow = now + timedelta(days=1) # datetime tomorrow same time
+yesterday = now - timedelta(days=1) # datetime yesterday
+diff = now - datetime(2024,1,1) # timedelta days=74
+diff.days # 74
+diff.seconds # seconds part
 
-                # Timezone
-                utc_now = datetime.now(timezone.utc) # UTC datetime
-                local_now = utc_now.astimezone() # convert to local timezone
+# Timezone
+utc_now = datetime.now(timezone.utc) # UTC datetime
+local_now = utc_now.astimezone() # convert to local timezone
 
-                # Replace
-                dt_replace = now.replace(year=2025) # datetime with year changed
+# Replace
+dt_replace = now.replace(year=2025) # datetime with year changed
 
-                # Timestamp
-                timestamp = now.timestamp() # Unix timestamp (seconds)
-                from_ts = datetime.fromtimestamp(1700000000) # datetime from timestamp
+# Timestamp
+timestamp = now.timestamp() # Unix timestamp (seconds)
+from_ts = datetime.fromtimestamp(1700000000) # datetime from timestamp
 
-                # ISO format
-                iso_str = now.isoformat() # '2024-03-15T10:30:45.123456'</div>
+# ISO format
+iso_str = now.isoformat() # '2024-03-15T10:30:45.123456'
+</code></pre>
             </div>
             <div class="code-card">
               <span class="code-label">logging</span>
               <h3>logging Module</h3>
               <p>Professional logging setup.</p>
-              <div class="code-block">import logging
+<pre class="code-block"><code class="language-python">
+import logging
 
-                # Basic configuration (call once)
-                logging.basicConfig(
-                level=logging.DEBUG, # log level threshold
-                format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                datefmt='%Y-%m-%d %H:%M:%S', # timestamp format
-                handlers=[
-                logging.FileHandler('app.log'), # log to file
-                logging.StreamHandler() # log to console
-                ]
-                )
+# Basic configuration (call once)
+logging.basicConfig(
+level=logging.DEBUG, # log level threshold
+format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+datefmt='%Y-%m-%d %H:%M:%S', # timestamp format
+handlers=[
+logging.FileHandler('app.log'), # log to file
+logging.StreamHandler() # log to console
+]
+)
 
-                # Get logger
-                logger = logging.getLogger(__name__) # named logger
-                logger.setLevel(logging.INFO) # override level
+# Get logger
+logger = logging.getLogger(__name__) # named logger
+logger.setLevel(logging.INFO) # override level
 
-                # Logging methods
-                logger.debug("Debug message") # level=DEBUG
-                logger.info("Info message") # level=INFO
-                logger.warning("Warning message") # level=WARNING
-                logger.error("Error message") # level=ERROR
-                logger.critical("Critical message") # level=CRITICAL
+# Logging methods
+logger.debug("Debug message") # level=DEBUG
+logger.info("Info message") # level=INFO
+logger.warning("Warning message") # level=WARNING
+logger.error("Error message") # level=ERROR
+logger.critical("Critical message") # level=CRITICAL
 
-                # Exception logging
-                try:
-                1/0
-                except ZeroDivisionError:
-                logger.exception("Division by zero") # includes traceback
+# Exception logging
+try:
+1/0
+except ZeroDivisionError:
+logger.exception("Division by zero") # includes traceback
 
-                # Custom formatter
-                formatter = logging.Formatter('%(levelname)s:%(name)s:%(message)s')
-                handler = logging.StreamHandler()
-                handler.setFormatter(formatter)
-                logger.addHandler(handler)
+# Custom formatter
+formatter = logging.Formatter('%(levelname)s:%(name)s:%(message)s')
+handler = logging.StreamHandler()
+handler.setFormatter(formatter)
+logger.addHandler(handler)
 
-                # Log to specific file with RotatingFileHandler
-                from logging.handlers import RotatingFileHandler
-                rot_handler = RotatingFileHandler('app.log', maxBytes=1048576, backupCount=3)
-                logger.addHandler(rot_handler)
+# Log to specific file with RotatingFileHandler
+from logging.handlers import RotatingFileHandler
+rot_handler = RotatingFileHandler('app.log', maxBytes=1048576, backupCount=3)
+logger.addHandler(rot_handler)
 
-                # Filter specific messages
-                class InfoFilter(logging.Filter):
-                def filter(self, record):
-                return record.levelno == logging.INFO
-                logger.addFilter(InfoFilter())</div>
+# Filter specific messages
+class InfoFilter(logging.Filter):
+def filter(self, record):
+return record.levelno == logging.INFO
+logger.addFilter(InfoFilter())
+</code></pre>
             </div>
           </div>
       </section>
@@ -1205,34 +1382,42 @@
             <span class="code-label">Tip</span>
             <h3>Use list comprehensions wisely</h3>
             <p>Avoid complex logic in comprehensions; keep them readable.</p>
-            <div class="code-block"># Good
-              squares = [x**2 for x in range(10)]
+<pre class="code-block"><code class="language-python">
+# Good
+squares = [x**2 for x in range(10)]
 
-              # Bad (hard to read)
-              result = [x**2 for x in range(10) if x % 2 == 0 if x > 3]</div>
+# Bad (hard to read)
+result = [x**2 for x in range(10) if x % 2 == 0 if x > 3]
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Trick</span>
             <h3>Swap variables without temp</h3>
             <p>Python allows tuple unpacking for swapping.</p>
-            <div class="code-block">a, b = 1, 2
-              a, b = b, a # a=2, b=1</div>
+<pre class="code-block"><code class="language-python">
+a, b = 1, 2
+a, b = b, a # a=2, b=1
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Tip</span>
             <h3>Use `enumerate` for indexed loops</h3>
             <p>Instead of range(len(...)).</p>
-            <div class="code-block">items = ['a', 'b', 'c']
-              for idx, val in enumerate(items):
-              print(f'{idx}: {val}')</div>
+<pre class="code-block"><code class="language-python">
+items = ['a', 'b', 'c']
+for idx, val in enumerate(items):
+print(f'{idx}: {val}')
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Trick</span>
             <h3>Dictionary merging with `|`</h3>
             <p>Python 3.9+ supports merge operator.</p>
-            <div class="code-block">dict1 = {'a': 1, 'b': 2}
-              dict2 = {'b': 3, 'c': 4}
-              merged = dict1 | dict2 # {'a':1, 'b':3, 'c':4}</div>
+<pre class="code-block"><code class="language-python">
+dict1 = {'a': 1, 'b': 2}
+dict2 = {'b': 3, 'c': 4}
+merged = dict1 | dict2 # {'a':1, 'b':3, 'c':4}
+</code></pre>
           </div>
         </div>
       </section>
@@ -1244,39 +1429,46 @@
             <span class="code-label">Readability</span>
             <h3>Follow PEP 8</h3>
             <p>Use consistent style, spacing, and naming to keep code maintainable.</p>
-            <div class="code-block"># Example: prefer clear variable names
-              user_count = len(users)
-              if user_count > 0:
-              print(f"Total users: {user_count}")</div>
+<pre class="code-block"><code class="language-python">
+# Example: prefer clear variable names
+user_count = len(users)
+if user_count > 0:
+print(f"Total users: {user_count}")
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Testing</span>
             <h3>Write tests for key logic</h3>
             <p>Unit tests prevent regressions and improve confidence.</p>
-            <div class="code-block">import pytest
+<pre class="code-block"><code class="language-python">
+import pytest
 
-              def increment(x):
-              return x + 1
+def increment(x):
+return x + 1
 
-              def test_increment():
-              assert increment(1) == 2
-              assert increment(-1) == 0</div>
+def test_increment():
+assert increment(1) == 2
+assert increment(-1) == 0
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Performance</span>
             <h3>Prefer builtins over loops</h3>
             <p>Use list comprehensions, map/filter, and numpy/pandas to speed loops.</p>
-            <div class="code-block"># avoid slow loops over lists
-              # slow
-              sum_val = 0
-              for x in data:
-              sum_val += x
+<pre class="code-block"><code class="language-python">
+# avoid slow loops over lists
+# slow
+sum_val = 0
+for x in data:
+sum_val += x
 
-              # fast
-              sum_val = sum(data)</div>
+# fast
+sum_val = sum(data)
+</code></pre>
           </div>
         </div>
       </section>
+      </div>
     </div>
   </main>
     <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
@@ -1286,5 +1478,11 @@
     </svg>
   </button>
   <script src="cheatsheets.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+  <script>Prism.highlightAll();</script>
 </body>
 </html>

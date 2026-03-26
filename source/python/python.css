@@ -348,18 +348,22 @@ body.dark .section-badge.summary {
 
 /* ---- Code Blocks ---- */
 .code-block {
-  background: var(--bg-alt);
-  border: 1px solid var(--glow-border);
-  border-radius: var(--radius-sm);
-  padding: 1rem;
+  background: var(--code-bg);
+  border-left: 3px solid var(--glow-color);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 0.95rem;
   margin: 0.75rem 0;
   overflow-x: auto;
+  font-family: "JetBrains Mono", Consolas, monospace;
+  font-size: 0.85rem;
+  line-height: 1.5;
 }
 
 .code-block code {
-  font-family: "Fira Code", "Consolas", monospace;
-  font-size: 0.85rem;
-  color: var(--text);
+  font-family: inherit;
+  font-size: inherit;
+  color: var(--code-text);
+  background: transparent;
   white-space: pre;
 }
 

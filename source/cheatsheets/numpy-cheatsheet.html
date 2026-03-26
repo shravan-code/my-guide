@@ -11,6 +11,7 @@
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="cheatsheet-base.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.css" rel="stylesheet" />
   <style>
     main {
       width: min(1300px, calc(100% - 4rem));
@@ -451,6 +452,127 @@
         display: none;
       }
     }
+  
+  pre[class*="language-"],
+  code[class*="language-"] {
+    color: var(--code-text);
+    background: var(--code-bg);
+  }
+
+  .token.comment,
+  .token.prolog,
+  .token.doctype,
+  .token.cdata {
+    color: var(--code-comment);
+  }
+
+  .token.punctuation {
+    color: var(--code-punctuation);
+  }
+
+  .token.property,
+  .token.tag,
+  .token.boolean,
+  .token.number,
+  .token.constant,
+  .token.symbol,
+  .token.deleted {
+    color: var(--code-number);
+  }
+
+  .token.selector,
+  .token.attr-name,
+  .token.string,
+  .token.char,
+  .token.builtin,
+  .token.inserted {
+    color: var(--code-string);
+  }
+
+  .token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string { color: inherit; }
+
+  .token.atrule,
+  .token.attr-value,
+  .token.keyword {
+    color: var(--code-keyword);
+  }
+
+  .token.function,
+  .token.class-name {
+    color: var(--code-function);
+  }
+
+  .token.regex,
+  .token.important,
+  .token.variable {
+    color: var(--code-variable);
+  }
+
+  :root {
+    --code-comment: #708090;
+    --code-punctuation: #999;
+    --code-number: #005cc5;
+    --code-string: #032f62;
+    --code-operator: #d73a49;
+    --code-keyword: #d73a49;
+    --code-function: #6f42c1;
+    --code-variable: #e36209;
+  }
+
+  body.dark pre[class*="language-"],
+  body.dark code[class*="language-"] {
+    color: #e1e4e8;
+    background: var(--code-bg);
+  }
+
+  body.dark .token.comment,
+  body.dark .token.prolog,
+  body.dark .token.doctype,
+  body.dark .token.cdata {
+    color: #6a737d;
+  }
+
+  body.dark .token.punctuation {
+    color: #e1e4e8;
+  }
+
+  body.dark .token.property,
+  body.dark .token.tag,
+  body.dark .token.boolean,
+  body.dark .token.number,
+  body.dark .token.constant,
+  body.dark .token.symbol,
+  body.dark .token.deleted {
+    color: #79b8ff;
+  }
+
+  body.dark .token.selector,
+  body.dark .token.attr-name,
+  body.dark .token.string,
+  body.dark .token.char,
+  body.dark .token.builtin,
+  body.dark .token.inserted {
+    color: #9ecbff;
+  }
+
+  body.dark .token.operator, body.dark .token.entity, body.dark .token.url, body.dark .language-css .token.string, body.dark .style .token.string { color: inherit; }
+
+  body.dark .token.atrule,
+  body.dark .token.attr-value,
+  body.dark .token.keyword {
+    color: #f97583;
+  }
+
+  body.dark .token.function,
+  body.dark .token.class-name {
+    color: #b392f0;
+  }
+
+  body.dark .token.regex,
+  body.dark .token.important,
+  body.dark .token.variable {
+    color: #ffab70;
+  }
   </style>
   <link rel="stylesheet" href="cheatsheets.css" />
 </head>
@@ -462,11 +584,7 @@
 
   <header class="topbar glass reveal in">
     <a class="brand" href="../../index.html">
-      <svg class="brand-icon" viewBox="0 0 24 24">
-        <ellipse cx="12" cy="5" rx="9" ry="3" />
-        <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
-        <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
-      </svg>
+      
       Data Guide
     </a>
     <nav class="menu" aria-label="Cheatsheet menu">
@@ -508,62 +626,69 @@
   <main>
 
     <div class="page-wrap">
-      <section class="hero">
-        <p class="eyebrow">Quick Reference</p>
-        <h1>NumPy Cheatsheet</h1>
-        <p class="hero-copy">A focused guide to NumPy Cheatsheet.</p>
-        <p>Quick reference for NumPy array creation, operations, linear algebra, and broadcasting.</p>
-      </section>
-
-      <nav class="pill-nav">
-        <a href="#data-structures" data-category="basics">Data Structures</a>
-        <a href="#array-creation" data-category="basics">Array Creation</a>
-        <a href="#indexing-slicing" data-category="intermediate">Indexing & Slicing</a>
-        <a href="#array-operations" data-category="intermediate">Array Operations</a>
-        <a href="#reshaping-combining" data-category="intermediate">Reshaping & Combining</a>
-        <a href="#linear-algebra" data-category="advanced">Linear Algebra</a>
-        <a href="#broadcasting" data-category="advanced">Broadcasting</a>
-        <a href="#tips-tricks" data-category="advanced">Tips & Tricks</a>
-        <a href="#best-practices" data-category="advanced">Best Practices</a>
-        <a href="#useful-modules" data-category="advanced">Useful Modules</a>
+      <nav class="sidebar-nav">
+        <div class="nav-category basics">Basics</div>
+        <a href="#data-structures">Data Structures</a>
+        <a href="#array-creation">Array Creation</a>
+        <div class="nav-category intermediate">Intermediate</div>
+        <a href="#indexing-slicing">Indexing & Slicing</a>
+        <a href="#array-operations">Array Operations</a>
+        <a href="#reshaping-combining">Reshaping & Combining</a>
+        <div class="nav-category advanced">Advanced</div>
+        <a href="#linear-algebra">Linear Algebra</a>
+        <a href="#broadcasting">Broadcasting</a>
+        <a href="#tips-tricks">Tips & Tricks</a>
+        <a href="#best-practices">Best Practices</a>
+        <a href="#useful-modules">Useful Modules</a>
       </nav>
 
-      <section class="cheat-section" id="data-structures">
+      <div class="content-area">
+        <section class="hero">
+          <h1>NumPy Cheatsheet</h1>
+          <p class="hero-copy">A focused guide to NumPy Cheatsheet.</p>
+          <p>Quick reference for NumPy array creation, operations, linear algebra, and broadcasting.</p>
+        </section>
+
+        <section class="cheat-section" id="data-structures">
         <h2 class="section-title">Data Structures <span class="section-difficulty difficulty-basic">Basic</span></h2>
         <div class="code-grid">
           <div class="code-card">
             <span class="code-label">ndarray</span>
             <h3>N‑dimensional Array</h3>
             <p>The fundamental NumPy data structure.</p>
-            <div class="code-block">import numpy as np
+<pre class="code-block"><code class="language-python">
+import numpy as np
 
-              # Create a 1D array
-              arr = np.array([1, 2, 3, 4, 5])
-              print(arr.shape) # (5,)
-              print(arr.dtype) # int64
+# Create a 1D array
+arr = np.array([1, 2, 3, 4, 5])
+print(arr.shape) # (5,)
+print(arr.dtype) # int64
 
-              # Create a 2D array
-              matrix = np.array([[1, 2, 3],
-              [4, 5, 6]])
-              print(matrix.shape) # (2, 3)
-              print(matrix.ndim) # 2</div>
+# Create a 2D array
+matrix = np.array([[1, 2, 3],
+[4, 5, 6]])
+print(matrix.shape) # (2, 3)
+print(matrix.ndim) # 2
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">dtypes</span>
             <h3>Data Types</h3>
             <p>Control memory layout and precision.</p>
-            <div class="code-block"># Explicit dtype
-              arr = np.array([1, 2, 3], dtype=np.float32)
-              print(arr.dtype) # float32
+<pre class="code-block"><code class="language-python">
+# Explicit dtype
+arr = np.array([1, 2, 3], dtype=np.float32)
+print(arr.dtype) # float32
 
-              # Convert dtype
-              arr = arr.astype(np.int64)
-              print(arr.dtype) # int64
+# Convert dtype
+arr = arr.astype(np.int64)
+print(arr.dtype) # int64
 
-              # Structured dtype
-              dt = np.dtype([('x', np.int32), ('y', np.float64)])
-              arr = np.array([(1, 2.5), (3, 4.7)], dtype=dt)
-              print(arr[0]['x']) # 1</div>
+# Structured dtype
+dt = np.dtype([('x', np.int32), ('y', np.float64)])
+arr = np.array([(1, 2.5), (3, 4.7)], dtype=dt)
+print(arr[0]['x']) # 1
+</code></pre>
           </div>
         </div>
       </section>
@@ -575,70 +700,78 @@
             <span class="code-label">From List</span>
             <h3 id="list">Create Arrays</h3>
             <p>Create arrays from various sources.</p>
-            <div class="code-block">import numpy as np
+<pre class="code-block"><code class="language-python">
+import numpy as np
 
-              # From list
-              arr = np.array([1, 2, 3, 4, 5])
-              matrix = np.array([[1, 2], [3, 4]])
+# From list
+arr = np.array([1, 2, 3, 4, 5])
+matrix = np.array([[1, 2], [3, 4]])
 
-              # From list of tuples
-              arr = np.array([(1, 2), (3, 4)])
+# From list of tuples
+arr = np.array([(1, 2), (3, 4)])
 
-              # Copy
-              arr_copy = arr.copy()
-              arr_view = arr.view()</div>
+# Copy
+arr_copy = arr.copy()
+arr_view = arr.view()
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Ranges</span>
             <h3>Ranges & Sequences</h3>
             <p>Create arrays with ranges.</p>
-            <div class="code-block"># Arange (like range)
-              arr = np.arange(0, 10) # [0, 1, 2, ..., 9]
-              arr = np.arange(0, 10, 0.5) # Step 0.5
-              arr = np.arange(10, 0, -1) # Descending
+<pre class="code-block"><code class="language-python">
+# Arange (like range)
+arr = np.arange(0, 10) # [0, 1, 2, ..., 9]
+arr = np.arange(0, 10, 0.5) # Step 0.5
+arr = np.arange(10, 0, -1) # Descending
 
-              # Linspace (evenly spaced)
-              arr = np.linspace(0, 1, 10) # 10 points from 0 to 1
-              arr = np.linspace(0, 1, 10, endpoint=False) # Exclude end</div>
+# Linspace (evenly spaced)
+arr = np.linspace(0, 1, 10) # 10 points from 0 to 1
+arr = np.linspace(0, 1, 10, endpoint=False) # Exclude end
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Special</span>
             <h3>Special Arrays</h3>
             <p>Arrays with special values.</p>
-            <div class="code-block"># Zeros and ones
-              zeros = np.zeros(5) # [0, 0, 0, 0, 0]
-              zeros = np.zeros((3, 4)) # 3x4 matrix
-              ones = np.ones((2, 3)) # 2x3 matrix
+<pre class="code-block"><code class="language-python">
+# Zeros and ones
+zeros = np.zeros(5) # [0, 0, 0, 0, 0]
+zeros = np.zeros((3, 4)) # 3x4 matrix
+ones = np.ones((2, 3)) # 2x3 matrix
 
-              # Identity
-              eye = np.eye(3) # 3x3 identity
-              eye = np.eye(3, 4) # 3x4 with diagonal 1s
+# Identity
+eye = np.eye(3) # 3x3 identity
+eye = np.eye(3, 4) # 3x4 with diagonal 1s
 
-              # Full (constant values)
-              full = np.full((2, 3), 7) # 2x3 filled with 7
-              full = np.full_like(arr, 0) # Same shape as arr, filled with 0</div>
+# Full (constant values)
+full = np.full((2, 3), 7) # 2x3 filled with 7
+full = np.full_like(arr, 0) # Same shape as arr, filled with 0
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Random</span>
             <h3>Random Arrays</h3>
             <p>Generate random arrays.</p>
-            <div class="code-block"># Set seed for reproducibility
-              np.random.seed(42)
+<pre class="code-block"><code class="language-python">
+# Set seed for reproducibility
+np.random.seed(42)
 
-              # Uniform distribution [0, 1)
-              rand = np.random.rand(5) # 1D array
-              rand = np.random.rand(3, 4) # 3x4 matrix
+# Uniform distribution [0, 1)
+rand = np.random.rand(5) # 1D array
+rand = np.random.rand(3, 4) # 3x4 matrix
 
-              # Normal distribution
-              randn = np.random.randn(5) # Mean 0, std 1
-              randn = np.random.normal(0, 1, (3, 4)) # Custom mean/std
+# Normal distribution
+randn = np.random.randn(5) # Mean 0, std 1
+randn = np.random.normal(0, 1, (3, 4)) # Custom mean/std
 
-              # Random integers
-              rand_int = np.random.randint(0, 100, (5,)) # [0, 100)
-              rand_int = np.random.randint(0, 10, (3, 4))
+# Random integers
+rand_int = np.random.randint(0, 100, (5,)) # [0, 100)
+rand_int = np.random.randint(0, 10, (3, 4))
 
-              # Random choice
-              choices = np.random.choice([1, 2, 3, 4, 5], size=3)</div>
+# Random choice
+choices = np.random.choice([1, 2, 3, 4, 5], size=3)
+</code></pre>
           </div>
         </div>
       </section>
@@ -651,82 +784,90 @@
             <span class="code-label">Basic</span>
             <h3>Basic Indexing</h3>
             <p>Access array elements.</p>
-            <div class="code-block">arr = np.array([10, 20, 30, 40, 50])
+<pre class="code-block"><code class="language-python">
+arr = np.array([10, 20, 30, 40, 50])
 
-              # Single element
-              arr[0] # 10
-              arr[-1] # 50
-              arr[-2] # 40
+# Single element
+arr[0] # 10
+arr[-1] # 50
+arr[-2] # 40
 
-              # Slicing
-              arr[1:4] # [20, 30, 40]
-              arr[:3] # [10, 20, 30]
-              arr[2:] # [30, 40, 50]
-              arr[::2] # [10, 30, 50] (every 2nd)
-              arr[::-1] # [50, 40, 30, 20, 10] (reverse)</div>
+# Slicing
+arr[1:4] # [20, 30, 40]
+arr[:3] # [10, 20, 30]
+arr[2:] # [30, 40, 50]
+arr[::2] # [10, 30, 50] (every 2nd)
+arr[::-1] # [50, 40, 30, 20, 10] (reverse)
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">2D</span>
             <h3>Multi-dimensional Indexing</h3>
             <p>Index into multi-dimensional arrays.</p>
-            <div class="code-block">matrix = np.array([[1, 2, 3],
-              [4, 5, 6],
-              [7, 8, 9]])
+<pre class="code-block"><code class="language-python">
+matrix = np.array([[1, 2, 3],
+[4, 5, 6],
+[7, 8, 9]])
 
-              # Access element
-              matrix[0, 0] # 1
-              matrix[1, 2] # 6
-              matrix[-1, -1] # 9
+# Access element
+matrix[0, 0] # 1
+matrix[1, 2] # 6
+matrix[-1, -1] # 9
 
-              # Rows and columns
-              matrix[0, :] # First row [1, 2, 3]
-              matrix[:, 0] # First column [1, 4, 7]
-              matrix[1, :] # Second row [4, 5, 6]
-              matrix[:, 2] # Third column [3, 6, 9]
+# Rows and columns
+matrix[0, :] # First row [1, 2, 3]
+matrix[:, 0] # First column [1, 4, 7]
+matrix[1, :] # Second row [4, 5, 6]
+matrix[:, 2] # Third column [3, 6, 9]
 
-              # Submatrix
-              matrix[0:2, 1:3] # [[2, 3], [5, 6]]</div>
+# Submatrix
+matrix[0:2, 1:3] # [[2, 3], [5, 6]]
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Boolean</span>
             <h3>Boolean Indexing</h3>
             <p>Filter arrays with conditions.</p>
-            <div class="code-block">arr = np.array([1, 5, 2, 8, 3, 9, 4])
+<pre class="code-block"><code class="language-python">
+arr = np.array([1, 5, 2, 8, 3, 9, 4])
 
-              # Boolean mask
-              mask = arr > 5 # [False, False, False, True, False, True, False]
-              arr[mask] # [8, 9]
+# Boolean mask
+mask = arr > 5 # [False, False, False, True, False, True, False]
+arr[mask] # [8, 9]
 
-              # Direct filtering
-              arr[arr > 5] # [8, 9]
-              arr[arr % 2 == 0] # [8, 4] (evens)
-              arr[(arr > 2) & (arr < 8)] # [5, 3, 4] # Negation arr[~(arr> 5)] # [1, 5, 2, 3, 4]
+# Direct filtering
+arr[arr > 5] # [8, 9]
+arr[arr % 2 == 0] # [8, 4] (evens)
+arr[(arr > 2) & (arr < 8)] # [5, 3, 4] # Negation arr[~(arr> 5)] # [1, 5, 2, 3, 4]
 
-                # Using where
-                np.where(arr > 5, arr, 0) # [0, 0, 0, 8, 0, 9, 0]</div>
+# Using where
+np.where(arr > 5, arr, 0) # [0, 0, 0, 8, 0, 9, 0]
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Fancy</span>
             <h3>Fancy Indexing</h3>
             <p>Index with arrays/lists.</p>
-            <div class="code-block">arr = np.array([10, 20, 30, 40, 50])
+<pre class="code-block"><code class="language-python">
+arr = np.array([10, 20, 30, 40, 50])
 
-              # Index array
-              indices = [0, 2, 4]
-              arr[indices] # [10, 30, 50]
+# Index array
+indices = [0, 2, 4]
+arr[indices] # [10, 30, 50]
 
-              # 2D fancy indexing
-              matrix = np.array([[1, 2], [3, 4], [5, 6]])
-              rows = [0, 2]
-              cols = [1, 0]
-              matrix[rows, cols] # [2, 5] (diagonal-ish)
+# 2D fancy indexing
+matrix = np.array([[1, 2], [3, 4], [5, 6]])
+rows = [0, 2]
+cols = [1, 0]
+matrix[rows, cols] # [2, 5] (diagonal-ish)
 
-              # Using np.take
-              np.take(arr, [0, 2, 4]) # [10, 30, 50]
+# Using np.take
+np.take(arr, [0, 2, 4]) # [10, 30, 50]
 
-              # Using np.argpartition
-              idx = np.argpartition(arr, 2) # Indices of 2 smallest
-              arr[idx[:2]]</div>
+# Using np.argpartition
+idx = np.argpartition(arr, 2) # Indices of 2 smallest
+arr[idx[:2]]
+</code></pre>
           </div>
         </div>
       </section>
@@ -738,98 +879,106 @@
             <span class="code-label">Arithmetic</span>
             <h3>Mathematical Operations</h3>
             <p>Element-wise math operations.</p>
-            <div class="code-block">a = np.array([1, 2, 3])
-              b = np.array([4, 5, 6])
+<pre class="code-block"><code class="language-python">
+a = np.array([1, 2, 3])
+b = np.array([4, 5, 6])
 
-              # Basic operations
-              a + b # [5, 7, 9]
-              a - b # [-3, -3, -3]
-              a * b # [4, 10, 18]
-              a / b # [0.25, 0.4, 0.5]
-              a ** 2 # [1, 4, 9]
+# Basic operations
+a + b # [5, 7, 9]
+a - b # [-3, -3, -3]
+a * b # [4, 10, 18]
+a / b # [0.25, 0.4, 0.5]
+a ** 2 # [1, 4, 9]
 
-              # Scalar operations
-              a + 10 # [11, 12, 13]
-              a * 2 # [2, 4, 6]
+# Scalar operations
+a + 10 # [11, 12, 13]
+a * 2 # [2, 4, 6]
 
-              # In-place operations
-              a += 1
-              a *= 2
+# In-place operations
+a += 1
+a *= 2
 
-              # Matrix multiplication
-              a @ b # 32 (dot product)
-              np.dot(a, b) # 32
-              np.matmul(a.reshape(1,3), b.reshape(3,1)) # [[32]]</div>
+# Matrix multiplication
+a @ b # 32 (dot product)
+np.dot(a, b) # 32
+np.matmul(a.reshape(1,3), b.reshape(3,1)) # [[32]]
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Statistics</span>
             <h3>Statistical Functions</h3>
             <p>Compute statistics on arrays.</p>
-            <div class="code-block">arr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+<pre class="code-block"><code class="language-python">
+arr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 
-              # Basic stats
-              np.mean(arr) # 5.5
-              np.median(arr) # 5.5
-              np.std(arr) # 2.87
-              np.var(arr) # 8.25
-              np.min(arr) # 1
-              np.max(arr) # 10
-              np.sum(arr) # 55
-              np.prod(arr) # 3628800
+# Basic stats
+np.mean(arr) # 5.5
+np.median(arr) # 5.5
+np.std(arr) # 2.87
+np.var(arr) # 8.25
+np.min(arr) # 1
+np.max(arr) # 10
+np.sum(arr) # 55
+np.prod(arr) # 3628800
 
-              # Arg functions
-              np.argmin(arr) # 0 (index of min)
-              np.argmax(arr) # 9 (index of max)
+# Arg functions
+np.argmin(arr) # 0 (index of min)
+np.argmax(arr) # 9 (index of max)
 
-              # Percentiles
-              np.percentile(arr, 25) # 3.25 (Q1)
-              np.percentile(arr, 50) # 5.5 (median)
-              np.percentile(arr, 75) # 7.75 (Q3)</div>
+# Percentiles
+np.percentile(arr, 25) # 3.25 (Q1)
+np.percentile(arr, 50) # 5.5 (median)
+np.percentile(arr, 75) # 7.75 (Q3)
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Axis</span>
             <h3>Axis Operations</h3>
             <p>Operations along specific axis.</p>
-            <div class="code-block">matrix = np.array([[1, 2, 3],
-              [4, 5, 6],
-              [7, 8, 9]])
+<pre class="code-block"><code class="language-python">
+matrix = np.array([[1, 2, 3],
+[4, 5, 6],
+[7, 8, 9]])
 
-              # Axis 0 (columns), Axis 1 (rows)
-              np.sum(matrix, axis=0) # [12, 15, 18] (column sums)
-              np.sum(matrix, axis=1) # [6, 15, 24] (row sums)
+# Axis 0 (columns), Axis 1 (rows)
+np.sum(matrix, axis=0) # [12, 15, 18] (column sums)
+np.sum(matrix, axis=1) # [6, 15, 24] (row sums)
 
-              np.mean(matrix, axis=0) # [4., 5., 6.]
-              np.mean(matrix, axis=1) # [2., 5., 8.]
+np.mean(matrix, axis=0) # [4., 5., 6.]
+np.mean(matrix, axis=1) # [2., 5., 8.]
 
-              np.min(matrix, axis=0) # [1, 2, 3]
-              np.max(matrix, axis=1) # [3, 6, 9]
+np.min(matrix, axis=0) # [1, 2, 3]
+np.max(matrix, axis=1) # [3, 6, 9]
 
-              # Keep dimensions
-              np.sum(matrix, axis=0, keepdims=True) # [[12, 15, 18]]</div>
+# Keep dimensions
+np.sum(matrix, axis=0, keepdims=True) # [[12, 15, 18]]
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Comparison</span>
             <h3>Comparison Operations</h3>
             <p>Compare arrays element-wise.</p>
-            <div class="code-block">a = np.array([1, 2, 3, 4])
-              b = np.array([2, 2, 2, 4])
+<pre class="code-block"><code class="language-python">
+a = np.array([1, 2, 3, 4])
+b = np.array([2, 2, 2, 4])
 
-              # Element-wise comparison
-              a == b # [False, True, False, True]
-              a != b # [True, False, True, False]
-              a > b # [False, False, True, False]
-              a >= b # [False, True, True, True]
+# Element-wise comparison
+a == b # [False, True, False, True]
+a != b # [True, False, True, False]
+a > b # [False, False, True, False]
+a >= b # [False, True, True, True]
 
-              # All/any
-              np.all(a > 0) # True
-              np.any(a == 0) # False
+# All/any
+np.all(a > 0) # True
+np.any(a == 0) # False
 
-              # Array comparison
-              np.array_equal(a, b) # False
+# Array comparison
+np.array_equal(a, b) # False
 
-              # Logical operations
-              np.logical_and(a > 1, a < 4) # [False, True, True, False] np.logical_or(a < 2, a> 3) # [True, False,
-                False, True]</div>
+# Logical operations
+np.logical_and(a > 1, a < 4) # [False, True, True, False] np.logical_or(a < 2, a> 3) # [True, False,
+False, True]
+</code></pre>
           </div>
         </div>
       </section>
@@ -842,89 +991,97 @@
             <span class="code-label">Reshape</span>
             <h3>Reshape Arrays</h3>
             <p>Change array shape.</p>
-            <div class="code-block">arr = np.arange(12)
+<pre class="code-block"><code class="language-python">
+arr = np.arange(12)
 
-              # Reshape
-              arr.reshape(3, 4) # 3 rows, 4 cols
-              arr.reshape(2, 2, 3) # 3D array
-              arr.reshape(4, -1) # 4 rows, auto columns
-              arr.reshape(-1) # Flatten to 1D
+# Reshape
+arr.reshape(3, 4) # 3 rows, 4 cols
+arr.reshape(2, 2, 3) # 3D array
+arr.reshape(4, -1) # 4 rows, auto columns
+arr.reshape(-1) # Flatten to 1D
 
-              # Flatten
-              matrix = np.array([[1, 2], [3, 4]])
-              matrix.flatten() # [1, 2, 3, 4] (copy)
-              matrix.ravel() # [1, 2, 3, 4] (view if possible)
+# Flatten
+matrix = np.array([[1, 2], [3, 4]])
+matrix.flatten() # [1, 2, 3, 4] (copy)
+matrix.ravel() # [1, 2, 3, 4] (view if possible)
 
-              # Resize (in-place, changes size)
-              arr.resize(2, 6)
+# Resize (in-place, changes size)
+arr.resize(2, 6)
 
-              # Transpose
-              matrix.T # Transpose
-              np.transpose(matrix)</div>
+# Transpose
+matrix.T # Transpose
+np.transpose(matrix)
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Stack</span>
             <h3>Stack Arrays</h3>
             <p>Combine arrays.</p>
-            <div class="code-block">a = np.array([1, 2, 3])
-              b = np.array([4, 5, 6])
+<pre class="code-block"><code class="language-python">
+a = np.array([1, 2, 3])
+b = np.array([4, 5, 6])
 
-              # Stack vertically
-              np.vstack([a, b]) # [[1,2,3], [4,5,6]]
-              np.row_stack([a, b]) # Same as vstack
+# Stack vertically
+np.vstack([a, b]) # [[1,2,3], [4,5,6]]
+np.row_stack([a, b]) # Same as vstack
 
-              # Stack horizontally
-              np.hstack([a, b]) # [1, 2, 3, 4, 5, 6]
-              np.column_stack([a, b]) # [[1,4], [2,5], [3,6]]
+# Stack horizontally
+np.hstack([a, b]) # [1, 2, 3, 4, 5, 6]
+np.column_stack([a, b]) # [[1,4], [2,5], [3,6]]
 
-              # Generic stack
-              np.stack([a, b]) # [[1,2,3], [4,5,6]]
-              np.stack([a, b], axis=1)# [[1,4], [2,5], [3,6]]
+# Generic stack
+np.stack([a, b]) # [[1,2,3], [4,5,6]]
+np.stack([a, b], axis=1)# [[1,4], [2,5], [3,6]]
 
-              # Concatenate
-              np.concatenate([a, b]) # [1, 2, 3, 4, 5, 6]
-              np.concatenate([[a], [b]]) # [[1,2,3], [4,5,6]]</div>
+# Concatenate
+np.concatenate([a, b]) # [1, 2, 3, 4, 5, 6]
+np.concatenate([[a], [b]]) # [[1,2,3], [4,5,6]]
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Split</span>
             <h3>Split Arrays</h3>
             <p>Split arrays into sub-arrays.</p>
-            <div class="code-block">arr = np.arange(12)
+<pre class="code-block"><code class="language-python">
+arr = np.arange(12)
 
-              # Split into equal parts
-              np.split(arr, 3) # 3 equal parts
-              np.split(arr, 4) # 4 equal parts
+# Split into equal parts
+np.split(arr, 3) # 3 equal parts
+np.split(arr, 4) # 4 equal parts
 
-              # Split at indices
-              np.split(arr, [3, 7]) # Split at 3 and 7
+# Split at indices
+np.split(arr, [3, 7]) # Split at 3 and 7
 
-              # Vertical split
-              matrix = np.arange(12).reshape(3, 4)
-              np.vsplit(matrix, 3) # Split into 3 rows
+# Vertical split
+matrix = np.arange(12).reshape(3, 4)
+np.vsplit(matrix, 3) # Split into 3 rows
 
-              # Horizontal split
-              np.hsplit(matrix, 2) # Split into 2 column groups
-              np.hsplit(matrix, [1, 3]) # Split at cols 1 and 3</div>
+# Horizontal split
+np.hsplit(matrix, 2) # Split into 2 column groups
+np.hsplit(matrix, [1, 3]) # Split at cols 1 and 3
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Tile/Repeat</span>
             <h3>Tile & Repeat</h3>
             <p>Repeat or tile arrays.</p>
-            <div class="code-block">arr = np.array([1, 2, 3])
+<pre class="code-block"><code class="language-python">
+arr = np.array([1, 2, 3])
 
-              # Repeat elements
-              np.repeat(arr, 2) # [1, 1, 2, 2, 3, 3]
-              np.repeat(arr, [2, 3, 1]) # [1, 1, 2, 2, 2, 3]
+# Repeat elements
+np.repeat(arr, 2) # [1, 1, 2, 2, 3, 3]
+np.repeat(arr, [2, 3, 1]) # [1, 1, 2, 2, 2, 3]
 
-              # Tile (repeat whole array)
-              np.tile(arr, 2) # [1, 2, 3, 1, 2, 3]
-              np.tile(arr, (2, 3)) # 2x3 tiling
+# Tile (repeat whole array)
+np.tile(arr, 2) # [1, 2, 3, 1, 2, 3]
+np.tile(arr, (2, 3)) # 2x3 tiling
 
-              # Unique elements
-              arr = np.array([1, 2, 2, 3, 3, 3])
-              np.unique(arr) # [1, 2, 3]
-              np.unique(arr, return_counts=True)
-              # ([1, 2, 3], [1, 2, 3])</div>
+# Unique elements
+arr = np.array([1, 2, 2, 3, 3, 3])
+np.unique(arr) # [1, 2, 3]
+np.unique(arr, return_counts=True)
+# ([1, 2, 3], [1, 2, 3])
+</code></pre>
           </div>
         </div>
       </section>
@@ -937,98 +1094,106 @@
             <span class="code-label">Matrix</span>
             <h3>Matrix Operations</h3>
             <p>Basic linear algebra operations.</p>
-            <div class="code-block">A = np.array([[1, 2], [3, 4]])
-              B = np.array([[5, 6], [7, 8]])
+<pre class="code-block"><code class="language-python">
+A = np.array([[1, 2], [3, 4]])
+B = np.array([[5, 6], [7, 8]])
 
-              # Matrix multiplication
-              C = np.dot(A, B)
-              C = A @ B
-              C = np.matmul(A, B)
+# Matrix multiplication
+C = np.dot(A, B)
+C = A @ B
+C = np.matmul(A, B)
 
-              # Transpose
-              A.T
+# Transpose
+A.T
 
-              # Inverse
-              inv_A = np.linalg.inv(A)
+# Inverse
+inv_A = np.linalg.inv(A)
 
-              # Determinant
-              det_A = np.linalg.det(A)
+# Determinant
+det_A = np.linalg.det(A)
 
-              # Trace
-              trace = np.trace(A)
+# Trace
+trace = np.trace(A)
 
-              # Matrix power
-              A @ A @ A # or
-              A**3 = np.linalg.matrix_power(A, 3)</div>
+# Matrix power
+A @ A @ A # or
+A**3 = np.linalg.matrix_power(A, 3)
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Decomposition</span>
             <h3>Matrix Decomposition</h3>
             <p>Decompose matrices.</p>
-            <div class="code-block"># Eigenvalues and eigenvectors
-              vals, vecs = np.linalg.eig(A)
+<pre class="code-block"><code class="language-python">
+# Eigenvalues and eigenvectors
+vals, vecs = np.linalg.eig(A)
 
-              # Singular Value Decomposition
-              U, S, Vt = np.linalg.svd(A)
+# Singular Value Decomposition
+U, S, Vt = np.linalg.svd(A)
 
-              # Cholesky decomposition
-              L = np.linalg.cholesky(A) # A = L @ L.T
+# Cholesky decomposition
+L = np.linalg.cholesky(A) # A = L @ L.T
 
-              # QR decomposition
-              Q, R = np.linalg.qr(A)
+# QR decomposition
+Q, R = np.linalg.qr(A)
 
-              # LU decomposition (SciPy)
-              from scipy import linalg
-              P, L, U = linalg.lu(A)</div>
+# LU decomposition (SciPy)
+from scipy import linalg
+P, L, U = linalg.lu(A)
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Solve</span>
             <h3>Solve Linear Systems</h3>
             <p>Solve Ax = b systems.</p>
-            <div class="code-block"># Solve Ax = b
-              A = np.array([[3, 1], [1, 2]])
-              b = np.array([9, 8])
+<pre class="code-block"><code class="language-python">
+# Solve Ax = b
+A = np.array([[3, 1], [1, 2]])
+b = np.array([9, 8])
 
-              x = np.linalg.solve(A, b)
-              # x = [2., 3.]
+x = np.linalg.solve(A, b)
+# x = [2., 3.]
 
-              # Least squares
-              A = np.array([[1, 1], [1, 2], [1, 3]])
-              b = np.array([1, 2, 2])
+# Least squares
+A = np.array([[1, 1], [1, 2], [1, 3]])
+b = np.array([1, 2, 2])
 
-              x, residuals, rank, s = np.linalg.lstsq(A, b, rcond=None)
+x, residuals, rank, s = np.linalg.lstsq(A, b, rcond=None)
 
-              # Condition number
-              cond = np.linalg.cond(A)
+# Condition number
+cond = np.linalg.cond(A)
 
-              # Norms
-              np.linalg.norm(A) # Frobenius norm
-              np.linalg.norm(A, ord=2) # 2-norm
-              np.linalg.norm(b, ord=1) # 1-norm</div>
+# Norms
+np.linalg.norm(A) # Frobenius norm
+np.linalg.norm(A, ord=2) # 2-norm
+np.linalg.norm(b, ord=1) # 1-norm
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Vector</span>
             <h3>Vector Operations</h3>
             <p>Vector math and operations.</p>
-            <div class="code-block">v1 = np.array([1, 2, 3])
-              v2 = np.array([4, 5, 6])
+<pre class="code-block"><code class="language-python">
+v1 = np.array([1, 2, 3])
+v2 = np.array([4, 5, 6])
 
-              # Dot product
-              dot = np.dot(v1, v2) # 32
-              dot = v1 @ v2
+# Dot product
+dot = np.dot(v1, v2) # 32
+dot = v1 @ v2
 
-              # Cross product
-              cross = np.cross(v1, v2) # [-3, 6, -3]
+# Cross product
+cross = np.cross(v1, v2) # [-3, 6, -3]
 
-              # Norm (magnitude)
-              norm = np.linalg.norm(v1) # 3.74
+# Norm (magnitude)
+norm = np.linalg.norm(v1) # 3.74
 
-              # Normalize
-              normalized = v1 / np.linalg.norm(v1)
+# Normalize
+normalized = v1 / np.linalg.norm(v1)
 
-              # Angle between vectors
-              cos_angle = np.dot(v1, v2) / (np.linalg.norm(v1) * np.linalg.norm(v2))
-              angle = np.arccos(cos_angle)</div>
+# Angle between vectors
+cos_angle = np.dot(v1, v2) / (np.linalg.norm(v1) * np.linalg.norm(v2))
+angle = np.arccos(cos_angle)
+</code></pre>
           </div>
         </div>
       </section>
@@ -1040,73 +1205,79 @@
             <span class="code-label">Rules</span>
             <h3>Broadcasting Rules</h3>
             <p>Understand how broadcasting works.</p>
-            <div class="code-block"># Rule 1: Arrays with fewer dimensions prepend 1s
-              # (3,) and (2,3) -> (1,3) and (2,3)
+<pre class="code-block"><code class="language-python">
+# Rule 1: Arrays with fewer dimensions prepend 1s
+# (3,) and (2,3) -> (1,3) and (2,3)
 
-              # Rule 2: Size 1 dimensions stretch
-              # (2,1) and (1,3) -> (2,3) and (2,3)
+# Rule 2: Size 1 dimensions stretch
+# (2,1) and (1,3) -> (2,3) and (2,3)
 
-              # Example: (3,4) + (4,) works
-              # (4,) -> (1,4) -> (3,4)
+# Example: (3,4) + (4,) works
+# (4,) -> (1,4) -> (3,4)
 
-              # Scalar broadcasts to any shape
-              arr = np.array([[1, 2], [3, 4]])
-              arr + 10 # [[11,12], [13,14]]
+# Scalar broadcasts to any shape
+arr = np.array([[1, 2], [3, 4]])
+arr + 10 # [[11,12], [13,14]]
 
-              # Error: incompatible shapes
-              # np.array([1,2,3]) + np.array([1,2])
-              # ValueError: shapes (3,) and (2,) not compatible</div>
+# Error: incompatible shapes
+# np.array([1,2,3]) + np.array([1,2])
+# ValueError: shapes (3,) and (2,) not compatible
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Examples</span>
             <h3>Common Patterns</h3>
             <p>Practical broadcasting examples.</p>
-            <div class="code-block"># Row operations
-              matrix = np.array([[1, 2, 3], [4, 5, 6]])
-              row = np.array([10, 20, 30])
-              result = matrix + row # [[11,22,33], [14,25,36]]
+<pre class="code-block"><code class="language-python">
+# Row operations
+matrix = np.array([[1, 2, 3], [4, 5, 6]])
+row = np.array([10, 20, 30])
+result = matrix + row # [[11,22,33], [14,25,36]]
 
-              # Column operations
-              col = np.array([[10], [20]])
-              result = matrix + col # [[11,12,13], [24,25,26]]
+# Column operations
+col = np.array([[10], [20]])
+result = matrix + col # [[11,12,13], [24,25,26]]
 
-              # Normalize each row
-              normalized = matrix / matrix.sum(axis=1, keepdims=True)
+# Normalize each row
+normalized = matrix / matrix.sum(axis=1, keepdims=True)
 
-              # Subtract column means
-              col_means = matrix.mean(axis=0)
-              centered = matrix - col_means
+# Subtract column means
+col_means = matrix.mean(axis=0)
+centered = matrix - col_means
 
-              # Compute pairwise distances
-              points = np.array([[0, 0], [1, 1], [2, 2]])
-              diff = points[:, np.newaxis, :] - points[np.newaxis, :, :]
-              distances = np.sqrt((diff**2).sum(axis=2))</div>
+# Compute pairwise distances
+points = np.array([[0, 0], [1, 1], [2, 2]])
+diff = points[:, np.newaxis, :] - points[np.newaxis, :, :]
+distances = np.sqrt((diff**2).sum(axis=2))
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Newaxis</span>
             <h3>np.newaxis</h3>
             <p>Add dimensions for broadcasting.</p>
-            <div class="code-block">arr = np.array([1, 2, 3, 4])
+<pre class="code-block"><code class="language-python">
+arr = np.array([1, 2, 3, 4])
 
-              # Add row dimension
-              arr[np.newaxis, :] # shape (1, 4)
-              arr[None, :] # Same as above
+# Add row dimension
+arr[np.newaxis, :] # shape (1, 4)
+arr[None, :] # Same as above
 
-              # Add column dimension
-              arr[:, np.newaxis] # shape (4, 1)
-              arr[:, None] # Same as above
+# Add column dimension
+arr[:, np.newaxis] # shape (4, 1)
+arr[:, None] # Same as above
 
-              # Outer product
-              a = np.array([1, 2, 3])
-              b = np.array([4, 5])
-              outer = a[:, np.newaxis] * b[np.newaxis, :]
-              # [[ 4, 5],
-              # [ 8, 10],
-              # [12, 15]]
+# Outer product
+a = np.array([1, 2, 3])
+b = np.array([4, 5])
+outer = a[:, np.newaxis] * b[np.newaxis, :]
+# [[ 4, 5],
+# [ 8, 10],
+# [12, 15]]
 
-              # Expand dims
-              np.expand_dims(arr, axis=0) # Add row
-              np.expand_dims(arr, axis=1) # Add column</div>
+# Expand dims
+np.expand_dims(arr, axis=0) # Add row
+np.expand_dims(arr, axis=1) # Add column
+</code></pre>
           </div>
         </div>
       </section>
@@ -1117,53 +1288,59 @@
             <span class="code-label">numpy.linalg</span>
             <h3>Linear Algebra</h3>
             <p>Matrix operations, decompositions, and solvers.</p>
-            <div class="code-block">import numpy as np
-              from numpy import linalg as LA
+<pre class="code-block"><code class="language-python">
+import numpy as np
+from numpy import linalg as LA
 
-              # Solve linear system Ax = b
-              A = np.array([[1, 2], [3, 4]])
-              b = np.array([5, 6])
-              x = LA.solve(A, b) # [-4. 4.5]
+# Solve linear system Ax = b
+A = np.array([[1, 2], [3, 4]])
+b = np.array([5, 6])
+x = LA.solve(A, b) # [-4. 4.5]
 
-              # Eigenvalues and eigenvectors
-              vals, vecs = LA.eig(A)
+# Eigenvalues and eigenvectors
+vals, vecs = LA.eig(A)
 
-              # SVD
-              U, s, Vh = LA.svd(A, full_matrices=False)</div>
+# SVD
+U, s, Vh = LA.svd(A, full_matrices=False)
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">numpy.fft</span>
             <h3>Fast Fourier Transform</h3>
             <p>Discrete Fourier transforms and related routines.</p>
-            <div class="code-block">import numpy as np
-              from numpy import fft
+<pre class="code-block"><code class="language-python">
+import numpy as np
+from numpy import fft
 
-              # 1D FFT
-              signal = np.array([1, 2, 3, 4])
-              freq = fft.fft(signal)
-              recon = fft.ifft(freq)
+# 1D FFT
+signal = np.array([1, 2, 3, 4])
+freq = fft.fft(signal)
+recon = fft.ifft(freq)
 
-              # 2D FFT
-              image = np.random.rand(8, 8)
-              freq2d = fft.fft2(image)</div>
+# 2D FFT
+image = np.random.rand(8, 8)
+freq2d = fft.fft2(image)
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">numpy.random</span>
             <h3>Random Sampling</h3>
             <p>Random number generation and distributions.</p>
-            <div class="code-block">import numpy as np
+<pre class="code-block"><code class="language-python">
+import numpy as np
 
-              # Set seed for reproducibility
-              rng = np.random.default_rng(seed=42)
+# Set seed for reproducibility
+rng = np.random.default_rng(seed=42)
 
-              # Uniform distribution
-              uniform = rng.random((3, 3))
+# Uniform distribution
+uniform = rng.random((3, 3))
 
-              # Normal distribution
-              normal = rng.normal(loc=0, scale=1, size=(2, 5))
+# Normal distribution
+normal = rng.normal(loc=0, scale=1, size=(2, 5))
 
-              # Choose from list
-              choices = rng.choice(['a', 'b', 'c'], size=10)</div>
+# Choose from list
+choices = rng.choice(['a', 'b', 'c'], size=10)
+</code></pre>
           </div>
         </div>
       </section>
@@ -1174,37 +1351,43 @@
             <span class="code-label">Tip</span>
             <h3>Use vectorized operations</h3>
             <p>Replace Python loops with NumPy vectorized functions for massive speed gains.</p>
-            <div class="code-block"># Slow
-              result = []
-              for i in range(len(arr)):
-              result.append(arr[i] * 2)
+<pre class="code-block"><code class="language-python">
+# Slow
+result = []
+for i in range(len(arr)):
+result.append(arr[i] * 2)
 
-              # Fast
-              result = arr * 2</div>
+# Fast
+result = arr * 2
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Trick</span>
             <h3>Use broadcasting effectively</h3>
             <p>Operate on arrays of different shapes without explicit loops.</p>
-            <div class="code-block"># Create a 5x5 array of ones
-              ones = np.ones((5, 5))
+<pre class="code-block"><code class="language-python">
+# Create a 5x5 array of ones
+ones = np.ones((5, 5))
 
-              # Subtract a 1D array from each row
-              row_vector = np.array([1, 2, 3, 4, 5])
-              result = ones - row_vector # Broadcasting works</div>
+# Subtract a 1D array from each row
+row_vector = np.array([1, 2, 3, 4, 5])
+result = ones - row_vector # Broadcasting works
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Tip</span>
             <h3>Use `np.where` for conditional selection</h3>
             <p>Vectorized if-else for array elements.</p>
-            <div class="code-block">arr = np.array([1, -2, 3, -4, 5])
-              # Replace negative values with zero
-              positive = np.where(arr > 0, arr, 0)
-              # [1, 0, 3, 0, 5]
+<pre class="code-block"><code class="language-python">
+arr = np.array([1, -2, 3, -4, 5])
+# Replace negative values with zero
+positive = np.where(arr > 0, arr, 0)
+# [1, 0, 3, 0, 5]
 
-              # Conditional based on another array
-              cond = np.array([True, False, True, False, True])
-              result = np.where(cond, arr, -arr)</div>
+# Conditional based on another array
+cond = np.array([True, False, True, False, True])
+result = np.where(cond, arr, -arr)
+</code></pre>
           </div>
         </div>
       </section>
@@ -1216,26 +1399,33 @@
             <span class="code-label">Memory</span>
             <h3>Use dtype wisely</h3>
             <p>Use explicit dtypes and avoid object arrays to reduce memory and improve speed.</p>
-            <div class="code-block">arr = np.array([1, 2, 3], dtype=np.int16)
-              arr = arr.astype(np.float32)</div>
+<pre class="code-block"><code class="language-python">
+arr = np.array([1, 2, 3], dtype=np.int16)
+arr = arr.astype(np.float32)
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">IO</span>
             <h3>Prefer binary formats</h3>
             <p>Use `np.save`/`np.load` for numpy arrays instead of text files.</p>
-            <div class="code-block">np.save('data.npy', arr)
-              arr2 = np.load('data.npy')</div>
+<pre class="code-block"><code class="language-python">
+np.save('data.npy', arr)
+arr2 = np.load('data.npy')
+</code></pre>
           </div>
           <div class="code-card">
             <span class="code-label">Profiling</span>
             <h3>Profile with `%timeit`</h3>
             <p>Measure before optimizing to choose the best approach.</p>
-            <div class="code-block"># in notebook
-              %timeit arr * 2
-              %timeit np.multiply(arr, 2)</div>
+<pre class="code-block"><code class="language-python">
+# in notebook
+%timeit arr * 2
+%timeit np.multiply(arr, 2)
+</code></pre>
           </div>
         </div>
       </section>
+      </div>
     </div>
   </main>
     <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
@@ -1245,5 +1435,11 @@
     </svg>
   </button>
   <script src="cheatsheets.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+  <script>Prism.highlightAll();</script>
 </body>
 </html>
