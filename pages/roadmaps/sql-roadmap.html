@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Data Guide | SQL Roadmap</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<<<<<<< HEAD:source/roadmaps/sql-roadmap.html
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../hub.css" />
+  <link rel="stylesheet" href="../sidebar.css" />
+  <link rel="stylesheet" href="../nav-section-pills.css" />
+=======
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../../assets/css/styles.css" />
   <link rel="stylesheet" href="../../assets/css/hub.css" />
+>>>>>>> main:pages/roadmaps/sql-roadmap.html
   <style>
     /* Roadmap specific styles */
     .roadmap-container {
@@ -189,6 +200,7 @@
       .topic-grid {
         margin-left: 0;
       }
+
       .phase-connector {
         display: none;
       }
@@ -196,13 +208,19 @@
   </style>
 </head>
 
-<body>
+<body class="with-sidebar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
   <header class="topbar glass reveal in">
     <a class="brand" href="../../index.html">Data Guide</a>
+<<<<<<< HEAD:source/roadmaps/sql-roadmap.html
+    <button id="sidebarToggle" class="sidebar-toggle" type="button" aria-label="Toggle sidebar">
+      <span class="toggle-icon" aria-hidden="true">☰</span>
+    </button>
+=======
+>>>>>>> main:pages/roadmaps/sql-roadmap.html
     <nav class="menu" aria-label="Main menu">
       <a href="roadmap.html">Data Engineering</a>
       <a href="python-roadmap.html">Python</a>
@@ -217,12 +235,15 @@
     </button>
   </header>
 
-  <main>
+  <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+  <main class="main-content">
     <div class="page-wrap">
       <section class="hero">
         <p class="eyebrow">Your Learning Path</p>
         <h1>SQL Roadmap</h1>
-        <p class="hero-copy">Master SQL from basics to advanced analytics. Learn querying, optimization, modeling, and window functions.</p>
+        <p class="hero-copy">Master SQL from basics to advanced analytics. Learn querying, optimization, modeling, and
+          window functions.</p>
       </section>
 
       <div class="roadmap-container">
@@ -233,7 +254,7 @@
           <div class="phase-header">
             <div class="phase-number">1</div>
             <div>
-              <h2 class="phase-title">SQL Basics</h2>
+              <h2 id="sql-basics" class="phase-title">SQL Basics</h2>
               <p class="phase-description">Learn the fundamentals of SQL querying</p>
             </div>
           </div>
@@ -245,7 +266,7 @@
                 <li>SELECT statement</li>
                 <li>FROM clause</li>
                 <li>WHERE with conditions</li>
-                <li>Basic operators (=, <, >, !=)</li>
+                <li>Basic operators (=, <,>, !=)</li>
               </ul>
               <span class="skill-badge required">Required</span>
             </div>
@@ -291,7 +312,7 @@
           <div class="phase-header">
             <div class="phase-number">2</div>
             <div>
-              <h2 class="phase-title">Filtering & Functions</h2>
+              <h2 id="filtering-functions" class="phase-title">Filtering & Functions</h2>
               <p class="phase-description">Transform and aggregate data effectively</p>
             </div>
           </div>
@@ -349,7 +370,7 @@
           <div class="phase-header">
             <div class="phase-number">3</div>
             <div>
-              <h2 class="phase-title">JOINs</h2>
+              <h2 id="joins" class="phase-title">JOINs</h2>
               <p class="phase-description">Combine data from multiple tables</p>
             </div>
           </div>
@@ -407,7 +428,7 @@
           <div class="phase-header">
             <div class="phase-number">4</div>
             <div>
-              <h2 class="phase-title">Subqueries & CTEs</h2>
+              <h2 id="subqueries-ctes" class="phase-title">Subqueries & CTEs</h2>
               <p class="phase-description">Nest queries and improve readability</p>
             </div>
           </div>
@@ -465,7 +486,7 @@
           <div class="phase-header">
             <div class="phase-number">5</div>
             <div>
-              <h2 class="phase-title">Window Functions</h2>
+              <h2 id="window-functions" class="phase-title">Window Functions</h2>
               <p class="phase-description">Perform calculations across sets of rows</p>
             </div>
           </div>
@@ -523,7 +544,7 @@
           <div class="phase-header">
             <div class="phase-number">6</div>
             <div>
-              <h2 class="phase-title">Data Modeling</h2>
+              <h2 id="data-modeling" class="phase-title">Data Modeling</h2>
               <p class="phase-description">Design efficient and scalable schemas</p>
             </div>
           </div>
@@ -581,7 +602,7 @@
           <div class="phase-header">
             <div class="phase-number">7</div>
             <div>
-              <h2 class="phase-title">Performance Optimization</h2>
+              <h2 id="performance-optimization" class="phase-title">Performance Optimization</h2>
               <p class="phase-description">Make queries run faster and more efficiently</p>
             </div>
           </div>
@@ -638,7 +659,7 @@
           <div class="phase-header">
             <div class="phase-number">8</div>
             <div>
-              <h2 class="phase-title">Advanced SQL</h2>
+              <h2 id="advanced-sql" class="phase-title">Advanced SQL</h2>
               <p class="phase-description">Specialized features for complex scenarios</p>
             </div>
           </div>
@@ -694,7 +715,7 @@
 
       <!-- Quick Reference Section -->
       <section class="tracks">
-        <h2>Quick Reference</h2>
+        <h2 id="quick-reference">Quick Reference</h2>
         <div class="track-grid">
           <a href="../sql/index.html" class="track">
             <h3>SQL Hub</h3>
@@ -738,7 +759,71 @@
     </div>
   </main>
 
+<<<<<<< HEAD:source/roadmaps/sql-roadmap.html
+  <nav class="sidebar">
+    <div class="sidebar-logo">SQL Roadmap</div>
+    <a href="#sql-basics" class="nav-item">SQL Basics</a>
+    <a href="#filtering-functions" class="nav-item">Filtering & Functions</a>
+    <a href="#joins" class="nav-item">JOINs</a>
+    <a href="#subqueries-ctes" class="nav-item">Subqueries & CTEs</a>
+    <a href="#window-functions" class="nav-item">Window Functions</a>
+    <a href="#data-modeling" class="nav-item">Data Modeling</a>
+    <a href="#performance-optimization" class="nav-item">Performance Optimization</a>
+    <a href="#advanced-sql" class="nav-item">Advanced SQL</a>
+    <a href="#quick-reference" class="nav-item">Quick Reference</a>
+  </nav>
+
+  <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Sidebar toggle functionality
+    document.addEventListener('DOMContentLoaded', function () {
+      const sidebarToggle = document.getElementById('sidebarToggle');
+      const sidebar = document.querySelector('.sidebar');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+      const mainContent = document.querySelector('.main-content');
+
+      if (sidebarToggle && sidebar && sidebarOverlay && mainContent) {
+        sidebarToggle.addEventListener('click', function () {
+          sidebar.classList.toggle('active');
+          sidebarOverlay.classList.toggle('active');
+          mainContent.classList.toggle('sidebar-active');
+        });
+
+        sidebarOverlay.addEventListener('click', function () {
+          sidebar.classList.remove('active');
+          sidebarOverlay.classList.remove('active');
+          mainContent.classList.remove('sidebar-active');
+        });
+      }
+    });
+  </script>
+=======
   <script src="../assets/js/app.js"></script>
+>>>>>>> main:pages/roadmaps/sql-roadmap.html
 </body>
 
 </html>

@@ -10,8 +10,15 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
     rel="stylesheet" />
+<<<<<<< HEAD:source/roadmaps/roadmap.html
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../hub.css" />
+  <link rel="stylesheet" href="../python/python.css" />
+  <link rel="stylesheet" href="../python/nav-section-pills.css" />
+=======
   <link rel="stylesheet" href="../../assets/css/styles.css" />
   <link rel="stylesheet" href="../../assets/css/hub.css" />
+>>>>>>> main:pages/roadmaps/roadmap.html
   <style>
     /* Roadmap specific styles */
     .roadmap-container {
@@ -254,7 +261,7 @@
   </style>
 </head>
 
-<body>
+<body class="with-sidebar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
@@ -268,6 +275,9 @@
       </svg>
       Data Guide
     </a>
+    <button id="sidebar-toggle" class="sidebar-toggle" type="button" aria-label="Toggle sidebar">
+      <span class="hamburger" aria-hidden="true"></span>
+    </button>
     <nav class="menu" aria-label="Main menu">
       <a href="roadmap.html" class="active" aria-current="page">Data Engineering</a>
       <a href="python-roadmap.html">Python</a>
@@ -282,7 +292,24 @@
     </button>
   </header>
 
-  <main>
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <main class="main-content">
+    <nav class="sidebar" id="sidebar">
+      <div class="logo">
+        <span class="logo-text">Data Engineering Roadmap</span>
+      </div>
+      <a href="#foundations" class="nav-item"><span>1</span> Foundations</a>
+      <a href="#data-fundamentals" class="nav-item"><span>2</span> Data Fundamentals</a>
+      <a href="#databases" class="nav-item"><span>3</span> Databases</a>
+      <a href="#data-processing" class="nav-item"><span>4</span> Data Processing</a>
+      <a href="#cloud-platforms" class="nav-item"><span>5</span> Cloud Platforms</a>
+      <a href="#data-architecture" class="nav-item"><span>6</span> Data Architecture</a>
+      <a href="#ml-ai-foundations" class="nav-item"><span>7</span> ML/AI Foundations</a>
+      <a href="#deep-learning-ai" class="nav-item"><span>8</span> Deep Learning & AI</a>
+      <a href="#advanced-topics" class="nav-item"><span>9</span> Advanced Topics</a>
+      <a href="#quick-reference" class="nav-item"><span>10</span> Quick Reference</a>
+    </nav>
     <div class="page-wrap">
       <section class="hero">
         <p class="eyebrow">Your Learning Path</p>
@@ -299,7 +326,7 @@
           <div class="phase-header">
             <div class="phase-number">1</div>
             <div>
-              <h2 class="phase-title">Foundations</h2>
+              <h2 id="foundations" class="phase-title">Foundations</h2>
               <p class="phase-description">Master the fundamentals of programming and data</p>
             </div>
           </div>
@@ -357,7 +384,7 @@
           <div class="phase-header">
             <div class="phase-number">2</div>
             <div>
-              <h2 class="phase-title">Data Fundamentals</h2>
+              <h2 id="data-fundamentals" class="phase-title">Data Fundamentals</h2>
               <p class="phase-description">Learn to work with data in Python</p>
             </div>
           </div>
@@ -415,7 +442,7 @@
           <div class="phase-header">
             <div class="phase-number">3</div>
             <div>
-              <h2 class="phase-title">Databases</h2>
+              <h2 id="databases" class="phase-title">Databases</h2>
               <p class="phase-description">Master relational and NoSQL databases</p>
             </div>
           </div>
@@ -473,7 +500,7 @@
           <div class="phase-header">
             <div class="phase-number">4</div>
             <div>
-              <h2 class="phase-title">Data Processing</h2>
+              <h2 id="data-processing" class="phase-title">Data Processing</h2>
               <p class="phase-description">Process large-scale data efficiently</p>
             </div>
           </div>
@@ -531,7 +558,7 @@
           <div class="phase-header">
             <div class="phase-number">5</div>
             <div>
-              <h2 class="phase-title">Cloud Platforms</h2>
+              <h2 id="cloud-platforms" class="phase-title">Cloud Platforms</h2>
               <p class="phase-description">Deploy and manage data systems in the cloud</p>
             </div>
           </div>
@@ -600,7 +627,7 @@
           <div class="phase-header">
             <div class="phase-number">6</div>
             <div>
-              <h2 class="phase-title">Data Architecture</h2>
+              <h2 id="data-architecture" class="phase-title">Data Architecture</h2>
               <p class="phase-description">Design scalable data systems</p>
             </div>
           </div>
@@ -658,7 +685,7 @@
           <div class="phase-header">
             <div class="phase-number">7</div>
             <div>
-              <h2 class="phase-title">ML/AI Foundations</h2>
+              <h2 id="ml-ai-foundations" class="phase-title">ML/AI Foundations</h2>
               <p class="phase-description">Understand machine learning fundamentals</p>
             </div>
           </div>
@@ -716,7 +743,7 @@
           <div class="phase-header">
             <div class="phase-number">8</div>
             <div>
-              <h2 class="phase-title">Deep Learning & AI</h2>
+              <h2 id="deep-learning-ai" class="phase-title">Deep Learning & AI</h2>
               <p class="phase-description">Neural networks and advanced AI techniques</p>
             </div>
           </div>
@@ -773,7 +800,7 @@
           <div class="phase-header">
             <div class="phase-number">9</div>
             <div>
-              <h2 class="phase-title">Advanced Topics</h2>
+              <h2 id="advanced-topics" class="phase-title">Advanced Topics</h2>
               <p class="phase-description">Specialized skills for senior roles</p>
             </div>
           </div>
@@ -829,7 +856,7 @@
 
       <!-- Quick Links Section -->
       <section class="tracks">
-        <h2>Quick Reference</h2>
+        <h2 id="quick-reference">Quick Reference</h2>
         <div class="track-grid">
           <a href="../python/index.html" class="track">
             <h3>Python</h3>
@@ -861,6 +888,24 @@
     </div>
   </main>
 
+<<<<<<< HEAD:source/roadmaps/roadmap.html
+  <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+=======
   <button class="scroll-to-top" aria-label="Scroll to top">
     <svg viewBox="0 0 24 24">
       <path d="M12 19V5M5 12l7-7 7 7" />
@@ -876,6 +921,7 @@
         scrollToTopBtn.classList.add('show');
       } else {
         scrollToTopBtn.classList.remove('show');
+>>>>>>> main:pages/roadmaps/roadmap.html
       }
     });
 

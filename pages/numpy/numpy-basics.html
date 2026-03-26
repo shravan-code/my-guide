@@ -80,8 +80,7 @@
 
       <!-- Section 1: Broadcasting -->
       <section class="topic-section" id="broadcasting">
-        <span class="level-badge basic">Basic</span>
-        <h2>Broadcasting</h2>
+        <h2> Broadcasting <span class="level-badge basic">Basic</span> </h2>
         <p>Broadcasting is NumPy's mechanism for performing arithmetic operations on arrays of different shapes. It avoids explicit data replication, making operations memory-efficient and fast.</p>
 
         <div class="split-grid">
@@ -148,8 +147,7 @@ result = arr[:, np.newaxis] * arr
 
       <!-- Section 2: Vectorization -->
       <section class="topic-section" id="vectorization">
-        <span class="level-badge basic">Basic</span>
-        <h2>Vectorization</h2>
+        <h2> Vectorization <span class="level-badge basic">Basic</span> </h2>
         <p>Vectorization replaces explicit Python loops with array operations that execute at C speed. This is the core principle that makes NumPy fast.</p>
 
         <div class="split-grid">
@@ -207,8 +205,7 @@ result = np.<span class="function">zeros_like</span>(x)
 
       <!-- Section 3: Universal Functions -->
       <section class="topic-section" id="ufuncs">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Universal Functions (ufuncs)</h2>
+        <h2> Universal Functions (ufuncs) <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Universal functions operate element-wise on ndarrays, supporting array broadcasting, type casting, and other features.</p>
 
         <div class="code-block">
@@ -258,8 +255,7 @@ np.<span class="function">add</span>.<span class="function">accumulate</span>(a)
 
       <!-- Section 4: Copies vs Views -->
       <section class="topic-section" id="copies-views">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Copies vs Views</h2>
+        <h2> Copies vs Views <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Understanding when NumPy creates copies versus views is crucial for avoiding unintended side effects.</p>
 
         <div class="split-grid">
@@ -323,8 +319,7 @@ view4 = arr.<span class="function">ravel</span>()           <span class="comment
 
       <!-- Section 5: Memory Layout -->
       <section class="topic-section" id="memory-layout">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Memory Layout</h2>
+        <h2> Memory Layout <span class="level-badge advanced">Advanced</span> </h2>
         <p>NumPy arrays are stored in contiguous memory blocks. Understanding layout helps optimize performance.</p>
 
         <div class="code-block">
@@ -354,8 +349,7 @@ small = np.<span class="function">zeros</span>((<span class="number">1000</span>
 
       <!-- Section 6: Strides -->
       <section class="topic-section" id="strides">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Strides</h2>
+        <h2> Strides <span class="level-badge advanced">Advanced</span> </h2>
         <p>Strides define how many bytes to skip to move along each axis. They enable efficient reshaping without copying data.</p>
 
         <div class="code-block">
@@ -389,8 +383,7 @@ sliced = arr[:, ::2]  <span class="comment"># Every other column</span>
 
       <!-- Section 7: Performance Tips -->
       <section class="topic-section" id="performance">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Performance Tips</h2>
+        <h2> Performance Tips <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Key strategies for maximizing NumPy performance in numerical code.</p>
 
         <div class="split-grid">
@@ -454,8 +447,7 @@ result = np.<span class="function">mean</span>(<span class="number">1</span> / (
 
       <!-- Section 8: Iteration -->
       <section class="topic-section" id="iteration">
-        <span class="level-badge basic">Basic</span>
-        <h2>Iteration</h2>
+        <h2> Iteration <span class="level-badge basic">Basic</span> </h2>
         <p>While vectorization is preferred, NumPy supports efficient iteration when needed.</p>
 
         <div class="code-block">
@@ -492,8 +484,7 @@ matrix = np.<span class="function">array</span>([[<span class="number">1</span>,
 
       <!-- Section 9: Apply Along Axis -->
       <section class="topic-section" id="apply-along">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Apply Along Axis</h2>
+        <h2> Apply Along Axis <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Apply functions along specific axes of multidimensional arrays.</p>
 
         <div class="code-block">
@@ -533,8 +524,7 @@ np.<span class="function">mean</span>(matrix, axis=<span class="number">0</span>
 
       <!-- Section 10: Vectorize Function -->
       <section class="topic-section" id="vectorize">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Vectorize Function</h2>
+        <h2> Vectorize Function <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>The <code>np.vectorize</code> decorator makes regular functions work element-wise on arrays.</p>
 
         <div class="code-block">
@@ -575,8 +565,7 @@ result = v_power(np.<span class="function">array</span>([<span class="number">1<
 
       <!-- Section 11: Text Files -->
       <section class="topic-section" id="text-files">
-        <span class="level-badge basic">Basic</span>
-        <h2>Text File I/O</h2>
+        <h2> Text File I/O <span class="level-badge basic">Basic</span> </h2>
         <p>Read and write arrays to/from text files like CSV and TSV.</p>
 
         <div class="code-block">
@@ -620,8 +609,7 @@ np.<span class="function">savetxt</span>(<span class="string">'data.txt'</span>,
 
       <!-- Section 12: Binary Files -->
       <section class="topic-section" id="binary-files">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Binary File I/O</h2>
+        <h2> Binary File I/O <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Binary format is faster and more space-efficient than text for numerical data.</p>
 
         <div class="code-block">
@@ -658,8 +646,7 @@ loaded = np.<span class="function">fromfile</span>(<span class="string">'data.bi
 
       <!-- Section 13: NPZ Format -->
       <section class="topic-section" id="numpy-savez">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>NPZ Format</h2>
+        <h2> NPZ Format <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Save multiple arrays in a single compressed or uncompressed archive.</p>
 
         <div class="code-block">
@@ -698,8 +685,7 @@ data = np.<span class="function">load</span>(<span class="string">'arrays.npz'</
 
       <!-- Section 14: Structured Arrays -->
       <section class="topic-section" id="structured-arrays">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Structured Arrays</h2>
+        <h2> Structured Arrays <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Structured arrays allow you to define compound data types with named fields.</p>
 
         <div class="code-block">
@@ -741,8 +727,7 @@ rec_arr = employees.<span class="function">view</span>(np.recarray)
 
       <!-- Section 15: Masked Arrays -->
       <section class="topic-section" id="masked-arrays">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Masked Arrays</h2>
+        <h2> Masked Arrays <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Masked arrays handle missing or invalid data by masking certain elements from operations.</p>
 
         <div class="code-block">
@@ -781,8 +766,7 @@ result = a + b  <span class="comment"># Mask propagates: [2, --, --]</span>
 
       <!-- Section 16: Dot Product -->
       <section class="topic-section" id="dot-product">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Dot Product</h2>
+        <h2> Dot Product <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>The dot product is fundamental to linear algebra, matrix multiplication, and machine learning.</p>
 
         <div class="code-block">
@@ -828,8 +812,7 @@ result = np.<span class="function">einsum</span>(<span class="string">'ij,jk->ik
 
       <!-- Section 17: Matrix Operations -->
       <section class="topic-section" id="matrix-operations">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Matrix Operations</h2>
+        <h2> Matrix Operations <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Essential matrix operations available through NumPy's matrix utilities and linalg module.</p>
 
         <div class="code-block">
@@ -875,8 +858,7 @@ v = np.<span class="function">array</span>([<span class="number">3</span>, <span
 
       <!-- Section 18: Decompositions -->
       <section class="topic-section" id="decompositions">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Matrix Decompositions</h2>
+        <h2> Matrix Decompositions <span class="level-badge advanced">Advanced</span> </h2>
         <p>Matrix decompositions break matrices into simpler components for analysis and computation.</p>
 
         <div class="code-block">
@@ -926,6 +908,34 @@ Q, R = np.<span class="function">linalg</span>.<span class="function">qr</span>(
     </div>
   </main>
 
+<<<<<<< HEAD:source/numpy/numpy-basics.html
+  <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+=======
   <script src="../../assets/js/app.js"></script>
+>>>>>>> main:pages/numpy/numpy-basics.html
 </body>
 </html>

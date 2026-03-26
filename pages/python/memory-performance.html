@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../../assets/css/styles.css" />
   <link rel="stylesheet" href="python.css" />
+  <link rel="stylesheet" href="nav-section-pills.css" />
 </head>
 <body class="with-sidebar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
@@ -27,11 +28,31 @@
       <a href="methods.html">Methods</a>
       <a href="memory-performance.html" class="active" aria-current="page">Memory</a>
     </nav>
-    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
-      <span class="toggle-icon" aria-hidden="true">☾</span>
-      <span class="toggle-text">Dark</span>
-    </button>
+    <div class="header-actions">
+      <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle mobile menu">
+        <span class="hamburger-icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+        <span class="toggle-icon" aria-hidden="true">☾</span>
+        <span class="toggle-text">Dark</span>
+      </button>
+    </div>
   </header>
+  
+  <div id="mobile-menu" class="mobile-menu">
+    <nav class="mobile-nav" aria-label="Python mobile menu">
+      <a href="index.html">Hub</a>
+      <a href="python-fundamentals.html">Fundamentals</a>
+      <a href="python-oops.html">OOPs</a>
+      <a href="methods.html">Methods</a>
+      <a href="memory-performance.html" class="active" aria-current="page">Memory</a>
+    </nav>
+  </div>
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
 
   <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
@@ -40,22 +61,22 @@
       <div class="logo">
         <span class="logo-text">Memory & Performance</span>
       </div>
-      <div class="nav-title">Concurrency</div>
+      <div class="nav-title concurrency">Concurrency</div>
       <a href="#what-is-concurrency" class="nav-item"><span>1</span> What is Concurrency?</a>
       <a href="#gil" class="nav-item"><span>2</span> GIL in CPython</a>
       <a href="#threading" class="nav-item"><span>3</span> Threading</a>
       <a href="#multiprocessing" class="nav-item"><span>4</span> Multiprocessing</a>
       <a href="#asyncio" class="nav-item"><span>5</span> Asyncio</a>
-      <div class="nav-title">Memory</div>
+      <div class="nav-title memory">Memory</div>
       <a href="#memory-layout" class="nav-item"><span>6</span> Memory Layout</a>
       <a href="#heap-stack" class="nav-item"><span>7</span> Heap vs Stack</a>
       <a href="#garbage-collection" class="nav-item"><span>8</span> Garbage Collection</a>
       <a href="#memory-leaks" class="nav-item"><span>9</span> Memory Leaks</a>
-      <div class="nav-title">Performance</div>
+      <div class="nav-title performance">Performance</div>
       <a href="#cpu-caches" class="nav-item"><span>10</span> CPU Caches</a>
       <a href="#profiling" class="nav-item"><span>11</span> Profiling Tools</a>
       <a href="#optimization-patterns" class="nav-item"><span>12</span> Optimization Patterns</a>
-      <div class="nav-title">Summary</div>
+      <div class="nav-title summary">Summary</div>
       <a href="#decision-guide" class="nav-item"><span>13</span> Decision Guide</a>
       <a href="#key-takeaways" class="nav-item"><span>14</span> Key Takeaways</a>
     </nav>
@@ -64,11 +85,25 @@
       <section class="hero">
         <h1>Memory & Performance</h1>
       </section>
-
+      <nav class="pill-nav">
+        <a href="#what-is-concurrency" data-category="concurrency">What is Concurrency?</a>
+        <a href="#gil" data-category="concurrency">The Global Interpreter Lock (GIL)</a>
+        <a href="#threading" data-category="concurrency">Threading in Python</a>
+        <a href="#multiprocessing" data-category="concurrency">Multiprocessing in Python</a>
+        <a href="#asyncio" data-category="concurrency">Asyncio - Asynchronous I/O</a>
+        <a href="#memory-layout" data-category="memory">Python Memory Layout</a>
+        <a href="#heap-stack" data-category="memory">Heap vs Stack in Python</a>
+        <a href="#garbage-collection" data-category="memory">Garbage Collection in Python</a>
+        <a href="#memory-leaks" data-category="memory">Memory Leaks in Python</a>
+        <a href="#cpu-caches" data-category="performance">CPU Caches and Memory Hierarchy</a>
+        <a href="#profiling" data-category="performance">Profiling Tools</a>
+        <a href="#optimization-patterns" data-category="performance">Performance Optimization Patterns</a>
+        <a href="#decision-guide" data-category="summary">Decision Guide: Choosing the Right Approach</a>
+        <a href="#key-takeaways" data-category="summary">Key Takeaways</a>
+      </nav>
       <!-- Section 1: What is Concurrency -->
-      <section class="topic-section" id="what-is-concurrency">
-        <span class="level-badge basic">Basic</span>
-        <h2>What is Concurrency?</h2>
+      <section class="topic-section">
+        <h2 id="what-is-concurrency"> What is Concurrency? <span class="section-badge concurrency">Concurrency</span> </h2>
         <p>Concurrency is the ability of a program to execute multiple tasks simultaneously or in an interleaved manner. It improves throughput, responsiveness, and resource utilization. Python supports several concurrency models, each with distinct characteristics and trade-offs.</p>
 
         <div class="split-grid">
@@ -135,9 +170,8 @@
       </section>
 
       <!-- Section 2: GIL -->
-      <section class="topic-section" id="gil">
-        <span class="level-badge basic">Basic</span>
-        <h2>The Global Interpreter Lock (GIL)</h2>
+      <section class="topic-section">
+        <h2 id="gil"> The Global Interpreter Lock (GIL) <span class="section-badge concurrency">Concurrency</span> </h2>
         <p>The GIL is a mutex that protects access to Python objects, preventing multiple threads from executing Python bytecode simultaneously. This simplifies memory management but limits true parallelism in threaded programs.</p>
 
         <div class="sub-block-grid">
@@ -309,9 +343,8 @@ threads = [threading.Thread(target=cpu_bound_task) <span class="keyword">for</sp
       </section>
 
       <!-- Section 3: Threading -->
-      <section class="topic-section" id="threading">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Threading in Python</h2>
+      <section class="topic-section">
+        <h2 id="threading"> Threading in Python <span class="section-badge concurrency">Concurrency</span> </h2>
         <p>Threading allows multiple tasks to run within a single process, sharing memory space. While limited by the GIL for CPU-bound work, threading excels at I/O-bound tasks where threads wait for external resources.</p>
 
         <h3>When to Use Threading</h3>
@@ -505,9 +538,8 @@ resource_semaphore = Semaphore(<span class="number">3</span>)  <span class="comm
       </section>
 
       <!-- Section 4: Multiprocessing -->
-      <section class="topic-section" id="multiprocessing">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Multiprocessing in Python</h2>
+      <section class="topic-section">
+        <h2 id="multiprocessing"> Multiprocessing in Python <span class="section-badge concurrency">Concurrency</span> </h2>
         <p>Multiprocessing bypasses the GIL by creating separate Python processes, each with its own interpreter and memory space. This enables true parallelism for CPU-bound tasks across multiple CPU cores.</p>
 
         <h3>Process vs Thread Comparison</h3>
@@ -648,9 +680,8 @@ p2.<span class="function">join</span>()</code>
       </section>
 
       <!-- Section 5: Asyncio -->
-      <section class="topic-section" id="asyncio">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Asyncio - Asynchronous I/O</h2>
+      <section class="topic-section">
+        <h2 id="asyncio"> Asyncio - Asynchronous I/O <span class="section-badge concurrency">Concurrency</span> </h2>
         <p>Asyncio provides a single-threaded event loop for handling thousands of concurrent I/O operations without the overhead of threads. It uses coroutines and the event loop to switch between tasks during I/O waits.</p>
 
         <div class="sub-block-grid">
@@ -873,9 +904,8 @@ results = asyncio.<span class="function">run</span>(<span class="function">main<
       </section>
 
       <!-- Section 6: Memory Layout -->
-      <section class="topic-section" id="memory-layout">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Python Memory Layout</h2>
+      <section class="topic-section">
+        <h2 id="memory-layout"> Python Memory Layout <span class="section-badge memory">Memory</span> </h2>
         <p>When Python executes a program, memory is divided into distinct areas, each serving a specific purpose. Understanding this layout helps diagnose memory issues and optimize performance.</p>
 
         <h3>Memory Regions</h3>
@@ -1034,9 +1064,8 @@ c = a
       </section>
 
       <!-- Section 7: Heap vs Stack -->
-      <section class="topic-section" id="heap-stack">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Heap vs Stack in Python</h2>
+      <section class="topic-section">
+        <h2 id="heap-stack"> Heap vs Stack in Python <span class="section-badge memory">Memory</span> </h2>
         <p>Understanding the distinction between heap and stack memory helps optimize memory usage and diagnose issues like memory leaks and stack overflow errors.</p>
 
         <div class="split-grid">
@@ -1096,9 +1125,8 @@ result = <span class="function">process_data</span>()
       </section>
 
       <!-- Section 8: Garbage Collection -->
-      <section class="topic-section" id="garbage-collection">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Garbage Collection in Python</h2>
+      <section class="topic-section">
+        <h2 id="garbage-collection"> Garbage Collection in Python <span class="section-badge memory">Memory</span> </h2>
         <p>Python uses a combination of reference counting and a cyclic garbage collector to manage memory automatically. This hybrid approach handles both immediate cleanup and detection of circular references.</p>
 
         <div class="sub-block-grid">
@@ -1306,9 +1334,8 @@ unreachable = gc.<span class="function">garbage</span></code>
       </section>
 
       <!-- Section 9: Memory Leaks -->
-      <section class="topic-section" id="memory-leaks">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Memory Leaks in Python</h2>
+      <section class="topic-section">
+        <h2 id="memory-leaks"> Memory Leaks in Python <span class="section-badge memory">Memory</span> </h2>
         <p>Memory leaks occur when objects are no longer needed but cannot be garbage collected due to lingering references. Common causes include global variables, callbacks, and caching.</p>
 
         <h3>Common Causes</h3>
@@ -1360,9 +1387,8 @@ all_data = []  <span class="comment"># Global - never freed</span>
       </section>
 
       <!-- Section 10: CPU Caches -->
-      <section class="topic-section" id="cpu-caches">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>CPU Caches and Memory Hierarchy</h2>
+      <section class="topic-section">
+        <h2 id="cpu-caches"> CPU Caches and Memory Hierarchy <span class="section-badge performance">Performance</span> </h2>
         <p>CPU caches are small, fast memory layers between the CPU and main memory. Understanding cache behavior helps write more cache-friendly code for better performance.</p>
 
         <h3>Cache Hierarchy</h3>
@@ -1465,9 +1491,8 @@ all_data = []  <span class="comment"># Global - never freed</span>
       </section>
 
       <!-- Section 11: Profiling -->
-      <section class="topic-section" id="profiling">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Profiling Tools</h2>
+      <section class="topic-section">
+        <h2 id="profiling"> Profiling Tools <span class="section-badge performance">Performance</span> </h2>
         <p>Profiling helps identify performance bottlenecks and memory issues. Python provides several built-in and third-party tools for different types of analysis.</p>
 
         <div class="sub-block-grid">
@@ -1631,9 +1656,8 @@ top_stats = snapshot2.<span class="function">compare_to</span>(snapshot1, <span 
       </section>
 
       <!-- Section 12: Optimization Patterns -->
-      <section class="topic-section" id="optimization-patterns">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Performance Optimization Patterns</h2>
+      <section class="topic-section">
+        <h2 id="optimization-patterns"> Performance Optimization Patterns <span class="section-badge performance">Performance</span> </h2>
         <p>Apply these patterns to optimize Python code performance. Always profile before and after to verify improvements.</p>
 
         <h3>Common Optimizations</h3>
@@ -1695,9 +1719,8 @@ squares = (x*x <span class="keyword">for</span> x <span class="keyword">in</span
       </section>
 
       <!-- Section 13: Decision Guide -->
-      <section class="topic-section" id="decision-guide">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Decision Guide: Choosing the Right Approach</h2>
+      <section class="topic-section">
+        <h2 id="decision-guide"> Decision Guide: Choosing the Right Approach <span class="section-badge summary">Summary</span> </h2>
         <p>Use this guide to select the appropriate concurrency model for your workload.</p>
 
         <div class="flow-diagram">
@@ -1832,9 +1855,8 @@ squares = (x*x <span class="keyword">for</span> x <span class="keyword">in</span
       </section>
 
       <!-- Section 14: Key Takeaways -->
-      <section class="topic-section" id="key-takeaways">
-        <span class="level-badge basic">Summary</span>
-        <h2>Key Takeaways</h2>
+      <section class="topic-section">
+        <h2 id="key-takeaways"> Key Takeaways <span class="section-badge summary">Summary</span> </h2>
         <p>Essential points to remember about Python memory and performance optimization.</p>
 
         <div class="takeaways-grid">
@@ -1970,6 +1992,41 @@ squares = (x*x <span class="keyword">for</span> x <span class="keyword">in</span
       sidebarOverlay.addEventListener("click", closeSidebar);
     }
 
+    // Mobile menu functionality
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+
+    const closeMobileMenu = () => {
+      if (mobileMenu) mobileMenu.classList.remove('open');
+      if (mobileMenuOverlay) mobileMenuOverlay.classList.remove('active');
+    };
+
+    const openMobileMenu = () => {
+      if (mobileMenu) mobileMenu.classList.add('open');
+      if (mobileMenuOverlay) mobileMenuOverlay.classList.add('active');
+    };
+
+    if (mobileMenuToggle) {
+      mobileMenuToggle.addEventListener('click', () => {
+        if (mobileMenu.classList.contains('open')) {
+          closeMobileMenu();
+        } else {
+          openMobileMenu();
+        }
+      });
+    }
+
+    if (mobileMenuOverlay) {
+      mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+    }
+
+    // Close mobile menu on link click
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav a');
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', closeMobileMenu);
+    });
+
     const navItems = Array.from(document.querySelectorAll(".nav-item"));
 
     const setActiveNav = (id) => {
@@ -1990,7 +2047,8 @@ squares = (x*x <span class="keyword">for</span> x <span class="keyword">in</span
         const targetId = this.getAttribute("href").substring(1);
         const target = document.getElementById(targetId);
         if (!target) return;
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({ top: targetPosition - 100, behavior: "smooth" });
         history.replaceState(null, "", "#" + targetId);
         setActiveNav(targetId);
         closeSidebar();
@@ -2002,14 +2060,61 @@ squares = (x*x <span class="keyword">for</span> x <span class="keyword">in</span
         if (entry.isIntersecting) {
           const id = entry.target.getAttribute("id");
           setActiveNav(id);
+          setActivePillNav(id);
         }
       });
     }, { root: null, rootMargin: "-18% 0px -68% 0px", threshold: 0 });
 
-    document.querySelectorAll(".topic-section[id]").forEach((el) => sectionObserver.observe(el));
+    document.querySelectorAll(".topic-section h2[id]").forEach((el) => sectionObserver.observe(el));
+
+    const pillNavLinks = Array.from(document.querySelectorAll(".pill-nav a"));
+    const setActivePillNav = (id) => {
+      pillNavLinks.forEach((link) => {
+        const isActive = link.getAttribute("href") === "#" + id;
+        link.classList.toggle("active", isActive);
+      });
+    };
+
+    pillNavLinks.forEach((link) => {
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute("href").substring(1);
+        const target = document.getElementById(targetId);
+        if (!target) return;
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({ top: targetPosition - 100, behavior: "smooth" });
+        history.replaceState(null, "", "#" + targetId);
+        setActivePillNav(targetId);
+        setActiveNav(targetId);
+      });
+    });
 
     const initialId = (window.location.hash || "#what-is-concurrency").substring(1);
     setActiveNav(initialId);
+  </script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
   </script>
 </body>
 </html>

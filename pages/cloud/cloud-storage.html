@@ -81,8 +81,7 @@
 
       <!-- Section 1: Object Storage -->
       <section class="topic-section" id="object-storage">
-        <span class="level-badge basic">Basic</span>
-        <h2>Object Storage</h2>
+        <h2> Object Storage <span class="level-badge basic">Basic</span> </h2>
         <p>Object storage stores data as objects (files + metadata) in a flat namespace. Ideal for unstructured data, images, backups, and data lakes.</p>
 
         <div class="split-grid">
@@ -125,8 +124,7 @@
 
       <!-- Section 2: Block Storage -->
       <section class="topic-section" id="block-storage">
-        <span class="level-badge basic">Basic</span>
-        <h2>Block Storage</h2>
+        <h2> Block Storage <span class="level-badge basic">Basic</span> </h2>
         <p>Block storage divides data into fixed-size blocks and attaches to VMs as volumes. Used for databases and operating systems.</p>
 
         <div class="split-grid">
@@ -177,8 +175,7 @@
 
       <!-- Section 3: File Storage -->
       <section class="topic-section" id="file-storage">
-        <span class="level-badge basic">Basic</span>
-        <h2>File Storage</h2>
+        <h2> File Storage <span class="level-badge basic">Basic</span> </h2>
         <p>File storage provides NFS/SMB file systems accessible by multiple machines simultaneously.</p>
 
         <div class="split-grid">
@@ -227,8 +224,7 @@ sudo mount -t cifs //account.file.core.windows.net/share /mnt/azure
 
       <!-- Section 4: AWS S3 -->
       <section class="topic-section" id="s3">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>AWS S3 (Simple Storage Service)</h2>
+        <h2> AWS S3 (Simple Storage Service) <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>S3 is Amazon's object storage service, offering industry-leading scalability, durability, and security.</p>
 
         <div class="code-block">
@@ -269,8 +265,7 @@ aws s3api select-object-content \
 
       <!-- Section 5: Azure Blob -->
       <section class="topic-section" id="blob">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Azure Blob Storage</h2>
+        <h2> Azure Blob Storage <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Azure Blob Storage is Microsoft's object storage solution for unstructured data.</p>
 
         <div class="code-block">
@@ -320,8 +315,7 @@ az storage blob generate-sas \
 
       <!-- Section 6: GCS -->
       <section class="topic-section" id="gcs">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Google Cloud Storage</h2>
+        <h2> Google Cloud Storage <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Google Cloud Storage (GCS) is Google's unified object storage service.</p>
 
         <div class="code-block">
@@ -358,8 +352,7 @@ bq load --source_format=CSV my_dataset.my_table gs://my-bucket/data.csv
 
       <!-- Section 7: Storage Tiers -->
       <section class="topic-section" id="storage-tiers">
-        <span class="level-badge basic">Basic</span>
-        <h2>Storage Tiers</h2>
+        <h2> Storage Tiers <span class="level-badge basic">Basic</span> </h2>
         <p>Storage tiers optimize cost based on access frequency. Hot for frequent access, cold/archive for infrequent.</p>
 
         <div class="code-block">
@@ -416,8 +409,7 @@ bq load --source_format=CSV my_dataset.my_table gs://my-bucket/data.csv
 
       <!-- Section 8: Lifecycle Policies -->
       <section class="topic-section" id="lifecycle">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Lifecycle Policies</h2>
+        <h2> Lifecycle Policies <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Lifecycle policies automatically transition objects between storage tiers or delete them based on age.</p>
 
         <div class="code-block">
@@ -465,8 +457,7 @@ gsutil lifecycle set lifecycle.json gs://my-bucket
 
       <!-- Section 9: Versioning -->
       <section class="topic-section" id="versioning">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Object Versioning</h2>
+        <h2> Object Versioning <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Versioning keeps multiple variants of objects, enabling recovery from accidental deletions or overwrites.</p>
 
         <div class="code-block">
@@ -510,8 +501,7 @@ az storage blob service-properties update \
 
       <!-- Section 10: Encryption -->
       <section class="topic-section" id="encryption">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Storage Encryption</h2>
+        <h2> Storage Encryption <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Cloud storage encrypts data at rest and in transit using various methods.</p>
 
         <div class="code-block">
@@ -560,6 +550,34 @@ aws s3api put-bucket-encryption \
     </div>
   </main>
 
+<<<<<<< HEAD:source/cloud/cloud-storage.html
+  <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+=======
   <script src="../../assets/js/app.js"></script>
+>>>>>>> main:pages/cloud/cloud-storage.html
 </body>
 </html>

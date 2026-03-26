@@ -30,11 +30,31 @@
       <a href="methods.html" class="active" aria-current="page">Methods</a>
       <a href="memory-performance.html">Memory</a>
     </nav>
-    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
-      <span class="toggle-icon" aria-hidden="true">☾</span>
-      <span class="toggle-text">Dark</span>
-    </button>
+    <div class="header-actions">
+      <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle mobile menu">
+        <span class="hamburger-icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+        <span class="toggle-icon" aria-hidden="true">☾</span>
+        <span class="toggle-text">Dark</span>
+      </button>
+    </div>
   </header>
+  
+  <div id="mobile-menu" class="mobile-menu">
+    <nav class="mobile-nav" aria-label="Python mobile menu">
+      <a href="index.html">Hub</a>
+      <a href="python-fundamentals.html">Fundamentals</a>
+      <a href="python-oops.html">OOPs</a>
+      <a href="methods.html" class="active" aria-current="page">Methods</a>
+      <a href="memory-performance.html">Memory</a>
+    </nav>
+  </div>
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
 
   <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
@@ -44,16 +64,16 @@
         <span class="logo-text">Python Methods</span>
       </div>
 
-      <div class="nav-title">Built-in Methods</div>
+      <div class="nav-title built-in">Built-in Methods</div>
       <a href="#built-in-methods" class="nav-item active"><span>1</span> Built-in Methods</a>
 
-      <div class="nav-title">OOP Methods</div>
+      <div class="nav-title basic-concepts">OOP Methods</div>
       <a href="#instance-methods" class="nav-item"><span>2</span> Instance Methods</a>
       <a href="#class-methods" class="nav-item"><span>3</span> Class Methods</a>
       <a href="#static-methods" class="nav-item"><span>4</span> Static Methods</a>
       <a href="#property-methods" class="nav-item"><span>5</span> Property Methods</a>
 
-      <div class="nav-title">Magic Methods</div>
+      <div class="nav-title magic-methods">Magic Methods</div>
       <a href="#magic-methods" class="nav-item"><span>6</span> Magic Methods</a>
       <a href="#dunder-init" class="nav-item"><span>7</span> __init__ & __new__</a>
       <a href="#dunder-operators" class="nav-item"><span>8</span> Operator Overloading</a>
@@ -61,11 +81,11 @@
       <a href="#dunder-container" class="nav-item"><span>10</span> Container Methods</a>
       <a href="#dunder-iteration" class="nav-item"><span>11</span> Iteration Methods</a>
 
-      <div class="nav-title">Advanced</div>
+      <div class="nav-title advanced">Advanced</div>
       <a href="#abstract-methods" class="nav-item"><span>12</span> Abstract Methods</a>
       <a href="#decorator-methods" class="nav-item"><span>13</span> Methods as Decorators</a>
 
-      <div class="nav-title">Data Science</div>
+      <div class="nav-title data-science">Data Science</div>
       <a href="#pandas-methods" class="nav-item"><span>14</span> Pandas Methods</a>
       <a href="#numpy-methods" class="nav-item"><span>15</span> NumPy Methods</a>
     </nav>
@@ -74,11 +94,26 @@
       <section class="hero">
         <h1>Python Methods</h1>
       </section>
-
+      <nav class="pill-nav">
+        <a href="#built-in-methods" data-category="built-in">Built-in Methods</a>
+        <a href="#instance-methods" data-category="basic-concepts">Instance Methods</a>
+        <a href="#class-methods" data-category="basic-concepts">Class Methods</a>
+        <a href="#static-methods" data-category="basic-concepts">Static Methods</a>
+        <a href="#property-methods" data-category="basic-concepts">Property Methods</a>
+        <a href="#magic-methods" data-category="magic-methods">Magic Methods (Dunder Methods)</a>
+        <a href="#dunder-init" data-category="magic-methods">__init__ and __new__</a>
+        <a href="#dunder-operators" data-category="magic-methods">Operator Overloading</a>
+        <a href="#dunder-string" data-category="magic-methods">String Representation</a>
+        <a href="#dunder-container" data-category="magic-methods">Container Methods</a>
+        <a href="#dunder-iteration" data-category="magic-methods">Iteration Methods</a>
+        <a href="#abstract-methods" data-category="advanced">Abstract Methods</a>
+        <a href="#decorator-methods" data-category="advanced">Methods as Decorators</a>
+        <a href="#pandas-methods" data-category="data-science">Pandas Methods</a>
+        <a href="#numpy-methods" data-category="data-science">NumPy Methods</a>
+      </nav>
       <!-- Section 1: Built-in Methods -->
-      <section class="topic-section" id="built-in-methods">
-        <span class="level-badge basic">Basic</span>
-        <h2>Built-in Methods</h2>
+      <section class="topic-section">
+        <h2 id="built-in-methods"> Built-in Methods <span class="level-badge basic">Basic</span> </h2>
         <p>Python provides numerous built-in methods for common data types like strings, lists, dictionaries, and more.</p>
 
         <div class="split-grid">
@@ -187,9 +222,8 @@ s1.<span class="function">isdisjoint</span>(s2) <span class="comment"># False (s
       </section>
 
       <!-- Section 2: Instance Methods -->
-      <section class="topic-section" id="instance-methods">
-        <span class="level-badge basic">Basic</span>
-        <h2>Instance Methods</h2>
+      <section class="topic-section">
+        <h2 id="instance-methods"> Instance Methods <span class="level-badge basic">Basic</span> </h2>
         <p>Instance methods are the most common type of methods in Python. They are bound to the instance of a class and can access and modify object state.</p>
 
         <div class="code-block">
@@ -224,9 +258,8 @@ person = <span class="function">Person</span>(<span class="string">"Alice"</span
       </section>
 
       <!-- Section 3: Class Methods -->
-      <section class="topic-section" id="class-methods">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Class Methods</h2>
+      <section class="topic-section">
+        <h2 id="class-methods"> Class Methods <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Class methods are bound to the class rather than instances. They receive the class as the first parameter (conventionally named <code>cls</code>) and can modify class state.</p>
 
         <div class="code-block">
@@ -290,9 +323,8 @@ Circle.<span class="function">set_pi</span>(<span class="number">3.14</span>)  <
       </section>
 
       <!-- Section 4: Static Methods -->
-      <section class="topic-section" id="static-methods">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Static Methods</h2>
+      <section class="topic-section">
+        <h2 id="static-methods"> Static Methods <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Static methods don't receive any special first argument. They behave like regular functions but belong to the class's namespace for organizational purposes.</p>
 
         <div class="code-block">
@@ -353,9 +385,8 @@ m = MathUtils()
       </section>
 
       <!-- Section 5: Property Methods -->
-      <section class="topic-section" id="property-methods">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Property Methods</h2>
+      <section class="topic-section">
+        <h2 id="property-methods"> Property Methods <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Properties provide a way to define methods that can be accessed like attributes, enabling controlled attribute access with getters, setters, and deleters.</p>
 
         <div class="code-block">
@@ -406,9 +437,8 @@ temp.fahrenheit = <span class="number">100</span>   <span class="comment"># sett
       </section>
 
       <!-- Section 6: Magic Methods -->
-      <section class="topic-section" id="magic-methods">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Magic Methods (Dunder Methods)</h2>
+      <section class="topic-section">
+        <h2 id="magic-methods"> Magic Methods (Dunder Methods) <span class="level-badge advanced">Advanced</span> </h2>
         <p>Magic methods (double underscore or "dunder" methods) are special methods that Python calls behind the scenes. They allow your objects to work with Python's built-in functions and operators.</p>
 
         <div class="split-grid">
@@ -440,9 +470,8 @@ temp.fahrenheit = <span class="number">100</span>   <span class="comment"># sett
       </section>
 
       <!-- Section 7: __init__ and __new__ -->
-      <section class="topic-section" id="dunder-init">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>__init__ and __new__</h2>
+      <section class="topic-section">
+        <h2 id="dunder-init"> __init__ and __new__ <span class="level-badge advanced">Advanced</span> </h2>
         <p><code>__new__</code> creates the instance, while <code>__init__</code> initializes it. Understanding both is crucial for advanced object creation patterns.</p>
 
         <div class="code-block">
@@ -501,9 +530,8 @@ s2 = <span class="function">Singleton</span>(<span class="number">20</span>)
       </section>
 
       <!-- Section 8: Operator Overloading -->
-      <section class="topic-section" id="dunder-operators">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Operator Overloading</h2>
+      <section class="topic-section">
+        <h2 id="dunder-operators"> Operator Overloading <span class="level-badge advanced">Advanced</span> </h2>
         <p>Override operators like +, -, ==, and others by defining corresponding magic methods.</p>
 
         <div class="code-block">
@@ -580,9 +608,8 @@ v2 = <span class="function">Vector</span>(<span class="number">3</span>, <span c
       </section>
 
       <!-- Section 9: String Representation -->
-      <section class="topic-section" id="dunder-string">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>String Representation</h2>
+      <section class="topic-section">
+        <h2 id="dunder-string"> String Representation <span class="level-badge advanced">Advanced</span> </h2>
         <p>Control how objects are displayed as strings using <code>__str__</code> and <code>__repr__</code>.</p>
 
         <div class="code-block">
@@ -639,9 +666,8 @@ books = [book]
       </section>
 
       <!-- Section 10: Container Methods -->
-      <section class="topic-section" id="dunder-container">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Container Methods</h2>
+      <section class="topic-section">
+        <h2 id="dunder-container"> Container Methods <span class="level-badge advanced">Advanced</span> </h2>
         <p>Make your objects behave like containers (lists, dicts) by implementing container protocol methods.</p>
 
         <div class="code-block">
@@ -710,9 +736,8 @@ inv[<span class="string">"banana"</span>] = <span class="number">20</span>
       </section>
 
       <!-- Section 11: Iteration Methods -->
-      <section class="topic-section" id="dunder-iteration">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Iteration Methods</h2>
+      <section class="topic-section">
+        <h2 id="dunder-iteration"> Iteration Methods <span class="level-badge advanced">Advanced</span> </h2>
         <p>Make your objects iterable by implementing <code>__iter__</code> and <code>__next__</code>.</p>
 
         <div class="code-block">
@@ -779,9 +804,8 @@ inv[<span class="string">"banana"</span>] = <span class="number">20</span>
       </section>
 
       <!-- Section 12: Abstract Methods -->
-      <section class="topic-section" id="abstract-methods">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Abstract Methods</h2>
+      <section class="topic-section">
+        <h2 id="abstract-methods"> Abstract Methods <span class="level-badge advanced">Advanced</span> </h2>
         <p>Abstract methods define a contract that subclasses must implement. Use the <code>abc</code> module to create abstract base classes.</p>
 
         <div class="code-block">
@@ -838,9 +862,8 @@ circle = <span class="function">Circle</span>(<span class="number">5</span>)
       </section>
 
       <!-- Section 13: Decorator Methods -->
-      <section class="topic-section" id="decorator-methods">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Methods as Decorators</h2>
+      <section class="topic-section">
+        <h2 id="decorator-methods"> Methods as Decorators <span class="level-badge advanced">Advanced</span> </h2>
         <p>Methods can be used as decorators to modify or wrap other functions and methods.</p>
 
         <div class="code-block">
@@ -893,9 +916,8 @@ service = <span class="function">MyService</span>()
       </section>
 
       <!-- Section 14: Pandas Methods -->
-      <section class="topic-section" id="pandas-methods">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Pandas Methods</h2>
+      <section class="topic-section">
+        <h2 id="pandas-methods"> Pandas Methods <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Essential methods for Pandas Series and DataFrame operations.</p>
 
         <div class="split-grid">
@@ -975,9 +997,8 @@ result = (df
       </section>
 
       <!-- Section 15: NumPy Methods -->
-      <section class="topic-section" id="numpy-methods">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>NumPy Methods</h2>
+      <section class="topic-section">
+        <h2 id="numpy-methods"> NumPy Methods <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Essential NumPy array methods for numerical computing.</p>
 
         <div class="split-grid">
@@ -1102,6 +1123,41 @@ arr.<span class="function">put</span>([<span class="number">0</span>, <span clas
       sidebarOverlay.addEventListener("click", closeSidebar);
     }
 
+    // Mobile menu functionality
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+
+    const closeMobileMenu = () => {
+      if (mobileMenu) mobileMenu.classList.remove('open');
+      if (mobileMenuOverlay) mobileMenuOverlay.classList.remove('active');
+    };
+
+    const openMobileMenu = () => {
+      if (mobileMenu) mobileMenu.classList.add('open');
+      if (mobileMenuOverlay) mobileMenuOverlay.classList.add('active');
+    };
+
+    if (mobileMenuToggle) {
+      mobileMenuToggle.addEventListener('click', () => {
+        if (mobileMenu.classList.contains('open')) {
+          closeMobileMenu();
+        } else {
+          openMobileMenu();
+        }
+      });
+    }
+
+    if (mobileMenuOverlay) {
+      mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+    }
+
+    // Close mobile menu on link click
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav a');
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', closeMobileMenu);
+    });
+
     const navItems = Array.from(document.querySelectorAll(".nav-item"));
 
     const setActiveNav = (id) => {
@@ -1122,7 +1178,8 @@ arr.<span class="function">put</span>([<span class="number">0</span>, <span clas
         const targetId = this.getAttribute("href").substring(1);
         const target = document.getElementById(targetId);
         if (!target) return;
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({ top: targetPosition - 100, behavior: "smooth" });
         history.replaceState(null, "", "#" + targetId);
         setActiveNav(targetId);
         closeSidebar();
@@ -1134,14 +1191,61 @@ arr.<span class="function">put</span>([<span class="number">0</span>, <span clas
         if (entry.isIntersecting) {
           const id = entry.target.getAttribute("id");
           setActiveNav(id);
+          setActivePillNav(id);
         }
       });
     }, { root: null, rootMargin: "-18% 0px -68% 0px", threshold: 0 });
 
-    document.querySelectorAll(".topic-section[id]").forEach((el) => sectionObserver.observe(el));
+    document.querySelectorAll(".topic-section h2[id]").forEach((el) => sectionObserver.observe(el));
+
+    const pillNavLinks = Array.from(document.querySelectorAll(".pill-nav a"));
+    const setActivePillNav = (id) => {
+      pillNavLinks.forEach((link) => {
+        const isActive = link.getAttribute("href") === "#" + id;
+        link.classList.toggle("active", isActive);
+      });
+    };
+
+    pillNavLinks.forEach((link) => {
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute("href").substring(1);
+        const target = document.getElementById(targetId);
+        if (!target) return;
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({ top: targetPosition - 100, behavior: "smooth" });
+        history.replaceState(null, "", "#" + targetId);
+        setActivePillNav(targetId);
+        setActiveNav(targetId);
+      });
+    });
 
     const initialId = (window.location.hash || "#built-in-methods").substring(1);
     setActiveNav(initialId);
+  </script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
   </script>
 </body>
 </html>

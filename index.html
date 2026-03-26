@@ -10,8 +10,13 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
     rel="stylesheet" />
+<<<<<<< HEAD
+  <link rel="stylesheet" href="source/styles.css" />
+  <link rel="stylesheet" href="source/hub.css" />
+=======
   <link rel="stylesheet" href="assets/css/styles.css" />
   <link rel="stylesheet" href="assets/css/hub.css" />
+>>>>>>> main
   <style>
     /* Spark-style overrides for main page */
     body {
@@ -786,6 +791,8 @@
         flex-direction: column;
         gap: 0.25rem;
       }
+<<<<<<< HEAD
+=======
     }
 
     /* Scroll to top button */
@@ -829,6 +836,7 @@
       stroke: currentColor;
       fill: none;
       stroke-width: 2;
+>>>>>>> main
     }
   </style>
 </head>
@@ -860,6 +868,15 @@
             <a href="pages/spark/index.html"><strong>Spark</strong><span>Distributed processing</span></a>
           </div>
         </div>
+<<<<<<< HEAD
+        <a href="source/sql/index.html">SQL</a>
+        <a href="source/cheatsheets/cheatsheet.html">Cheatsheet</a>
+        <a href="source/roadmaps/roadmap.html">Roadmap</a>
+      </nav>
+    </div>
+    <div class="header-actions">
+      <a href="source/portfolios/portfolio.html" class="portfolio-link">Portfolio</a>
+=======
         <a href="pages/sql/index.html">SQL</a>
         <a href="pages/cheatsheet.html">Cheatsheet</a>
         <a href="pages/roadmaps/roadmap.html">Roadmap</a>
@@ -867,6 +884,7 @@
     </div>
     <div class="header-actions">
       <a href="pages/portfolio.html" class="portfolio-link">Portfolio</a>
+>>>>>>> main
       <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
         <span class="toggle-icon" aria-hidden="true">☾</span>
         <span class="toggle-text">Dark</span>
@@ -1151,6 +1169,13 @@
       item.addEventListener('mouseenter', () => updatePanel(idx));
     });
   </script>
+<<<<<<< HEAD
+  <script src="source/app.js"></script>
+
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+=======
   <script src="assets/js/app.js"></script>
   <script>
     // Debug theme toggle
@@ -1169,10 +1194,21 @@
 
   <button class="scroll-to-top" aria-label="Scroll to top">
     <svg viewBox="0 0 24 24">
+>>>>>>> main
       <path d="M12 19V5M5 12l7-7 7 7" />
     </svg>
   </button>
   <script>
+<<<<<<< HEAD
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+=======
     // Scroll to top button functionality
     const scrollToTopBtn = document.querySelector('.scroll-to-top');
 
@@ -1181,6 +1217,7 @@
         scrollToTopBtn.classList.add('show');
       } else {
         scrollToTopBtn.classList.remove('show');
+>>>>>>> main
       }
     });
 

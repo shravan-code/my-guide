@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Data Guide | Python Roadmap</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<<<<<<< HEAD:source/roadmaps/python-roadmap.html
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../hub.css" />
+  <link rel="stylesheet" href="../python/python.css" />
+  <link rel="stylesheet" href="../python/nav-section-pills.css" />
+=======
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../../assets/css/styles.css" />
   <link rel="stylesheet" href="../../assets/css/hub.css" />
+>>>>>>> main:pages/roadmaps/python-roadmap.html
   <style>
     /* Roadmap specific styles */
     .roadmap-container {
@@ -189,6 +200,7 @@
       .topic-grid {
         margin-left: 0;
       }
+
       .phase-connector {
         display: none;
       }
@@ -196,13 +208,19 @@
   </style>
 </head>
 
-<body>
+<body class="with-sidebar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
   <header class="topbar glass reveal in">
     <a class="brand" href="../../index.html">Data Guide</a>
+<<<<<<< HEAD:source/roadmaps/python-roadmap.html
+    <button id="sidebar-toggle" class="sidebar-toggle" type="button" aria-label="Toggle sidebar">
+      <span class="hamburger" aria-hidden="true"></span>
+    </button>
+=======
+>>>>>>> main:pages/roadmaps/python-roadmap.html
     <nav class="menu" aria-label="Main menu">
       <a href="roadmap.html">Data Engineering</a>
       <a href="python-roadmap.html" class="active" aria-current="page">Python</a>
@@ -217,12 +235,29 @@
     </button>
   </header>
 
-  <main>
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <main class="main-content">
+    <nav class="sidebar" id="sidebar">
+      <div class="logo">
+        <span class="logo-text">Python Roadmap</span>
+      </div>
+      <a href="#python-basics" class="nav-item"><span>1</span> Python Basics</a>
+      <a href="#functions-modules" class="nav-item"><span>2</span> Functions & Modules</a>
+      <a href="#object-oriented-python" class="nav-item"><span>3</span> Object-Oriented Python</a>
+      <a href="#advanced-python" class="nav-item"><span>4</span> Advanced Python</a>
+      <a href="#concurrency-parallelism" class="nav-item"><span>5</span> Concurrency & Parallelism</a>
+      <a href="#testing-code-quality" class="nav-item"><span>6</span> Testing & Code Quality</a>
+      <a href="#python-ecosystem" class="nav-item"><span>7</span> Python Ecosystem</a>
+      <a href="#advanced-topics" class="nav-item"><span>8</span> Advanced Topics</a>
+      <a href="#quick-reference" class="nav-item"><span>9</span> Quick Reference</a>
+    </nav>
     <div class="page-wrap">
       <section class="hero">
         <p class="eyebrow">Your Learning Path</p>
         <h1>Python Roadmap</h1>
-        <p class="hero-copy">From beginner to advanced Python developer. Master the language, OOP, and modern development practices.</p>
+        <p class="hero-copy">From beginner to advanced Python developer. Master the language, OOP, and modern
+          development practices.</p>
       </section>
 
       <div class="roadmap-container">
@@ -233,7 +268,7 @@
           <div class="phase-header">
             <div class="phase-number">1</div>
             <div>
-              <h2 class="phase-title">Python Basics</h2>
+              <h2 id="python-basics" class="phase-title">Python Basics</h2>
               <p class="phase-description">Learn the fundamentals of Python programming</p>
             </div>
           </div>
@@ -291,7 +326,7 @@
           <div class="phase-header">
             <div class="phase-number">2</div>
             <div>
-              <h2 class="phase-title">Functions & Modules</h2>
+              <h2 id="functions-modules" class="phase-title">Functions & Modules</h2>
               <p class="phase-description">Write reusable and organized code</p>
             </div>
           </div>
@@ -349,7 +384,7 @@
           <div class="phase-header">
             <div class="phase-number">3</div>
             <div>
-              <h2 class="phase-title">Object-Oriented Python</h2>
+              <h2 id="object-oriented-python" class="phase-title">Object-Oriented Python</h2>
               <p class="phase-description">Master OOP concepts and patterns</p>
             </div>
           </div>
@@ -407,7 +442,7 @@
           <div class="phase-header">
             <div class="phase-number">4</div>
             <div>
-              <h2 class="phase-title">Advanced Python</h2>
+              <h2 id="advanced-python" class="phase-title">Advanced Python</h2>
               <p class="phase-description">Write efficient and Pythonic code</p>
             </div>
           </div>
@@ -465,7 +500,7 @@
           <div class="phase-header">
             <div class="phase-number">5</div>
             <div>
-              <h2 class="phase-title">Concurrency & Parallelism</h2>
+              <h2 id="concurrency-parallelism" class="phase-title">Concurrency & Parallelism</h2>
               <p class="phase-description">Write fast, non-blocking code</p>
             </div>
           </div>
@@ -523,7 +558,7 @@
           <div class="phase-header">
             <div class="phase-number">6</div>
             <div>
-              <h2 class="phase-title">Testing & Code Quality</h2>
+              <h2 id="testing-code-quality" class="phase-title">Testing & Code Quality</h2>
               <p class="phase-description">Write reliable and maintainable code</p>
             </div>
           </div>
@@ -581,7 +616,7 @@
           <div class="phase-header">
             <div class="phase-number">7</div>
             <div>
-              <h2 class="phase-title">Python Ecosystem</h2>
+              <h2 id="python-ecosystem" class="phase-title">Python Ecosystem</h2>
               <p class="phase-description">Essential libraries and tools</p>
             </div>
           </div>
@@ -638,7 +673,7 @@
           <div class="phase-header">
             <div class="phase-number">8</div>
             <div>
-              <h2 class="phase-title">Advanced Topics</h2>
+              <h2 id="advanced-topics" class="phase-title">Advanced Topics</h2>
               <p class="phase-description">Specialized skills for expert developers</p>
             </div>
           </div>
@@ -694,7 +729,7 @@
 
       <!-- Quick Links Section -->
       <section class="tracks">
-        <h2>Quick Reference</h2>
+        <h2 id="quick-reference">Quick Reference</h2>
         <div class="track-grid">
           <a href="../python/index.html" class="track">
             <h3>Python Hub</h3>
@@ -726,7 +761,36 @@
     </div>
   </main>
 
+<<<<<<< HEAD:source/roadmaps/python-roadmap.html
+  <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+=======
   <script src="../assets/js/app.js"></script>
+>>>>>>> main:pages/roadmaps/python-roadmap.html
 </body>
 
 </html>

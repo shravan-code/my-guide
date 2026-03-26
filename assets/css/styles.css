@@ -264,6 +264,7 @@ body.dark .orb-c {
 .menu a.active {
   color: var(--text);
   background: var(--bg-alt);
+  padding: 0.5rem 0.9rem;
   border-color: rgba(99, 102, 241, 0.2);
   box-shadow: var(--shadow-sm), inset 0 0 0 1px rgba(99, 102, 241, 0.15);
 }
@@ -1291,7 +1292,11 @@ pre.code code,
   transform: translateY(0);
 }
 
+<<<<<<< HEAD:source/styles.css
+/* Scroll to top button */
+=======
 /* Scroll to Top Button */
+>>>>>>> main:assets/css/styles.css
 .scroll-to-top {
   position: fixed;
   bottom: 2rem;
@@ -1299,13 +1304,26 @@ pre.code code,
   width: 48px;
   height: 48px;
   border-radius: 50%;
+<<<<<<< HEAD:source/styles.css
+  background: var(--glow-color);
+  color: white;
+  border: none;
+=======
   background: var(--glass);
   border: 1px solid var(--glass-border);
   color: var(--text);
+>>>>>>> main:assets/css/styles.css
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+<<<<<<< HEAD:source/styles.css
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition);
+  z-index: 9999;
+=======
   opacity: 0;
   visibility: hidden;
   transition: all var(--transition);
@@ -1318,20 +1336,44 @@ pre.code code,
 .scroll-to-top.show {
   opacity: 1;
   visibility: visible;
+>>>>>>> main:assets/css/styles.css
 }
 
 .scroll-to-top:hover {
   transform: translateY(-4px);
+<<<<<<< HEAD:source/styles.css
+  box-shadow: var(--shadow-lg);
+  background: var(--glow-pink);
+}
+
+.scroll-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+=======
   box-shadow: var(--shadow-lg), 0 0 20px var(--glow-border);
   border-color: var(--glow-color);
+>>>>>>> main:assets/css/styles.css
 }
 
 .scroll-to-top svg {
   width: 24px;
   height: 24px;
+<<<<<<< HEAD:source/styles.css
+}
+
+@media (max-width: 640px) {
+  .scroll-to-top {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 44px;
+    height: 44px;
+  }
+}
+=======
   stroke: var(--text);
   fill: none;
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+>>>>>>> main:assets/css/styles.css

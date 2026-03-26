@@ -76,8 +76,7 @@
 
       <!-- Section 1: What is Array -->
       <section class="topic-section" id="what-is-array">
-        <span class="level-badge basic">Basic</span>
-        <h2>What is a NumPy Array?</h2>
+        <h2> What is a NumPy Array? <span class="level-badge basic">Basic</span> </h2>
         <p>A NumPy array (ndarray) is a homogeneous, multi-dimensional container for elements of the same type. Unlike Python lists, NumPy arrays are stored in contiguous memory blocks, enabling fast vectorized operations.</p>
 
         <div class="split-grid">
@@ -113,8 +112,7 @@ arr = np.<span class="function">array</span>([<span class="number">1</span>, <sp
 
       <!-- Section 2: Creating Arrays -->
       <section class="topic-section" id="creating-arrays">
-        <span class="level-badge basic">Basic</span>
-        <h2>Creating Arrays</h2>
+        <h2> Creating Arrays <span class="level-badge basic">Basic</span> </h2>
         <p>NumPy provides multiple ways to create arrays from different data sources.</p>
 
         <div class="split-grid">
@@ -171,8 +169,7 @@ arr_complex = np.<span class="function">array</span>([<span class="number">1</sp
 
       <!-- Section 3: Special Arrays -->
       <section class="topic-section" id="special-arrays">
-        <span class="level-badge basic">Basic</span>
-        <h2>Special Array Constructors</h2>
+        <h2> Special Array Constructors <span class="level-badge basic">Basic</span> </h2>
         <p>NumPy provides convenient functions for creating common array patterns.</p>
 
         <div class="split-grid">
@@ -231,8 +228,7 @@ diagonal = np.<span class="function">diag</span>(matrix)          <span class="c
 
       <!-- Section 4: Array Attributes -->
       <section class="topic-section" id="array-attributes">
-        <span class="level-badge basic">Basic</span>
-        <h2>Array Attributes</h2>
+        <h2> Array Attributes <span class="level-badge basic">Basic</span> </h2>
         <p>Every NumPy array has attributes that describe its shape, size, and data type.</p>
 
         <div class="code-block">
@@ -297,8 +293,7 @@ arr.<span class="function">argmax</span>()          <span class="comment"># Inde
 
       <!-- Section 5: Indexing Basics -->
       <section class="topic-section" id="indexing-basics">
-        <span class="level-badge basic">Basic</span>
-        <h2>Indexing Basics</h2>
+        <h2> Indexing Basics <span class="level-badge basic">Basic</span> </h2>
         <p>Access individual elements using zero-based indexing, similar to Python lists.</p>
 
         <div class="code-block">
@@ -327,8 +322,7 @@ matrix[<span class="number">1</span>][<span class="number">2</span>]        <spa
 
       <!-- Section 6: Slicing -->
       <section class="topic-section" id="slicing">
-        <span class="level-badge basic">Basic</span>
-        <h2>Slicing Arrays</h2>
+        <h2> Slicing Arrays <span class="level-badge basic">Basic</span> </h2>
         <p>Extract sub-arrays using slice notation <code>[start:stop:step]</code>.</p>
 
         <div class="split-grid">
@@ -382,8 +376,7 @@ matrix[::<span class="number">2</span>, ::<span class="number">2</span>]    <spa
 
       <!-- Section 7: Fancy Indexing -->
       <section class="topic-section" id="fancy-indexing">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Fancy Indexing</h2>
+        <h2> Fancy Indexing <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Use integer arrays as indices to select multiple elements at once.</p>
 
         <div class="code-block">
@@ -417,8 +410,7 @@ matrix[[<span class="number">0</span>, <span class="number">1</span>, <span clas
 
       <!-- Section 8: Boolean Indexing -->
       <section class="topic-section" id="boolean-indexing">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Boolean Indexing</h2>
+        <h2> Boolean Indexing <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Filter arrays using boolean masks to select elements that match conditions.</p>
 
         <div class="split-grid">
@@ -462,8 +454,7 @@ np.<span class="function">all</span>(arr > <span class="number">0</span>)       
 
       <!-- Section 9: Reshaping -->
       <section class="topic-section" id="reshaping">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Reshaping Arrays</h2>
+        <h2> Reshaping Arrays <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Change the shape of arrays without modifying their data.</p>
 
         <div class="split-grid">
@@ -514,8 +505,7 @@ np.<span class="function">transpose</span>(matrix)  <span class="comment"># Same
 
       <!-- Section 10: Concatenation -->
       <section class="topic-section" id="concatenation">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Concatenating Arrays</h2>
+        <h2> Concatenating Arrays <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Join multiple arrays together along specified axes.</p>
 
         <div class="code-block">
@@ -551,8 +541,7 @@ np.<span class="function">stack</span>([a, b])              <span class="comment
 
       <!-- Section 11: Splitting -->
       <section class="topic-section" id="splitting">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Splitting Arrays</h2>
+        <h2> Splitting Arrays <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Divide arrays into multiple sub-arrays along a given axis.</p>
 
         <div class="code-block">
@@ -582,8 +571,7 @@ np.<span class="function">hsplit</span>(matrix, <span class="number">2</span>)  
 
       <!-- Section 12: Data Types -->
       <section class="topic-section" id="data-types">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>NumPy Data Types</h2>
+        <h2> NumPy Data Types <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>NumPy supports more data types than Python, optimized for numerical computing.</p>
 
         <div class="split-grid">
@@ -630,8 +618,7 @@ np.<span class="function">bytes_</span> <span class="comment"># Byte string</spa
 
       <!-- Section 13: Type Conversion -->
       <section class="topic-section" id="type-conversion">
-        <span class="level-badge basic">Basic</span>
-        <h2>Type Conversion</h2>
+        <h2> Type Conversion <span class="level-badge basic">Basic</span> </h2>
         <p>Convert arrays between different data types safely and efficiently.</p>
 
         <div class="code-block">
@@ -662,8 +649,7 @@ np.<span class="function">can_cast</span>(np.<span class="function">float64</spa
 
       <!-- Section 14: Memory Layout -->
       <section class="topic-section" id="memory-layout">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Memory Layout</h2>
+        <h2> Memory Layout <span class="level-badge advanced">Advanced</span> </h2>
         <p>Understanding how NumPy stores data in memory helps optimize performance.</p>
 
         <div class="split-grid">
@@ -710,8 +696,7 @@ copy = arr[::<span class="number">2</span>, ::<span class="number">2</span>].<sp
 
       <!-- Section 15: Tips & Best Practices -->
       <section class="topic-section" id="tips-best">
-        <span class="level-badge basic">Basic</span>
-        <h2>Tips & Best Practices</h2>
+        <h2> Tips & Best Practices <span class="level-badge basic">Basic</span> </h2>
         <p>Follow these guidelines to write efficient and correct NumPy code.</p>
 
         <div class="split-grid">
@@ -768,6 +753,34 @@ arr = np.<span class="function">empty</span>(<span class="number">1000</span>)
     </div>
   </main>
   <script src="../python/python.js"></script>
+<<<<<<< HEAD:source/numpy/numpy-arrays.html
+  <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+=======
   <script src="../../assets/js/app.js"></script>
+>>>>>>> main:pages/numpy/numpy-arrays.html
 </body>
 </html>

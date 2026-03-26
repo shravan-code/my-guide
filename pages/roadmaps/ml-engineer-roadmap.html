@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Data Guide | ML Engineer Roadmap</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<<<<<<< HEAD:source/roadmaps/ml-engineer-roadmap.html
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../hub.css" />
+  <link rel="stylesheet" href="../sidebar.css" />
+  <link rel="stylesheet" href="../nav-section-pills.css" />
+=======
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../../assets/css/styles.css" />
   <link rel="stylesheet" href="../../assets/css/hub.css" />
+>>>>>>> main:pages/roadmaps/ml-engineer-roadmap.html
   <style>
     /* Roadmap specific styles */
     .roadmap-container {
@@ -189,6 +200,7 @@
       .topic-grid {
         margin-left: 0;
       }
+
       .phase-connector {
         display: none;
       }
@@ -196,13 +208,19 @@
   </style>
 </head>
 
-<body>
+<body class="with-sidebar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
   <header class="topbar glass reveal in">
     <a class="brand" href="../../index.html">Data Guide</a>
+<<<<<<< HEAD:source/roadmaps/ml-engineer-roadmap.html
+    <button id="sidebarToggle" class="sidebar-toggle" type="button" aria-label="Toggle sidebar">
+      <span class="toggle-icon" aria-hidden="true">☰</span>
+    </button>
+=======
+>>>>>>> main:pages/roadmaps/ml-engineer-roadmap.html
     <nav class="menu" aria-label="Main menu">
       <a href="roadmap.html">Data Engineering</a>
       <a href="python-roadmap.html">Python</a>
@@ -217,12 +235,15 @@
     </button>
   </header>
 
-  <main>
+  <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+  <main class="main-content">
     <div class="page-wrap">
       <section class="hero">
         <p class="eyebrow">Your Learning Path</p>
         <h1>ML Engineer Roadmap</h1>
-        <p class="hero-copy">From data scientist to ML Engineer. Master production ML systems, MLOps, and scalable model deployment.</p>
+        <p class="hero-copy">From data scientist to ML Engineer. Master production ML systems, MLOps, and scalable model
+          deployment.</p>
       </section>
 
       <div class="roadmap-container">
@@ -233,7 +254,7 @@
           <div class="phase-header">
             <div class="phase-number">1</div>
             <div>
-              <h2 class="phase-title">ML Fundamentals</h2>
+              <h2 id="ml-fundamentals" class="phase-title">ML Fundamentals</h2>
               <p class="phase-description">Learn the core concepts of machine learning</p>
             </div>
           </div>
@@ -291,7 +312,7 @@
           <div class="phase-header">
             <div class="phase-number">2</div>
             <div>
-              <h2 class="phase-title">Feature Engineering</h2>
+              <h2 id="feature-engineering" class="phase-title">Feature Engineering</h2>
               <p class="phase-description">Transform raw data into meaningful features</p>
             </div>
           </div>
@@ -360,7 +381,7 @@
           <div class="phase-header">
             <div class="phase-number">3</div>
             <div>
-              <h2 class="phase-title">Model Development</h2>
+              <h2 id="model-development" class="phase-title">Model Development</h2>
               <p class="phase-description">Build and optimize machine learning models</p>
             </div>
           </div>
@@ -418,7 +439,7 @@
           <div class="phase-header">
             <div class="phase-number">4</div>
             <div>
-              <h2 class="phase-title">Deep Learning</h2>
+              <h2 id="deep-learning" class="phase-title">Deep Learning</h2>
               <p class="phase-description">Build neural networks for complex problems</p>
             </div>
           </div>
@@ -476,7 +497,7 @@
           <div class="phase-header">
             <div class="phase-number">5</div>
             <div>
-              <h2 class="phase-title">ML System Design</h2>
+              <h2 id="ml-system-design" class="phase-title">ML System Design</h2>
               <p class="phase-description">Design scalable ML infrastructure</p>
             </div>
           </div>
@@ -534,7 +555,7 @@
           <div class="phase-header">
             <div class="phase-number">6</div>
             <div>
-              <h2 class="phase-title">MLOps</h2>
+              <h2 id="mlops" class="phase-title">MLOps</h2>
               <p class="phase-description">Operationalize machine learning at scale</p>
             </div>
           </div>
@@ -592,7 +613,7 @@
           <div class="phase-header">
             <div class="phase-number">7</div>
             <div>
-              <h2 class="phase-title">Model Deployment</h2>
+              <h2 id="model-deployment" class="phase-title">Model Deployment</h2>
               <p class="phase-description">Deploy models to production environments</p>
             </div>
           </div>
@@ -649,7 +670,7 @@
           <div class="phase-header">
             <div class="phase-number">8</div>
             <div>
-              <h2 class="phase-title">Production ML</h2>
+              <h2 id="production-ml" class="phase-title">Production ML</h2>
               <p class="phase-description">Master production-grade machine learning systems</p>
             </div>
           </div>
@@ -705,7 +726,7 @@
 
       <!-- Quick Links Section -->
       <section class="tracks">
-        <h2>Quick Reference</h2>
+        <h2 id="quick-reference">Quick Reference</h2>
         <div class="track-grid">
           <a href="roadmap.html" class="track">
             <h3>Data Engineering</h3>
@@ -737,7 +758,71 @@
     </div>
   </main>
 
+<<<<<<< HEAD:source/roadmaps/ml-engineer-roadmap.html
+  <nav class="sidebar">
+    <div class="sidebar-logo">ML Engineer Roadmap</div>
+    <a href="#ml-fundamentals" class="nav-item">ML Fundamentals</a>
+    <a href="#feature-engineering" class="nav-item">Feature Engineering</a>
+    <a href="#model-development" class="nav-item">Model Development</a>
+    <a href="#deep-learning" class="nav-item">Deep Learning</a>
+    <a href="#ml-system-design" class="nav-item">ML System Design</a>
+    <a href="#mlops" class="nav-item">MLOps</a>
+    <a href="#model-deployment" class="nav-item">Model Deployment</a>
+    <a href="#production-ml" class="nav-item">Production ML</a>
+    <a href="#quick-reference" class="nav-item">Quick Reference</a>
+  </nav>
+
+  <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Sidebar toggle functionality
+    document.addEventListener('DOMContentLoaded', function () {
+      const sidebarToggle = document.getElementById('sidebarToggle');
+      const sidebar = document.querySelector('.sidebar');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+      const mainContent = document.querySelector('.main-content');
+
+      if (sidebarToggle && sidebar && sidebarOverlay && mainContent) {
+        sidebarToggle.addEventListener('click', function () {
+          sidebar.classList.toggle('active');
+          sidebarOverlay.classList.toggle('active');
+          mainContent.classList.toggle('sidebar-active');
+        });
+
+        sidebarOverlay.addEventListener('click', function () {
+          sidebar.classList.remove('active');
+          sidebarOverlay.classList.remove('active');
+          mainContent.classList.remove('sidebar-active');
+        });
+      }
+    });
+  </script>
+=======
   <script src="../assets/js/app.js"></script>
+>>>>>>> main:pages/roadmaps/ml-engineer-roadmap.html
 </body>
 
 </html>
