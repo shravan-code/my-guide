@@ -1,0 +1,851 @@
+[
+  {
+    "category": "1. Setup & Connection",
+    "scenarios": [
+      {
+        "scenario": "Close / stop",
+        "postgresql": "cur.close()\nconn.close()",
+        "pandas": "# No explicit close\n# GC handles memory",
+        "numpy": "# No explicit close",
+        "pyspark": "spark.stop()"
+      },
+      {
+        "scenario": "Create a connection/session",
+        "postgresql": "conn = psycopg2.connect(\n  host='localhost',\n  dbname='mydb',\n  user='user',\n  password='pass'\n)\ncur = conn.cursor()",
+        "pandas": "# No persistent connection\n# Works on in-memory DataFrames\n# For DB: pd.read_sql(sql, conn)",
+        "numpy": "# No connection needed\n# Operates on in-memory arrays",
+        "pyspark": "spark = SparkSession.builder \\\n  .appName('MyApp') \\\n  .master('local[*]') \\\n  .getOrCreate()"
+      },
+      {
+        "scenario": "Import library",
+        "postgresql": "import psycopg2",
+        "pandas": "import pandas as pd",
+        "numpy": "import numpy as np",
+        "pyspark": "from pyspark.sql import SparkSession\nfrom pyspark.sql.functions import *\nfrom pyspark.sql.window import Window"
+      },
+      {
+        "scenario": "Install package",
+        "postgresql": "pip install psycopg2-binary\n# or psycopg2",
+        "pandas": "pip install pandas",
+        "numpy": "pip install numpy",
+        "pyspark": "pip install pyspark"
+      },
+      {
+        "scenario": "Load data (CSV)",
+        "postgresql": "COPY tbl FROM '/path/f.csv'\n  WITH (FORMAT CSV,HEADER);\n# OR via psycopg2:\ncur.execute(\"COPY tbl FROM...\")",
+        "pandas": "df = pd.read_csv('file.csv')\n# with options:\ndf = pd.read_csv('f.csv',\n  sep=',', header=0,\n  dtype={'col':str},\n  parse_dates=['dt'])",
+        "numpy": "arr = np.loadtxt('f.csv',\n  delimiter=',', skiprows=1)\n# structured:\ndt = np.dtype([('a','f8'),('b','U10')])\narr = np.genfromtxt('f.csv',\n  delimiter=',',names=True)",
+        "pyspark": "df = spark.read.csv('path',\n  header=True,\n  inferSchema=True)\n# or with schema:\ndf = spark.read.option(\n  'header','true').csv('path')"
+      },
+      {
+        "scenario": "Load data (Parquet / JSON)",
+        "postgresql": "# No native parquet read;\n# use foreign-data-wrapper\n# or COPY with extension",
+        "pandas": "df = pd.read_parquet('f.parquet')\ndf = pd.read_json('f.json')\ndf = pd.read_excel('f.xlsx')",
+        "numpy": "# via pandas then .values\narr = pd.read_parquet('f').values",
+        "pyspark": "df = spark.read.parquet('path')\ndf = spark.read.json('path')\ndf = spark.read\n  .format('delta').load('path')"
+      }
+    ]
+  },
+  {
+    "category": "2. Data Inspection & Schema",
+    "scenarios": [
+      {
+        "scenario": "Column names & dtypes",
+        "postgresql": "SELECT column_name, data_type\nFROM information_schema.columns\nWHERE table_name = 'tbl';",
+        "pandas": "df.dtypes\ndf.info()\ndf.columns.tolist()",
+        "numpy": "arr.dtype\narr.shape\n# arrays are homogeneous type",
+        "pyspark": "df.printSchema()\ndf.dtypes          # list of tuples\ndf.columns         # list of names"
+      },
+      {
+        "scenario": "Count nulls per column",
+        "postgresql": "SELECT\nCOUNT(*) \nFILTER (WHERE col IS NULL)\nFROM tbl;",
+        "pandas": "df.isnull().sum()\ndf.isna().any()\ndf[df['col'].isna()]",
+        "numpy": "np.isnan(arr).sum()\n\nnp.sum(~np.isfinite(arr))",
+        "pyspark": "df.select([\n  count(when(isnan(c)|\n    col(c).isNull(),c))\n  .alias(c) \nfor c in df.columns\n]).show()"
+      },
+      {
+        "scenario": "Preview first N rows",
+        "postgresql": "SELECT * FROM tbl LIMIT 5;",
+        "pandas": "df.head(5)\ndf.tail(5)",
+        "numpy": "arr[:5]\narr[:5, :]  # 2-D",
+        "pyspark": "df.show(5)\ndf.show(5, truncate=False)"
+      },
+      {
+        "scenario": "Row & column count",
+        "postgresql": "SELECT COUNT(*) FROM tbl;\n-- cols:\nSELECT COUNT(*) FROM\n  information_schema.columns\nWHERE table_name='tbl';",
+        "pandas": "df.shape          # (rows, cols)\nlen(df)            # rows\nlen(df.columns)    # cols",
+        "numpy": "arr.shape          # (rows, cols)\narr.size           # total elements\narr.ndim           # dimensions",
+        "pyspark": "df.count()         # rows\nlen(df.columns)    # cols"
+      },
+      {
+        "scenario": "Sample rows",
+        "postgresql": "SELECT * \nFROM tbl\nORDER BY RANDOM() \nLIMIT 100;",
+        "pandas": "df.sample(n=100)\ndf.sample(frac=0.1, random_state=42)",
+        "numpy": "idx = np.random.choice(\n  len(arr), 100, replace=False)\n\narr[idx]",
+        "pyspark": "df.sample(False, 0.1, seed=42)\n\ndf.sample(True, 0.1)  \n# with replace"
+      },
+      {
+        "scenario": "Summary statistics",
+        "postgresql": "SELECT\n  MIN(x), MAX(x),\n  AVG(x), STDDEV(x),\n  PERCENTILE_CONT(0.5)\n    WITHIN GROUP (ORDER BY x)\nFROM tbl;",
+        "pandas": "df.describe()\n\ndf['col'].describe()\n\ndf.describe(\ninclude='all')",
+        "numpy": "np.min(arr)   np.max(arr)\nnp.mean(arr)  np.std(arr)\nnp.median(arr)\nnp.percentile(arr, [25,50,75])\nnp.var(arr)",
+        "pyspark": "df.describe().show()\ndf.summary().show()\ndf.select(mean('x'),\n  stddev('x'),min('x')).show()"
+      },
+      {
+        "scenario": "Unique values / cardinality",
+        "postgresql": "SELECT COUNT(DISTINCT col) FROM tbl;\n\nSELECT DISTINCT col FROM tbl;",
+        "pandas": "df['col'].nunique()\ndf['col'].unique()\ndf['col'].value_counts()",
+        "numpy": "np.unique(arr)\nnp.unique(arr, return_counts=True)",
+        "pyspark": "df.select('col').distinct().count()\n\ndf.select('col').distinct().show()\n\ndf.select(\ncountDistinct(\"col\")).show()\n\ndf.select(\napprox_count_distinct(\"city\")).show()\n\ndf.groupBy('col').count().show()"
+      }
+    ]
+  },
+  {
+    "category": "3. Filtering & Selection",
+    "scenarios": [
+      {
+        "scenario": "AND / OR conditions",
+        "postgresql": "SELECT * \nFROM tbl\nWHERE age > 30\n  AND city = 'Delhi';",
+        "pandas": "df[(df.age > 30) & (df.city=='Delhi')]\n\ndf.query(\"age>30 and city=='Delhi'\")",
+        "numpy": "mask=(arr[:,0] > 30) &\n(arr[:,1] == 'Delhi')\n\narr[mask]",
+        "pyspark": "df.filter(\n(df.age > 30) &      (df.city == 'Delhi'))"
+      },
+      {
+        "scenario": "BETWEEN range",
+        "postgresql": "SELECT * \nFROM tbl\nWHERE age BETWEEN 20 AND 40;",
+        "pandas": "df[\ndf.age.between(20, 40)]\n\ndf[\n(df.age>=20) & (df.age<=40)]",
+        "numpy": "arr[(arr>=20) & (arr<=40)]",
+        "pyspark": "df.filter(\ncol('age').between(20,40))"
+      },
+      {
+        "scenario": "IN list",
+        "postgresql": "SELECT * \nFROM tbl\nWHERE city IN ('Delhi','Mumbai');",
+        "pandas": "df[df.city.isin(\n['Delhi', 'Mumbai'])\n]",
+        "numpy": "np.isin(arr, [1, 2, 3])\n\narr[np.isin(arr,[1,2,3])]",
+        "pyspark": "df.filter(\ncol('city').isin(\n  ['Delhi','Mumbai']))"
+      },
+      {
+        "scenario": "IS NULL / IS NOT NULL\n\nNULL → missing value\n\nNaN → invalid numeric value",
+        "postgresql": "SELECT * \nFROM tbl \nWHERE col IS NULL;\n\nSELECT * \nFROM tbl \nWHERE col IS NOT NULL;\n\nCOALESCE(col, 0)",
+        "pandas": "df[df.col.isna()]\n\ndf[df.col.notna()]",
+        "numpy": "arr[np.isnan(arr)]\narr[~np.isnan(arr)]",
+        "pyspark": "df.filter(\ncol('c').isNull())\n\ndf.filter(\ncol('c').isNotNull())\n\ndf.filter(\nisnan(\"col\")).show()"
+      },
+      {
+        "scenario": "LIKE / string contains",
+        "postgresql": "SELECT * \nFROM tbl\nWHERE name LIKE '%kumar%';",
+        "pandas": "df[df.name.str.contains('kumar')]\n\ndf[df.name.str.startswith('A')]\n\ndf[df.name.str.endswith('a')]",
+        "numpy": "mask=np.char.find(\narr.astype(str),'kumar') >= 0\n\narr[mask]",
+        "pyspark": "df.filter(col('name').like('%kumar%'))\n\ndf.filter(col('name').contains('kumar'))\n\ndf.filter(col('name').startswith('A'))"
+      },
+      {
+        "scenario": "Limit / TOP N rows",
+        "postgresql": "SELECT * FROM tbl \nLIMIT 10;\n\nSELECT * FROM tbl \nFETCH FIRST 10 ROWS ONLY;",
+        "pandas": "df.head(10)\n\ndf.iloc[:10]",
+        "numpy": "arr[:10]\n\narr[:10, :]",
+        "pyspark": "df.limit(10)"
+      },
+      {
+        "scenario": "NOT / != condition",
+        "postgresql": "SELECT * \nFROM tbl\nWHERE status <> 'inactive';",
+        "pandas": "df[df.status != 'inactive']\n\ndf[~(df.status == 'inactive')]",
+        "numpy": "arr[arr != 0]\n\narr[~np.isin(arr, [0])]",
+        "pyspark": "df.filter(\ndf.status !='inactive')\n\ndf.filter(\n~(col('status') == 'inactive'))"
+      },
+      {
+        "scenario": "NOT IN",
+        "postgresql": "SELECT * \nFROM tbl\nWHERE city NOT IN ('Delhi','Mumbai');",
+        "pandas": "df[~df.city.isin(\n['Delhi',' Mumbai'])]",
+        "numpy": "arr[~np.isin(arr, [1,2,3])]",
+        "pyspark": "df.filter(~col('city').isin(\n  ['Delhi','Mumbai']))"
+      },
+      {
+        "scenario": "Select specific columns",
+        "postgresql": "SELECT name, age, city FROM tbl;",
+        "pandas": "Df[['name','age','city']]\n\ndf.loc[:, ['name','age','city']]",
+        "numpy": "arr[:, [0, 2, 4]] \n# by index",
+        "pyspark": "df.select('name','age','city')\n\ndf.select(col('name'),col('age'))"
+      },
+      {
+        "scenario": "Simple WHERE / filter",
+        "postgresql": "SELECT * \nFROM tbl \nWHERE age > 30;",
+        "pandas": "df[df['age'] > 30]\n\ndf.query('age > 30')",
+        "numpy": "arr[arr > 30]\n\narr[arr[:, 0] > 30]  # by col idx",
+        "pyspark": "df.filter(df.age > 30)\n\ndf.where(col('age') > 30)"
+      }
+    ]
+  },
+  {
+    "category": "4. Sorting",
+    "scenarios": [
+      {
+        "scenario": "Get top N per group (rank)",
+        "postgresql": "SELECT * \nFROM (\n  SELECT *,\n  ROW_NUMBER() \n  OVER (\n    PARTITION BY dept\n    ORDER BY salary   DESC) as rn\n  FROM tbl) tbl_x \nWHERE rn <= 3;",
+        "pandas": "df['rn'] = df.groupby('dept')\n['salary'].rank(\n  method='first',\n  ascending = False)\n\ndf[df.rn <= 3]",
+        "numpy": "# sort within groups manually\n\n# then slice first 3 per group",
+        "pyspark": "w = Window.partitionBy('dept') \\    .orderBy(col('salary').desc())\n\ndf.withColumn('rn',\nrow_number().over(w))\n\ndf = df.filter(col('rn') <= 3)"
+      },
+      {
+        "scenario": "Sort ascending",
+        "postgresql": "SELECT * \nFROM tbl \nORDER BY salary ASC;",
+        "pandas": "df.sort_values('salary')\n\ndf.sort_values('salary', ascending=True)",
+        "numpy": "arr[\narr[:, 1].argsort()]",
+        "pyspark": "df.sort('salary')\n\ndf.orderBy('salary')\n\ndf.orderBy(\ncol('salary').asc())"
+      },
+      {
+        "scenario": "Sort by multiple columns",
+        "postgresql": "SELECT * \nFROM tbl\nORDER BY dept ASC, salary DESC;",
+        "pandas": "df.sort_values(\n['dept','salary'],\nascending=[True,False])",
+        "numpy": "idx = np.lexsort(\n  (-arr[:,1],    arr[:,0])) \narr[idx]",
+        "pyspark": "df.orderBy(\ncol('dept').asc(),      col('salary').desc())"
+      },
+      {
+        "scenario": "Sort descending",
+        "postgresql": "SELECT * \nFROM tbl \nORDER BY salary DESC;",
+        "pandas": "df.sort_values('salary', ascending=False)",
+        "numpy": "arr[\narr[:,1].argsort()\n[::-1]\n]",
+        "pyspark": "df.sort(\ncol('salary').desc())\n\ndf.orderBy(\ncol('salary').desc())"
+      },
+      {
+        "scenario": "Sort strings (\nnulls last)",
+        "postgresql": "SELECT * \nFROM tbl\nORDER BY name ASC \nNULLS LAST;",
+        "pandas": "df.sort_values('name',\n  na_position='last')",
+        "numpy": "# np.char sorts lexicographically\nnp.sort(arr.astype(str))",
+        "pyspark": "df.orderBy(col('name').asc_nulls_last())\n\ndf.orderBy(col('name').desc_nulls_first())"
+      }
+    ]
+  },
+  {
+    "category": "5. Aggregation & Group By",
+    "scenarios": [
+      {
+        "scenario": "AVG / MEAN per group",
+        "postgresql": "SELECT dept, AVG(salary)\nFROM tbl \nGROUP BY dept;",
+        "pandas": "df.groupby('dept')\n['salary'].mean()",
+        "numpy": "# compute per-group manually\n\nmeans = {}\nfor g in np.unique(groups):\n  means[g]=np.mean(arr[groups==g])",
+        "pyspark": "df.groupBy('dept').\navg('salary')\n\ndf.groupBy('dept').\nagg(avg('salary').alias('avg_sal'))"
+      },
+      {
+        "scenario": "Count distinct values",
+        "postgresql": "SELECT \nCOUNT(DISTINCT city)\nFROM tbl;",
+        "pandas": "df['city'].nunique()",
+        "numpy": "len(np.unique(arr))",
+        "pyspark": "df.select(\ncountDistinct('city')).show()"
+      },
+      {
+        "scenario": "COUNT per group",
+        "postgresql": "SELECT dept, COUNT(*)\nFROM tbl \nGROUP BY dept;",
+        "pandas": "df.groupby('dept').size().reset_index(\n  name='count')\n\ndf.groupby('dept')['id'].count()",
+        "numpy": "vals, cnts = np.unique(\n  dept_arr, return_counts=True)",
+        "pyspark": "df.groupBy('dept').\ncount().show()"
+      },
+      {
+        "scenario": "HAVING (\nfilter on aggregate)",
+        "postgresql": "SELECT dept, AVG(salary) avg_s\nFROM tbl \nGROUP BY dept\nHAVING AVG(salary) > 70000;",
+        "pandas": "df.groupby('dept')\n['salary']\n  .mean().reset_index()\n  .query(\n'salary > 70000')\n)",
+        "numpy": "means = np.array([...])\n\nmeans[means > 70000]",
+        "pyspark": "df.groupBy('dept') .agg(\navg('salary').\nalias('a')).\nfilter(\ncol('a') > 70000\n)"
+      },
+      {
+        "scenario": "MIN & MAX per group",
+        "postgresql": "SELECT dept,\nMIN(salary),  MAX(salary)\nFROM tbl \nGROUP BY dept;",
+        "pandas": "df.groupby('dept')\n['salary'].agg(\n      ['min','max'])",
+        "numpy": "np.min(arr, axis=0)\n\nnp.max(arr, axis=0)",
+        "pyspark": "df.groupBy('dept').\nagg(\nmin('salary').\nalias('min_s'),\nmax('salary').\nalias('max_s'))"
+      },
+      {
+        "scenario": "Multiple aggregations",
+        "postgresql": "SELECT dept,\n  COUNT(*), \n  AVG(sal),\n  SUM(sal), \n  MIN(sal), \n  MAX(sal)\nFROM tbl \nGROUP BY dept;",
+        "pandas": "df.groupby('dept').\nagg(\n  cnt=('sal','count'),\n  avg_s=('sal','mean'),\n  sum_s=('sal','sum')\n)",
+        "numpy": "# axis=0 for col-wise stats\n\nnp.apply_along_axis(\n  lambda x:[x.mean(),x.sum()],\n  0, arr)",
+        "pyspark": "df.groupBy('dept').agg(\ncount('*').\nalias('cnt'),\navg('sal').\nalias('avg'),\nsum('sal').\nalias('total'),\nmin('sal').\nalias('min_s'))"
+      },
+      {
+        "scenario": "Percentage of total",
+        "postgresql": "SELECT \nsal,\nsal * 100.0 / SUM(sal)  OVER () AS pct\nFROM tbl;",
+        "pandas": "df.sal / df.sal.sum() * 100",
+        "numpy": "pct = arr / arr.sum() * 100",
+        "pyspark": "w = Window.rowsBetween(\nWindow.unboundedPreceding,\nWindow.unboundedFollowing)\n\ndf.withColumn('pct',\ncol('sal')/\nsum('sal').over(w)*100)"
+      },
+      {
+        "scenario": "Running / Cumulative total",
+        "postgresql": "SELECT \nid, \nsal,\nSUM(sal) OVER(ORDER BY id) AS running_total\nFROM tbl;",
+        "pandas": "df['sal'].cumsum()\n\n# per group:\ndf.groupby(\n'dept')['sal'].cumsum()",
+        "numpy": "np.cumsum(arr)\n\nnp.cumsum(arr, axis=0)",
+        "pyspark": "w = Window.orderBy('id')\n\ndf.withColumn('run',\n  sum('sal').over(w))"
+      },
+      {
+        "scenario": "SUM per group",
+        "postgresql": "SELECT dept,SUM(salary)\nFROM tbl \nGROUP BY dept;",
+        "pandas": "df.groupby('dept')\n['salary'].sum()",
+        "numpy": "np.add.reduceat(\n  arr_sorted[:,1], group_idx)",
+        "pyspark": "df.groupBy('dept').sum('salary')\n\ndf.groupBy('dept').\nagg(sum('salary').alias('total'))"
+      }
+    ]
+  },
+  {
+    "category": "6. Joins & Merges",
+    "scenarios": [
+      {
+        "scenario": "Cross JOIN (Cartesian)",
+        "postgresql": "SELECT *\nFROM t1\nCROSS JOIN t2;",
+        "pandas": "pd.merge(\ndf1, \ndf2, \nhow=\"cross\")",
+        "numpy": "np.meshgrid(arr1, arr2)",
+        "pyspark": "df1.crossJoin(df2)"
+      },
+      {
+        "scenario": "EXCEPT / set difference",
+        "postgresql": "SELECT * FROM t1\nEXCEPT\nSELECT * FROM t2;",
+        "pandas": "df1[\n~df1.col.isin(df2.col)]",
+        "numpy": "np.setdiff1d(a1, a2)",
+        "pyspark": "df1.subtract(df2)"
+      },
+      {
+        "scenario": "FULL OUTER JOIN",
+        "postgresql": "SELECT \na.*, \nb.*\nFROM emp a\nFULL OUTER JOIN dept b\nON a.dept_id = b.id;",
+        "pandas": "pd.merge(\ndf_emp, \ndf_dept,\nleft_on ='dept_id', right_on='id',\nhow='outer')",
+        "numpy": "# Not directly supported",
+        "pyspark": "df_emp.join(\ndf_dept,\non=df_emp.dept_id==df_dept.id,\nhow='outer')"
+      },
+      {
+        "scenario": "INNER JOIN",
+        "postgresql": "SELECT \na.*, \nb.dept_name\nFROM emp a\nJOIN dept b \nON a.dept_id = b.id;",
+        "pandas": "pd.merge(\ndf_emp, \ndf_dept,\nleft_on ='dept_id', right_on ='id',\nhow='inner')",
+        "numpy": "# Not directly supported;\n# align arrays by matching index",
+        "pyspark": "df_emp.join(\ndf_dept,\non = df_emp.dept_id==df_dept.id,\nhow='inner')"
+      },
+      {
+        "scenario": "INTERSECT / common rows",
+        "postgresql": "SELECT * FROM t1\nINTERSECT\nSELECT * FROM t2;",
+        "pandas": "pd.merge(\ndf1, df2, \nhow='inner')",
+        "numpy": "np.intersect1d(a1, a2)",
+        "pyspark": "df1.intersect(df2)"
+      },
+      {
+        "scenario": "Join on multiple keys",
+        "postgresql": "SELECT * \nFROM a\nJOIN b \nON a.k1=b.k1\n  AND a.k2 = b.k2;",
+        "pandas": "pd.merge(\ndf_a, \ndf_b,\non=['k1','k2'], how='inner')",
+        "numpy": "# align on multi-key indices",
+        "pyspark": "df_a.join(\ndf_b,\non=(df_a.k1==df_b.k1) &\n  (df_a.k2==df_b.k2), how='inner')"
+      },
+      {
+        "scenario": "LEFT JOIN",
+        "postgresql": "SELECT \na.*, \nb.dept_name\nFROM emp a\nLEFT JOIN dept b \nON a.dept_id=b.id;",
+        "pandas": "pd.merge(\ndf_emp, \ndf_dept,\nleft_on ='dept_id', right_on='id',\nhow='left')",
+        "numpy": "# Use masked arrays for\n# optional-match semantics",
+        "pyspark": "df_emp.join(\ndf_dept,\non=df_emp.dept_id==df_dept.id,\nhow='left')"
+      },
+      {
+        "scenario": "RIGHT JOIN",
+        "postgresql": "SELECT \na.*, \nb.dept_name\nFROM emp a\nRIGHT JOIN dept b \nON a.dept_id=b.id;",
+        "pandas": "pd.merge(\ndf_emp, \ndf_dept,\nleft_on ='dept_id', right_on='id',\nhow='right')",
+        "numpy": "# Swap DataFrames for left join",
+        "pyspark": "df_emp.join(\ndf_dept,  on=df_emp.dept_id==df_dept.id,\nhow='right')"
+      },
+      {
+        "scenario": "SELF JOIN",
+        "postgresql": "SELECT \ne.name, \nm.name AS manager\nFROM emp e\nJOIN emp m \nON e.mgr_id = m.id;",
+        "pandas": "pd.merge(\ndf, \ndf,\nleft_on='mgr_id', right_on='id',\nsuffixes=('','_mgr')\n)",
+        "numpy": "# Not applicable",
+        "pyspark": "e = df.alias('e')\nm = df.alias('m')\ne.join(m, col('e.mgr_id')==col('m.id')\n).select(\n'e.name','m.name')"
+      },
+      {
+        "scenario": "UNION ALL (stack rows)",
+        "postgresql": "SELECT * FROM t1\nUNION ALL\nSELECT * FROM t2;",
+        "pandas": "pd.concat(\n[df1, df2],\nignore_index=True)",
+        "numpy": "np.concatenate(\n[a1, a2])\n\nnp.vstack([a1, a2])",
+        "pyspark": "df1.union(df2)\n\ndf1.unionByName(df2)  \n# safe by name"
+      }
+    ]
+  },
+  {
+    "category": "7. Data Transformation & Column Operations",
+    "scenarios": [
+      {
+        "scenario": "Add new / derived column",
+        "postgresql": "ALTER TABLE tbl \nADD col NUMERIC;\n\nUPDATE tbl \nSET bonus = salary*0.1;\n\n-- or in SELECT:\nSELECT *, \nsalary*0.1 AS bonus FROM tbl;",
+        "pandas": "df['bonus'] = df.salary * 0.1\n\ndf = df.assign(\nbonus = df.salary*0.1)",
+        "numpy": "bonus = arr[:,1] * 0.1\n\n# add as new column:\narr_new = np.column_stack([arr, bonus])",
+        "pyspark": "df.withColumn(\n'bonus', col('salary')*0.1)"
+      },
+      {
+        "scenario": "Apply function to column",
+        "postgresql": "SELECT UPPER(name) \nFROM tbl;\n\nSELECT \nCASE WHEN age<18\n     THEN 'minor'\n     ELSE 'adult' END \nFROM tbl;",
+        "pandas": "df.name.str.upper()\n\ndf[\"age_category\"] = np.where(\ndf[\"age\"] < 18, \"minor\", \"adult\")",
+        "numpy": "np.vectorize(fn)(arr)\n\nnp.where(arr<18,'minor','adult')\n\nnp.frompyfunc(fn,1,1)(arr)",
+        "pyspark": "df.withColumn('n',upper(col('name')))\n\ndf.withColumn('g',\nwhen(col('age')<18,\n     'minor')\n.otherwise('adult'))"
+      },
+      {
+        "scenario": "CASE WHEN multi-branch",
+        "postgresql": "SELECT\nCASE WHEN sal<30000    THEN 'low'\n     WHEN sal<70000 THEN 'mid'\n       ELSE 'high' END AS band\nFROM tbl;",
+        "pandas": "pd.cut(df.sal,\nbins=[0,30000,70000,999999],\nlabels=['low','mid','high'])\n\n# or:\nconditions = [\ndf.col < 30000,\ndf.col < 70000\n]\n\nnp.select(conditions,\n['low', 'mid'], \ndefault = 'high')",
+        "numpy": "np.select(\n  [arr<30000, arr<70000],\n  ['low','mid'],\n  default='high')",
+        "pyspark": "df.withColumn('band',\nwhen(col('sal')<30000,' low').  when(col('sal')<70000,'mid').\notherwise('high'))"
+      },
+      {
+        "scenario": "Cast/change dtype",
+        "postgresql": "SELECT \ncol::INTEGER \nFROM tbl;\n\nSELECT CAST(col AS FLOAT) \nFROM tbl;",
+        "pandas": "df['col'].astype(int)\ndf['col'].astype(float)\ndf['col'].astype(\n'datetime64')",
+        "numpy": "arr.astype(np.int32)\narr.astype(np.float64)\narr.astype(str)",
+        "pyspark": "df.withColumn(\n'c',\ncol('c').cast('integer'))\n\ndf.withColumn('c',\ncol('c').cast(DoubleType()))"
+      },
+      {
+        "scenario": "Drop column(s)",
+        "postgresql": "ALTER TABLE tbl \nDROP COLUMN col;",
+        "pandas": "df.drop(\ncolumns=['col1','col2'])\ndf.drop(['col1','col2'], axis=1)",
+        "numpy": "np.delete(arr, [2,3], axis=1)",
+        "pyspark": "df.drop('col1','col2')\n\ndf.drop(\n*['col1','col2'])"
+      },
+      {
+        "scenario": "Drop rows with nulls",
+        "postgresql": "DELETE FROM tbl \nWHERE col IS NULL;",
+        "pandas": "df.dropna()\n\ndf.dropna(\nsubset=['col1','col2'])\n\ndf.dropna(how='all')",
+        "numpy": "arr[~np.isnan(arr).any(axis=1)]",
+        "pyspark": "df.na.drop()\n\ndf.dropna(\nsubset=['col'])\n\ndf.na.drop(how='all')"
+      },
+      {
+        "scenario": "Fill / replace null values",
+        "postgresql": "UPDATE tbl \nSET col=0 \nWHERE col IS NULL;\n\n-- in query:\nSELECT COALESCE(col,0) FROM tbl;",
+        "pandas": "df['col'].fillna(0)\n\ndf.fillna(\n{'col1':0,'col2':'NA'})\n\ndf['col'].fillna(method='ffill')",
+        "numpy": "arr[np.isnan(arr)] = 0\n\nnp.nan_to_num(arr, nan=0.0)",
+        "pyspark": "df.na.fill({'col':0})\n\ndf.fillna(0)\n\ndf.na.fill(0, subset=['c1','c2'])"
+      },
+      {
+        "scenario": "Pivot table",
+        "postgresql": "SELECT \ndept,\nSUM(CASE \n    WHEN yr=2023  \n    THEN sal END) y23,\nSUM(CASE \n    WHEN yr=2024 \n    THEN sal END) y24\nFROM tbl GROUP BY dept;",
+        "pandas": "df.pivot_table(\n  values='sal',   index='dept',\n  columns='yr',  aggfunc='sum')\n\ndf.pivot(\n  index='dept',\n  columns='yr',    values='sal')",
+        "numpy": "# Use Pandas for labelled pivots;\n\n# NumPy lacks column labels",
+        "pyspark": "df.groupBy('dept').\npivot('yr').\nsum('sal')"
+      },
+      {
+        "scenario": "Remove duplicates",
+        "postgresql": "SELECT DISTINCT * \nFROM tbl;\n\n-- keep one per key:\nDELETE FROM tbl \nWHERE ctid NOT IN (\n  SELECT MIN(ctid) \n  FROM tbl \n  GROUP BY key\n)",
+        "pandas": "df.drop_duplicates()\n\ndf.drop_duplicates(\nsubset=['col'])\n\ndf.drop_duplicates(keep='last')",
+        "numpy": "np.unique(arr, axis=0)",
+        "pyspark": "df.distinct()\n\ndf.dropDuplicates()\n\ndf.dropDuplicates(\nsubset=['col1','col2'])"
+      },
+      {
+        "scenario": "Rename column",
+        "postgresql": "ALTER TABLE tbl \nRENAME COLUMN old TO new;\n\n-- in query:\nSELECT old AS new FROM tbl;",
+        "pandas": "df.rename(\ncolumns={'old':'new'},\ninplace=True)\n\ndf = df.rename(\ncolumns={'old':'new'})",
+        "numpy": "# structured arrays:\narr.dtype.names=('a',\n'new_name','c')",
+        "pyspark": "df.withColumnRenamed(\n'old', 'new')"
+      },
+      {
+        "scenario": "Unpivot / MELT",
+        "postgresql": "-- Postgres 16+:\nSELECT id, key, value FROM tbl\nUNPIVOT (value FOR key IN (q1,q2,q3));",
+        "pandas": "df.melt(\nid_vars=['id'],\nvalue_vars=['q1','q2','q3'],\nvar_name='quarter',\nvalue_name='sales')",
+        "numpy": "# reshape with np.stack / hstack",
+        "pyspark": "df.unpivot(\n  ['q1','q2','q3'], 'quarter', 'sales')\n# Spark 3.4+"
+      }
+    ]
+  },
+  {
+    "category": "8. String Operations",
+    "scenarios": [
+      {
+        "scenario": "Concatenate strings",
+        "postgresql": "name || ' ' || city \n\nCONCAT(name,' ',city)\n\nCONCAT_WS('-', city, state, country)",
+        "pandas": "df.name + ' ' + df.city\n\ndf[\"city\"].str.cat(\n[df[\"state\"], df[\"country\"]],\nsep=\", \"\n)",
+        "numpy": "np.char.add(a,\" \" + b)",
+        "pyspark": "concat(\ncol('name'),\nlit(' '),\ncol('city'))\n\nconcat_ws(\" \", \"first_name\", \"last_name\")"
+      },
+      {
+        "scenario": "Extract with regex",
+        "postgresql": "REGEXP_MATCHES(\ncol,\n'[0-9]+')",
+        "pandas": "df.col.str.extract(\nr'([0-9]+)')\n\ndf.col.str.extractall(r'([0-9]+)')",
+        "numpy": "import re\nnp.vectorize(lambda x:\nre.findall(r'[0-9]+',x))(arr)",
+        "pyspark": "regexp_extract(\ncol('c'),\nr'([0-9]+)',\n1)"
+      },
+      {
+        "scenario": "Find / INSTR position",
+        "postgresql": "SELECT \nPOSITION('a' IN name) FROM tbl;\n\nSELECT STRPOS(name,'a') FROM tbl;",
+        "pandas": "df.name.str.find('a')\n\ndf.name.str.index('a')",
+        "numpy": "np.char.find(arr, 'a')",
+        "pyspark": "locate('a',col('name'))\n\ninstr(col('name'), 'a')"
+      },
+      {
+        "scenario": "Length of string",
+        "postgresql": "SELECT LENGTH(name) FROM tbl;\n\nSELECT CHAR_LENGTH(name) FROM tbl;",
+        "pandas": "df.name.str.len()",
+        "numpy": "np.char.str_len(arr)\nnp.vectorize(len)(arr)",
+        "pyspark": "length(col('name'))"
+      },
+      {
+        "scenario": "Pad string (LPAD / RPAD)",
+        "postgresql": "LPAD(code,5,'0') \n\nRPAD(code,5,'0')",
+        "pandas": "df.code.str.zfill(5)\n\ndf.code.str.ljust(5,'0')\n\ndf.code.str.rjust(5,'0')",
+        "numpy": "np.char.zfill(arr.astype(str),5)",
+        "pyspark": "lpad(col('code'),5,'0')\nrpad(col('code'),5,'0')"
+      },
+      {
+        "scenario": "Replace / Regex replace",
+        "postgresql": "REPLACE(name,'Jr','')\n\nREGEXP_REPLACE(phone,\n       '[^0-9]','','g')",
+        "pandas": "df.name.str.replace('Jr','',regex=False)\n\ndf.phone.str.replace(\nr'\\D','',regex=True)",
+        "numpy": "np.char.replace(arr,'Jr','')",
+        "pyspark": "regexp_replace(\ncol('name'),'Jr','')\n\nregexp_replace(\ncol('ph'),'[^0-9]','')"
+      },
+      {
+        "scenario": "Split string",
+        "postgresql": "STRING_TO_ARRAY(\ncol,',')",
+        "pandas": "df.col.str.split(',')\n\ndf.col.str.split(',', expand=True)",
+        "numpy": "np.char.split(arr, sep=',')",
+        "pyspark": "split(col('c'), ',')\n# returns ArrayType"
+      },
+      {
+        "scenario": "Substring / slice",
+        "postgresql": "SELECT SUBSTRING(name,1,3) FROM tbl;\n\nSELECT LEFT(name,3) FROM tbl;\nSELECT RIGHT(name,3) FROM tbl;",
+        "pandas": "df.name.str[:3]\ndf.name.str.slice(0,3)\ndf.name.str[-3:]",
+        "numpy": "# standard Python slicing on str arr\narr.astype(str)",
+        "pyspark": "substring(col('name'),1,3)\n\ncol('name').substr(1,3)"
+      },
+      {
+        "scenario": "Trim whitespace",
+        "postgresql": "SELECT \nTRIM(col),\nLTRIM(col), \nRTRIM(col)\nFROM tbl;",
+        "pandas": "df.col.str.strip()\ndf.col.str.lstrip()\ndf.col.str.rstrip()",
+        "numpy": "np.char.strip(arr)\nnp.char.lstrip(arr)\nnp.char.rstrip(arr)",
+        "pyspark": "trim(col('c'))\nltrim(col('c'))\nrtrim(col('c'))"
+      },
+      {
+        "scenario": "Upper / Lower / Title case",
+        "postgresql": "SELECT \n  UPPER(name),\n  LOWER(email),\n  INITCAP(city) \nFROM tbl;",
+        "pandas": "df.name.str.upper()\ndf.email.str.lower()\ndf.city.str.title()",
+        "numpy": "np.char.upper(arr)\nnp.char.lower(arr)\nnp.char.capitalize(arr)",
+        "pyspark": "upper(col('name'))\nlower(col('email'))\ninitcap(col('city'))"
+      }
+    ]
+  },
+  {
+    "category": "9. Date & Time Operations",
+    "scenarios": [
+      {
+        "scenario": "Add / subtract interval",
+        "postgresql": "NOW() + INTERVAL '7 days'\n \nNOW()- INTERVAL '1 month'",
+        "pandas": "pd.Timestamp.now() + pd.Timedelta(days=7)\n\npd.Timestamp.now() + pd.DateOffset(months=1)",
+        "numpy": "arr + np.timedelta64(7,'D')\n\narr - np.timedelta64(30,'D')",
+        "pyspark": "date_add(col('dt'), 7)\ndate_sub(col('dt'), 7)\nadd_months(col('dt'), 1)"
+      },
+      {
+        "scenario": "BETWEEN two dates",
+        "postgresql": "SELECT * \nFROM tbl \nWHERE dt\n  BETWEEN '2024-01-01'  AND '2024-12-31';",
+        "pandas": "df[df['date'].between('2024-01-01','2024-12-31')]",
+        "numpy": "mask=(arr>=np.datetime64('2024-01-01'))&\n     (arr<=np.datetime64('2024-12-31'))",
+        "pyspark": "df.filter(\ncol('dt').between(\n'2024-01-01',\n'2024-12-31'))"
+      },
+      {
+        "scenario": "Current date / timestamp",
+        "postgresql": "CURRENT_DATE()\nNOW()\nCURRENT_TIMESTAMP()",
+        "pandas": "pd.Timestamp.today()\npd.Timestamp.now()\n\nimport datetime; datetime.date.today()",
+        "numpy": "np.datetime64('today')\nnp.datetime64('now')",
+        "pyspark": "current_date()\ncurrent_timestamp()"
+      },
+      {
+        "scenario": "Date difference (days)",
+        "postgresql": "end_dt - start_dt\nAGE(end_dt, start_dt)",
+        "pandas": "(df.end_dt - df.start_dt).dt.days\n\n(df['end_time'] - df['start_time']).\ndt.total_seconds()/60",
+        "numpy": "(arr2-arr1).\nastype('timedelta64[D]').astype(int)",
+        "pyspark": "datediff(\ncol('end_dt'), col('start_dt'))\n# returns integer days"
+      },
+      {
+        "scenario": "Day of week / quarter",
+        "postgresql": "EXTRACT(DOW FROM dt),\nEXTRACT(QUARTER FROM dt)\n\n-- DOW: 0=Sun, 6=Sat",
+        "pandas": "df.dt.dt.dayofweek  \n# 0=Mon\n\ndf.dt.dt.quarter\ndf.dt.dt.day_name()",
+        "numpy": "(arr.astype(\n'datetime64[D]').\nastype(int)% 7)  \n# days since epoch mod 7",
+        "pyspark": "dayofweek(col('dt'))\nquarter(col('dt'))"
+      },
+      {
+        "scenario": "Extract year / month / day",
+        "postgresql": "EXTRACT(YEAR FROM dt)\nEXTRACT(MONTH FROM dt)\nEXTRACT(DAY FROM dt)",
+        "pandas": "df.dt.dt.year\ndf.dt.dt.month\ndf.dt.dt.day\ndf.dt.dt.hour  df.dt.dt.minute",
+        "numpy": "arr.astype(\n'datetime64[Y]')\narr.astype(\n'datetime64[M]')\narr.astype(\n'datetime64[D]')",
+        "pyspark": "year(col('dt'))\nmonth(col('dt'))\ndayofmonth(col('dt'))\nhour(col('dt'))  minute(col('dt'))"
+      },
+      {
+        "scenario": "Format date to string",
+        "postgresql": "TO_CHAR(\ndt,'YYYY-MM-DD')",
+        "pandas": "df['date'].dt.strftime('%Y-%m-%d')\n\ndf.dt.astype(str)",
+        "numpy": "arr.astype(\n'datetime64[D]').astype(str)",
+        "pyspark": "date_format(\ncol('dt'),'yyyy-MM-dd')"
+      },
+      {
+        "scenario": "Parse string to date",
+        "postgresql": "TO_DATE(\n'2024-01-15',\n'YYYY-MM-DD')",
+        "pandas": "pd.to_datetime(df.col)\npd.to_datetime(df.col,\n  format='%Y-%m-%d')",
+        "numpy": "np.datetime64(\n'2024-01-15')\n\narr.astype('datetime64[D]')",
+        "pyspark": "to_date(col('dt'),\n'yyyy-MM-dd')\n\nto_timestamp(col('dt'),\n 'yyyy-MM-dd HH:mm:ss')"
+      },
+      {
+        "scenario": "Truncate to period",
+        "postgresql": "DATE_TRUNC('month', dt) \nDATE_TRUNC('year',  dt) \n\nDATE_TRUNC('month', TIMESTAMP '2026-03-16 14:37:52')\n#2026-03-01 00:00:00",
+        "pandas": "df.ts.dt.to_period(\"M\").dt.to_timestamp()\n\ndf.dt.dt.floor('D')\ndf.dt.dt.normalize()",
+        "numpy": "arr.astype('datetime64[M]')  # month\narr.astype('datetime64[Y]')  # year",
+        "pyspark": "date_trunc(\n\"year\", \"ts\"),\ndate_trunc(\n\"month\", \"ts\"),\ndate_trunc(\n\"day\", \"ts\")\n\ntrunc(col('dt'),'YYYY')"
+      }
+    ]
+  },
+  {
+    "category": "10. Window Functions",
+    "scenarios": [
+      {
+        "scenario": "FIRST_VALUE(column)\n\n LAST_VALUE(column)",
+        "postgresql": "SELECT \n*,\nFIRST_VALUE(sal) \nOVER (\n    PARTITION BY dept\n    ORDER BY id) AS first_sal\nFROM tbl;",
+        "pandas": "df.groupby('dept')['sal'].transform('first')\n\ndf.groupby('dept')['sal'].transform('last')",
+        "numpy": "# index 0 / -1 after group sort",
+        "pyspark": "w = Window.partitionBy(\n'dept').orderBy('id')\n\ndf.withColumn('first',\n  first('sal').over(w))\n\ndf.withColumn('last',\n  last('sal').over(w))"
+      },
+      {
+        "scenario": "LAG (column, offset, default)\n\n- previous row value",
+        "postgresql": "SELECT \nid, \nsal,\nLAG(sal,1,0) \nOVER (ORDER BY id) AS  prev_sal\nFROM tbl;",
+        "pandas": "df.sal.shift(1)\n\ndf.groupby('dept')\n['sal'].shift(1)",
+        "numpy": "np.roll(arr,1)\n# note: wraps around",
+        "pyspark": "w = Window.orderBy('id')\n\ndf.withColumn('prev',\n  lag('sal',1).over(w))"
+      },
+      {
+        "scenario": "LEAD (column, offset, default)\n\n- next row value",
+        "postgresql": "SELECT \nid,\nsal,\nLEAD(sal,1,0) \nOVER\n  (ORDER BY id) AS  next_sal\nFROM tbl;",
+        "pandas": "df.sal.shift(-1)",
+        "numpy": "np.roll(arr,-1)",
+        "pyspark": "w = Window.orderBy('id')\n\ndf.withColumn('nxt',\nlead('sal',1,0).\nover(w))"
+      },
+      {
+        "scenario": "Moving average",
+        "postgresql": "SELECT *,\nAVG(sal) \nOVER (ORDER BY id\n    ROWS BETWEEN \n    2 PRECEDING\n    AND CURRENT ROW) AS moving_avg\nFROM tbl;",
+        "pandas": "df.sal.rolling(\nwindow=3).mean()\n\ndf.sal.rolling(3,\nmin_periods=1).mean()",
+        "numpy": "np.convolve(arr,\n  np.ones(3)/3, mode='valid')",
+        "pyspark": "w = Window.orderBy('id').\nrowsBetween(-2, 0)\n\ndf.withColumn('ma',\n  avg('sal').over(w))"
+      },
+      {
+        "scenario": "NTILE (number of buckets)",
+        "postgresql": "SELECT *,\nNTILE(4) \nOVER (ORDER BY salary)  AS quartile\nFROM tbl;",
+        "pandas": "pd.qcut(\ndf.salary,\n  4, \nlabels=[1,2,3,4])",
+        "numpy": "np.digitize(arr,\nnp.percentile(arr,[25,50,75]))",
+        "pyspark": "w = Window.orderBy('salary')\n\ndf.withColumn('q',\nntile(4).over(w))"
+      },
+      {
+        "scenario": "PERCENT_RANK() / CUME_DIST()",
+        "postgresql": "SELECT *,\nPERCENT_RANK() \nOVER(ORDER BY salary),\nCUME_DIST() \nOVER(ORDER BY salary)\nFROM tbl;",
+        "pandas": "# percent rank:\ndf.salary.rank(pct=True)\n\n# cumulative dist:\ndf.salary.rank(pct=True,method='max')",
+        "numpy": "# percentileofscore from scipy",
+        "pyspark": "w = Window.orderBy('salary')\n\ndf.withColumn('prnk',\npercent_rank().over(w))     .withColumn('cdist',\n  cume_dist().over(w))"
+      },
+      {
+        "scenario": "RANK() \nDENSE_RANK()",
+        "postgresql": "SELECT \nname, \nsalary,\nRANK() \n  OVER (ORDER BY salary   DESC),\nDENSE_RANK() \n  OVER (ORDER BY salary DESC)\nFROM tbl;",
+        "pandas": "# Rank - min\ndf.salary.rank(\nmethod='min',\nascending=False)\n\n# Dense Rank - dense\ndf.salary.rank(\nmethod='dense',\nascending=False)",
+        "numpy": "# argsort gives index-based rank\n\nnp.argsort(np.argsort(-arr))",
+        "pyspark": "w = Window.\norderBy(\ncol('salary').desc())\n\ndf.\nwithColumn('rnk',\n  rank().over(w)).\nwithColumn('drnk',\n  dense_rank().over(w))"
+      },
+      {
+        "scenario": "ROW_NUMBER()",
+        "postgresql": "SELECT *,\nROW_NUMBER() \nOVER (\n    PARTITION BY dept\n    ORDER BY salary DESC) rn\nFROM tbl;",
+        "pandas": "# Row Number - first\ndf.groupby('dept')\\\n  ['salary'].\n  rank(\n  method='first',    \n  ascending=False)",
+        "numpy": "# argsort within groups",
+        "pyspark": "w = Window.\npartitionBy('dept').\norderBy(col('salary').\ndesc())\n\ndf.withColumn('rn',\nrow_number().over(w))"
+      }
+    ]
+  },
+  {
+    "category": "11. NumPy — Array Creation, Math & Linear Algebra",
+    "scenarios": [
+      {
+        "scenario": "Boolean masking / where",
+        "postgresql": "SELECT * FROM tbl \nWHERE x > 0;\nSELECT \nCASE WHEN x>0 \n     THEN x \n     ELSE 0 END \nFROM tbl;",
+        "pandas": "df[df.x > 0]\ndf.x.clip(lower=0)",
+        "numpy": "arr[arr > 0]\nnp.where(arr>0, arr, 0)\nnp.clip(arr, 0, None)\nnp.ma.masked_where(arr<0, arr)",
+        "pyspark": "df.filter(col('x') > 0)\n\ndf.withColumn('x',\nwhen(\ncol('x')>0,col('x')).\notherwise(0))"
+      },
+      {
+        "scenario": "Create arrays",
+        "postgresql": "-- N/A in SQL\n-- equivalent sets/series:\n\ngenerate_series(0,9)",
+        "pandas": "pd.Series([1,2,3])\npd.Series(range(10))\n\nnp.arange(10)  \n# use NumPy",
+        "numpy": "np.array([1,2,3])\nnp.zeros((3,3))\nnp.ones((3,3))\nnp.eye(3)\nnp.arange(0,10,2)\nnp.linspace(0,1,5)",
+        "pyspark": "from pyspark.ml.linalg import Vectors\n\nVectors.dense([1,2,3])\n# or DenseMatrix(nrow,ncol,vals)"
+      },
+      {
+        "scenario": "Element-wise arithmetic",
+        "postgresql": "SELECT \na+b, a-b, a*b, a/b \nFROM tbl;",
+        "pandas": "df.a + df.b\ndf.a * df.b\ndf.a / df.b\ndf.a ** 2",
+        "numpy": "arr1 + arr2\narr1 * arr2  # element-wise\narr ** 2     # square each element\nnp.sqrt(arr)\nnp.log(arr)  np.exp(arr)",
+        "pyspark": "df.withColumn('c', col('a') + col('b'))"
+      },
+      {
+        "scenario": "Linear algebra operations",
+        "postgresql": "-- N/A",
+        "pandas": "# via numpy:\nimport numpy.linalg as la\nla.inv(df.values)",
+        "numpy": "np.linalg.det(A)\nnp.linalg.inv(A)\nnp.linalg.eig(A)\nnp.linalg.svd(A)\nnp.linalg.norm(arr)\nnp.linalg.solve(A, b)",
+        "pyspark": "from pyspark.ml.linalg import DenseMatrix\n# Spark ML: PCA, etc."
+      },
+      {
+        "scenario": "Matrix multiply/dot product",
+        "postgresql": "-- N/A (SQL is row-based)",
+        "pandas": "pd.DataFrame(np.dot(A.values, B.values))\n\nA.values @ B.values",
+        "numpy": "np.dot(A, B)\nA @ B              \n# same as dot for 2-D\n\nnp.matmul(A, B)    \n# no scalar support\n\nnp.inner(a, b)     \n# inner product\n\nnp.outer(a, b)     # outer product",
+        "pyspark": "# Use MLlib for matrix ops\n\nfrom pyspark.mllib.linalg.distributed\n  import RowMatrix"
+      },
+      {
+        "scenario": "Random arrays",
+        "postgresql": "RANDOM()",
+        "pandas": "pd.Series(np.random.randn(10))",
+        "numpy": "np.random.seed(42)\nnp.random.rand(3,3)  \n# uniform [0,1)\nnp.random.randn(3,3) \n# standard normal\nnp.random.randint(0,100,size=(3,3))\nnp.random.choice([1,2,3],size=5)",
+        "pyspark": "# Use spark.range + rand()\n\nfrom pyspark.sql.functions import rand\n\nspark.range(100).select(rand())"
+      },
+      {
+        "scenario": "Reshape / Transpose",
+        "postgresql": "-- N/A",
+        "pandas": "df.values.reshape(m,n)\n\ndf.T  # transpose DataFrame",
+        "numpy": "arr.reshape(3,4)\narr.reshape(-1,1)  \n# column vector\n\narr.flatten()      \n# 1-D copy\n\narr.ravel()        \n# 1-D view\n\narr.T              \n# transpose",
+        "pyspark": "-- DataFrames are tabular,\n-- Transposing is not typical"
+      },
+      {
+        "scenario": "Stacking / Concatenating arrays",
+        "postgresql": "-- N/A",
+        "pandas": "pd.concat([df1,df2])\n\nnp.hstack / vstack via .values",
+        "numpy": "np.concatenate([a1,a2], axis=0)\n\nnp.hstack([a1,a2])  # horizontal\nnp.vstack([a1,a2])  \n# vertical\n\nnp.stack([a1,a2], axis=0)\nnp.dstack([a1,a2])  # depth",
+        "pyspark": "df1.union(df2)\n\n# for column-wise:\ndf1.join(df2, on='id')"
+      },
+      {
+        "scenario": "Statistical operations",
+        "postgresql": "SELECT \nAVG(x), \nSTDDEV(x),\nVARIANCE(x),\nPERCENTILE_CONT(0.5)\nWITHIN GROUP (ORDER BY x)\nFROM tbl;",
+        "pandas": "df.x.mean()  \ndf.x.std()\ndf.x.var()   df.x.median()\ndf.x.quantile(0.25)\ndf.x.skew()  df.x.kurt()",
+        "numpy": "np.mean(arr) np.std(arr)\nnp.var(arr)  np.median(arr)\nnp.percentile(arr,[25,50,75])\nnp.corrcoef(a, b)\nnp.cov(a, b)",
+        "pyspark": "df.select(mean('x'),\nstddev('x'),\nvariance('x'),\nskewness('x'),\nkurtosis('x')).show()"
+      }
+    ]
+  },
+  {
+    "category": "12. Writing & Saving Data",
+    "scenarios": [
+      {
+        "scenario": "Append vs Overwrite mode",
+        "postgresql": "INSERT INTO vs \nTRUNCATE + INSERT\n\nCREATE TABLE tbl AS SELECT ...",
+        "pandas": "# overwrite:\ndf.to_sql('t',conn,\n  if_exists='replace')\n\n# append:\ndf.to_sql('t',conn,\n  if_exists='append')",
+        "numpy": "# overwrite file:\nnp.save('f.npy', arr)",
+        "pyspark": "df.write.mode('overwrite').parquet('p')\n\ndf.write.mode('append').parquet('p')\n\ndf.write.mode('ignore').parquet('p')"
+      },
+      {
+        "scenario": "Create table from query",
+        "postgresql": "CREATE TABLE new_tbl \nAS\nSELECT * \nFROM old_tbl \nWHERE x>0;\n\nCREATE TABLE tbl \n(col1 INT, col2 TEXT);",
+        "pandas": "df_new = df[df.x > 0].copy()\n\n# save to DB:\ndf_new.to_sql('new_tbl', conn)",
+        "numpy": "arr_new = arr[arr[:,0]>0].copy()",
+        "pyspark": "df.filter(col('x')>0)  .write.saveAsTable('new_tbl')"
+      },
+      {
+        "scenario": "Delete / filter out rows",
+        "postgresql": "DELETE FROM tbl \nWHERE dept='HR';",
+        "pandas": "df = df[df.dept != 'HR']",
+        "numpy": "mask = arr[:,col_idx] != val\narr = arr[mask]",
+        "pyspark": "df = df.filter(col('dept')!='HR')"
+      },
+      {
+        "scenario": "Insert rows",
+        "postgresql": "INSERT INTO tbl (a,b,c)\nVALUES (1,'x',2.0);\n\nINSERT INTO tbl \nSELECT * FROM src;",
+        "pandas": "df.to_sql('tbl', \nconn,\nif_exists='append',  index=False)",
+        "numpy": "# write array to file:\nnp.save('file.npy', arr)",
+        "pyspark": "df.write.mode('append')\n  .saveAsTable('tbl')\n\ndf.write.insertInto('tbl')"
+      },
+      {
+        "scenario": "Update/overwrite rows",
+        "postgresql": "UPDATE tbl \nSET salary=salary*1.1\nWHERE dept='Eng';",
+        "pandas": "df.loc[\ndf.dept=='Eng',\n'salary'] *= 1.1",
+        "numpy": "arr[arr[:,2]==1, 1] *= 1.1",
+        "pyspark": "# Spark DFs are immutable; create new:\n\ndf.withColumn('salary',\nwhen(\ncol('dept')=='Eng',\ncol('salary')*1.1)  .otherwise(\ncol('salary')))"
+      },
+      {
+        "scenario": "Write to CSV",
+        "postgresql": "COPY tbl TO '/path/f.csv'\nWITH (FORMAT CSV, HEADER);",
+        "pandas": "df.to_csv('file.csv', index=False)\n\ndf.to_csv('file.csv.gz',compression='gzip')",
+        "numpy": "np.savetxt('file.csv', arr,\n  delimiter=',', header='a,b,c',\n  comments='')",
+        "pyspark": "df.write.csv('path', header=True)\n\ndf.coalesce(1).\nwrite.\ncsv('path',\n     header=True,   mode='overwrite')"
+      },
+      {
+        "scenario": "Write to JSON",
+        "postgresql": "SELECT \nrow_to_json(tbl) \nFROM tbl;",
+        "pandas": "df.to_json('file.json',\n  orient='records',lines=True)",
+        "numpy": "import json\nwith open('f.json','w') as f:\n  json.dump(arr.tolist(), f)",
+        "pyspark": "df.write.json('path')\n\ndf.write.mode('overwrite').json('path')"
+      },
+      {
+        "scenario": "Write to Parquet",
+        "postgresql": "-- via extension or FDW",
+        "pandas": "df.to_parquet('file.parquet',\nengine='pyarrow',\ncompression='snappy')",
+        "numpy": "# via pyarrow:\nimport pyarrow as pa\nimport pyarrow.parquet as pq\npq.write_table(\n  pa.Table.from_pandas(df),'f.parquet')",
+        "pyspark": "df.write.parquet('path')\n\ndf.write.mode(\n'overwrite').\nparquet('path')"
+      }
+    ]
+  },
+  {
+    "category": "13. Advanced Patterns & Interview Topics",
+    "scenarios": [
+      {
+        "scenario": "Broadcast join (big + small)",
+        "postgresql": "-- PostgreSQL auto-decides;\n-- set enable_hashjoin=off for NL join",
+        "pandas": "# Pandas always in-memory;\n# auto-broadcast on merge",
+        "numpy": "# N/A",
+        "pyspark": "from pyspark.sql.functions import broadcast\n\ndf_big.join\n(broadcast(df_small),\n'key')\n# forces map-side join"
+      },
+      {
+        "scenario": "Caching / Persistence",
+        "postgresql": "-- Materialised views:\nCREATE \nMATERIALIZED VIEW mv AS\n  \nSELECT ... FROM tbl;\n\nREFRESH \nMATERIALIZED VIEW mv;",
+        "pandas": "# Pandas DF is already in-memory;\n# no explicit cache needed",
+        "numpy": "# arrays are always in-memory;\n# use np.memmap for disk-backed:\narr = np.memmap('f.dat', dtype='f4',\n  mode='r+', shape=(1000,100))",
+        "pyspark": "df.cache()\ndf.persist()\ndf.unpersist()\ndf.persist(\nStorageLevel.DISK_ONLY)"
+      },
+      {
+        "scenario": "Consecutive / gap detection",
+        "postgresql": "SELECT \nid,\ndt,\ndt - LAG(dt) \nOVER (ORDER BY dt)\n    AS gap\nFROM tbl;",
+        "pandas": "df.sort_values('dt')\n\ndf['gap'] = df.dt.diff()",
+        "numpy": "np.diff(arr)\nnp.diff(arr, axis=0)",
+        "pyspark": "w = Window.orderBy('dt')\n\ndf.withColumn('gap',\ndatediff(\ncol('dt'),\nlag('dt',1).over(w)\n   )\n)"
+      },
+      {
+        "scenario": "CTE (Common Table Expression)",
+        "postgresql": "WITH dept_avg AS (\n  SELECT dept, \n  AVG(sal) avg_s\n  FROM tbl \n  GROUP BY dept\n)\nSELECT e.*, d.avg_s\nFROM tbl e\nJOIN dept_avg d \nUSING (dept);",
+        "pandas": "dept_avg = df.groupby('dept')\n['sal'].mean().\nreset_index().\nrename(columns={'sal':'avg_s'})\n\npd.merge(df, dept_avg, on='dept')",
+        "numpy": "# compute group means:\nmeans = {g: np.mean(arr[arr[:,0]==g])\n  for g in np.unique(arr[:,0])}",
+        "pyspark": "dept_avg = df.groupBy('dept').\nagg(avg('sal').alias('avg_s'))\n\ndf.join(dept_avg,'dept','left')"
+      },
+      {
+        "scenario": "Deduplication (keep latest)",
+        "postgresql": "DELETE FROM tbl \nWHERE id NOT IN (\n  SELECT MAX(id) \n  FROM tbl\n  GROUP BY key\n);",
+        "pandas": "df.sort_values('id',\nascending=False).\ndrop_duplicates('key', keep='first')",
+        "numpy": "# sort desc then np.unique on key col",
+        "pyspark": "w = Window.partitionBy('key').orderBy(col('id').\ndesc())\n\ndf.withColumn('rn',\nrow_number().over(w)).\nfilter(col('rn')==1).\ndrop('rn')"
+      },
+      {
+        "scenario": "Explain / Query plan",
+        "postgresql": "EXPLAIN \nSELECT * FROM tbl;\n\nEXPLAIN ANALYZE SELECT * FROM tbl;\n\nEXPLAIN (ANALYZE, BUFFERS) SELECT...;",
+        "pandas": "# No query plan (in-memory)\n\n# Profile with:\nimport cProfile; cProfile.run('...')",
+        "numpy": "# Time operations:\nimport timeit\ntimeit.timeit(lambda:np.dot(A,B),number=100)",
+        "pyspark": "df.explain()\ndf.explain(True)   \n# extended\n\ndf.explain('cost') \n# Spark 3.x"
+      },
+      {
+        "scenario": "Find Nth highest value",
+        "postgresql": "SELECT DISTINCT sal\nFROM tbl\nORDER BY sal DESC\nLIMIT 1 OFFSET N-1;",
+        "pandas": "df.sal.nlargest(n).iloc[-1]\n\n# or:\ndf.sal.drop_duplicates().nlargest(n).min()",
+        "numpy": "np.partition(arr, -n)[-n]\nnp.unique(arr)[-n]",
+        "pyspark": "df.select('sal').\ndistinct().\norderBy(col('sal').\ndesc()).\nlimit(n).\nagg(min('sal'))"
+      },
+      {
+        "scenario": "Indexing & Performance",
+        "postgresql": "CREATE INDEX idx \nON tbl(col);\nCREATE INDEX idx \nON tbl(c1,c2);\n\nCREATE INDEX CONCURRENTLY ...;\n\nANALYZE tbl;\n\nVACUUM ANALYZE tbl;",
+        "pandas": "# Use category dtype:\ndf['c']= df['c'].astype('category')\n\n# Avoid iterrows; use vectorised ops\n# Use .loc not chained indexing",
+        "numpy": "# Pre-sort for searchsorted:\narr.sort()\nnp.searchsorted(arr, value)\n# Use views not copies where possible",
+        "pyspark": "df.repartition(n, 'key')\n\ndf.coalesce(1)\n\ndf.sortWithinPartitions('key')\n# Use Delta Lake for indexing"
+      },
+      {
+        "scenario": "Pivoting strings (STRING_AGG)",
+        "postgresql": "SELECT \ndept,\nSTRING_AGG(name,', ') AS members\nFROM tbl \nGROUP BY dept;",
+        "pandas": "df.groupby('dept')\n['name'].\nagg(', '.join).\nreset_index()",
+        "numpy": "# use Python join in vectorized fn",
+        "pyspark": "from pyspark.sql.functions import collect_list\n\ndf.groupBy('dept').\nagg(concat_ws(', ',\ncollect_list('name')).\nalias('m'))"
+      },
+      {
+        "scenario": "Recursive CTE / Hierarchy",
+        "postgresql": "WITH RECURSIVE org AS (\n  SELECT  id,name,mgr_id,1 lvl\n  FROM emp \nWHERE mgr_id IS NULL\n  UNION ALL\n  SELECT e.id,e.name,\ne.mgr_id,o.lvl+1\n  FROM emp e \nJOIN org o\n  ON e.mgr_id = o.id\n)\nSELECT * FROM org;",
+        "pandas": "# build tree iteratively\n# or use networkx library\nimport networkx as nx",
+        "numpy": "# graph traversal with adj matrix\nimport scipy.sparse as sp",
+        "pyspark": "# Use GraphX or iterative join\n# in PySpark"
+      }
+    ]
+  }
+]

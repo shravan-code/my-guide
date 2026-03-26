@@ -1,0 +1,245 @@
+@import url("../design-tokens.css");
+
+:root {
+  --cheat-shell: min(1280px, calc(100% - 2rem));
+  --cheat-hero-surface: linear-gradient(145deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.68));
+  --cheat-card-surface: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.64));
+  --cheat-outline: rgba(99, 102, 241, 0.14);
+  --cheat-accent-soft: rgba(99, 102, 241, 0.08);
+}
+
+body.dark {
+  --cheat-hero-surface: linear-gradient(145deg, rgba(16, 21, 42, 0.92), rgba(10, 14, 28, 0.78));
+  --cheat-card-surface: linear-gradient(180deg, rgba(16, 21, 42, 0.88), rgba(10, 14, 28, 0.72));
+  --cheat-outline: rgba(129, 140, 248, 0.22);
+  --cheat-accent-soft: rgba(129, 140, 248, 0.12);
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(99, 102, 241, 0.08), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(6, 182, 212, 0.08), transparent 28%),
+    var(--bg) !important;
+}
+
+main {
+  width: var(--cheat-shell) !important;
+  margin: 0 auto !important;
+  padding: 1.5rem 0 3rem !important;
+  min-width: 0;
+}
+
+.page-wrap {
+  width: 100%;
+  min-width: 0;
+}
+
+.topbar {
+  gap: 1rem;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(1.5rem, 4vw, 2.6rem) !important;
+  margin-bottom: 1.5rem !important;
+  background: var(--cheat-hero-surface) !important;
+  border: 1px solid var(--cheat-outline) !important;
+  border-radius: calc(var(--radius-lg) + 0.35rem) !important;
+  box-shadow: var(--shadow-md), 0 24px 64px rgba(99, 102, 241, 0.08) !important;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--glow-color), var(--glow-pink), var(--glow-cyan));
+}
+
+.hero p,
+.hero-copy {
+  max-width: 62ch !important;
+}
+
+.pill-nav {
+  position: sticky;
+  top: calc(var(--topbar-height) + 0.75rem);
+  z-index: 20;
+  justify-content: flex-start !important;
+  gap: 0.6rem !important;
+  margin: 0 0 1.5rem !important;
+  padding: 0.9rem !important;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--cheat-outline);
+  border-radius: calc(var(--radius-lg) + 0.2rem);
+  box-shadow: var(--shadow);
+}
+
+body.dark .pill-nav {
+  background: rgba(10, 14, 28, 0.76);
+}
+
+.pill-nav a {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  border-color: var(--cheat-outline) !important;
+  background: rgba(255, 255, 255, 0.72) !important;
+}
+
+body.dark .pill-nav a {
+  background: rgba(16, 21, 42, 0.82) !important;
+}
+
+.pill-nav a:hover,
+.pill-nav a.active {
+  color: var(--text) !important;
+  background: var(--bg-alt) !important;
+  border-color: var(--glow-border) !important;
+  box-shadow: var(--shadow-sm), inset 0 0 0 1px rgba(99, 102, 241, 0.14) !important;
+}
+
+body.dark .pill-nav a.active {
+  box-shadow: var(--shadow-sm), inset 0 0 0 1px rgba(129, 140, 248, 0.18) !important;
+}
+
+.track-grid,
+.code-grid,
+.cheatsheet-grid {
+  align-items: stretch;
+  min-width: 0;
+}
+
+.track,
+.cheat-card,
+.code-card {
+  height: 100%;
+  background: var(--cheat-card-surface) !important;
+  border-color: var(--cheat-outline) !important;
+  min-width: 0;
+}
+
+.code-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.1rem !important;
+}
+
+.code-card p {
+  min-height: 2.5em;
+}
+
+.code-block {
+  margin-top: auto;
+  min-height: 0;
+  max-width: 100%;
+  min-width: 0;
+  padding: 0.95rem !important;
+  border-color: var(--cheat-outline) !important;
+  border-left: 3px solid var(--glow-color) !important;
+  background: color-mix(in srgb, var(--bg-alt) 88%, transparent) !important;
+  color: var(--text) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+body.dark .code-block {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.section-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.section-difficulty {
+  margin-left: 0 !important;
+}
+
+.scroll-to-top {
+  right: clamp(1rem, 3vw, 2rem) !important;
+  bottom: clamp(1rem, 3vw, 2rem) !important;
+}
+
+@media (max-width: 960px) {
+  .topbar {
+    padding: 0.75rem 1rem !important;
+  }
+
+  .pill-nav {
+    top: calc(var(--topbar-height) + 0.5rem);
+  }
+}
+
+@media (max-width: 700px) {
+  :root {
+    --cheat-shell: min(100%, calc(100% - 1rem));
+  }
+
+  body {
+    padding-top: 64px;
+  }
+
+  .hero {
+    text-align: left;
+  }
+
+  .hero h1,
+  .hero p,
+  .hero-copy {
+    text-align: left !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .pill-nav {
+    position: static;
+    top: auto;
+    padding: 0.75rem !important;
+    border-radius: var(--radius-lg);
+  }
+
+  .code-card {
+    padding: 1rem !important;
+  }
+
+  .code-block {
+    white-space: pre-wrap !important;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+}
+
+@media (max-width: 480px) {
+  .topbar {
+    padding: 0.7rem 0.8rem !important;
+  }
+
+  .brand {
+    font-size: calc(var(--font-size-brand) - 0.15rem) !important;
+  }
+
+  .hero {
+    padding: 1.2rem !important;
+  }
+
+  .track,
+  .cheat-card {
+    padding: 1.15rem !important;
+  }
+
+  .code-block {
+    font-size: 0.74rem !important;
+  }
+}

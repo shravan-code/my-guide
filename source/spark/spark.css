@@ -1,10 +1,12 @@
+@import url("../design-tokens.css");
+
 /* ============================================
    Spark Pages - Shared Layout CSS
    ============================================ */
 
 :root {
   --sidebar-width: 260px;
-  --topbar-height: 64px;
+  --topbar-height: var(--layout-topbar-height);
 }
 
 /* ---- Body and main layout ---- */

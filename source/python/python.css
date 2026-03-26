@@ -1,10 +1,12 @@
+@import url("../design-tokens.css");
+
 /* ============================================
    Python Pages - Shared Layout CSS
    ============================================ */
 
 :root {
   --sidebar-width: 280px;
-  --topbar-height: 64px;
+  --topbar-height: var(--layout-topbar-height);
 }
 
 /* ---- Sidebar: sticky within grid cell ---- */
@@ -537,6 +539,13 @@ body.dark .section-badge.summary {
 .hero h1 {
   font-size: clamp(1.3rem, 4vw, 2rem);
   margin: 0 0 0.5rem;
+  font-family: var(--font-family-display);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, var(--glow-color), var(--glow-pink), var(--glow-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .hero-copy {
@@ -548,24 +557,7 @@ body.dark .section-badge.summary {
   margin-right: auto;
 }
 
-/* ---- Hub page hero: minimal, no glass ---- */
-body:not(.with-sidebar) .hero {
-  background: transparent;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  border: none;
-  box-shadow: none;
-  border-radius: 0;
-  padding: 2rem 0 1rem;
-  animation: none;
-}
-
-body:not(.has-sidebar) .hero:hover {
-  box-shadow: none;
-  transform: none;
-}
-
-body:not(.has-sidebar) .hero h1 {
+body:not(.with-sidebar) .hero h1 {
   font-size: clamp(1.8rem, 5vw, 2.8rem);
   font-weight: 700;
   letter-spacing: -0.03em;
@@ -717,6 +709,8 @@ body:not(.has-sidebar) .hero h1 {
   top: var(--topbar-height);
   left: 0;
   right: 0;
+  max-height: calc(100vh - var(--topbar-height));
+  overflow-y: auto;
   background: var(--glass);
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
@@ -794,16 +788,6 @@ body.dark .mobile-nav a.active {
     --sidebar-width: 260px;
   }
 
-  .main-content {
-    grid-template-columns: var(--sidebar-width) 1fr;
-  }
-
-  .page-wrap {
-    padding: 1rem 1.25rem 2rem;
-  }
-}
-
-@media (max-width: 640px) {
   .mobile-menu-toggle {
     display: flex;
   }
@@ -816,6 +800,16 @@ body.dark .mobile-nav a.active {
     display: flex;
   }
 
+  .main-content {
+    grid-template-columns: var(--sidebar-width) 1fr;
+  }
+
+  .page-wrap {
+    padding: 1rem 1.25rem 2rem;
+  }
+}
+
+@media (max-width: 640px) {
   .main-content {
     grid-template-columns: 1fr;
   }

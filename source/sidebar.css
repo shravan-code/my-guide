@@ -1,10 +1,12 @@
+@import url("./design-tokens.css");
+
 /* ============================================
    Sidebar Layout for Cheatsheets
    ============================================ */
 
 :root {
   --sidebar-width: 280px;
-  --topbar-height: 64px;
+  --topbar-height: var(--layout-topbar-height);
 }
 
 /* ---- Sidebar: sticky within grid cell ---- */

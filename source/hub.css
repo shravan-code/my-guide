@@ -1,3 +1,5 @@
+@import url("./design-tokens.css");
+
 .inspire {
   max-width: min(900px, 90vw);
   margin: 0 auto 1.5rem;
