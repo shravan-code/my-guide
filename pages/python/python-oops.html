@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Guide | Python OOPs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../../assets/css/styles.css" />
+  <link rel="stylesheet" href="python.css" />
+</head>
+<body class="with-sidebar">
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <header class="topbar glass reveal in">
+    <a class="brand" href="../../index.html">Data Guide</a>
+    <button id="sidebar-toggle" class="sidebar-toggle" type="button" aria-label="Toggle sidebar">
+      <span class="hamburger" aria-hidden="true"></span>
+    </button>
+    <nav class="menu" aria-label="Python menu">
+      <a href="../../index.html">Hub</a>
+      <a href="python-fundamentals.html">Fundamentals</a>
+      <a href="python-oops.html" class="active" aria-current="page">OOPs</a>
+      <a href="methods.html">Methods</a>
+      <a href="memory-performance.html">Memory</a>
+    </nav>
+    <div class="header-actions">
+      <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle mobile menu">
+        <span class="hamburger-icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+        <span class="toggle-icon" aria-hidden="true">☾</span>
+        <span class="toggle-text">Dark</span>
+      </button>
+    </div>
+  </header>
+  
+  <div id="mobile-menu" class="mobile-menu">
+    <nav class="mobile-nav" aria-label="Python mobile menu">
+      <a href="index.html">Hub</a>
+      <a href="python-fundamentals.html">Fundamentals</a>
+      <a href="python-oops.html" class="active" aria-current="page">OOPs</a>
+      <a href="methods.html">Methods</a>
+      <a href="memory-performance.html">Memory</a>
+    </nav>
+  </div>
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
+
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <main class="main-content">
+    <nav class="sidebar" id="sidebar">
+      <div class="logo">
+        <span class="logo-text">Python OOPs</span>
+      </div>
+
+      <div class="nav-title basic-concepts">Basic Concepts</div>
+      <a href="#what-is-oop" class="nav-item active"><span>1</span> What is OOP?</a>
+      <a href="#classes-objects" class="nav-item"><span>2</span> Classes & Objects</a>
+      <a href="#method-types" class="nav-item"><span>3</span> Instance vs Class vs Static</a>
+
+      <div class="nav-title intermediate">Intermediate</div>
+      <a href="#encapsulation" class="nav-item"><span>4</span> Encapsulation</a>
+      <a href="#inheritance" class="nav-item"><span>5</span> Inheritance</a>
+      <a href="#polymorphism" class="nav-item"><span>6</span> Polymorphism</a>
+      <a href="#abstraction" class="nav-item"><span>7</span> Abstraction</a>
+
+      <div class="nav-title advanced">Advanced</div>
+      <a href="#composition" class="nav-item"><span>8</span> Composition</a>
+      <a href="#decorator-pattern" class="nav-item"><span>9</span> Decorator Pattern</a>
+      <a href="#descriptor-protocol" class="nav-item"><span>10</span> Descriptors</a>
+      <a href="#slots" class="nav-item"><span>11</span> __slots__</a>
+      <a href="#protocols" class="nav-item"><span>12</span> Protocols</a>
+      <a href="#context-managers" class="nav-item"><span>13</span> Context Managers</a>
+      <a href="#callable-objects" class="nav-item"><span>14</span> Callable Objects</a>
+      <a href="#metaclasses" class="nav-item"><span>15</span> Metaclasses</a>
+      <a href="#magic-methods" class="nav-item"><span>16</span> Magic Methods</a>
+      <a href="#data-classes" class="nav-item"><span>17</span> Data Classes</a>
+      <a href="#solid-principles" class="nav-item"><span>18</span> SOLID Principles</a>
+      <a href="#design-patterns" class="nav-item"><span>19</span> Design Patterns</a>
+    </nav>
+    <div class="page-wrap">
+      <section class="hero">
+        <h1>Python OOPs</h1>
+      </section>
+      <nav class="pill-nav">
+        <a href="#what-is-oop" data-category="basic-concepts">What is Object-Oriented Programming (OOP)?</a>
+        <a href="#classes-objects" data-category="basic-concepts">Classes and Objects</a>
+        <a href="#method-types" data-category="basic-concepts">Instance vs Class vs Static Methods</a>
+        <a href="#encapsulation" data-category="intermediate">Encapsulation</a>
+        <a href="#inheritance" data-category="intermediate">Inheritance</a>
+        <a href="#polymorphism" data-category="intermediate">Polymorphism</a>
+        <a href="#abstraction" data-category="intermediate">Abstraction</a>
+        <a href="#composition" data-category="advanced">Composition</a>
+        <a href="#decorator-pattern" data-category="advanced">Decorator Pattern</a>
+        <a href="#descriptor-protocol" data-category="advanced">Descriptor Protocol</a>
+        <a href="#metaclasses" data-category="advanced">Metaclasses</a>
+        <a href="#magic-methods" data-category="advanced">Magic Methods (Dunder Methods)</a>
+        <a href="#data-classes" data-category="advanced">Data Classes</a>
+        <a href="#slots" data-category="advanced">__slots__ for Memory Optimization</a>
+        <a href="#protocols" data-category="advanced">Protocols (Structural Subtyping)</a>
+        <a href="#context-managers" data-category="advanced">Context Managers</a>
+        <a href="#callable-objects" data-category="advanced">Callable Objects</a>
+        <a href="#solid-principles" data-category="advanced">SOLID Principles</a>
+        <a href="#design-patterns" data-category="advanced">Design Patterns in Python</a>
+      </nav>
+      <section class="topic-section">
+        <h2 id="what-is-oop"> What is Object-Oriented Programming (OOP)? <span class="level-badge basic">Basic</span> </h2>
+        <p>
+          OOP is a programming paradigm that organizes code around objects rather than functions.
+          Objects bundle data (attributes) and behavior (methods) together, making code more
+          organized, reusable, and easier to maintain.
+        </p>
+        <div class="concept-pill">Class</div>
+        <div class="concept-pill">Object</div>
+        <div class="concept-pill">Encapsulation</div>
+        <div class="concept-pill">Inheritance</div>
+        <div class="concept-pill">Polymorphism</div>
+        <div class="concept-pill">Abstraction</div>
+      </section>
+
+      <section class="topic-section">
+        <h2 id="classes-objects"> Classes and Objects <span class="level-badge basic">Basic</span> </h2>
+        <p>
+          A <strong>class</strong> is a blueprint for creating objects. An <strong>object</strong>
+          is an instance of a class with actual values.
+        </p>
+        <div class="code-block">
+<code><span class="comment"># Defining a class</span>
+<span class="keyword">class</span> <span class="class-name">Dog</span>:
+    <span class="comment"># Class attribute (shared by all instances)</span>
+    species = <span class="string">"Canis familiaris"</span>
+    
+    <span class="comment"># Constructor (initializer)</span>
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, name, age):
+        <span class="method">self</span>.name = name      <span class="comment"># Instance attribute</span>
+        <span class="method">self</span>.age = age        <span class="comment"># Instance attribute</span>
+    
+    <span class="comment"># Instance method</span>
+    <span class="keyword">def</span> <span class="function">bark</span>(<span class="method">self</span>):
+        <span class="keyword">return</span> <span class="string">f"{self.name} says Woof!"</span>
+    
+    <span class="keyword">def</span> <span class="function">__str__</span>(<span class="method">self</span>):
+        <span class="keyword">return</span> <span class="string">f"{self.name} is {self.age} years old"</span>
+
+<span class="comment"># Creating objects (instances)</span>
+buddy = <span class="class-name">Dog</span>(<span class="string">"Buddy"</span>, <span class="number">3</span>)
+max_dog = <span class="class-name">Dog</span>(<span class="string">"Max"</span>, <span class="number">5</span>)
+
+<span class="function">print</span>(buddy.bark())        <span class="comment"># Buddy says Woof!</span>
+<span class="function">print</span>(buddy)              <span class="comment"># Buddy is 3 years old</span>
+<span class="function">print</span>(buddy.species)      <span class="comment"># Canis familiaris</span></code>
+        </div>
+      </section>
+
+      <section class="topic-section">
+        <h2 id="method-types"> Instance vs Class vs Static Methods <span class="level-badge basic">Basic</span> </h2>
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Instance Methods</h4>
+            <p>Access and modify object state. First parameter is <code>self</code>.</p>
+          </div>
+          <div class="split-item">
+            <h4>Class Methods</h4>
+            <p>Access class-level data. First parameter is <code>cls</code>. Use <code>@classmethod</code>.</p>
+          </div>
+          <div class="split-item">
+            <h4>Static Methods</h4>
+            <p>No access to class/object. Use <code>@staticmethod</code>. Just utility functions.</p>
+          </div>
+        </div>
+        <div class="code-block">
+<code><span class="keyword">class</span> <span class="class-name">MathOperations</span>:
+    pi = <span class="number">3.14159</span>  <span class="comment"># Class attribute</span>
+    
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, value):
+        <span class="method">self</span>.value = value  <span class="comment"># Instance attribute</span>
+    
+    <span class="comment"># Instance method</span>
+    <span class="keyword">def</span> <span class="function">double</span>(<span class="method">self</span>):
+        <span class="keyword">return</span> <span class="method">self</span>.value * <span class="number">2</span>
+    
+    <span class="comment"># Class method</span>
+    <span class="decorator">@classmethod</span>
+    <span class="keyword">def</span> <span class="function">circle_area</span>(<span class="method">cls</span>, radius):
+        <span class="keyword">return</span> <span class="method">cls</span>.pi * radius ** <span class="number">2</span>
+    
+    <span class="comment"># Static method</span>
+    <span class="decorator">@staticmethod</span>
+    <span class="keyword">def</span> <span class="function">add</span>(a, b):
+        <span class="keyword">return</span> a + b
+
+obj = <span class="class-name">MathOperations</span>(<span class="number">10</span>)
+<span class="function">print</span>(obj.double())                <span class="comment"># 20</span>
+<span class="function">print</span>(<span class="class-name">MathOperations</span>.circle_area(<span class="number">5</span>))  <span class="comment"># 78.54</span>
+<span class="function">print</span>(<span class="class-name">MathOperations</span>.add(<span class="number">3</span>, <span class="number">4</span>))       <span class="comment"># 7</span></code>
+        </div>
+      </section>
+
+      <section class="topic-section">
+        <h2 id="encapsulation"> Encapsulation <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>
+          Encapsulation restricts direct access to certain attributes, protecting data integrity.
+          Python uses naming conventions: <code>_protected</code> and <code>__private</code>.
+        </p>
+        <div class="code-block">
+<code><span class="keyword">class</span> <span class="class-name">BankAccount</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, balance):
+        <span class="method">self</span>.__balance = balance  <span class="comment"># Private attribute (name mangling)</span>
+        <span class="method">self</span>._account_id = <span class="string">"ACC123"</span>  <span class="comment"># Protected attribute</span>
+    
+    <span class="comment"># Getter</span>
+    <span class="keyword">def</span> <span class="function">get_balance</span>(<span class="method">self</span>):
+        <span class="keyword">return</span> <span class="method">self</span>.__balance
+    
+    <span class="comment"># Setter with validation</span>
+    <span class="keyword">def</span> <span class="function">deposit</span>(<span class="method">self</span>, amount):
+        <span class="keyword">if</span> amount > <span class="number">0</span>:
+            <span class="method">self</span>.__balance += amount
+            <span class="keyword">return</span> <span class="keyword">True</span>
+        <span class="keyword">return</span> <span class="keyword">False</span>
+    
+    <span class="comment"># Property decorator for clean access</span>
+    <span class="decorator">@property</span>
+    <span class="keyword">def</span> <span class="function">balance</span>(<span class="method">self</span>):
+        <span class="keyword">return</span> <span class="method">self</span>.__balance
+
+account = <span class="class-name">BankAccount</span>(<span class="number">1000</span>)
+<span class="function">print</span>(account.get_balance())  <span class="comment"># 1000</span>
+account.deposit(<span class="number">500</span>)
+<span class="function">print</span>(account.balance)        <span class="comment"># 1500 (using property)</span>
+<span class="function">print</span>(account._account_id)    <span class="comment"># ACC123 (accessible but discouraged)</span>
+<span class="comment"># print(account.__balance)      # AttributeError!</span></code>
+        </div>
+        <div class="tip-box">
+          <p><strong>Tip:</strong> Use <code>@property</code> to create managed attributes with getters/setters.</p>
+        </div>
+      </section>
+
+      <section class="topic-section">
+        <h2 id="inheritance"> Inheritance <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>
+          Inheritance allows a class (child) to inherit attributes and methods from another class (parent),
+          promoting code reuse and creating hierarchical relationships.
+        </p>
+        <div class="code-block">
+<code><span class="comment"># Parent class</span>
+<span class="keyword">class</span> <span class="class-name">Animal</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, name):
+        <span class="method">self</span>.name = name
+    
+    <span class="keyword">def</span> <span class="function">speak</span>(<span class="method">self</span>):
+        <span class="keyword">raise</span> <span class="class-name">NotImplementedError</span>(<span class="string">"Subclass must implement speak()"</span>)
+
+<span class="comment"># Child class inheriting from Animal</span>
+<span class="keyword">class</span> <span class="class-name">Dog</span>(<span class="class-name">Animal</span>):
+    <span class="keyword">def</span> <span class="function">speak</span>(<span class="method">self</span>):
+        <span class="keyword">return</span> <span class="string">f"{self.name} says Woof!"</span>
+
+<span class="keyword">class</span> <span class="class-name">Cat</span>(<span class="class-name">Animal</span>):
+    <span class="keyword">def</span> <span class="function">speak</span>(<span class="method">self</span>):
+        <span class="keyword">return</span> <span class="string">f"{self.name} says Meow!"</span>
+
+<span class="comment"># Multiple inheritance</span>
+<span class="keyword">class</span> <span class="class-name">Pet</span>:
+    <span class="keyword">def</span> <span class="function">play</span>(<span class="method">self</span>):
+        <span class="keyword">return</span> <span class="string">f"{self.name} is playing!"</span>
+
+<span class="keyword">class</span> <span class="class-name">ServiceDog</span>(<span class="class-name">Dog</span>, <span class="class-name">Pet</span>):
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, name, service_type):
+        <span class="class-name">Dog</span>.<span class="function">__init__</span>(<span class="method">self</span>, name)
+        <span class="method">self</span>.service_type = service_type
+
+<span class="comment"># Using inheritance</span>
+dog = <span class="class-name">Dog</span>(<span class="string">"Buddy"</span>)
+cat = <span class="class-name">Cat</span>(<span class="string">"Whiskers"</span>)
+<span class="function">print</span>(dog.speak())   <span class="comment"># Buddy says Woof!</span>
+<span class="function">print</span>(cat.speak())   <span class="comment"># Whiskers says Meow!</span>
+
+<span class="comment"># Method Resolution Order (MRO)</span>
+<span class="function">print</span>(<span class="class-name">ServiceDog</span>.<span class="function">__mro__</span>)</code>
+        </div>
+      </section>
+
+      <section class="topic-section">
+        <h2 id="polymorphism"> Polymorphism <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>
+          Polymorphism allows objects of different classes to be treated as objects of a common parent class.
+          It enables the same interface to work with different data types.
+        </p>
+        <div class="code-block">
+<code><span class="comment"># Polymorphism with inheritance</span>
+<span class="keyword">class</span> <span class="class-name">Shape</span>:
+    <span class="keyword">def</span> <span class="function">area</span>(<span class="method">self</span>):
+        <span class="keyword">pass</span>
+
+<span class="keyword">class</span> <span class="class-name">Rectangle</span>(<span class="class-name">Shape</span>):
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, width, height):
+        <span class="method">self</span>.width = width
+        <span class="method">self</span>.height = height
+    
+    <span class="keyword">def</span> <span class="function">area</span>(<span class="method">self</span>):
+        <span class="keyword">return</span> <span class="method">self</span>.width * <span class="method">self</span>.height
+
+<span class="keyword">class</span> <span class="class-name">Circle</span>(<span class="class-name">Shape</span>):
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, radius):
+        <span class="method">self</span>.radius = radius
+    
+    <span class="keyword">def</span> <span class="function">area</span>(<span class="method">self</span>):
+        <span class="keyword">return</span> <span class="number">3.14159</span> * <span class="method">self</span>.radius ** <span class="number">2</span>
+
+<span class="comment"># Polymorphic function</span>
+<span class="keyword">def</span> <span class="function">print_area</span>(shape):
+    <span class="function">print</span>(<span class="string">f"Area: {shape.area()}"</span>)
+
+shapes = [<span class="class-name">Rectangle</span>(<span class="number">4</span>, <span class="number">5</span>), <span class="class-name">Circle</span>(<span class="number">3</span>)]
+<span class="keyword">for</span> shape <span class="keyword">in</span> shapes:
+    <span class="function">print_area</span>(shape)  <span class="comment"># Same method, different behavior</span>
+
+<span class="comment"># Duck typing - Python doesn't care about type, just behavior</span>
+<span class="keyword">class</span> <span class="class-name">Triangle</span>:
+    <span class="keyword">def</span> <span class="function">area</span>(<span class="method">self</span>):
+        <span class="keyword">return</span> <span class="number">0.5</span> * <span class="number">4</span> * <span class="number">3</span>
+
+<span class="function">print_area</span>(<span class="class-name">Triangle</span>())  <span class="comment"># Works! Triangle has area() method</span></code>
+        </div>
+      </section>
+
+      <section class="topic-section">
+        <h2 id="abstraction"> Abstraction <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>
+          Abstraction hides complex implementation details and shows only necessary features.
+          In Python, we use abstract classes and methods to achieve abstraction.
+        </p>
+        <div class="code-block">
+<code><span class="keyword">from</span> abc <span class="keyword">import</span> ABC, abstractmethod
+
+<span class="keyword">class</span> <span class="class-name">DataProcessor</span>(ABC):
+    <span class="comment"># Abstract class - cannot be instantiated directly</span>
+    
+    <span class="decorator">@abstractmethod</span>
+    <span class="keyword">def</span> <span class="function">load_data</span>(<span class="method">self</span>):
+        <span class="keyword">pass</span>
+    
+    <span class="decorator">@abstractmethod</span>
+    <span class="keyword">def</span> <span class="function">process_data</span>(<span class="method">self</span>):
+        <span class="keyword">pass</span>
+    
+    <span class="comment"># Concrete method</span>
+    <span class="keyword">def</span> <span class="function">validate</span>(<span class="method">self</span>):
+        <span class="function">print</span>(<span class="string">"Validating data..."</span>)
+
+<span class="keyword">class</span> <span class="class-name">CSVProcessor</span>(<span class="class-name">DataProcessor</span>):
+    <span class="keyword">def</span> <span class="function">load_data</span>(<span class="method">self</span>):
+        <span class="function">print</span>(<span class="string">"Loading CSV file..."</span>)
+    
+    <span class="keyword">def</span> <span class="function">process_data</span>(<span class="method">self</span>):
+        <span class="function">print</span>(<span class="string">"Processing CSV data..."</span>)
+
+<span class="comment"># Cannot instantiate abstract class</span>
+<span class="comment"># processor = DataProcessor()  # TypeError!</span>
+
+processor = <span class="class-name">CSVProcessor</span>()
+processor.load_data()    <span class="comment"># Loading CSV file...</span>
+processor.validate()    <span class="comment"># Validating data...</span></code>
+        </div>
+      </section>
+
+      <section class="topic-section">
+        <h2 id="composition"> Composition <span class="level-badge advanced">Advanced</span> </h2>
+        <p>
+          Composition is a design principle where a class is composed of other classes as members.
+          It provides flexibility and looser coupling than inheritance.
+        </p>
+        <div class="code-block">
+<code><span class="keyword">class</span> <span class="class-name">Engine</span>:
+    <span class="keyword">def</span> <span class="function">start</span>(<span class="method">self</span>):
+        <span class="keyword">return</span> <span class="string">"Engine starting..."</span>
+
+<span class="keyword">class</span> <span class="class-name">Wheels</span>:
+    <span class="keyword">def</span> <span class="function">rotate</span>(<span class="method">self</span>):
+        <span class="keyword">return</span> <span class="string">"Wheels rotating..."</span>
+
+<span class="comment"># Composition: Car HAS-A Engine and HAS-A Wheels</span>
+<span class="keyword">class</span> <span class="class-name">Car</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, model):
+        <span class="method">self</span>.model = model
+        <span class="method">self</span>.engine = <span class="class-name">Engine</span>()      <span class="comment"># Composition</span>
+        <span class="method">self</span>.wheels = [<span class="class-name">Wheels</span>() <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="function">range</span>(<span class="number">4</span>)]  <span class="comment"># Composition</span>
+    
+    <span class="keyword">def</span> <span class="function">drive</span>(<span class="method">self</span>):
+        <span class="function">print</span>(<span class="method">self</span>.engine.<span class="function">start</span>())
+        <span class="keyword">for</span> wheel <span class="keyword">in</span> <span class="method">self</span>.wheels:
+            <span class="function">print</span>(wheel.<span class="function">rotate</span>())
+        <span class="keyword">return</span> <span class="string">f"{self.model} is driving!"</span>
+
+car = <span class="class-name">Car</span>(<span class="string">"Tesla Model 3"</span>)
+<span class="function">print</span>(car.<span class="function">drive</span>())</code>
+        </div>
+      </section>
+
+      <section class="topic-section">
+        <h2 id="decorator-pattern"> Decorator Pattern <span class="level-badge advanced">Advanced</span> </h2>
+        <p>
+          Decorators modify class behavior without changing the class itself. They're functions that
+          wrap other functions or classes.
+        </p>
+        <div class="code-block">
+<code><span class="comment"># Function decorator</span>
+<span class="keyword">def</span> <span class="function">timer</span>(func):
+    <span class="keyword">import</span> time
+    <span class="keyword">def</span> <span class="function">wrapper</span>(*args, **kwargs):
+        start = time.<span class="function">time</span>()
+        result = func(*args, **kwargs)
+        end = time.<span class="function">time</span>()
+        <span class="function">print</span>(<span class="string">f"{func.__name__} took {end - start:.2f}s"</span>)
+        <span class="keyword">return</span> result
+    <span class="keyword">return</span> wrapper
+
+<span class="decorator">@timer</span>
+<span class="keyword">def</span> <span class="function">slow_function</span>():
+    <span class="keyword">import</span> time
+    time.<span class="function">sleep</span>(<span class="number">1</span>)
+    <span class="keyword">return</span> <span class="string">"Done!"</span>
+
+<span class="comment"># Class decorator</span>
+<span class="keyword">def</span> <span class="function">logged</span>(cls):
+    <span class="keyword">class</span> <span class="class-name">LoggedClass</span>:
+        <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, *args, **kwargs):
+            <span class="method">self</span>._instance = cls(*args, **kwargs)
+            <span class="function">print</span>(<span class="string">f"Created instance of {cls.__name__}"</span>)
+        
+        <span class="keyword">def</span> <span class="function">__getattr__</span>(<span class="method">self</span>, name):
+            <span class="function">print</span>(<span class="string">f"Accessing {name}"</span>)
+            <span class="keyword">return</span> <span class="function">getattr</span>(<span class="method">self</span>._instance, name)
+    <span class="keyword">return</span> <span class="class-name">LoggedClass</span>
+
+<span class="decorator">@logged</span>
+<span class="keyword">class</span> <span class="class-name">DataService</span>:
+    <span class="keyword">def</span> <span class="function">fetch</span>(<span class="method">self</span>):
+        <span class="keyword">return</span> <span class="string">"Data fetched!"</span></code>
+        </div>
+      </section>
+
+      <section class="topic-section">
+        <h2 id="descriptor-protocol"> Descriptor Protocol <span class="level-badge advanced">Advanced</span> </h2>
+        <p>
+          Descriptors allow you to customize attribute access. They implement <code>__get__</code>,
+          <code>__set__</code>, and <code>__delete__</code> methods.
+        </p>
+        <div class="code-block">
+<code><span class="keyword">class</span> <span class="class-name">RangeValidator</span>:
+    <span class="comment"># Descriptor for validating numeric ranges</span>
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, min_val=<span class="number">0</span>, max_val=<span class="number">100</span>):
+        <span class="method">self</span>.min_val = min_val
+        <span class="method">self</span>.max_val = max_val
+    
+    <span class="keyword">def</span> <span class="function">__set_name__</span>(<span class="method">self</span>, owner, name):
+        <span class="method">self</span>.name = name
+    
+    <span class="keyword">def</span> <span class="function">__get__</span>(<span class="method">self</span>, obj, objtype=<span class="keyword">None</span>):
+        <span class="keyword">return</span> obj.<span class="function">__dict__</span>.<span class="function">get</span>(<span class="method">self</span>.name, <span class="method">self</span>.min_val)
+    
+    <span class="keyword">def</span> <span class="function">__set__</span>(<span class="method">self</span>, obj, value):
+        <span class="keyword">if</span> <span class="keyword">not</span> (<span class="method">self</span>.min_val <= value <= <span class="method">self</span>.max_val):
+            <span class="keyword">raise</span> <span class="class-name">ValueError</span>(<span class="string">f"{self.name} must be between {self.min_val} and {self.max_val}"</span>)
+        obj.<span class="function">__dict__</span>[<span class="method">self</span>.name] = value
+
+<span class="keyword">class</span> <span class="class-name">Student</span>:
+    score = <span class="class-name">RangeValidator</span>(<span class="number">0</span>, <span class="number">100</span>)
+    
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, name, score):
+        <span class="method">self</span>.name = name
+        <span class="method">self</span>.score = score  <span class="comment"># Validated!</span>
+
+student = <span class="class-name">Student</span>(<span class="string">"Alice"</span>, <span class="number">95</span>)
+<span class="function">print</span>(student.score)  <span class="comment"># 95</span>
+student.score = <span class="number">150</span>  <span class="comment"># ValueError!</span></code>
+        </div>
+      </section>
+
+      <section class="topic-section">
+        <h2 id="metaclasses"> Metaclasses <span class="level-badge advanced">Advanced</span> </h2>
+        <p>
+          Metaclasses are the "classes of classes". They control class creation and are powerful
+          tools for enforcing coding standards and framework development.
+        </p>
+        <div class="code-block">
+<code><span class="keyword">class</span> <span class="class-name">Meta</span>(type):
+    <span class="comment"># Metaclass - controls class creation</span>
+    <span class="keyword">def</span> <span class="function">__new__</span>(<span class="method">cls</span>, name, bases, attrs):
+        <span class="function">print</span>(<span class="string">f"Creating class: {name}"</span>)
+        <span class="comment"># Add a unique ID to every class</span>
+        attrs[<span class="string">'class_id'</span>] = <span class="function">hash</span>(name) % <span class="number">1000</span>
+        <span class="keyword">return</span> <span class="class-name">super</span>().<span class="function">__new__</span>(<span class="method">cls</span>, name, bases, attrs)
+
+<span class="keyword">class</span> <span class="class-name">MyClass</span>(metaclass=<span class="class-name">Meta</span>):
+    <span class="keyword">def</span> <span class="function">greet</span>(<span class="method">self</span>):
+        <span class="keyword">return</span> <span class="string">"Hello!"</span>
+
+<span class="comment"># Output: Creating class: MyClass</span>
+obj = <span class="class-name">MyClass</span>()
+<span class="function">print</span>(obj.class_id)  <span class="comment"># Some unique ID</span>
+
+<span class="comment"># Singleton pattern using metaclasses</span>
+<span class="keyword">class</span> <span class="class-name">Singleton</span>(type):
+    _instances = {}
+    <span class="keyword">def</span> <span class="function">__call__</span>(<span class="method">cls</span>, *args, **kwargs):
+        <span class="keyword">if</span> <span class="class-name">cls</span> <span class="keyword">not in</span> <span class="class-name">Singleton</span>._instances:
+            <span class="class-name">Singleton</span>._instances[<span class="class-name">cls</span>] = <span class="class-name">super</span>().<span class="function">__call__</span>(*args, **kwargs)
+        <span class="keyword">return</span> <span class="class-name">Singleton</span>._instances[<span class="class-name">cls</span>]
+
+<span class="keyword">class</span> <span class="class-name">Database</span>(metaclass=<span class="class-name">Singleton</span>):
+    <span class="keyword">pass</span>
+
+db1 = <span class="class-name">Database</span>()
+db2 = <span class="class-name">Database</span>()
+<span class="function">print</span>(db1 <span class="keyword">is</span> db2)  <span class="comment"># True - same instance!</span></code>
+        </div>
+      </section>
+
+      <section class="topic-section">
+        <h2 id="magic-methods"> Magic Methods (Dunder Methods) <span class="level-badge advanced">Advanced</span> </h2>
+        <p>
+          Magic methods (dunder = double underscore) enable operator overloading and
+          customize class behavior with Python's built-in operations.
+        </p>
+        <div class="code-block">
+<code><span class="keyword">class</span> <span class="class-name">Vector</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, x, y):
+        <span class="method">self</span>.x = x
+        <span class="method">self</span>.y = y
+    
+    <span class="comment"># String representations</span>
+    <span class="keyword">def</span> <span class="function">__str__</span>(<span class="method">self</span>):
+        <span class="keyword">return</span> <span class="string">f"Vector({self.x}, {self.y})"</span>
+    
+    <span class="keyword">def</span> <span class="function">__repr__</span>(<span class="method">self</span>):
+        <span class="keyword">return</span> <span class="string">f"Vector({self.x!r}, {self.y!r})"</span>
+    
+    <span class="comment"># Arithmetic operators</span>
+    <span class="keyword">def</span> <span class="function">__add__</span>(<span class="method">self</span>, other):
+        <span class="keyword">return</span> <span class="class-name">Vector</span>(<span class="method">self</span>.x + other.x, <span class="method">self</span>.y + other.y)
+    
+    <span class="keyword">def</span> <span class="function">__mul__</span>(<span class="method">self</span>, scalar):
+        <span class="keyword">return</span> <span class="class-name">Vector</span>(<span class="method">self</span>.x * scalar, <span class="method">self</span>.y * scalar)
+    
+    <span class="comment"># Comparison operators</span>
+    <span class="keyword">def</span> <span class="function">__eq__</span>(<span class="method">self</span>, other):
+        <span class="keyword">return</span> <span class="method">self</span>.x == other.x <span class="keyword">and</span> <span class="method">self</span>.y == other.y
+    
+    <span class="comment"># Length</span>
+    <span class="keyword">def</span> <span class="function">__len__</span>(<span class="method">self</span>):
+        <span class="keyword">return</span> <span class="function">int</span>((<span class="method">self</span>.x**<span class="number">2</span> + <span class="method">self</span>.y**<span class="number">2</span>) ** <span class="number">0.5</span>)
+
+v1 = <span class="class-name">Vector</span>(<span class="number">2</span>, <span class="number">3</span>)
+v2 = <span class="class-name">Vector</span>(<span class="number">4</span>, <span class="number">1</span>)
+<span class="function">print</span>(v1 + v2)       <span class="comment"># Vector(6, 4)</span>
+<span class="function">print</span>(v1 * <span class="number">2</span>)       <span class="comment"># Vector(4, 6)</span>
+<span class="function">print</span>(<span class="function">len</span>(v1))         <span class="comment"># 3</span>
+<span class="function">print</span>(v1 == v2)      <span class="comment"># False</span></code>
+        </div>
+      </section>
+
+      <section class="topic-section">
+        <h2 id="data-classes"> Data Classes <span class="level-badge advanced">Advanced</span> </h2>
+        <p>
+          Python's <code>@dataclass</code> decorator automatically generates special methods
+          like <code>__init__</code>, <code>__repr__</code>, and <code>__eq__</code>.
+        </p>
+        <div class="code-block">
+<code><span class="keyword">from</span> dataclasses <span class="keyword">import</span> dataclass, field
+<span class="keyword">from</span> typing <span class="keyword">import</span> List
+
+<span class="decorator">@dataclass</span>
+<span class="keyword">class</span> <span class="class-name">Employee</span>:
+    name: str
+    salary: float
+    department: str
+    skills: List[str] = field(default_factory=list)
+    
+    <span class="comment"># Custom method</span>
+    <span class="keyword">def</span> <span class="function">get_bonus</span>(<span class="method">self</span>):
+        <span class="keyword">return</span> <span class="method">self</span>.salary * <span class="number">0.1</span>
+
+<span class="decorator">@dataclass</span>
+<span class="keyword">class</span> <span class="class-name">Team</span>:
+    name: str
+    members: List[<span class="class-name">Employee</span>] = field(default_factory=list)
+    
+    <span class="keyword">def</span> <span class="function">total_salary</span>(<span class="method">self</span>):
+        <span class="keyword">return</span> <span class="function">sum</span>(e.salary <span class="keyword">for</span> e <span class="keyword">in</span> <span class="method">self</span>.members)
+
+emp1 = <span class="class-name">Employee</span>(<span class="string">"Alice"</span>, <span class="number">75000</span>, <span class="string">"Engineering"</span>, [<span class="string">"Python"</span>, <span class="string">"SQL"</span>])
+emp2 = <span class="class-name">Employee</span>(<span class="string">"Bob"</span>, <span class="number">80000</span>, <span class="string">"Data"</span>, [<span class="string">"PySpark"</span>])
+
+<span class="function">print</span>(emp1)                    <span class="comment"># Employee(name='Alice', ...)</span>
+<span class="function">print</span>(emp1 == emp2)             <span class="comment"># False</span>
+<span class="function">print</span>(emp1.get_bonus())         <span class="comment"># 7500.0</span>
+
+team = <span class="class-name">Team</span>(<span class="string">"Data Team"</span>, [emp1, emp2])
+<span class="function">print</span>(team.total_salary())     <span class="comment"># 155000</span></code>
+        </div>
+      </section>
+
+      <section class="topic-section">
+        <h2 id="slots"> __slots__ for Memory Optimization <span class="level-badge advanced">Advanced</span> </h2>
+        <p>
+          <code>__slots__</code> restricts instance attributes, saving memory and speeding up attribute access.
+          Classes with <code>__slots__</code> cannot have <code>__dict__</code>.
+        </p>
+        <div class="code-block">
+<code><span class="keyword">class</span> <span class="class-name">RegularClass</span>:
+    <span class="comment"># Can add any attribute dynamically</span>
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, name):
+        <span class="method">self</span>.name = name
+
+<span class="keyword">class</span> <span class="class-name">OptimizedClass</span>:
+    __slots__ = [<span class="string">'name'</span>, <span class="string">'value'</span>]  <span class="comment"># Only these attributes allowed</span>
+    
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, name, value):
+        <span class="method">self</span>.name = name
+        <span class="method">self</span>.value = value
+
+<span class="comment"># Memory comparison</span>
+<span class="keyword">import</span> sys
+regular = <span class="class-name">RegularClass</span>(<span class="string">"test"</span>)
+optimized = <span class="class-name">OptimizedClass</span>(<span class="string">"test"</span>, <span class="number">42</span>)
+
+<span class="function">print</span>(sys.<span class="function">getsizeof</span>(regular.__dict__))   <span class="comment"># Larger (has __dict__)</span>
+<span class="function">print</span>(hasattr(regular, <span class="string">'__dict__'</span>))          <span class="comment"># True</span>
+<span class="function">print</span>(hasattr(optimized, <span class="string">'__dict__'</span>))         <span class="comment"># False</span>
+<span class="function">print</span>(optimized.name)                      <span class="comment"># test</span>
+
+<span class="comment"># Cannot add new attributes</span>
+<span class="comment"># optimized.new_attr = 10  # AttributeError!</span></code>
+        </div>
+        <div class="tip-box">
+          <p><strong>Tip:</strong> Use <code>__slots__</code> when creating many instances (thousands+) for significant memory savings.</p>
+        </div>
+      </section>
+
+      <section class="topic-section">
+        <h2 id="protocols"> Protocols (Structural Subtyping) <span class="level-badge advanced">Advanced</span> </h2>
+        <p>
+          Protocols define interfaces for duck typing. Python 3.8+ supports <code>from typing import Protocol</code>
+          for static type checking without inheritance.
+        </p>
+        <div class="code-block">
+<code><span class="keyword">from</span> typing <span class="keyword">import</span> Protocol
+
+<span class="keyword">class</span> <span class="class-name">Readable</span>(Protocol):
+    <span class="comment"># Protocol - defines interface without inheritance</span>
+    <span class="keyword">def</span> <span class="function">read</span>(<span class="method">self</span>) -> str:
+        ...
+
+<span class="keyword">class</span> <span class="class-name">FileReader</span>:
+    <span class="keyword">def</span> <span class="function">read</span>(<span class="method">self</span>) -> str:
+        <span class="keyword">return</span> <span class="string">"File contents"</span>
+
+<span class="keyword">class</span> <span class="class-name">APIClient</span>:
+    <span class="keyword">def</span> <span class="function">read</span>(<span class="method">self</span>) -> str:
+        <span class="keyword">return</span> <span class="string">"API response"</span>
+
+<span class="keyword">class</span> <span class="class-name">Database</span>:
+    <span class="comment"># Different method name - not compatible</span>
+    <span class="keyword">def</span> <span class="function">fetch</span>(<span class="method">self</span>) -> str:
+        <span class="keyword">return</span> <span class="string">"DB data"</span>
+
+<span class="keyword">def</span> <span class="function">process</span>(source: <span class="class-name">Readable</span>):
+    <span class="keyword">return</span> source.<span class="function">read</span>()
+
+file = <span class="class-name">FileReader</span>()
+api = <span class="class-name">APIClient</span>()
+
+<span class="function">print</span>(<span class="function">process</span>(file))  <span class="comment"># Works! Has read() method</span>
+<span class="function">print</span>(<span class="function">process</span>(api))   <span class="comment"># Works! Has read() method</span>
+
+<span class="comment"># Type check with mypy: db = Database() -> process(db) would error</span></code>
+        </div>
+      </section>
+
+      <section class="topic-section">
+        <h2 id="context-managers"> Context Managers <span class="level-badge advanced">Advanced</span> </h2>
+        <p>
+          Context managers handle resource setup and cleanup using the <code>with</code> statement.
+          They implement <code>__enter__</code> and <code>__exit__</code> or use the <code>@contextmanager</code> decorator.
+        </p>
+        <div class="code-block">
+<code><span class="keyword">class</span> <span class="class-name">DatabaseConnection</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, db_name):
+        <span class="method">self</span>.db_name = db_name
+        <span class="method">self</span>.connected = <span class="keyword">False</span>
+    
+    <span class="keyword">def</span> <span class="function">__enter__</span>(<span class="method">self</span>):
+        <span class="function">print</span>(<span class="string">f"Connecting to {self.db_name}..."</span>)
+        <span class="method">self</span>.connected = <span class="keyword">True</span>
+        <span class="keyword">return</span> <span class="method">self</span>
+    
+    <span class="keyword">def</span> <span class="function">__exit__</span>(<span class="method">self</span>, exc_type, exc_val, exc_tb):
+        <span class="function">print</span>(<span class="string">f"Disconnecting from {self.db_name}..."</span>)
+        <span class="method">self</span>.connected = <span class="keyword">False</span>
+        <span class="keyword">return</span> <span class="keyword">False</span>  <span class="comment"># Don't suppress exceptions
+    
+    <span class="keyword">def</span> <span class="function">query</span>(<span class="method">self</span>, sql):
+        <span class="keyword">return</span> <span class="string">f"Executed: {sql}"</span>
+
+<span class="keyword">with</span> <span class="class-name">DatabaseConnection</span>(<span class="string">"mydb"</span>) <span class="keyword">as</span> db:
+    <span class="function">print</span>(db.<span class="function">query</span>(<span class="string">"SELECT * FROM users"</span>))
+    <span class="function">print</span>(db.connected)  <span class="comment"># True
+
+<span class="comment"># Using @contextmanager decorator</span>
+<span class="keyword">from</span> contextlib <span class="keyword">import</span> contextmanager
+
+<span class="decorator">@contextmanager</span>
+<span class="keyword">def</span> <span class="function">timer</span>():
+    <span class="keyword">import</span> time
+    start = time.<span class="function">time</span>()
+    <span class="keyword">yield</span>
+    <span class="function">print</span>(<span class="string">f"Took {time.<span class="function">time</span>() - start:.2f}s"</span>)
+
+<span class="keyword">with</span> <span class="function">timer</span>():
+    <span class="keyword">import</span> time
+    time.<span class="function">sleep</span>(<span class="number">0.1</span>)</code>
+        </div>
+      </section>
+
+      <section class="topic-section">
+        <h2 id="callable-objects"> Callable Objects <span class="level-badge advanced">Advanced</span> </h2>
+        <p>
+          Objects can be made callable by implementing <code>__call__</code>. This allows instances
+          to behave like functions while maintaining state.
+        </p>
+        <div class="code-block">
+<code><span class="keyword">class</span> <span class="class-name">Multiplier</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, factor):
+        <span class="method">self</span>.factor = factor
+    
+    <span class="keyword">def</span> <span class="function">__call__</span>(<span class="method">self</span>, value):
+        <span class="keyword">return</span> value * <span class="method">self</span>.factor
+
+doubler = <span class="class-name">Multiplier</span>(<span class="number">2</span>)
+tripler = <span class="class-name">Multiplier</span>(<span class="number">3</span>)
+
+<span class="function">print</span>(<span class="function">doubler</span>(<span class="number">5</span>))   <span class="comment"># 10 - looks like a function!</span>
+<span class="function">print</span>(<span class="function">tripler</span>(<span class="number">5</span>))   <span class="comment"># 15</span>
+<span class="function">print</span>(callable(doubler))  <span class="comment"># True</span>
+
+<span class="comment"># Counter with state</span>
+<span class="keyword">class</span> <span class="class-name">Counter</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>):
+        <span class="method">self</span>.count = <span class="number">0</span>
+    
+    <span class="keyword">def</span> <span class="function">__call__</span>(<span class="method">self</span>):
+        <span class="method">self</span>.count += <span class="number">1</span>
+        <span class="keyword">return</span> <span class="method">self</span>.count
+
+counter = <span class="class-name">Counter</span>()
+<span class="function">print</span>(<span class="function">counter</span>())  <span class="comment"># 1</span>
+<span class="function">print</span>(<span class="function">counter</span>())  <span class="comment"># 2</span>
+<span class="function">print</span>(<span class="function">counter</span>())  <span class="comment"># 3</span></code>
+        </div>
+      </section>
+
+      <section class="topic-section">
+        <h2 id="solid-principles"> SOLID Principles <span class="level-badge advanced">Advanced</span> </h2>
+        <p>
+          SOLID is an acronym for five design principles that make software more maintainable and scalable.
+        </p>
+        <div class="code-block">
+<code><span class="comment"># S - Single Responsibility Principle (SRP)</span>
+<span class="comment"># A class should have only one reason to change</span>
+<span class="keyword">class</span> <span class="class-name">User</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, name, email):
+        <span class="method">self</span>.name = name
+        <span class="method">self</span>.email = email
+
+<span class="comment"># Separate concerns</span>
+<span class="keyword">class</span> <span class="class-name">UserRepository</span>:
+    <span class="keyword">def</span> <span class="function">save</span>(<span class="method">self</span>, user): <span class="comment"># Only handles persistence</span>
+        <span class="keyword">pass</span>
+
+<span class="keyword">class</span> <span class="class-name">UserNotifier</span>:
+    <span class="keyword">def</span> <span class="function">send_email</span>(<span class="method">self</span>, user): <span class="comment"># Only handles notifications</span>
+        <span class="keyword">pass</span>
+
+<span class="comment"># O - Open/Closed Principle (OCP)</span>
+<span class="comment"># Open for extension, closed for modification</span>
+<span class="keyword">from</span> abc <span class="keyword">import</span> ABC, abstractmethod
+
+<span class="keyword">class</span> <span class="class-name">Discount</span>(ABC):
+    <span class="decorator">@abstractmethod</span>
+    <span class="keyword">def</span> <span class="function">calculate</span>(<span class="method">self</span>, price): <span class="keyword">pass</span>
+
+<span class="keyword">class</span> <span class="class-name">NoDiscount</span>(<span class="class-name">Discount</span>):
+    <span class="keyword">def</span> <span class="function">calculate</span>(<span class="method">self</span>, price): <span class="keyword">return</span> price
+
+<span class="keyword">class</span> <span class="class-name">PercentDiscount</span>(<span class="class-name">Discount</span>):
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, percent):
+        <span class="method">self</span>.percent = percent
+    <span class="keyword">def</span> <span class="function">calculate</span>(<span class="method">self</span>, price): <span class="keyword">return</span> price * (<span class="number">1</span> - <span class="method">self</span>.percent/<span class="number">100</span>)
+
+<span class="comment"># L - Liskov Substitution Principle (LSP)</span>
+<span class="comment"># Objects of a superclass should be replaceable with subclass objects</span>
+<span class="comment"># If Bird is parent, Penguin (cannot fly) should not break code expecting Bird
+
+<span class="comment"># I - Interface Segregation Principle (ISP)</span>
+<span class="comment"># Clients should not be forced to implement interfaces they don't use</span>
+<span class="comment"># Split large interfaces into smaller ones
+
+<span class="comment"># D - Dependency Inversion Principle (DIP)</span>
+<span class="comment"># Depend on abstractions, not concretions</span>
+<span class="keyword">class</span> <span class="class-name">OrderService</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, payment_gateway):  <span class="comment"># Depends on abstraction</span>
+        <span class="method">self</span>.payment = payment_gateway  <span class="comment"># duck typed</span></code>
+        </div>
+      </section>
+
+      <section class="topic-section">
+        <h2 id="design-patterns"> Design Patterns in Python <span class="level-badge advanced">Advanced</span> </h2>
+        <p>
+          Design patterns are reusable solutions to common software design problems.
+        </p>
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Factory Pattern</h4>
+            <p>Creates objects without specifying exact class.</p>
+          </div>
+          <div class="split-item">
+            <h4>Singleton Pattern</h4>
+            <p>Ensures only one instance exists.</p>
+          </div>
+          <div class="split-item">
+            <h4>Observer Pattern</h4>
+            <p>Notifies dependents of state changes.</p>
+          </div>
+          <div class="split-item">
+            <h4>Strategy Pattern</h4>
+            <p>Selects algorithm at runtime.</p>
+          </div>
+        </div>
+        <div class="code-block">
+<code><span class="comment"># Factory Pattern</span>
+<span class="keyword">class</span> <span class="class-name">Dog</span>:
+    <span class="keyword">def</span> <span class="function">speak</span>(<span class="method">self</span>): <span class="keyword">return</span> <span class="string">"Woof!"</span>
+
+<span class="keyword">class</span> <span class="class-name">Cat</span>:
+    <span class="keyword">def</span> <span class="function">speak</span>(<span class="method">self</span>): <span class="keyword">return</span> <span class="string">"Meow!"</span>
+
+<span class="keyword">class</span> <span class="class-name">AnimalFactory</span>:
+    <span class="keyword">@staticmethod</span>
+    <span class="keyword">def</span> <span class="function">create</span>(animal_type):
+        animals = {<span class="string">"dog"</span>: <span class="class-name">Dog</span>, <span class="string">"cat"</span>: <span class="class-name">Cat</span>}
+        <span class="keyword">return</span> animals[animal_type]()
+
+pet = <span class="class-name">AnimalFactory</span>.<span class="function">create</span>(<span class="string">"dog"</span>)
+<span class="function">print</span>(pet.<span class="function">speak</span>())  <span class="comment"># Woof!</span>
+
+<span class="comment"># Observer Pattern</span>
+<span class="keyword">class</span> <span class="class-name">Observable</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>):
+        <span class="method">self</span>._observers = []
+    
+    <span class="keyword">def</span> <span class="function">attach</span>(<span class="method">self</span>, observer):
+        <span class="method">self</span>._observers.append(observer)
+    
+    <span class="keyword">def</span> <span class="function">notify</span>(<span class="method">self</span>, data):
+        <span class="keyword">for</span> obs <span class="keyword">in</span> <span class="method">self</span>._observers:
+            obs.<span class="function">update</span>(data)
+
+<span class="keyword">class</span> <span class="class-name">Observer</span>:
+    <span class="keyword">def</span> <span class="function">update</span>(<span class="method">self</span>, data):
+        <span class="function">print</span>(<span class="string">f"Received: {data}"</span>)
+
+subject = <span class="class-name">Observable</span>()
+subject.<span class="function">attach</span>(<span class="class-name">Observer</span>())
+subject.<span class="function">notify</span>(<span class="string">"Hello!"</span>)  <span class="comment"># Received: Hello!</span>
+
+<span class="comment"># Strategy Pattern</span>
+<span class="keyword">class</span> <span class="class-name">SortStrategy</span>:
+    <span class="keyword">def</span> <span class="function">sort</span>(<span class="method">self</span>, data): <span class="keyword">pass</span>
+
+<span class="keyword">class</span> <span class="class-name">QuickSort</span>(<span class="class-name">SortStrategy</span>):
+    <span class="keyword">def</span> <span class="function">sort</span>(<span class="method">self</span>, data): <span class="keyword">return</span> <span class="function">sorted</span>(data)  <span class="comment"># simplified</span>
+
+<span class="keyword">class</span> <span class="class-name">Context</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, strategy):
+        <span class="method">self</span>._strategy = strategy
+    <span class="keyword">def</span> <span class="function">execute</span>(<span class="method">self</span>, data): <span class="keyword">return</span> <span class="method">self</span>._strategy.<span class="function">sort</span>(data)
+
+ctx = <span class="class-name">Context</span>(<span class="class-name">QuickSort</span>())
+<span class="function">print</span>(ctx.<span class="function">execute</span>([<span class="number">3</span>,<span class="number">1</span>,<span class="number">2</span>]))  <span class="comment"># [1, 2, 3]</span></code>
+        </div>
+      </section>
+
+      <section class="topic-section">
+        <h2>OOPs Summary</h2>
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Classes & Objects</h4>
+            <p>Blueprints and instances. Bundle data with behavior.</p>
+          </div>
+          <div class="split-item">
+            <h4>Encapsulation</h4>
+            <p>Hide internal details. Use private/protected attributes.</p>
+          </div>
+          <div class="split-item">
+            <h4>Inheritance</h4>
+            <p>Reuse code through parent-child relationships.</p>
+          </div>
+          <div class="split-item">
+            <h4>Polymorphism</h4>
+            <p>Same interface, different implementations.</p>
+          </div>
+          <div class="split-item">
+            <h4>Abstraction</h4>
+            <p>Hide complexity, show essentials via abstract classes.</p>
+          </div>
+          <div class="split-item">
+            <h4>Composition</h4>
+            <p>Build complex objects from simpler ones.</p>
+          </div>
+          <div class="split-item">
+            <h4>__slots__</h4>
+            <p>Memory optimization by restricting attributes.</p>
+          </div>
+          <div class="split-item">
+            <h4>Protocols</h4>
+            <p>Structural subtyping without inheritance.</p>
+          </div>
+          <div class="split-item">
+            <h4>Context Managers</h4>
+            <p>Resource cleanup with <code>with</code> statement.</p>
+          </div>
+          <div class="split-item">
+            <h4>SOLID</h4>
+            <p>Five principles for maintainable OOP code.</p>
+          </div>
+        </div>
+        <div class="tip-box">
+          <p><strong>Pro Tip:</strong> Prefer composition over inheritance for flexibility. Use inheritance for "is-a"
+            relationships and composition for "has-a" relationships.</p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="../../assets/js/app.js"></script>
+  <script src="python.js"></script>
+  <script>
+    const sidebar = document.getElementById("sidebar");
+    const sidebarToggle = document.getElementById("sidebar-toggle");
+    const sidebarOverlay = document.getElementById("sidebar-overlay");
+
+    const closeSidebar = () => {
+      sidebar.classList.remove("open");
+      sidebarOverlay.classList.remove("active");
+    };
+
+    const openSidebar = () => {
+      sidebar.classList.add("open");
+      sidebarOverlay.classList.add("active");
+    };
+
+    if (sidebarToggle) {
+      sidebarToggle.addEventListener("click", () => {
+        if (sidebar.classList.contains("open")) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+      });
+    }
+
+    if (sidebarOverlay) {
+      sidebarOverlay.addEventListener("click", closeSidebar);
+    }
+
+    // Mobile menu functionality
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+
+    const closeMobileMenu = () => {
+      if (mobileMenu) mobileMenu.classList.remove('open');
+      if (mobileMenuOverlay) mobileMenuOverlay.classList.remove('active');
+    };
+
+    const openMobileMenu = () => {
+      if (mobileMenu) mobileMenu.classList.add('open');
+      if (mobileMenuOverlay) mobileMenuOverlay.classList.add('active');
+    };
+
+    if (mobileMenuToggle) {
+      mobileMenuToggle.addEventListener('click', () => {
+        if (mobileMenu.classList.contains('open')) {
+          closeMobileMenu();
+        } else {
+          openMobileMenu();
+        }
+      });
+    }
+
+    if (mobileMenuOverlay) {
+      mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+    }
+
+    // Close mobile menu on link click
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav a');
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', closeMobileMenu);
+    });
+
+    const navItems = Array.from(document.querySelectorAll(".nav-item"));
+
+    const setActiveNav = (id) => {
+      navItems.forEach((item) => {
+        const isActive = item.getAttribute("href") === "#" + id;
+        item.classList.toggle("active", isActive);
+        if (isActive) {
+          item.setAttribute("aria-current", "location");
+        } else {
+          item.removeAttribute("aria-current");
+        }
+      });
+    };
+
+    navItems.forEach((item) => {
+      item.addEventListener("click", function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute("href").substring(1);
+        const target = document.getElementById(targetId);
+        if (!target) return;
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({ top: targetPosition - 100, behavior: "smooth" });
+        history.replaceState(null, "", "#" + targetId);
+        setActiveNav(targetId);
+        closeSidebar();
+      });
+    });
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute("id");
+          setActiveNav(id);
+          setActivePillNav(id);
+        }
+      });
+    }, { root: null, rootMargin: "-18% 0px -68% 0px", threshold: 0 });
+
+    document.querySelectorAll(".topic-section h2[id]").forEach((el) => sectionObserver.observe(el));
+
+    const pillNavLinks = Array.from(document.querySelectorAll(".pill-nav a"));
+    const setActivePillNav = (id) => {
+      pillNavLinks.forEach((link) => {
+        const isActive = link.getAttribute("href") === "#" + id;
+        link.classList.toggle("active", isActive);
+      });
+    };
+
+    pillNavLinks.forEach((link) => {
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute("href").substring(1);
+        const target = document.getElementById(targetId);
+        if (!target) return;
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({ top: targetPosition - 100, behavior: "smooth" });
+        history.replaceState(null, "", "#" + targetId);
+        setActivePillNav(targetId);
+        setActiveNav(targetId);
+      });
+    });
+
+    const initialId = (window.location.hash || "#what-is-oop").substring(1);
+    setActiveNav(initialId);
+  </script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+</body>
+</html>

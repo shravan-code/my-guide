@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Guide | GCP Services</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../assets/css/styles.css" />
+  <link rel="stylesheet" href="../python/python.css" />
+</head>
+
+<body class="with-sidebar">
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <header class="topbar glass reveal in">
+    <a class="brand" href="../../index.html">Data Guide</a>
+    <button id="sidebar-toggle" class="sidebar-toggle" type="button" aria-label="Toggle sidebar">
+      <span class="hamburger" aria-hidden="true"></span>
+    </button>
+    <nav class="menu" aria-label="Cloud menu">
+      <a href="../../index.html">Hub</a>
+      <div class="menu-dropdown">
+        <button class="menu-trigger">Topics</button>
+        <div class="dropdown-panel">
+          <a href="cloud-topics.html"><strong>Overview</strong><span>All cloud topics</span></a>
+          <a href="cloud-basics.html"><strong>Basics</strong><span>IaaS, PaaS, SaaS, deployment models</span></a>
+          <a href="cloud-services.html"><strong>Services</strong><span>Service comparison across providers</span></a>
+          <a href="cloud-storage.html"><strong>Storage</strong><span>Object, block, file, data lakes</span></a>
+          <a href="cloud-compute.html"><strong>Compute</strong><span>VMs, containers, Kubernetes</span></a>
+          <a href="cloud-serverless.html"><strong>Serverless</strong><span>Functions and managed services</span></a>
+        </div>
+      </div>
+      <div class="menu-dropdown">
+        <button class="menu-trigger">Providers</button>
+        <div class="dropdown-panel">
+          <a href="cloud-aws.html"><strong>AWS</strong><span>Amazon Web Services</span></a>
+          <a href="cloud-azure.html"><strong>Azure</strong><span>Microsoft Azure</span></a>
+          <a href="cloud-gcp.html" class="active"><strong>GCP</strong><span>Google Cloud Platform</span></a>
+        </div>
+      </div>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+      <span class="toggle-icon" aria-hidden="true">☾</span>
+      <span class="toggle-text">Dark</span>
+    </button>
+  </header>
+
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <main class="main-content">
+    <nav class="sidebar" id="sidebar">
+      <div class="logo">
+        <span class="logo-text">GCP Services</span>
+      </div>
+
+      <div class="nav-title">Overview</div>
+      <a href="#overview" class="nav-item active"><span>1</span> GCP Overview</a>
+      <a href="#global-infra" class="nav-item"><span>2</span> Global Infrastructure</a>
+
+      <div class="nav-title">Core Services</div>
+      <a href="#compute" class="nav-item"><span>3</span> Compute</a>
+      <a href="#storage" class="nav-item"><span>4</span> Storage</a>
+      <a href="#database" class="nav-item"><span>5</span> Database</a>
+      <a href="#networking" class="nav-item"><span>6</span> Networking</a>
+
+      <div class="nav-title">Data & Analytics</div>
+      <a href="#analytics" class="nav-item"><span>7</span> Analytics</a>
+      <a href="#big-data" class="nav-item"><span>8</span> Big Data</a>
+      <a href="#ml-ai" class="nav-item"><span>9</span> ML & AI</a>
+
+      <div class="nav-title">Developer Tools</div>
+      <a href="#sdk" class="nav-item"><span>10</span> Python SDK</a>
+      <a href="#cli" class="nav-item"><span>11</span> gcloud CLI</a>
+      <a href="#iac" class="nav-item"><span>12</span> Deployment Manager / Terraform</a>
+      <a href="#devops" class="nav-item"><span>13</span> DevOps Tools</a>
+
+      <div class="nav-title">Security</div>
+      <a href="#iam" class="nav-item"><span>14</span> IAM & Security</a>
+      <a href="#monitoring" class="nav-item"><span>15</span> Monitoring</a>
+    </nav>
+
+    <div class="page-wrap">
+      <section class="hero">
+        <h1>GCP Services</h1>
+      </section>
+
+      <!-- Section 1: Overview -->
+      <section class="topic-section" id="overview">
+        <h2> GCP Overview <span class="level-badge basic">Basic</span> </h2>
+        <p>Google Cloud Platform (GCP) offers cloud computing services built on Google's infrastructure. GCP excels in data analytics, machine learning, and open-source technologies like Kubernetes (created at Google).</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Key Facts</h4>
+            <ul>
+              <li><strong>Launch:</strong> 2008</li>
+              <li><strong>Market Share:</strong> ~11% (third largest)</li>
+              <li><strong>Regions:</strong> 40+ worldwide</li>
+              <li><strong>Services:</strong> 100+</li>
+              <li><strong>Free Tier:</strong> $300 credit (90 days) + always free</li>
+            </ul>
+          </div>
+          <div class="split-item">
+            <h4>Key Strengths</h4>
+            <ul>
+              <li>Data analytics and BigQuery leadership</li>
+              <li>ML/AI and TPUs</li>
+              <li>Kubernetes (K8s originated here)</li>
+              <li>Open source friendly</li>
+              <li>Sustainable (carbon-neutral since 2007)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="code-block">
+<code><span class="comment"># GCP Console</span>
+https://console.cloud.google.com
+
+<span class="comment"># GCP Projects</span>
+<span class="comment"># All resources are organized under projects</span>
+gcloud projects create my-project-id
+
+<span class="comment"># GCP Regions (selected)</span>
+us-central1      <span class="comment"># Iowa (primary)</span>
+us-east1          <span class="comment"># South Carolina</span>
+us-west1          <span class="comment"># Oregon</span>
+europe-west1      <span class="comment"># Belgium</span>
+europe-west2      <span class="comment"># London</span>
+asia-east1        <span class="comment"># Taiwan</span>
+asia-southeast1   <span class="comment"># Singapore</span>
+
+<span class="comment"># Always Free Tier (permanent)</span>
+- Compute Engine: 1 e2-micro VM (Oregon/Iowa)
+- Cloud Storage: 5GB Standard
+- BigQuery: 1TB queries/month
+- Cloud Run: 2M requests/month
+- Cloud Functions: 2M invocations/month
+- Firestore: 1GB storage
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 2: Global Infrastructure -->
+      <section class="topic-section" id="global-infra">
+        <h2> Global Infrastructure <span class="level-badge basic">Basic</span> </h2>
+        <p>GCP's global infrastructure uses zones and regions with a high-speed network backbone connecting them.</p>
+
+        <div class="flowchart">
+          <h3>GCP Infrastructure Hierarchy</h3>
+          <div class="flow-row">
+            <span class="flow-node">GCP Global Infrastructure</span>
+          </div>
+          <div class="flow-row" style="margin-top: 0.5rem;">
+            <span class="flow-node">Regions (40+)</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Zones (120+)</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Edge Locations (180+)</span>
+          </div>
+          <div class="flow-row" style="margin-top: 0.5rem; font-size: 0.85rem;">
+            <span class="flow-node" style="background: var(--glass);">Geographic area</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node" style="background: var(--glass);">Data centers</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node" style="background: var(--glass);">CDN PoPs</span>
+          </div>
+        </div>
+
+        <div class="code-block">
+<code><span class="comment"># GCP Global Services</span>
+
+<span class="comment"># 1. Content Delivery</span>
+Cloud CDN           <span class="comment"># Google's CDN</span>
+Media CDN           <span class="comment"># High-perf streaming CDN</span>
+
+<span class="comment"># 2. Identity & Security</span>
+Cloud IAM           <span class="comment"># Identity and Access Management</span>
+Cloud Armor         <span class="comment"># DDoS/WAF protection</span>
+BeyondCorp          <span class="comment"># Zero-trust security</span>
+
+<span class="comment"># 3. Management</span>
+Cloud Monitoring    <span class="comment"># Metrics, logs, traces</span>
+Cloud Logging       <span class="comment"># Centralized logging</span>
+Organization        <span class="comment"># Resource hierarchy</span>
+
+<span class="comment"># Resource Hierarchy</span>
+<span class="comment"># Organization → Folders → Projects → Resources</span>
+<span class="comment"># Folders are optional groupings</span>
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 3: Compute -->
+      <section class="topic-section" id="compute">
+        <h2> Compute Services <span class="level-badge basic">Basic</span> </h2>
+        <p>GCP offers VMs, containers, serverless, and Kubernetes-native compute options.</p>
+
+        <div class="code-block">
+<code><span class="comment"># Compute Engine - Virtual Machines</span>
+
+<span class="comment"># Machine Types</span>
+General Purpose:  E2, N2, N2D       <span class="comment"># Web servers, apps</span>
+Compute Optim:    C2, C2D           <span class="comment"># Batch, CPU-heavy</span>
+Memory Opt:       M1, M2, N2        <span class="comment"># Databases, in-memory</span>
+Accelerated:      A2, G2, T2D       <span class="comment"># ML, GPU, TPU</span>
+
+<span class="comment"># Create VM instance</span>
+gcloud compute instances create my-vm \
+    --zone us-central1-a \
+    --machine-type e2-medium \
+    --image-family debian-11 \
+    --image-project debian-cloud
+
+<span class="comment"># Instance Groups (managed)</span>
+gcloud compute instance-groups managed create my-group \
+    --template=my-template \
+    --size=3 \
+    --zone=us-central1-a
+
+<span class="comment"># GKE - Google Kubernetes Engine</span>
+gcloud container clusters create my-cluster \
+    --zone us-central1-a \
+    --num-nodes=3 \
+    --machine-type=e2-medium
+
+<span class="comment"># Autopilot mode (serverless K8s)</span>
+gcloud container clusters create-auto my-cluster \
+    --zone us-central1-a
+
+<span class="comment"># Cloud Run - Serverless containers</span>
+gcloud run deploy my-service \
+    --image gcr.io/my-project/my-app \
+    --platform managed \
+    --region us-central1 \
+    --allow-unauthenticated
+
+<span class="comment"># Cloud Functions - Serverless functions</span>
+gcloud functions deploy my-function \
+    --gen2 \
+    --runtime python311 \
+    --region us-central1 \
+    --trigger-http \
+    --entry-point hello_world
+
+<span class="comment"># App Engine - PaaS</span>
+gcloud app deploy app.yaml
+
+<span class="comment"># Batch - Batch processing</span>
+<span class="comment"># Managed batch jobs with auto-scaling</span>
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 4: Storage -->
+      <section class="topic-section" id="storage">
+        <h2> Storage Services <span class="level-badge basic">Basic</span> </h2>
+        <p>GCP provides object, block, file, and archive storage with strong integration with BigQuery and ML services.</p>
+
+        <div class="code-block">
+<code><span class="comment"># Cloud Storage - Object Storage</span>
+
+<span class="comment"># Create bucket and upload</span>
+gsutil mb -l us-central1 gs://my-bucket-name/
+gsutil cp file.txt gs://my-bucket-name/data/
+gsutil -m rsync -r ./local-dir gs://my-bucket-name/remote/
+
+<span class="comment"># Storage Classes</span>
+Standard             <span class="comment"># Default, frequent access</span>
+Nearline             <span class="comment"># Infrequent (30+ days)</span>
+Coldline             <span class="comment"># Rare access (90+ days)</span>
+Archive              <span class="comment"># Long-term (365+ days)</span>
+
+<span class="comment"># Dual-region and multi-region</span>
+<span class="comment"># Automatic geo-replication</span>
+
+<span class="comment"># Persistent Disk - Block Storage</span>
+pd-standard          <span class="comment"># HDD (default)</span>
+pd-ssd               <span class="comment"># SSD</span>
+pd-extreme           <span class="comment"># High IOPS SSD</span>
+pd-balanced          <span class="comment"># Balanced SSD</span>
+
+<span class="comment"># Create persistent disk</span>
+gcloud compute disks create my-disk \
+    --zone=us-central1-a \
+    --size=100 \
+    --type=pd-ssd
+
+<span class="comment"># Filestore - Managed NFS</span>
+gcloud filestore instances create my-nfs \
+    --zone=us-central1-a \
+    --tier=BASIC_HDD \
+    --file-share=name=vol1,capacity=1TB \
+    --network=name=default
+
+<span class="comment"># Cloud Storage for Firebase</span>
+<span class="comment"># Mobile/web app storage with CDN</span>
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 5: Database -->
+      <section class="topic-section" id="database">
+        <h2> Database Services <span class="level-badge basic">Basic</span> </h2>
+        <p>GCP offers managed databases for relational, NoSQL, in-memory, and time-series workloads.</p>
+
+        <div class="code-block">
+<code><span class="comment"># Cloud SQL - Managed RDBMS</span>
+gcloud sql instances create my-db \
+    --database-version=POSTGRES_15 \
+    --tier=db-f1-micro \
+    --region=us-central1
+
+<span class="comment"># Supports: PostgreSQL, MySQL, SQL Server</span>
+
+<span class="comment"># Cloud Spanner - Globally distributed RDBMS</span>
+<span class="comment"># Horizontal scaling, strong consistency</span>
+gcloud spanner instances create my-spanner \
+    --config=regional-us-central1 \
+    --processing-units=100
+
+<span class="comment"># Firestore - NoSQL Document Database</span>
+gcloud firestore databases create \
+    --region=nam5 \
+    --type=firestore-native
+
+<span class="comment"># Firestore Modes</span>
+<span class="comment"># Native mode: Recommended for new apps</span>
+<span class="comment"># Datastore mode: Legacy compatibility</span>
+
+<span class="comment"># Bigtable - Wide-column NoSQL</span>
+gcloud bigtable instances create my-bigtable \
+    --cluster-config=us-central1-b=1,nodes=3
+
+<span class="comment"># Use cases: IoT, time-series, ML feature store</span>
+
+<span class="comment"># Memorystore - In-Memory Cache</span>
+<span class="comment"># Managed Redis and Memcached</span>
+gcloud redis instances create my-redis \
+    --size=1 \
+    --region=us-central1 \
+    --redis-version=redis_7_0 \
+    --tier=basic
+
+<span class="comment"># AlloyDB - PostgreSQL compatible</span>
+<span class="comment"># 4x PostgreSQL performance</span>
+gcloud alloydb instances create my-alloydb \
+    --cluster=my-cluster \
+    --region=us-central1 \
+    --instance-type=PRIMARY \
+    --cpu-count=2
+
+<span class="comment"># Cloud SQL for PostgreSQL</span>
+gcloud sql users set-password postgres \
+    --instance=my-db \
+    --prompt-for-password
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 6: Networking -->
+      <section class="topic-section" id="networking">
+        <h2> Networking Services <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>GCP networking provides VPCs, load balancing, DNS, and global private backbone.</p>
+
+        <div class="code-block">
+<code><span class="comment"># VPC - Virtual Private Cloud</span>
+
+<span class="comment"># Create VPC with subnets</span>
+gcloud compute networks create my-vpc \
+    --subnet-mode=custom \
+    --bgp-routing-mode=global
+
+gcloud compute networks subnets create my-subnet \
+    --network=my-vpc \
+    --region=us-central1 \
+    --range=10.0.0.0/24
+
+<span class="comment"># VPC Features</span>
+VPC             <span class="comment"># Global virtual network</span>
+Subnets         <span class="comment"># Regional subdivisions</span>
+Firewall Rules  <span class="comment"># Network security (stateful)</span>
+Cloud NAT       <span class="comment"># Outbound NAT for private VMs</span>
+Cloud Router    <span class="comment"># Dynamic routing (BGP)</span>
+VPC Peering     <span class="comment"># Connect VPCs</span>
+Shared VPC      <span class="comment"># Share VPC across projects</span>
+
+<span class="comment"># Load Balancing</span>
+<span class="comment"># Global HTTP(S) Load Balancer</span>
+gcloud compute address create my-ip \
+    --global \
+    --ip-version=IPV4
+
+<span class="comment"># Load Balancer Types</span>
+HTTP(S) LB      <span class="comment"># Global, L7</span>
+TCP LB          <span class="comment"># Regional, L4</span>
+UDP LB          <span class="comment"># Regional, L4</span>
+Internal LB     <span class="comment"># Regional internal</span>
+Internal TCP    <span class="comment"># Regional internal L4</span>
+
+<span class="comment"># Cloud DNS</span>
+gcloud dns managed-zones create my-zone \
+    --dns-name=example.com. \
+    --visibility=public
+
+<span class="comment"># Cloud CDN</span>
+<span class="comment"># Cache content at edge locations</span>
+gcloud compute backend-services add-backend my-backend \
+    --global \
+    --enable-cdn
+
+<span class="comment"># Cloud Interconnect</span>
+<span class="comment"># Dedicated or partner interconnect to on-prem</span>
+
+<span class="comment"># Network Services</span>
+Cloud Armor       <span class="comment"># WAF/DDoS protection</span>
+Certificate Mgmt  <span class="comment"># SSL/TLS certificates</span>
+Traffic Director  <span class="comment"># Service mesh control plane</span>
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 7: Analytics -->
+      <section class="topic-section" id="analytics">
+        <h2> Analytics Services <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>GCP analytics centers around BigQuery, the serverless data warehouse, with strong ML integration.</p>
+
+        <div class="code-block">
+<code><span class="comment"># BigQuery - Serverless Data Warehouse</span>
+
+<span class="comment"># Create dataset and query</span>
+bq mk --dataset my_dataset
+
+bq query --use_legacy_sql=false \
+    'SELECT name, COUNT(*) as cnt
+     FROM `bigquery-public-data.usa_names.usa_1910_2013`
+     WHERE state = "TX"
+     GROUP BY name
+     ORDER BY cnt DESC
+     LIMIT 10'
+
+<span class="comment"># BigQuery ML - SQL-based ML</span>
+<span class="keyword">CREATE MODEL</span> my_dataset.linear_model
+<span class="keyword">OPTIONS</span>(model_type=<span class="string">'linear_reg'</span>) <span class="keyword">AS</span>
+<span class="keyword">SELECT</span> feature1, feature2, label
+<span class="keyword">FROM</span> my_dataset.training_data;
+
+<span class="comment"># Predict with model</span>
+<span class="keyword">SELECT</span> *
+<span class="keyword">FROM</span> ML.<span class="function">PREDICT</span>(MODEL my_dataset.linear_model,
+    (<span class="keyword">SELECT</span> feature1, feature2 <span class="keyword">FROM</span> my_dataset.new_data));
+
+<span class="comment"># Cloud Composer - Managed Airflow</span>
+gcloud composer environments create my-composer \
+    --location=us-central1 \
+    --image-version=composer-2
+
+<span class="comment"># Dataflow - Apache Beam (stream & batch)</span>
+<span class="comment"># Serverless data processing</span>
+
+<span class="comment"># Dataproc - Managed Spark/Hadoop</span>
+gcloud dataproc clusters create my-cluster \
+    --region=us-central1 \
+    --num-workers=2 \
+    --worker-machine-type=e2-medium
+
+<span class="comment"># Looker (Google Cloud BI)</span>
+<span class="comment"># Business intelligence platform</span>
+
+<span class="comment"># Dataform - SQL-based transformations</span>
+<span class="comment"># Manage data pipelines in BigQuery</span>
+
+<span class="comment"># Data Catalog - Metadata management</span>
+<span class="comment"># Discover, understand, manage data</span>
+
+<span class="comment"># Pub/Sub - Messaging</span>
+gcloud pubsub topics create my-topic
+gcloud pubsub subscriptions create my-sub --topic=my-topic
+
+<span class="comment"># DLP API - Data Loss Prevention</span>
+<span class="comment"># Discover and protect sensitive data</span>
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 8: Big Data -->
+      <section class="topic-section" id="big-data">
+        <h2> Big Data Services <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>GCP provides end-to-end big data solutions from ingestion to analytics and ML.</p>
+
+        <div class="code-block">
+<code><span class="comment"># GCP Data Architecture</span>
+
+<span class="comment"># 1. Ingest</span>
+Pub/Sub              <span class="comment"># Real-time messaging</span>
+Dataflow             <span class="comment"># Stream/batch processing</span>
+Storage Transfer    <span class="comment"># Bulk data transfer</span>
+Transfer Appliance   <span class="comment"># Physical transfer</span>
+
+<span class="comment"># 2. Store</span>
+Cloud Storage        <span class="comment"># Data lake storage</span>
+BigQuery             <span class="comment"># Data warehouse</span>
+Firestore            <span class="comment"># Document database</span>
+Bigtable             <span class="comment"># Time-series/IoT</span>
+
+<span class="comment"># 3. Process</span>
+Dataflow (Beam)      <span class="comment"># Unified stream/batch</span>
+Dataproc (Spark)     <span class="comment"># Hadoop/Spark clusters</span>
+Composer (Airflow)   <span class="comment"># Workflow orchestration</span>
+Cloud Functions      <span class="comment"># Event-driven</span>
+
+<span class="comment"># 4. Analyze</span>
+BigQuery             <span class="comment"># SQL analytics</span>
+BigQuery ML          <span class="comment"># ML in SQL</span>
+Looker               <span class="comment"># BI dashboards</span>
+Data Studio          <span class="comment"># Free reporting</span>
+
+<span class="comment"># 5. ML/AI</span>
+Vertex AI            <span class="comment"># Unified ML platform</span>
+AutoML               <span class="comment"># No-code ML</span>
+Vision, NLP, Speech  <span class="comment"># Pre-built APIs</span>
+
+<span class="comment"># Dataform - SQL transformations</span>
+<span class="comment"># Git-based workflows for BigQuery</span>
+<span class="comment"># Build, test, deploy pipelines</span>
+
+<span class="comment"># Dataplex - Data lake governance</span>
+<span class="comment"># Organize, manage, govern data lakes</span>
+        </code>
+        </div>
+
+        <div class="flowchart">
+          <h3>GCP Data Architecture</h3>
+          <div class="flow-row">
+            <span class="flow-node">Sources</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Pub/Sub</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Cloud Storage</span>
+          </div>
+          <div class="flow-row" style="margin-top: 0.5rem;">
+            <span class="flow-node">Dataflow</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">BigQuery</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Looker</span>
+          </div>
+          <div class="flow-row" style="margin-top: 0.5rem;">
+            <span class="flow-node">Composer</span>
+            <span class="flow-arrow">│</span>
+            <span class="flow-node">Vertex AI</span>
+            <span class="flow-arrow">│</span>
+            <span class="flow-node">Applications</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 9: ML & AI -->
+      <section class="topic-section" id="ml-ai">
+        <h2> Machine Learning & AI <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>GCP offers Vertex AI for end-to-end ML, pre-built AI APIs, and TPUs for accelerated training.</p>
+
+        <div class="code-block">
+<code><span class="comment"># Vertex AI - Unified ML Platform</span>
+
+<span class="comment"># Python SDK</span>
+<span class="keyword">from</span> google.cloud <span class="keyword">import</span> aiplatform
+
+aiplatform.<span class="function">init</span>(
+    project=<span class="string">"my-project"</span>,
+    location=<span class="string">"us-central1"</span>
+)
+
+<span class="comment"># Custom Training Job</span>
+job = aiplatform.CustomContainerTrainingJob(
+    display_name=<span class="string">"my-training"</span>,
+    container_uri=<span class="string">"gcr.io/my-project/my-trainer:latest"</span>,
+    model_serving_container_image_uri=<span class="string">"gcr.io/cloud-aiplatform/prediction/tf2-cpu.2-11:latest"</span>
+)
+
+model = job.<span class="function">run</span>(
+    dataset=aiplatform.TabularDataset(<span class="string">"my-dataset"</span>),
+    model_display_name=<span class="string">"my-model"</span>
+)
+
+<span class="comment"># AutoML - No-code ML</span>
+<span class="comment"># AutoML Tables (tabular)</span>
+<span class="comment"># AutoML Vision (images)</span>
+<span class="comment"># AutoML NLP (text)</span>
+<span class="comment"># AutoML Video (video)</span>
+
+<span class="comment"># Prediction/Inference</span>
+endpoint = model.<span class="function">deploy</span>(machine_type=<span class="string">"n1-standard-4"</span>)
+predictions = endpoint.<span class="function">predict</span>(instances=...)
+
+<span class="comment"># Pre-built AI APIs</span>
+Vision AI        <span class="comment"># Image analysis, OCR</span>
+Natural Language <span class="comment"># Sentiment, entities, syntax</span>
+Speech-to-Text   <span class="comment"># Audio transcription</span>
+Text-to-Speech   <span class="comment"># Natural voice synthesis</span>
+Translation      <span class="comment"># Machine translation</span>
+Document AI      <span class="comment"># Document parsing/extraction</span>
+Video Intelligence <span class="comment"># Video analysis</span>
+Recommendations AI <span class="comment"># Product recommendations</span>
+
+<span class="comment"># Generative AI</span>
+<span class="comment"># Gemini models via Vertex AI</span>
+<span class="comment"># PaLM API for text generation</span>
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 10: Python SDK -->
+      <section class="topic-section" id="sdk">
+        <h2> Google Cloud Python SDK <span class="level-badge basic">Basic</span> </h2>
+        <p>The google-cloud-* Python packages provide idiomatic interfaces to all GCP services.</p>
+
+        <div class="code-block">
+<code><span class="comment"># Installation</span>
+pip install google-cloud-storage
+pip install google-cloud-bigquery
+pip install google-cloud-firestore
+pip install google-cloud-pubsub
+pip install google-cloud-aiplatform
+
+<span class="comment"># Authentication</span>
+<span class="comment"># 1. Application Default Credentials (ADC)</span>
+<span class="comment"># Set GOOGLE_APPLICATION_CREDENTIALS env var</span>
+<span class="keyword">import</span> os
+os.environ[<span class="string">"GOOGLE_APPLICATION_CREDENTIALS"</span>] = <span class="string">"path/to/key.json"</span>
+
+<span class="comment"># 2. Use ADC in code</span>
+<span class="keyword">from</span> google.cloud <span class="keyword">import</span> storage
+
+client = storage.<span class="function">Client</span>()  <span class="comment"># Uses ADC automatically</span>
+
+<span class="comment"># Cloud Storage operations</span>
+bucket = client.<span class="function">get_bucket</span>(<span class="string">"my-bucket"</span>)
+
+<span class="comment"># Upload blob</span>
+blob = bucket.<span class="function">blob</span>(<span class="string">"data/file.txt"</span>)
+blob.<span class="function">upload_from_filename</span>(<span class="string">"local-file.txt"</span>)
+
+<span class="comment"># List blobs</span>
+<span class="keyword">for</span> blob <span class="keyword">in</span> bucket.<span class="function">list_blobs</span>(prefix=<span class="string">"data/"</span>):
+    <span class="function">print</span>(blob.name, blob.size)
+
+<span class="comment"># BigQuery operations</span>
+<span class="keyword">from</span> google.cloud <span class="keyword">import</span> bigquery
+
+bq_client = bigquery.<span class="function">Client</span>()
+query = <span class="string">"""
+    SELECT name, COUNT(*) as cnt
+    FROM `bigquery-public-data.usa_names.usa_1910_2013`
+    GROUP BY name
+    ORDER BY cnt DESC
+    LIMIT 10
+"""</span>
+results = bq_client.<span class="function">query</span>(query).<span class="function">result</span>()
+<span class="keyword">for</span> row <span class="keyword">in</span> results:
+    <span class="function">print</span>(row.name, row.cnt)
+
+<span class="comment"># Pub/Sub operations</span>
+<span class="keyword">from</span> google.cloud <span class="keyword">import</span> pubsub_v1
+
+publisher = pubsub_v1.PublisherClient()
+topic_path = publisher.topic_path(<span class="string">"my-project"</span>, <span class="string">"my-topic"</span>)
+future = publisher.<span class="function">publish</span>(topic_path, data=b<span class="string">"Hello GCP"</span>)
+
+subscriber = pubsub_v1.SubscriberClient()
+subscription_path = subscriber.subscription_path(<span class="string">"my-project"</span>, <span class="string">"my-sub"</span>)
+
+<span class="keyword">def</span> <span class="function">callback</span>(message):
+    <span class="function">print</span>(f<span class="string">"Received: {message.data}"</span>)
+    message.<span class="function">ack</span>()
+
+streaming_pull = subscriber.<span class="function">subscribe</span>(subscription_path, callback=callback)
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 11: gcloud CLI -->
+      <section class="topic-section" id="cli">
+        <h2> gcloud CLI <span class="level-badge basic">Basic</span> </h2>
+        <p>The gcloud command-line tool manages GCP resources and authentication.</p>
+
+        <div class="code-block">
+<code><span class="comment"># Installation</span>
+<span class="comment"># macOS</span>
+brew install --cask google-cloud-sdk
+
+<span class="comment"># Linux</span>
+curl https://sdk.cloud.google.com | bash
+exec -l $SHELL
+source ~/.bashrc
+
+<span class="comment"># Initialize (first time)</span>
+gcloud init
+<span class="comment"># Follow browser login</span>
+<span class="comment"># Select project and default region</span>
+
+<span class="comment"># Authentication</span>
+gcloud auth login                    <span class="comment"># Browser-based</span>
+gcloud auth application-default login <span class="comment"># ADC for SDKs</span>
+gcloud auth activate-service-account my-sa@my-project.iam.gserviceaccount.com \
+    --key-file=key.json
+
+<span class="comment"># Project Management</span>
+gcloud projects list
+gcloud config set project my-project-id
+gcloud config set compute/region us-central1
+gcloud config set compute/zone us-central1-a
+
+<span class="comment"># Common CLI Commands</span>
+
+<span class="comment"># Compute</span>
+gcloud compute instances list
+gcloud compute instances start my-vm --zone=us-central1-a
+gcloud compute instances stop my-vm --zone=us-central1-a
+gcloud compute ssh my-vm --zone=us-central1-a
+
+<span class="comment"># Storage</span>
+gsutil ls gs://my-bucket/
+gsutil cp file.txt gs://my-bucket/
+gsutil cp gs://my-bucket/file.txt local-file.txt
+gsutil -m rsync -r ./local gs://my-bucket/remote/
+
+<span class="comment"># BigQuery</span>
+bq ls
+bq query --use_legacy_sql=false "SELECT * FROM dataset.table LIMIT 10"
+bq mk --dataset my_dataset
+
+<span class="comment"># Cloud Functions</span>
+gcloud functions list
+gcloud functions call my-function --data '{"name": "World"}'
+gcloud functions logs read my-function --limit=50
+
+<span class="comment"># Useful flags</span>
+--project          <span class="comment"># Specify project</span>
+--region           <span class="comment"># Specify region</span>
+--format           <span class="comment"># Output format (json, table, yaml)</span>
+--filter           <span class="comment"># Filter results</span>
+--quiet / -q       <span class="comment"># Skip prompts</span>
+
+<span class="comment"># Example: List VMs with formatting</span>
+gcloud compute instances list \
+    --format="table(name,zone,machineType,status)" \
+    --filter="status:RUNNING"
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 12: Infrastructure as Code -->
+      <section class="topic-section" id="iac">
+        <h2> Infrastructure as Code <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>GCP supports Cloud Deployment Manager (native) and Terraform (multi-cloud) for IaC.</p>
+
+        <div class="code-block">
+<code><span class="comment"># Cloud Deployment Manager - GCP native IaC</span>
+
+<span class="comment"># config.yaml</span>
+<span class="keyword">resources</span>:
+- <span class="keyword">name</span>: my-bucket
+  <span class="keyword">type</span>: storage.v1.bucket
+  <span class="keyword">properties</span>:
+    location: us-central1
+    storageClass: STANDARD
+
+- <span class="keyword">name</span>: my-vm
+  <span class="keyword">type</span>: compute.v1.instance
+  <span class="keyword">properties</span>:
+    zone: us-central1-a
+    machineType: zones/us-central1-a/machineTypes/e2-medium
+    disks:
+    - deviceName: boot
+      type: PERSISTENT
+      boot: true
+      autoDelete: true
+      initializeParams:
+        sourceImage: projects/debian-cloud/global/images/family/debian-11
+    networkInterfaces:
+    - network: global/networks/default
+
+<span class="comment"># Deploy</span>
+gcloud deployment-manager deployments create my-deployment \
+    --config=config.yaml
+
+gcloud deployment-manager deployments delete my-deployment
+
+<span class="comment"># Terraform - Multi-cloud IaC</span>
+
+<span class="comment"># main.tf</span>
+<span class="keyword">provider</span> <span class="string">"google"</span> {
+  project = <span class="string">"my-project"</span>
+  region  = <span class="string">"us-central1"</span>
+}
+
+<span class="keyword">resource</span> <span class="string">"google_storage_bucket"</span> <span class="string">"my_bucket"</span> {
+  name     = <span class="string">"my-unique-bucket"</span>
+  location = <span class="string">"US"</span>
+
+  <span class="keyword">uniform_bucket_level_access</span> = <span class="keyword">true</span>
+}
+
+<span class="keyword">resource</span> <span class="string">"google_compute_instance"</span> <span class="string">"my_vm"</span> {
+  name         = <span class="string">"my-vm"</span>
+  machine_type = <span class="string">"e2-medium"</span>
+  zone         = <span class="string">"us-central1-a"</span>
+
+  <span class="keyword">boot_disk</span> {
+    <span class="keyword">initialize_params</span> {
+      image = <span class="string">"debian-cloud/debian-11"</span>
+    }
+  }
+
+  <span class="keyword">network_interface</span> {
+    network = <span class="string">"default"</span>
+  }
+}
+
+<span class="comment"># Terraform commands</span>
+terraform init
+terraform plan
+terraform apply
+terraform destroy
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 13: DevOps -->
+      <section class="topic-section" id="devops">
+        <h2> DevOps Tools <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>GCP provides CI/CD, container registry, and deployment automation tools.</p>
+
+        <div class="code-block">
+<code><span class="comment"># Cloud Build - CI/CD</span>
+
+<span class="comment"># cloudbuild.yaml</span>
+<span class="keyword">steps</span>:
+- <span class="keyword">name</span>: <span class="string">'gcr.io/cloud-builders/docker'</span>
+  <span class="keyword">args</span>: [<span class="string">'build'</span>, <span class="string">'-t'</span>, <span class="string">'gcr.io/$PROJECT_ID/my-app'</span>, <span class="string">'.'</span>]
+
+- <span class="keyword">name</span>: <span class="string">'gcr.io/cloud-builders/docker'</span>
+  <span class="keyword">args</span>: [<span class="string">'push'</span>, <span class="string">'gcr.io/$PROJECT_ID/my-app'</span>]
+
+- <span class="keyword">name</span>: <span class="string">'gcr.io/cloud-builders/gcloud'</span>
+  <span class="keyword">args</span>: [<span class="string">'run'</span>, <span class="string">'deploy'</span>, <span class="string">'my-service'</span>, <span class="string">'--image'</span>, <span class="string">'gcr.io/$PROJECT_ID/my-app'</span>]
+
+<span class="keyword">images</span>:
+- <span class="string">'gcr.io/$PROJECT_ID/my-app'</span>
+
+<span class="comment"># Trigger Cloud Build</span>
+gcloud builds submit --config=cloudbuild.yaml
+
+<span class="comment"># Artifact Registry - Container/Package Registry</span>
+gcloud artifacts repositories create my-repo \
+    --repository-format=docker \
+    --location=us-central1
+
+<span class="comment"># Push Docker image</span>
+docker tag my-app gcr.io/us-central1/my-repo/my-app:latest
+docker push us-central1-docker.pkg.dev/my-project/my-repo/my-app:latest
+
+<span class="comment"># Cloud Deploy - Continuous Delivery</span>
+<span class="comment"># Progressive delivery with Cloud Run, GKE, Anthos</span>
+
+<span class="comment"># Container Registry (legacy, use Artifact Registry)</span>
+gcloud auth configure-docker gcr.io
+
+<span class="comment"># GitHub Actions integration</span>
+<span class="comment"># Use google-github-actions</span>
+<span class="comment"># google-github-actions/auth</span>
+<span class="comment"># google-github-actions/deploy-cloudrun</span>
+
+<span class="comment"># Other DevOps Tools</span>
+Cloud Build Triggers  <span class="comment"># Auto-trigger on Git push</span>
+Workflows            <span class="comment"># Serverless orchestration</span>
+Scheduler            <span class="comment"># Cron jobs</span>
+Secret Manager       <span class="comment"># Secret storage</span>
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 14: IAM -->
+      <section class="topic-section" id="iam">
+        <h2> IAM & Security <span class="level-badge basic">Basic</span> </h2>
+        <p>GCP IAM controls access with roles (basic, predefined, custom) and policies.</p>
+
+        <div class="code-block">
+<code><span class="comment"># IAM Roles and Policies</span>
+
+<span class="comment"># Role Types</span>
+Basic Roles      <span class="comment"># Owner, Editor, Viewer (broad)</span>
+Predefined Roles <span class="comment"># Fine-grained (e.g., storage.objectViewer)</span>
+Custom Roles     <span class="comment"># Your own combination</span>
+
+<span class="comment"># Grant role to user</span>
+gcloud projects add-iam-policy-binding my-project \
+    --member="user:alice@example.com" \
+    --role="roles/editor"
+
+<span class="comment"># Service Accounts</span>
+gcloud iam service-accounts create my-sa \
+    --display-name="My Service Account"
+
+<span class="comment"># Grant role to service account</span>
+gcloud projects add-iam-policy-binding my-project \
+    --member="serviceAccount:my-sa@my-project.iam.gserviceaccount.com" \
+    --role="roles/storage.objectAdmin"
+
+<span class="comment"># Create key for service account</span>
+gcloud iam service-accounts keys create key.json \
+    --iam-account=my-sa@my-project.iam.gserviceaccount.com
+
+<span class="comment"># Workload Identity (for GKE)</span>
+<span class="comment"># Kubernetes SA → GCP SA mapping</span>
+<span class="comment"># No keys needed</span>
+
+<span class="comment"># Organization Policies</span>
+<span class="comment"># Constraints at org/folder/project level</span>
+gcloud org-policies set-policy policy.yaml
+
+<span class="comment"># Security Services</span>
+Security Command Center <span class="comment"># Security posture</span>
+Cloud Armor             <span class="comment"># WAF/DDoS</span>
+VPC Service Controls    <span class="comment"># Perimeter security</span>
+Web Risk API            <span class="comment"># Malware/phishing detection</span>
+Binary Authorization   <span class="comment"># Deploy-time security</span>
+Secret Manager         <span class="comment"># Secret storage/rotation</span>
+
+<span class="comment"># Organization Hierarchy</span>
+<span class="comment"># Organization → Folders → Projects → Resources</span>
+gcloud organizations list
+gcloud resource-manager folders list
+        </code>
+        </div>
+
+        <div class="flowchart">
+          <h3>IAM Best Practices</h3>
+          <div class="flow-row">
+            <span class="flow-node">Principle of Least Privilege</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Use Predefined Roles</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Use Service Accounts</span>
+          </div>
+          <div class="flow-row" style="margin-top: 0.5rem;">
+            <span class="flow-node">Avoid User-Managed Keys</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Use Workload Identity</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Enable Audit Logging</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 15: Monitoring -->
+      <section class="topic-section" id="monitoring">
+        <h2> Monitoring & Observability <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>Cloud Operations Suite (formerly Stackdriver) provides monitoring, logging, tracing, and debugging.</p>
+
+        <div class="code-block">
+<code><span class="comment"># Cloud Monitoring - Metrics and Alerts</span>
+
+<span class="comment"># List monitored resources</span>
+gcloud monitoring metrics list
+
+<span class="comment"># Create alert policy</span>
+gcloud alpha monitoring policies create \
+    --notification-channels="projects/my-project/notificationChannels/123" \
+    --display-name="High CPU Alert" \
+    --condition-display-name="CPU > 80%" \
+    --condition-filter='resource.type="gce_instance" AND metric.type="compute.googleapis.com/instance/cpu/utilization"' \
+    --condition-threshold-value=0.8
+
+<span class="comment"># Cloud Logging - Centralized Logs</span>
+
+<span class="comment"># Read logs</span>
+gcloud logging read "resource.type=gce_instance" \
+    --limit=50 \
+    --format="table(timestamp,resource.labels.instance_id,textPayload)"
+
+<span class="comment"># Log-based metrics</span>
+gcloud logging metrics create error-count \
+    --log-filter='severity=ERROR' \
+    --description="Count of ERROR logs"
+
+<span class="comment"># Query with Log Analytics (SQL)</span>
+<span class="comment"># SELECT * FROM `my-project.my_dataset.cloud_logging` LIMIT 1000</span>
+
+<span class="comment"># Cloud Trace - Distributed Tracing</span>
+<span class="comment"># Latency analysis across services</span>
+<span class="keyword">from</span> opentelemetry <span class="keyword">import</span> trace
+<span class="keyword">from</span> opentelemetry.sdk.trace <span class="keyword">import</span> TracerProvider
+<span class="keyword">from</span> opentelemetry.exporter.cloud_trace <span class="keyword">import</span> CloudTraceSpanExporter
+
+trace.<span class="function">set_tracer_provider</span>(TracerProvider())
+
+<span class="comment"># Cloud Debugger (deprecated)</span>
+<span class="comment"># Use Cloud Trace + Logging instead</span>
+
+<span class="comment"># Error Reporting</span>
+<span class="comment"># Automatic error grouping and alerting</span>
+
+<span class="comment"># Service Monitoring</span>
+<span class="comment"># SLO-based monitoring</span>
+<span class="comment"># Error budgets, burn rates</span>
+
+<span class="comment"># Python OpenTelemetry example</span>
+<span class="keyword">from</span> opentelemetry <span class="keyword">import</span> trace
+<span class="keyword">from</span> opentelemetry.sdk.trace <span class="keyword">import</span> TracerProvider
+<span class="keyword">from</span> opentelemetry.sdk.trace.export <span class="keyword">import</span> BatchSpanProcessor
+<span class="keyword">from</span> opentelemetry.exporter.otlp.proto.grpc.trace_exporter <span class="keyword">import</span> OTLPSpanExporter
+
+provider = TracerProvider()
+processor = BatchSpanProcessor(OTLPSpanExporter())
+provider.<span class="function">add_span_processor</span>(processor)
+trace.<span class="function">set_tracer_provider</span>(provider)
+
+<span class="comment"># Dashboards</span>
+<span class="comment"># Create custom dashboards in Cloud Console</span>
+<span class="comment"># Import/export JSON</span>
+
+<span class="comment"># Other Operations Services</span>
+Service Monitoring   <span class="comment"># SLO management</span>
+Cloud Profiler       <span class="comment"># CPU/memory profiling</span>
+Cloud Debugger       <span class="comment"># Live debugging (deprecated)</span>
+        </code>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+<<<<<<< HEAD:source/cloud/cloud-gcp.html
+  <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+=======
+  <script src="../../assets/js/app.js"></script>
+>>>>>>> main:pages/cloud/cloud-gcp.html
+</body>
+</html>

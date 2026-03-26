@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Guide | AI Engineer Roadmap</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<<<<<<< HEAD:source/roadmaps/ai-engineer-roadmap.html
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../hub.css" />
+  <link rel="stylesheet" href="../sidebar.css" />
+  <link rel="stylesheet" href="../nav-section-pills.css" />
+=======
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../assets/css/styles.css" />
+  <link rel="stylesheet" href="../../assets/css/hub.css" />
+>>>>>>> main:pages/roadmaps/ai-engineer-roadmap.html
+  <style>
+    /* Roadmap specific styles */
+    .roadmap-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem 0;
+    }
+
+    .roadmap-phase {
+      position: relative;
+      margin-bottom: 3rem;
+    }
+
+    .phase-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .phase-number {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8b5cf6, #ec4899);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #fff;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+    }
+
+    body.dark .phase-number {
+      background: linear-gradient(135deg, #a78bfa, #f472b6);
+      box-shadow: 0 4px 12px rgba(167, 139, 250, 0.25);
+    }
+
+    .phase-title {
+      font-family: "Sora", sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .phase-description {
+      color: var(--text-secondary);
+      margin: 0.5rem 0 0 0;
+    }
+
+    .phase-connector {
+      position: absolute;
+      left: 24px;
+      top: 48px;
+      bottom: -3rem;
+      width: 2px;
+      background: linear-gradient(to bottom, rgba(139, 92, 246, 0.3), transparent);
+    }
+
+    body.dark .phase-connector {
+      background: linear-gradient(to bottom, rgba(167, 139, 250, 0.25), transparent);
+    }
+
+    .topic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-left: 60px;
+    }
+
+    .topic-card {
+      background: var(--bg-alt);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      transition: all var(--transition);
+    }
+
+    .topic-card:hover {
+      border-color: rgba(139, 92, 246, 0.3);
+      box-shadow: var(--shadow-md), inset 0 0 0 1px rgba(139, 92, 246, 0.1);
+      transform: translateY(-2px);
+    }
+
+    body.dark .topic-card:hover {
+      border-color: rgba(167, 139, 250, 0.35);
+      box-shadow: var(--shadow-md), inset 0 0 0 1px rgba(167, 139, 250, 0.15);
+    }
+
+    .topic-card h4 {
+      margin: 0 0 0.5rem 0;
+      font-size: 0.95rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .topic-card h4 a {
+      color: inherit;
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+
+    .topic-card h4 a:hover {
+      color: #8b5cf6;
+    }
+
+    body.dark .topic-card h4 a:hover {
+      color: #a78bfa;
+    }
+
+    .topic-card p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .topic-card ul {
+      margin: 0.5rem 0 0 0;
+      padding-left: 1.2rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .topic-card ul li {
+      margin-bottom: 0.25rem;
+    }
+
+    .skill-badge {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      background: var(--bg);
+      border: 1px solid var(--glass-border);
+      color: var(--muted);
+    }
+
+    .skill-badge.required {
+      background: rgba(139, 92, 246, 0.12);
+      border-color: rgba(139, 92, 246, 0.3);
+      color: #8b5cf6;
+    }
+
+    body.dark .skill-badge.required {
+      background: rgba(167, 139, 250, 0.15);
+      border-color: rgba(167, 139, 250, 0.3);
+      color: #a78bfa;
+    }
+
+    .skill-badge.optional {
+      background: var(--bg-alt);
+      border-color: var(--glass-border);
+      color: var(--text-secondary);
+    }
+
+    .skill-badge.nice-to-have {
+      background: rgba(236, 72, 153, 0.12);
+      border-color: rgba(236, 72, 153, 0.3);
+      color: #ec4899;
+    }
+
+    body.dark .skill-badge.nice-to-have {
+      background: rgba(244, 114, 182, 0.15);
+      border-color: rgba(244, 114, 182, 0.3);
+      color: #f472b6;
+    }
+
+    @media (max-width: 768px) {
+      .topic-grid {
+        margin-left: 0;
+      }
+
+      .phase-connector {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body class="with-sidebar">
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <header class="topbar glass reveal in">
+    <a class="brand" href="../../index.html">Data Guide</a>
+<<<<<<< HEAD:source/roadmaps/ai-engineer-roadmap.html
+    <button id="sidebarToggle" class="sidebar-toggle" type="button" aria-label="Toggle sidebar">
+      <span class="toggle-icon" aria-hidden="true">☰</span>
+    </button>
+=======
+>>>>>>> main:pages/roadmaps/ai-engineer-roadmap.html
+    <nav class="menu" aria-label="Main menu">
+      <a href="roadmap.html">Data Engineering</a>
+      <a href="python-roadmap.html">Python</a>
+      <a href="sql-roadmap.html">SQL</a>
+      <a href="spark-roadmap.html">Spark</a>
+      <a href="ml-engineer-roadmap.html">ML Engineer</a>
+      <a href="ai-engineer-roadmap.html" class="active" aria-current="page">AI Engineer</a>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+      <span class="toggle-icon" aria-hidden="true">☾</span>
+      <span class="toggle-text">Dark</span>
+    </button>
+  </header>
+
+  <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+  <main class="main-content">
+    <div class="page-wrap">
+      <section class="hero">
+        <p class="eyebrow">Your Learning Path</p>
+        <h1>AI Engineer Roadmap</h1>
+        <p class="hero-copy">Build intelligent applications with LLMs and AI. Master prompt engineering, RAG, agents,
+          and AI system design.</p>
+      </section>
+
+      <div class="roadmap-container">
+
+        <!-- Phase 1: AI Foundations -->
+        <div class="roadmap-phase">
+          <div class="phase-connector"></div>
+          <div class="phase-header">
+            <div class="phase-number">1</div>
+            <div>
+              <h2 id="ai-foundations" class="phase-title">AI Foundations</h2>
+              <p class="phase-description">Build the mathematical and programming base for AI</p>
+            </div>
+          </div>
+          <div class="topic-grid">
+            <div class="topic-card">
+              <h4>Machine Learning Fundamentals</h4>
+              <p>Core concepts that power all AI systems.</p>
+              <ul>
+                <li>Supervised vs unsupervised learning</li>
+                <li>Training, validation, test splits</li>
+                <li>Loss functions and optimization</li>
+                <li>Bias-variance tradeoff</li>
+                <li>Cross-validation</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4>Neural Network Basics</h4>
+              <p>Understanding deep learning foundations.</p>
+              <ul>
+                <li>Perceptrons and activation functions</li>
+                <li>Backpropagation</li>
+                <li>Gradient descent variants</li>
+                <li>Dropout and regularization</li>
+                <li>Batch normalization</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4>Python for AI</h4>
+              <p>Essential libraries for AI development.</p>
+              <ul>
+                <li>NumPy for numerical computing</li>
+                <li>PyTorch or TensorFlow</li>
+                <li>Hugging Face Transformers</li>
+                <li>Pandas for data manipulation</li>
+                <li>Jupyter notebooks</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4>Linear Algebra & Calculus</h4>
+              <p>The math behind machine learning.</p>
+              <ul>
+                <li>Vectors and matrices</li>
+                <li>Matrix multiplication</li>
+                <li>Eigenvalues and eigenvectors</li>
+                <li>Partial derivatives</li>
+                <li>Chain rule for gradients</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 2: Large Language Models -->
+        <div class="roadmap-phase">
+          <div class="phase-connector"></div>
+          <div class="phase-header">
+            <div class="phase-number">2</div>
+            <div>
+              <h2 id="large-language-models" class="phase-title">Large Language Models</h2>
+              <p class="phase-description">Understand and work with modern LLMs</p>
+            </div>
+          </div>
+          <div class="topic-grid">
+            <div class="topic-card">
+              <h4>Transformer Architecture</h4>
+              <p>The foundation of modern LLMs.</p>
+              <ul>
+                <li>Self-attention mechanism</li>
+                <li>Multi-head attention</li>
+                <li>Positional encoding</li>
+                <li>Encoder-decoder structure</li>
+                <li>GPT vs BERT architectures</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4>Tokenization & Embeddings</h4>
+              <p>How text becomes numbers for models.</p>
+              <ul>
+                <li>Byte-pair encoding (BPE)</li>
+                <li>WordPiece and SentencePiece</li>
+                <li>Word embeddings (Word2Vec, GloVe)</li>
+                <li>Contextual embeddings</li>
+                <li>Tokenizer APIs</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4>Pre-training & Fine-tuning</h4>
+              <p>Training models for specific tasks.</p>
+              <ul>
+                <li>Self-supervised learning</li>
+                <li>Masked language modeling</li>
+                <li>Causal language modeling</li>
+                <li>Transfer learning concepts</li>
+                <li>Domain adaptation</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4>LLM APIs</h4>
+              <p>Working with commercial LLM providers.</p>
+              <ul>
+                <li>OpenAI API (GPT-4, GPT-4o)</li>
+                <li>Anthropic Claude API</li>
+                <li>Google Gemini API</li>
+                <li>API rate limits and quotas</li>
+                <li>Streaming responses</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 3: Prompt Engineering -->
+        <div class="roadmap-phase">
+          <div class="phase-connector"></div>
+          <div class="phase-header">
+            <div class="phase-number">3</div>
+            <div>
+              <h2 id="prompt-engineering" class="phase-title">Prompt Engineering</h2>
+              <p class="phase-description">Master the art of communicating with LLMs</p>
+            </div>
+          </div>
+          <div class="topic-grid">
+            <div class="topic-card">
+              <h4>Prompt Design Patterns</h4>
+              <p>Proven techniques for effective prompts.</p>
+              <ul>
+                <li>Clear and specific instructions</li>
+                <li>Delimiters and structure</li>
+                <li>Step-by-step prompting</li>
+                <li>Role assignment</li>
+                <li>Output format specification</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4>Chain-of-Thought Reasoning</h4>
+              <p>Enable models to think step by step.</p>
+              <ul>
+                <li>Zero-shot CoT ("Let's think step by step")</li>
+                <li>Few-shot CoT examples</li>
+                <li>Self-consistency decoding</li>
+                <li>Tree-of-Thought</li>
+                <li>Verification prompts</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4>Few-Shot & Zero-Shot Learning</h4>
+              <p>Teach models through examples.</p>
+              <ul>
+                <li>Zero-shot prompting</li>
+                <li>Few-shot example selection</li>
+                <li>Example ordering strategies</li>
+                <li>Dynamic few-shot</li>
+                <li>Metalearning prompts</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4>System Prompts & Role-Playing</h4>
+              <p>Configure model behavior and persona.</p>
+              <ul>
+                <li>System message best practices</li>
+                <li>Persona and role definition</li>
+                <li>Constraint setting</li>
+                <li>Behavioral guardrails</li>
+                <li>Multi-turn conversation design</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4>Output Formatting & Parsing</h4>
+              <p>Get structured, parseable outputs.</p>
+              <ul>
+                <li>JSON mode and schemas</li>
+                <li>XML/Markdown formatting</li>
+                <li>Regex extraction patterns</li>
+                <li>Output validation</li>
+                <li>Function calling formats</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 4: Retrieval Augmented Generation (RAG) -->
+        <div class="roadmap-phase">
+          <div class="phase-connector"></div>
+          <div class="phase-header">
+            <div class="phase-number">4</div>
+            <div>
+              <h2 id="rag" class="phase-title">Retrieval Augmented Generation (RAG)</h2>
+              <p class="phase-description">Ground LLM responses in your data</p>
+            </div>
+          </div>
+          <div class="topic-grid">
+            <div class="topic-card">
+              <h4>Document Chunking Strategies</h4>
+              <p>Split documents for optimal retrieval.</p>
+              <ul>
+                <li>Fixed-size chunking</li>
+                <li>Semantic chunking</li>
+                <li>Recursive character splitting</li>
+                <li>Document structure-aware splitting</li>
+                <li>Overlap and chunk size tuning</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4>Embedding Models</h4>
+              <p>Convert text to searchable vectors.</p>
+              <ul>
+                <li>OpenAI text-embedding-3</li>
+                <li>Cohere embed models</li>
+                <li>Open-source (BGE, E5, GTE)</li>
+                <li>Embedding dimensions and costs</li>
+                <li>Domain-specific embeddings</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4>Vector Databases</h4>
+              <p>Store and search embeddings efficiently.</p>
+              <ul>
+                <li>Pinecone (managed)</li>
+                <li>Weaviate</li>
+                <li>Chroma (lightweight)</li>
+                <li>Qdrant</li>
+                <li>pgvector (PostgreSQL)</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4>Hybrid Search</h4>
+              <p>Combine semantic and keyword search.</p>
+              <ul>
+                <li>BM25 and TF-IDF</li>
+                <li>Semantic similarity search</li>
+                <li>Reciprocal Rank Fusion (RRF)</li>
+                <li>Weighted combination strategies</li>
+                <li>Metadata filtering</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4>Re-ranking & Relevance</h4>
+              <p>Improve retrieval quality.</p>
+              <ul>
+                <li>Cross-encoder re-rankers</li>
+                <li>Contextual compression</li>
+                <li>Maximum Marginal Relevance (MMR)</li>
+                <li>Query transformation</li>
+                <li>Retrieval evaluation metrics</li>
+              </ul>
+              <span class="skill-badge nice-to-have">Nice to Have</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 5: AI Agents -->
+        <div class="roadmap-phase">
+          <div class="phase-connector"></div>
+          <div class="phase-header">
+            <div class="phase-number">5</div>
+            <div>
+              <h2 id="ai-agents" class="phase-title">AI Agents</h2>
+              <p class="phase-description">Build autonomous systems that reason and act</p>
+            </div>
+          </div>
+          <div class="topic-grid">
+            <div class="topic-card">
+              <h4>Agent Architectures</h4>
+              <p>Patterns for building intelligent agents.</p>
+              <ul>
+                <li>ReAct (Reason + Act)</li>
+                <li>Plan-and-Execute</li>
+                <li>Reflexion (self-reflection)</li>
+                <li>LLM Compiler</li>
+                <li>Agent loops and control flow</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4>Tool Use & Function Calling</h4>
+              <p>Enable agents to interact with the world.</p>
+              <ul>
+                <li>OpenAI function calling</li>
+                <li>Tool schemas and definitions</li>
+                <li>Error handling and retries</li>
+                <li>Parallel tool execution</li>
+                <li>Tool result processing</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4>Multi-Agent Systems</h4>
+              <p>Coordinate multiple specialized agents.</p>
+              <ul>
+                <li>Agent communication patterns</li>
+                <li>Supervisor/worker topology</li>
+                <li>Debate and collaboration</li>
+                <li>Task delegation</li>
+                <li>Conflict resolution</li>
+              </ul>
+              <span class="skill-badge optional">Optional</span>
+            </div>
+            <div class="topic-card">
+              <h4>Memory & State Management</h4>
+              <p>Give agents persistent context.</p>
+              <ul>
+                <li>Short-term (conversation) memory</li>
+                <li>Long-term (vector) memory</li>
+                <li>Entity memory</li>
+                <li>State checkpoints</li>
+                <li>Memory consolidation</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4>Agent Frameworks</h4>
+              <p>Build agents faster with established tools.</p>
+              <ul>
+                <li>LangChain/LangGraph</li>
+                <li>LlamaIndex workflows</li>
+                <li>CrewAI</li>
+                <li>AutoGen (Microsoft)</li>
+                <li>Smolagents (Hugging Face)</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 6: AI System Design -->
+        <div class="roadmap-phase">
+          <div class="phase-connector"></div>
+          <div class="phase-header">
+            <div class="phase-number">6</div>
+            <div>
+              <h2 id="ai-system-design" class="phase-title">AI System Design</h2>
+              <p class="phase-description">Design scalable, production-ready AI systems</p>
+            </div>
+          </div>
+          <div class="topic-grid">
+            <div class="topic-card">
+              <h4>Model Selection & Evaluation</h4>
+              <p>Choose the right model for your use case.</p>
+              <ul>
+                <li>Capability vs cost tradeoffs</li>
+                <li>Benchmark interpretation</li>
+                <li>A/B testing models</li>
+                <li>Task-specific evaluation</li>
+                <li>Model comparison frameworks</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4>Cost Optimization</h4>
+              <p>Reduce LLM API costs without sacrificing quality.</p>
+              <ul>
+                <li>Response caching (semantic cache)</li>
+                <li>Model routing (small vs large)</li>
+                <li>Prompt compression</li>
+                <li>Batch processing</li>
+                <li>Token optimization</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4>Latency Optimization</h4>
+              <p>Build fast, responsive AI applications.</p>
+              <ul>
+                <li>Streaming responses</li>
+                <li>Async processing patterns</li>
+                <li>Pre-computation strategies</li>
+                <li>Edge deployment options</li>
+                <li>Progressive enhancement</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4>Context Window Management</h4>
+              <p>Work within model context limits.</p>
+              <ul>
+                <li>Context window sizes by model</li>
+                <li>Sliding window techniques</li>
+                <li>Context compression</li>
+                <li>Conversation history management</li>
+                <li>Long context strategies</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4>Rate Limiting & Retry Logic</h4>
+              <p>Handle API constraints gracefully.</p>
+              <ul>
+                <li>Exponential backoff</li>
+                <li>Request queuing</li>
+                <li>Rate limit headers</li>
+                <li>Circuit breaker patterns</li>
+                <li>Fallback strategies</li>
+              </ul>
+              <span class="skill-badge nice-to-have">Nice to Have</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 7: Fine-tuning & Custom Models -->
+        <div class="roadmap-phase">
+          <div class="phase-connector"></div>
+          <div class="phase-header">
+            <div class="phase-number">7</div>
+            <div>
+              <h2 id="fine-tuning-custom-models" class="phase-title">Fine-tuning & Custom Models</h2>
+              <p class="phase-description">Train models on your domain-specific data</p>
+            </div>
+          </div>
+          <div class="topic-grid">
+            <div class="topic-card">
+              <h4>Instruction Fine-tuning</h4>
+              <p>Adapt base models to follow instructions.</p>
+              <ul>
+                <li>Instruction dataset formatting</li>
+                <li>Training hyperparameters</li>
+                <li>OpenAI fine-tuning API</li>
+                <li>Open-source fine-tuning (Axolotl, Unsloth)</li>
+                <li>Evaluation after fine-tuning</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4>RLHF Basics</h4>
+              <p>Align models with human preferences.</p>
+              <ul>
+                <li>Reinforcement learning concepts</li>
+                <li> reward models</li>
+                <li>Proximal Policy Optimization (PPO)</li>
+                <li>Direct Preference Optimization (DPO)</li>
+                <li>Constitutional AI</li>
+              </ul>
+              <span class="skill-badge optional">Optional</span>
+            </div>
+            <div class="topic-card">
+              <h4>LoRA & PEFT</h4>
+              <p>Efficient fine-tuning techniques.</p>
+              <ul>
+                <li>LoRA (Low-Rank Adaptation)</li>
+                <li>QLoRA (quantized LoRA)</li>
+                <li>Prefix tuning</li>
+                <li>Adapter layers</li>
+                <li>Parameter-efficient methods comparison</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4>Model Distillation</h4>
+              <p>Create smaller models from larger ones.</p>
+              <ul>
+                <li>Knowledge distillation</li>
+                <li>Student-teacher training</li>
+                <li>Distillation vs fine-tuning</li>
+                <li>Self-distillation</li>
+                <li>Distillation for edge deployment</li>
+              </ul>
+              <span class="skill-badge nice-to-have">Nice to Have</span>
+            </div>
+            <div class="topic-card">
+              <h4>Evaluation Datasets</h4>
+              <p>Create and manage evaluation benchmarks.</p>
+              <ul>
+                <li>Dataset creation strategies</li>
+                <li>Human evaluation protocols</li>
+                <li>Automated evaluation (LLM-as-judge)</li>
+                <li>Test set contamination</li>
+                <li>Domain-specific benchmarks</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 8: Production AI -->
+        <div class="roadmap-phase">
+          <div class="phase-header">
+            <div class="phase-number">8</div>
+            <div>
+              <h2 id="production-ai" class="phase-title">Production AI</h2>
+              <p class="phase-description">Deploy, monitor, and maintain AI systems at scale</p>
+            </div>
+          </div>
+          <div class="topic-grid">
+            <div class="topic-card">
+              <h4>AI Observability & Monitoring</h4>
+              <p>Track and debug AI applications in production.</p>
+              <ul>
+                <li>LangSmith, Langfuse, Phoenix</li>
+                <li>Latency and cost monitoring</li>
+                <li>Quality drift detection</li>
+                <li>Trace and span logging</li>
+                <li>Alerting and dashboards</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4>Safety & Guardrails</h4>
+              <p>Prevent harmful or unintended outputs.</p>
+              <ul>
+                <li>Input validation and sanitization</li>
+                <li>Output filtering</li>
+                <li>Guardrails libraries (NeMo, Guardrails AI)</li>
+                <li>Jailbreak detection</li>
+                <li>Prompt injection prevention</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4>Content Filtering</h4>
+              <p>Control what your AI generates.</p>
+              <ul>
+                <li>OpenAI moderation API</li>
+                <li>Custom content classifiers</li>
+                <li>PII detection and redaction</li>
+                <li>Toxicity scoring</li>
+                <li>Compliance requirements</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4>A/B Testing LLMs</h4>
+              <p>Systematically compare model performance.</p>
+              <ul>
+                <li>Experiment design</li>
+                <li>Traffic splitting</li>
+                <li>Statistical significance</li>
+                <li>Multi-armed bandits</li>
+                <li>Long-term impact metrics</li>
+              </ul>
+              <span class="skill-badge nice-to-have">Nice to Have</span>
+            </div>
+            <div class="topic-card">
+              <h4>Cost Tracking & Optimization</h4>
+              <p>Monitor and control AI spending.</p>
+              <ul>
+                <li>Token usage tracking</li>
+                <li>Cost attribution by feature</li>
+                <li>Budget alerts</li>
+                <li>ROI measurement</li>
+                <li>Cost optimization playbook</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick Reference Section -->
+      <section class="tracks">
+        <h2 id="quick-reference">Quick Reference</h2>
+        <div class="track-grid">
+          <a href="../python/index.html" class="track">
+            <h3>Python for AI</h3>
+            <p>Core Python and AI libraries</p>
+          </a>
+          <a href="https://platform.openai.com/docs" class="track" target="_blank" rel="noopener">
+            <h3>OpenAI Docs</h3>
+            <p>Official OpenAI API reference</p>
+          </a>
+          <a href="https://docs.anthropic.com" class="track" target="_blank" rel="noopener">
+            <h3>Anthropic Docs</h3>
+            <p>Claude API documentation</p>
+          </a>
+          <a href="https://python.langchain.com" class="track" target="_blank" rel="noopener">
+            <h3>LangChain</h3>
+            <p>LLM application framework</p>
+          </a>
+          <a href="https://docs.llamaindex.ai" class="track" target="_blank" rel="noopener">
+            <h3>LlamaIndex</h3>
+            <p>Data framework for LLM apps</p>
+          </a>
+          <a href="ml-engineer-roadmap.html" class="track">
+            <h3>ML Engineer</h3>
+            <p>Traditional ML roadmap</p>
+          </a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+<<<<<<< HEAD:source/roadmaps/ai-engineer-roadmap.html
+  <nav class="sidebar">
+    <div class="sidebar-logo">AI Engineer Roadmap</div>
+    <a href="#ai-foundations" class="nav-item">AI Foundations</a>
+    <a href="#large-language-models" class="nav-item">Large Language Models</a>
+    <a href="#prompt-engineering" class="nav-item">Prompt Engineering</a>
+    <a href="#rag" class="nav-item">Retrieval Augmented Generation (RAG)</a>
+    <a href="#ai-agents" class="nav-item">AI Agents</a>
+    <a href="#ai-system-design" class="nav-item">AI System Design</a>
+    <a href="#fine-tuning-custom-models" class="nav-item">Fine-tuning & Custom Models</a>
+    <a href="#production-ai" class="nav-item">Production AI</a>
+    <a href="#quick-reference" class="nav-item">Quick Reference</a>
+  </nav>
+
+  <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Sidebar toggle functionality
+    document.addEventListener('DOMContentLoaded', function () {
+      const sidebarToggle = document.getElementById('sidebarToggle');
+      const sidebar = document.querySelector('.sidebar');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+      const mainContent = document.querySelector('.main-content');
+
+      if (sidebarToggle && sidebar && sidebarOverlay && mainContent) {
+        sidebarToggle.addEventListener('click', function () {
+          sidebar.classList.toggle('active');
+          sidebarOverlay.classList.toggle('active');
+          mainContent.classList.toggle('sidebar-active');
+        });
+
+        sidebarOverlay.addEventListener('click', function () {
+          sidebar.classList.remove('active');
+          sidebarOverlay.classList.remove('active');
+          mainContent.classList.remove('sidebar-active');
+        });
+      }
+    });
+  </script>
+=======
+  <script src="../assets/js/app.js"></script>
+>>>>>>> main:pages/roadmaps/ai-engineer-roadmap.html
+</body>
+
+</html>

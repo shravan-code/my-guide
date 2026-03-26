@@ -10,8 +10,13 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
     rel="stylesheet" />
+<<<<<<< HEAD
   <link rel="stylesheet" href="source/styles.css" />
   <link rel="stylesheet" href="source/hub.css" />
+=======
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/hub.css" />
+>>>>>>> main
   <style>
     /* Spark-style overrides for main page */
     body {
@@ -786,6 +791,52 @@
         flex-direction: column;
         gap: 0.25rem;
       }
+<<<<<<< HEAD
+=======
+    }
+
+    /* Scroll to top button */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .scroll-to-top:hover {
+      background: var(--bg-alt);
+      border-color: var(--glow-border);
+      box-shadow: var(--shadow);
+      transform: translateY(-2px);
+    }
+
+    .scroll-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .scroll-to-top svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+>>>>>>> main
     }
   </style>
 </head>
@@ -806,17 +857,18 @@
         Data Guide
       </a>
       <nav class="menu" aria-label="Main menu">
-        <a href="source/cloud/index.html">Cloud</a>
-        <a href="source/data/index.html">Big Data</a>
-        <a href="source/python/index.html">Python</a>
+        <a href="pages/cloud/index.html">Cloud</a>
+        <a href="pages/data/index.html">Big Data</a>
+        <a href="pages/python/index.html">Python</a>
         <div class="menu-dropdown">
           <button class="menu-trigger">Libraries</button>
           <div class="dropdown-panel">
-            <a href="source/pandas/index.html"><strong>Pandas</strong><span>DataFrames and analysis</span></a>
-            <a href="source/numpy/index.html"><strong>NumPy</strong><span>Numerical computing</span></a>
-            <a href="source/spark/index.html"><strong>Spark</strong><span>Distributed processing</span></a>
+            <a href="pages/pandas/index.html"><strong>Pandas</strong><span>DataFrames and analysis</span></a>
+            <a href="pages/numpy/index.html"><strong>NumPy</strong><span>Numerical computing</span></a>
+            <a href="pages/spark/index.html"><strong>Spark</strong><span>Distributed processing</span></a>
           </div>
         </div>
+<<<<<<< HEAD
         <a href="source/sql/index.html">SQL</a>
         <a href="source/cheatsheets/cheatsheet.html">Cheatsheet</a>
         <a href="source/roadmaps/roadmap.html">Roadmap</a>
@@ -824,6 +876,15 @@
     </div>
     <div class="header-actions">
       <a href="source/portfolios/portfolio.html" class="portfolio-link">Portfolio</a>
+=======
+        <a href="pages/sql/index.html">SQL</a>
+        <a href="pages/cheatsheet.html">Cheatsheet</a>
+        <a href="pages/roadmaps/roadmap.html">Roadmap</a>
+      </nav>
+    </div>
+    <div class="header-actions">
+      <a href="pages/portfolio.html" class="portfolio-link">Portfolio</a>
+>>>>>>> main
       <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
         <span class="toggle-icon" aria-hidden="true">☾</span>
         <span class="toggle-text">Dark</span>
@@ -1108,15 +1169,37 @@
       item.addEventListener('mouseenter', () => updatePanel(idx));
     });
   </script>
+<<<<<<< HEAD
   <script src="source/app.js"></script>
 
   <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
       stroke-linejoin="round">
+=======
+  <script src="assets/js/app.js"></script>
+  <script>
+    // Debug theme toggle
+    const debugBtn = document.getElementById('theme-toggle');
+    if (debugBtn) {
+      console.log('Debug: theme toggle button exists');
+      debugBtn.addEventListener('click', () => {
+        console.log('Debug: theme toggle clicked');
+        // After a short delay, check if body has dark class
+        setTimeout(() => {
+          console.log('Body dark class:', document.body.classList.contains('dark'));
+        }, 100);
+      });
+    }
+  </script>
+
+  <button class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24">
+>>>>>>> main
       <path d="M12 19V5M5 12l7-7 7 7" />
     </svg>
   </button>
   <script>
+<<<<<<< HEAD
     // Scroll to top functionality
     const scrollToTopBtn = document.getElementById('scrollToTop');
 
@@ -1125,6 +1208,16 @@
         scrollToTopBtn.classList.add('visible');
       } else {
         scrollToTopBtn.classList.remove('visible');
+=======
+    // Scroll to top button functionality
+    const scrollToTopBtn = document.querySelector('.scroll-to-top');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        scrollToTopBtn.classList.add('show');
+      } else {
+        scrollToTopBtn.classList.remove('show');
+>>>>>>> main
       }
     });
 

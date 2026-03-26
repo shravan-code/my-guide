@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Guide | Pandas Methods</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../../assets/css/styles.css" />
+  <link rel="stylesheet" href="../python/python.css" />
+</head>
+
+<body class="with-sidebar">
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <header class="topbar glass reveal in">
+    <a class="brand" href="../../index.html">Data Guide</a>
+    <button id="sidebar-toggle" class="sidebar-toggle" type="button" aria-label="Toggle sidebar">
+      <span class="hamburger" aria-hidden="true"></span>
+    </button>
+    <nav class="menu" aria-label="Pandas menu">
+      <a href="../../index.html">Hub</a>
+      <a href="pandas-series.html">Series</a>
+      <a href="pandas-dataframes.html">DataFrames</a>
+      <a href="methods.html" class="active" aria-current="page">Methods</a>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+      <span class="toggle-icon" aria-hidden="true">☾</span>
+      <span class="toggle-text">Dark</span>
+    </button>
+  </header>
+
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <main class="main-content">
+    <nav class="sidebar" id="sidebar">
+      <div class="logo">
+        <span class="logo-text">Pandas Methods</span>
+      </div>
+
+      <div class="nav-title">Series Methods</div>
+      <a href="#series-creation" class="nav-item active"><span>1</span> Creation</a>
+      <a href="#series-access" class="nav-item"><span>2</span> Access & Indexing</a>
+      <a href="#series-aggregation" class="nav-item"><span>3</span> Aggregation</a>
+      <a href="#series-transformation" class="nav-item"><span>4</span> Transformation</a>
+      <a href="#series-sorting" class="nav-item"><span>5</span> Sorting</a>
+      <a href="#series-missing" class="nav-item"><span>6</span> Missing Data</a>
+      <a href="#series-string" class="nav-item"><span>7</span> String Methods</a>
+      <a href="#series-datetime" class="nav-item"><span>8</span> DateTime Methods</a>
+
+      <div class="nav-title">DataFrame Methods</div>
+      <a href="#df-creation" class="nav-item"><span>9</span> Creation & I/O</a>
+      <a href="#df-inspection" class="nav-item"><span>10</span> Inspection</a>
+      <a href="#df-selection" class="nav-item"><span>11</span> Selection</a>
+      <a href="#df-modification" class="nav-item"><span>12</span> Modification</a>
+      <a href="#df-groupby" class="nav-item"><span>13</span> GroupBy</a>
+      <a href="#df-merging" class="nav-item"><span>14</span> Merge & Join</a>
+      <a href="#df-reshaping" class="nav-item"><span>15</span> Reshaping</a>
+      <a href="#df-apply" class="nav-item"><span>16</span> Apply & Transform</a>
+      <a href="#df-window" class="nav-item"><span>17</span> Window Functions</a>
+    </nav>
+
+    <div class="page-wrap">
+      <section class="hero">
+        <h1>Pandas Methods</h1>
+      </section>
+
+      <!-- Section 1: Series Creation -->
+      <section class="topic-section" id="series-creation">
+        <h2> Series Creation Methods <span class="level-badge basic">Basic</span> </h2>
+        <p>Methods for creating Series objects from various data sources.</p>
+
+        <div class="code-block">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="comment"># pd.Series() - Create from various sources</span>
+s1 = pd.<span class="function">Series</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])                          <span class="comment"># From list</span>
+s2 = pd.<span class="function">Series</span>({<span class="string">'a'</span>: <span class="number">1</span>, <span class="string">'b'</span>: <span class="number">2</span>})                      <span class="comment"># From dict</span>
+s3 = pd.<span class="function">Series</span>(np.<span class="function">array</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]))                  <span class="comment"># From NumPy array</span>
+s4 = pd.<span class="function">Series</span>(<span class="number">5</span>, index=[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>])              <span class="comment"># From scalar</span>
+s5 = pd.<span class="function">Series</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], dtype=<span class="string">'float64'</span>)           <span class="comment"># With dtype</span>
+s6 = pd.<span class="function">Series</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], name=<span class="string">'my_series'</span>)           <span class="comment"># With name</span>
+
+<span class="comment"># pd.date_range() - Create datetime index</span>
+dates = pd.<span class="function">date_range</span>(<span class="string">'2024-01-01'</span>, periods=<span class="number">10</span>, freq=<span class="string">'D'</span>)
+ts = pd.<span class="function">Series</span>(np.<span class="function">random</span>.randn(<span class="number">10</span>), index=dates)
+
+<span class="comment"># pd.bdate_range() - Business day range</span>
+business_dates = pd.<span class="function">bdate_range</span>(<span class="string">'2024-01-01'</span>, periods=<span class="number">10</span>)</code>
+        </div>
+
+        <div class="tip-box">
+          <p><strong>Tip:</strong> Use <code>dtype</code> parameter to specify data type and save memory. For example, <code>dtype='int32'</code> uses less memory than <code>int64</code>.</p>
+        </div>
+      </section>
+
+      <!-- Section 2: Series Access -->
+      <section class="topic-section" id="series-access">
+        <h2> Series Access & Indexing Methods <span class="level-badge basic">Basic</span> </h2>
+        <p>Methods to access and index Series elements.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Index Access</h4>
+            <div class="code-block">
+<code>s = pd.<span class="function">Series</span>([<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>],
+             index=[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>])
+
+<span class="comment"># .loc[] - Label-based</span>
+s.<span class="function">loc</span>[<span class="string">'a'</span>]         <span class="comment"># 10</span>
+s.<span class="function">loc</span>[[<span class="string">'a'</span>, <span class="string">'c'</span>]]    <span class="comment"># Series with a, c</span>
+s.<span class="function">loc</span>[<span class="string">'a'</span>:<span class="string">'c'</span>]      <span class="comment"># Slice by label</span>
+
+<span class="comment"># .iloc[] - Integer position</span>
+s.<span class="function">iloc</span>[<span class="number">0</span>]          <span class="comment"># 10</span>
+s.<span class="function">iloc</span>[[<span class="number">0</span>, <span class="number">2</span>]]     <span class="comment"># Series at positions 0, 2</span>
+s.<span class="function">iloc</span>[<span class="number">1</span>:<span class="number">3</span>]        <span class="comment"># Slice by position</span>
+            </code>
+            </div>
+          </div>
+          <div class="split-item">
+            <h4>Query Methods</h4>
+            <div class="code-block">
+<code><span class="comment"># .get() - Safe access with default</span>
+s.<span class="function">get</span>(<span class="string">'a'</span>)         <span class="comment"># 10</span>
+s.<span class="function">get</span>(<span class="string">'z'</span>, <span class="number">0</span>)     <span class="comment"># 0 (default)</span>
+
+<span class="comment"># .at[] / .iat[] - Fast scalar access</span>
+s.<span class="function">at</span>[<span class="string">'a'</span>]          <span class="comment"># 10</span>
+s.<span class="function">iat</span>[<span class="number">0</span>]          <span class="comment"># 10</span>
+
+<span class="comment"># .head() / .tail()</span>
+s.<span class="function">head</span>(<span class="number">2</span>)          <span class="comment"># First 2 elements</span>
+s.<span class="function">tail</span>(<span class="number">2</span>)          <span class="comment"># Last 2 elements</span>
+
+<span class="comment"># .idxmin() / .idxmax() - Index of min/max</span>
+s.<span class="function">idxmin</span>()        <span class="comment"># 'a' (index of minimum)</span>
+s.<span class="function">idxmax</span>()        <span class="comment"># 'd' (index of maximum)</span>
+            </code>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Series Aggregation -->
+      <section class="topic-section" id="series-aggregation">
+        <h2> Series Aggregation Methods <span class="level-badge basic">Basic</span> </h2>
+        <p>Methods that reduce Series to scalar values.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Basic Statistics</h4>
+            <div class="code-block">
+<code>s = pd.<span class="function">Series</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])
+
+s.<span class="function">sum</span>()      <span class="comment"># 15</span>
+s.<span class="function">prod</span>()     <span class="comment"># 120</span>
+s.<span class="function">mean</span>()     <span class="comment"># 3.0</span>
+s.<span class="function">median</span>()   <span class="comment"># 3.0</span>
+s.<span class="function">mode</span>()     <span class="comment"># Series with mode value</span>
+s.<span class="function">std</span>()      <span class="comment"># 1.581</span>
+s.<span class="function">var</span>()      <span class="comment"># 2.5</span>
+s.<span class="function">sem</span>()      <span class="comment"># Standard error of mean</span>
+            </code>
+            </div>
+          </div>
+          <div class="split-item">
+            <h4>Min/Max & Range</h4>
+            <div class="code-block">
+<code><span class="comment"># Basic min/max</span>
+s.<span class="function">min</span>()      <span class="comment"># 1</span>
+s.<span class="function">max</span>()      <span class="comment"># 5</span>
+s.<span class="function">argmin</span>()   <span class="comment"># 0 (position of min)</span>
+s.<span class="function">argmax</span>()   <span class="comment"># 4 (position of max)</span>
+
+<span class="comment"># Quantiles</span>
+s.<span class="function">quantile</span>(<span class="number">0.25</span>)   <span class="comment"># 25th percentile</span>
+s.<span class="function">quantile</span>(<span class="number">0.5</span>)    <span class="comment"># Median</span>
+s.<span class="function">quantile</span>([<span class="number">0.25</span>, <span class="number">0.75</span>]) <span class="comment"># Multiple quantiles</span>
+
+<span class="comment"># Other aggregations</span>
+s.<span class="function">ptp</span>()      <span class="comment"># Peak to peak (max - min)</span>
+s.<span class="function">skew</span>()     <span class="comment"># Skewness</span>
+s.<span class="function">kurt</span>()     <span class="comment"># Kurtosis</span>
+            </code>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-block">
+<code><span class="comment"># .describe() - Comprehensive summary</span>
+s.<span class="function">describe</span>()
+<span class="comment"># count     5.000000</span>
+<span class="comment"># mean      3.000000</span>
+<span class="comment"># std       1.581139</span>
+<span class="comment"># min       1.000000</span>
+<span class="comment"># 25%       2.000000</span>
+<span class="comment"># 50%       3.000000</span>
+<span class="comment"># 75%       4.000000</span>
+<span class="comment"># max       5.000000</span>
+
+<span class="comment"># .nunique() - Count unique values</span>
+s.<span class="function">nunique</span>()    <span class="comment"># 5</span>
+
+<span class="comment"># .count() - Non-null count</span>
+s.<span class="function">count</span>()      <span class="comment"># 5</span></code>
+        </div>
+      </section>
+
+      <!-- Section 4: Series Transformation -->
+      <section class="topic-section" id="series-transformation">
+        <h2> Series Transformation Methods <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>Methods that transform Series data.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Apply & Map</h4>
+            <div class="code-block">
+<code>s = pd.<span class="function">Series</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])
+
+<span class="comment"># .apply() - Apply function</span>
+s.<span class="function">apply</span>(<span class="keyword">lambda</span> x: x ** <span class="number">2</span>)
+s.<span class="function">apply</span>(np.sqrt)
+s.<span class="function">apply</span>({<span class="number">1</span>: <span class="string">'low'</span>, <span class="number">2</span>: <span class="string">'medium'</span>, <span class="number">3</span>: <span class="string">'high'</span>}.get)
+
+<span class="comment"># .map() - Element-wise mapping</span>
+s.<span class="function">map</span>(<span class="keyword">lambda</span> x: x * <span class="number">2</span>)
+s.<span class="function">map</span>({<span class="number">1</span>: <span class="string">'a'</span>, <span class="number">2</span>: <span class="string">'b'</span>, <span class="number">3</span>: <span class="string">'c'</span>})
+
+<span class="comment"># .applymap() - Not available (use apply)</span>
+            </code>
+            </div>
+          </div>
+          <div class="split-item">
+            <h4>Arithmetic & Math</h4>
+            <div class="code-block">
+<code><span class="comment"># Arithmetic operations</span>
+s.<span class="function">add</span>(<span class="number">10</span>)         <span class="comment"># s + 10</span>
+s.<span class="function">sub</span>(<span class="number">2</span>)          <span class="comment"># s - 2</span>
+s.<span class="function">mul</span>(<span class="number">3</span>)          <span class="comment"># s * 3</span>
+s.<span class="function">div</span>(<span class="number">2</span>)          <span class="comment"># s / 2</span>
+s.<span class="function">floordiv</span>(<span class="number">2</span>)    <span class="comment"># s // 2</span>
+s.<span class="function">mod</span>(<span class="number">3</span>)          <span class="comment"># s % 3</span>
+s.<span class="function">pow</span>(<span class="number">2</span>)          <span class="comment"># s ** 2</span>
+
+<span class="comment"># Statistical</span>
+s.<span class="function">clip</span>(<span class="number">2</span>, <span class="number">4</span>)      <span class="comment"># Clamp values to [2, 4]</span>
+s.<span class="function">round</span>(<span class="number">2</span>)        <span class="comment"># Round to 2 decimals</span>
+s.<span class="function">abs</span>()           <span class="comment"># Absolute values</span>
+            </code>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-block">
+<code><span class="comment"># .pct_change() - Percentage change</span>
+s = pd.<span class="function">Series</span>([<span class="number">100</span>, <span class="number">110</span>, <span class="number">105</span>, <span class="number">120</span>])
+s.<span class="function">pct_change</span>()      <span class="comment"># [NaN, 0.10, -0.045, 0.143]</span>
+s.<span class="function">pct_change</span>(<span class="number">2</span>)     <span class="comment"># 2-period change</span>
+
+<span class="comment"># .diff() - Difference</span>
+s.<span class="function">diff</span>()            <span class="comment"># [NaN, 10, -5, 15]</span>
+s.<span class="function">diff</span>(<span class="number">2</span>)           <span class="comment"># 2-period difference</span>
+
+<span class="comment"># .shift() - Shift values</span>
+s.<span class="function">shift</span>(<span class="number">1</span>)          <span class="comment"># [NaN, 100, 110, 105]</span>
+s.<span class="function">shift</span>(-<span class="number">1</span>)         <span class="comment"># [110, 105, 120, NaN]</span>
+
+<span class="comment"># .rank() - Rank values</span>
+s.<span class="function">rank</span>()            <span class="comment"># Default ranking</span>
+s.<span class="function">rank</span>(method=<span class="string">'dense'</span>)   <span class="comment"># Dense ranking</span>
+s.<span class="function">rank</span>(ascending=<span class="keyword">False</span>) <span class="comment"># Descending rank</span>
+
+<span class="comment"># .cumsum(), .cumprod(), .cummax(), .cummin()</span>
+s.<span class="function">cumsum</span>()          <span class="comment"># Cumulative sum</span>
+s.<span class="function">cumprod</span>()         <span class="comment"># Cumulative product</span>
+s.<span class="function">cummax</span>()          <span class="comment"># Cumulative maximum</span>
+s.<span class="function">cummin</span>()          <span class="comment"># Cumulative minimum</span></code>
+        </div>
+      </section>
+
+      <!-- Section 5: Series Sorting -->
+      <section class="topic-section" id="series-sorting">
+        <h2> Series Sorting Methods <span class="level-badge basic">Basic</span> </h2>
+        <p>Methods to sort Series by values or index.</p>
+
+        <div class="code-block">
+<code>s = pd.<span class="function">Series</span>([<span class="number">3</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">5</span>], index=[<span class="string">'c'</span>, <span class="string">'a'</span>, <span class="string">'d'</span>, <span class="string">'b'</span>, <span class="string">'e'</span>])
+
+<span class="comment"># .sort_values() - Sort by values</span>
+s.<span class="function">sort_values</span>()                 <span class="comment"># Ascending (default)</span>
+s.<span class="function">sort_values</span>(ascending=<span class="keyword">False</span>)   <span class="comment"># Descending</span>
+s.<span class="function">sort_values</span>(na_position=<span class="string">'last'</span>)  <span class="comment"># NaN position</span>
+
+<span class="comment"># .sort_index() - Sort by index</span>
+s.<span class="function">sort_index</span>()                   <span class="comment"># Sort by index ascending</span>
+s.<span class="function">sort_index</span>(ascending=<span class="keyword">False</span>)     <span class="comment"># Sort by index descending</span>
+
+<span class="comment"># .nlargest() / .nsmallest() - Top/bottom values</span>
+s.<span class="function">nlargest</span>(<span class="number">3</span>)        <span class="comment"># 3 largest values</span>
+s.<span class="function">nsmallest</span>(<span class="number">2</span>)       <span class="comment"># 2 smallest values</span>
+
+<span class="comment"># .value_counts() - Count unique values</span>
+s.<span class="function">value_counts</span>()              <span class="comment"># Value counts ascending</span>
+s.<span class="function">value_counts</span>(normalize=<span class="keyword">True</span>)  <span class="comment"># Proportions</span>
+s.<span class="function">value_counts</span>(sort=<span class="keyword">False</span>)     <span class="comment"># Don't sort by count</span></code>
+        </div>
+      </section>
+
+      <!-- Section 6: Series Missing Data -->
+      <section class="topic-section" id="series-missing">
+        <h2> Series Missing Data Methods <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>Methods to detect, handle, and fill missing values.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Detection</h4>
+            <div class="code-block">
+<code>s = pd.<span class="function">Series</span>([<span class="number">1</span>, <span class="number">2</span>, np.nan, <span class="number">4</span>, np.nan])
+
+<span class="comment"># Detection methods</span>
+s.<span class="function">isna</span>()       <span class="comment"># Boolean: [F, F, T, F, T]</span>
+s.<span class="function">isnull</span>()     <span class="comment"># Same as isna()</span>
+s.<span class="function">notna</span>()      <span class="comment"># Boolean: [T, T, F, T, F]</span>
+s.<span class="function">notnull</span>()    <span class="comment"># Same as notna()</span>
+s.<span class="function">hasnans</span>()    <span class="comment"># True if any NaN</span>
+s.<span class="function">count</span>()      <span class="comment"># 3 (non-null count)</span>
+            </code>
+            </div>
+          </div>
+          <div class="split-item">
+            <h4>Removal</h4>
+            <div class="code-block">
+<code><span class="comment"># .dropna() - Remove missing values</span>
+s.<span class="function">dropna</span>()           <span class="comment"># Remove NaN entries</span>
+s.<span class="function">dropna</span>(how=<span class="string">'all'</span>)   <span class="comment"># Only drop if all NaN</span>
+
+<span class="comment"># .replace() - Replace values</span>
+s.<span class="function">replace</span>(np.nan, <span class="number">0</span>)    <span class="comment"># Replace NaN with 0</span>
+s.<span class="function">replace</span>({np.nan: <span class="number">0</span>})  <span class="comment"># Dict replacement</span>
+s.<span class="function">replace</span>([<span class="number">1</span>, <span class="number">2</span>], <span class="number">99</span>)  <span class="comment"># Replace multiple</span>
+            </code>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-block">
+<code><span class="comment"># .fillna() - Fill missing values</span>
+s.<span class="function">fillna</span>(<span class="number">0</span>)                           <span class="comment"># Fill with 0</span>
+s.<span class="function">fillna</span>(s.<span class="function">mean</span>())                    <span class="comment"># Fill with mean</span>
+s.<span class="function">fillna</span>(s.<span class="function">median</span>())                  <span class="comment"># Fill with median</span>
+s.<span class="function">fillna</span>(method=<span class="string">'ffill'</span>)              <span class="comment"># Forward fill</span>
+s.<span class="function">fillna</span>(method=<span class="string">'bfill'</span>)              <span class="comment"># Backward fill</span>
+s.<span class="function">ffill</span>()                              <span class="comment"># Forward fill (shorthand)</span>
+s.<span class="function">bfill</span>()                              <span class="comment"># Backward fill (shorthand)</span>
+
+<span class="comment"># .interpolate() - Fill with interpolation</span>
+s.<span class="function">interpolate</span>()                        <span class="comment"># Linear (default)</span>
+s.<span class="function">interpolate</span>(method=<span class="string">'spline'</span>)        <span class="comment"># Spline interpolation</span>
+s.<span class="function">interpolate</span>(method=<span class="string">'time'</span>)          <span class="comment"># Time-weighted</span>
+s.<span class="function">interpolate</span>(limit=<span class="number">2</span>)               <span class="comment"># Limit fill length</span>
+s.<span class="function">interpolate</span>(limit_direction=<span class="string">'both'</span>) <span class="comment"># Fill both directions</span></code>
+        </div>
+      </section>
+
+      <!-- Section 7: Series String Methods -->
+      <section class="topic-section" id="series-string">
+        <h2> Series String Methods <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>Access string methods via the <code>.str</code> accessor for Series with string data.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Case & Whitespace</h4>
+            <div class="code-block">
+<code>s = pd.<span class="function">Series</span>([<span class="string">'Hello'</span>, <span class="string">'WORLD'</span>, <span class="string">'  test  '</span>])
+
+s.str.<span class="function">lower</span>()        <span class="comment"># ['hello', 'world', '  test  ']</span>
+s.str.<span class="function">upper</span>()        <span class="comment"># ['HELLO', 'WORLD', '  TEST  ']</span>
+s.str.<span class="function">title</span>()        <span class="comment"># ['Hello', 'World', '  Test  ']</span>
+s.str.<span class="function">capitalize</span>()   <span class="comment"># ['Hello', 'World', '  test  ']</span>
+s.str.<span class="function">swapcase</span>()     <span class="comment"># ['hELLO', 'world', '  TEST  ']</span>
+s.str.<span class="function">strip</span>()        <span class="comment"># ['Hello', 'WORLD', 'test']</span>
+s.str.<span class="function">lstrip</span>()       <span class="comment"># Left strip</span>
+s.str.<span class="function">rstrip</span>()       <span class="comment"># Right strip</span>
+            </code>
+            </div>
+          </div>
+          <div class="split-item">
+            <h4>Search & Find</h4>
+            <div class="code-block">
+<code>s = pd.<span class="function">Series</span>([<span class="string">'apple'</span>, <span class="string">'banana'</span>, <span class="string">'cherry'</span>])
+
+s.str.<span class="function">contains</span>(<span class="string">'a'</span>)      <span class="comment"># [True, True, False]</span>
+s.str.<span class="function">startswith</span>(<span class="string">'a'</span>)   <span class="comment"># [True, False, False]</span>
+s.str.<span class="function">endswith</span>(<span class="string">'e'</span>)     <span class="comment"># [True, False, True]</span>
+s.str.<span class="function">find</span>(<span class="string">'a'</span>)         <span class="comment"># [1, 1, -1]</span>
+s.str.<span class="function">count</span>(<span class="string">'a'</span>)        <span class="comment"># [1, 3, 0]</span>
+s.str.<span class="function">len</span>()             <span class="comment"># [5, 6, 6]</span>
+s.str.<span class="function">match</span>(<span class="string">r'^[a-c]'</span>) <span class="comment"># Regex match</span>
+            </code>
+            </div>
+          </div>
+        </div>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Transform</h4>
+            <div class="code-block">
+<code><span class="comment"># Replace</span>
+s.str.<span class="function">replace</span>(<span class="string">'a'</span>, <span class="string">'X'</span>)
+s.str.<span class="function">replace</span>(<span class="string">r'[aeiou]'</span>, <span class="string">'*'</span>, regex=<span class="keyword">True</span>)
+
+<span class="comment"># Split and join</span>
+s.str.<span class="function">split</span>(<span class="string">'a'</span>)           <span class="comment"># Split by 'a'</span>
+s.str.<span class="function">split</span>(expand=<span class="keyword">True</span>)    <span class="comment"># Expand to columns</span>
+s.str.<span class="function">join</span>(<span class="string">'-'</span>)             <span class="comment"># Join characters</span>
+
+<span class="comment"># Slice</span>
+s.str[<span class="number">0</span>]              <span class="comment"># First character</span>
+s.str[<span class="number">1</span>:<span class="number">3</span>]            <span class="comment"># Characters 1-3</span>
+            </code>
+            </div>
+          </div>
+          <div class="split-item">
+            <h4>Extract & Encode</h4>
+            <div class="code-block">
+<code><span class="comment"># Extract regex groups</span>
+s = pd.<span class="function">Series</span>([<span class="string">'John 25'</span>, <span class="string">'Jane 30'</span>])
+s.str.<span class="function">extract</span>(<span class="string">r'(\w+) (\d+)'</span>)
+<span class="comment"># Returns DataFrame with columns [0, 1]</span>
+
+<span class="comment"># Extract named groups</span>
+s.str.<span class="function">extract</span>(<span class="string">r'(?P<name>\w+) (?P<age>\d+)'</span>)
+
+<span class="comment"># Get dummies (one-hot encode)</span>
+pd.<span class="function">get_dummies</span>(s.str.<span class="function">split</span>(<span class="string">' '</span>).<span class="function">explode</span>())
+
+<span class="comment"># Encoding</span>
+s.str.<span class="function">encode</span>(<span class="string">'utf-8'</span>)   <span class="comment"># Encode to bytes</span>
+s.str.<span class="function">decode</span>(<span class="string">'utf-8'</span>)   <span class="comment"># Decode from bytes</span>
+            </code>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 8: Series DateTime Methods -->
+      <section class="topic-section" id="series-datetime">
+        <h2> Series DateTime Methods <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>Access datetime properties and methods via the <code>.dt</code> accessor.</p>
+
+        <div class="code-block">
+<code><span class="comment"># Create datetime Series</span>
+dates = pd.<span class="function">Series</span>(pd.<span class="function">date_range</span>(<span class="string">'2024-01-01'</span>, periods=<span class="number">5</span>, freq=<span class="string">'D'</span>))
+
+<span class="comment"># Date components</span>
+dates.dt.year          <span class="comment"># Year</span>
+dates.dt.month         <span class="comment"># Month (1-12)</span>
+dates.dt.day           <span class="comment"># Day of month</span>
+dates.dt.hour          <span class="comment"># Hour (0-23)</span>
+dates.dt.minute        <span class="comment"># Minute</span>
+dates.dt.second        <span class="comment"># Second</span>
+
+<span class="comment"># Day/Week info</span>
+dates.dt.dayofweek     <span class="comment"># Day of week (0=Monday)</span>
+dates.dt.day_name()    <span class="comment"># Day name strings</span>
+dates.dt.dayofyear     <span class="comment"># Day of year</span>
+dates.dt.weekofyear    <span class="comment"># Week of year</span>
+dates.dt.quarter        <span class="comment"># Quarter (1-4)</span>
+
+<span class="comment"># Boolean checks</span>
+dates.dt.is_month_start <span class="comment"># Start of month</span>
+dates.dt.is_month_end   <span class="comment"># End of month</span>
+dates.dt.is_quarter_start
+dates.dt.is_leap_year   <span class="comment"># Leap year check</span></code>
+        </div>
+
+        <div class="code-block">
+<code><span class="comment"># Date arithmetic and transformations</span>
+dates.dt.strftime(<span class="string">'%Y-%m-%d'</span>)     <span class="comment"># Format to string</span>
+dates.dt.to_period(<span class="string">'M'</span>)            <span class="comment"># Convert to period</span>
+dates.dt.to_pydatetime()            <span class="comment"># Convert to datetime</span>
+dates.dt.tz_localize(<span class="string">'UTC'</span>)        <span class="comment"># Add timezone</span>
+dates.dt.tz_convert(<span class="string">'US/Eastern'</span>)  <span class="comment"># Convert timezone</span>
+
+<span class="comment"># Timedelta operations</span>
+timedeltas = pd.<span class="function">Series</span>(pd.<span class="function">to_timedelta</span>([<span class="string">'1 days'</span>, <span class="string">'2 days'</span>]))
+timedeltas.dt.days     <span class="comment"># Days component</span>
+timedeltas.dt.seconds  <span class="comment"># Seconds component</span>
+timedeltas.dt.total_seconds()  <span class="comment"># Total seconds</span></code>
+        </div>
+      </section>
+
+      <!-- Section 9: DataFrame Creation & I/O -->
+      <section class="topic-section" id="df-creation">
+        <h2> DataFrame Creation & I/O Methods <span class="level-badge basic">Basic</span> </h2>
+        <p>Methods for creating DataFrames and reading/writing data.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Creation</h4>
+            <div class="code-block">
+<code><span class="comment"># pd.DataFrame() - Create DataFrame</span>
+df = pd.<span class="function">DataFrame</span>({<span class="string">'A'</span>: [<span class="number">1</span>,<span class="number">2</span>], <span class="string">'B'</span>: [<span class="number">3</span>,<span class="number">4</span>]})
+df = pd.<span class="function">DataFrame</span>(data, columns=[<span class="string">'A'</span>,<span class="string">'B'</span>])
+df = pd.<span class="function">DataFrame</span>(data, index=[<span class="string">'x'</span>,<span class="string">'y'</span>])
+
+<span class="comment"># From nested dict</span>
+df = pd.<span class="function">DataFrame</span>({
+    <span class="string">'name'</span>: [<span class="string">'Alice'</span>, <span class="string">'Bob'</span>],
+    <span class="string">'age'</span>: [<span class="number">25</span>, <span class="number">30</span>]
+})
+            </code>
+            </div>
+          </div>
+          <div class="split-item">
+            <h4>Read Methods</h4>
+            <div class="code-block">
+<code>pd.<span class="function">read_csv</span>(<span class="string">'file.csv'</span>)
+pd.<span class="function">read_excel</span>(<span class="string">'file.xlsx'</span>)
+pd.<span class="function">read_json</span>(<span class="string">'file.json'</span>)
+pd.<span class="function">read_parquet</span>(<span class="string">'file.parquet'</span>)
+pd.<span class="function">read_sql</span>(query, conn)
+pd.<span class="function">read_html</span>(url)
+pd.<span class="function">read_feather</span>(<span class="string">'file.feather'</span>)
+pd.<span class="function">read_hdf</span>(<span class="string">'file.h5'</span>)
+            </code>
+            </div>
+          </div>
+        </div>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Write Methods</h4>
+            <div class="code-block">
+<code>df.<span class="function">to_csv</span>(<span class="string">'output.csv'</span>)
+df.<span class="function">to_csv</span>(<span class="string">'output.csv'</span>, index=<span class="keyword">False</span>)
+df.<span class="function">to_excel</span>(<span class="string">'output.xlsx'</span>)
+df.<span class="function">to_json</span>(<span class="string">'output.json'</span>)
+df.<span class="function">to_parquet</span>(<span class="string">'output.parquet'</span>)
+df.<span class="function">to_sql</span>(<span class="string">'table'</span>, conn)
+df.<span class="function">to_feather</span>(<span class="string">'output.feather'</span>)
+df.<span class="function">to_clipboard</span>()
+            </code>
+            </div>
+          </div>
+          <div class="split-item">
+            <h4>Common Parameters</h4>
+            <div class="code-block">
+<code><span class="comment"># read_csv parameters</span>
+pd.<span class="function">read_csv</span>(<span class="string">'file.csv'</span>,
+    sep=<span class="string">','</span>,           <span class="comment"># Delimiter</span>
+    header=<span class="number">0</span>,          <span class="comment"># Header row</span>
+    index_col=<span class="number">0</span>,       <span class="comment"># Index column</span>
+    usecols=[<span class="string">'a'</span>,<span class="string">'b'</span>],   <span class="comment"># Select columns</span>
+    dtype={<span class="string">'a'</span>: <span class="string">'int32'</span>},<span class="comment"># Column dtypes</span>
+    na_values=[<span class="string">'NA'</span>],  <span class="comment"># NaN values</span>
+    parse_dates=[<span class="string">'date'</span>])
+            </code>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 10: DataFrame Inspection -->
+      <section class="topic-section" id="df-inspection">
+        <h2> DataFrame Inspection Methods <span class="level-badge basic">Basic</span> </h2>
+        <p>Methods to examine and understand your DataFrame structure.</p>
+
+        <div class="code-block">
+<code><span class="comment"># View data</span>
+df.<span class="function">head</span>(<span class="number">5</span>)             <span class="comment"># First 5 rows</span>
+df.<span class="function">tail</span>(<span class="number">5</span>)             <span class="comment"># Last 5 rows</span>
+df.<span class="function">sample</span>(<span class="number">5</span>)           <span class="comment"># Random 5 rows</span>
+
+<span class="comment"># Structure info</span>
+df.<span class="function">info</span>()              <span class="comment"># Column types, non-null counts</span>
+df.<span class="function">dtypes</span>              <span class="comment"># Column data types</span>
+df.<span class="function">shape</span>               <span class="comment"># (rows, columns)</span>
+df.<span class="function">columns</span>             <span class="comment"># Column names</span>
+df.<span class="function">index</span>               <span class="comment"># Index values</span>
+df.<span class="function">axes</span>                <span class="comment"># [index, columns]</span>
+
+<span class="comment"># Statistical summary</span>
+df.<span class="function">describe</span>()           <span class="comment"># Numeric columns summary</span>
+df.<span class="function">describe</span>(include=<span class="string">'all'</span>)  <span class="comment"># All columns</span>
+df.<span class="function">describe</span>(percentiles=[.<span class="number">1</span>, .<span class="number">5</span>, .<span class="number">9</span>])
+
+<span class="comment"># Value counts for columns</span>
+df[<span class="string">'category'</span>].<span class="function">value_counts</span>()
+df.<span class="function">value_counts</span>(subset=[<span class="string">'col1'</span>])</code>
+        </div>
+      </section>
+
+      <!-- Section 11: DataFrame Selection -->
+      <section class="topic-section" id="df-selection">
+        <h2> DataFrame Selection Methods <span class="level-badge basic">Basic</span> </h2>
+        <p>Methods to select and filter rows and columns.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Column Selection</h4>
+            <div class="code-block">
+<code><span class="comment"># Single column (returns Series)</span>
+df[<span class="string">'Name'</span>]
+df.Name  <span class="comment"># Only if valid identifier</span>
+
+<span class="comment"># Multiple columns (returns DataFrame)</span>
+df[[<span class="string">'Name'</span>, <span class="string">'Age'</span>]]
+
+<span class="comment"># .filter() - Select by pattern</span>
+df.<span class="function">filter</span>(items=[<span class="string">'A'</span>, <span class="string">'B'</span>])
+df.<span class="function">filter</span>(like=<span class="string">'name'</span>)
+df.<span class="function">filter</span>(regex=<span class="string">'^col'</span>)
+            </code>
+            </div>
+          </div>
+          <div class="split-item">
+            <h4>Row Selection</h4>
+            <div class="code-block">
+<code><span class="comment"># .loc[] - Label-based</span>
+df.<span class="function">loc</span>[<span class="number">0</span>]              <span class="comment"># Row 0</span>
+df.<span class="function">loc</span>[<span class="number">0</span>:<span class="number">5</span>]            <span class="comment"># Rows 0-5</span>
+df.<span class="function">loc</span>[:, <span class="string">'Name'</span>]     <span class="comment"># All rows, Name col</span>
+
+<span class="comment"># .iloc[] - Position-based</span>
+df.<span class="function">iloc</span>[<span class="number">0</span>]             <span class="comment"># First row</span>
+df.<span class="function">iloc</span>[<span class="number">0</span>:<span class="number">5</span>]           <span class="comment"># First 5 rows</span>
+df.<span class="function">iloc</span>[:, <span class="number">0</span>]         <span class="comment"># First column</span>
+
+<span class="comment"># .at[] / .iat[] - Single cell</span>
+df.<span class="function">at</span>[<span class="number">0</span>, <span class="string">'Name'</span>]     <span class="comment"># Row 0, Name column</span>
+df.<span class="function">iat</span>[<span class="number">0</span>, <span class="number">1</span>]          <span class="comment"># Row 0, Column 1</span>
+            </code>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-block">
+<code><span class="comment"># .query() - Filter with expression</span>
+df.<span class="function">query</span>(<span class="string">'Age > 25'</span>)
+df.<span class="function">query</span>(<span class="string">'Age > 25 and City == "NYC"'</span>)
+df.<span class="function">query</span>(<span class="string">'Name in ["Alice", "Bob"]'</span>)
+df.<span class="function">query</span>(<span class="string">'index >= 5'</span>)
+
+<span class="comment"># Boolean indexing</span>
+df[df[<span class="string">'Age'</span>] > <span class="number">25</span>]
+df[df[<span class="string">'City'</span>].<span class="function">isin</span>([<span class="string">'NYC'</span>, <span class="string">'LA'</span>])]
+df[<span class="keyword">lambda</span> x: x[<span class="string">'Age'</span>] > <span class="number">25</span>]
+
+<span class="comment"># .where() / .mask() - Conditional replace</span>
+df.<span class="function">where</span>(df[<span class="string">'Age'</span>] > <span class="number">25</span>)      <span class="comment"># Keep where True</span>
+df.<span class="function">mask</span>(df[<span class="string">'Age'</span>] > <span class="number">25</span>)       <span class="comment"># Replace where True</span></code>
+        </div>
+      </section>
+
+      <!-- Section 12: DataFrame Modification -->
+      <section class="topic-section" id="df-modification">
+        <h2> DataFrame Modification Methods <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>Methods to modify DataFrame structure and content.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Add/Remove Columns</h4>
+            <div class="code-block">
+<code><span class="comment"># Add columns</span>
+df[<span class="string">'new_col'</span>] = <span class="number">100</span>
+df[<span class="string">'computed'</span>] = df[<span class="string">'a'</span>] + df[<span class="string">'b'</span>]
+
+<span class="comment"># .assign() - Add/modify columns</span>
+df.<span class="function">assign</span>(
+    total=lambda x: x[<span class="string">'a'</span>] + x[<span class="string">'b'</span>],
+    avg=lambda x: x[<span class="string">'total'</span>] / <span class="number">2</span>
+)
+
+<span class="comment"># Drop columns</span>
+df.<span class="function">drop</span>(columns=[<span class="string">'col1'</span>, <span class="string">'col2'</span>])
+df.<span class="function">drop</span>(<span class="string">'col1'</span>, axis=<span class="number">1</span>)
+<span class="keyword">del</span> df[<span class="string">'col1'</span>]     <span class="comment"># In-place</span>
+<span class="keyword">del</span> df[[<span class="string">'a'</span>, <span class="string">'b'</span>]]
+            </code>
+            </div>
+          </div>
+          <div class="split-item">
+            <h4>Add/Remove Rows</h4>
+            <div class="code-block">
+<code><span class="comment"># .append() - Add rows (deprecated)</span>
+<span class="comment"># Use pd.concat() instead</span>
+df = pd.<span class="function">concat</span>([df, new_df])
+
+<span class="comment"># .drop() - Remove rows</span>
+df.<span class="function">drop</span>([<span class="number">0</span>, <span class="number">1</span>])                <span class="comment"># By index</span>
+df.<span class="function">drop</span>(df[df[<span class="string">'Age'</span>] < <span class="number">25</span>].index)
+df.<span class="function">drop_duplicates</span>()          <span class="comment"># Remove dupes</span>
+df.<span class="function">drop_duplicates</span>(subset=[<span class="string">'Name'</span>])
+df.<span class="function">dropna</span>()                    <span class="comment"># Remove NaN rows</span>
+            </code>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-block">
+<code><span class="comment"># .rename() - Rename columns/index</span>
+df.<span class="function">rename</span>(columns={<span class="string">'old'</span>: <span class="string">'new'</span>, <span class="string">'a'</span>: <span class="string">'b'</span>})
+df.<span class="function">rename</span>(index={<span class="number">0</span>: <span class="string">'first'</span>, <span class="number">1</span>: <span class="string">'second'</span>})
+df.<span class="function">rename</span>(columns=<span class="keyword">lambda</span> x: x.<span class="function">upper</span>())
+df.<span class="function">rename</span>(str.<span class="function">lower</span>, axis=<span class="number">1</span>)
+
+<span class="comment"># .astype() - Convert column types</span>
+df[<span class="string">'col'</span>] = df[<span class="string">'col'</span>].<span class="function">astype</span>(<span class="string">'int32'</span>)
+df.<span class="function">astype</span>({<span class="string">'a'</span>: <span class="string">'float'</span>, <span class="string">'b'</span>: <span class="string">'str'</span>})
+
+<span class="comment"># .reset_index() / .set_index()</span>
+df.<span class="function">reset_index</span>()           <span class="comment"># Index to column</span>
+df.<span class="function">reset_index</span>(drop=<span class="keyword">True</span>)  <span class="comment"># Drop old index</span>
+df.<span class="function">set_index</span>(<span class="string">'Name'</span>)       <span class="comment"># Column to index</span>
+df.<span class="function">set_index</span>([<span class="string">'A'</span>, <span class="string">'B'</span>])     <span class="comment"># MultiIndex</span>
+
+<span class="comment"># .reindex() - Reindex rows/columns</span>
+df.<span class="function">reindex</span>(index=[<span class="number">0</span>,<span class="number">2</span>,<span class="number">4</span>])
+df.<span class="function">reindex</span>(columns=[<span class="string">'a'</span>,<span class="string">'c'</span>,<span class="string">'e'</span>])</code>
+        </div>
+      </section>
+
+      <!-- Section 13: DataFrame GroupBy -->
+      <section class="topic-section" id="df-groupby">
+        <h2> DataFrame GroupBy Methods <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>Split data into groups and apply aggregate functions.</p>
+
+        <div class="code-block">
+<code><span class="comment"># .groupby() - Group by column(s)</span>
+grouped = df.<span class="function">groupby</span>(<span class="string">'category'</span>)
+grouped = df.<span class="function">groupby</span>([<span class="string">'category'</span>, <span class="string">'region'</span>])  <span class="comment"># Multiple columns</span>
+
+<span class="comment"># .agg() - Aggregate with multiple functions</span>
+grouped[<span class="string">'sales'</span>].<span class="function">agg</span>(<span class="string">'sum'</span>)                    <span class="comment"># Single function</span>
+grouped[<span class="string">'sales'</span>].<span class="function">agg</span>([<span class="string">'sum'</span>, <span class="string">'mean'</span>, <span class="string">'max'</span>])    <span class="comment"># Multiple</span>
+grouped.<span class="function">agg</span>({<span class="string">'sales'</span>: <span class="string">'sum'</span>, <span class="string">'profit'</span>: <span class="string">'mean'</span>}) <span class="comment"># Dict</span>
+grouped.<span class="function">agg</span>(total_sales=(<span class="string">'sales'</span>, <span class="string">'sum'</span>))     <span class="comment"># Named agg</span>
+
+<span class="comment"># .transform() - Transform group data</span>
+df[<span class="string">'group_mean'</span>] = grouped[<span class="string">'value'</span>].<span class="function">transform</span>(<span class="string">'mean'</span>)
+df[<span class="string">'zscore'</span>] = (df[<span class="string">'value'</span>] - df[<span class="string">'value'</span>].<span class="function">mean</span>()) / df[<span class="string">'value'</span>].<span class="function">std</span>()
+
+<span class="comment"># .filter() - Filter groups</span>
+df.groupby(<span class="string">'cat'</span>).<span class="function">filter</span>(<span class="keyword">lambda</span> x: <span class="function">len</span>(x) > <span class="number">2</span>)
+
+<span class="comment"># .apply() - Apply function to groups</span>
+grouped.<span class="function">apply</span>(<span class="keyword">lambda</span> x: x.<span class="function">sort_values</span>(<span class="string">'sales'</span>, ascending=<span class="keyword">False</span>))
+
+<span class="comment"># .first() / .last() / .nth()</span>
+grouped.<span class="function">first</span>()         <span class="comment"># First row per group</span>
+grouped.<span class="function">last</span>()          <span class="comment"># Last row per group</span>
+grouped.<span class="function">nth</span>(<span class="number">0</span>)          <span class="comment"># nth row per group</span>
+
+<span class="comment"># .size() / .count()</span>
+grouped.<span class="function">size</span>()           <span class="comment"># Group sizes</span>
+grouped.<span class="function">count</span>()          <span class="comment"># Non-null count per group</span></code>
+        </div>
+      </section>
+
+      <!-- Section 14: DataFrame Merge & Join -->
+      <section class="topic-section" id="df-merging">
+        <h2> DataFrame Merge & Join Methods <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>Combine multiple DataFrames using various join strategies.</p>
+
+        <div class="code-block">
+<code><span class="comment"># pd.merge() - SQL-style joins</span>
+pd.<span class="function">merge</span>(df1, df2, on=<span class="string">'key'</span>)                    <span class="comment"># Inner join</span>
+pd.<span class="function">merge</span>(df1, df2, on=<span class="string">'key'</span>, how=<span class="string">'left'</span>)        <span class="comment"># Left join</span>
+pd.<span class="function">merge</span>(df1, df2, on=<span class="string">'key'</span>, how=<span class="string">'right'</span>)       <span class="comment"># Right join</span>
+pd.<span class="function">merge</span>(df1, df2, on=<span class="string">'key'</span>, how=<span class="string">'outer'</span>)       <span class="comment"># Full outer</span>
+pd.<span class="function">merge</span>(df1, df2, on=<span class="string">'key'</span>, how=<span class="string">'cross'</span>)       <span class="comment"># Cross join</span>
+
+<span class="comment"># Different column names</span>
+pd.<span class="function">merge</span>(df1, df2, left_on=<span class="string">'user_id'</span>, right_on=<span class="string">'id'</span>)
+
+<span class="comment"># Multiple keys</span>
+pd.<span class="function">merge</span>(df1, df2, on=[<span class="string">'key1'</span>, <span class="string">'key2'</span>])
+
+<span class="comment"># Suffixes for duplicate columns</span>
+pd.<span class="function">merge</span>(df1, df2, on=<span class="string">'key'</span>, suffixes=(<span class="string">'_left'</span>, <span class="string">'_right'</span>))
+
+<span class="comment"># Index-based merge</span>
+pd.<span class="function">merge</span>(df1, df2, left_index=<span class="keyword">True</span>, right_index=<span class="keyword">True</span>)
+
+<span class="comment"># df.join() - Join on index</span>
+df1.<span class="function">join</span>(df2)                   <span class="comment"># Left join on index</span>
+df1.<span class="function">join</span>(df2, how=<span class="string">'outer'</span>)      <span class="comment"># Full outer join</span>
+
+<span class="comment"># pd.concat() - Stack DataFrames</span>
+pd.<span class="function">concat</span>([df1, df2])           <span class="comment"># Stack rows</span>
+pd.<span class="function">concat</span>([df1, df2], axis=<span class="number">1</span>)   <span class="comment"># Stack columns</span>
+pd.<span class="function">concat</span>([df1, df2], ignore_index=<span class="keyword">True</span>)  <span class="comment"># Reset index</span></code>
+        </div>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Merge Parameters</h4>
+            <ul>
+              <li><code>on</code> - Column name(s) to join on</li>
+              <li><code>how</code> - Join type (inner, left, right, outer)</li>
+              <li><code>left_on/right_on</code> - Column names for left/right</li>
+              <li><code>suffixes</code> - Suffixes for duplicate columns</li>
+              <li><code>validate</code> - Check merge validity</li>
+            </ul>
+          </div>
+          <div class="split-item">
+            <h4>Join Types Explained</h4>
+            <ul>
+              <li><strong>inner</strong> - Only matching rows</li>
+              <li><strong>left</strong> - All left, matching right</li>
+              <li><strong>right</strong> - All right, matching left</li>
+              <li><strong>outer</strong> - All rows from both</li>
+              <li><strong>cross</strong> - Cartesian product</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 15: DataFrame Reshaping -->
+      <section class="topic-section" id="df-reshaping">
+        <h2> DataFrame Reshaping Methods <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>Methods to reshape and pivot DataFrames.</p>
+
+        <div class="code-block">
+<code><span class="comment"># .pivot() - Reshape data</span>
+df.<span class="function">pivot</span>(index=<span class="string">'date'</span>, columns=<span class="string">'category'</span>, values=<span class="string">'sales'</span>)
+df.<span class="function">pivot_table</span>(values=<span class="string">'sales'</span>, index=<span class="string">'region'</span>, aggfunc=<span class="string">'sum'</span>)
+
+<span class="comment"># .melt() - Wide to long format</span>
+df.<span class="function">melt</span>(id_vars=[<span class="string">'Name'</span>], value_vars=[<span class="string">'Math'</span>, <span class="string">'Science'</span>])
+df.<span class="function">melt</span>(var_name=<span class="string">'subject'</span>, value_name=<span class="string">'score'</span>)
+
+<span class="comment"># .stack() / .unstack()</span>
+df.<span class="function">stack</span>()          <span class="comment"># Pivot column level to rows</span>
+df.<span class="function">unstack</span>()        <span class="comment"># Pivot row level to columns</span>
+
+<span class="comment"># .explode() - Expand list cells</span>
+df.<span class="function">explode</span>(<span class="string">'list_column'</span>)
+
+<span class="comment"># .transpose() - Transpose</span>
+df.<span class="function">T</span></code>
+        </div>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>pivot_table Parameters</h4>
+            <ul>
+              <li><code>values</code> - Column to aggregate</li>
+              <li><code>index</code> - Row index</li>
+              <li><code>columns</code> - Column index</li>
+              <li><code>aggfunc</code> - Aggregation function</li>
+              <li><code>fill_value</code> - Value for missing</li>
+              <li><code>margins</code> - Add row/column totals</li>
+            </ul>
+          </div>
+          <div class="split-item">
+            <h4>melt Parameters</h4>
+            <ul>
+              <li><code>id_vars</code> - Columns to keep</li>
+              <li><code>value_vars</code> - Columns to unpivot</li>
+              <li><code>var_name</code> - Name for variable column</li>
+              <li><code>value_name</code> - Name for value column</li>
+              <li><code>ignore_index</code> - Reset index</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 16: DataFrame Apply & Transform -->
+      <section class="topic-section" id="df-apply">
+        <h2> DataFrame Apply & Transform Methods <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>Apply functions to DataFrames for custom transformations.</p>
+
+        <div class="code-block">
+<code><span class="comment"># .apply() - Apply function to rows/columns</span>
+df.<span class="function">apply</span>(<span class="keyword">lambda</span> x: x.<span class="function">max</span>() - x.<span class="function">min</span>())         <span class="comment"># Column-wise</span>
+df.<span class="function">apply</span>(<span class="keyword">lambda</span> x: x.<span class="function">max</span>() - x.<span class="function">min</span>(), axis=<span class="number">1</span>) <span class="comment"># Row-wise</span>
+df.<span class="function">apply</span>(np.<span class="function">sum</span>)                               <span class="comment"># Apply numpy function</span>
+df.<span class="function">apply</span>(<span class="function">lambda</span> x: x.<span class="function">quantile</span>(<span class="number">0.25</span>))           <span class="comment"># Custom function</span>
+
+<span class="comment"># .applymap() / .map() - Element-wise</span>
+df.<span class="function">map</span>(<span class="keyword">lambda</span> x: x.<span class="function">strip</span>() <span class="keyword">if</span> isinstance(x, str) <span class="keyword">else</span> x)
+df.<span class="function">map</span>(<span class="string">'{:.2f}'</span>.format)                       <span class="comment"># Format numbers</span>
+
+<span class="comment"># .pipe() - Method chaining with functions</span>
+<span class="keyword">def</span> <span class="function">add_total</span>(df):
+    <span class="keyword">return</span> df.<span class="function">assign</span>(total=df.<span class="function">sum</span>(axis=<span class="number">1</span>))
+
+<span class="keyword">def</span> <span class="function">filter_positive</span>(df):
+    <span class="keyword">return</span> df[df[<span class="string">'total'</span>] > <span class="number">0</span>]
+
+result = df.<span class="function">pipe</span>(add_total).<span class="function">pipe</span>(filter_positive)
+
+<span class="comment"># .assign() - Create new columns</span>
+df.<span class="function">assign</span>(
+    bmi=<span class="keyword">lambda</span> x: x[<span class="string">'weight'</span>] / (x[<span class="string">'height'</span>] ** <span class="number">2</span>),
+    category=<span class="keyword">lambda</span> x: pd.<span class="function">cut</span>(x[<span class="string">'bmi'</span>], bins=[<span class="number">0</span>, <span class="number">18.5</span>, <span class="number">25</span>, <span class="number">100</span>])
+)</code>
+        </div>
+
+        <div class="warning-box">
+          <p><strong>Warning:</strong> <code>.apply()</code> is significantly slower than vectorized operations. Use built-in methods and vectorized operations whenever possible for better performance.</p>
+        </div>
+      </section>
+
+      <!-- Section 17: DataFrame Window Functions -->
+      <section class="topic-section" id="df-window">
+        <h2> DataFrame Window Functions <span class="level-badge advanced">Advanced</span> </h2>
+        <p>Apply rolling, expanding, and exponentially weighted calculations.</p>
+
+        <div class="code-block">
+<code><span class="comment"># .rolling() - Rolling window calculations</span>
+df[<span class="string">'MA7'</span>] = df[<span class="string">'close'</span>].<span class="function">rolling</span>(window=<span class="number">7</span>).<span class="function">mean</span>()
+df[<span class="string">'MA30'</span>] = df[<span class="string">'close'</span>].<span class="function">rolling</span>(<span class="number">30</span>).<span class="function">mean</span>()
+df[<span class="string">'std'</span>] = df[<span class="string">'close'</span>].<span class="function">rolling</span>(<span class="number">20</span>).<span class="function">std</span>()
+
+<span class="comment"># Rolling with multiple aggregations</span>
+df[<span class="string">'rolling_stats'</span>] = df[<span class="string">'value'</span>].<span class="function">rolling</span>(<span class="number">5</span>).<span class="function">agg</span>([<span class="string">'mean'</span>, <span class="string">'std'</span>, <span class="string">'min'</span>, <span class="string">'max'</span>])
+
+<span class="comment"># Rolling apply with custom function</span>
+df[<span class="string">'custom'</span>] = df[<span class="string">'value'</span>].<span class="function">rolling</span>(<span class="number">3</span>).<span class="function">apply</span>(<span class="keyword">lambda</span> x: x.<span class="function">max</span>() - x.<span class="function">min</span>())
+
+<span class="comment"># min_periods - Minimum observations required</span>
+df[<span class="string">'MA5'</span>] = df[<span class="string">'close'</span>].<span class="function">rolling</span>(<span class="number">5</span>, min_periods=<span class="number">1</span>).<span class="function">mean</span>()</code>
+        </div>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Expanding Windows</h4>
+            <div class="code-block">
+<code><span class="comment"># .expanding() - Cumulative from start</span>
+df[<span class="string">'exp_mean'</span>] = df[<span class="string">'value'</span>].<span class="function">expanding</span>().<span class="function">mean</span>()
+df[<span class="string">'exp_max'</span>] = df[<span class="string">'value'</span>].<span class="function">expanding</span>().<span class="function">max</span>()
+df[<span class="string">'exp_std'</span>] = df[<span class="string">'value'</span>].<span class="function">expanding</span>().<span class="function">std</span>()
+
+<span class="comment"># Equivalent to cumsum/cummean</span>
+df[<span class="string">'cummean'</span>] = df[<span class="string">'value'</span>].<span class="function">expanding</span>().<span class="function">mean</span>()
+            </code>
+            </div>
+          </div>
+          <div class="split-item">
+            <h4>Exponentially Weighted</h4>
+            <div class="code-block">
+<code><span class="comment"># .ewm() - Exponentially weighted</span>
+df[<span class="string">'ewm_mean'</span>] = df[<span class="string">'value'</span>].<span class="function">ewm</span>(span=<span class="number">10</span>).<span class="function">mean</span>()
+df[<span class="string">'ewm_std'</span>] = df[<span class="string">'value'</span>].<span class="function">ewm</span>(span=<span class="number">10</span>).<span class="function">std</span>()
+
+<span class="comment"># span, com, halflife, alpha</span>
+df[<span class="string">'ewma'</span>] = df[<span class="string">'value'</span>].<span class="function">ewm</span>(alpha=<span class="number">0.3</span>).<span class="function">mean</span>()
+
+<span class="comment"># Adjust for bias</span>
+df[<span class="string">'ewm_adj'</span>] = df[<span class="string">'value'</span>].<span class="function">ewm</span>(span=<span class="number">10</span>, adjust=<span class="keyword">True</span>).<span class="function">mean</span>()
+            </code>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-block">
+<code><span class="comment"># .shift() with groupby - Lag features</span>
+df[<span class="string">'prev_value'</span>] = df.<span class="function">groupby</span>(<span class="string">'category'</span>)[<span class="string">'value'</span>].<span class="function">shift</span>(<span class="number">1</span>)
+
+<span class="comment"># Differencing within groups</span>
+df[<span class="string">'diff'</span>] = df.<span class="function">groupby</span>(<span class="string">'category'</span>)[<span class="string">'value'</span>].<span class="function">diff</span>()
+
+<span class="comment"># Rank within groups</span>
+df[<span class="string">'rank'</span>] = df.<span class="function">groupby</span>(<span class="string">'category'</span>)[<span class="string">'value'</span>].<span class="function">rank</span>(ascending=<span class="keyword">False</span>)</code>
+        </div>
+
+        <div class="tip-box">
+          <p><strong>Tip:</strong> Use <code>min_periods=1</code> in rolling windows to avoid NaN values at the start. For EWMA, use <code>span</code> parameter which controls the decay rate (larger span = smoother).</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="../../assets/js/app.js"></script>
+  <script>
+    const sidebar = document.getElementById("sidebar");
+    const sidebarToggle = document.getElementById("sidebar-toggle");
+    const sidebarOverlay = document.getElementById("sidebar-overlay");
+
+    const closeSidebar = () => {
+      sidebar.classList.remove("open");
+      sidebarOverlay.classList.remove("active");
+    };
+
+    const openSidebar = () => {
+      sidebar.classList.add("open");
+      sidebarOverlay.classList.add("active");
+    };
+
+    if (sidebarToggle) {
+      sidebarToggle.addEventListener("click", () => {
+        if (sidebar.classList.contains("open")) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+      });
+    }
+
+    if (sidebarOverlay) {
+      sidebarOverlay.addEventListener("click", closeSidebar);
+    }
+
+    const navItems = Array.from(document.querySelectorAll(".nav-item"));
+
+    const setActiveNav = (id) => {
+      navItems.forEach((item) => {
+        const isActive = item.getAttribute("href") === "#" + id;
+        item.classList.toggle("active", isActive);
+        if (isActive) {
+          item.setAttribute("aria-current", "location");
+        } else {
+          item.removeAttribute("aria-current");
+        }
+      });
+    };
+
+    navItems.forEach((item) => {
+      item.addEventListener("click", function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute("href").substring(1);
+        const target = document.getElementById(targetId);
+        if (!target) return;
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        history.replaceState(null, "", "#" + targetId);
+        setActiveNav(targetId);
+        closeSidebar();
+      });
+    });
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute("id");
+          setActiveNav(id);
+        }
+      });
+    }, { root: null, rootMargin: "-18% 0px -68% 0px", threshold: 0 });
+
+    document.querySelectorAll(".topic-section[id]").forEach((el) => sectionObserver.observe(el));
+
+    const initialId = (window.location.hash || "#series-creation").substring(1);
+    setActiveNav(initialId);
+  </script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+</body>
+</html>

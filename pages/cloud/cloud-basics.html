@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Guide | Cloud Basics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../assets/css/styles.css" />
+  <link rel="stylesheet" href="../python/python.css" />
+</head>
+
+<body class="with-sidebar">
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <header class="topbar glass reveal in">
+    <a class="brand" href="../../index.html">Data Guide</a>
+    <button id="sidebar-toggle" class="sidebar-toggle" type="button" aria-label="Toggle sidebar">
+      <span class="hamburger" aria-hidden="true"></span>
+    </button>
+    <nav class="menu" aria-label="Cloud menu">
+      <a href="../../index.html">Hub</a>
+      <div class="menu-dropdown">
+        <button class="menu-trigger">Topics</button>
+        <div class="dropdown-panel">
+          <a href="cloud-topics.html"><strong>Overview</strong><span>All cloud topics</span></a>
+          <a href="cloud-basics.html" class="active"><strong>Basics</strong><span>IaaS, PaaS, SaaS, deployment models</span></a>
+          <a href="cloud-services.html"><strong>Services</strong><span>Service comparison across providers</span></a>
+          <a href="cloud-storage.html"><strong>Storage</strong><span>Object, block, file, data lakes</span></a>
+          <a href="cloud-compute.html"><strong>Compute</strong><span>VMs, containers, Kubernetes</span></a>
+          <a href="cloud-serverless.html"><strong>Serverless</strong><span>Functions and managed services</span></a>
+        </div>
+      </div>
+      <div class="menu-dropdown">
+        <button class="menu-trigger">Providers</button>
+        <div class="dropdown-panel">
+          <a href="cloud-aws.html"><strong>AWS</strong><span>Amazon Web Services</span></a>
+          <a href="cloud-azure.html"><strong>Azure</strong><span>Microsoft Azure</span></a>
+          <a href="cloud-gcp.html"><strong>GCP</strong><span>Google Cloud Platform</span></a>
+        </div>
+      </div>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+      <span class="toggle-icon" aria-hidden="true">☾</span>
+      <span class="toggle-text">Dark</span>
+    </button>
+  </header>
+
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <main class="main-content">
+    <nav class="sidebar" id="sidebar">
+      <div class="logo">
+        <span class="logo-text">Cloud Basics</span>
+      </div>
+
+      <div class="nav-title">Service Models</div>
+      <a href="#iaas" class="nav-item active"><span>1</span> IaaS</a>
+      <a href="#paas" class="nav-item"><span>2</span> PaaS</a>
+      <a href="#saas" class="nav-item"><span>3</span> SaaS</a>
+      <a href="#serverless" class="nav-item"><span>4</span> Serverless</a>
+
+      <div class="nav-title">Deployment Models</div>
+      <a href="#public-cloud" class="nav-item"><span>5</span> Public Cloud</a>
+      <a href="#private-cloud" class="nav-item"><span>6</span> Private Cloud</a>
+      <a href="#hybrid-cloud" class="nav-item"><span>7</span> Hybrid Cloud</a>
+      <a href="#multi-cloud" class="nav-item"><span>8</span> Multi-Cloud</a>
+
+      <div class="nav-title">Key Concepts</div>
+      <a href="#regions" class="nav-item"><span>9</span> Regions & AZs</a>
+      <a href="#scalability" class="nav-item"><span>10</span> Scalability</a>
+      <a href="#elasticity" class="nav-item"><span>11</span> Elasticity</a>
+      <a href="#high-availability" class="nav-item"><span>12</span> High Availability</a>
+
+      <div class="nav-title">Economics</div>
+      <a href="#pay-as-you-go" class="nav-item"><span>13</span> Pricing Models</a>
+      <a href="#total-cost" class="nav-item"><span>14</span> Total Cost of Ownership</a>
+    </nav>
+
+    <div class="page-wrap">
+      <section class="hero">
+        <h1>Cloud Basics</h1>
+      </section>
+
+      <!-- Section 1: IaaS -->
+      <section class="topic-section" id="iaas">
+        <h2> IaaS (Infrastructure as a Service) <span class="level-badge basic">Basic</span> </h2>
+        <p>IaaS provides virtualized computing resources over the internet. You manage the OS, middleware, and applications while the provider manages the hardware.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>What You Manage</h4>
+            <ul>
+              <li>Operating system</li>
+              <li>Runtime environment</li>
+              <li>Applications</li>
+              <li>Data</li>
+              <li>Middleware</li>
+            </ul>
+          </div>
+          <div class="split-item">
+            <h4>Provider Manages</h4>
+            <ul>
+              <li>Physical servers</li>
+              <li>Networking hardware</li>
+              <li>Storage hardware</li>
+              <li>Virtualization</li>
+              <li>Power and cooling</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="code-block">
+<code><span class="comment"># AWS EC2 (IaaS example)</span>
+aws ec2 run-instances \
+    --image-id ami-0abc123 \
+    --instance-type t3.medium \
+    --key-name my-key
+
+<span class="comment"># Azure VM (IaaS example)</span>
+az vm create \
+    --resource-group myRG \
+    --name myVM \
+    --image Ubuntu2204 \
+    --size Standard_B2s
+
+<span class="comment"># GCP Compute Engine (IaaS example)</span>
+gcloud compute instances create my-vm \
+    --zone us-central1-a \
+    --machine-type e2-medium \
+    --image-family ubuntu-2204-lts
+        </code>
+        </div>
+
+        <div class="flowchart">
+          <h3>IaaS Responsibility Model</h3>
+          <div class="flow-row">
+            <span class="flow-node">Applications</span>
+            <span class="flow-arrow">↓</span>
+            <span class="flow-node">Data</span>
+            <span class="flow-arrow">↓</span>
+            <span class="flow-node">Runtime</span>
+            <span class="flow-arrow">↓</span>
+            <span class="flow-node">Middleware</span>
+            <span class="flow-arrow">↓</span>
+            <span class="flow-node">OS</span>
+          </div>
+          <div class="flow-row" style="margin-top: 0.5rem;">
+            <span class="flow-node" style="background: var(--glass);">You manage ↑</span>
+            <span class="flow-arrow">│</span>
+            <span class="flow-node" style="background: var(--glow-border); color: var(--text);">Provider manages ↓</span>
+          </div>
+          <div class="flow-row">
+            <span class="flow-node">Virtualization</span>
+            <span class="flow-arrow">↓</span>
+            <span class="flow-node">Servers</span>
+            <span class="flow-arrow">↓</span>
+            <span class="flow-node">Storage</span>
+            <span class="flow-arrow">↓</span>
+            <span class="flow-node">Networking</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: PaaS -->
+      <section class="topic-section" id="paas">
+        <h2> PaaS (Platform as a Service) <span class="level-badge basic">Basic</span> </h2>
+        <p>PaaS provides a managed platform for developing, running, and managing applications without managing infrastructure.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>What You Manage</h4>
+            <ul>
+              <li>Applications</li>
+              <li>Data</li>
+            </ul>
+          </div>
+          <div class="split-item">
+            <h4>Provider Manages</h4>
+            <ul>
+              <li>Everything in IaaS</li>
+              <li>OS patching</li>
+              <li>Runtime updates</li>
+              <li>Middleware</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="code-block">
+<code><span class="comment"># AWS Elastic Beanstalk (PaaS)</span>
+eb init my-app --platform node.js
+eb create my-environment
+eb deploy
+
+<span class="comment"># Azure App Service (PaaS)</span>
+az webapp up \
+    --resource-group myRG \
+    --name my-app \
+    --runtime NODE:18-lts
+
+<span class="comment"># Google App Engine (PaaS)</span>
+gcloud app deploy
+
+<span class="comment"># Heroku (PaaS)</span>
+git push heroku main
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 3: SaaS -->
+      <section class="topic-section" id="saas">
+        <h2> SaaS (Software as a Service) <span class="level-badge basic">Basic</span> </h2>
+        <p>SaaS delivers fully managed software applications over the internet. Users access via browser or API without managing anything.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>What You Manage</h4>
+            <ul>
+              <li>Your data</li>
+              <li>User access</li>
+              <li>Configuration</li>
+            </ul>
+          </div>
+          <div class="split-item">
+            <h4>Provider Manages</h4>
+            <ul>
+              <li>Everything else</li>
+              <li>Application code</li>
+              <li>Infrastructure</li>
+              <li>Updates and patches</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="code-block">
+<code><span class="comment"># Common SaaS Examples</span>
+
+<span class="comment"># Collaboration</span>
+- Microsoft 365 (Word, Excel, Teams)
+- Google Workspace (Docs, Sheets, Gmail)
+- Slack, Zoom, Dropbox
+
+<span class="comment"># CRM / Business</span>
+- Salesforce
+- HubSpot
+- ServiceNow
+
+<span class="comment"># Data & Analytics</span>
+- Snowflake
+- Databricks
+- MongoDB Atlas
+
+<span class="comment"># Developer Tools</span>
+- GitHub
+- GitLab
+- Datadog
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 4: Serverless -->
+      <section class="topic-section" id="serverless">
+        <h2> Serverless Computing <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>Serverless abstracts server management completely. You write functions, and the platform handles scaling, patching, and availability.</p>
+
+        <div class="code-block">
+<code><span class="comment"># AWS Lambda (Serverless Function)</span>
+<span class="keyword">import</span> json
+
+<span class="keyword">def</span> <span class="function">lambda_handler</span>(event, context):
+    name = event.get(<span class="string">'name'</span>, <span class="string">'World'</span>)
+    <span class="keyword">return</span> {
+        <span class="string">'statusCode'</span>: <span class="number">200</span>,
+        <span class="string">'body'</span>: json.<span class="function">dumps</span>({<span class="string">'message'</span>: f<span class="string">'Hello {name}!'</span>})
+    }
+
+<span class="comment"># Deploy</span>
+aws lambda create-function \
+    --function-name my-function \
+    --runtime python3.11 \
+    --handler lambda_function.lambda_handler \
+    --role arn:aws:iam::123456789:role/lambda-role
+
+<span class="comment"># Azure Functions</span>
+func init my-app --python
+func new --name http-trigger --template "HTTP trigger"
+func azure functionapp publish my-app
+        </code>
+        </div>
+
+        <div class="flowchart">
+          <h3>Serverless Benefits</h3>
+          <div class="flow-row">
+            <span class="flow-node">No Server Management</span>
+            <span class="flow-arrow">│</span>
+            <span class="flow-node">Auto-scaling</span>
+            <span class="flow-arrow">│</span>
+            <span class="flow-node">Pay per Execution</span>
+          </div>
+          <div class="flow-row" style="margin-top: 0.5rem;">
+            <span class="flow-node">Event-driven</span>
+            <span class="flow-arrow">│</span>
+            <span class="flow-node">High Availability</span>
+            <span class="flow-arrow">│</span>
+            <span class="flow-node">Managed Runtime</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 5: Public Cloud -->
+      <section class="topic-section" id="public-cloud">
+        <h2> Public Cloud <span class="level-badge basic">Basic</span> </h2>
+        <p>Public cloud resources are owned and operated by a third-party provider, shared across multiple organizations.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Advantages</h4>
+            <ul>
+              <li>No capital expenditure</li>
+              <li>Pay-as-you-go pricing</li>
+              <li>Massive scalability</li>
+              <li>Global infrastructure</li>
+            </ul>
+          </div>
+          <div class="split-item">
+            <h4>Considerations</h4>
+            <ul>
+              <li>Less control over hardware</li>
+              <li>Data residency concerns</li>
+              <li>Shared infrastructure</li>
+              <li>Internet dependency</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="flowchart">
+          <h3>Major Public Cloud Providers</h3>
+          <div class="flow-row">
+            <span class="flow-node">AWS</span>
+            <span class="flow-arrow">│</span>
+            <span class="flow-node">Azure</span>
+            <span class="flow-arrow">│</span>
+            <span class="flow-node">GCP</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 6: Private Cloud -->
+      <section class="topic-section" id="private-cloud">
+        <h2> Private Cloud <span class="level-badge basic">Basic</span> </h2>
+        <p>Private cloud infrastructure is dedicated to a single organization, either on-premises or hosted by a third party.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Advantages</h4>
+            <ul>
+              <li>Full control over infrastructure</li>
+              <li>Enhanced security</li>
+              <li>Regulatory compliance</li>
+              <li>Custom configurations</li>
+            </ul>
+          </div>
+          <div class="split-item">
+            <h4>Considerations</h4>
+            <ul>
+              <li>Higher upfront costs</li>
+              <li>Requires IT expertise</li>
+              <li>Limited scalability</li>
+              <li>Maintenance overhead</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="code-block">
+<code><span class="comment"># Private cloud platforms</span>
+
+<span class="comment"># VMware vSphere</span>
+- Full virtualization stack
+- vCenter management
+- NSX networking
+
+<span class="comment"># OpenStack</span>
+- Open source cloud platform
+- Nova (compute), Swift (storage), Neutron (network)
+- Kubernetes integration
+
+<span class="comment"># Azure Stack / Azure Arc</span>
+- Extend Azure to on-premises
+- Consistent hybrid management
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 7: Hybrid Cloud -->
+      <section class="topic-section" id="hybrid-cloud">
+        <h2> Hybrid Cloud <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>Hybrid cloud combines public and private clouds with orchestration between them, enabling data and application portability.</p>
+
+        <div class="flowchart">
+          <h3>Hybrid Cloud Architecture</h3>
+          <div class="flow-row">
+            <span class="flow-node">On-Premises</span>
+            <span class="flow-arrow">←→</span>
+            <span class="flow-node">Orchestration Layer</span>
+            <span class="flow-arrow">←→</span>
+            <span class="flow-node">Public Cloud</span>
+          </div>
+          <div class="flow-row" style="margin-top: 0.5rem;">
+            <span class="flow-node">Legacy Apps</span>
+            <span class="flow-arrow">│</span>
+            <span class="flow-node">VPN / Direct Connect</span>
+            <span class="flow-arrow">│</span>
+            <span class="flow-node">Cloud-Native Apps</span>
+          </div>
+        </div>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Use Cases</h4>
+            <ul>
+              <li>Gradual cloud migration</li>
+              <li>Regulatory compliance (data residency)</li>
+              <li>Burst capacity (cloud bursting)</li>
+              <li>Edge computing integration</li>
+            </ul>
+          </div>
+          <div class="split-item">
+            <h4>Tools</h4>
+            <ul>
+              <li>Azure Arc</li>
+              <li>AWS Outposts</li>
+              <li>Google Anthos</li>
+              <li>VMware Cloud</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 8: Multi-Cloud -->
+      <section class="topic-section" id="multi-cloud">
+        <h2> Multi-Cloud <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>Multi-cloud uses services from multiple cloud providers to avoid vendor lock-in and optimize for best-of-breed services.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Benefits</h4>
+            <ul>
+              <li>Best-of-breed services</li>
+              <li>Vendor independence</li>
+              <li>Geographic coverage</li>
+              <li>Cost optimization</li>
+            </ul>
+          </div>
+          <div class="split-item">
+            <h4>Challenges</h4>
+            <ul>
+              <li>Complexity</li>
+              <li>Data transfer costs</li>
+              <li>Inconsistent APIs</li>
+              <li>Skills gap</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="code-block">
+<code><span class="comment"># Multi-cloud abstraction with Terraform</span>
+
+<span class="comment"># AWS Provider</span>
+<span class="keyword">provider</span> <span class="string">"aws"</span> {
+  region = <span class="string">"us-east-1"</span>
+}
+
+<span class="comment"># Azure Provider</span>
+<span class="keyword">provider</span> <span class="string">"azurerm"</span> {
+  features {}
+}
+
+<span class="comment"># GCP Provider</span>
+<span class="keyword">provider</span> <span class="string">"google"</span> {
+  project = <span class="string">"my-project"</span>
+  region  = <span class="string">"us-central1"</span>
+}
+
+<span class="comment"># Kubernetes abstraction with Pulumi or Crossplane</span>
+<span class="comment"># Unified API across clouds</span>
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 9: Regions & AZs -->
+      <section class="topic-section" id="regions">
+        <h2> Regions and Availability Zones <span class="level-badge basic">Basic</span> </h2>
+        <p>Cloud providers organize infrastructure into geographic regions containing multiple availability zones for resilience.</p>
+
+        <div class="flowchart">
+          <h3>Cloud Infrastructure Hierarchy</h3>
+          <div class="flow-row">
+            <span class="flow-node">Region (us-east-1)</span>
+          </div>
+          <div class="flow-row" style="margin-top: 0.25rem; margin-left: 2rem;">
+            <span class="flow-arrow">└──</span>
+            <span class="flow-node">AZ-1a</span>
+            <span class="flow-arrow">│</span>
+            <span class="flow-node">AZ-1b</span>
+            <span class="flow-arrow">│</span>
+            <span class="flow-node">AZ-1c</span>
+          </div>
+          <div class="flow-row" style="margin-top: 0.25rem; margin-left: 4rem;">
+            <span class="flow-node">Data Center</span>
+            <span class="flow-arrow">│</span>
+            <span class="flow-node">Data Center</span>
+            <span class="flow-arrow">│</span>
+            <span class="flow-node">Data Center</span>
+          </div>
+        </div>
+
+        <div class="code-block">
+<code><span class="comment"># AWS Regions</span>
+us-east-1      <span class="comment"># N. Virginia (largest)</span>
+us-east-2      <span class="comment"># Ohio</span>
+eu-west-1      <span class="comment"># Ireland</span>
+ap-southeast-1 <span class="comment"># Singapore</span>
+
+<span class="comment"># Azure Regions</span>
+eastus         <span class="comment"># East US</span>
+westeurope     <span class="comment"># West Europe</span>
+southeastasia  <span class="comment"># Southeast Asia</span>
+
+<span class="comment"># GCP Regions</span>
+us-central1    <span class="comment"># Iowa</span>
+europe-west1   <span class="comment"># Belgium</span>
+asia-east1     <span class="comment"># Taiwan</span>
+
+<span class="comment"># Choose based on:</span>
+<span class="comment"># - Data residency requirements</span>
+<span class="comment"># - Latency to users</span>
+<span class="comment"># - Service availability</span>
+<span class="comment"># - Cost (varies by region)</span>
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 10: Scalability -->
+      <section class="topic-section" id="scalability">
+        <h2> Scalability <span class="level-badge basic">Basic</span> </h2>
+        <p>Scalability is the ability to handle growing workload by adding resources.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Vertical Scaling (Scale Up)</h4>
+            <div class="flowchart">
+              <div class="flow-row">
+                <span class="flow-node">Small VM</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-node">Large VM</span>
+              </div>
+            </div>
+            <ul>
+              <li>Add more CPU/RAM to existing machine</li>
+              <li>Simpler, no code changes</li>
+              <li>Limited by hardware ceiling</li>
+              <li>Often requires downtime</li>
+            </ul>
+          </div>
+          <div class="split-item">
+            <h4>Horizontal Scaling (Scale Out)</h4>
+            <div class="flowchart">
+              <div class="flow-row">
+                <span class="flow-node">1 VM</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-node">N VMs</span>
+              </div>
+            </div>
+            <ul>
+              <li>Add more machines</li>
+              <li>Near-unlimited capacity</li>
+              <li>Requires load balancing</li>
+              <li>Better fault tolerance</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="code-block">
+<code><span class="comment"># AWS Auto Scaling Group (Horizontal)</span>
+aws autoscaling create-auto-scaling-group \
+    --auto-scaling-group-name my-asg \
+    --min-size 2 \
+    --max-size 10 \
+    --desired-capacity 3 \
+    --vpc-zone-identifier "subnet-123,subnet-456"
+
+<span class="comment"># Azure VM Scale Set (Horizontal)</span>
+az vmss create \
+    --name my-vmss \
+    --capacity 3 \
+    --min-capacity 1 \
+    --max-capacity 10
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 11: Elasticity -->
+      <section class="topic-section" id="elasticity">
+        <h2> Elasticity <span class="level-badge basic">Basic</span> </h2>
+        <p>Elasticity is the ability to automatically scale resources up and down based on demand.</p>
+
+        <div class="flowchart">
+          <h3>Elasticity Flow</h3>
+          <div class="flow-row">
+            <span class="flow-node">Load Increase</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">CloudWatch Alarm</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Auto Scale Out</span>
+          </div>
+          <div class="flow-row" style="margin-top: 0.5rem;">
+            <span class="flow-node">Load Decrease</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Cooldown Period</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Scale In</span>
+          </div>
+        </div>
+
+        <div class="code-block">
+<code><span class="comment"># Auto-scaling policy (AWS)</span>
+<span class="comment"># Scale out when CPU > 70%</span>
+aws autoscaling put-scaling-policy \
+    --policy-name scale-out \
+    --auto-scaling-group-name my-asg \
+    --scaling-adjustment 1 \
+    --adjustment-type ChangeInCapacity
+
+<span class="comment"># CloudWatch alarm to trigger</span>
+aws cloudwatch put-metric-alarm \
+    --alarm-name cpu-high \
+    --metric-name CPUUtilization \
+    --threshold 70 \
+    --comparison-operator GreaterThanThreshold \
+    --period 300 \
+    --evaluation-periods 2 \
+    --statistic Average
+
+<span class="comment"># Serverless is inherently elastic</span>
+<span class="comment"># Lambda: 0 to 1000 concurrent executions</span>
+<span class="comment"># DynamoDB: Auto-scaling read/write capacity</span>
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 12: High Availability -->
+      <section class="topic-section" id="high-availability">
+        <h2> High Availability (HA) <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>High availability ensures applications remain operational despite failures, targeting 99.9%+ uptime.</p>
+
+        <div class="code-block">
+<code><span class="comment"># HA Patterns</span>
+
+<span class="comment"># 1. Multi-AZ Deployment</span>
+<span class="comment"># Deploy across availability zones</span>
+aws rds create-db-instance \
+    --multi-az \
+    --db-instance-identifier my-db
+
+<span class="comment"># 2. Load Balancer + Auto Scaling</span>
+<span class="comment"># Distribute traffic across instances</span>
+aws elbv2 create-load-balancer \
+    --name my-alb \
+    --subnets subnet-123 subnet-456
+
+<span class="comment"># 3. Database Replication</span>
+<span class="comment"># Read replicas for failover</span>
+aws rds create-db-instance-read-replica \
+    --db-instance-identifier my-replica \
+    --source-db-instance-identifier my-db
+
+<span class="comment"># 4. CDN for static assets</span>
+<span class="comment"># CloudFront, Azure CDN, Cloud CDN</span>
+
+<span class="comment"># Uptime Targets</span>
+99%    = 8.76 hours downtime/year
+99.9%  = 8.76 hours downtime/year
+99.99% = 52.56 minutes downtime/year
+99.999% = 5.26 minutes downtime/year
+        </code>
+        </div>
+
+        <div class="flowchart">
+          <h3>HA Architecture</h3>
+          <div class="flow-row">
+            <span class="flow-node">Route 53 / DNS</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Load Balancer</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Auto Scaling Group</span>
+          </div>
+          <div class="flow-row" style="margin-top: 0.5rem;">
+            <span class="flow-node">AZ-1a</span>
+            <span class="flow-arrow">│</span>
+            <span class="flow-node">AZ-1b</span>
+            <span class="flow-arrow">│</span>
+            <span class="flow-node">AZ-1c</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 13: Pricing Models -->
+      <section class="topic-section" id="pay-as-you-go">
+        <h2> Pricing Models <span class="level-badge basic">Basic</span> </h2>
+        <p>Cloud providers offer multiple pricing models to optimize costs for different usage patterns.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>On-Demand</h4>
+            <ul>
+              <li>Pay per second/hour</li>
+              <li>No upfront commitment</li>
+              <li>Best for: unpredictable workloads</li>
+              <li>Most expensive per hour</li>
+            </ul>
+          </div>
+          <div class="split-item">
+            <h4>Reserved / Committed</h4>
+            <ul>
+              <li>1-3 year commitment</li>
+              <li>30-70% discount</li>
+              <li>Best for: steady-state workloads</li>
+              <li>Pay upfront or monthly</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Spot / Preemptible</h4>
+            <ul>
+              <li>Unused capacity</li>
+              <li>Up to 90% discount</li>
+              <li>Can be terminated with 2 min notice</li>
+              <li>Best for: fault-tolerant batch jobs</li>
+            </ul>
+          </div>
+          <div class="split-item">
+            <h4>Savings Plans</h4>
+            <ul>
+              <li>Flexible commitment (not instance-specific)</li>
+              <li>1-3 year term</li>
+              <li>Covers compute, Fargate, Lambda</li>
+              <li>Best for: consistent spend</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="flowchart">
+          <h3>Pricing Decision</h3>
+          <div class="flow-row">
+            <span class="flow-node">Steady workload?</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Reserved/Savings</span>
+          </div>
+          <div class="flow-row" style="margin-top: 0.5rem;">
+            <span class="flow-node">Batch processing?</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Spot Instances</span>
+          </div>
+          <div class="flow-row" style="margin-top: 0.5rem;">
+            <span class="flow-node">Variable/unpredictable?</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">On-Demand</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 14: TCO -->
+      <section class="topic-section" id="total-cost">
+        <h2> Total Cost of Ownership (TCO) <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>TCO includes all costs of cloud computing beyond just the compute price.</p>
+
+        <div class="code-block">
+<code><span class="comment"># Cloud cost components</span>
+
+<span class="comment"># Direct costs</span>
+- Compute (VMs, containers, functions)
+- Storage (capacity, transactions, transfer)
+- Networking (data transfer, load balancers)
+- Managed services (RDS, ElastiCache, etc.)
+
+<span class="comment"># Indirect costs</span>
+- Data egress (outbound transfer)
+- Support plans (Basic free, Business $)
+- Licensing (Windows, Oracle, etc.)
+- Training and hiring
+
+<span class="comment"># Hidden costs</span>
+- Over-provisioned resources
+- Unused resources (orphaned EBS, idle LBs)
+- Cross-region data transfer
+- API request charges
+
+<span class="comment"># Optimization strategies</span>
+1. Right-sizing (match instance to workload)
+2. Reserved capacity (1-3 year commitments)
+3. Auto-scaling (scale down when idle)
+4. Storage tiering (move cold data to cheaper tiers)
+5. Cleanup (delete unused resources)
+        </code>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+<<<<<<< HEAD:source/cloud/cloud-basics.html
+  <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+=======
+  <script src="../../assets/js/app.js"></script>
+>>>>>>> main:pages/cloud/cloud-basics.html
+</body>
+</html>

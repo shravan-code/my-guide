@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Guide | Spark Theory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../assets/css/styles.css" />
+  <link rel="stylesheet" href="spark.css" />
+</head>
+<body class="with-sidebar">
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <header class="topbar glass reveal in">
+    <a class="brand" href="../../index.html">Data Guide</a>
+    <button id="sidebar-toggle" class="sidebar-toggle" type="button" aria-label="Toggle sidebar">
+      <span class="hamburger" aria-hidden="true"></span>
+    </button>
+    <nav class="menu" aria-label="Spark menu">
+      <a href="../../index.html">Hub</a>
+      <a href="spark-theory.html" class="active" aria-current="page">Theory</a>
+      <a href="spark-code.html">Code</a>
+      <a href="spark-architecture.html">Architecture</a>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+      <span class="toggle-icon" aria-hidden="true">☾</span>
+      <span class="toggle-text">Dark</span>
+    </button>
+  </header>
+
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <main class="main-content">
+    <nav class="sidebar" id="sidebar">
+      <div class="logo">
+        <span class="logo-text">Spark Theory</span>
+      </div>
+
+      <div class="nav-title">Foundation</div>
+      <a href="#intro" class="nav-item"><span>1</span> Introduction</a>
+      <a href="#architecture" class="nav-item"><span>2</span> Architecture</a>
+      <a href="#transformations" class="nav-item"><span>3</span> Transformations</a>
+      <a href="#actions" class="nav-item"><span>4</span> Actions</a>
+      <a href="#rdd" class="nav-item"><span>5</span> RDD</a>
+      <a href="#dataframes" class="nav-item"><span>6</span> DataFrames / Datasets</a>
+      <a href="#lazy" class="nav-item"><span>7</span> Lazy Evaluation</a>
+      <a href="#catalyst" class="nav-item"><span>8</span> Catalyst</a>
+
+      <div class="nav-title">Execution</div>
+      <a href="#jobs-stages-tasks" class="nav-item"><span>9</span> Jobs / Stages / Tasks</a>
+      <a href="#joins" class="nav-item"><span>10</span> Join Strategies</a>
+      <a href="#aqe" class="nav-item"><span>11</span> AQE</a>
+
+      <div class="nav-title">Storage & Performance</div>
+      <a href="#file-formats" class="nav-item"><span>12</span> File Formats</a>
+      <a href="#partitioning" class="nav-item"><span>13</span> Partitioning / Bucketing</a>
+      <a href="#repartition" class="nav-item"><span>14</span> Repartition / Coalesce</a>
+      <a href="#executor-memory" class="nav-item"><span>15</span> Executor Memory</a>
+      <a href="#dpp" class="nav-item"><span>16</span> Dynamic Partition Pruning</a>
+      <a href="#dynamic-allocation" class="nav-item"><span>17</span> Dynamic Allocation</a>
+    </nav>
+
+    <div class="page-wrap">
+      <section class="hero glass reveal">
+        <h1>Spark Theory</h1>
+      </section>
+
+      <section class="topic glass reveal" id="intro">
+        <div class="topic-head"><span class="topic-badge">1</span><h2>Introduction to Apache Spark</h2></div>
+        <div class="topic-media">
+          <p>Spark is a unified distributed engine for ETL, SQL, machine learning, and streaming with strong performance and scalability.</p>
+        </div>
+        <p>Spark evolved from a research project into a production platform because it solved slow disk-heavy processing and fragmented toolchains. It made iterative analytics faster and development simpler.</p>
+        <div class="flowchart">
+          <h3>Evolution Flow</h3>
+          <div class="flow-row"><span class="flow-node">2009 Research</span><span class="flow-arrow">-></span><span class="flow-node">RDD Core</span><span class="flow-arrow">-></span><span class="flow-node">SQL / DataFrames</span><span class="flow-arrow">-></span><span class="flow-node">Streaming + AQE</span></div>
+        </div>
+        <div class="code-block"><code>from pyspark.sql import SparkSession
+spark = SparkSession.builder.appName("intro").getOrCreate()
+print(spark.version)</code></div>
+      </section>
+
+      <section class="topic glass reveal" id="architecture">
+        <div class="topic-head"><span class="topic-badge">2</span><h2>Spark Architecture</h2></div>
+        <div class="topic-media">
+          <p>Spark architecture separates planning (driver) from execution (executors) through a cluster manager.</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Component</th><th>Role</th><th>Why it matters</th></tr></thead>
+            <tbody>
+              <tr><td>Driver</td><td>Builds DAG, schedules tasks</td><td>Controls job lifecycle and optimization</td></tr>
+              <tr><td>Cluster Manager</td><td>Allocates resources</td><td>Ensures executors are available</td></tr>
+              <tr><td>Executors</td><td>Run tasks, store cache</td><td>Perform real distributed compute</td></tr>
+              <tr><td>Worker Nodes</td><td>Host executors</td><td>Scale throughput with horizontal compute</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="flowchart"><h3>Component Flow</h3><div class="flow-row"><span class="flow-node">User Code</span><span class="flow-arrow">-></span><span class="flow-node">Driver</span><span class="flow-arrow">-></span><span class="flow-node">Cluster Manager</span><span class="flow-arrow">-></span><span class="flow-node">Executors</span><span class="flow-arrow">-></span><span class="flow-node">Tasks</span></div></div>
+        <div class="code-block"><code>spark.conf.set("spark.executor.instances", "6")
+spark.conf.set("spark.executor.cores", "4")
+spark.conf.set("spark.executor.memory", "8g")</code></div>
+      </section>
+
+      <section class="topic glass reveal" id="transformations">
+        <div class="topic-head"><span class="topic-badge">3</span><h2>Transformations</h2></div>
+        <div class="topic-media">
+          <p>Transformations are lazy operations that shape data without immediate execution.</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Method</th><th>What it does</th><th>Why used</th></tr></thead>
+            <tbody>
+              <tr><td><code>select()</code></td><td>Projects specific columns</td><td>Reduces scan width and memory usage</td></tr>
+              <tr><td><code>filter()</code></td><td>Applies row condition</td><td>Pushes selectivity early</td></tr>
+              <tr><td><code>withColumn()</code></td><td>Adds/updates columns</td><td>Builds derived attributes</td></tr>
+              <tr><td><code>groupBy().agg()</code></td><td>Aggregates by keys</td><td>Creates analytical summaries</td></tr>
+              <tr><td><code>join()</code></td><td>Combines datasets</td><td>Enriches facts with dimensions</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="flowchart"><h3>Transformation Pipeline</h3><div class="flow-row"><span class="flow-node">Read</span><span class="flow-arrow">-></span><span class="flow-node">Filter</span><span class="flow-arrow">-></span><span class="flow-node">Select</span><span class="flow-arrow">-></span><span class="flow-node">Join</span></div></div>
+        <div class="code-block"><code>transformed = (df
+  .filter("amount > 100")
+  .select("customer_id", "amount", "region")
+  .withColumn("amount_tax", df.amount * 1.18))</code></div>
+      </section>
+
+      <section class="topic glass reveal" id="actions">
+        <div class="topic-head"><span class="topic-badge">4</span><h2>Actions</h2></div>
+        <div class="topic-media">
+          <p>Actions trigger execution and return results or persist outputs.</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Method</th><th>What it does</th><th>Why used</th></tr></thead>
+            <tbody>
+              <tr><td><code>count()</code></td><td>Counts rows</td><td>Quick quality checks</td></tr>
+              <tr><td><code>show()</code></td><td>Displays sample rows</td><td>Debug transformation logic</td></tr>
+              <tr><td><code>take(n)</code></td><td>Returns small sample</td><td>Safe local inspection</td></tr>
+              <tr><td><code>collect()</code></td><td>Brings full data to driver</td><td>Only for small outputs</td></tr>
+              <tr><td><code>write()</code></td><td>Writes data to sink</td><td>Publish curated datasets</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="flowchart"><h3>Execution Trigger</h3><div class="flow-row"><span class="flow-node">Transformations</span><span class="flow-arrow">-></span><span class="flow-node">Action</span><span class="flow-arrow">-></span><span class="flow-node">Job Runs</span></div></div>
+        <div class="code-block"><code>rows = transformed.count()
+transformed.show(10)
+transformed.write.mode("overwrite").parquet("/curated/sales")</code></div>
+      </section>
+
+      <section class="topic glass reveal" id="rdd">
+        <div class="topic-head"><span class="topic-badge">5</span><h2>Resilient Distributed Dataset (RDD)</h2></div>
+        <div class="topic-media">
+          <p>RDD is Spark's low-level immutable distributed abstraction with lineage-based fault tolerance. It is useful when you need full control over partitioning, custom distributed logic, or pair-RDD style operations.</p>
+        </div>
+        <p>RDD operations are grouped as transformations (lazy) and actions (execution trigger). Wide transformations (like <code>reduceByKey</code> or <code>join</code>) create shuffle boundaries and new stages, while narrow transformations (like <code>map</code>) stay within partitions.</p>
+
+        <div class="flowchart"><h3>RDD Execution Flow</h3><div class="flow-row"><span class="flow-node">Create RDD</span><span class="flow-arrow">-></span><span class="flow-node">Narrow Transform</span><span class="flow-arrow">-></span><span class="flow-node">Wide Transform (Shuffle)</span><span class="flow-arrow">-></span><span class="flow-node">Action</span></div></div>
+
+        <h3 class="subhead">RDD Methods Reference (Core + Common Advanced)</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Category</th><th>Method</th><th>What it does</th><th>Why used</th></tr></thead>
+            <tbody>
+              <tr><td>Creation</td><td><code>parallelize()</code></td><td>Create RDD from local collection</td><td>Quick prototyping and tests</td></tr>
+              <tr><td>Creation</td><td><code>textFile()</code></td><td>Read text files into RDD</td><td>Raw file-based pipelines</td></tr>
+              <tr><td>Creation</td><td><code>wholeTextFiles()</code></td><td>Read each file as one record</td><td>Document-level processing</td></tr>
+              <tr><td>Narrow transform</td><td><code>map()</code></td><td>One-to-one transformation</td><td>Column/record level derivations</td></tr>
+              <tr><td>Narrow transform</td><td><code>flatMap()</code></td><td>One-to-many transformation</td><td>Tokenization and expansion</td></tr>
+              <tr><td>Narrow transform</td><td><code>mapPartitions()</code></td><td>Process partition in batch</td><td>Reduce per-row overhead</td></tr>
+              <tr><td>Narrow transform</td><td><code>filter()</code></td><td>Keep matching records</td><td>Early data reduction</td></tr>
+              <tr><td>Narrow transform</td><td><code>sample()</code></td><td>Sample records</td><td>Data profiling and smoke checks</td></tr>
+              <tr><td>Narrow transform</td><td><code>union()</code></td><td>Combine RDDs</td><td>Merge homogeneous datasets</td></tr>
+              <tr><td>Wide transform</td><td><code>distinct()</code></td><td>Remove duplicates</td><td>Unique set generation</td></tr>
+              <tr><td>Wide transform</td><td><code>groupByKey()</code></td><td>Group values by key</td><td>Key-based grouping (use cautiously)</td></tr>
+              <tr><td>Wide transform</td><td><code>reduceByKey()</code></td><td>Aggregate by key with combine</td><td>Efficient key aggregation</td></tr>
+              <tr><td>Wide transform</td><td><code>aggregateByKey()</code></td><td>Custom seq + comb aggregation</td><td>Complex key-level reductions</td></tr>
+              <tr><td>Wide transform</td><td><code>combineByKey()</code></td><td>Flexible combiner creation</td><td>Advanced keyed aggregation</td></tr>
+              <tr><td>Wide transform</td><td><code>sortByKey()</code></td><td>Sort key-value pairs</td><td>Ordered output pipelines</td></tr>
+              <tr><td>Wide transform</td><td><code>join()</code></td><td>Inner join on keys</td><td>Dataset enrichment</td></tr>
+              <tr><td>Wide transform</td><td><code>leftOuterJoin()</code></td><td>Left outer join on keys</td><td>Preserve left-side completeness</td></tr>
+              <tr><td>Wide transform</td><td><code>rightOuterJoin()</code></td><td>Right outer join on keys</td><td>Preserve right-side completeness</td></tr>
+              <tr><td>Wide transform</td><td><code>fullOuterJoin()</code></td><td>Full outer join on keys</td><td>Complete key coverage</td></tr>
+              <tr><td>Wide transform</td><td><code>cogroup()</code></td><td>Group values from multiple RDDs</td><td>Multi-source key correlation</td></tr>
+              <tr><td>Partitioning</td><td><code>repartition()</code></td><td>Change partition count (shuffle)</td><td>Rebalance skewed partitions</td></tr>
+              <tr><td>Partitioning</td><td><code>coalesce()</code></td><td>Reduce partitions</td><td>Optimize output file count</td></tr>
+              <tr><td>Partitioning</td><td><code>partitionBy()</code></td><td>Apply partitioner to pair RDD</td><td>Co-locate keys before joins</td></tr>
+              <tr><td>Persistence</td><td><code>cache()</code> / <code>persist()</code></td><td>Store intermediate RDD</td><td>Avoid recomputation</td></tr>
+              <tr><td>Action</td><td><code>collect()</code></td><td>Bring all records to driver</td><td>Only for small outputs</td></tr>
+              <tr><td>Action</td><td><code>count()</code></td><td>Return row count</td><td>Validation and profiling</td></tr>
+              <tr><td>Action</td><td><code>take()</code> / <code>first()</code></td><td>Return small sample</td><td>Safe debugging</td></tr>
+              <tr><td>Action</td><td><code>reduce()</code> / <code>aggregate()</code></td><td>Global aggregation</td><td>Final metric computation</td></tr>
+              <tr><td>Action</td><td><code>countByKey()</code> / <code>countByValue()</code></td><td>Frequency counts</td><td>Distribution insights</td></tr>
+              <tr><td>Action</td><td><code>saveAsTextFile()</code></td><td>Write output to filesystem</td><td>Persist batch results</td></tr>
+              <tr><td>Action</td><td><code>foreach()</code> / <code>foreachPartition()</code></td><td>Execute side-effects</td><td>External sink integration</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block"><code>rdd = spark.sparkContext.textFile("/raw/logs/*.txt")
+pairs = (rdd
+  .flatMap(lambda line: line.split())
+  .map(lambda w: (w.lower(), 1))
+  .reduceByKey(lambda a, b: a + b)
+  .filter(lambda kv: kv[1] > 10))
+
+top = pairs.takeOrdered(20, key=lambda kv: -kv[1])
+print(top)</code></div>
+      </section>
+
+      <section class="topic glass reveal" id="dataframes">
+        <div class="topic-head"><span class="topic-badge">6</span><h2>DataFrames and Datasets</h2></div>
+        <div class="topic-media">
+          <p>DataFrames provide schema-aware, SQL-like transformations and are optimized by Catalyst + Tungsten. Datasets add strong typing in Scala/Java; in PySpark, DataFrame is the primary API.</p>
+        </div>
+        <p>Compared to RDD, DataFrames carry column metadata and type information, which allows Spark to prune columns, push filters to data sources, reorder operations, and generate efficient physical plans. This makes DataFrames faster and easier to maintain for most production workloads.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Abstraction</th><th>Strength</th><th>Trade-off</th><th>Best use</th></tr></thead>
+            <tbody>
+              <tr><td>RDD</td><td>Maximum low-level control</td><td>Manual optimization effort</td><td>Custom partition/algorithm logic</td></tr>
+              <tr><td>DataFrame</td><td>Schema + optimizer support</td><td>Less low-level control</td><td>ETL, BI, analytical pipelines</td></tr>
+              <tr><td>Dataset (JVM)</td><td>Compile-time type safety</td><td>Mostly JVM languages</td><td>Strongly typed Spark applications</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="flowchart"><h3>DataFrame Optimization Flow</h3><div class="flow-row"><span class="flow-node">Read + Schema</span><span class="flow-arrow">-></span><span class="flow-node">Logical plan</span><span class="flow-arrow">-></span><span class="flow-node">Catalyst optimize</span><span class="flow-arrow">-></span><span class="flow-node">Physical plan</span><span class="flow-arrow">-></span><span class="flow-node">Execution</span></div></div>
+
+        <div class="code-block"><code>from pyspark.sql.types import StructType, StructField, IntegerType, StringType
+
+schema = StructType([
+  StructField("id", IntegerType(), False),
+  StructField("name", StringType(), True),
+  StructField("region", StringType(), True),
+])
+
+df = spark.read.schema(schema).json("/raw/users.json")
+result = df.filter("region = 'APAC'").select("id", "name")
+result.explain("formatted")</code></div>
+      </section>
+
+      <section class="topic glass reveal" id="lazy">
+        <div class="topic-head"><span class="topic-badge">7</span><h2>Lazy Evaluation</h2></div>
+        <div class="topic-media">
+          <p>Spark postpones execution so it can optimize the complete transformation graph before running any tasks.</p>
+        </div>
+        <p>When you chain transformations, Spark builds lineage metadata and a DAG. No cluster compute starts until an action appears. This allows Spark to collapse compatible operations, push filters downward, and reduce shuffle/network cost before execution.</p>
+
+        <div class="split">
+          <div class="flowchart"><h3>Planning Phase</h3><div class="flow-row"><span class="flow-node">filter()</span><span class="flow-arrow">-></span><span class="flow-node">select()</span><span class="flow-arrow">-></span><span class="flow-node">groupBy()</span><span class="flow-arrow">-></span><span class="flow-node">DAG only</span></div></div>
+          <div class="flowchart"><h3>Execution Phase</h3><div class="flow-row"><span class="flow-node">count()</span><span class="flow-arrow">-></span><span class="flow-node">Job created</span><span class="flow-arrow">-></span><span class="flow-node">Stages/Tasks run</span></div></div>
+        </div>
+
+        <div class="table-wrap"><table><thead><tr><th>Step</th><th>Operation</th><th>Executed now?</th><th>Reason</th></tr></thead><tbody><tr><td>1</td><td><code>filter()</code></td><td>No</td><td>Transformation stored in logical plan</td></tr><tr><td>2</td><td><code>select()</code></td><td>No</td><td>Still plan-building, no action yet</td></tr><tr><td>3</td><td><code>groupBy().agg()</code></td><td>No</td><td>DAG extends with aggregation node</td></tr><tr><td>4</td><td><code>count()</code></td><td>Yes</td><td>Action triggers full optimized execution</td></tr></tbody></table></div>
+
+        <div class="code-block"><code>lazy_df = (df
+  .filter("amount > 100")
+  .select("region", "amount")
+  .groupBy("region").sum("amount"))
+
+lazy_df.explain("formatted")   # inspect planned execution
+print(lazy_df.count())          # action triggers execution</code></div>
+      </section>
+
+      <section class="topic glass reveal" id="catalyst">
+        <div class="topic-head"><span class="topic-badge">8</span><h2>Catalyst Optimizer</h2></div>
+        <div class="topic-media">
+          <p>Catalyst is Spark SQL's optimization framework that transforms parsed queries into highly efficient execution plans.</p>
+        </div>
+        <p>Catalyst applies rule-based and cost-aware optimizations such as constant folding, predicate pushdown, projection pruning, and join strategy selection. Its goal is to lower I/O, reduce shuffle volume, and improve CPU efficiency.</p>
+
+        <div class="flowchart"><h3>Catalyst Full Flowchart</h3><div class="flow-row"><span class="flow-node">SQL / DataFrame query</span><span class="flow-arrow">-></span><span class="flow-node">Unresolved logical plan</span><span class="flow-arrow">-></span><span class="flow-node">Analyzed logical plan</span><span class="flow-arrow">-></span><span class="flow-node">Optimized logical plan</span><span class="flow-arrow">-></span><span class="flow-node">Physical plan</span><span class="flow-arrow">-></span><span class="flow-node">Codegen + execution</span></div></div>
+
+        <div class="table-wrap"><table><thead><tr><th>Optimization</th><th>What it changes</th><th>Benefit</th></tr></thead><tbody><tr><td>Predicate pushdown</td><td>Moves filters near data source</td><td>Less data read from storage</td></tr><tr><td>Projection pruning</td><td>Drops unused columns early</td><td>Lower memory and I/O cost</td></tr><tr><td>Constant folding</td><td>Precomputes static expressions</td><td>Less runtime computation</td></tr><tr><td>Reorder/simplify expressions</td><td>Refines execution expression tree</td><td>Better CPU efficiency</td></tr><tr><td>Join selection</td><td>Chooses broadcast/sort-merge/etc.</td><td>Lower shuffle and faster joins</td></tr></tbody></table></div>
+
+        <div class="code-block"><code>query = (df
+  .filter("region = 'US'")
+  .select("product", "amount")
+  .groupBy("product").sum("amount"))
+
+query.explain("extended")      # logical + physical plans
+query.explain("formatted")     # readable physical plan view</code></div>
+      </section>
+
+      <section class="topic glass reveal" id="jobs-stages-tasks">
+        <div class="topic-head"><span class="topic-badge">9</span><h2>Jobs, Stages, and Tasks</h2></div>
+        <div class="topic-media">
+          <p>An action creates a Job. A Job splits into Stages at shuffle boundaries. Each Stage runs many Tasks, typically one task per partition.</p>
+        </div>
+        <p>This hierarchy explains why some workloads are slow: if a single stage is expensive (for example, heavy shuffle), the full job waits. If a few tasks are much slower than others, you likely have skewed partitions or uneven data distribution.</p>
+
+        <div class="split">
+          <div class="flowchart"><h3>Hierarchy Diagram</h3><div class="flow-row"><span class="flow-node">Action</span><span class="flow-arrow">-></span><span class="flow-node">Job</span><span class="flow-arrow">-></span><span class="flow-node">Stages</span><span class="flow-arrow">-></span><span class="flow-node">Tasks</span></div></div>
+          <div class="flowchart"><h3>Stage Split Rule</h3><div class="flow-row"><span class="flow-node">Narrow transforms</span><span class="flow-arrow">-></span><span class="flow-node">Same stage</span><span class="flow-arrow">-></span><span class="flow-node">Shuffle</span><span class="flow-arrow">-></span><span class="flow-node">New stage</span></div></div>
+        </div>
+
+        <div class="table-wrap"><table><thead><tr><th>Level</th><th>Triggered by</th><th>Typical count</th><th>Debug focus</th></tr></thead><tbody><tr><td>Job</td><td>Action call (<code>count</code>, <code>show</code>, <code>write</code>)</td><td>1 per action</td><td>End-to-end runtime and retries</td></tr><tr><td>Stage</td><td>Shuffle boundaries</td><td>Multiple per job</td><td>Shuffle read/write volume</td></tr><tr><td>Task</td><td>Partition count in a stage</td><td>Many per stage</td><td>Skew, stragglers, task duration spread</td></tr></tbody></table></div>
+
+        <div class="code-block"><code>spark.conf.set("spark.sql.shuffle.partitions", "200")
+
+result = (df
+  .filter("amount > 0")      # narrow
+  .groupBy("region")         # wide (shuffle boundary)
+  .sum("amount"))
+
+result.explain("formatted")
+result.count()  # triggers job with stage/task execution</code></div>
+      </section>
+
+      <section class="topic glass reveal" id="joins">
+        <div class="topic-head"><span class="topic-badge">10</span><h2>Join Strategies</h2></div>
+        <div class="topic-media">
+          <p>Spark chooses join strategies from table size, key distribution, and runtime statistics. Correct strategy selection is one of the biggest performance levers.</p>
+        </div>
+        <div class="flowchart"><h3>Join Strategy Decision Flow</h3><div class="flow-row"><span class="flow-node">Small right table?</span><span class="flow-arrow">-></span><span class="flow-node">Broadcast Hash</span><span class="flow-arrow">else</span><span class="flow-node">Large-Large?</span><span class="flow-arrow">-></span><span class="flow-node">Sort Merge / Shuffle Hash</span></div></div>
+
+        <div class="table-wrap"><table><thead><tr><th>Strategy</th><th>How it works</th><th>Best when</th><th>Trade-offs</th></tr></thead><tbody><tr><td>Broadcast Hash Join</td><td>Broadcast small side to every executor; hash-lookup per partition</td><td>One side is small (dimension table)</td><td>Fails if broadcast side is too large for executor memory</td></tr><tr><td>Sort Merge Join</td><td>Shuffle both sides by key, sort partitions, then merge</td><td>Both sides are large and join keys are sortable</td><td>High shuffle + sort cost, sensitive to skew</td></tr><tr><td>Shuffle Hash Join</td><td>Shuffle by key, build hash map on smaller post-shuffle side</td><td>Moderate-size joins where hash build is feasible</td><td>Memory pressure on hash-building side</td></tr><tr><td>Broadcast Nested Loop Join</td><td>Broadcast one side and compare rows (no hash key required)</td><td>Non-equi joins with small broadcast side</td><td>Can be expensive for large row sets</td></tr><tr><td>Shuffle-and-Replicate NL</td><td>Replicate one side across shuffled partitions</td><td>Rare edge cases when no better strategy applies</td><td>Very costly network/compute pattern</td></tr><tr><td>Cartesian / Cross Join</td><td>Produces every pair of rows</td><td>Intentional combinatorial use cases only</td><td>Explosive output size; avoid by default</td></tr></tbody></table></div>
+
+        <div class="callout"><p><strong>Practical rule:</strong> use broadcast for small dimensions, prefer sort-merge for very large tables, enable AQE for runtime switching and skew handling.</p></div>
+
+        <div class="code-block"><code>from pyspark.sql.functions import broadcast
+
+# Force broadcast strategy when dimension is small
+joined = fact.join(broadcast(dim_small.select("id", "segment")), "id", "left")
+
+# Let Spark/AQE decide for large joins
+spark.conf.set("spark.sql.adaptive.enabled", "true")
+big_join = large_a.join(large_b, "id", "inner")</code></div>
+      </section>
+
+      <section class="topic glass reveal" id="aqe">
+        <div class="topic-head"><span class="topic-badge">11</span><h2>Adaptive Query Execution (AQE)</h2></div>
+        <div class="topic-media">
+          <p>AQE adapts query plans at runtime based on real stage statistics, reducing sensitivity to wrong estimates and evolving data shape.</p>
+        </div>
+        <p>Without AQE, Spark executes a static physical plan. With AQE enabled, Spark can coalesce tiny shuffle partitions, split skewed partitions, and switch join strategy (for example, from sort-merge to broadcast) once runtime sizes are known.</p>
+
+        <div class="flowchart"><h3>AQE Runtime Loop</h3><div class="flow-row"><span class="flow-node">Initial physical plan</span><span class="flow-arrow">-></span><span class="flow-node">Execute stage</span><span class="flow-arrow">-></span><span class="flow-node">Collect runtime stats</span><span class="flow-arrow">-></span><span class="flow-node">Re-optimize next stages</span></div></div>
+
+        <div class="table-wrap"><table><thead><tr><th>AQE feature</th><th>What it changes</th><th>Typical impact</th></tr></thead><tbody><tr><td>Partition coalescing</td><td>Merges many small shuffle partitions</td><td>Lower scheduler overhead + better task sizing</td></tr><tr><td>Skew join handling</td><td>Splits oversized skewed partitions</td><td>Reduces straggler tasks</td></tr><tr><td>Dynamic join switch</td><td>Changes join strategy based on runtime table size</td><td>Lower shuffle volume</td></tr><tr><td>Local shuffle reader</td><td>Improves data locality for shuffle reads</td><td>Lower network latency</td></tr></tbody></table></div>
+
+        <div class="code-block"><code>spark.conf.set("spark.sql.adaptive.enabled", "true")
+spark.conf.set("spark.sql.adaptive.coalescePartitions.enabled", "true")
+spark.conf.set("spark.sql.adaptive.skewJoin.enabled", "true")
+spark.conf.set("spark.sql.adaptive.localShuffleReader.enabled", "true")
+
+# Optional tuning
+spark.conf.set("spark.sql.adaptive.advisoryPartitionSizeInBytes", "64MB")
+spark.conf.set("spark.sql.adaptive.skewJoin.skewedPartitionFactor", "5")</code></div>
+      </section>
+
+      <section class="topic glass reveal" id="file-formats">
+        <div class="topic-head"><span class="topic-badge">12</span><h2>Common File Formats</h2></div>
+        <div class="topic-media">
+          <p>Spark supports row formats, columnar formats, and modern table formats. The right choice depends on ingest flexibility, query performance, update patterns, and governance needs.</p>
+        </div>
+        <p>In practice: use CSV/JSON/XML in raw zones, convert to Parquet/ORC in curated zones, and use Delta/Iceberg/Hudi for governed, update-friendly lakehouse tables.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Format</th><th>Type</th><th>Strengths</th><th>Limitations</th><th>Best usage</th></tr></thead>
+            <tbody>
+              <tr><td>CSV / TSV</td><td>Row text</td><td>Portable, easy to inspect</td><td>Weak typing, larger files, slow scans</td><td>Raw exchange and basic ingest</td></tr>
+              <tr><td>JSON / NDJSON</td><td>Semi-structured text</td><td>Supports nested structures</td><td>Higher parse cost, larger storage</td><td>Event logs and semi-structured raw zones</td></tr>
+              <tr><td>Text</td><td>Unstructured</td><td>Universal ingest</td><td>No schema; manual parsing needed</td><td>Log lines and free-form payloads</td></tr>
+              <tr><td>XML</td><td>Semi-structured text</td><td>Rich hierarchical data</td><td>Verbose and expensive parsing</td><td>Legacy enterprise integrations</td></tr>
+              <tr><td>Parquet</td><td>Columnar</td><td>Compression, pruning, pushdown</td><td>Not ideal for row-level updates</td><td>Default analytics storage</td></tr>
+              <tr><td>ORC</td><td>Columnar</td><td>Strong compression/read performance</td><td>Tooling preference may vary</td><td>Warehouse-centric analytics</td></tr>
+              <tr><td>Avro</td><td>Row binary</td><td>Schema evolution for messages</td><td>Less optimal for wide scans</td><td>Streaming/message interchange</td></tr>
+              <tr><td>Delta Lake</td><td>Table format</td><td>ACID, schema enforcement, time travel</td><td>Engine/runtime dependencies</td><td>Reliable lakehouse tables</td></tr>
+              <tr><td>Apache Hudi</td><td>Table format</td><td>Upserts + CDC friendly</td><td>Operational complexity</td><td>Near-real-time lake ingestion</td></tr>
+              <tr><td>Apache Iceberg</td><td>Table format</td><td>Strong metadata and hidden partitioning</td><td>Requires compatible compute engines</td><td>Large multi-engine lakehouse platforms</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="flowchart"><h3>Recommended Storage Pattern</h3><div class="flow-row"><span class="flow-node">Raw (CSV/JSON/XML)</span><span class="flow-arrow">-></span><span class="flow-node">Schema standardization</span><span class="flow-arrow">-></span><span class="flow-node">Parquet/ORC</span><span class="flow-arrow">-></span><span class="flow-node">Delta/Iceberg/Hudi</span></div></div>
+
+        <h3 class="subhead">Cloud Path Examples (AWS / Azure / GCP)</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Cloud</th><th>Example URI</th><th>Typical format choice</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td>AWS</td><td><code>s3://datalake/raw/</code> -> <code>s3://datalake/curated/</code></td><td>Raw CSV/JSON -> Parquet/Delta</td><td>Common with EMR or Glue jobs</td></tr>
+              <tr><td>Azure</td><td><code>abfss://raw@acct.dfs.core.windows.net/</code></td><td>Raw JSON/CSV -> Parquet/Delta</td><td>Typical with Databricks/Synapse + ADLS Gen2</td></tr>
+              <tr><td>GCP</td><td><code>gs://datalake/raw/</code> -> <code>gs://datalake/curated/</code></td><td>Raw text -> Parquet/Iceberg</td><td>Common with Dataproc and BigLake ecosystems</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block"><code># AWS (S3)
+raw_aws = spark.read.option("header", True).csv("s3://my-bucket/raw/sales.csv")
+raw_aws.write.mode("overwrite").parquet("s3://my-bucket/curated/sales/")
+
+# Azure (ADLS Gen2)
+raw_azure = spark.read.json("abfss://raw@storageacct.dfs.core.windows.net/events/")
+raw_azure.write.format("delta").mode("overwrite").save("abfss://curated@storageacct.dfs.core.windows.net/events_delta/")
+
+# GCP (GCS)
+raw_gcp = spark.read.text("gs://my-lake/raw/logs/")
+raw_gcp.write.mode("overwrite").parquet("gs://my-lake/curated/logs_parquet/")</code></div>
+      </section>
+
+      <section class="topic glass reveal" id="partitioning">
+        <div class="topic-head"><span class="topic-badge">13</span><h2>Partitioning and Bucketing</h2></div>
+        <div class="topic-media">
+          <p>Partitioning stores data in directory paths by key (for pruning reads). Bucketing hashes rows into fixed buckets (for stable file grouping and join locality).</p>
+        </div>
+        <p><strong>Partitioning</strong> is ideal for high-selectivity filters like date, region, or tenant. <strong>Bucketing</strong> is useful when frequent joins/grouping happen on high-cardinality keys where directory partitioning would create too many tiny folders.</p>
+
+        <div class="flowchart"><h3>Layout Decision Flow</h3><div class="flow-row"><span class="flow-node">Filter by date/region often?</span><span class="flow-arrow">-></span><span class="flow-node">Partition by that key</span><span class="flow-arrow">and</span><span class="flow-node">Frequent joins on id?</span><span class="flow-arrow">-></span><span class="flow-node">Bucket by join key</span></div></div>
+
+        <div class="table-wrap"><table><thead><tr><th>Technique</th><th>Best for</th><th>Pros</th><th>Cons</th></tr></thead><tbody><tr><td>Partitioning</td><td>Low-to-medium cardinality filter columns</td><td>Fast partition pruning, less scan I/O</td><td>Too many partitions can cause small-file problems</td></tr><tr><td>Bucketing</td><td>Frequent joins/aggregations on large tables</td><td>Better join locality, consistent file grouping</td><td>Operational complexity and table-management constraints</td></tr></tbody></table></div>
+
+        <div class="code-block"><code># 1) Partition by date for pruning
+(df
+  .write
+  .mode("overwrite")
+  .partitionBy("event_date")
+  .parquet("/warehouse/events"))
+
+# 2) Bucket by customer_id for join-heavy workloads
+(df
+  .write
+  .mode("overwrite")
+  .bucketBy(32, "customer_id")
+  .sortBy("customer_id")
+  .saveAsTable("sales_bucketed"))
+
+# 3) Read with partition filter (pruning)
+daily = spark.read.parquet("/warehouse/events").filter("event_date = '2026-03-01'")</code></div>
+      </section>
+
+      <section class="topic glass reveal" id="repartition">
+        <div class="topic-head"><span class="topic-badge">14</span><h2>Repartition and Coalesce</h2></div>
+        <div class="topic-media">
+          <p><code>repartition()</code> reshuffles data to rebalance or increase partition count. <code>coalesce()</code> reduces partitions with minimal shuffle and is typically used near final writes.</p>
+        </div>
+        <p>Choosing between them depends on intent: if you need even data redistribution or more parallelism, use repartition. If you only need fewer output files and already-balanced data, use coalesce.</p>
+
+        <div class="flowchart"><h3>Method Choice Flow</h3><div class="flow-row"><span class="flow-node">Need more partitions / rebalance?</span><span class="flow-arrow">-></span><span class="flow-node">repartition()</span><span class="flow-arrow">else</span><span class="flow-node">Need fewer output files?</span><span class="flow-arrow">-></span><span class="flow-node">coalesce()</span></div></div>
+
+        <div class="table-wrap"><table><thead><tr><th>Method</th><th>Shuffle</th><th>Pros</th><th>Cons</th><th>Ideal use case</th></tr></thead><tbody><tr><td><code>repartition(n)</code></td><td>Yes (full shuffle)</td><td>Even distribution, good parallelism control</td><td>Expensive network + shuffle cost</td><td>Before wide joins/aggregations on skewed data</td></tr><tr><td><code>repartition(n, key)</code></td><td>Yes</td><td>Key-aware redistribution</td><td>Shuffle-heavy if overused</td><td>Align partitions with join/group key</td></tr><tr><td><code>coalesce(n)</code></td><td>Mostly no</td><td>Cheap reduction in partition count</td><td>Can produce uneven partition sizes</td><td>Reduce files before write</td></tr></tbody></table></div>
+
+        <div class="code-block"><code># Start with raw data
+base = spark.read.parquet("/silver/sales")
+
+# Rebalance by join/group key for heavy computation
+balanced = base.repartition(240, "region")
+
+# Compute heavy logic
+agg = balanced.groupBy("region").sum("amount")
+
+# Reduce output files before sink write
+out = agg.coalesce(24)
+out.write.mode("overwrite").parquet("/gold/region_sales")</code></div>
+      </section>
+
+      <section class="topic glass reveal" id="executor-memory">
+        <div class="topic-head"><span class="topic-badge">15</span><h2>Executor Memory</h2></div>
+        <div class="topic-media">
+          <p>Executor memory is shared between execution memory (shuffle/sort/aggregation) and storage memory (cache/persist). Bad sizing causes spills, GC overhead, and out-of-memory failures.</p>
+        </div>
+        <p>Memory tuning is not only increasing heap size. You should also control partition size, reduce unnecessary columns, cache selectively, and avoid huge broadcast objects. These workload-level optimizations often give bigger gains than config-only changes.</p>
+
+        <div class="flowchart"><h3>Memory Pressure Pattern</h3><div class="flow-row"><span class="flow-node">Large rows</span><span class="flow-arrow">-></span><span class="flow-node">High shuffle memory</span><span class="flow-arrow">-></span><span class="flow-node">Spill / GC</span><span class="flow-arrow">-></span><span class="flow-node">Slow tasks / OOM</span></div></div>
+
+        <div class="table-wrap"><table><thead><tr><th>Config</th><th>Purpose</th><th>Typical value</th><th>When to tune</th></tr></thead><tbody><tr><td><code>spark.executor.memory</code></td><td>Heap size per executor</td><td>4g - 16g+</td><td>Task OOM or frequent spills</td></tr><tr><td><code>spark.memory.fraction</code></td><td>Execution + storage memory pool</td><td>0.6 - 0.8</td><td>Balance shuffle vs cache pressure</td></tr><tr><td><code>spark.memory.storageFraction</code></td><td>Storage share within unified memory</td><td>0.5 default</td><td>Heavy caching workloads</td></tr><tr><td><code>spark.executor.memoryOverhead</code></td><td>Off-heap / JVM overhead</td><td>10% or more</td><td>Container OOM outside heap</td></tr><tr><td><code>spark.sql.shuffle.partitions</code></td><td>Shuffle partition count</td><td>Workload-dependent</td><td>Too-large task memory footprint</td></tr></tbody></table></div>
+
+        <div class="code-block"><code>spark.conf.set("spark.executor.memory", "8g")
+spark.conf.set("spark.executor.memoryOverhead", "2g")
+spark.conf.set("spark.memory.fraction", "0.7")
+spark.conf.set("spark.memory.storageFraction", "0.4")
+
+# Reduce memory footprint by pruning columns early
+lean = df.select("id", "region", "amount")
+
+# Reduce task memory pressure with sane shuffle partitioning
+spark.conf.set("spark.sql.shuffle.partitions", "240")</code></div>
+      </section>
+
+      <section class="topic glass reveal" id="dpp">
+        <div class="topic-head"><span class="topic-badge">16</span><h2>Dynamic Partition Pruning</h2></div>
+        <div class="topic-media">
+          <p>DPP prunes fact-table partitions dynamically using runtime filter values coming from the dimension side of a join.</p>
+        </div>
+        <p>DPP is highly effective in star-schema patterns where a large partitioned fact table joins with smaller dimensions. Instead of scanning all fact partitions first, Spark uses filtered dimension keys to skip irrelevant partitions before expensive reads.</p>
+
+        <div class="flowchart"><h3>DPP Flow</h3><div class="flow-row"><span class="flow-node">Filter dimension (small)</span><span class="flow-arrow">-></span><span class="flow-node">Extract join keys</span><span class="flow-arrow">-></span><span class="flow-node">Prune fact partitions</span><span class="flow-arrow">-></span><span class="flow-node">Join remaining data</span></div></div>
+
+        <div class="table-wrap"><table><thead><tr><th>Condition</th><th>DPP impact</th><th>Guidance</th></tr></thead><tbody><tr><td>Fact table partitioned on join-related column</td><td>High benefit</td><td>Align partition key with query filters and joins</td></tr><tr><td>Dimension heavily filtered</td><td>High benefit</td><td>Push dimension filters early</td></tr><tr><td>No relevant partitioning on fact</td><td>Low/none</td><td>Redesign partition strategy</td></tr><tr><td>Small fact table</td><td>Limited gain</td><td>DPP not critical; focus elsewhere</td></tr></tbody></table></div>
+
+        <div class="code-block"><code>spark.conf.set("spark.sql.optimizer.dynamicPartitionPruning.enabled", "true")
+
+result = spark.sql("""
+  SELECT f.order_id, f.amount, d.region_name
+  FROM fact_sales f
+  JOIN dim_region d
+    ON f.region_id = d.region_id
+  WHERE d.region_name IN ('APAC', 'EMEA')
+""")
+
+result.explain("formatted")  # verify pruning in plan</code></div>
+      </section>
+
+      <section class="topic glass reveal" id="dynamic-allocation">
+        <div class="topic-head"><span class="topic-badge">17</span><h2>Dynamic Resource Allocation</h2></div>
+        <div class="topic-media">
+          <p>Dynamic allocation automatically scales executors up/down using backlog and idle signals, improving cluster utilization and reducing costs.</p>
+        </div>
+        <p>When task backlog grows, Spark requests more executors. When executors stay idle for configured time, Spark releases them. Correct min/max bounds prevent under-provisioning and avoid resource thrashing.</p>
+
+        <div class="flowchart"><h3>Elasticity Loop</h3><div class="flow-row"><span class="flow-node">Pending tasks increase</span><span class="flow-arrow">-></span><span class="flow-node">Request executors</span><span class="flow-arrow">-></span><span class="flow-node">Throughput stabilizes</span><span class="flow-arrow">-></span><span class="flow-node">Idle timeout</span><span class="flow-arrow">-></span><span class="flow-node">Release executors</span></div></div>
+
+        <div class="table-wrap"><table><thead><tr><th>Config</th><th>Role</th><th>Example</th><th>Tuning guidance</th></tr></thead><tbody><tr><td><code>spark.dynamicAllocation.enabled</code></td><td>Enable feature</td><td>true</td><td>Turn on for variable workloads</td></tr><tr><td><code>spark.dynamicAllocation.minExecutors</code></td><td>Lower bound</td><td>2</td><td>Set enough for baseline SLA</td></tr><tr><td><code>spark.dynamicAllocation.maxExecutors</code></td><td>Upper bound</td><td>20</td><td>Cap to control cost and quota</td></tr><tr><td><code>spark.dynamicAllocation.initialExecutors</code></td><td>Startup baseline</td><td>4</td><td>Avoid cold-start under-provisioning</td></tr><tr><td><code>spark.dynamicAllocation.executorIdleTimeout</code></td><td>Idle release threshold</td><td>60s</td><td>Too low causes thrashing, too high wastes cost</td></tr><tr><td><code>spark.dynamicAllocation.schedulerBacklogTimeout</code></td><td>Scale-up trigger delay</td><td>1s</td><td>Lower for bursty queues</td></tr></tbody></table></div>
+
+        <div class="code-block"><code>spark.conf.set("spark.dynamicAllocation.enabled", "true")
+spark.conf.set("spark.dynamicAllocation.minExecutors", "2")
+spark.conf.set("spark.dynamicAllocation.initialExecutors", "4")
+spark.conf.set("spark.dynamicAllocation.maxExecutors", "24")
+spark.conf.set("spark.dynamicAllocation.executorIdleTimeout", "60s")
+spark.conf.set("spark.dynamicAllocation.schedulerBacklogTimeout", "1s")
+
+# monitor in Spark UI to verify healthy scaling behavior</code></div>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="../../assets/js/app.js"></script>
+  <script src="spark.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+</body>
+</html>
