@@ -1292,11 +1292,19 @@ pre.code code,
   transform: translateY(0);
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD:assets/css/styles.css
 /* Scroll to Top Button */
 =======
 /* Scroll to top button */
 >>>>>>> b68b1ed9e687a34a806d240a5839331c1fd97685:source/styles.css
+=======
+<<<<<<< HEAD:source/styles.css
+/* Scroll to top button */
+=======
+/* Scroll to Top Button */
+>>>>>>> main:assets/css/styles.css
+>>>>>>> feaf2feb3fcf3211c74ff3383027f485c6217990
 .scroll-to-top {
   position: fixed;
   bottom: 2rem;
@@ -1304,6 +1312,7 @@ pre.code code,
   width: 48px;
   height: 48px;
   border-radius: 50%;
+<<<<<<< HEAD
 <<<<<<< HEAD:assets/css/styles.css
   background: var(--glass);
   border: 1px solid var(--glass-border);
@@ -1313,11 +1322,32 @@ pre.code code,
   color: white;
   border: none;
 >>>>>>> b68b1ed9e687a34a806d240a5839331c1fd97685:source/styles.css
+=======
+<<<<<<< HEAD:source/styles.css
+  background: var(--glow-color);
+  color: white;
+  border: none;
+=======
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  color: var(--text);
+>>>>>>> main:assets/css/styles.css
+>>>>>>> feaf2feb3fcf3211c74ff3383027f485c6217990
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+<<<<<<< HEAD
 <<<<<<< HEAD:assets/css/styles.css
+=======
+<<<<<<< HEAD:source/styles.css
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition);
+  z-index: 9999;
+=======
+>>>>>>> feaf2feb3fcf3211c74ff3383027f485c6217990
   opacity: 0;
   visibility: hidden;
   transition: all var(--transition);
@@ -1330,6 +1360,7 @@ pre.code code,
 .scroll-to-top.show {
   opacity: 1;
   visibility: visible;
+<<<<<<< HEAD
 =======
   box-shadow: var(--shadow-md);
   opacity: 0;
@@ -1337,10 +1368,14 @@ pre.code code,
   transition: all var(--transition);
   z-index: 9999;
 >>>>>>> b68b1ed9e687a34a806d240a5839331c1fd97685:source/styles.css
+=======
+>>>>>>> main:assets/css/styles.css
+>>>>>>> feaf2feb3fcf3211c74ff3383027f485c6217990
 }
 
 .scroll-to-top:hover {
   transform: translateY(-4px);
+<<<<<<< HEAD
 <<<<<<< HEAD:assets/css/styles.css
   box-shadow: var(--shadow-lg), 0 0 20px var(--glow-border);
   border-color: var(--glow-color);
@@ -1353,18 +1388,48 @@ pre.code code,
   opacity: 1;
   visibility: visible;
 >>>>>>> b68b1ed9e687a34a806d240a5839331c1fd97685:source/styles.css
+=======
+<<<<<<< HEAD:source/styles.css
+  box-shadow: var(--shadow-lg);
+  background: var(--glow-pink);
+}
+
+.scroll-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+=======
+  box-shadow: var(--shadow-lg), 0 0 20px var(--glow-border);
+  border-color: var(--glow-color);
+>>>>>>> main:assets/css/styles.css
+>>>>>>> feaf2feb3fcf3211c74ff3383027f485c6217990
 }
 
 .scroll-to-top svg {
   width: 24px;
   height: 24px;
+<<<<<<< HEAD
 <<<<<<< HEAD:assets/css/styles.css
+=======
+<<<<<<< HEAD:source/styles.css
+}
+
+@media (max-width: 640px) {
+  .scroll-to-top {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 44px;
+    height: 44px;
+  }
+}
+=======
+>>>>>>> feaf2feb3fcf3211c74ff3383027f485c6217990
   stroke: var(--text);
   fill: none;
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+<<<<<<< HEAD
 =======
 }
 
@@ -1377,3 +1442,6 @@ pre.code code,
   }
 }
 >>>>>>> b68b1ed9e687a34a806d240a5839331c1fd97685:source/styles.css
+=======
+>>>>>>> main:assets/css/styles.css
+>>>>>>> feaf2feb3fcf3211c74ff3383027f485c6217990

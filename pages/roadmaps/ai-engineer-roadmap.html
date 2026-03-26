@@ -7,6 +7,7 @@
   <title>Data Guide | AI Engineer Roadmap</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<<<<<<< HEAD
 <<<<<<< HEAD:pages/roadmaps/ai-engineer-roadmap.html
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../../assets/css/styles.css" />
@@ -20,6 +21,21 @@
   <link rel="stylesheet" href="../sidebar.css" />
   <link rel="stylesheet" href="../nav-section-pills.css" />
 >>>>>>> b68b1ed9e687a34a806d240a5839331c1fd97685:source/roadmaps/ai-engineer-roadmap.html
+=======
+<<<<<<< HEAD:source/roadmaps/ai-engineer-roadmap.html
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../hub.css" />
+  <link rel="stylesheet" href="../sidebar.css" />
+  <link rel="stylesheet" href="../nav-section-pills.css" />
+=======
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../assets/css/styles.css" />
+  <link rel="stylesheet" href="../../assets/css/hub.css" />
+>>>>>>> main:pages/roadmaps/ai-engineer-roadmap.html
+>>>>>>> feaf2feb3fcf3211c74ff3383027f485c6217990
   <style>
     /* Roadmap specific styles */
     .roadmap-container {
@@ -215,12 +231,21 @@
 
   <header class="topbar glass reveal in">
     <a class="brand" href="../../index.html">Data Guide</a>
+<<<<<<< HEAD
 <<<<<<< HEAD:pages/roadmaps/ai-engineer-roadmap.html
 =======
     <button id="sidebarToggle" class="sidebar-toggle" type="button" aria-label="Toggle sidebar">
       <span class="toggle-icon" aria-hidden="true">☰</span>
     </button>
 >>>>>>> b68b1ed9e687a34a806d240a5839331c1fd97685:source/roadmaps/ai-engineer-roadmap.html
+=======
+<<<<<<< HEAD:source/roadmaps/ai-engineer-roadmap.html
+    <button id="sidebarToggle" class="sidebar-toggle" type="button" aria-label="Toggle sidebar">
+      <span class="toggle-icon" aria-hidden="true">☰</span>
+    </button>
+=======
+>>>>>>> main:pages/roadmaps/ai-engineer-roadmap.html
+>>>>>>> feaf2feb3fcf3211c74ff3383027f485c6217990
     <nav class="menu" aria-label="Main menu">
       <a href="roadmap.html">Data Engineering</a>
       <a href="python-roadmap.html">Python</a>
@@ -851,6 +876,7 @@
     </div>
   </main>
 
+<<<<<<< HEAD
 <<<<<<< HEAD:pages/roadmaps/ai-engineer-roadmap.html
   <script src="../assets/js/app.js"></script>
 =======
@@ -916,6 +942,73 @@
     });
   </script>
 >>>>>>> b68b1ed9e687a34a806d240a5839331c1fd97685:source/roadmaps/ai-engineer-roadmap.html
+=======
+<<<<<<< HEAD:source/roadmaps/ai-engineer-roadmap.html
+  <nav class="sidebar">
+    <div class="sidebar-logo">AI Engineer Roadmap</div>
+    <a href="#ai-foundations" class="nav-item">AI Foundations</a>
+    <a href="#large-language-models" class="nav-item">Large Language Models</a>
+    <a href="#prompt-engineering" class="nav-item">Prompt Engineering</a>
+    <a href="#rag" class="nav-item">Retrieval Augmented Generation (RAG)</a>
+    <a href="#ai-agents" class="nav-item">AI Agents</a>
+    <a href="#ai-system-design" class="nav-item">AI System Design</a>
+    <a href="#fine-tuning-custom-models" class="nav-item">Fine-tuning & Custom Models</a>
+    <a href="#production-ai" class="nav-item">Production AI</a>
+    <a href="#quick-reference" class="nav-item">Quick Reference</a>
+  </nav>
+
+  <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Sidebar toggle functionality
+    document.addEventListener('DOMContentLoaded', function () {
+      const sidebarToggle = document.getElementById('sidebarToggle');
+      const sidebar = document.querySelector('.sidebar');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+      const mainContent = document.querySelector('.main-content');
+
+      if (sidebarToggle && sidebar && sidebarOverlay && mainContent) {
+        sidebarToggle.addEventListener('click', function () {
+          sidebar.classList.toggle('active');
+          sidebarOverlay.classList.toggle('active');
+          mainContent.classList.toggle('sidebar-active');
+        });
+
+        sidebarOverlay.addEventListener('click', function () {
+          sidebar.classList.remove('active');
+          sidebarOverlay.classList.remove('active');
+          mainContent.classList.remove('sidebar-active');
+        });
+      }
+    });
+  </script>
+=======
+  <script src="../assets/js/app.js"></script>
+>>>>>>> main:pages/roadmaps/ai-engineer-roadmap.html
+>>>>>>> feaf2feb3fcf3211c74ff3383027f485c6217990
 </body>
 
 </html>
