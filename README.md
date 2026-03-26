@@ -16,46 +16,77 @@ A comprehensive, modern educational website covering Python, NumPy, Pandas, Spar
 my-guide/
 ├── index.html                          # Homepage with all sections
 ├── README.md                           # This file
-├── source/
-│   ├── styles.css                      # Main styles and CSS variables
-│   ├── hub.css                         # Hub page styles
-│   ├── app.js                          # Theme toggle and global scripts
-│   │
-│   ├── python/                         # Python section
-│   │   ├── python.css                  # Sidebar styles (reusable)
-│   │   ├── python.js                   # Sidebar functionality
-│   │   ├── index.html                  # Python Hub
-│   │   ├── python-fundamentals.html    # Fundamentals page
-│   │   ├── python-oops.html           # OOPs concepts page
-│   │   ├── methods.html               # Comprehensive methods reference
-│   │   └── memory-performance.html     # Memory & performance tips
-│   │
-│   ├── pandas/                         # Pandas section
-│   │   ├── index.html                  # Pandas Hub
-│   │   ├── pandas-series.html          # Series documentation
-│   │   ├── pandas-dataframes.html      # DataFrames documentation
-│   │   └── methods.html               # Comprehensive methods reference
-│   │
-│   ├── numpy/                          # NumPy section
-│   │   ├── index.html                  # NumPy Hub
-│   │   ├── numpy-arrays.html           # Arrays fundamentals
-│   │   ├── numpy-operations.html       # Mathematical operations
-│   │   └── methods.html               # Comprehensive methods reference
-│   │
-│   ├── sql/                            # SQL section
-│   │   ├── index.html                  # SQL Hub
-│   │   ├── sql-queries.html            # SELECT queries
-│   │   ├── sql-joins.html              # JOIN operations
-│   │   └── sql-subqueries.html         # Subqueries and CTEs
-│   │
-│   └── spark/                          # Spark section
-│       ├── spark.css                   # Spark-specific styles
-│       ├── spark.js                    # Spark functionality
-│       ├── index.html                  # Spark Hub
-│       ├── spark-theory.html           # Spark theory
-│       ├── spark-code.html             # Spark code examples
-│       └── spark-architecture.html     # Architecture diagrams
-```
+└── source/
+    ├── styles.css                      # Main styles and CSS variables
+    ├── hub.css                         # Hub page styles
+    ├── app.js                          # Theme toggle and global scripts
+    │
+    ├── roadmaps/                       # Roadmap pages
+    │   ├── roadmap.html                # General roadmap
+    │   ├── ai-engineer-roadmap.html    # AI Engineer roadmap
+    │   ├── ml-engineer-roadmap.html    # ML Engineer roadmap
+    │   ├── python-roadmap.html         # Python roadmap
+    │   ├── spark-roadmap.html          # Spark roadmap
+    │   └── sql-roadmap.html            # SQL roadmap
+    │
+    ├── cheatsheets/                    # Cheatsheet pages
+    │   ├── cheatsheet.html             # General cheatsheet
+    │   ├── numpy-cheatsheet.html       # NumPy cheatsheet
+    │   ├── pandas-cheatsheet.html      # Pandas cheatsheet
+    │   ├── postgresql-cheatsheet.html  # PostgreSQL cheatsheet
+    │   ├── python-cheatsheet.html      # Python cheatsheet
+    │   └── spark-cheatsheet.html       # Spark cheatsheet
+    │
+    ├── portfolios/                     # Portfolio pages
+    │   └── portfolio.html              # Portfolio
+    │
+    ├── tools/                          # Utility scripts
+    │   ├── extract_docx.py             # DOCX extraction script
+    │   └── extract_full_content.py     # Content extraction script
+    │
+    ├── misc/                           # Miscellaneous files
+    │   └── compare.html                # Comparison page
+    │
+    ├── python/                         # Python section
+    │   ├── python.css                  # Sidebar styles (reusable)
+    │   ├── python.js                   # Sidebar functionality
+    │   ├── index.html                  # Python Hub
+    │   ├── python-fundamentals.html    # Fundamentals page
+    │   ├── python-oops.html           # OOPs concepts page
+    │   ├── methods.html               # Comprehensive methods reference
+    │   └── memory-performance.html     # Memory & performance tips
+    │
+    ├── pandas/                         # Pandas section
+    │   ├── index.html                  # Pandas Hub
+    │   ├── pandas-series.html          # Series documentation
+    │   ├── pandas-dataframes.html      # DataFrames documentation
+    │   └── methods.html               # Comprehensive methods reference
+    │
+    ├── numpy/                          # NumPy section
+    │   ├── index.html                  # NumPy Hub
+    │   ├── numpy-arrays.html           # Arrays fundamentals
+    │   ├── numpy-operations.html       # Mathematical operations
+    │   └── methods.html               # Comprehensive methods reference
+    │
+    ├── sql/                            # SQL section
+    │   ├── index.html                  # SQL Hub
+    │   ├── sql-queries.html            # SELECT queries
+    │   ├── sql-joins.html              # JOIN operations
+    │   └── sql-subqueries.html         # Subqueries and CTEs
+    │
+    ├── spark/                          # Spark section
+    │   ├── spark.css                   # Spark-specific styles
+    │   ├── spark.js                    # Spark functionality
+    │   ├── index.html                  # Spark Hub
+    │   ├── spark-theory.html           # Spark theory
+    │   ├── spark-code.html             # Spark code examples
+    │   └── spark-architecture.html     # Architecture diagrams
+    │
+    ├── cloud/                          # Cloud section
+    │   └── index.html                  # Cloud Hub
+    │
+    └── data/                           # Big Data section
+        └── index.html                  # Big Data Hub
 
 ## Sections
 

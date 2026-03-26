@@ -88,8 +88,7 @@
 
       <!-- Section 1: Window Concepts -->
       <section class="topic-section" id="window-concepts">
-        <span class="level-badge basic">Basic</span>
-        <h2>Window Function Concepts</h2>
+        <h2> Window Function Concepts <span class="level-badge basic">Basic</span> </h2>
         <p>Window functions perform calculations across a "window" of rows related to the current row. Unlike aggregates, they don't collapse rows.</p>
 
         <div class="split-grid">
@@ -136,8 +135,7 @@
 
       <!-- Section 2: OVER Syntax -->
       <section class="topic-section" id="syntax">
-        <span class="level-badge basic">Basic</span>
-        <h2>OVER Clause Syntax</h2>
+        <h2> OVER Clause Syntax <span class="level-badge basic">Basic</span> </h2>
         <p>The OVER clause defines the window over which the function operates.</p>
 
         <div class="code-block">
@@ -188,8 +186,7 @@ function_name() <span class="keyword">OVER</span> window_definition
 
       <!-- Section 3: PARTITION BY -->
       <section class="topic-section" id="partition-by">
-        <span class="level-badge basic">Basic</span>
-        <h2>PARTITION BY</h2>
+        <h2> PARTITION BY <span class="level-badge basic">Basic</span> </h2>
         <p>PARTITION BY divides rows into groups (partitions) for the window function. Each partition is processed independently.</p>
 
         <div class="split-grid">
@@ -256,8 +253,7 @@ function_name() <span class="keyword">OVER</span> window_definition
 
       <!-- Section 4: ORDER BY in Windows -->
       <section class="topic-section" id="order-by-window">
-        <span class="level-badge basic">Basic</span>
-        <h2>ORDER BY in Windows</h2>
+        <h2> ORDER BY in Windows <span class="level-badge basic">Basic</span> </h2>
         <p>ORDER BY within OVER determines the order of rows within each partition. Required for ranking and cumulative calculations.</p>
 
         <div class="code-block">
@@ -298,8 +294,7 @@ function_name() <span class="keyword">OVER</span> window_definition
 
       <!-- Section 5: ROW_NUMBER -->
       <section class="topic-section" id="row-number">
-        <span class="level-badge basic">Basic</span>
-        <h2>ROW_NUMBER</h2>
+        <h2> ROW_NUMBER <span class="level-badge basic">Basic</span> </h2>
         <p>Assigns a unique sequential integer to each row within a partition. Ties get different numbers.</p>
 
         <div class="code-block">
@@ -351,8 +346,7 @@ function_name() <span class="keyword">OVER</span> window_definition
 
       <!-- Section 6: RANK & DENSE_RANK -->
       <section class="topic-section" id="rank-functions">
-        <span class="level-badge basic">Basic</span>
-        <h2>RANK and DENSE_RANK</h2>
+        <h2> RANK and DENSE_RANK <span class="level-badge basic">Basic</span> </h2>
         <p>Rank rows based on values. RANK skips numbers after ties; DENSE_RANK does not.</p>
 
         <div class="split-grid">
@@ -412,8 +406,7 @@ function_name() <span class="keyword">OVER</span> window_definition
 
       <!-- Section 7: NTILE -->
       <section class="topic-section" id="ntile">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>NTILE</h2>
+        <h2> NTILE <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Distributes rows into a specified number of roughly equal groups (buckets).</p>
 
         <div class="code-block">
@@ -463,8 +456,7 @@ function_name() <span class="keyword">OVER</span> window_definition
 
       <!-- Section 8: LAG & LEAD -->
       <section class="topic-section" id="lag-lead">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>LAG and LEAD</h2>
+        <h2> LAG and LEAD <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Access values from previous (LAG) or following (LEAD) rows without self-joins.</p>
 
         <div class="split-grid">
@@ -557,8 +549,7 @@ function_name() <span class="keyword">OVER</span> window_definition
 
       <!-- Section 9: FIRST_VALUE & LAST_VALUE -->
       <section class="topic-section" id="first-last">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>FIRST_VALUE and LAST_VALUE</h2>
+        <h2> FIRST_VALUE and LAST_VALUE <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Access the first or last value in the window frame.</p>
 
         <div class="split-grid">
@@ -628,8 +619,7 @@ function_name() <span class="keyword">OVER</span> window_definition
 
       <!-- Section 10: NTH_VALUE -->
       <section class="topic-section" id="nth-value">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>NTH_VALUE</h2>
+        <h2> NTH_VALUE <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Access the nth value in the window frame. Also requires proper framing to work correctly.</p>
 
         <div class="code-block">
@@ -675,8 +665,7 @@ function_name() <span class="keyword">OVER</span> window_definition
 
       <!-- Section 11: Aggregate Windows -->
       <section class="topic-section" id="aggregate-windows">
-        <span class="level-badge basic">Basic</span>
-        <h2>Aggregate Window Functions</h2>
+        <h2> Aggregate Window Functions <span class="level-badge basic">Basic</span> </h2>
         <p>Standard aggregate functions (SUM, AVG, COUNT, MIN, MAX) can be used as window functions.</p>
 
         <div class="code-block">
@@ -734,8 +723,7 @@ function_name() <span class="keyword">OVER</span> window_definition
 
       <!-- Section 12: Running Totals -->
       <section class="topic-section" id="running-totals">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Running Totals</h2>
+        <h2> Running Totals <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Calculate cumulative sums and other running aggregates using window functions.</p>
 
         <div class="code-block">
@@ -788,8 +776,7 @@ function_name() <span class="keyword">OVER</span> window_definition
 
       <!-- Section 13: Moving Averages -->
       <section class="topic-section" id="moving-averages">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Moving Averages</h2>
+        <h2> Moving Averages <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Calculate rolling averages using frame clauses to smooth out data over a window.</p>
 
         <div class="split-grid">
@@ -873,8 +860,7 @@ function_name() <span class="keyword">OVER</span> window_definition
 
       <!-- Section 14: Frame Basics -->
       <section class="topic-section" id="frame-basics">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Frame Clause Basics</h2>
+        <h2> Frame Clause Basics <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>The frame clause defines which rows are included in the window calculation relative to the current row.</p>
 
         <div class="code-block">
@@ -921,8 +907,7 @@ frame_extent =
 
       <!-- Section 15: ROWS vs RANGE -->
       <section class="topic-section" id="rows-vs-range">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>ROWS vs RANGE vs GROUPS</h2>
+        <h2> ROWS vs RANGE vs GROUPS <span class="level-badge advanced">Advanced</span> </h2>
         <p>Three frame types that determine how rows are selected relative to the current row.</p>
 
         <div class="split-grid">
@@ -999,8 +984,7 @@ frame_extent =
 
       <!-- Section 16: GROUP & EXCLUDE -->
       <section class="topic-section" id="group-bound">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>GROUP and EXCLUDE</h2>
+        <h2> GROUP and EXCLUDE <span class="level-badge advanced">Advanced</span> </h2>
         <p>PostgreSQL extensions for advanced frame control.</p>
 
         <div class="code-block">
@@ -1050,8 +1034,7 @@ frame_extent =
 
       <!-- Section 17: PERCENT_RANK & CUME_DIST -->
       <section class="topic-section" id="percent-rank">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>PERCENT_RANK and CUME_DIST</h2>
+        <h2> PERCENT_RANK and CUME_DIST <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Statistical ranking functions for relative position calculations.</p>
 
         <div class="split-grid">
@@ -1110,8 +1093,7 @@ frame_extent =
 
       <!-- Section 18: Distribution Functions -->
       <section class="topic-section" id="distribution">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Distribution Functions</h2>
+        <h2> Distribution Functions <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>PostgreSQL's PERCENTILE_CONT and PERCENTILE_DISC for percentile calculations.</p>
 
         <div class="code-block">
@@ -1151,8 +1133,7 @@ frame_extent =
 
       <!-- Section 19: Window Aliases -->
       <section class="topic-section" id="window-aliases">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Window Aliases</h2>
+        <h2> Window Aliases <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Define reusable window specifications with the WINDOW clause to avoid repetition.</p>
 
         <div class="code-block">
@@ -1226,8 +1207,7 @@ frame_extent =
 
       <!-- Section 20: Optimization Tips -->
       <section class="topic-section" id="optimization">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Optimization Tips</h2>
+        <h2> Optimization Tips <span class="level-badge advanced">Advanced</span> </h2>
         <p>Best practices for writing efficient window functions in PostgreSQL.</p>
 
         <div class="split-grid">
@@ -1300,6 +1280,34 @@ frame_extent =
     </div>
   </main>
   <script src="../python/python.js"></script>
+<<<<<<< HEAD:pages/sql/sql-windows.html
   <script src="../../assets/js/app.js"></script>
+=======
+  <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+>>>>>>> b68b1ed9e687a34a806d240a5839331c1fd97685:source/sql/sql-windows.html
 </body>
 </html>

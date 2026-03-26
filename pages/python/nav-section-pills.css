@@ -1,0 +1,244 @@
+/* ============================================
+   Pill nav + Navbar colored headings
+   ============================================ */
+
+/* ---- Pill Navigation ---- */
+.pill-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.pill-nav a {
+  padding: 0.4rem 1rem;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: all var(--transition);
+}
+
+.pill-nav a:hover {
+  border-color: var(--glow-border);
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.15);
+}
+
+.pill-nav a.active {
+  color: var(--text);
+  background: var(--bg-alt);
+  border-color: var(--glow-border);
+  box-shadow: var(--shadow-sm), inset 0 0 0 1px rgba(99, 102, 241, 0.15);
+}
+
+/* ---- Hover color by category (pill nav links) ---- */
+.pill-nav a[data-category="concurrency"]:hover {
+  color: #06b6d4;
+  border-color: #06b6d4;
+  background: rgba(6, 182, 212, 0.08);
+}
+
+.pill-nav a[data-category="memory"]:hover {
+  color: #8b5cf6;
+  border-color: #8b5cf6;
+  background: rgba(139, 92, 246, 0.08);
+}
+
+.pill-nav a[data-category="performance"]:hover {
+  color: #f97316;
+  border-color: #f97316;
+  background: rgba(249, 115, 22, 0.08);
+}
+
+.pill-nav a[data-category="summary"]:hover {
+  color: #64748b;
+  border-color: #64748b;
+  background: rgba(100, 116, 139, 0.08);
+}
+
+.pill-nav a[data-category="getting-started"]:hover {
+  color: #22c55e;
+  border-color: #22c55e;
+  background: rgba(34, 197, 94, 0.08);
+}
+
+.pill-nav a[data-category="data-structures"]:hover {
+  color: #3b82f6;
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.08);
+}
+
+.pill-nav a[data-category="control-flow"]:hover {
+  color: #a855f7;
+  border-color: #a855f7;
+  background: rgba(168, 85, 247, 0.08);
+}
+
+.pill-nav a[data-category="memory-management"]:hover {
+  color: #ec4899;
+  border-color: #ec4899;
+  background: rgba(236, 72, 153, 0.08);
+}
+
+.pill-nav a[data-category="storage"]:hover {
+  color: #14b8a6;
+  border-color: #14b8a6;
+  background: rgba(20, 184, 166, 0.08);
+}
+
+.pill-nav a[data-category="next-steps"]:hover {
+  color: #6b7280;
+  border-color: #6b7280;
+  background: rgba(107, 114, 128, 0.08);
+}
+
+.pill-nav a[data-category="basic-concepts"]:hover {
+  color: #22c55e;
+  border-color: #22c55e;
+  background: rgba(34, 197, 94, 0.08);
+}
+
+.pill-nav a[data-category="intermediate"]:hover {
+  color: #a855f7;
+  border-color: #a855f7;
+  background: rgba(168, 85, 247, 0.08);
+}
+
+.pill-nav a[data-category="advanced"]:hover {
+  color: #f97316;
+  border-color: #f97316;
+  background: rgba(249, 115, 22, 0.08);
+}
+
+.pill-nav a[data-category="built-in"]:hover {
+  color: #22c55e;
+  border-color: #22c55e;
+  background: rgba(34, 197, 94, 0.08);
+}
+
+.pill-nav a[data-category="magic-methods"]:hover {
+  color: #f97316;
+  border-color: #f97316;
+  background: rgba(249, 115, 22, 0.08);
+}
+
+.pill-nav a[data-category="data-science"]:hover {
+  color: #3b82f6;
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.08);
+}
+
+.pill-nav a[data-category="basics"]:hover {
+  color: #22c55e;
+  border-color: #22c55e;
+  background: rgba(34, 197, 94, 0.08);
+}
+
+/* ---- Active state color by category ---- */
+.pill-nav a[data-category="concurrency"].active {
+  color: #06b6d4;
+  border-color: #06b6d4;
+}
+
+.pill-nav a[data-category="memory"].active {
+  color: #8b5cf6;
+  border-color: #8b5cf6;
+}
+
+.pill-nav a[data-category="performance"].active {
+  color: #f97316;
+  border-color: #f97316;
+}
+
+.pill-nav a[data-category="summary"].active {
+  color: #64748b;
+  border-color: #64748b;
+}
+
+.pill-nav a[data-category="getting-started"].active {
+  color: #22c55e;
+  border-color: #22c55e;
+}
+
+.pill-nav a[data-category="data-structures"].active {
+  color: #3b82f6;
+  border-color: #3b82f6;
+}
+
+.pill-nav a[data-category="control-flow"].active {
+  color: #a855f7;
+  border-color: #a855f7;
+}
+
+.pill-nav a[data-category="memory-management"].active {
+  color: #ec4899;
+  border-color: #ec4899;
+}
+
+.pill-nav a[data-category="storage"].active {
+  color: #14b8a6;
+  border-color: #14b8a6;
+}
+
+.pill-nav a[data-category="next-steps"].active {
+  color: #6b7280;
+  border-color: #6b7280;
+}
+
+.pill-nav a[data-category="basic-concepts"].active {
+  color: #22c55e;
+  border-color: #22c55e;
+}
+
+.pill-nav a[data-category="intermediate"].active {
+  color: #a855f7;
+  border-color: #a855f7;
+}
+
+.pill-nav a[data-category="advanced"].active {
+  color: #f97316;
+  border-color: #f97316;
+}
+
+.pill-nav a[data-category="built-in"].active {
+  color: #22c55e;
+  border-color: #22c55e;
+}
+
+.pill-nav a[data-category="magic-methods"].active {
+  color: #f97316;
+  border-color: #f97316;
+}
+
+.pill-nav a[data-category="data-science"].active {
+  color: #3b82f6;
+  border-color: #3b82f6;
+}
+
+.pill-nav a[data-category="basics"].active {
+  color: #22c55e;
+  border-color: #22c55e;
+}
+
+/* ---- Navbar section headings: text color by category (no pills) ---- */
+.nav-title.concurrency { color: #06b6d4; }
+.nav-title.memory { color: #8b5cf6; }
+.nav-title.performance { color: #f97316; }
+.nav-title.summary { color: #64748b; }
+.nav-title.getting-started { color: #22c55e; }
+.nav-title.data-structures { color: #3b82f6; }
+.nav-title.control-flow { color: #a855f7; }
+.nav-title.memory-management { color: #ec4899; }
+.nav-title.storage { color: #14b8a6; }
+.nav-title.next-steps { color: #6b7280; }
+.nav-title.basic-concepts { color: #22c55e; }
+.nav-title.intermediate { color: #a855f7; }
+.nav-title.advanced { color: #f97316; }
+.nav-title.built-in { color: #22c55e; }
+.nav-title.magic-methods { color: #f97316; }
+.nav-title.data-science { color: #3b82f6; }
+.nav-title.basics { color: #22c55e; }

@@ -264,6 +264,7 @@ body.dark .orb-c {
 .menu a.active {
   color: var(--text);
   background: var(--bg-alt);
+  padding: 0.5rem 0.9rem;
   border-color: rgba(99, 102, 241, 0.2);
   box-shadow: var(--shadow-sm), inset 0 0 0 1px rgba(99, 102, 241, 0.15);
 }
@@ -1291,7 +1292,11 @@ pre.code code,
   transform: translateY(0);
 }
 
+<<<<<<< HEAD:assets/css/styles.css
 /* Scroll to Top Button */
+=======
+/* Scroll to top button */
+>>>>>>> b68b1ed9e687a34a806d240a5839331c1fd97685:source/styles.css
 .scroll-to-top {
   position: fixed;
   bottom: 2rem;
@@ -1299,13 +1304,20 @@ pre.code code,
   width: 48px;
   height: 48px;
   border-radius: 50%;
+<<<<<<< HEAD:assets/css/styles.css
   background: var(--glass);
   border: 1px solid var(--glass-border);
   color: var(--text);
+=======
+  background: var(--glow-color);
+  color: white;
+  border: none;
+>>>>>>> b68b1ed9e687a34a806d240a5839331c1fd97685:source/styles.css
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+<<<<<<< HEAD:assets/css/styles.css
   opacity: 0;
   visibility: hidden;
   transition: all var(--transition);
@@ -1318,20 +1330,50 @@ pre.code code,
 .scroll-to-top.show {
   opacity: 1;
   visibility: visible;
+=======
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition);
+  z-index: 9999;
+>>>>>>> b68b1ed9e687a34a806d240a5839331c1fd97685:source/styles.css
 }
 
 .scroll-to-top:hover {
   transform: translateY(-4px);
+<<<<<<< HEAD:assets/css/styles.css
   box-shadow: var(--shadow-lg), 0 0 20px var(--glow-border);
   border-color: var(--glow-color);
+=======
+  box-shadow: var(--shadow-lg);
+  background: var(--glow-pink);
+}
+
+.scroll-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+>>>>>>> b68b1ed9e687a34a806d240a5839331c1fd97685:source/styles.css
 }
 
 .scroll-to-top svg {
   width: 24px;
   height: 24px;
+<<<<<<< HEAD:assets/css/styles.css
   stroke: var(--text);
   fill: none;
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+=======
+}
+
+@media (max-width: 640px) {
+  .scroll-to-top {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 44px;
+    height: 44px;
+  }
+}
+>>>>>>> b68b1ed9e687a34a806d240a5839331c1fd97685:source/styles.css

@@ -88,8 +88,7 @@
 
       <!-- Section 1: What is Modelling -->
       <section class="topic-section" id="what-is-modelling">
-        <span class="level-badge basic">Basic</span>
-        <h2>What is Data Modelling?</h2>
+        <h2> What is Data Modelling? <span class="level-badge basic">Basic</span> </h2>
         <p>Data modelling is the process of creating a visual representation of data structures, relationships, and constraints. It defines how data is stored, organized, and accessed.</p>
 
         <div class="split-grid">
@@ -141,8 +140,7 @@
 
       <!-- Section 2: ER Diagrams -->
       <section class="topic-section" id="er-diagrams">
-        <span class="level-badge basic">Basic</span>
-        <h2>Entity-Relationship Diagrams</h2>
+        <h2> Entity-Relationship Diagrams <span class="level-badge basic">Basic</span> </h2>
         <p>ER diagrams visualize entities, their attributes, and relationships. They are the foundation of relational database design.</p>
 
         <div class="code-block">
@@ -204,8 +202,7 @@
 
       <!-- Section 3: Entities & Relationships -->
       <section class="topic-section" id="entities-relationships">
-        <span class="level-badge basic">Basic</span>
-        <h2>Entities and Relationships</h2>
+        <h2> Entities and Relationships <span class="level-badge basic">Basic</span> </h2>
         <p>Entities are real-world objects or concepts. Relationships define how entities interact with each other.</p>
 
         <div class="split-grid">
@@ -271,8 +268,7 @@
 
       <!-- Section 4: Primary Keys -->
       <section class="topic-section" id="primary-keys">
-        <span class="level-badge basic">Basic</span>
-        <h2>Primary Keys</h2>
+        <h2> Primary Keys <span class="level-badge basic">Basic</span> </h2>
         <p>A primary key uniquely identifies each row in a table. It cannot contain NULL values and must be unique.</p>
 
         <div class="code-block">
@@ -323,8 +319,7 @@
 
       <!-- Section 5: Foreign Keys -->
       <section class="topic-section" id="foreign-keys">
-        <span class="level-badge basic">Basic</span>
-        <h2>Foreign Keys</h2>
+        <h2> Foreign Keys <span class="level-badge basic">Basic</span> </h2>
         <p>Foreign keys establish relationships between tables by referencing the primary key of another table.</p>
 
         <div class="code-block">
@@ -391,8 +386,7 @@
 
       <!-- Section 6: Composite Keys -->
       <section class="topic-section" id="composite-keys">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Composite Keys</h2>
+        <h2> Composite Keys <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Composite keys use multiple columns to uniquely identify a row. Common in junction tables and time-series data.</p>
 
         <div class="code-block">
@@ -443,8 +437,7 @@
 
       <!-- Section 7: Surrogate vs Natural Keys -->
       <section class="topic-section" id="surrogate-natural">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Surrogate vs Natural Keys</h2>
+        <h2> Surrogate vs Natural Keys <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Choosing between surrogate (artificial) and natural (business) keys is a critical modelling decision.</p>
 
         <div class="split-grid">
@@ -526,8 +519,7 @@ sku <span class="keyword">VARCHAR(50) PRIMARY KEY</span>
 
       <!-- Section 8: Normalization Introduction -->
       <section class="topic-section" id="normalization-intro">
-        <span class="level-badge basic">Basic</span>
-        <h2>Normalization Overview</h2>
+        <h2> Normalization Overview <span class="level-badge basic">Basic</span> </h2>
         <p>Normalization is the process of organizing data to reduce redundancy and improve data integrity. It progresses through normal forms (1NF, 2NF, 3NF, BCNF).</p>
 
         <div class="code-block">
@@ -598,8 +590,7 @@ orders_unnormalized (
 
       <!-- Section 9: First Normal Form -->
       <section class="topic-section" id="first-normal-form">
-        <span class="level-badge basic">Basic</span>
-        <h2>First Normal Form (1NF)</h2>
+        <h2> First Normal Form (1NF) <span class="level-badge basic">Basic</span> </h2>
         <p>1NF requires that each column contains atomic (indivisible) values and each row is unique.</p>
 
         <div class="split-grid">
@@ -680,8 +671,7 @@ users (
 
       <!-- Section 10: Second Normal Form -->
       <section class="topic-section" id="second-normal-form">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Second Normal Form (2NF)</h2>
+        <h2> Second Normal Form (2NF) <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>2NF requires 1NF plus no partial dependencies - non-key attributes must depend on the entire primary key, not just part of it.</p>
 
         <div class="split-grid">
@@ -731,8 +721,7 @@ order_items_bad (
 
       <!-- Section 11: Third Normal Form -->
       <section class="topic-section" id="third-normal-form">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Third Normal Form (3NF)</h2>
+        <h2> Third Normal Form (3NF) <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>3NF requires 2NF plus no transitive dependencies - non-key attributes cannot depend on other non-key attributes.</p>
 
         <div class="split-grid">
@@ -786,8 +775,7 @@ employees_bad (
 
       <!-- Section 12: BCNF -->
       <section class="topic-section" id="bcnf">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Boyce-Codd Normal Form (BCNF)</h2>
+        <h2> Boyce-Codd Normal Form (BCNF) <span class="level-badge advanced">Advanced</span> </h2>
         <p>BCNF is a stricter version of 3NF. For every functional dependency X -> Y, X must be a superkey.</p>
 
         <div class="code-block">
@@ -828,8 +816,7 @@ course_instructors_bad (
 
       <!-- Section 13: Denormalization -->
       <section class="topic-section" id="denormalization">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Denormalization</h2>
+        <h2> Denormalization <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Denormalization intentionally adds redundancy to improve read performance. Used strategically in high-read workloads.</p>
 
         <div class="split-grid">
@@ -907,8 +894,7 @@ $$ <span class="keyword">LANGUAGE</span> plpgsql;
 
       <!-- Section 14: Star Schema -->
       <section class="topic-section" id="star-schema">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Star Schema</h2>
+        <h2> Star Schema <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Star schema is a data warehouse pattern with a central fact table surrounded by dimension tables. Optimized for queries and reporting.</p>
 
         <div class="code-block">
@@ -1029,8 +1015,7 @@ $$ <span class="keyword">LANGUAGE</span> plpgsql;
 
       <!-- Section 15: Snowflake Schema -->
       <section class="topic-section" id="snowflake-schema">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Snowflake Schema</h2>
+        <h2> Snowflake Schema <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Snowflake schema extends star schema by normalizing dimension tables into sub-dimensions, creating a snowflake pattern.</p>
 
         <div class="code-block">
@@ -1101,8 +1086,7 @@ $$ <span class="keyword">LANGUAGE</span> plpgsql;
 
       <!-- Section 16: Fact & Dimension Tables -->
       <section class="topic-section" id="fact-dimension">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Fact and Dimension Tables</h2>
+        <h2> Fact and Dimension Tables <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Understanding the difference between fact and dimension tables is essential for data warehouse design.</p>
 
         <div class="split-grid">
@@ -1167,8 +1151,7 @@ $$ <span class="keyword">LANGUAGE</span> plpgsql;
 
       <!-- Section 17: Slowly Changing Dimensions -->
       <section class="topic-section" id="scd">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Slowly Changing Dimensions</h2>
+        <h2> Slowly Changing Dimensions <span class="level-badge advanced">Advanced</span> </h2>
         <p>SCD methods handle how dimension data changes over time. Different types preserve different amounts of history.</p>
 
         <div class="code-block">
@@ -1288,8 +1271,7 @@ customer_history (customer_id, city, segment, effective_date)
 
       <!-- Section 18: Constraints -->
       <section class="topic-section" id="constraints">
-        <span class="level-badge basic">Basic</span>
-        <h2>Constraints</h2>
+        <h2> Constraints <span class="level-badge basic">Basic</span> </h2>
         <p>Constraints enforce data integrity rules at the database level. They ensure data quality and consistency.</p>
 
         <div class="code-block">
@@ -1348,8 +1330,7 @@ customer_history (customer_id, city, segment, effective_date)
 
       <!-- Section 19: Indexes -->
       <section class="topic-section" id="indexes">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Indexes</h2>
+        <h2> Indexes <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Indexes improve query performance by creating efficient lookup structures. Trade-off: faster reads, slower writes.</p>
 
         <div class="code-block">
@@ -1458,8 +1439,7 @@ customer_history (customer_id, city, segment, effective_date)
 
       <!-- Section 20: Partitioning -->
       <section class="topic-section" id="partitioning">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Table Partitioning</h2>
+        <h2> Table Partitioning <span class="level-badge advanced">Advanced</span> </h2>
         <p>Partitioning splits large tables into smaller pieces. Improves query performance and maintenance operations.</p>
 
         <div class="code-block">
@@ -1574,8 +1554,7 @@ customer_history (customer_id, city, segment, effective_date)
 
       <!-- Section 21: Lakehouse Pattern -->
       <section class="topic-section" id="data-lakehouse">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Lakehouse Pattern</h2>
+        <h2> Lakehouse Pattern <span class="level-badge advanced">Advanced</span> </h2>
         <p>Lakehouse combines data lake flexibility with data warehouse reliability. Uses open table formats like Delta Lake, Iceberg, or Hudi.</p>
 
         <div class="code-block">
@@ -1664,8 +1643,7 @@ customer_history (customer_id, city, segment, effective_date)
 
       <!-- Section 22: Data Vault -->
       <section class="topic-section" id="data Vault">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Data Vault Modelling</h2>
+        <h2> Data Vault Modelling <span class="level-badge advanced">Advanced</span> </h2>
         <p>Data Vault is a modelling approach for data warehouses that emphasizes auditability, flexibility, and scalability.</p>
 
         <div class="code-block">
@@ -1770,8 +1748,7 @@ customer_history (customer_id, city, segment, effective_date)
 
       <!-- Section 23: Best Practices -->
       <section class="topic-section" id="best-practices">
-        <span class="level-badge basic">Basic</span>
-        <h2>Data Modelling Best Practices</h2>
+        <h2> Data Modelling Best Practices <span class="level-badge basic">Basic</span> </h2>
         <p>Essential guidelines for effective data modelling in PostgreSQL.</p>
 
         <div class="split-grid">
@@ -1897,6 +1874,34 @@ $$ <span class="keyword">LANGUAGE</span> plpgsql;
     </div>
   </main>
 
+<<<<<<< HEAD:pages/sql/sql-modelling.html
   <script src="../../assets/js/app.js"></script>
+=======
+  <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+>>>>>>> b68b1ed9e687a34a806d240a5839331c1fd97685:source/sql/sql-modelling.html
 </body>
 </html>

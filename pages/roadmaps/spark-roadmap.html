@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Data Guide | Spark Roadmap</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<<<<<<< HEAD:pages/roadmaps/spark-roadmap.html
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../../assets/css/styles.css" />
   <link rel="stylesheet" href="../../assets/css/hub.css" />
+=======
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../hub.css" />
+  <link rel="stylesheet" href="../sidebar.css" />
+  <link rel="stylesheet" href="../nav-section-pills.css" />
+>>>>>>> b68b1ed9e687a34a806d240a5839331c1fd97685:source/roadmaps/spark-roadmap.html
   <style>
     /* Roadmap specific styles */
     .roadmap-container {
@@ -189,6 +200,7 @@
       .topic-grid {
         margin-left: 0;
       }
+
       .phase-connector {
         display: none;
       }
@@ -196,13 +208,19 @@
   </style>
 </head>
 
-<body>
+<body class="with-sidebar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
   <header class="topbar glass reveal in">
     <a class="brand" href="../../index.html">Data Guide</a>
+<<<<<<< HEAD:pages/roadmaps/spark-roadmap.html
+=======
+    <button id="sidebarToggle" class="sidebar-toggle" type="button" aria-label="Toggle sidebar">
+      <span class="toggle-icon" aria-hidden="true">☰</span>
+    </button>
+>>>>>>> b68b1ed9e687a34a806d240a5839331c1fd97685:source/roadmaps/spark-roadmap.html
     <nav class="menu" aria-label="Main menu">
       <a href="roadmap.html">Data Engineering</a>
       <a href="python-roadmap.html">Python</a>
@@ -217,12 +235,15 @@
     </button>
   </header>
 
-  <main>
+  <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+  <main class="main-content">
     <div class="page-wrap">
       <section class="hero">
         <p class="eyebrow">Your Learning Path</p>
         <h1>Spark Roadmap</h1>
-        <p class="hero-copy">Master Apache Spark for big data processing. From RDDs to structured streaming, build scalable data pipelines.</p>
+        <p class="hero-copy">Master Apache Spark for big data processing. From RDDs to structured streaming, build
+          scalable data pipelines.</p>
       </section>
 
       <div class="roadmap-container">
@@ -233,7 +254,7 @@
           <div class="phase-header">
             <div class="phase-number">1</div>
             <div>
-              <h2 class="phase-title">Spark Fundamentals</h2>
+              <h2 id="spark-fundamentals" class="phase-title">Spark Fundamentals</h2>
               <p class="phase-description">Understand Spark's core architecture and execution model</p>
             </div>
           </div>
@@ -291,7 +312,7 @@
           <div class="phase-header">
             <div class="phase-number">2</div>
             <div>
-              <h2 class="phase-title">RDDs</h2>
+              <h2 id="rdds" class="phase-title">RDDs</h2>
               <p class="phase-description">Resilient Distributed Datasets - Spark's low-level API</p>
             </div>
           </div>
@@ -349,7 +370,7 @@
           <div class="phase-header">
             <div class="phase-number">3</div>
             <div>
-              <h2 class="phase-title">Spark SQL & DataFrames</h2>
+              <h2 id="spark-sql-dataframes" class="phase-title">Spark SQL & DataFrames</h2>
               <p class="phase-description">Structured data processing with SQL and DataFrames</p>
             </div>
           </div>
@@ -407,7 +428,7 @@
           <div class="phase-header">
             <div class="phase-number">4</div>
             <div>
-              <h2 class="phase-title">Data Sources</h2>
+              <h2 id="data-sources" class="phase-title">Data Sources</h2>
               <p class="phase-description">Reading and writing various data formats</p>
             </div>
           </div>
@@ -465,7 +486,7 @@
           <div class="phase-header">
             <div class="phase-number">5</div>
             <div>
-              <h2 class="phase-title">Structured Streaming</h2>
+              <h2 id="structured-streaming" class="phase-title">Structured Streaming</h2>
               <p class="phase-description">Real-time data processing with Spark</p>
             </div>
           </div>
@@ -523,7 +544,7 @@
           <div class="phase-header">
             <div class="phase-number">6</div>
             <div>
-              <h2 class="phase-title">Performance Tuning</h2>
+              <h2 id="performance-tuning" class="phase-title">Performance Tuning</h2>
               <p class="phase-description">Optimize Spark jobs for speed and efficiency</p>
             </div>
           </div>
@@ -581,7 +602,7 @@
           <div class="phase-header">
             <div class="phase-number">7</div>
             <div>
-              <h2 class="phase-title">PySpark</h2>
+              <h2 id="pyspark" class="phase-title">PySpark</h2>
               <p class="phase-description">Python API for Apache Spark</p>
             </div>
           </div>
@@ -638,7 +659,7 @@
           <div class="phase-header">
             <div class="phase-number">8</div>
             <div>
-              <h2 class="phase-title">Advanced Topics</h2>
+              <h2 id="advanced-topics" class="phase-title">Advanced Topics</h2>
               <p class="phase-description">Specialized areas for expert Spark developers</p>
             </div>
           </div>
@@ -694,7 +715,7 @@
 
       <!-- Quick Links Section -->
       <section class="tracks">
-        <h2>Quick Reference</h2>
+        <h2 id="quick-reference">Quick Reference</h2>
         <div class="track-grid">
           <a href="../spark/index.html" class="track">
             <h3>Spark Hub</h3>
@@ -726,7 +747,71 @@
     </div>
   </main>
 
+<<<<<<< HEAD:pages/roadmaps/spark-roadmap.html
   <script src="../assets/js/app.js"></script>
+=======
+  <nav class="sidebar">
+    <div class="sidebar-logo">Spark Roadmap</div>
+    <a href="#spark-fundamentals" class="nav-item">Spark Fundamentals</a>
+    <a href="#rdds" class="nav-item">RDDs</a>
+    <a href="#spark-sql-dataframes" class="nav-item">Spark SQL & DataFrames</a>
+    <a href="#data-sources" class="nav-item">Data Sources</a>
+    <a href="#structured-streaming" class="nav-item">Structured Streaming</a>
+    <a href="#performance-tuning" class="nav-item">Performance Tuning</a>
+    <a href="#pyspark" class="nav-item">PySpark</a>
+    <a href="#advanced-topics" class="nav-item">Advanced Topics</a>
+    <a href="#quick-reference" class="nav-item">Quick Reference</a>
+  </nav>
+
+  <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Sidebar toggle functionality
+    document.addEventListener('DOMContentLoaded', function () {
+      const sidebarToggle = document.getElementById('sidebarToggle');
+      const sidebar = document.querySelector('.sidebar');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+      const mainContent = document.querySelector('.main-content');
+
+      if (sidebarToggle && sidebar && sidebarOverlay && mainContent) {
+        sidebarToggle.addEventListener('click', function () {
+          sidebar.classList.toggle('active');
+          sidebarOverlay.classList.toggle('active');
+          mainContent.classList.toggle('sidebar-active');
+        });
+
+        sidebarOverlay.addEventListener('click', function () {
+          sidebar.classList.remove('active');
+          sidebarOverlay.classList.remove('active');
+          mainContent.classList.remove('sidebar-active');
+        });
+      }
+    });
+  </script>
+>>>>>>> b68b1ed9e687a34a806d240a5839331c1fd97685:source/roadmaps/spark-roadmap.html
 </body>
 
 </html>
