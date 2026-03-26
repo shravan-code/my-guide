@@ -71,8 +71,7 @@
 
       <!-- Section 1: ETL -->
       <section class="topic-section" id="etl">
-        <span class="level-badge basic">Basic</span>
-        <h2>ETL (Extract, Transform, Load)</h2>
+        <h2> ETL (Extract, Transform, Load) <span class="level-badge basic">Basic</span> </h2>
         <p>ETL extracts data from sources, transforms it in a staging area, then loads into the target system.</p>
 
         <div class="split-grid">
@@ -135,8 +134,7 @@ clean = <span class="function">transform</span>(raw)
 
       <!-- Section 2: ELT -->
       <section class="topic-section" id="elt">
-        <span class="level-badge basic">Basic</span>
-        <h2>ELT (Extract, Load, Transform)</h2>
+        <h2> ELT (Extract, Load, Transform) <span class="level-badge basic">Basic</span> </h2>
         <p>ELT loads raw data directly into the target system, then transforms it using the target's compute power.</p>
 
         <div class="split-grid">
@@ -196,8 +194,7 @@ clean = <span class="function">transform</span>(raw)
 
       <!-- Section 3: Batch vs Streaming -->
       <section class="topic-section" id="batch-streaming">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Batch vs Streaming</h2>
+        <h2> Batch vs Streaming <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Batch processes data in chunks; streaming processes data continuously as it arrives.</p>
 
         <div class="split-grid">
@@ -243,8 +240,7 @@ clean = <span class="function">transform</span>(raw)
 
       <!-- Section 4: Data Sources -->
       <section class="topic-section" id="sources">
-        <span class="level-badge basic">Basic</span>
-        <h2>Data Sources</h2>
+        <h2> Data Sources <span class="level-badge basic">Basic</span> </h2>
         <p>Data pipelines ingest from diverse sources, each with unique characteristics and challenges.</p>
 
         <div class="code-block">
@@ -298,8 +294,7 @@ clean = <span class="function">transform</span>(raw)
 
       <!-- Section 5: Staging -->
       <section class="topic-section" id="staging">
-        <span class="level-badge basic">Basic</span>
-        <h2>Staging Area</h2>
+        <h2> Staging Area <span class="level-badge basic">Basic</span> </h2>
         <p>The staging area is an intermediate storage zone where raw data lands before transformation.</p>
 
         <div class="split-grid">
@@ -338,8 +333,7 @@ clean = <span class="function">transform</span>(raw)
 
       <!-- Section 6: Transformation -->
       <section class="topic-section" id="transformation">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Transformation</h2>
+        <h2> Transformation <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Transformations clean, enrich, and reshape raw data into analysis-ready formats.</p>
 
         <div class="code-block">
@@ -380,8 +374,7 @@ clean = <span class="function">transform</span>(raw)
 
       <!-- Section 7: Data Serving -->
       <section class="topic-section" id="serving">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Data Serving</h2>
+        <h2> Data Serving <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Data serving delivers processed data to consumers: dashboards, APIs, ML models, or applications.</p>
 
         <div class="flowchart">
@@ -431,8 +424,7 @@ clean = <span class="function">transform</span>(raw)
 
       <!-- Section 8: Orchestration -->
       <section class="topic-section" id="orchestration">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Orchestration</h2>
+        <h2> Orchestration <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Orchestration manages dependencies, scheduling, and monitoring of pipeline tasks.</p>
 
         <div class="split-grid">
@@ -480,8 +472,7 @@ clean = <span class="function">transform</span>(raw)
 
       <!-- Section 9: Scheduling -->
       <section class="topic-section" id="scheduling">
-        <span class="level-badge basic">Basic</span>
-        <h2>Scheduling</h2>
+        <h2> Scheduling <span class="level-badge basic">Basic</span> </h2>
         <p>Define when and how often pipelines run based on business requirements.</p>
 
         <div class="code-block">
@@ -516,8 +507,7 @@ clean = <span class="function">transform</span>(raw)
 
       <!-- Section 10: Monitoring -->
       <section class="topic-section" id="monitoring">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Monitoring</h2>
+        <h2> Monitoring <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Monitor pipeline health, data quality, and SLA compliance.</p>
 
         <div class="code-block">
@@ -558,8 +548,7 @@ clean = <span class="function">transform</span>(raw)
 
       <!-- Section 11: Airflow -->
       <section class="topic-section" id="airflow">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Apache Airflow</h2>
+        <h2> Apache Airflow <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Airflow is the most popular workflow orchestration platform for scheduling and monitoring pipelines.</p>
 
         <div class="code-block">
@@ -609,8 +598,7 @@ clean = <span class="function">transform</span>(raw)
 
       <!-- Section 12: Dagster -->
       <section class="topic-section" id="dagster">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Dagster</h2>
+        <h2> Dagster <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Dagster is a data-aware orchestration platform that focuses on data assets and software-defined assets.</p>
 
         <div class="code-block">
@@ -642,8 +630,7 @@ clean = <span class="function">transform</span>(raw)
 
       <!-- Section 13: dbt -->
       <section class="topic-section" id="dbt">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>dbt (Data Build Tool)</h2>
+        <h2> dbt (Data Build Tool) <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>dbt enables analysts to transform data using SQL with software engineering practices like version control and testing.</p>
 
         <div class="code-block">
@@ -699,5 +686,29 @@ clean = <span class="function">transform</span>(raw)
   </main>
 
   <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
 </body>
 </html>

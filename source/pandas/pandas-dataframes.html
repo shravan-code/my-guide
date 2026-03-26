@@ -75,8 +75,7 @@
 
       <!-- Section 1: What is DataFrame -->
       <section class="topic-section" id="what-is-dataframe">
-        <span class="level-badge basic">Basic</span>
-        <h2>What is a DataFrame?</h2>
+        <h2> What is a DataFrame? <span class="level-badge basic">Basic</span> </h2>
         <p>A DataFrame is a two-dimensional labeled data structure with columns of potentially different types. It is the primary workhorse of Pandas and is similar to a spreadsheet or SQL table.</p>
 
         <div class="split-grid">
@@ -105,8 +104,7 @@
 
       <!-- Section 2: Creating DataFrames -->
       <section class="topic-section" id="creating-dataframes">
-        <span class="level-badge basic">Basic</span>
-        <h2>Creating DataFrames</h2>
+        <h2> Creating DataFrames <span class="level-badge basic">Basic</span> </h2>
         <p>DataFrames can be created from various sources including dictionaries, lists, files, and other data structures.</p>
 
         <div class="code-block">
@@ -141,8 +139,7 @@ df = pd.<span class="function">read_sql</span>(<span class="string">'SELECT * FR
 
       <!-- Section 3: Selecting Data -->
       <section class="topic-section" id="selecting-data">
-        <span class="level-badge basic">Basic</span>
-        <h2>Selecting Data</h2>
+        <h2> Selecting Data <span class="level-badge basic">Basic</span> </h2>
         <p>Multiple methods exist to access rows, columns, and specific cells in a DataFrame.</p>
 
         <div class="split-grid">
@@ -192,8 +189,7 @@ df[df[<span class="string">'Age'</span>].<span class="function">between</span>(<
 
       <!-- Section 4: Data Manipulation -->
       <section class="topic-section" id="data-manipulation">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Data Manipulation</h2>
+        <h2> Data Manipulation <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Transform and manipulate your data with powerful DataFrame methods.</p>
 
         <div class="code-block">
@@ -226,8 +222,7 @@ df[<span class="string">'Age'</span>] = df[<span class="string">'Age'</span>].as
 
       <!-- Section 5: Grouping and Aggregation -->
       <section class="topic-section" id="grouping-aggregation">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Grouping & Aggregation</h2>
+        <h2> Grouping & Aggregation <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Group data by categories and compute aggregate statistics with <code>groupby()</code>.</p>
 
         <div class="code-block">
@@ -261,8 +256,7 @@ df.<span class="function">groupby</span>(<span class="string">'City'</span>).<sp
 
       <!-- Section 6: Missing Data -->
       <section class="topic-section" id="missing-data">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Handling Missing Data</h2>
+        <h2> Handling Missing Data <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Identify, analyze, and handle missing values in your DataFrame.</p>
 
         <div class="code-block">
@@ -292,8 +286,7 @@ df.<span class="function">replace</span>({<span class="string">'N/A'</span>: np.
 
       <!-- Section 7: Merge and Join -->
       <section class="topic-section" id="merge-join">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Merge & Join</h2>
+        <h2> Merge & Join <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Combine multiple DataFrames using SQL-like joins.</p>
 
         <div class="code-block">
@@ -321,8 +314,7 @@ pd.<span class="function">concat</span>([df1, df2], axis=<span class="number">1<
 
       <!-- Section 8: Pivot Tables -->
       <section class="topic-section" id="pivot-tables">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Pivot Tables</h2>
+        <h2> Pivot Tables <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Reshape data and create summary tables with <code>pivot_table()</code>.</p>
 
         <div class="code-block">
@@ -358,8 +350,7 @@ pd.<span class="function">crosstab</span>(df[<span class="string">'Region'</span
 
       <!-- Section 9: Apply and Map -->
       <section class="topic-section" id="apply-map">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Apply & Map</h2>
+        <h2> Apply & Map <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Apply functions to DataFrame elements, rows, or columns.</p>
 
         <div class="code-block">
@@ -394,8 +385,7 @@ df[<span class="string">'Age_Squared'</span>] = df[<span class="string">'Age'</s
 
       <!-- Section 10: Multi-Index -->
       <section class="topic-section" id="multi-index">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Multi-Index (Hierarchical Indexing)</h2>
+        <h2> Multi-Index (Hierarchical Indexing) <span class="level-badge advanced">Advanced</span> </h2>
         <p>Multi-index allows multiple levels of indexing for complex data structures.</p>
 
         <div class="code-block">
@@ -426,8 +416,7 @@ df.<span class="function">stack</span>()                <span class="comment"># 
 
       <!-- Section 11: Memory Optimization -->
       <section class="topic-section" id="memory-optimization">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Memory Optimization</h2>
+        <h2> Memory Optimization <span class="level-badge advanced">Advanced</span> </h2>
         <p>Reduce DataFrame memory usage for handling larger datasets efficiently.</p>
 
         <div class="split-grid">
@@ -495,8 +484,7 @@ df[<span class="string">'int_col'</span>] = df[<span class="string">'int_col'</s
 
       <!-- Section 12: Performance Tips -->
       <section class="topic-section" id="performance-tips">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Performance Tips</h2>
+        <h2> Performance Tips <span class="level-badge advanced">Advanced</span> </h2>
         <p>Optimize DataFrame operations for faster data processing.</p>
 
         <div class="split-grid">
@@ -557,8 +545,7 @@ df = pd.<span class="function">concat</span>([chunk.<span class="function">query
 
       <!-- Section 13: Pros & Cons -->
       <section class="topic-section" id="pros-cons">
-        <span class="level-badge basic">Basic</span>
-        <h2>Pros & Cons of DataFrames</h2>
+        <h2> Pros & Cons of DataFrames <span class="level-badge basic">Basic</span> </h2>
 
         <div class="split-grid">
           <div class="split-item">
@@ -588,8 +575,7 @@ df = pd.<span class="function">concat</span>([chunk.<span class="function">query
 
       <!-- Section 14: Tips & Tricks -->
       <section class="topic-section" id="tips-tricks">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Tips & Tricks</h2>
+        <h2> Tips & Tricks <span class="level-badge intermediate">Intermediate</span> </h2>
 
         <div class="code-block">
 <code><span class="comment"># 1. Quick summary with describe()</span>
@@ -705,6 +691,30 @@ result = (df
 
     const initialId = (window.location.hash || "#what-is-dataframe").substring(1);
     setActiveNav(initialId);
+  </script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
   </script>
 </body>
 </html>

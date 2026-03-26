@@ -79,8 +79,7 @@
 
       <!-- Section 1: Subquery Concepts -->
       <section class="topic-section" id="subquery-concepts">
-        <span class="level-badge basic">Basic</span>
-        <h2>Subquery Concepts</h2>
+        <h2> Subquery Concepts <span class="level-badge basic">Basic</span> </h2>
         <p>A subquery (inner query) is a SELECT statement nested within another SQL statement. They can return scalar values, rows, or entire tables.</p>
 
         <div class="split-grid">
@@ -130,8 +129,7 @@
 
       <!-- Section 2: Scalar Subqueries -->
       <section class="topic-section" id="scalar-subquery">
-        <span class="level-badge basic">Basic</span>
-        <h2>Scalar Subqueries</h2>
+        <h2> Scalar Subqueries <span class="level-badge basic">Basic</span> </h2>
         <p>A scalar subquery returns exactly one value (one row, one column). Use it anywhere a single value is expected.</p>
 
         <div class="code-block">
@@ -178,8 +176,7 @@
 
       <!-- Section 3: Row Subqueries -->
       <section class="topic-section" id="row-subquery">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Row Subqueries</h2>
+        <h2> Row Subqueries <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>A row subquery returns a single row with multiple columns.</p>
 
         <div class="code-block">
@@ -223,8 +220,7 @@
 
       <!-- Section 4: IN Subqueries -->
       <section class="topic-section" id="in-subquery">
-        <span class="level-badge basic">Basic</span>
-        <h2>IN Subqueries</h2>
+        <h2> IN Subqueries <span class="level-badge basic">Basic</span> </h2>
         <p>Use IN with subqueries to check if a value matches any value in a result set.</p>
 
         <div class="split-grid">
@@ -280,8 +276,7 @@
 
       <!-- Section 5: EXISTS Subqueries -->
       <section class="topic-section" id="exists-subquery">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>EXISTS Subqueries</h2>
+        <h2> EXISTS Subqueries <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>EXISTS checks for the presence of rows in a subquery without returning actual values. Often more efficient than IN.</p>
 
         <div class="code-block">
@@ -329,8 +324,7 @@
 
       <!-- Section 6: Comparison Operators -->
       <section class="topic-section" id="comparison-subquery">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Comparison Operators</h2>
+        <h2> Comparison Operators <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Use comparison operators with scalar subqueries for conditions like "greater than all" or "equal to any".</p>
 
         <div class="split-grid">
@@ -395,8 +389,7 @@
 
       <!-- Section 7: FROM Subqueries -->
       <section class="topic-section" id="from-subquery">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>FROM Subqueries (Derived Tables)</h2>
+        <h2> FROM Subqueries (Derived Tables) <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>A derived table is a subquery in the FROM clause that acts as a temporary table.</p>
 
         <div class="code-block">
@@ -458,8 +451,7 @@
 
       <!-- Section 8: LATERAL Subqueries -->
       <section class="topic-section" id="lateral-subquery">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>LATERAL Subqueries</h2>
+        <h2> LATERAL Subqueries <span class="level-badge advanced">Advanced</span> </h2>
         <p>LATERAL allows a subquery to reference columns from previous FROM items, enabling correlated derived tables.</p>
 
         <div class="code-block">
@@ -522,8 +514,7 @@
 
       <!-- Section 9: Basic CTEs -->
       <section class="topic-section" id="basic-cte">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Basic CTEs</h2>
+        <h2> Basic CTEs <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Common Table Expressions (CTEs) provide a cleaner, more readable alternative to subqueries and derived tables.</p>
 
         <div class="code-block">
@@ -580,8 +571,7 @@
 
       <!-- Section 10: Recursive CTEs -->
       <section class="topic-section" id="recursive-cte">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Recursive CTEs</h2>
+        <h2> Recursive CTEs <span class="level-badge advanced">Advanced</span> </h2>
         <p>Recursive CTEs reference themselves, enabling hierarchical and graph traversals.</p>
 
         <div class="code-block">
@@ -646,8 +636,7 @@
 
       <!-- Section 11: Advanced CTEs -->
       <section class="topic-section" id="cte-advanced">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Advanced CTE Patterns</h2>
+        <h2> Advanced CTE Patterns <span class="level-badge advanced">Advanced</span> </h2>
         <p>Powerful CTE patterns for common data analysis tasks in PostgreSQL.</p>
 
         <div class="code-block">
@@ -719,8 +708,7 @@ cohort_data <span class="keyword">AS</span> (
 
       <!-- Section 12: Correlated Subqueries -->
       <section class="topic-section" id="correlated">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Correlated Subqueries</h2>
+        <h2> Correlated Subqueries <span class="level-badge advanced">Advanced</span> </h2>
         <p>A correlated subquery references columns from the outer query and is re-executed for each row.</p>
 
         <div class="code-block">
@@ -777,8 +765,7 @@ cohort_data <span class="keyword">AS</span> (
 
       <!-- Section 13: Optimization Tips -->
       <section class="topic-section" id="optimization">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Subquery Optimization</h2>
+        <h2> Subquery Optimization <span class="level-badge advanced">Advanced</span> </h2>
         <p>Tips for writing efficient subqueries in PostgreSQL.</p>
 
         <div class="split-grid">
@@ -853,5 +840,29 @@ cohort_data <span class="keyword">AS</span> (
   </main>
   <script src="../python/python.js"></script>
   <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
 </body>
 </html>

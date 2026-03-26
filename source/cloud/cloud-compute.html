@@ -82,8 +82,7 @@
 
       <!-- Section 1: VMs -->
       <section class="topic-section" id="vms">
-        <span class="level-badge basic">Basic</span>
-        <h2>Virtual Machines</h2>
+        <h2> Virtual Machines <span class="level-badge basic">Basic</span> </h2>
         <p>Virtual machines (VMs) are emulated computers that run on physical hardware via hypervisors. They provide full control over the OS and software stack.</p>
 
         <div class="code-block">
@@ -126,8 +125,7 @@ gcloud compute instances create my-vm \
 
       <!-- Section 2: VM Types -->
       <section class="topic-section" id="vm-types">
-        <span class="level-badge basic">Basic</span>
-        <h2>VM Instance Types</h2>
+        <h2> VM Instance Types <span class="level-badge basic">Basic</span> </h2>
         <p>VM types are optimized for different workloads: general purpose, compute-optimized, memory-optimized, and GPU.</p>
 
         <div class="code-block">
@@ -181,8 +179,7 @@ inf1, inf2       <span class="comment"># ML inference (AWS Inferentia)</span>
 
       <!-- Section 3: Containers -->
       <section class="topic-section" id="containers">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Container Services</h2>
+        <h2> Container Services <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Containers package applications with their dependencies, ensuring consistent environments across development, testing, and production.</p>
 
         <div class="code-block">
@@ -221,8 +218,7 @@ docker-compose up -d
 
       <!-- Section 4: Kubernetes -->
       <section class="topic-section" id="kubernetes">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Kubernetes (K8s)</h2>
+        <h2> Kubernetes (K8s) <span class="level-badge advanced">Advanced</span> </h2>
         <p>Kubernetes is the industry-standard container orchestration platform for automating deployment, scaling, and management.</p>
 
         <div class="code-block">
@@ -298,8 +294,7 @@ kubectl logs -f deployment/my-app
 
       <!-- Section 5: ECS -->
       <section class="topic-section" id="ecs">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>AWS ECS / Fargate</h2>
+        <h2> AWS ECS / Fargate <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>ECS (Elastic Container Service) is Amazon's managed container orchestration. Fargate adds serverless compute for containers.</p>
 
         <div class="code-block">
@@ -338,8 +333,7 @@ aws ecs create-service \
 
       <!-- Section 6: AKS -->
       <section class="topic-section" id="aks">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Azure AKS</h2>
+        <h2> Azure AKS <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Azure Kubernetes Service (AKS) simplifies Kubernetes deployment with managed control plane.</p>
 
         <div class="code-block">
@@ -377,8 +371,7 @@ az aks scale \
 
       <!-- Section 7: GKE -->
       <section class="topic-section" id="gke">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Google GKE</h2>
+        <h2> Google GKE <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Google Kubernetes Engine (GKE) provides production-ready Kubernetes with deep Google Cloud integration.</p>
 
         <div class="code-block">
@@ -409,8 +402,7 @@ kubectl apply -f deployment.yaml
 
       <!-- Section 8: Machine Images -->
       <section class="topic-section" id="ami">
-        <span class="level-badge basic">Basic</span>
-        <h2>Machine Images</h2>
+        <h2> Machine Images <span class="level-badge basic">Basic</span> </h2>
         <p>Machine images are pre-configured templates containing OS, software, and application code.</p>
 
         <div class="code-block">
@@ -448,8 +440,7 @@ gcloud compute images create my-image \
 
       <!-- Section 9: IaC -->
       <section class="topic-section" id="iac">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Infrastructure as Code</h2>
+        <h2> Infrastructure as Code <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>IaC defines infrastructure using code, enabling version control, reproducibility, and automation.</p>
 
         <div class="code-block">
@@ -506,5 +497,29 @@ terraform apply
   </main>
 
   <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
 </body>
 </html>

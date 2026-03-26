@@ -76,8 +76,7 @@
 
       <!-- Section 1: Join Concepts -->
       <section class="topic-section" id="join-concepts">
-        <span class="level-badge basic">Basic</span>
-        <h2>Join Concepts</h2>
+        <h2> Join Concepts <span class="level-badge basic">Basic</span> </h2>
         <p>Joins combine rows from two or more tables based on related columns. Understanding join types is essential for relational database queries.</p>
 
         <div class="split-grid">
@@ -115,8 +114,7 @@
 
       <!-- Section 2: INNER JOIN -->
       <section class="topic-section" id="inner-join">
-        <span class="level-badge basic">Basic</span>
-        <h2>INNER JOIN</h2>
+        <h2> INNER JOIN <span class="level-badge basic">Basic</span> </h2>
         <p>Returns only rows that have matching values in both tables. This is the most common join type.</p>
 
         <div class="code-block">
@@ -165,8 +163,7 @@
 
       <!-- Section 3: NATURAL JOIN -->
       <section class="topic-section" id="natural-join">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>NATURAL JOIN</h2>
+        <h2> NATURAL JOIN <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Automatically joins tables based on columns with matching names. Use with caution.</p>
 
         <div class="code-block">
@@ -203,8 +200,7 @@
 
       <!-- Section 4: LEFT JOIN -->
       <section class="topic-section" id="left-join">
-        <span class="level-badge basic">Basic</span>
-        <h2>LEFT JOIN</h2>
+        <h2> LEFT JOIN <span class="level-badge basic">Basic</span> </h2>
         <p>Returns all rows from the left table and matching rows from the right table. Non-matching rows show NULL for right table columns.</p>
 
         <div class="code-block">
@@ -249,8 +245,7 @@
 
       <!-- Section 5: RIGHT JOIN -->
       <section class="topic-section" id="right-join">
-        <span class="level-badge basic">Basic</span>
-        <h2>RIGHT JOIN</h2>
+        <h2> RIGHT JOIN <span class="level-badge basic">Basic</span> </h2>
         <p>Returns all rows from the right table and matching rows from the left table. Less commonly used than LEFT JOIN.</p>
 
         <div class="code-block">
@@ -291,8 +286,7 @@
 
       <!-- Section 6: FULL OUTER JOIN -->
       <section class="topic-section" id="full-join">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>FULL OUTER JOIN</h2>
+        <h2> FULL OUTER JOIN <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Returns all rows from both tables, matching where possible and showing NULL where not.</p>
 
         <div class="code-block">
@@ -329,8 +323,7 @@
 
       <!-- Section 7: CROSS JOIN -->
       <section class="topic-section" id="cross-join">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>CROSS JOIN</h2>
+        <h2> CROSS JOIN <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Returns the Cartesian product - every row from the first table paired with every row from the second.</p>
 
         <div class="code-block">
@@ -369,8 +362,7 @@
 
       <!-- Section 8: Self Join -->
       <section class="topic-section" id="self-join">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Self Join</h2>
+        <h2> Self Join <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Join a table with itself to find relationships within the same data.</p>
 
         <div class="code-block">
@@ -429,8 +421,7 @@
 
       <!-- Section 9: LATERAL Join -->
       <section class="topic-section" id="lateral-join">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>LATERAL Join</h2>
+        <h2> LATERAL Join <span class="level-badge advanced">Advanced</span> </h2>
         <p>PostgreSQL's LATERAL join allows a subquery to reference columns from preceding tables in the FROM clause.</p>
 
         <div class="code-block">
@@ -485,8 +476,7 @@
 
       <!-- Section 10: Multiple Joins -->
       <section class="topic-section" id="multiple-joins">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Multiple Joins</h2>
+        <h2> Multiple Joins <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Chain multiple joins together to combine data from three or more tables.</p>
 
         <div class="code-block">
@@ -538,8 +528,7 @@
 
       <!-- Section 11: Complex Conditions -->
       <section class="topic-section" id="join-conditions">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Complex Join Conditions</h2>
+        <h2> Complex Join Conditions <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Joins can use inequality operators and complex conditions beyond simple equality.</p>
 
         <div class="code-block">
@@ -591,8 +580,7 @@
 
       <!-- Section 12: Anti & Semi Joins -->
       <section class="topic-section" id="anti-semi-joins">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Anti & Semi Joins</h2>
+        <h2> Anti & Semi Joins <span class="level-badge advanced">Advanced</span> </h2>
         <p>Semi joins return rows that match, anti joins return rows that don't match. PostgreSQL has efficient patterns for these.</p>
 
         <div class="split-grid">
@@ -651,5 +639,29 @@
   </main>
   <script src="../python/python.js"></script>
   <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
 </body>
 </html>

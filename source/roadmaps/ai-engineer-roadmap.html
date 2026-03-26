@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Data Guide | AI Engineer Roadmap</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="source/styles.css" />
-  <link rel="stylesheet" href="source/hub.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../hub.css" />
+  <link rel="stylesheet" href="../sidebar.css" />
+  <link rel="stylesheet" href="../nav-section-pills.css" />
   <style>
     /* Roadmap specific styles */
     .roadmap-container {
@@ -189,6 +194,7 @@
       .topic-grid {
         margin-left: 0;
       }
+
       .phase-connector {
         display: none;
       }
@@ -196,13 +202,16 @@
   </style>
 </head>
 
-<body>
+<body class="with-sidebar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
   <header class="topbar glass reveal in">
-    <a class="brand" href="index.html">Data Guide</a>
+    <a class="brand" href="../../index.html">Data Guide</a>
+    <button id="sidebarToggle" class="sidebar-toggle" type="button" aria-label="Toggle sidebar">
+      <span class="toggle-icon" aria-hidden="true">☰</span>
+    </button>
     <nav class="menu" aria-label="Main menu">
       <a href="roadmap.html">Data Engineering</a>
       <a href="python-roadmap.html">Python</a>
@@ -217,12 +226,15 @@
     </button>
   </header>
 
-  <main>
+  <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+  <main class="main-content">
     <div class="page-wrap">
       <section class="hero">
         <p class="eyebrow">Your Learning Path</p>
         <h1>AI Engineer Roadmap</h1>
-        <p class="hero-copy">Build intelligent applications with LLMs and AI. Master prompt engineering, RAG, agents, and AI system design.</p>
+        <p class="hero-copy">Build intelligent applications with LLMs and AI. Master prompt engineering, RAG, agents,
+          and AI system design.</p>
       </section>
 
       <div class="roadmap-container">
@@ -233,7 +245,7 @@
           <div class="phase-header">
             <div class="phase-number">1</div>
             <div>
-              <h2 class="phase-title">AI Foundations</h2>
+              <h2 id="ai-foundations" class="phase-title">AI Foundations</h2>
               <p class="phase-description">Build the mathematical and programming base for AI</p>
             </div>
           </div>
@@ -295,7 +307,7 @@
           <div class="phase-header">
             <div class="phase-number">2</div>
             <div>
-              <h2 class="phase-title">Large Language Models</h2>
+              <h2 id="large-language-models" class="phase-title">Large Language Models</h2>
               <p class="phase-description">Understand and work with modern LLMs</p>
             </div>
           </div>
@@ -357,7 +369,7 @@
           <div class="phase-header">
             <div class="phase-number">3</div>
             <div>
-              <h2 class="phase-title">Prompt Engineering</h2>
+              <h2 id="prompt-engineering" class="phase-title">Prompt Engineering</h2>
               <p class="phase-description">Master the art of communicating with LLMs</p>
             </div>
           </div>
@@ -431,7 +443,7 @@
           <div class="phase-header">
             <div class="phase-number">4</div>
             <div>
-              <h2 class="phase-title">Retrieval Augmented Generation (RAG)</h2>
+              <h2 id="rag" class="phase-title">Retrieval Augmented Generation (RAG)</h2>
               <p class="phase-description">Ground LLM responses in your data</p>
             </div>
           </div>
@@ -505,7 +517,7 @@
           <div class="phase-header">
             <div class="phase-number">5</div>
             <div>
-              <h2 class="phase-title">AI Agents</h2>
+              <h2 id="ai-agents" class="phase-title">AI Agents</h2>
               <p class="phase-description">Build autonomous systems that reason and act</p>
             </div>
           </div>
@@ -579,7 +591,7 @@
           <div class="phase-header">
             <div class="phase-number">6</div>
             <div>
-              <h2 class="phase-title">AI System Design</h2>
+              <h2 id="ai-system-design" class="phase-title">AI System Design</h2>
               <p class="phase-description">Design scalable, production-ready AI systems</p>
             </div>
           </div>
@@ -653,7 +665,7 @@
           <div class="phase-header">
             <div class="phase-number">7</div>
             <div>
-              <h2 class="phase-title">Fine-tuning & Custom Models</h2>
+              <h2 id="fine-tuning-custom-models" class="phase-title">Fine-tuning & Custom Models</h2>
               <p class="phase-description">Train models on your domain-specific data</p>
             </div>
           </div>
@@ -726,7 +738,7 @@
           <div class="phase-header">
             <div class="phase-number">8</div>
             <div>
-              <h2 class="phase-title">Production AI</h2>
+              <h2 id="production-ai" class="phase-title">Production AI</h2>
               <p class="phase-description">Deploy, monitor, and maintain AI systems at scale</p>
             </div>
           </div>
@@ -798,9 +810,9 @@
 
       <!-- Quick Reference Section -->
       <section class="tracks">
-        <h2>Quick Reference</h2>
+        <h2 id="quick-reference">Quick Reference</h2>
         <div class="track-grid">
-          <a href="source/python/index.html" class="track">
+          <a href="../python/index.html" class="track">
             <h3>Python for AI</h3>
             <p>Core Python and AI libraries</p>
           </a>
@@ -830,7 +842,67 @@
     </div>
   </main>
 
-  <script src="source/app.js"></script>
+  <nav class="sidebar">
+    <div class="sidebar-logo">AI Engineer Roadmap</div>
+    <a href="#ai-foundations" class="nav-item">AI Foundations</a>
+    <a href="#large-language-models" class="nav-item">Large Language Models</a>
+    <a href="#prompt-engineering" class="nav-item">Prompt Engineering</a>
+    <a href="#rag" class="nav-item">Retrieval Augmented Generation (RAG)</a>
+    <a href="#ai-agents" class="nav-item">AI Agents</a>
+    <a href="#ai-system-design" class="nav-item">AI System Design</a>
+    <a href="#fine-tuning-custom-models" class="nav-item">Fine-tuning & Custom Models</a>
+    <a href="#production-ai" class="nav-item">Production AI</a>
+    <a href="#quick-reference" class="nav-item">Quick Reference</a>
+  </nav>
+
+  <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Sidebar toggle functionality
+    document.addEventListener('DOMContentLoaded', function () {
+      const sidebarToggle = document.getElementById('sidebarToggle');
+      const sidebar = document.querySelector('.sidebar');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+      const mainContent = document.querySelector('.main-content');
+
+      if (sidebarToggle && sidebar && sidebarOverlay && mainContent) {
+        sidebarToggle.addEventListener('click', function () {
+          sidebar.classList.toggle('active');
+          sidebarOverlay.classList.toggle('active');
+          mainContent.classList.toggle('sidebar-active');
+        });
+
+        sidebarOverlay.addEventListener('click', function () {
+          sidebar.classList.remove('active');
+          sidebarOverlay.classList.remove('active');
+          mainContent.classList.remove('sidebar-active');
+        });
+      }
+    });
+  </script>
 </body>
 
 </html>

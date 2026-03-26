@@ -29,11 +29,31 @@
       <a href="methods.html">Methods</a>
       <a href="memory-performance.html">Memory</a>
     </nav>
-    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
-      <span class="toggle-icon" aria-hidden="true">☾</span>
-      <span class="toggle-text">Dark</span>
-    </button>
+    <div class="header-actions">
+      <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle mobile menu">
+        <span class="hamburger-icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+        <span class="toggle-icon" aria-hidden="true">☾</span>
+        <span class="toggle-text">Dark</span>
+      </button>
+    </div>
   </header>
+  
+  <div id="mobile-menu" class="mobile-menu">
+    <nav class="mobile-nav" aria-label="Python mobile menu">
+      <a href="index.html">Hub</a>
+      <a href="python-fundamentals.html">Fundamentals</a>
+      <a href="python-oops.html" class="active" aria-current="page">OOPs</a>
+      <a href="methods.html">Methods</a>
+      <a href="memory-performance.html">Memory</a>
+    </nav>
+  </div>
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
 
   <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
@@ -43,18 +63,18 @@
         <span class="logo-text">Python OOPs</span>
       </div>
 
-      <div class="nav-title">Basic Concepts</div>
+      <div class="nav-title basic-concepts">Basic Concepts</div>
       <a href="#what-is-oop" class="nav-item active"><span>1</span> What is OOP?</a>
       <a href="#classes-objects" class="nav-item"><span>2</span> Classes & Objects</a>
       <a href="#method-types" class="nav-item"><span>3</span> Instance vs Class vs Static</a>
 
-      <div class="nav-title">Intermediate</div>
+      <div class="nav-title intermediate">Intermediate</div>
       <a href="#encapsulation" class="nav-item"><span>4</span> Encapsulation</a>
       <a href="#inheritance" class="nav-item"><span>5</span> Inheritance</a>
       <a href="#polymorphism" class="nav-item"><span>6</span> Polymorphism</a>
       <a href="#abstraction" class="nav-item"><span>7</span> Abstraction</a>
 
-      <div class="nav-title">Advanced</div>
+      <div class="nav-title advanced">Advanced</div>
       <a href="#composition" class="nav-item"><span>8</span> Composition</a>
       <a href="#decorator-pattern" class="nav-item"><span>9</span> Decorator Pattern</a>
       <a href="#descriptor-protocol" class="nav-item"><span>10</span> Descriptors</a>
@@ -72,10 +92,29 @@
       <section class="hero">
         <h1>Python OOPs</h1>
       </section>
-
-      <section class="topic-section" id="what-is-oop">
-        <span class="level-badge basic">Basic</span>
-        <h2>What is Object-Oriented Programming (OOP)?</h2>
+      <nav class="pill-nav">
+        <a href="#what-is-oop" data-category="basic-concepts">What is Object-Oriented Programming (OOP)?</a>
+        <a href="#classes-objects" data-category="basic-concepts">Classes and Objects</a>
+        <a href="#method-types" data-category="basic-concepts">Instance vs Class vs Static Methods</a>
+        <a href="#encapsulation" data-category="intermediate">Encapsulation</a>
+        <a href="#inheritance" data-category="intermediate">Inheritance</a>
+        <a href="#polymorphism" data-category="intermediate">Polymorphism</a>
+        <a href="#abstraction" data-category="intermediate">Abstraction</a>
+        <a href="#composition" data-category="advanced">Composition</a>
+        <a href="#decorator-pattern" data-category="advanced">Decorator Pattern</a>
+        <a href="#descriptor-protocol" data-category="advanced">Descriptor Protocol</a>
+        <a href="#metaclasses" data-category="advanced">Metaclasses</a>
+        <a href="#magic-methods" data-category="advanced">Magic Methods (Dunder Methods)</a>
+        <a href="#data-classes" data-category="advanced">Data Classes</a>
+        <a href="#slots" data-category="advanced">__slots__ for Memory Optimization</a>
+        <a href="#protocols" data-category="advanced">Protocols (Structural Subtyping)</a>
+        <a href="#context-managers" data-category="advanced">Context Managers</a>
+        <a href="#callable-objects" data-category="advanced">Callable Objects</a>
+        <a href="#solid-principles" data-category="advanced">SOLID Principles</a>
+        <a href="#design-patterns" data-category="advanced">Design Patterns in Python</a>
+      </nav>
+      <section class="topic-section">
+        <h2 id="what-is-oop"> What is Object-Oriented Programming (OOP)? <span class="level-badge basic">Basic</span> </h2>
         <p>
           OOP is a programming paradigm that organizes code around objects rather than functions.
           Objects bundle data (attributes) and behavior (methods) together, making code more
@@ -89,9 +128,8 @@
         <div class="concept-pill">Abstraction</div>
       </section>
 
-      <section class="topic-section" id="classes-objects">
-        <span class="level-badge basic">Basic</span>
-        <h2>Classes and Objects</h2>
+      <section class="topic-section">
+        <h2 id="classes-objects"> Classes and Objects <span class="level-badge basic">Basic</span> </h2>
         <p>
           A <strong>class</strong> is a blueprint for creating objects. An <strong>object</strong>
           is an instance of a class with actual values.
@@ -124,9 +162,8 @@ max_dog = <span class="class-name">Dog</span>(<span class="string">"Max"</span>,
         </div>
       </section>
 
-      <section class="topic-section" id="method-types">
-        <span class="level-badge basic">Basic</span>
-        <h2>Instance vs Class vs Static Methods</h2>
+      <section class="topic-section">
+        <h2 id="method-types"> Instance vs Class vs Static Methods <span class="level-badge basic">Basic</span> </h2>
         <div class="split-grid">
           <div class="split-item">
             <h4>Instance Methods</h4>
@@ -169,9 +206,8 @@ obj = <span class="class-name">MathOperations</span>(<span class="number">10</sp
         </div>
       </section>
 
-      <section class="topic-section" id="encapsulation">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Encapsulation</h2>
+      <section class="topic-section">
+        <h2 id="encapsulation"> Encapsulation <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>
           Encapsulation restricts direct access to certain attributes, protecting data integrity.
           Python uses naming conventions: <code>_protected</code> and <code>__private</code>.
@@ -210,9 +246,8 @@ account.deposit(<span class="number">500</span>)
         </div>
       </section>
 
-      <section class="topic-section" id="inheritance">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Inheritance</h2>
+      <section class="topic-section">
+        <h2 id="inheritance"> Inheritance <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>
           Inheritance allows a class (child) to inherit attributes and methods from another class (parent),
           promoting code reuse and creating hierarchical relationships.
@@ -256,9 +291,8 @@ cat = <span class="class-name">Cat</span>(<span class="string">"Whiskers"</span>
         </div>
       </section>
 
-      <section class="topic-section" id="polymorphism">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Polymorphism</h2>
+      <section class="topic-section">
+        <h2 id="polymorphism"> Polymorphism <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>
           Polymorphism allows objects of different classes to be treated as objects of a common parent class.
           It enables the same interface to work with different data types.
@@ -301,9 +335,8 @@ shapes = [<span class="class-name">Rectangle</span>(<span class="number">4</span
         </div>
       </section>
 
-      <section class="topic-section" id="abstraction">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Abstraction</h2>
+      <section class="topic-section">
+        <h2 id="abstraction"> Abstraction <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>
           Abstraction hides complex implementation details and shows only necessary features.
           In Python, we use abstract classes and methods to achieve abstraction.
@@ -342,9 +375,8 @@ processor.validate()    <span class="comment"># Validating data...</span></code>
         </div>
       </section>
 
-      <section class="topic-section" id="composition">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Composition</h2>
+      <section class="topic-section">
+        <h2 id="composition"> Composition <span class="level-badge advanced">Advanced</span> </h2>
         <p>
           Composition is a design principle where a class is composed of other classes as members.
           It provides flexibility and looser coupling than inheritance.
@@ -376,9 +408,8 @@ car = <span class="class-name">Car</span>(<span class="string">"Tesla Model 3"</
         </div>
       </section>
 
-      <section class="topic-section" id="decorator-pattern">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Decorator Pattern</h2>
+      <section class="topic-section">
+        <h2 id="decorator-pattern"> Decorator Pattern <span class="level-badge advanced">Advanced</span> </h2>
         <p>
           Decorators modify class behavior without changing the class itself. They're functions that
           wrap other functions or classes.
@@ -420,9 +451,8 @@ car = <span class="class-name">Car</span>(<span class="string">"Tesla Model 3"</
         </div>
       </section>
 
-      <section class="topic-section" id="descriptor-protocol">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Descriptor Protocol</h2>
+      <section class="topic-section">
+        <h2 id="descriptor-protocol"> Descriptor Protocol <span class="level-badge advanced">Advanced</span> </h2>
         <p>
           Descriptors allow you to customize attribute access. They implement <code>__get__</code>,
           <code>__set__</code>, and <code>__delete__</code> methods.
@@ -458,9 +488,8 @@ student.score = <span class="number">150</span>  <span class="comment"># ValueEr
         </div>
       </section>
 
-      <section class="topic-section" id="metaclasses">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Metaclasses</h2>
+      <section class="topic-section">
+        <h2 id="metaclasses"> Metaclasses <span class="level-badge advanced">Advanced</span> </h2>
         <p>
           Metaclasses are the "classes of classes". They control class creation and are powerful
           tools for enforcing coding standards and framework development.
@@ -499,9 +528,8 @@ db2 = <span class="class-name">Database</span>()
         </div>
       </section>
 
-      <section class="topic-section" id="magic-methods">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Magic Methods (Dunder Methods)</h2>
+      <section class="topic-section">
+        <h2 id="magic-methods"> Magic Methods (Dunder Methods) <span class="level-badge advanced">Advanced</span> </h2>
         <p>
           Magic methods (dunder = double underscore) enable operator overloading and
           customize class behavior with Python's built-in operations.
@@ -543,9 +571,8 @@ v2 = <span class="class-name">Vector</span>(<span class="number">4</span>, <span
         </div>
       </section>
 
-      <section class="topic-section" id="data-classes">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Data Classes</h2>
+      <section class="topic-section">
+        <h2 id="data-classes"> Data Classes <span class="level-badge advanced">Advanced</span> </h2>
         <p>
           Python's <code>@dataclass</code> decorator automatically generates special methods
           like <code>__init__</code>, <code>__repr__</code>, and <code>__eq__</code>.
@@ -585,9 +612,8 @@ team = <span class="class-name">Team</span>(<span class="string">"Data Team"</sp
         </div>
       </section>
 
-      <section class="topic-section" id="slots">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>__slots__ for Memory Optimization</h2>
+      <section class="topic-section">
+        <h2 id="slots"> __slots__ for Memory Optimization <span class="level-badge advanced">Advanced</span> </h2>
         <p>
           <code>__slots__</code> restricts instance attributes, saving memory and speeding up attribute access.
           Classes with <code>__slots__</code> cannot have <code>__dict__</code>.
@@ -623,9 +649,8 @@ optimized = <span class="class-name">OptimizedClass</span>(<span class="string">
         </div>
       </section>
 
-      <section class="topic-section" id="protocols">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Protocols (Structural Subtyping)</h2>
+      <section class="topic-section">
+        <h2 id="protocols"> Protocols (Structural Subtyping) <span class="level-badge advanced">Advanced</span> </h2>
         <p>
           Protocols define interfaces for duck typing. Python 3.8+ supports <code>from typing import Protocol</code>
           for static type checking without inheritance.
@@ -664,9 +689,8 @@ api = <span class="class-name">APIClient</span>()
         </div>
       </section>
 
-      <section class="topic-section" id="context-managers">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Context Managers</h2>
+      <section class="topic-section">
+        <h2 id="context-managers"> Context Managers <span class="level-badge advanced">Advanced</span> </h2>
         <p>
           Context managers handle resource setup and cleanup using the <code>with</code> statement.
           They implement <code>__enter__</code> and <code>__exit__</code> or use the <code>@contextmanager</code> decorator.
@@ -710,9 +734,8 @@ api = <span class="class-name">APIClient</span>()
         </div>
       </section>
 
-      <section class="topic-section" id="callable-objects">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Callable Objects</h2>
+      <section class="topic-section">
+        <h2 id="callable-objects"> Callable Objects <span class="level-badge advanced">Advanced</span> </h2>
         <p>
           Objects can be made callable by implementing <code>__call__</code>. This allows instances
           to behave like functions while maintaining state.
@@ -748,9 +771,8 @@ counter = <span class="class-name">Counter</span>()
         </div>
       </section>
 
-      <section class="topic-section" id="solid-principles">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>SOLID Principles</h2>
+      <section class="topic-section">
+        <h2 id="solid-principles"> SOLID Principles <span class="level-badge advanced">Advanced</span> </h2>
         <p>
           SOLID is an acronym for five design principles that make software more maintainable and scalable.
         </p>
@@ -803,9 +825,8 @@ counter = <span class="class-name">Counter</span>()
         </div>
       </section>
 
-      <section class="topic-section" id="design-patterns">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Design Patterns in Python</h2>
+      <section class="topic-section">
+        <h2 id="design-patterns"> Design Patterns in Python <span class="level-badge advanced">Advanced</span> </h2>
         <p>
           Design patterns are reusable solutions to common software design problems.
         </p>
@@ -965,6 +986,41 @@ ctx = <span class="class-name">Context</span>(<span class="class-name">QuickSort
       sidebarOverlay.addEventListener("click", closeSidebar);
     }
 
+    // Mobile menu functionality
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+
+    const closeMobileMenu = () => {
+      if (mobileMenu) mobileMenu.classList.remove('open');
+      if (mobileMenuOverlay) mobileMenuOverlay.classList.remove('active');
+    };
+
+    const openMobileMenu = () => {
+      if (mobileMenu) mobileMenu.classList.add('open');
+      if (mobileMenuOverlay) mobileMenuOverlay.classList.add('active');
+    };
+
+    if (mobileMenuToggle) {
+      mobileMenuToggle.addEventListener('click', () => {
+        if (mobileMenu.classList.contains('open')) {
+          closeMobileMenu();
+        } else {
+          openMobileMenu();
+        }
+      });
+    }
+
+    if (mobileMenuOverlay) {
+      mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+    }
+
+    // Close mobile menu on link click
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav a');
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', closeMobileMenu);
+    });
+
     const navItems = Array.from(document.querySelectorAll(".nav-item"));
 
     const setActiveNav = (id) => {
@@ -985,7 +1041,8 @@ ctx = <span class="class-name">Context</span>(<span class="class-name">QuickSort
         const targetId = this.getAttribute("href").substring(1);
         const target = document.getElementById(targetId);
         if (!target) return;
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({ top: targetPosition - 100, behavior: "smooth" });
         history.replaceState(null, "", "#" + targetId);
         setActiveNav(targetId);
         closeSidebar();
@@ -997,14 +1054,61 @@ ctx = <span class="class-name">Context</span>(<span class="class-name">QuickSort
         if (entry.isIntersecting) {
           const id = entry.target.getAttribute("id");
           setActiveNav(id);
+          setActivePillNav(id);
         }
       });
     }, { root: null, rootMargin: "-18% 0px -68% 0px", threshold: 0 });
 
-    document.querySelectorAll(".topic-section[id]").forEach((el) => sectionObserver.observe(el));
+    document.querySelectorAll(".topic-section h2[id]").forEach((el) => sectionObserver.observe(el));
+
+    const pillNavLinks = Array.from(document.querySelectorAll(".pill-nav a"));
+    const setActivePillNav = (id) => {
+      pillNavLinks.forEach((link) => {
+        const isActive = link.getAttribute("href") === "#" + id;
+        link.classList.toggle("active", isActive);
+      });
+    };
+
+    pillNavLinks.forEach((link) => {
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute("href").substring(1);
+        const target = document.getElementById(targetId);
+        if (!target) return;
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({ top: targetPosition - 100, behavior: "smooth" });
+        history.replaceState(null, "", "#" + targetId);
+        setActivePillNav(targetId);
+        setActiveNav(targetId);
+      });
+    });
 
     const initialId = (window.location.hash || "#what-is-oop").substring(1);
     setActiveNav(initialId);
+  </script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
   </script>
 </body>
 </html>

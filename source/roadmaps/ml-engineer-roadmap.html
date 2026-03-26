@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Data Guide | ML Engineer Roadmap</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="source/styles.css" />
-  <link rel="stylesheet" href="source/hub.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../hub.css" />
+  <link rel="stylesheet" href="../sidebar.css" />
+  <link rel="stylesheet" href="../nav-section-pills.css" />
   <style>
     /* Roadmap specific styles */
     .roadmap-container {
@@ -189,6 +194,7 @@
       .topic-grid {
         margin-left: 0;
       }
+
       .phase-connector {
         display: none;
       }
@@ -196,13 +202,16 @@
   </style>
 </head>
 
-<body>
+<body class="with-sidebar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
   <header class="topbar glass reveal in">
-    <a class="brand" href="index.html">Data Guide</a>
+    <a class="brand" href="../../index.html">Data Guide</a>
+    <button id="sidebarToggle" class="sidebar-toggle" type="button" aria-label="Toggle sidebar">
+      <span class="toggle-icon" aria-hidden="true">☰</span>
+    </button>
     <nav class="menu" aria-label="Main menu">
       <a href="roadmap.html">Data Engineering</a>
       <a href="python-roadmap.html">Python</a>
@@ -217,12 +226,15 @@
     </button>
   </header>
 
-  <main>
+  <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+  <main class="main-content">
     <div class="page-wrap">
       <section class="hero">
         <p class="eyebrow">Your Learning Path</p>
         <h1>ML Engineer Roadmap</h1>
-        <p class="hero-copy">From data scientist to ML Engineer. Master production ML systems, MLOps, and scalable model deployment.</p>
+        <p class="hero-copy">From data scientist to ML Engineer. Master production ML systems, MLOps, and scalable model
+          deployment.</p>
       </section>
 
       <div class="roadmap-container">
@@ -233,13 +245,13 @@
           <div class="phase-header">
             <div class="phase-number">1</div>
             <div>
-              <h2 class="phase-title">ML Fundamentals</h2>
+              <h2 id="ml-fundamentals" class="phase-title">ML Fundamentals</h2>
               <p class="phase-description">Learn the core concepts of machine learning</p>
             </div>
           </div>
           <div class="topic-grid">
             <div class="topic-card">
-              <h4><a href="source/ml/ml-fundamentals.html">Supervised vs Unsupervised Learning</a></h4>
+              <h4><a href="../ml/ml-fundamentals.html">Supervised vs Unsupervised Learning</a></h4>
               <p>Understand the two main paradigms in machine learning.</p>
               <ul>
                 <li>Labeled vs unlabeled data</li>
@@ -250,7 +262,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/ml/ml-fundamentals.html">Regression and Classification</a></h4>
+              <h4><a href="../ml/ml-fundamentals.html">Regression and Classification</a></h4>
               <p>Master the fundamental ML problem types.</p>
               <ul>
                 <li>Linear regression basics</li>
@@ -261,7 +273,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/ml/ml-fundamentals.html">Model Evaluation Metrics</a></h4>
+              <h4><a href="../ml/ml-fundamentals.html">Model Evaluation Metrics</a></h4>
               <p>Measure and compare model performance effectively.</p>
               <ul>
                 <li>Accuracy, precision, recall, F1</li>
@@ -272,7 +284,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/ml/ml-fundamentals.html">Cross-Validation Strategies</a></h4>
+              <h4><a href="../ml/ml-fundamentals.html">Cross-Validation Strategies</a></h4>
               <p>Validate models robustly to prevent overfitting.</p>
               <ul>
                 <li>K-fold cross-validation</li>
@@ -291,13 +303,13 @@
           <div class="phase-header">
             <div class="phase-number">2</div>
             <div>
-              <h2 class="phase-title">Feature Engineering</h2>
+              <h2 id="feature-engineering" class="phase-title">Feature Engineering</h2>
               <p class="phase-description">Transform raw data into meaningful features</p>
             </div>
           </div>
           <div class="topic-grid">
             <div class="topic-card">
-              <h4><a href="source/ml/feature-engineering.html">Numerical Feature Transformations</a></h4>
+              <h4><a href="../ml/feature-engineering.html">Numerical Feature Transformations</a></h4>
               <p>Transform numerical features for better model performance.</p>
               <ul>
                 <li>Log and power transforms</li>
@@ -308,7 +320,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/ml/feature-engineering.html">Categorical Encoding</a></h4>
+              <h4><a href="../ml/feature-engineering.html">Categorical Encoding</a></h4>
               <p>Encode categorical variables for ML models.</p>
               <ul>
                 <li>One-hot encoding</li>
@@ -319,7 +331,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/ml/feature-engineering.html">Feature Selection Methods</a></h4>
+              <h4><a href="../ml/feature-engineering.html">Feature Selection Methods</a></h4>
               <p>Select the most relevant features for your model.</p>
               <ul>
                 <li>Filter methods (correlation, chi-squared)</li>
@@ -330,7 +342,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/ml/feature-engineering.html">Handling Missing Data</a></h4>
+              <h4><a href="../ml/feature-engineering.html">Handling Missing Data</a></h4>
               <p>Deal with missing values appropriately.</p>
               <ul>
                 <li>Imputation strategies (mean, median, KNN)</li>
@@ -341,7 +353,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/ml/feature-engineering.html">Feature Scaling and Normalization</a></h4>
+              <h4><a href="../ml/feature-engineering.html">Feature Scaling and Normalization</a></h4>
               <p>Scale features for distance-based algorithms.</p>
               <ul>
                 <li>StandardScaler and MinMaxScaler</li>
@@ -360,13 +372,13 @@
           <div class="phase-header">
             <div class="phase-number">3</div>
             <div>
-              <h2 class="phase-title">Model Development</h2>
+              <h2 id="model-development" class="phase-title">Model Development</h2>
               <p class="phase-description">Build and optimize machine learning models</p>
             </div>
           </div>
           <div class="topic-grid">
             <div class="topic-card">
-              <h4><a href="source/ml/model-development.html">Classical ML Algorithms</a></h4>
+              <h4><a href="../ml/model-development.html">Classical ML Algorithms</a></h4>
               <p>Master fundamental machine learning algorithms.</p>
               <ul>
                 <li>Linear and logistic regression</li>
@@ -377,7 +389,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/ml/model-development.html">Scikit-learn Pipeline</a></h4>
+              <h4><a href="../ml/model-development.html">Scikit-learn Pipeline</a></h4>
               <p>Create reproducible ML workflows.</p>
               <ul>
                 <li>Pipeline and ColumnTransformer</li>
@@ -388,7 +400,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/ml/model-development.html">Hyperparameter Tuning</a></h4>
+              <h4><a href="../ml/model-development.html">Hyperparameter Tuning</a></h4>
               <p>Optimize model hyperparameters systematically.</p>
               <ul>
                 <li>Grid search</li>
@@ -399,7 +411,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/ml/model-development.html">Model Interpretability</a></h4>
+              <h4><a href="../ml/model-development.html">Model Interpretability</a></h4>
               <p>Understand and explain model predictions.</p>
               <ul>
                 <li>SHAP (SHapley Additive exPlanations)</li>
@@ -418,13 +430,13 @@
           <div class="phase-header">
             <div class="phase-number">4</div>
             <div>
-              <h2 class="phase-title">Deep Learning</h2>
+              <h2 id="deep-learning" class="phase-title">Deep Learning</h2>
               <p class="phase-description">Build neural networks for complex problems</p>
             </div>
           </div>
           <div class="topic-grid">
             <div class="topic-card">
-              <h4><a href="source/ml/deep-learning.html">Neural Network Fundamentals</a></h4>
+              <h4><a href="../ml/deep-learning.html">Neural Network Fundamentals</a></h4>
               <p>Understand the building blocks of neural networks.</p>
               <ul>
                 <li>Perceptrons and multi-layer networks</li>
@@ -435,7 +447,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/ml/deep-learning.html">PyTorch / TensorFlow</a></h4>
+              <h4><a href="../ml/deep-learning.html">PyTorch / TensorFlow</a></h4>
               <p>Master deep learning frameworks.</p>
               <ul>
                 <li>Tensor operations</li>
@@ -446,7 +458,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/ml/deep-learning.html">CNNs for Computer Vision</a></h4>
+              <h4><a href="../ml/deep-learning.html">CNNs for Computer Vision</a></h4>
               <p>Build convolutional networks for image tasks.</p>
               <ul>
                 <li>Convolution and pooling layers</li>
@@ -457,7 +469,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/ml/deep-learning.html">RNNs and Transformers</a></h4>
+              <h4><a href="../ml/deep-learning.html">RNNs and Transformers</a></h4>
               <p>Handle sequential and contextual data.</p>
               <ul>
                 <li>Recurrent networks (LSTM, GRU)</li>
@@ -476,13 +488,13 @@
           <div class="phase-header">
             <div class="phase-number">5</div>
             <div>
-              <h2 class="phase-title">ML System Design</h2>
+              <h2 id="ml-system-design" class="phase-title">ML System Design</h2>
               <p class="phase-description">Design scalable ML infrastructure</p>
             </div>
           </div>
           <div class="topic-grid">
             <div class="topic-card">
-              <h4><a href="source/ml/ml-system-design.html">Training Pipelines</a></h4>
+              <h4><a href="../ml/ml-system-design.html">Training Pipelines</a></h4>
               <p>Build automated training workflows.</p>
               <ul>
                 <li>Pipeline orchestration (Airflow, Prefect)</li>
@@ -493,7 +505,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/ml/ml-system-design.html">Feature Stores</a></h4>
+              <h4><a href="../ml/ml-system-design.html">Feature Stores</a></h4>
               <p>Centralize and manage features for ML.</p>
               <ul>
                 <li>Feature store concepts</li>
@@ -504,7 +516,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/ml/ml-system-design.html">Model Registries</a></h4>
+              <h4><a href="../ml/ml-system-design.html">Model Registries</a></h4>
               <p>Track and manage model versions.</p>
               <ul>
                 <li>Model versioning and lineage</li>
@@ -515,7 +527,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/ml/ml-system-design.html">A/B Testing Frameworks</a></h4>
+              <h4><a href="../ml/ml-system-design.html">A/B Testing Frameworks</a></h4>
               <p>Test models in production safely.</p>
               <ul>
                 <li>A/B test design for ML</li>
@@ -534,13 +546,13 @@
           <div class="phase-header">
             <div class="phase-number">6</div>
             <div>
-              <h2 class="phase-title">MLOps</h2>
+              <h2 id="mlops" class="phase-title">MLOps</h2>
               <p class="phase-description">Operationalize machine learning at scale</p>
             </div>
           </div>
           <div class="topic-grid">
             <div class="topic-card">
-              <h4><a href="source/ml/mlops.html">MLflow / Weights & Biases</a></h4>
+              <h4><a href="../ml/mlops.html">MLflow / Weights & Biases</a></h4>
               <p>Track experiments and manage ML lifecycle.</p>
               <ul>
                 <li>Experiment tracking</li>
@@ -551,7 +563,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/ml/mlops.html">Model Versioning</a></h4>
+              <h4><a href="../ml/mlops.html">Model Versioning</a></h4>
               <p>Manage model versions and deployments.</p>
               <ul>
                 <li>Version control for models</li>
@@ -562,7 +574,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/ml/mlops.html">CI/CD for ML</a></h4>
+              <h4><a href="../ml/mlops.html">CI/CD for ML</a></h4>
               <p>Automate ML testing and deployment.</p>
               <ul>
                 <li>Testing ML pipelines</li>
@@ -573,7 +585,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/ml/mlops.html">Automated Retraining</a></h4>
+              <h4><a href="../ml/mlops.html">Automated Retraining</a></h4>
               <p>Keep models fresh with automated updates.</p>
               <ul>
                 <li>Trigger-based retraining</li>
@@ -592,13 +604,13 @@
           <div class="phase-header">
             <div class="phase-number">7</div>
             <div>
-              <h2 class="phase-title">Model Deployment</h2>
+              <h2 id="model-deployment" class="phase-title">Model Deployment</h2>
               <p class="phase-description">Deploy models to production environments</p>
             </div>
           </div>
           <div class="topic-grid">
             <div class="topic-card">
-              <h4><a href="source/ml/model-deployment.html">Model Serving Patterns</a></h4>
+              <h4><a href="../ml/model-deployment.html">Model Serving Patterns</a></h4>
               <p>Choose the right deployment pattern for your use case.</p>
               <ul>
                 <li>Batch inference</li>
@@ -609,7 +621,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/ml/model-deployment.html">Docker Containers for ML</a></h4>
+              <h4><a href="../ml/model-deployment.html">Docker Containers for ML</a></h4>
               <p>Containerize ML applications for consistency.</p>
               <ul>
                 <li>Dockerfile for ML models</li>
@@ -620,7 +632,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/ml/model-deployment.html">Kubernetes for Scaling</a></h4>
+              <h4><a href="../ml/model-deployment.html">Kubernetes for Scaling</a></h4>
               <p>Scale ML services with Kubernetes.</p>
               <ul>
                 <li>Deployments and services</li>
@@ -631,7 +643,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/ml/model-deployment.html">Model Monitoring and Drift Detection</a></h4>
+              <h4><a href="../ml/model-deployment.html">Model Monitoring and Drift Detection</a></h4>
               <p>Monitor models in production for issues.</p>
               <ul>
                 <li>Data drift detection</li>
@@ -649,13 +661,13 @@
           <div class="phase-header">
             <div class="phase-number">8</div>
             <div>
-              <h2 class="phase-title">Production ML</h2>
+              <h2 id="production-ml" class="phase-title">Production ML</h2>
               <p class="phase-description">Master production-grade machine learning systems</p>
             </div>
           </div>
           <div class="topic-grid">
             <div class="topic-card">
-              <h4><a href="source/ml/production-ml.html">Data Validation</a></h4>
+              <h4><a href="../ml/production-ml.html">Data Validation</a></h4>
               <p>Ensure data quality before training.</p>
               <ul>
                 <li>Great Expectations</li>
@@ -666,7 +678,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/ml/production-ml.html">Model Validation</a></h4>
+              <h4><a href="../ml/production-ml.html">Model Validation</a></h4>
               <p>Validate models before deployment.</p>
               <ul>
                 <li>Cross-validation in production</li>
@@ -677,7 +689,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/ml/production-ml.html">Canary Deployments</a></h4>
+              <h4><a href="../ml/production-ml.html">Canary Deployments</a></h4>
               <p>Gradually roll out model updates safely.</p>
               <ul>
                 <li>Canary release strategies</li>
@@ -688,7 +700,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/ml/production-ml.html">Cost Optimization for ML Inference</a></h4>
+              <h4><a href="../ml/production-ml.html">Cost Optimization for ML Inference</a></h4>
               <p>Optimize inference costs at scale.</p>
               <ul>
                 <li>Model quantization</li>
@@ -705,7 +717,7 @@
 
       <!-- Quick Links Section -->
       <section class="tracks">
-        <h2>Quick Reference</h2>
+        <h2 id="quick-reference">Quick Reference</h2>
         <div class="track-grid">
           <a href="roadmap.html" class="track">
             <h3>Data Engineering</h3>
@@ -723,11 +735,11 @@
             <h3>Spark</h3>
             <p>Spark roadmap</p>
           </a>
-          <a href="source/ml/index.html" class="track">
+          <a href="../ml/index.html" class="track">
             <h3>ML Hub</h3>
             <p>All ML resources</p>
           </a>
-          <a href="source/ml/ml-fundamentals.html" class="track">
+          <a href="../ml/ml-fundamentals.html" class="track">
             <h3>ML Fundamentals</h3>
             <p>Core ML concepts</p>
           </a>
@@ -737,7 +749,67 @@
     </div>
   </main>
 
-  <script src="source/app.js"></script>
+  <nav class="sidebar">
+    <div class="sidebar-logo">ML Engineer Roadmap</div>
+    <a href="#ml-fundamentals" class="nav-item">ML Fundamentals</a>
+    <a href="#feature-engineering" class="nav-item">Feature Engineering</a>
+    <a href="#model-development" class="nav-item">Model Development</a>
+    <a href="#deep-learning" class="nav-item">Deep Learning</a>
+    <a href="#ml-system-design" class="nav-item">ML System Design</a>
+    <a href="#mlops" class="nav-item">MLOps</a>
+    <a href="#model-deployment" class="nav-item">Model Deployment</a>
+    <a href="#production-ml" class="nav-item">Production ML</a>
+    <a href="#quick-reference" class="nav-item">Quick Reference</a>
+  </nav>
+
+  <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Sidebar toggle functionality
+    document.addEventListener('DOMContentLoaded', function () {
+      const sidebarToggle = document.getElementById('sidebarToggle');
+      const sidebar = document.querySelector('.sidebar');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+      const mainContent = document.querySelector('.main-content');
+
+      if (sidebarToggle && sidebar && sidebarOverlay && mainContent) {
+        sidebarToggle.addEventListener('click', function () {
+          sidebar.classList.toggle('active');
+          sidebarOverlay.classList.toggle('active');
+          mainContent.classList.toggle('sidebar-active');
+        });
+
+        sidebarOverlay.addEventListener('click', function () {
+          sidebar.classList.remove('active');
+          sidebarOverlay.classList.remove('active');
+          mainContent.classList.remove('sidebar-active');
+        });
+      }
+    });
+  </script>
 </body>
 
 </html>

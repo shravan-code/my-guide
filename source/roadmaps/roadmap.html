@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Data Guide | Data Engineering Roadmap</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="source/styles.css" />
-  <link rel="stylesheet" href="source/hub.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../hub.css" />
+  <link rel="stylesheet" href="../python/python.css" />
+  <link rel="stylesheet" href="../python/nav-section-pills.css" />
   <style>
     /* Roadmap specific styles */
     .roadmap-container {
@@ -200,6 +205,7 @@
       .topic-grid {
         margin-left: 0;
       }
+
       .phase-connector {
         display: none;
       }
@@ -207,16 +213,23 @@
   </style>
 </head>
 
-<body>
+<body class="with-sidebar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
   <header class="topbar glass reveal in">
-    <a class="brand" href="index.html">
-      <svg class="brand-icon" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+    <a class="brand" href="../../index.html">
+      <svg class="brand-icon" viewBox="0 0 24 24">
+        <ellipse cx="12" cy="5" rx="9" ry="3" />
+        <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+        <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+      </svg>
       Data Guide
     </a>
+    <button id="sidebar-toggle" class="sidebar-toggle" type="button" aria-label="Toggle sidebar">
+      <span class="hamburger" aria-hidden="true"></span>
+    </button>
     <nav class="menu" aria-label="Main menu">
       <a href="roadmap.html" class="active" aria-current="page">Data Engineering</a>
       <a href="python-roadmap.html">Python</a>
@@ -231,12 +244,30 @@
     </button>
   </header>
 
-  <main>
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <main class="main-content">
+    <nav class="sidebar" id="sidebar">
+      <div class="logo">
+        <span class="logo-text">Data Engineering Roadmap</span>
+      </div>
+      <a href="#foundations" class="nav-item"><span>1</span> Foundations</a>
+      <a href="#data-fundamentals" class="nav-item"><span>2</span> Data Fundamentals</a>
+      <a href="#databases" class="nav-item"><span>3</span> Databases</a>
+      <a href="#data-processing" class="nav-item"><span>4</span> Data Processing</a>
+      <a href="#cloud-platforms" class="nav-item"><span>5</span> Cloud Platforms</a>
+      <a href="#data-architecture" class="nav-item"><span>6</span> Data Architecture</a>
+      <a href="#ml-ai-foundations" class="nav-item"><span>7</span> ML/AI Foundations</a>
+      <a href="#deep-learning-ai" class="nav-item"><span>8</span> Deep Learning & AI</a>
+      <a href="#advanced-topics" class="nav-item"><span>9</span> Advanced Topics</a>
+      <a href="#quick-reference" class="nav-item"><span>10</span> Quick Reference</a>
+    </nav>
     <div class="page-wrap">
       <section class="hero">
         <p class="eyebrow">Your Learning Path</p>
         <h1>Data Engineering Roadmap</h1>
-        <p class="hero-copy">A comprehensive guide from beginner to advanced data engineer, including ML and AI tools.</p>
+        <p class="hero-copy">A comprehensive guide from beginner to advanced data engineer, including ML and AI tools.
+        </p>
       </section>
 
       <div class="roadmap-container">
@@ -247,13 +278,13 @@
           <div class="phase-header">
             <div class="phase-number">1</div>
             <div>
-              <h2 class="phase-title">Foundations</h2>
+              <h2 id="foundations" class="phase-title">Foundations</h2>
               <p class="phase-description">Master the fundamentals of programming and data</p>
             </div>
           </div>
           <div class="topic-grid">
             <div class="topic-card">
-              <h4><a href="source/python/python-fundamentals.html">Python Programming</a></h4>
+              <h4><a href="../python/python-fundamentals.html">Python Programming</a></h4>
               <p>Learn Python basics, data structures, control flow, and functions.</p>
               <ul>
                 <li>Variables, data types, operators</li>
@@ -264,7 +295,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/sql/sql-concepts.html">SQL Fundamentals</a></h4>
+              <h4><a href="../sql/sql-concepts.html">SQL Fundamentals</a></h4>
               <p>Master relational database concepts and SQL queries.</p>
               <ul>
                 <li>SELECT, INSERT, UPDATE, DELETE</li>
@@ -305,13 +336,13 @@
           <div class="phase-header">
             <div class="phase-number">2</div>
             <div>
-              <h2 class="phase-title">Data Fundamentals</h2>
+              <h2 id="data-fundamentals" class="phase-title">Data Fundamentals</h2>
               <p class="phase-description">Learn to work with data in Python</p>
             </div>
           </div>
           <div class="topic-grid">
             <div class="topic-card">
-              <h4><a href="source/numpy/numpy-arrays.html">NumPy</a></h4>
+              <h4><a href="../numpy/numpy-arrays.html">NumPy</a></h4>
               <p>Foundation for numerical computing in Python.</p>
               <ul>
                 <li>Arrays and array operations</li>
@@ -322,7 +353,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/pandas/pandas-dataframes.html">Pandas</a></h4>
+              <h4><a href="../pandas/pandas-dataframes.html">Pandas</a></h4>
               <p>Data manipulation and analysis library.</p>
               <ul>
                 <li>Series and DataFrames</li>
@@ -344,7 +375,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/data/data-types.html">Data Types & Formats</a></h4>
+              <h4><a href="../data/data-types.html">Data Types & Formats</a></h4>
               <p>Understand different data structures and file formats.</p>
               <ul>
                 <li>Structured, semi-structured, unstructured</li>
@@ -363,13 +394,13 @@
           <div class="phase-header">
             <div class="phase-number">3</div>
             <div>
-              <h2 class="phase-title">Databases</h2>
+              <h2 id="databases" class="phase-title">Databases</h2>
               <p class="phase-description">Master relational and NoSQL databases</p>
             </div>
           </div>
           <div class="topic-grid">
             <div class="topic-card">
-              <h4><a href="source/sql/sql-concepts.html">PostgreSQL</a></h4>
+              <h4><a href="../sql/sql-concepts.html">PostgreSQL</a></h4>
               <p>Advanced open-source relational database.</p>
               <ul>
                 <li>PostgreSQL-specific features</li>
@@ -380,7 +411,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/sql/sql-modelling.html">Data Modeling</a></h4>
+              <h4><a href="../sql/sql-modelling.html">Data Modeling</a></h4>
               <p>Design efficient database schemas.</p>
               <ul>
                 <li>Normalization (1NF - 3NF, BCNF)</li>
@@ -421,13 +452,13 @@
           <div class="phase-header">
             <div class="phase-number">4</div>
             <div>
-              <h2 class="phase-title">Data Processing</h2>
+              <h2 id="data-processing" class="phase-title">Data Processing</h2>
               <p class="phase-description">Process large-scale data efficiently</p>
             </div>
           </div>
           <div class="topic-grid">
             <div class="topic-card">
-              <h4><a href="source/spark/index.html">Apache Spark</a></h4>
+              <h4><a href="../spark/index.html">Apache Spark</a></h4>
               <p>Distributed data processing engine.</p>
               <ul>
                 <li>Spark Core and RDDs</li>
@@ -449,7 +480,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/data/data-pipeline.html">Data Pipelines</a></h4>
+              <h4><a href="../data/data-pipeline.html">Data Pipelines</a></h4>
               <p>Orchestrate data workflows.</p>
               <ul>
                 <li>ETL vs ELT patterns</li>
@@ -460,7 +491,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/data/data-quality.html">Data Quality</a></h4>
+              <h4><a href="../data/data-quality.html">Data Quality</a></h4>
               <p>Ensure data accuracy and reliability.</p>
               <ul>
                 <li>Data validation and testing</li>
@@ -479,13 +510,13 @@
           <div class="phase-header">
             <div class="phase-number">5</div>
             <div>
-              <h2 class="phase-title">Cloud Platforms</h2>
+              <h2 id="cloud-platforms" class="phase-title">Cloud Platforms</h2>
               <p class="phase-description">Deploy and manage data systems in the cloud</p>
             </div>
           </div>
           <div class="topic-grid">
             <div class="topic-card">
-              <h4><a href="source/cloud/cloud-basics.html">Cloud Fundamentals</a></h4>
+              <h4><a href="../cloud/cloud-basics.html">Cloud Fundamentals</a></h4>
               <p>Understand IaaS, PaaS, SaaS and deployment models.</p>
               <ul>
                 <li>Public, private, hybrid cloud</li>
@@ -496,7 +527,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/cloud/cloud-aws.html">AWS Data Services</a></h4>
+              <h4><a href="../cloud/cloud-aws.html">AWS Data Services</a></h4>
               <p>Amazon's comprehensive data platform.</p>
               <ul>
                 <li>S3, Redshift, Glue</li>
@@ -507,7 +538,7 @@
               <span class="skill-badge required">Required</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/cloud/cloud-azure.html">Azure Data Services</a></h4>
+              <h4><a href="../cloud/cloud-azure.html">Azure Data Services</a></h4>
               <p>Microsoft's enterprise data platform.</p>
               <ul>
                 <li>Synapse Analytics</li>
@@ -518,7 +549,7 @@
               <span class="skill-badge optional">Optional</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/cloud/cloud-gcp.html">GCP Data Services</a></h4>
+              <h4><a href="../cloud/cloud-gcp.html">GCP Data Services</a></h4>
               <p>Google Cloud's data and ML platform.</p>
               <ul>
                 <li>BigQuery</li>
@@ -529,7 +560,7 @@
               <span class="skill-badge optional">Optional</span>
             </div>
             <div class="topic-card">
-              <h4><a href="source/cloud/cloud-compute.html">Containers & Orchestration</a></h4>
+              <h4><a href="../cloud/cloud-compute.html">Containers & Orchestration</a></h4>
               <p>Package and deploy applications.</p>
               <ul>
                 <li>Docker fundamentals</li>
@@ -548,7 +579,7 @@
           <div class="phase-header">
             <div class="phase-number">6</div>
             <div>
-              <h2 class="phase-title">Data Architecture</h2>
+              <h2 id="data-architecture" class="phase-title">Data Architecture</h2>
               <p class="phase-description">Design scalable data systems</p>
             </div>
           </div>
@@ -606,7 +637,7 @@
           <div class="phase-header">
             <div class="phase-number">7</div>
             <div>
-              <h2 class="phase-title">ML/AI Foundations</h2>
+              <h2 id="ml-ai-foundations" class="phase-title">ML/AI Foundations</h2>
               <p class="phase-description">Understand machine learning fundamentals</p>
             </div>
           </div>
@@ -664,7 +695,7 @@
           <div class="phase-header">
             <div class="phase-number">8</div>
             <div>
-              <h2 class="phase-title">Deep Learning & AI</h2>
+              <h2 id="deep-learning-ai" class="phase-title">Deep Learning & AI</h2>
               <p class="phase-description">Neural networks and advanced AI techniques</p>
             </div>
           </div>
@@ -721,7 +752,7 @@
           <div class="phase-header">
             <div class="phase-number">9</div>
             <div>
-              <h2 class="phase-title">Advanced Topics</h2>
+              <h2 id="advanced-topics" class="phase-title">Advanced Topics</h2>
               <p class="phase-description">Specialized skills for senior roles</p>
             </div>
           </div>
@@ -777,29 +808,29 @@
 
       <!-- Quick Links Section -->
       <section class="tracks">
-        <h2>Quick Reference</h2>
+        <h2 id="quick-reference">Quick Reference</h2>
         <div class="track-grid">
-          <a href="source/python/index.html" class="track">
+          <a href="../python/index.html" class="track">
             <h3>Python</h3>
             <p>Programming fundamentals</p>
           </a>
-          <a href="source/sql/index.html" class="track">
+          <a href="../sql/index.html" class="track">
             <h3>SQL</h3>
             <p>Query and model data</p>
           </a>
-          <a href="source/spark/index.html" class="track">
+          <a href="../spark/index.html" class="track">
             <h3>Spark</h3>
             <p>Big data processing</p>
           </a>
-          <a href="source/cloud/index.html" class="track">
+          <a href="../cloud/index.html" class="track">
             <h3>Cloud</h3>
             <p>AWS, Azure, GCP</p>
           </a>
-          <a href="source/data/index.html" class="track">
+          <a href="../data/index.html" class="track">
             <h3>Big Data</h3>
             <p>Data fundamentals</p>
           </a>
-          <a href="source/pandas/index.html" class="track">
+          <a href="../pandas/index.html" class="track">
             <h3>Pandas</h3>
             <p>Data manipulation</p>
           </a>
@@ -809,7 +840,32 @@
     </div>
   </main>
 
-  <script src="source/app.js"></script>
+  <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
 </body>
 
 </html>

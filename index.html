@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Data Guide</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="source/styles.css" />
   <link rel="stylesheet" href="source/hub.css" />
   <style>
@@ -94,7 +97,8 @@
       transition: color var(--transition);
     }
 
-    .menu a:hover, .menu a.active {
+    .menu a:hover,
+    .menu a.active {
       color: var(--text);
     }
 
@@ -117,9 +121,12 @@
     }
 
     @keyframes pulse-glow {
-      0%, 100% {
+
+      0%,
+      100% {
         box-shadow: 0 0 10px var(--glow-color), 0 0 20px rgba(236, 72, 153, 0.3);
       }
+
       50% {
         box-shadow: 0 0 20px var(--glow-color), 0 0 40px rgba(236, 72, 153, 0.5);
       }
@@ -170,7 +177,13 @@
       transform: translateY(-1px);
     }
 
-    .theme-toggle svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
+    .theme-toggle svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
 
     .toggle-text {
       font-size: 0.7rem;
@@ -220,8 +233,13 @@
     }
 
     @keyframes marquee {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
     }
 
     .tool-tag {
@@ -704,30 +722,74 @@
     }
 
     @keyframes gradient-shift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
     }
 
     /* Responsive */
     @media (max-width: 900px) {
-      .menu { display: none; }
-      .topbar { padding: 0 1rem; }
-      .content-split { grid-template-columns: 1fr; }
-      .right-content { position: static; }
+      .menu {
+        display: none;
+      }
+
+      .topbar {
+        padding: 0 1rem;
+      }
+
+      .content-split {
+        grid-template-columns: 1fr;
+      }
+
+      .right-content {
+        position: static;
+      }
     }
 
     @media (max-width: 600px) {
-      .track-grid { grid-template-columns: repeat(2, 1fr); }
-      main { padding: 1rem 0; }
-      .topic-item { grid-template-columns: 36px 1fr; gap: 0.75rem; padding: 0.75rem; }
-      .topic-icon { width: 36px; height: 36px; }
-      .topic-arrow { display: none; }
-      .panel-grid { grid-template-columns: 1fr; }
-      .panel-footer { flex-direction: column; gap: 0.25rem; }
+      .track-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      main {
+        padding: 1rem 0;
+      }
+
+      .topic-item {
+        grid-template-columns: 36px 1fr;
+        gap: 0.75rem;
+        padding: 0.75rem;
+      }
+
+      .topic-icon {
+        width: 36px;
+        height: 36px;
+      }
+
+      .topic-arrow {
+        display: none;
+      }
+
+      .panel-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .panel-footer {
+        flex-direction: column;
+        gap: 0.25rem;
+      }
     }
   </style>
 </head>
+
 <body>
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
@@ -736,7 +798,11 @@
   <header class="topbar glass reveal in">
     <div class="brand-area">
       <a class="brand" href="index.html">
-        <svg class="brand-icon" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        <svg class="brand-icon" viewBox="0 0 24 24">
+          <ellipse cx="12" cy="5" rx="9" ry="3" />
+          <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+          <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+        </svg>
         Data Guide
       </a>
       <nav class="menu" aria-label="Main menu">
@@ -752,12 +818,12 @@
           </div>
         </div>
         <a href="source/sql/index.html">SQL</a>
-        <a href="cheatsheet.html">Cheatsheet</a>
-        <a href="roadmap.html">Roadmap</a>
+        <a href="source/cheatsheets/cheatsheet.html">Cheatsheet</a>
+        <a href="source/roadmaps/roadmap.html">Roadmap</a>
       </nav>
     </div>
     <div class="header-actions">
-      <a href="portfolio.html" class="portfolio-link">Portfolio</a>
+      <a href="source/portfolios/portfolio.html" class="portfolio-link">Portfolio</a>
       <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
         <span class="toggle-icon" aria-hidden="true">☾</span>
         <span class="toggle-text">Dark</span>
@@ -771,7 +837,7 @@
         <p class="eyebrow">Your Data Engineering Guide</p>
         <h1>Build <span class="gradient-text">Pipelines</span></h1>
         <p class="hero-copy">Comprehensive resources for Python, Spark, SQL, Cloud, and modern data tooling.</p>
-        
+
         <div class="tools-marquee">
           <div class="marquee-track">
             <span class="tool-tag">Python</span>
@@ -818,65 +884,104 @@
           <div class="topics">
             <a href="source/python/index.html" class="topic-item">
               <div class="topic-icon">
-                <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                  <path d="M2 17l10 5 10-5" />
+                  <path d="M2 12l10 5 10-5" />
+                </svg>
               </div>
               <span class="topic-title">Python</span>
               <div class="topic-arrow">
-                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                <svg viewBox="0 0 24 24">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
               </div>
             </a>
             <a href="source/spark/index.html" class="topic-item">
               <div class="topic-icon">
-                <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <svg viewBox="0 0 24 24">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                </svg>
               </div>
               <span class="topic-title">Spark & PySpark</span>
               <div class="topic-arrow">
-                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                <svg viewBox="0 0 24 24">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
               </div>
             </a>
             <a href="source/pandas/index.html" class="topic-item">
               <div class="topic-icon">
-                <svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 12l4-4 4 4 4-6"/></svg>
+                <svg viewBox="0 0 24 24">
+                  <path d="M3 3v18h18" />
+                  <path d="M7 12l4-4 4 4 4-6" />
+                </svg>
               </div>
               <span class="topic-title">Pandas</span>
               <div class="topic-arrow">
-                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                <svg viewBox="0 0 24 24">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
               </div>
             </a>
             <a href="source/numpy/index.html" class="topic-item">
               <div class="topic-icon">
-                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg>
+                <svg viewBox="0 0 24 24">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <path d="M3 9h18" />
+                  <path d="M3 15h18" />
+                  <path d="M9 3v18" />
+                  <path d="M15 3v18" />
+                </svg>
               </div>
               <span class="topic-title">NumPy</span>
               <div class="topic-arrow">
-                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                <svg viewBox="0 0 24 24">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
               </div>
             </a>
             <a href="source/sql/index.html" class="topic-item">
               <div class="topic-icon">
-                <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                <svg viewBox="0 0 24 24">
+                  <ellipse cx="12" cy="5" rx="9" ry="3" />
+                  <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                  <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                </svg>
               </div>
               <span class="topic-title">SQL</span>
               <div class="topic-arrow">
-                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                <svg viewBox="0 0 24 24">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
               </div>
             </a>
             <a href="source/cloud/index.html" class="topic-item">
               <div class="topic-icon">
-                <svg viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+                <svg viewBox="0 0 24 24">
+                  <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+                </svg>
               </div>
               <span class="topic-title">Cloud & AWS</span>
               <div class="topic-arrow">
-                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                <svg viewBox="0 0 24 24">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
               </div>
             </a>
             <a href="source/data/index.html" class="topic-item">
               <div class="topic-icon">
-                <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                <svg viewBox="0 0 24 24">
+                  <ellipse cx="12" cy="5" rx="9" ry="3" />
+                  <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                  <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                </svg>
               </div>
               <span class="topic-title">Big Data</span>
               <div class="topic-arrow">
-                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                <svg viewBox="0 0 24 24">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
               </div>
             </a>
           </div>
@@ -891,7 +996,9 @@
           <div class="glass-panel">
             <div class="panel-header">
               <div class="panel-header-left">
-                <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                <svg viewBox="0 0 24 24">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                </svg>
                 <span class="panel-header-text">Featured // <span id="panel-label">PYTHON</span></span>
               </div>
               <div class="panel-dots">
@@ -906,7 +1013,8 @@
                 <div class="panel-info">
                   <div>
                     <div class="block-label">Overview</div>
-                    <p class="block-text" id="panel-desc">Learn Python fundamentals, data structures, OOP, and memory optimization for data engineering workflows.</p>
+                    <p class="block-text" id="panel-desc">Learn Python fundamentals, data structures, OOP, and memory
+                      optimization for data engineering workflows.</p>
                   </div>
                   <div>
                     <div class="block-label">Key Metric</div>
@@ -916,24 +1024,42 @@
                 </div>
                 <div class="code-block">
                   <div class="code-icon">
-                    <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                    <svg viewBox="0 0 24 24">
+                      <polyline points="16 18 22 12 16 6" />
+                      <polyline points="8 6 2 12 8 18" />
+                    </svg>
                   </div>
                   <div id="panel-code">
                     <div class="code-line"><span class="code-num">1</span><span>import pandas as pd</span></div>
-                    <div class="code-line"><span class="code-num">2</span><span>from pyspark.sql import SparkSession</span></div>
+                    <div class="code-line"><span class="code-num">2</span><span>from pyspark.sql import
+                        SparkSession</span></div>
                     <div class="code-line"><span class="code-num">3</span><span></span></div>
-                    <div class="code-line"><span class="code-num">4</span><span>df = spark.read.parquet("data/")</span></div>
-                    <div class="code-line"><span class="code-num">5</span><span>df.write.mode("append").save()</span></div>
+                    <div class="code-line"><span class="code-num">4</span><span>df = spark.read.parquet("data/")</span>
+                    </div>
+                    <div class="code-line"><span class="code-num">5</span><span>df.write.mode("append").save()</span>
+                    </div>
                   </div>
                 </div>
               </div>
 
               <div class="decorative">
                 <div class="decorative-shapes">
-                  <div class="shape-item"><div class="shape-diamond"></div><div class="shape-line"></div></div>
-                  <div class="shape-item"><div class="shape-diamond"></div><div class="shape-line"></div></div>
-                  <div class="shape-item"><div class="shape-diamond"></div><div class="shape-line"></div></div>
-                  <div class="shape-item"><div class="shape-diamond"></div><div class="shape-line"></div></div>
+                  <div class="shape-item">
+                    <div class="shape-diamond"></div>
+                    <div class="shape-line"></div>
+                  </div>
+                  <div class="shape-item">
+                    <div class="shape-diamond"></div>
+                    <div class="shape-line"></div>
+                  </div>
+                  <div class="shape-item">
+                    <div class="shape-diamond"></div>
+                    <div class="shape-line"></div>
+                  </div>
+                  <div class="shape-item">
+                    <div class="shape-diamond"></div>
+                    <div class="shape-line"></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -973,7 +1099,7 @@
       panelDesc.textContent = t.desc;
       panelMetric.textContent = t.metric;
       panelSublabel.textContent = t.sublabel;
-      panelCode.innerHTML = t.code.map((line, i) => 
+      panelCode.innerHTML = t.code.map((line, i) =>
         `<div class="code-line"><span class="code-num">${i + 1}</span><span>${line}</span></div>`
       ).join('');
     }
@@ -983,5 +1109,32 @@
     });
   </script>
   <script src="source/app.js"></script>
+
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
 </body>
+
 </html>

@@ -86,8 +86,7 @@
 
       <!-- Section 1: Compute -->
       <section class="topic-section" id="compute">
-        <span class="level-badge basic">Basic</span>
-        <h2>Compute Services</h2>
+        <h2> Compute Services <span class="level-badge basic">Basic</span> </h2>
         <p>Compute services provide processing power for applications. The three major providers offer similar capabilities with different names.</p>
 
         <div class="code-block">
@@ -127,8 +126,7 @@
 
       <!-- Section 2: Storage -->
       <section class="topic-section" id="storage">
-        <span class="level-badge basic">Basic</span>
-        <h2>Storage Services</h2>
+        <h2> Storage Services <span class="level-badge basic">Basic</span> </h2>
         <p>Cloud storage includes object, block, file, and specialized storage types for different use cases.</p>
 
         <div class="code-block">
@@ -160,8 +158,7 @@
 
       <!-- Section 3: Database -->
       <section class="topic-section" id="database">
-        <span class="level-badge basic">Basic</span>
-        <h2>Database Services</h2>
+        <h2> Database Services <span class="level-badge basic">Basic</span> </h2>
         <p>Managed database services handle provisioning, patching, backups, and scaling.</p>
 
         <div class="code-block">
@@ -198,8 +195,7 @@
 
       <!-- Section 4: Analytics -->
       <section class="topic-section" id="analytics">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Analytics Services</h2>
+        <h2> Analytics Services <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Analytics services process and analyze large datasets for business intelligence and data science.</p>
 
         <div class="code-block">
@@ -237,8 +233,7 @@
 
       <!-- Section 5: AI/ML -->
       <section class="topic-section" id="ai-ml">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>AI & Machine Learning</h2>
+        <h2> AI & Machine Learning <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Cloud AI/ML services provide pre-built models and training infrastructure.</p>
 
         <div class="code-block">
@@ -272,8 +267,7 @@
 
       <!-- Section 6: Networking -->
       <section class="topic-section" id="networking">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Networking Services</h2>
+        <h2> Networking Services <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Cloud networking provides isolated networks, load balancing, DNS, and connectivity.</p>
 
         <div class="code-block">
@@ -312,8 +306,7 @@
 
       <!-- Section 7: Security -->
       <section class="topic-section" id="security">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Security & Identity</h2>
+        <h2> Security & Identity <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Cloud security services manage identity, access, encryption, and threat detection.</p>
 
         <div class="code-block">
@@ -357,5 +350,29 @@
   </main>
 
   <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
 </body>
 </html>

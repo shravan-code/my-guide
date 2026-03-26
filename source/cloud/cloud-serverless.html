@@ -80,8 +80,7 @@
 
       <!-- Section 1: Lambda -->
       <section class="topic-section" id="lambda">
-        <span class="level-badge basic">Basic</span>
-        <h2>AWS Lambda</h2>
+        <h2> AWS Lambda <span class="level-badge basic">Basic</span> </h2>
         <p>Lambda runs code without provisioning servers. Pay only for compute time consumed.</p>
 
         <div class="code-block">
@@ -125,8 +124,7 @@ aws lambda create-function \
 
       <!-- Section 2: Azure Functions -->
       <section class="topic-section" id="azure-functions">
-        <span class="level-badge basic">Basic</span>
-        <h2>Azure Functions</h2>
+        <h2> Azure Functions <span class="level-badge basic">Basic</span> </h2>
         <p>Azure Functions provides event-driven serverless compute with support for multiple languages.</p>
 
         <div class="code-block">
@@ -162,8 +160,7 @@ func azure functionapp publish my-app
 
       <!-- Section 3: Cloud Functions -->
       <section class="topic-section" id="cloud-functions">
-        <span class="level-badge basic">Basic</span>
-        <h2>Google Cloud Functions</h2>
+        <h2> Google Cloud Functions <span class="level-badge basic">Basic</span> </h2>
         <p>Google Cloud Functions runs event-driven code with automatic scaling and pay-per-use pricing.</p>
 
         <div class="code-block">
@@ -203,8 +200,7 @@ gcloud functions deploy process-upload \
 
       <!-- Section 4: Managed Services -->
       <section class="topic-section" id="managed-services">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Serverless Databases</h2>
+        <h2> Serverless Databases <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Managed databases eliminate server management while providing automatic scaling and high availability.</p>
 
         <div class="code-block">
@@ -245,8 +241,7 @@ gcloud firestore databases create \
 
       <!-- Section 5: Step Functions -->
       <section class="topic-section" id="step-functions">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Workflow Orchestration</h2>
+        <h2> Workflow Orchestration <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Serverless workflow services coordinate multiple functions and services into business processes.</p>
 
         <div class="code-block">
@@ -307,8 +302,7 @@ gcloud firestore databases create \
 
       <!-- Section 6: API Gateway -->
       <section class="topic-section" id="api-gateway">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>API Gateway</h2>
+        <h2> API Gateway <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>API Gateway creates REST/HTTP APIs that route requests to Lambda functions or other backend services.</p>
 
         <div class="code-block">
@@ -353,8 +347,7 @@ aws apigateway create-deployment \
 
       <!-- Section 7: Event-Driven -->
       <section class="topic-section" id="event-driven">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Event-Driven Architecture</h2>
+        <h2> Event-Driven Architecture <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Event-driven architecture uses events to trigger and communicate between decoupled services.</p>
 
         <div class="code-block">
@@ -404,8 +397,7 @@ aws apigateway create-deployment \
 
       <!-- Section 8: Fan-Out -->
       <section class="topic-section" id="fan-out">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Fan-Out Pattern</h2>
+        <h2> Fan-Out Pattern <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Fan-out pattern processes tasks in parallel by distributing work to multiple consumers.</p>
 
         <div class="code-block">
@@ -467,8 +459,7 @@ aws sns subscribe \
 
       <!-- Section 9: Saga Pattern -->
       <section class="topic-section" id="saga">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Saga Pattern</h2>
+        <h2> Saga Pattern <span class="level-badge advanced">Advanced</span> </h2>
         <p>Saga pattern manages distributed transactions by defining compensating actions for each step.</p>
 
         <div class="code-block">
@@ -537,5 +528,29 @@ aws sns subscribe \
   </main>
 
   <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
 </body>
 </html>

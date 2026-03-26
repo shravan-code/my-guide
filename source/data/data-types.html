@@ -69,8 +69,7 @@
 
       <!-- Section 1: Structured Data -->
       <section class="topic-section" id="structured">
-        <span class="level-badge basic">Basic</span>
-        <h2>Structured Data</h2>
+        <h2> Structured Data <span class="level-badge basic">Basic</span> </h2>
         <p>Structured data is organized in a fixed schema with predefined rows and columns. It fits neatly into relational databases and spreadsheets.</p>
 
         <div class="split-grid">
@@ -119,8 +118,7 @@ id,name,email,created_at
 
       <!-- Section 2: Semi-Structured Data -->
       <section class="topic-section" id="semi-structured">
-        <span class="level-badge basic">Basic</span>
-        <h2>Semi-Structured Data</h2>
+        <h2> Semi-Structured Data <span class="level-badge basic">Basic</span> </h2>
         <p>Semi-structured data has some organizational properties (tags, markers) but doesn't conform to a rigid schema.</p>
 
         <div class="split-grid">
@@ -169,8 +167,7 @@ id,name,email,created_at
 
       <!-- Section 3: Unstructured Data -->
       <section class="topic-section" id="unstructured">
-        <span class="level-badge basic">Basic</span>
-        <h2>Unstructured Data</h2>
+        <h2> Unstructured Data <span class="level-badge basic">Basic</span> </h2>
         <p>Unstructured data has no predefined schema or organization. It requires special processing to extract value.</p>
 
         <div class="split-grid">
@@ -210,8 +207,7 @@ id,name,email,created_at
 
       <!-- Section 4: Cardinality -->
       <section class="topic-section" id="cardinality">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Cardinality</h2>
+        <h2> Cardinality <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Cardinality refers to the uniqueness of values in a column. It affects indexing strategy and query performance.</p>
 
         <div class="split-grid">
@@ -263,8 +259,7 @@ id,name,email,created_at
 
       <!-- Section 5: Dimensionality -->
       <section class="topic-section" id="dimensionality">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Dimensionality</h2>
+        <h2> Dimensionality <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Dimensionality refers to the number of features or attributes in a dataset. High dimensionality can lead to performance and analysis challenges.</p>
 
         <div class="split-grid">
@@ -301,8 +296,7 @@ users(id, name, age)
 
       <!-- Section 6: Sparsity -->
       <section class="topic-section" id="sparsity">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Sparsity</h2>
+        <h2> Sparsity <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Sparsity describes datasets where most values are zero or null. Common in recommendation systems and NLP.</p>
 
         <div class="split-grid">
@@ -352,8 +346,7 @@ users(id, name, age)
 
       <!-- Section 7: Data States -->
       <section class="topic-section" id="data-states">
-        <span class="level-badge basic">Basic</span>
-        <h2>Data at Rest vs Motion</h2>
+        <h2> Data at Rest vs Motion <span class="level-badge basic">Basic</span> </h2>
         <p>Data exists in different states throughout its lifecycle. Each state requires different handling and security measures.</p>
 
         <div class="split-grid">
@@ -395,8 +388,7 @@ users(id, name, age)
 
       <!-- Section 8: Data Volumes -->
       <section class="topic-section" id="data-volumes">
-        <span class="level-badge basic">Basic</span>
-        <h2>Data Volumes</h2>
+        <h2> Data Volumes <span class="level-badge basic">Basic</span> </h2>
         <p>Understanding data scale helps choose appropriate storage, processing, and architecture patterns.</p>
 
         <div class="code-block">
@@ -446,8 +438,7 @@ users(id, name, age)
 
       <!-- Section 9: One-to-One -->
       <section class="topic-section" id="one-to-one">
-        <span class="level-badge basic">Basic</span>
-        <h2>One-to-One Relationships</h2>
+        <h2> One-to-One Relationships <span class="level-badge basic">Basic</span> </h2>
         <p>Each record in Table A relates to exactly one record in Table B, and vice versa.</p>
 
         <div class="code-block">
@@ -484,8 +475,7 @@ users(id, name, age)
 
       <!-- Section 10: One-to-Many -->
       <section class="topic-section" id="one-to-many">
-        <span class="level-badge basic">Basic</span>
-        <h2>One-to-Many Relationships</h2>
+        <h2> One-to-Many Relationships <span class="level-badge basic">Basic</span> </h2>
         <p>The most common relationship type. One record in Table A relates to many records in Table B.</p>
 
         <div class="code-block">
@@ -525,8 +515,7 @@ users(id, name, age)
 
       <!-- Section 11: Many-to-Many -->
       <section class="topic-section" id="many-to-many">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Many-to-Many Relationships</h2>
+        <h2> Many-to-Many Relationships <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Records in both tables can relate to multiple records in the other. Requires a junction table.</p>
 
         <div class="code-block">
@@ -578,5 +567,29 @@ users(id, name, age)
   </main>
 
   <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
 </body>
 </html>

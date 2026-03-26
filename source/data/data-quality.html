@@ -69,8 +69,7 @@
 
       <!-- Section 1: Accuracy -->
       <section class="topic-section" id="accuracy">
-        <span class="level-badge basic">Basic</span>
-        <h2>Accuracy</h2>
+        <h2> Accuracy <span class="level-badge basic">Basic</span> </h2>
         <p>Accuracy measures how closely data values match the true or accepted values. Inaccurate data leads to wrong conclusions.</p>
 
         <div class="split-grid">
@@ -102,8 +101,7 @@
 
       <!-- Section 2: Completeness -->
       <section class="topic-section" id="completeness">
-        <span class="level-badge basic">Basic</span>
-        <h2>Completeness</h2>
+        <h2> Completeness <span class="level-badge basic">Basic</span> </h2>
         <p>Completeness measures the presence of required values. Missing data can bias analysis and break pipelines.</p>
 
         <div class="code-block">
@@ -140,8 +138,7 @@
 
       <!-- Section 3: Consistency -->
       <section class="topic-section" id="consistency">
-        <span class="level-badge basic">Basic</span>
-        <h2>Consistency</h2>
+        <h2> Consistency <span class="level-badge basic">Basic</span> </h2>
         <p>Consistency ensures data follows the same rules across systems and over time.</p>
 
         <div class="split-grid">
@@ -176,8 +173,7 @@
 
       <!-- Section 4: Timeliness -->
       <section class="topic-section" id="timeliness">
-        <span class="level-badge basic">Basic</span>
-        <h2>Timeliness</h2>
+        <h2> Timeliness <span class="level-badge basic">Basic</span> </h2>
         <p>Timeliness measures how current the data is. Data that arrives too late loses value.</p>
 
         <div class="code-block">
@@ -205,8 +201,7 @@
 
       <!-- Section 5: Validity -->
       <section class="topic-section" id="validity">
-        <span class="level-badge basic">Basic</span>
-        <h2>Validity</h2>
+        <h2> Validity <span class="level-badge basic">Basic</span> </h2>
         <p>Validity ensures data conforms to defined formats, types, and business rules.</p>
 
         <div class="code-block">
@@ -231,8 +226,7 @@
 
       <!-- Section 6: Uniqueness -->
       <section class="topic-section" id="uniqueness">
-        <span class="level-badge basic">Basic</span>
-        <h2>Uniqueness</h2>
+        <h2> Uniqueness <span class="level-badge basic">Basic</span> </h2>
         <p>Uniqueness ensures each record can be uniquely identified. Duplicate records cause inflated metrics and errors.</p>
 
         <div class="code-block">
@@ -259,8 +253,7 @@
 
       <!-- Section 7: Handling NULLs -->
       <section class="topic-section" id="handling-nulls">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Handling NULL Values</h2>
+        <h2> Handling NULL Values <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>NULL values require special handling. Strategy depends on the cause and impact of missing data.</p>
 
         <div class="split-grid">
@@ -294,8 +287,7 @@
 
       <!-- Section 8: Deduplication -->
       <section class="topic-section" id="deduplication">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Deduplication</h2>
+        <h2> Deduplication <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Remove duplicate records while preserving the most complete or recent version.</p>
 
         <div class="code-block">
@@ -329,8 +321,7 @@
 
       <!-- Section 9: Outliers -->
       <section class="topic-section" id="outliers">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Outlier Detection</h2>
+        <h2> Outlier Detection <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Outliers are extreme values that deviate significantly from other observations. They may indicate errors or interesting phenomena.</p>
 
         <div class="code-block">
@@ -369,8 +360,7 @@
 
       <!-- Section 10: Standardization -->
       <section class="topic-section" id="standardization">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Data Standardization</h2>
+        <h2> Data Standardization <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Standardization converts data to a consistent format for reliable comparison and analysis.</p>
 
         <div class="code-block">
@@ -397,8 +387,7 @@
 
       <!-- Section 11: DB Constraints -->
       <section class="topic-section" id="constraints">
-        <span class="level-badge basic">Basic</span>
-        <h2>Database Constraints</h2>
+        <h2> Database Constraints <span class="level-badge basic">Basic</span> </h2>
         <p>Constraints enforce data quality at the database level, preventing bad data from entering the system.</p>
 
         <div class="code-block">
@@ -436,8 +425,7 @@
 
       <!-- Section 12: Data Tests -->
       <section class="topic-section" id="data-tests">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Data Tests</h2>
+        <h2> Data Tests <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Automated tests verify data quality assertions in CI/CD pipelines.</p>
 
         <div class="code-block">
@@ -471,8 +459,7 @@
 
       <!-- Section 13: Data Profiling -->
       <section class="topic-section" id="profiling">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Data Profiling</h2>
+        <h2> Data Profiling <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Data profiling analyzes data to understand its structure, content, and quality.</p>
 
         <div class="code-block">
@@ -528,5 +515,29 @@
   </main>
 
   <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
 </body>
 </html>

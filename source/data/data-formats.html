@@ -70,8 +70,7 @@
 
       <!-- Section 1: CSV -->
       <section class="topic-section" id="csv">
-        <span class="level-badge basic">Basic</span>
-        <h2>CSV / TSV</h2>
+        <h2> CSV / TSV <span class="level-badge basic">Basic</span> </h2>
         <p>Comma-Separated Values (CSV) and Tab-Separated Values (TSV) are simple text formats for tabular data.</p>
 
         <div class="split-grid">
@@ -117,8 +116,7 @@ df = pd.<span class="function">read_csv</span>(<span class="string">'data.csv'</
 
       <!-- Section 2: JSON -->
       <section class="topic-section" id="json">
-        <span class="level-badge basic">Basic</span>
-        <h2>JSON</h2>
+        <h2> JSON <span class="level-badge basic">Basic</span> </h2>
         <p>JavaScript Object Notation (JSON) is a lightweight format for semi-structured data with nested structures.</p>
 
         <div class="split-grid">
@@ -166,8 +164,7 @@ df = pd.<span class="function">read_csv</span>(<span class="string">'data.csv'</
 
       <!-- Section 3: XML -->
       <section class="topic-section" id="xml">
-        <span class="level-badge basic">Basic</span>
-        <h2>XML</h2>
+        <h2> XML <span class="level-badge basic">Basic</span> </h2>
         <p>Extensible Markup Language (XML) is a markup format for hierarchical data with schemas.</p>
 
         <div class="split-grid">
@@ -199,8 +196,7 @@ df = pd.<span class="function">read_csv</span>(<span class="string">'data.csv'</
 
       <!-- Section 4: YAML -->
       <section class="topic-section" id="yaml">
-        <span class="level-badge basic">Basic</span>
-        <h2>YAML</h2>
+        <h2> YAML <span class="level-badge basic">Basic</span> </h2>
         <p>YAML Ain't Markup Language - a human-friendly data serialization format.</p>
 
         <div class="split-grid">
@@ -234,8 +230,7 @@ df = pd.<span class="function">read_csv</span>(<span class="string">'data.csv'</
 
       <!-- Section 5: Parquet -->
       <section class="topic-section" id="parquet">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Parquet</h2>
+        <h2> Parquet <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Apache Parquet is a columnar storage format optimized for analytics workloads.</p>
 
         <div class="split-grid">
@@ -281,8 +276,7 @@ df = spark.<span class="function">read</span>.<span class="function">parquet</sp
 
       <!-- Section 6: ORC -->
       <section class="topic-section" id="orc">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>ORC</h2>
+        <h2> ORC <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Optimized Row Columnar (ORC) is a columnar format optimized for Hive and Oracle ecosystems.</p>
 
         <div class="split-grid">
@@ -318,8 +312,7 @@ df = spark.<span class="function">read</span>.<span class="function">parquet</sp
 
       <!-- Section 7: Arrow -->
       <section class="topic-section" id="arrow">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Apache Arrow</h2>
+        <h2> Apache Arrow <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Arrow is an in-memory columnar format designed for zero-copy reads and interoperability.</p>
 
         <div class="split-grid">
@@ -363,8 +356,7 @@ df_back = table.<span class="function">to_pandas</span>()
 
       <!-- Section 8: Avro -->
       <section class="topic-section" id="avro">
-        <span class="level-badge intermediate">Intermediate</span>
-        <h2>Avro</h2>
+        <h2> Avro <span class="level-badge intermediate">Intermediate</span> </h2>
         <p>Apache Avro is a row-based binary format with embedded schema, popular for Kafka and data pipelines.</p>
 
         <div class="split-grid">
@@ -396,8 +388,7 @@ df_back = table.<span class="function">to_pandas</span>()
 
       <!-- Section 9: Protocol Buffers -->
       <section class="topic-section" id="protocol-buffers">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Protocol Buffers</h2>
+        <h2> Protocol Buffers <span class="level-badge advanced">Advanced</span> </h2>
         <p>Protocol Buffers (protobuf) is Google's language-neutral, platform-neutral serialization format.</p>
 
         <div class="split-grid">
@@ -428,8 +419,7 @@ df_back = table.<span class="function">to_pandas</span>()
 
       <!-- Section 10: SQL Dump -->
       <section class="topic-section" id="sql">
-        <span class="level-badge basic">Basic</span>
-        <h2>SQL Dump</h2>
+        <h2> SQL Dump <span class="level-badge basic">Basic</span> </h2>
         <p>SQL dumps export database schema and data as SQL statements for backup and migration.</p>
 
         <div class="code-block">
@@ -470,8 +460,7 @@ pg_dump -a mydb > data.sql
 
       <!-- Section 11: Delta Lake -->
       <section class="topic-section" id="delta">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Delta Lake</h2>
+        <h2> Delta Lake <span class="level-badge advanced">Advanced</span> </h2>
         <p>Delta Lake is an open-source storage layer that brings ACID transactions to data lakes.</p>
 
         <div class="split-grid">
@@ -506,8 +495,7 @@ df_old = spark.<span class="function">read</span>.<span class="function">format<
 
       <!-- Section 12: Iceberg -->
       <section class="topic-section" id="iceberg">
-        <span class="level-badge advanced">Advanced</span>
-        <h2>Apache Iceberg</h2>
+        <h2> Apache Iceberg <span class="level-badge advanced">Advanced</span> </h2>
         <p>Iceberg is a high-performance table format for huge analytic datasets with hidden partitioning.</p>
 
         <div class="split-grid">
@@ -542,5 +530,29 @@ df_old = spark.<span class="function">read</span>.<span class="function">format<
   </main>
 
   <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
 </body>
 </html>
