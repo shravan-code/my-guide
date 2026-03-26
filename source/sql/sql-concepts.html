@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Guide | PostgreSQL Concepts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../python/python.css" />
+</head>
+
+<body class="with-sidebar">
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <header class="topbar glass reveal in">
+    <a class="brand" href="../../index.html">Data Guide</a>
+    <button id="sidebar-toggle" class="sidebar-toggle" type="button" aria-label="Toggle sidebar">
+      <span class="hamburger" aria-hidden="true"></span>
+    </button>
+    <nav class="menu" aria-label="SQL menu">
+      <a href="index.html">Hub</a>
+      <a href="sql-concepts.html" class="active" aria-current="page">Concepts</a>
+      <a href="sql-modelling.html">Modelling</a>
+      <a href="sql-queries.html">Queries</a>
+      <a href="sql-joins.html">Joins</a>
+      <a href="sql-subqueries.html">Subqueries</a>
+      <a href="sql-windows.html">Windows</a>
+      <a href="sql-methods.html">Methods</a>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+      <span class="toggle-icon" aria-hidden="true">☾</span>
+      <span class="toggle-text">Dark</span>
+    </button>
+  </header>
+
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <main class="main-content">
+    <nav class="sidebar" id="sidebar">
+      <div class="logo">
+        <span class="logo-text">PostgreSQL Concepts</span>
+      </div>
+
+      <div class="nav-title">Fundamentals</div>
+      <a href="#what-is-postgresql" class="nav-item active"><span>1</span> What is PostgreSQL?</a>
+      <a href="#sql-basics" class="nav-item"><span>2</span> SQL Basics</a>
+      <a href="#psql-cli" class="nav-item"><span>3</span> psql CLI</a>
+
+      <div class="nav-title">Data Types</div>
+      <a href="#numeric-types" class="nav-item"><span>4</span> Numeric Types</a>
+      <a href="#string-types" class="nav-item"><span>5</span> String Types</a>
+      <a href="#date-types" class="nav-item"><span>6</span> Date & Time</a>
+      <a href="#boolean-type" class="nav-item"><span>7</span> Boolean</a>
+      <a href="#array-types" class="nav-item"><span>8</span> Arrays</a>
+      <a href="#json-types" class="nav-item"><span>9</span> JSON/JSONB</a>
+      <a href="#uuid-type" class="nav-item"><span>10</span> UUID</a>
+
+      <div class="nav-title">Database Objects</div>
+      <a href="#tables" class="nav-item"><span>11</span> Tables</a>
+      <a href="#constraints" class="nav-item"><span>12</span> Constraints</a>
+      <a href="#indexes" class="nav-item"><span>13</span> Indexes</a>
+      <a href="#views" class="nav-item"><span>14</span> Views</a>
+      <a href="#sequences" class="nav-item"><span>15</span> Sequences</a>
+
+      <div class="nav-title">Advanced</div>
+      <a href="#transactions" class="nav-item"><span>16</span> Transactions</a>
+      <a href="#extensions" class="nav-item"><span>17</span> Extensions</a>
+      <a href="#performance" class="nav-item"><span>18</span> Performance Tips</a>
+    </nav>
+
+    <div class="page-wrap">
+      <section class="hero">
+        <h1>PostgreSQL Concepts</h1>
+      </section>
+
+      <!-- Section 1: What is PostgreSQL -->
+      <section class="topic-section" id="what-is-postgresql">
+        <h2> What is PostgreSQL? <span class="level-badge basic">Basic</span> </h2>
+        <p>PostgreSQL is a powerful, open-source object-relational database system with over 35 years of active development. It's known for reliability, feature robustness, and performance.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Key Features</h4>
+            <ul>
+              <li><strong>ACID Compliant</strong> - Full transaction support</li>
+              <li><strong>Extensible</strong> - Custom types, functions, operators</li>
+              <li><strong>Standards Compliant</strong> - SQL:2023 support</li>
+              <li><strong>JSON Support</strong> - Native JSON/JSONB types</li>
+              <li><strong>Advanced Indexing</strong> - B-tree, GIN, GiST, BRIN</li>
+            </ul>
+          </div>
+          <div class="split-item">
+            <h4>Use Cases</h4>
+            <ul>
+              <li>Web applications and APIs</li>
+              <li>Data warehousing and analytics</li>
+              <li>Geospatial applications (PostGIS)</li>
+              <li>Time-series data</li>
+              <li>Microservices and event sourcing</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="code-block">
+<code><span class="comment">-- Check PostgreSQL version</span>
+<span class="keyword">SELECT</span> <span class="function">VERSION</span>();
+
+<span class="comment">-- Or more detailed:</span>
+<span class="keyword">SHOW</span> server_version;
+<span class="keyword">SHOW</span> server_version_num;
+
+<span class="comment">-- Current database info</span>
+<span class="keyword">SELECT</span>
+    <span class="function">CURRENT_DATABASE</span>() <span class="keyword">AS</span> database,
+    <span class="function">CURRENT_USER</span>() <span class="keyword">AS</span> user,
+    <span class="function">CURRENT_SCHEMA</span>() <span class="keyword">AS</span> schema,
+    <span class="function">inet_server_addr</span>() <span class="keyword">AS</span> server_addr,
+    <span class="function">inet_server_port</span>() <span class="keyword">AS</span> server_port;</code>
+        </div>
+      </section>
+
+      <!-- Section 2: SQL Basics -->
+      <section class="topic-section" id="sql-basics">
+        <h2> SQL Basics in PostgreSQL <span class="level-badge basic">Basic</span> </h2>
+        <p>SQL (Structured Query Language) is used to communicate with PostgreSQL. Here are the core statement types.</p>
+
+        <div class="code-block">
+<code><span class="comment">-- DDL: Data Definition Language</span>
+<span class="keyword">CREATE TABLE</span> users (
+    id <span class="function">SERIAL</span> <span class="keyword">PRIMARY KEY</span>,
+    name <span class="function">TEXT</span> <span class="keyword">NOT NULL</span>,
+    email <span class="function">TEXT</span> <span class="keyword">UNIQUE</span>
+);
+
+<span class="keyword">ALTER TABLE</span> users <span class="keyword">ADD COLUMN</span> age <span class="function">INTEGER</span>;
+<span class="keyword">DROP TABLE</span> users;
+
+<span class="comment">-- DML: Data Manipulation Language</span>
+<span class="keyword">INSERT INTO</span> users (name, email)
+<span class="keyword">VALUES</span> (<span class="string">'Alice'</span>, <span class="string">'alice@example.com'</span>);
+
+<span class="keyword">UPDATE</span> users <span class="keyword">SET</span> age = <span class="number">30</span> <span class="keyword">WHERE</span> id = <span class="number">1</span>;
+
+<span class="keyword">DELETE FROM</span> users <span class="keyword">WHERE</span> id = <span class="number">1</span>;
+
+<span class="comment">-- DQL: Data Query Language</span>
+<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> users <span class="keyword">WHERE</span> age > <span class="number">25</span>;
+
+<span class="comment">-- DCL: Data Control Language</span>
+<span class="keyword">GRANT</span> <span class="keyword">SELECT</span> <span class="keyword">ON</span> users <span class="keyword">TO</span> analyst;
+<span class="keyword">REVOKE</span> <span class="keyword">SELECT</span> <span class="keyword">ON</span> users <span class="keyword">FROM</span> analyst;</code>
+        </div>
+      </section>
+
+      <!-- Section 3: psql CLI -->
+      <section class="topic-section" id="psql-cli">
+        <h2> psql Command-Line Interface <span class="level-badge basic">Basic</span> </h2>
+        <p>psql is PostgreSQL's interactive terminal for executing queries and managing databases.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Connection Commands</h4>
+            <div class="code-block">
+<code><span class="comment"># Connect to database</span>
+psql -h localhost -p <span class="number">5432</span> -U postgres -d mydb
+
+<span class="comment"># Short form</span>
+psql -h localhost -U postgres mydb
+
+<span class="comment"># Using connection string</span>
+psql "postgresql://user:pass@host:5432/db"
+
+<span class="comment">-- In psql, useful commands:</span>
+\l          <span class="comment">-- List databases</span>
+\c dbname   <span class="comment">-- Connect to database</span>
+\dt         <span class="comment">-- List tables</span>
+\d table    <span class="comment">-- Describe table</span>
+\d+ table   <span class="comment">-- Detailed table info</span>
+\du         <span class="comment">-- List users/roles</span>
+            </code>
+            </div>
+          </div>
+          <div class="split-item">
+            <h4>Meta-Commands</h4>
+            <div class="code-block">
+<code><span class="comment">-- List schemas</span>
+\dn
+
+<span class="comment">-- List functions</span>
+\df
+
+<span class="comment">-- List views</span>
+\dv
+
+<span class="comment">-- Show table grants</span>
+\z table_name
+
+<span class="comment">-- Execute and exit</span>
+psql -c "SELECT version();"
+
+<span class="comment">-- Run SQL file</span>
+psql -f script.sql
+
+<span class="comment">-- Output formats</span>
+\a           <span class="comment">-- Toggle aligned/non-aligned</span>
+\t           <span class="comment">-- Toggle tuples only</span>
+\x           <span class="comment">-- Toggle expanded display</span>
+\pset format html  <span class="comment">-- Set output format</span>
+            </code>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: Numeric Types -->
+      <section class="topic-section" id="numeric-types">
+        <h2> Numeric Data Types <span class="level-badge basic">Basic</span> </h2>
+        <p>PostgreSQL offers a comprehensive set of numeric types for different precision requirements.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Integer Types</h4>
+            <div class="code-block">
+<code><span class="comment">-- Integer types (exact)</span>
+SMALLINT    <span class="comment">-- 2 bytes, -32768 to 32767</span>
+INTEGER     <span class="comment">-- 4 bytes, -2^31 to 2^31-1</span>
+BIGINT      <span class="comment">-- 8 bytes, -2^63 to 2^63-1</span>
+
+<span class="comment">-- Auto-increment (sequences)</span>
+SMALLSERIAL <span class="comment">-- Auto-increment SMALLINT</span>
+SERIAL      <span class="comment">-- Auto-increment INTEGER</span>
+BIGSERIAL   <span class="comment">-- Auto-increment BIGINT</span>
+
+<span class="comment">-- Modern approach (recommended)</span>
+<span class="keyword">CREATE TABLE</span> products (
+    id <span class="function">INTEGER</span> <span class="keyword">GENERATED ALWAYS AS IDENTITY</span>,
+    name <span class="function">TEXT</span>
+);
+            </code>
+            </div>
+          </div>
+          <div class="split-item">
+            <h4>Decimal & Float</h4>
+            <div class="code-block">
+<code><span class="comment">-- Arbitrary precision (exact)</span>
+<span class="function">NUMERIC</span>(precision, scale)
+<span class="function">DECIMAL</span>(precision, scale)  <span class="comment">-- Alias</span>
+
+<span class="comment">-- Examples</span>
+price <span class="function">NUMERIC</span>(<span class="number">10</span>, <span class="number">2</span>)     <span class="comment">-- Up to 99999999.99</span>
+rate <span class="function">NUMERIC</span>(<span class="number">5</span>, <span class="number">4</span>)        <span class="comment">-- Up to 9.9999</span>
+pi <span class="function">NUMERIC</span>               <span class="comment">-- Unlimited precision</span>
+
+<span class="comment">-- Floating point (approximate)</span>
+<span class="function">REAL</span>            <span class="comment">-- 4 bytes, ~6 digits</span>
+<span class="function">DOUBLE PRECISION</span> <span class="comment">-- 8 bytes, ~15 digits</span>
+
+<span class="comment">-- Special values</span>
+<span class="keyword">SELECT</span>
+    <span class="string">'Infinity'</span>::<span class="function">DOUBLE PRECISION</span>,
+    <span class="string">'-Infinity'</span>::<span class="function">DOUBLE PRECISION</span>,
+    <span class="string">'NaN'</span>::<span class="function">DOUBLE PRECISION</span>;
+            </code>
+            </div>
+          </div>
+        </div>
+
+        <div class="tip-box">
+          <p><strong>Best Practice:</strong> Use <code>NUMERIC</code> for monetary values and exact calculations. Use <code>FLOAT</code>/<code>DOUBLE</code> for scientific calculations where minor rounding is acceptable.</p>
+        </div>
+      </section>
+
+      <!-- Section 5: String Types -->
+      <section class="topic-section" id="string-types">
+        <h2> String Data Types <span class="level-badge basic">Basic</span> </h2>
+        <p>PostgreSQL provides flexible string types with excellent Unicode support.</p>
+
+        <div class="code-block">
+<code><span class="comment">-- Variable length (recommended)</span>
+<span class="function">TEXT</span>              <span class="comment">-- Unlimited length</span>
+<span class="function">VARCHAR</span>(n)        <span class="comment">-- Max n characters (no performance benefit over TEXT)</span>
+<span class="function">CHARACTER</span>(n)      <span class="comment">-- Fixed length, padded (rarely used)</span>
+
+<span class="comment">-- Create table with strings</span>
+<span class="keyword">CREATE TABLE</span> users (
+    username <span class="function">VARCHAR</span>(<span class="number">50</span>) <span class="keyword">NOT NULL</span>,
+    bio <span class="function">TEXT</span>,
+    country <span class="function">CHAR</span>(<span class="number">2</span>)  <span class="comment">-- Fixed: 'US', 'UK'</span>
+);
+
+<span class="comment">-- String functions</span>
+<span class="keyword">SELECT</span>
+    <span class="function">LENGTH</span>(<span class="string">'Hello'</span>),          <span class="comment">-- 5</span>
+    <span class="function">UPPER</span>(<span class="string">'hello'</span>),           <span class="comment">-- HELLO</span>
+    <span class="function">LOWER</span>(<span class="string">'HELLO'</span>),           <span class="comment">-- hello</span>
+    <span class="function">TRIM</span>(<span class="string">'  hello  '</span>),       <span class="comment">-- hello</span>
+    <span class="function">LTRIM</span>(<span class="string">'  hello'</span>),        <span class="comment">-- hello</span>
+    <span class="function">RTRIM</span>(<span class="string">'hello  '</span>),        <span class="comment">-- hello</span>
+    <span class="function">SUBSTRING</span>(<span class="string">'Hello'</span> <span class="keyword">FROM</span> <span class="number">2</span> <span class="keyword">FOR</span> <span class="number">3</span>),  <span class="comment">-- ell</span>
+    <span class="function">LEFT</span>(<span class="string">'Hello'</span>, <span class="number">2</span>),        <span class="comment">-- He</span>
+    <span class="function">RIGHT</span>(<span class="string">'Hello'</span>, <span class="number">2</span>),       <span class="comment">-- lo</span>
+    <span class="function">POSITION</span>(<span class="string">'ll'</span> <span class="keyword">IN</span> <span class="string">'Hello'</span>),  <span class="comment">-- 3</span>
+    <span class="function">REPLACE</span>(<span class="string">'Hello'</span>, <span class="string">'l'</span>, <span class="string">'x'</span>),  <span class="comment">-- Hexxo</span>
+    <span class="function">REVERSE</span>(<span class="string">'Hello'</span>),        <span class="comment">-- olleH</span>
+    <span class="function">CONCAT</span>(<span class="string">'Hello'</span>, <span class="string">' '</span>, <span class="string">'World'</span>),  <span class="comment">-- Hello World</span>
+    <span class="function">CONCAT_WS</span>(<span class="string">'-'</span>, <span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>);  <span class="comment">-- a-b-c</span>
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 6: Date & Time -->
+      <section class="topic-section" id="date-types">
+        <h2> Date and Time Types <span class="level-badge basic">Basic</span> </h2>
+        <p>PostgreSQL has excellent date/time support with timezone awareness built-in.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Date/Time Types</h4>
+            <div class="code-block">
+<code><span class="function">DATE</span>             <span class="comment">-- Calendar date</span>
+<span class="function">TIME</span>             <span class="comment">-- Time of day</span>
+<span class="function">TIME WITHOUT TIME ZONE</span>  <span class="comment">-- Time, no TZ</span>
+<span class="function">TIME WITH TIME ZONE</span>     <span class="comment">-- Time with TZ</span>
+<span class="function">TIMESTAMP</span>        <span class="comment">-- Date + time</span>
+<span class="function">TIMESTAMPTZ</span>      <span class="comment">-- Date + time + TZ (recommended)</span>
+<span class="function">INTERVAL</span>         <span class="comment">-- Time duration</span>
+
+<span class="comment">-- Best practice: Always use TIMESTAMPTZ</span>
+<span class="keyword">CREATE TABLE</span> events (
+    id <span class="function">SERIAL</span>,
+    created_at <span class="function">TIMESTAMPTZ</span> <span class="keyword">DEFAULT NOW</span>(),
+    updated_at <span class="function">TIMESTAMPTZ</span> <span class="keyword">DEFAULT NOW</span>()
+);
+            </code>
+            </div>
+          </div>
+          <div class="split-item">
+            <h4>Date Functions</h4>
+            <div class="code-block">
+<code><span class="comment">-- Current values</span>
+<span class="function">NOW</span>()                <span class="comment">-- Timestamp with TZ</span>
+<span class="function">CURRENT_DATE</span>         <span class="comment">-- Today's date</span>
+<span class="function">CURRENT_TIME</span>         <span class="comment">-- Current time</span>
+<span class="function">CURRENT_TIMESTAMP</span>    <span class="comment">-- Same as NOW()</span>
+<span class="function">LOCALTIMESTAMP</span>       <span class="comment">-- Without TZ</span>
+
+<span class="comment">-- Date arithmetic</span>
+<span class="function">NOW</span>() + <span class="function">INTERVAL</span> <span class="string">'1 day'</span>
+<span class="function">NOW</span>() + <span class="function">INTERVAL</span> <span class="string">'1 month'</span>
+<span class="function">NOW</span>() + <span class="function">INTERVAL</span> <span class="string">'1 year 3 months'</span>
+<span class="function">AGE</span>(birth_date)         <span class="comment">-- Interval since birth</span>
+<span class="function">AGE</span>(<span class="function">NOW</span>(), created_at)   <span class="comment">-- Time difference</span>
+
+<span class="comment">-- Truncation</span>
+<span class="function">DATE_TRUNC</span>(<span class="string">'month'</span>, <span class="function">NOW</span>())  <span class="comment">-- First of month</span>
+<span class="function">DATE_TRUNC</span>(<span class="string">'week'</span>, <span class="function">NOW</span>())   <span class="comment">-- Start of week</span>
+            </code>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-block">
+<code><span class="comment">-- Formatting with TO_CHAR</span>
+<span class="keyword">SELECT</span>
+    <span class="function">TO_CHAR</span>(<span class="function">NOW</span>(), <span class="string">'YYYY-MM-DD'</span>),        <span class="comment">-- 2024-01-15</span>
+    <span class="function">TO_CHAR</span>(<span class="function">NOW</span>(), <span class="string">'HH24:MI:SS'</span>),        <span class="comment">-- 14:30:00</span>
+    <span class="function">TO_CHAR</span>(<span class="function">NOW</span>(), <span class="string">'Day, Month DD, YYYY'</span>), <span class="comment">-- Monday, January 15, 2024</span>
+    <span class="function">TO_CHAR</span>(<span class="number">1234.56</span>, <span class="string">'FM999,999.99'</span>);   <span class="comment">-- 1,234.56</span>
+
+<span class="comment">-- Parsing strings to dates</span>
+<span class="function">TO_DATE</span>(<span class="string">'2024-01-15'</span>, <span class="string">'YYYY-MM-DD'</span>)
+<span class="function">TO_TIMESTAMP</span>(<span class="string">'2024-01-15 14:30'</span>, <span class="string">'YYYY-MM-DD HH24:MI'</span>)
+
+<span class="comment">-- Extract components</span>
+<span class="keyword">SELECT</span>
+    <span class="function">EXTRACT</span>(<span class="keyword">YEAR FROM</span> <span class="function">NOW</span>()),      <span class="comment">-- 2024</span>
+    <span class="function">EXTRACT</span>(<span class="keyword">MONTH FROM</span> <span class="function">NOW</span>()),     <span class="comment">-- 1</span>
+    <span class="function">EXTRACT</span>(<span class="keyword">DAY FROM</span> <span class="function">NOW</span>()),       <span class="comment">-- 15</span>
+    <span class="function">EXTRACT</span>(<span class="keyword">DOW FROM</span> <span class="function">NOW</span>()),       <span class="comment">-- Day of week (0=Sunday)</span>
+    <span class="function">EXTRACT</span>(<span class="keyword">DOY FROM</span> <span class="function">NOW</span>());       <span class="comment">-- Day of year</span></code>
+        </div>
+      </section>
+
+      <!-- Section 7: Boolean -->
+      <section class="topic-section" id="boolean-type">
+        <h2> Boolean Type <span class="level-badge basic">Basic</span> </h2>
+        <p>PostgreSQL's BOOLEAN type stores TRUE, FALSE, or NULL (unknown).</p>
+
+        <div class="code-block">
+<code><span class="comment">-- Boolean column</span>
+<span class="keyword">CREATE TABLE</span> settings (
+    id <span class="function">SERIAL</span> <span class="keyword">PRIMARY KEY</span>,
+    is_enabled <span class="function">BOOLEAN</span> <span class="keyword">DEFAULT FALSE</span>,
+    is_visible <span class="function">BOOLEAN</span> <span class="keyword">DEFAULT TRUE</span>
+);
+
+<span class="comment">-- Boolean values in PostgreSQL</span>
+<span class="keyword">TRUE</span>, <span class="keyword">FALSE</span>, <span class="keyword">NULL</span>
+<span class="string">'true'</span>, <span class="string">'false'</span>, <span class="string">'t'</span>, <span class="string">'f'</span>, <span class="string">'yes'</span>, <span class="string">'no'</span>, <span class="string">'on'</span>, <span class="string">'off'</span>
+<span class="number">1</span>, <span class="number">0</span>  <span class="comment">-- Also accepted</span>
+
+<span class="comment">-- Boolean operations</span>
+<span class="keyword">SELECT</span>
+    <span class="keyword">TRUE</span> <span class="keyword">AND</span> <span class="keyword">FALSE</span>,   <span class="comment">-- false</span>
+    <span class="keyword">TRUE</span> <span class="keyword">OR</span> <span class="keyword">FALSE</span>,    <span class="comment">-- true</span>
+    <span class="keyword">NOT TRUE</span>,          <span class="comment">-- false</span>
+    <span class="keyword">NOT</span> (<span class="keyword">TRUE</span> <span class="keyword">AND</span> <span class="keyword">FALSE</span>);  <span class="comment">-- true</span>
+
+<span class="comment">-- Common patterns</span>
+<span class="keyword">WHERE</span> is_active = <span class="keyword">TRUE</span>     <span class="comment">-- Explicit</span>
+<span class="keyword">WHERE</span> is_active             <span class="comment">-- Shorthand (preferred)</span>
+<span class="keyword">WHERE</span> <span class="keyword">NOT</span> is_archived       <span class="comment">-- Not archived</span>
+<span class="keyword">WHERE</span> is_published <span class="keyword">AND</span> <span class="keyword">NOT</span> is_deleted;</code>
+        </div>
+      </section>
+
+      <!-- Section 8: Arrays -->
+      <section class="topic-section" id="array-types">
+        <h2> Array Types <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>PostgreSQL supports arrays of any data type - a powerful feature for storing lists and multi-dimensional data.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Creating Arrays</h4>
+            <div class="code-block">
+<code><span class="comment">-- Array column types</span>
+tags <span class="function">TEXT</span>[]                  <span class="comment">-- Text array</span>
+scores <span class="function">INTEGER</span>[]             <span class="comment">-- Integer array</span>
+matrix <span class="function">INTEGER</span>[][]           <span class="comment">-- 2D array</span>
+prices <span class="function">NUMERIC</span>(<span class="number">10</span>,<span class="number">2</span>)[]       <span class="comment">-- Typed array</span>
+
+<span class="comment">-- Inserting arrays</span>
+<span class="keyword">INSERT INTO</span> posts (tags)
+<span class="keyword">VALUES</span> (<span class="string">'{python,sql,database}'</span>);  <span class="comment">-- Array literal</span>
+
+<span class="keyword">INSERT INTO</span> posts (tags)
+<span class="keyword">VALUES</span> (<span class="function">ARRAY</span>[<span class="string">'python'</span>, <span class="string">'sql'</span>]);  <span class="comment">-- ARRAY constructor</span>
+
+<span class="comment">-- 2D arrays</span>
+<span class="keyword">INSERT INTO</span> matrix_data (values)
+<span class="keyword">VALUES</span> (<span class="string">'{{1,2,3},{4,5,6}}'</span>);
+            </code>
+            </div>
+          </div>
+          <div class="split-item">
+            <h4>Array Operations</h4>
+            <div class="code-block">
+<code><span class="comment">-- Access elements</span>
+tags[<span class="number">1</span>]           <span class="comment">-- First element (1-indexed!)</span>
+tags[<span class="number">2</span>:<span class="number">4</span>]         <span class="comment">-- Slice</span>
+tags[array_length(tags, <span class="number">1</span>)]  <span class="comment">-- Last element</span>
+
+<span class="comment">-- Array functions</span>
+<span class="function">array_length</span>(tags, <span class="number">1</span>)   <span class="comment">-- Length</span>
+<span class="function">array_upper</span>(tags, <span class="number">1</span>)    <span class="comment">-- Upper bound</span>
+<span class="function">array_lower</span>(tags, <span class="number">1</span>)    <span class="comment">-- Lower bound</span>
+<span class="function">array_dims</span>(tags)        <span class="comment">-- Dimensions as text</span>
+
+<span class="comment">-- Search in arrays</span>
+<span class="keyword">WHERE</span> <span class="string">'python'</span> = ANY(tags)       <span class="comment">-- Contains</span>
+<span class="keyword">WHERE</span> tags @> <span class="string">'{python,sql}'</span>    <span class="comment">-- Contains all</span>
+<span class="keyword">WHERE</span> tags <@ <span class="string">'{python}'</span>         <span class="comment">-- Contained by</span>
+<span class="keyword">WHERE</span> tags && <span class="string">'{python}'</span>        <span class="comment">-- Overlaps</span>
+
+<span class="comment">-- Array manipulation</span>
+<span class="function">array_append</span>(tags, <span class="string">'new'</span>)   <span class="comment">-- Add element</span>
+<span class="function">array_prepend</span>(<span class="string">'first'</span>, tags) <span class="comment">-- Add to start</span>
+<span class="function">array_cat</span>(tags1, tags2)    <span class="comment">-- Concatenate</span>
+<span class="function">array_remove</span>(tags, <span class="string">'old'</span>)   <span class="comment">-- Remove element</span>
+<span class="function">array_agg</span>(column)          <span class="comment">-- Aggregate to array</span>
+<span class="function">UNNEST</span>(tags)               <span class="comment">-- Expand to rows</span>
+            </code>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 9: JSON/JSONB -->
+      <section class="topic-section" id="json-types">
+        <h2> JSON and JSONB Types <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>PostgreSQL has native JSON support with two types: JSON (text) and JSONB (binary, indexed).</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>JSON vs JSONB</h4>
+            <ul>
+              <li><strong>JSON</strong> - Stores exact text, preserves whitespace, slower to process</li>
+              <li><strong>JSONB</strong> - Binary format, faster to process, supports indexing</li>
+              <li>Use JSONB for almost all cases</li>
+              <li>Use JSON only if you need exact whitespace preservation</li>
+            </ul>
+            <div class="code-block">
+<code><span class="comment">-- JSONB column</span>
+<span class="keyword">CREATE TABLE</span> users (
+    id <span class="function">SERIAL</span>,
+    profile <span class="function">JSONB</span>
+);
+
+<span class="comment">-- Insert JSON</span>
+<span class="keyword">INSERT INTO</span> users (profile)
+<span class="keyword">VALUES</span> (<span class="string">'{"name": "Alice", "age": 30}'</span>);
+
+<span class="comment">-- Using jsonb_build_object</span>
+<span class="keyword">INSERT INTO</span> users (profile)
+<span class="keyword">VALUES</span> (<span class="function">jsonb_build_object</span>(
+    <span class="string">'name'</span>, <span class="string">'Bob'</span>,
+    <span class="string">'age'</span>, <span class="number">25</span>,
+    <span class="string">'tags'</span>, <span class="function">jsonb_build_array</span>(<span class="string">'dev'</span>, <span class="string">'admin'</span>)
+));
+            </code>
+            </div>
+          </div>
+          <div class="split-item">
+            <h4>JSONB Operations</h4>
+            <div class="code-block">
+<code><span class="comment">-- Extract values</span>
+profile-><span class="string">'name'</span>          <span class="comment">-- Get as JSON</span>
+profile->><span class="string">'name'</span>         <span class="comment">-- Get as text</span>
+profile #> <span class="string">'{address,city}'</span>  <span class="comment">-- Path extract</span>
+profile #>> <span class="string">'{address,city}'</span> <span class="comment">-- Path as text</span>
+
+<span class="comment">-- Containment operators</span>
+profile @> <span class="string">'{"role": "admin"}'</span>  <span class="comment">-- Contains</span>
+profile ? <span class="string">'name'</span>                 <span class="comment">-- Key exists</span>
+profile ?| <span class="string">'{name, email}'</span>     <span class="comment">-- Any key exists</span>
+profile ?& <span class="string">'{name, email}'</span>     <span class="comment">-- All keys exist</span>
+
+<span class="comment">-- Delete keys</span>
+profile - <span class="string">'temp_field'</span>           <span class="comment">-- Remove key</span>
+profile - <span class="string">'{key1, key2}'</span>        <span class="comment">-- Remove multiple</span>
+
+<span class="comment">-- Set value (create or update)</span>
+profile || <span class="string">'{"new_key": "value"}'</span>
+<span class="function">jsonb_set</span>(profile, <span class="string">'{name}'</span>, <span class="string">'"Bob"'</span>)
+            </code>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-block">
+<code><span class="comment">-- JSONB indexing</span>
+<span class="keyword">CREATE INDEX</span> idx_profile <span class="keyword">ON</span> users <span class="keyword">USING GIN</span> (profile);
+
+<span class="comment">-- Query with JSONB</span>
+<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> users
+<span class="keyword">WHERE</span> profile @> <span class="string">'{"role": "admin"}'</span>;
+
+<span class="comment">-- JSONB aggregation</span>
+<span class="keyword">SELECT</span>
+    <span class="function">jsonb_agg</span>(profile) <span class="keyword">AS</span> all_profiles,
+    <span class="function">jsonb_object_agg</span>(id, profile) <span class="keyword">AS</span> profiles_by_id
+<span class="keyword">FROM</span> users;
+
+<span class="comment">-- Extract arrays from JSONB</span>
+<span class="keyword">SELECT</span>
+    profile->><span class="string">'name'</span>,
+    <span class="function">jsonb_array_elements_text</span>(profile-><span class="string">'tags'</span>)
+<span class="keyword">FROM</span> users;</code>
+        </div>
+      </section>
+
+      <!-- Section 10: UUID -->
+      <section class="topic-section" id="uuid-type">
+        <h2> UUID Type <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>UUIDs (Universally Unique Identifiers) are great for distributed systems and preventing ID enumeration.</p>
+
+        <div class="code-block">
+<code><span class="comment">-- Enable uuid-ossp extension</span>
+<span class="keyword">CREATE EXTENSION IF NOT EXISTS</span> <span class="string">"uuid-ossp"</span>;
+
+<span class="comment">-- Or use pgcrypto for gen_random_uuid()</span>
+<span class="keyword">CREATE EXTENSION IF NOT EXISTS</span> pgcrypto;
+
+<span class="comment">-- UUID as primary key</span>
+<span class="keyword">CREATE TABLE</span> orders (
+    id <span class="function">UUID</span> <span class="keyword">DEFAULT gen_random_uuid</span>() <span class="keyword">PRIMARY KEY</span>,
+    customer_id <span class="function">UUID</span>,
+    total <span class="function">NUMERIC</span>(<span class="number">10</span>, <span class="number">2</span>)
+);
+
+<span class="comment">-- Other UUID functions</span>
+<span class="function">gen_random_uuid</span>()          <span class="comment">-- Random UUID (v4)</span>
+<span class="function">uuid_generate_v4</span>()         <span class="comment">-- UUID v4</span>
+<span class="function">uuid_generate_v1</span>()         <span class="comment">-- UUID v1 (timestamp-based)</span>
+
+<span class="comment">-- Convert string to UUID</span>
+<span class="string">'550e8400-e29b-41d4-a716-446655440000'</span>::<span class="function">UUID</span>
+
+<span class="comment">-- UUID operations</span>
+<span class="keyword">SELECT</span>
+    <span class="function">gen_random_uuid</span>() <span class="keyword">AS</span> uuid,
+    <span class="function">gen_random_uuid</span>()::<span class="function">TEXT</span> <span class="keyword">AS</span> uuid_text,
+    <span class="function">LENGTH</span>(<span class="function">gen_random_uuid</span>()::<span class="function">TEXT</span>) <span class="comment">-- 36 chars</span></code>
+        </div>
+      </section>
+
+      <!-- Section 11: Tables -->
+      <section class="topic-section" id="tables">
+        <h2> Tables <span class="level-badge basic">Basic</span> </h2>
+        <p>Tables are the primary data storage structure in PostgreSQL.</p>
+
+        <div class="code-block">
+<code><span class="comment">-- Create table with all features</span>
+<span class="keyword">CREATE TABLE</span> employees (
+    id <span class="function">INTEGER</span> <span class="keyword">GENERATED ALWAYS AS IDENTITY PRIMARY KEY</span>,
+    name <span class="function">TEXT</span> <span class="keyword">NOT NULL</span>,
+    email <span class="function">TEXT</span> <span class="keyword">UNIQUE NOT NULL</span>,
+    department_id <span class="function">INTEGER</span> <span class="keyword">REFERENCES</span> departments(id),
+    salary <span class="function">NUMERIC</span>(<span class="number">10</span>,<span class="number">2</span>) <span class="keyword">DEFAULT</span> <span class="number">0</span> <span class="keyword">CHECK</span> (salary >= <span class="number">0</span>),
+    hire_date <span class="function">DATE</span> <span class="keyword">DEFAULT CURRENT_DATE</span>,
+    is_active <span class="function">BOOLEAN</span> <span class="keyword">DEFAULT TRUE</span>,
+    tags <span class="function">TEXT</span>[] <span class="keyword">DEFAULT</span> <span class="string">'{}'</span>,
+    metadata <span class="function">JSONB</span> <span class="keyword">DEFAULT</span> <span class="string">'{}'</span>,
+    created_at <span class="function">TIMESTAMPTZ</span> <span class="keyword">DEFAULT NOW</span>(),
+    updated_at <span class="function">TIMESTAMPTZ</span> <span class="keyword">DEFAULT NOW</span>()
+);
+
+<span class="comment">-- Alter table</span>
+<span class="keyword">ALTER TABLE</span> employees
+    <span class="keyword">ADD COLUMN</span> phone <span class="function">TEXT</span>,
+    <span class="keyword">DROP COLUMN</span> phone,
+    <span class="keyword">ALTER COLUMN</span> name <span class="keyword">SET DATA TYPE</span> <span class="function">VARCHAR</span>(<span class="number">150</span>),
+    <span class="keyword">RENAME TO</span> staff;
+
+<span class="comment">-- Drop with safety</span>
+<span class="keyword">DROP TABLE IF EXISTS</span> employees <span class="keyword">CASCADE</span>;
+
+<span class="comment">-- Temporary table</span>
+<span class="keyword">CREATE TEMP TABLE</span> temp_results (LIKE production.results);</code>
+        </div>
+      </section>
+
+      <!-- Section 12: Constraints -->
+      <section class="topic-section" id="constraints">
+        <h2> Constraints <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>Constraints enforce data integrity rules at the database level.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Constraint Types</h4>
+            <div class="code-block">
+<code><span class="comment">-- Primary Key</span>
+id <span class="function">INTEGER PRIMARY KEY</span>
+<span class="keyword">PRIMARY KEY</span> (id1, id2)  <span class="comment">-- Composite</span>
+
+<span class="comment">-- Foreign Key</span>
+dept_id <span class="function">INTEGER</span> <span class="keyword">REFERENCES</span> departments(id)
+<span class="keyword">FOREIGN KEY</span> (dept_id) <span class="keyword">REFERENCES</span> departments(id)
+    <span class="keyword">ON DELETE CASCADE</span>
+    <span class="keyword">ON UPDATE SET NULL</span>
+
+<span class="comment">-- Unique</span>
+email <span class="function">TEXT UNIQUE</span>
+<span class="keyword">UNIQUE</span> (col1, col2)  <span class="comment">-- Composite unique</span>
+
+<span class="comment">-- Not Null</span>
+name <span class="function">TEXT NOT NULL</span>
+
+<span class="comment">-- Check</span>
+<span class="keyword">CHECK</span> (age >= <span class="number">0</span> <span class="keyword">AND</span> age <= <span class="number">150</span>)
+<span class="keyword">CHECK</span> (email ~ <span class="string">'^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z]{2,}$'</span>)
+            </code>
+            </div>
+          </div>
+          <div class="split-item">
+            <h4>Named Constraints</h4>
+            <div class="code-block">
+<code><span class="keyword">CREATE TABLE</span> products (
+    id <span class="function">INTEGER PRIMARY KEY</span>,
+    name <span class="function">TEXT NOT NULL</span>,
+    price <span class="function">NUMERIC</span>(<span class="number">10</span>,<span class="number">2</span>),
+    compare_price <span class="function">NUMERIC</span>(<span class="number">10</span>,<span class="number">2</span>),
+    status <span class="function">TEXT DEFAULT</span> <span class="string">'active'</span>,
+    
+    <span class="keyword">CONSTRAINT</span> chk_price_positive
+        <span class="keyword">CHECK</span> (price > <span class="number">0</span>),
+    <span class="keyword">CONSTRAINT</span> chk_compare_price
+        <span class="keyword">CHECK</span> (compare_price > price),
+    <span class="keyword">CONSTRAINT</span> chk_status
+        <span class="keyword">CHECK</span> (status <span class="keyword">IN</span> (<span class="string">'active'</span>, <span class="string">'inactive'</span>, <span class="string">'deleted'</span>))
+);
+
+<span class="comment">-- Add constraint later</span>
+<span class="keyword">ALTER TABLE</span> products
+    <span class="keyword">ADD CONSTRAINT</span> uq_name <span class="keyword">UNIQUE</span> (name);
+
+<span class="comment">-- Exclusion constraint (PostgreSQL)</span>
+<span class="keyword">CREATE EXTENSION IF NOT EXISTS</span> btree_gist;
+
+<span class="keyword">CREATE TABLE</span> bookings (
+    id <span class="function">SERIAL PRIMARY KEY</span>,
+    room <span class="function">INTEGER</span>,
+    during <span class="function">TSRANGE</span>,
+    <span class="keyword">EXCLUDE USING GIST</span> (room <span class="keyword">WITH</span> =, during <span class="keyword">WITH</span> &&)
+);
+            </code>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 13: Indexes -->
+      <section class="topic-section" id="indexes">
+        <h2> Indexes <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>PostgreSQL offers multiple index types for different use cases.</p>
+
+        <div class="code-block">
+<code><span class="comment">-- B-Tree (default, most common)</span>
+<span class="keyword">CREATE INDEX</span> idx_employees_name <span class="keyword">ON</span> employees(name);
+
+<span class="comment">-- Unique index</span>
+<span class="keyword">CREATE UNIQUE INDEX</span> idx_employees_email <span class="keyword">ON</span> employees(email);
+
+<span class="comment">-- Multi-column (composite)</span>
+<span class="keyword">CREATE INDEX</span> idx_dept_salary <span class="keyword">ON</span> employees(department_id, salary <span class="keyword">DESC</span>);
+
+<span class="comment">-- Partial index (subset of rows)</span>
+<span class="keyword">CREATE INDEX</span> idx_active <span class="keyword">ON</span> employees(department_id)
+<span class="keyword">WHERE</span> is_active = <span class="keyword">TRUE</span>;
+
+<span class="comment">-- Expression index</span>
+<span class="keyword">CREATE INDEX</span> idx_lower_email <span class="keyword">ON</span> users(<span class="function">LOWER</span>(email));
+
+<span class="comment">-- GIN index (arrays, JSONB, full-text)</span>
+<span class="keyword">CREATE INDEX</span> idx_tags <span class="keyword">ON</span> posts <span class="keyword">USING GIN</span>(tags);
+<span class="keyword">CREATE INDEX</span> idx_metadata <span class="keyword">ON</span> posts <span class="keyword">USING GIN</span>(metadata);
+
+<span class="comment">-- GiST index (geometric, full-text, ranges)</span>
+<span class="keyword">CREATE INDEX</span> idx_location <span class="keyword">ON</span> places <span class="keyword">USING GIST</span>(location);
+
+<span class="comment">-- BRIN index (large, naturally ordered tables)</span>
+<span class="keyword">CREATE INDEX</span> idx_created <span class="keyword">ON</span> events <span class="keyword">USING BRIN</span>(created_at);
+
+<span class="comment">-- List indexes</span>
+<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> pg_indexes <span class="keyword">WHERE</span> tablename = <span class="string">'employees'</span>;
+
+<span class="comment">-- Index statistics</span>
+<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> pg_stat_user_indexes;
+
+<span class="comment">-- Reindex</span>
+<span class="keyword">REINDEX INDEX</span> idx_employees_name;
+<span class="keyword">REINDEX TABLE</span> employees;</code>
+        </div>
+
+        <div class="tip-box">
+          <p><strong>Index tips:</strong> Index columns used in WHERE, JOIN, and ORDER BY. Don't over-index. Use EXPLAIN to analyze query plans.</p>
+        </div>
+      </section>
+
+      <!-- Section 14: Views -->
+      <section class="topic-section" id="views">
+        <h2> Views <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>Views are virtual tables defined by queries. PostgreSQL also supports materialized views for performance.</p>
+
+        <div class="code-block">
+<code><span class="comment">-- Regular view</span>
+<span class="keyword">CREATE VIEW</span> active_employees <span class="keyword">AS</span>
+<span class="keyword">SELECT</span> id, name, email, department_id
+<span class="keyword">FROM</span> employees
+<span class="keyword">WHERE</span> is_active = <span class="keyword">TRUE</span>;
+
+<span class="comment">-- Query view like a table</span>
+<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> active_employees;
+
+<span class="comment">-- Replace view</span>
+<span class="keyword">CREATE OR REPLACE VIEW</span> active_employees <span class="keyword">AS</span>
+<span class="keyword">SELECT</span> id, name, email, department_id, hire_date
+<span class="keyword">FROM</span> employees
+<span class="keyword">WHERE</span> is_active = <span class="keyword">TRUE</span>;
+
+<span class="comment">-- Updatable view</span>
+<span class="keyword">CREATE VIEW</span> simple_employees <span class="keyword">AS</span>
+<span class="keyword">SELECT</span> id, name, salary
+<span class="keyword">FROM</span> employees
+<span class="keyword">WITH</span> <span class="keyword">LOCAL</span> <span class="keyword">CHECK OPTION</span>;
+
+<span class="comment">-- Materialized view (pre-computed, cached)</span>
+<span class="keyword">CREATE MATERIALIZED VIEW</span> dept_stats <span class="keyword">AS</span>
+<span class="keyword">SELECT</span>
+    department_id,
+    <span class="function">COUNT</span>(*) <span class="keyword">AS</span> emp_count,
+    <span class="function">AVG</span>(salary) <span class="keyword">AS</span> avg_salary,
+    <span class="function">MAX</span>(salary) <span class="keyword">AS</span> max_salary
+<span class="keyword">FROM</span> employees
+<span class="keyword">GROUP BY</span> department_id
+<span class="keyword">WITH DATA</span>;
+
+<span class="comment">-- Refresh materialized view</span>
+<span class="keyword">REFRESH MATERIALIZED VIEW</span> dept_stats;
+<span class="keyword">REFRESH MATERIALIZED VIEW CONCURRENTLY</span> dept_stats;  <span class="comment">-- Non-blocking</span>
+
+<span class="comment">-- Index on materialized view</span>
+<span class="keyword">CREATE INDEX</span> idx_dept_stats <span class="keyword">ON</span> dept_stats(department_id);</code>
+        </div>
+      </section>
+
+      <!-- Section 15: Sequences -->
+      <section class="topic-section" id="sequences">
+        <h2> Sequences <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>Sequences generate unique numbers, commonly used for primary keys.</p>
+
+        <div class="code-block">
+<code><span class="comment">-- Create sequence</span>
+<span class="keyword">CREATE SEQUENCE</span> order_number_seq
+    <span class="keyword">START WITH</span> <span class="number">1000</span>
+    <span class="keyword">INCREMENT BY</span> <span class="number">1</span>
+    <span class="keyword">MINVALUE</span> <span class="number">1000</span>
+    <span class="keyword">MAXVALUE</span> <span class="number">9999</span>
+    <span class="keyword">CYCLE</span>;
+
+<span class="comment">-- Use sequence</span>
+<span class="keyword">SELECT</span> <span class="function">nextval</span>(<span class="string">'order_number_seq'</span>);   <span class="comment">-- Get next value</span>
+<span class="keyword">SELECT</span> <span class="function">currval</span>(<span class="string">'order_number_seq'</span>);   <span class="comment">-- Current value</span>
+<span class="keyword">SELECT</span> <span class="function">setval</span>(<span class="string">'order_number_seq'</span>, <span class="number">2000</span>); <span class="comment">-- Set value</span>
+
+<span class="comment">-- Use in table (traditional)</span>
+<span class="keyword">CREATE TABLE</span> orders (
+    id <span class="function">INTEGER PRIMARY KEY DEFAULT nextval</span>(<span class="string">'order_number_seq'</span>),
+    ...
+);
+
+<span class="comment">-- Better: IDENTITY column (PostgreSQL 10+)</span>
+<span class="keyword">CREATE TABLE</span> orders (
+    id <span class="function">INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY</span>,
+    ...
+);
+
+<span class="comment">-- IDENTITY with custom start</span>
+<span class="keyword">CREATE TABLE</span> orders (
+    id <span class="function">INTEGER GENERATED ALWAYS AS IDENTITY</span>
+        (<span class="keyword">START WITH</span> <span class="number">1000</span> <span class="keyword">INCREMENT BY</span> <span class="number">1</span>),
+    ...
+);
+
+<span class="comment">-- View sequence info</span>
+<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> pg_sequences;
+<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> information_schema.sequences;</code>
+        </div>
+      </section>
+
+      <!-- Section 16: Transactions -->
+      <section class="topic-section" id="transactions">
+        <h2> Transactions <span class="level-badge advanced">Advanced</span> </h2>
+        <p>PostgreSQL provides full ACID transaction support with various isolation levels.</p>
+
+        <div class="code-block">
+<code><span class="comment">-- Basic transaction</span>
+<span class="keyword">BEGIN</span>;
+    <span class="keyword">UPDATE</span> accounts <span class="keyword">SET</span> balance = balance - <span class="number">100</span>
+    <span class="keyword">WHERE</span> id = <span class="number">1</span>;
+    
+    <span class="keyword">UPDATE</span> accounts <span class="keyword">SET</span> balance = balance + <span class="number">100</span>
+    <span class="keyword">WHERE</span> id = <span class="number">2</span>;
+<span class="keyword">COMMIT</span>;
+
+<span class="comment">-- Rollback</span>
+<span class="keyword">BEGIN</span>;
+    <span class="keyword">INSERT INTO</span> logs <span class="keyword">VALUES</span> (<span class="string">'error'</span>);
+<span class="keyword">ROLLBACK</span>;  <span class="comment">-- Undo all changes</span>
+
+<span class="comment">-- Savepoints (partial rollback)</span>
+<span class="keyword">BEGIN</span>;
+    <span class="keyword">INSERT INTO</span> orders <span class="keyword">VALUES</span> (<span class="number">1</span>);
+    <span class="keyword">SAVEPOINT</span> sp1;
+    <span class="keyword">INSERT INTO</span> order_items <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="number">1</span>);
+    <span class="keyword">ROLLBACK TO</span> sp1;  <span class="comment">-- Undo order_items only</span>
+    <span class="keyword">INSERT INTO</span> order_items <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="number">2</span>);
+<span class="keyword">COMMIT</span>;
+
+<span class="comment">-- Transaction isolation levels</span>
+<span class="keyword">BEGIN</span>;
+<span class="keyword">SET TRANSACTION ISOLATION LEVEL</span> <span class="keyword">READ COMMITTED</span>;   <span class="comment">-- Default</span>
+<span class="keyword">SET TRANSACTION ISOLATION LEVEL</span> <span class="keyword">REPEATABLE READ</span>;
+<span class="keyword">SET TRANSACTION ISOLATION LEVEL</span> <span class="keyword">SERIALIZABLE</span>;
+<span class="keyword">SET TRANSACTION READ ONLY</span>;
+<span class="keyword">SET TRANSACTION READ WRITE</span>;
+
+<span class="comment">-- Transaction characteristics</span>
+<span class="keyword">SET</span> CHARACTERISTICS <span class="keyword">AS</span> <span class="keyword">SERIALIZABLE READ ONLY</span>;
+
+<span class="comment">-- Deferrable constraints</span>
+<span class="keyword">SET CONSTRAINTS ALL</span> <span class="keyword">DEFERRED</span>;
+        </code>
+        </div>
+
+        <div class="warning-box">
+          <p><strong>ACID Properties:</strong> PostgreSQL guarantees Atomicity, Consistency, Isolation, and Durability. Use <code>COMMIT</code> to save changes or <code>ROLLBACK</code> to undo them.</p>
+        </div>
+      </section>
+
+      <!-- Section 17: Extensions -->
+      <section class="topic-section" id="extensions">
+        <h2> PostgreSQL Extensions <span class="level-badge advanced">Advanced</span> </h2>
+        <p>Extensions add functionality to PostgreSQL. They're one of PostgreSQL's greatest strengths.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Essential Extensions</h4>
+            <div class="code-block">
+<code><span class="comment">-- Enable extensions</span>
+<span class="keyword">CREATE EXTENSION IF NOT EXISTS</span> <span class="string">"uuid-ossp"</span>;  <span class="comment">-- UUID generation</span>
+<span class="keyword">CREATE EXTENSION IF NOT EXISTS</span> pgcrypto;       <span class="comment">-- Crypto functions</span>
+<span class="keyword">CREATE EXTENSION IF NOT EXISTS</span> pg_trgm;        <span class="comment">-- Text similarity</span>
+<span class="keyword">CREATE EXTENSION IF NOT EXISTS</span> btree_gist;     <span class="comment">-- GiST index types</span>
+<span class="keyword">CREATE EXTENSION IF NOT EXISTS</span> hstore;         <span class="comment">-- Key-value store</span>
+
+<span class="comment">-- List installed extensions</span>
+<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> pg_extension;
+<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> pg_available_extensions;
+            </code>
+            </div>
+          </div>
+          <div class="split-item">
+            <h4>Popular Extensions</h4>
+            <ul>
+              <li><strong>PostGIS</strong> - Geospatial data and queries</li>
+              <li><strong>pg_cron</strong> - Job scheduling</li>
+              <li><strong>pg_stat_statements</strong> - Query statistics</li>
+              <li><strong>TimescaleDB</strong> - Time-series optimization</li>
+              <li><strong>Citus</strong> - Distributed PostgreSQL</li>
+              <li><strong>pgvector</strong> - Vector embeddings for AI</li>
+              <li><strong>pg_partman</strong> - Partition management</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="code-block">
+<code><span class="comment">-- Using pg_trgm for fuzzy search</span>
+<span class="keyword">CREATE INDEX</span> idx_name_trgm <span class="keyword">ON</span> users
+<span class="keyword">USING GIN</span> (name <span class="function">gin_trgm_ops</span>);
+
+<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> users
+<span class="keyword">WHERE</span> name <span class="function">%</span> <span class="string">'Alic'</span>  <span class="comment">-- Similarity search</span>
+<span class="keyword">ORDER BY</span> <span class="function">similarity</span>(name, <span class="string">'Alic'</span>) <span class="keyword">DESC</span>;
+
+<span class="comment">-- Using pgvector for embeddings</span>
+<span class="keyword">CREATE EXTENSION IF NOT EXISTS</span> vector;
+
+<span class="keyword">CREATE TABLE</span> documents (
+    id <span class="function">SERIAL PRIMARY KEY</span>,
+    content <span class="function">TEXT</span>,
+    embedding <span class="function">VECTOR</span>(<span class="number">1536</span>)  <span class="comment">-- OpenAI embedding</span>
+);
+
+<span class="comment">-- Create HNSW index for fast similarity search</span>
+<span class="keyword">CREATE INDEX</span> idx_embedding <span class="keyword">ON</span> documents
+<span class="keyword">USING HNSW</span> (embedding <span class="function">vector_cosine_ops</span>);
+
+<span class="comment">-- Find similar documents</span>
+<span class="keyword">SELECT</span> content,
+       <span class="number">1</span> - (embedding <span class="operator"><=></span> query_embedding) <span class="keyword">AS</span> similarity
+<span class="keyword">FROM</span> documents
+<span class="keyword">ORDER BY</span> embedding <span class="operator"><=></span> query_embedding
+<span class="keyword">LIMIT</span> <span class="number">5</span>;</code>
+        </div>
+      </section>
+
+      <!-- Section 18: Performance Tips -->
+      <section class="topic-section" id="performance">
+        <h2> Performance Tips <span class="level-badge advanced">Advanced</span> </h2>
+        <p>Best practices for optimizing PostgreSQL performance.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Query Analysis</h4>
+            <div class="code-block">
+<code><span class="comment">-- Analyze query plan</span>
+<span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> employees
+<span class="keyword">WHERE</span> department_id = <span class="number">1</span>;
+
+<span class="comment">-- Detailed analysis with timing</span>
+<span class="keyword">EXPLAIN (ANALYZE, BUFFERS)</span>
+<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> employees
+<span class="keyword">WHERE</span> department_id = <span class="number">1</span>;
+
+<span class="comment">-- Format as JSON for visualization</span>
+<span class="keyword">EXPLAIN (FORMAT JSON)</span> <span class="keyword">SELECT</span> ...
+            </code>
+            </div>
+          </div>
+          <div class="split-item">
+            <h4>Key Optimizations</h4>
+            <ul>
+              <li>Use EXPLAIN ANALYZE to identify bottlenecks</li>
+              <li>Index columns in WHERE, JOIN, ORDER BY</li>
+              <li>Avoid SELECT * in production</li>
+              <li>Use prepared statements for repeated queries</li>
+              <li>Use connection pooling (pgbouncer)</li>
+              <li>Configure shared_buffers (25% of RAM)</li>
+              <li>Set effective_cache_size (50-75% of RAM)</li>
+              <li>Use materialized views for complex aggregations</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="code-block">
+<code><span class="comment">-- Useful monitoring queries</span>
+
+<span class="comment">-- Slow queries</span>
+<span class="keyword">SELECT</span> query, calls, mean_exec_time, total_exec_time
+<span class="keyword">FROM</span> pg_stat_statements
+<span class="keyword">ORDER BY</span> mean_exec_time <span class="keyword">DESC</span>
+<span class="keyword">LIMIT</span> <span class="number">10</span>;
+
+<span class="comment">-- Table statistics</span>
+<span class="keyword">SELECT</span> relname, seq_scan, idx_scan, seq_tup_read, idx_tup_fetch
+<span class="keyword">FROM</span> pg_stat_user_tables
+<span class="keyword">ORDER BY</span> seq_scan <span class="keyword">DESC</span>;
+
+<span class="comment">-- Unused indexes</span>
+<span class="keyword">SELECT</span> schemaname, relname, indexrelname, idx_scan
+<span class="keyword">FROM</span> pg_stat_user_indexes
+<span class="keyword">WHERE</span> idx_scan = <span class="number">0</span>
+<span class="keyword">ORDER BY</span> pg_relation_size(indexrelid) <span class="keyword">DESC</span>;
+
+<span class="comment">-- Database size</span>
+<span class="keyword">SELECT</span>
+    pg_database_size(<span class="function">current_database</span>()) / <span class="number">1024</span>^<span class="number">3</span> <span class="keyword">AS</span> size_gb;
+
+<span class="comment">-- Table sizes</span>
+<span class="keyword">SELECT</span>
+    relname,
+    pg_size_pretty(pg_total_relation_size(relid)) <span class="keyword">AS</span> total_size
+<span class="keyword">FROM</span> pg_catalog.pg_statio_user_tables
+<span class="keyword">ORDER BY</span> pg_total_relation_size(relid) <span class="keyword">DESC</span>;</code>
+        </div>
+
+        <div class="tip-box">
+          <p><strong>Pro tip:</strong> Enable <code>pg_stat_statements</code> extension to track query performance over time. It's invaluable for finding slow queries in production.</p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+  <script src="../python/python.js"></script>
+  <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Guide | NumPy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../hub.css" />
+</head>
+
+<body>
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <header class="topbar glass reveal in">
+    <a class="brand" href="../../index.html">
+      <svg class="brand-icon" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+      Data Guide
+    </a>
+    <nav class="menu" aria-label="NumPy menu">
+      <a href="index.html" class="active" aria-current="page">Hub</a>
+      <a href="numpy-basics.html">Basics</a>
+      <a href="numpy-arrays.html">Arrays</a>
+      <a href="numpy-operations.html">Operations</a>
+      <a href="methods.html">Methods</a>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+      <span class="toggle-icon" aria-hidden="true">☾</span>
+      <span class="toggle-text">Dark</span>
+    </button>
+  </header>
+
+  <main>
+    <div class="page-wrap">
+      <section class="hero">
+        <h1>NumPy</h1>
+      </section>
+
+      <section class="inspire">
+        <p>
+          The <strong>foundation of numerical computing</strong> in Python. NumPy speaks the language of
+          arrays—fast, efficient, vectorized. Crunch millions of numbers in milliseconds. Build the
+          mathematical backbone for <strong>Pandas, ML, and AI</strong>. From simple sums to complex
+          linear algebra, NumPy makes the math disappear so you can focus on discovery.
+          <strong>The soul of data science. The speed of C with the simplicity of Python.</strong>
+        </p>
+      </section>
+
+      <section class="tracks">
+        <h2>Explore NumPy</h2>
+        <div class="track-grid">
+          <a href="numpy-basics.html" class="track">
+            <h3>Basics</h3>
+            <p>Broadcasting, vectorization, and I/O</p>
+          </a>
+          <a href="numpy-arrays.html" class="track">
+            <h3>Arrays</h3>
+            <p>Creating and manipulating arrays</p>
+          </a>
+          <a href="numpy-operations.html" class="track">
+            <h3>Operations</h3>
+            <p>Mathematical and statistical functions</p>
+          </a>
+          <a href="methods.html" class="track">
+            <h3>Methods</h3>
+            <p>Comprehensive API reference</p>
+          </a>
+          <a href="../pandas/index.html" class="track">
+            <h3>Pandas</h3>
+            <p>High-level data analysis</p>
+          </a>
+          <a href="https://numpy.org/doc/stable/" target="_blank" rel="noopener" class="track">
+            <h3>Docs ↗</h3>
+            <p>Official NumPy documentation</p>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+</body>
+
+</html>
