@@ -10,35 +10,133 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
-  <link rel="stylesheet" href="../sidebar.css" />
-  <link rel="stylesheet" href="../python/nav-section-pills.css" />
   <style>
-    main {
-      width: min(1300px, calc(100% - 4rem));
-      margin: 0 auto;
-      padding: 1.5rem 0 3rem;
+    :root {
+      --topbar-height: 56px;
+      --radius: 0.75rem;
+      --radius-sm: 0.5rem;
+      --radius-lg: 1rem;
+      --transition: 0.2s ease;
+      --bg: #f5f7ff;
+      --bg-alt: #eceffe;
+      --glass: rgba(255, 255, 255, 0.65);
+      --glass-blur: 18px;
+      --glass-border: rgba(99, 102, 241, 0.1);
+      --text: #0e1120;
+      --text-secondary: #5c6380;
+      --glow-color: #6366f1;
+      --glow-pink: #ec4899;
+      --glow-cyan: #06b6d4;
+      --glow-border: rgba(99, 102, 241, 0.3);
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, .06), 0 1px 2px rgba(0, 0, 0, .04);
+      --shadow: 0 4px 12px rgba(0, 0, 0, .07), 0 2px 6px rgba(0, 0, 0, .04);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, .09), 0 4px 12px rgba(0, 0, 0, .05);
+    }
+
+    body.dark {
+      --bg: #080b16;
+      --bg-alt: #10152a;
+      --glass: rgba(16, 21, 42, 0.75);
+      --glass-border: rgba(129, 140, 248, 0.12);
+      --text: #e4e8f5;
+      --text-secondary: #7b87a8;
+      --glow-border: rgba(129, 140, 248, 0.28);
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, .4);
+      --shadow: 0 4px 12px rgba(0, 0, 0, .5);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, .6);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      font-family: "Space Grotesk", system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding-top: var(--topbar-height);
+      transition: background-color .3s ease, color .3s ease
+    }
+
+    .bg-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: -1;
+      opacity: .55;
+      transition: opacity .4s ease
+    }
+
+    body.dark .bg-orb {
+      opacity: .35
+    }
+
+    .orb-a {
+      width: 520px;
+      height: 520px;
+      background: radial-gradient(circle, rgba(99, 102, 241, .22), transparent 70%);
+      top: -100px;
+      right: -100px
+    }
+
+    .orb-b {
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, rgba(236, 72, 153, .16), transparent 70%);
+      bottom: 10%;
+      left: -80px
+    }
+
+    .orb-c {
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(6, 182, 212, .14), transparent 70%);
+      top: 40%;
+      right: 20%
     }
 
     .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
       height: var(--topbar-height);
       padding: 0 1.5rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      z-index: 2000;
+      background: var(--glass);
+      backdrop-filter: blur(var(--glass-blur));
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      border-bottom: 1px solid var(--glass-border);
+      box-shadow: var(--shadow-sm);
+      transition: background-color .3s ease, border-color .3s ease
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: .5rem;
       font-family: "Sora", sans-serif;
       font-weight: 700;
-      font-size: 1.15rem;
-      letter-spacing: -0.02em;
+      font-size: 1.1rem;
+      letter-spacing: -.02em;
       text-decoration: none;
       color: var(--text);
-      transition: color var(--transition);
+      transition: color var(--transition)
     }
 
     .brand-icon {
@@ -47,40 +145,64 @@
       stroke: var(--text);
       fill: none;
       stroke-width: 1.5;
+      transition: stroke var(--transition)
     }
 
     .brand:hover {
       background: linear-gradient(135deg, var(--glow-color), var(--glow-pink));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      background-clip: text;
+      background-clip: text
     }
 
     .brand:hover .brand-icon {
-      stroke: var(--glow-color);
+      stroke: var(--glow-color)
+    }
+
+    .menu {
+      display: flex;
+      gap: 1.5rem;
+      font-size: .82rem;
+      font-weight: 500;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%)
+    }
+
+    .menu a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: .4rem 0;
+      position: relative;
+      transition: color var(--transition);
+      white-space: nowrap
+    }
+
+    .menu a:hover {
+      color: var(--text);
+      text-shadow: 0 0 20px rgba(99, 102, 241, .45)
+    }
+
+    .menu a.active {
+      color: var(--text)
+    }
+
+    .menu a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--glow-color), var(--glow-pink));
+      border-radius: 1px;
+      box-shadow: 0 0 10px var(--glow-color)
     }
 
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-    }
-
-    .home-link {
-      font-size: 0.82rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      text-decoration: none;
-      padding: 0.4rem 1rem;
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-sm);
-      transition: all var(--transition);
-    }
-
-    .home-link:hover {
-      color: var(--text);
-      background: var(--bg-alt);
-      border-color: var(--glow-border);
+      gap: .75rem
     }
 
     .theme-toggle {
@@ -97,6 +219,848 @@
       cursor: pointer;
       transition: all var(--transition);
       box-shadow: var(--shadow-sm);
+      font-size: 1rem;
+      line-height: 1
+    }
+
+    .theme-toggle:hover {
+      box-shadow: var(--shadow), 0 0 20px rgba(99, 102, 241, .2);
+      border-color: var(--glow-color);
+      transform: translateY(-2px) scale(1.05)
+    }
+
+    .toggle-text {
+      display: none
+    }
+
+    .back-link {
+      font-size: .8rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: .35rem .9rem;
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      transition: all var(--transition)
+    }
+
+    .back-link:hover {
+      color: var(--text);
+      background: var(--bg-alt);
+      border-color: var(--glow-border)
+    }
+
+    .mobile-menu-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--glass-border);
+      background: var(--glass);
+      backdrop-filter: blur(var(--glass-blur));
+      color: var(--text);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px
+    }
+
+    .mobile-menu-toggle:hover {
+      box-shadow: var(--shadow);
+      transform: translateY(-1px)
+    }
+
+    .hamburger-icon {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: 18px
+    }
+
+    .hamburger-icon span {
+      display: block;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all var(--transition)
+    }
+
+    .hamburger-icon span:nth-child(1) {
+      width: 100%
+    }
+
+    .hamburger-icon span:nth-child(2) {
+      width: 14px
+    }
+
+    .hamburger-icon span:nth-child(3) {
+      width: 10px
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: var(--topbar-height);
+      left: 0;
+      right: 0;
+      background: var(--glass);
+      backdrop-filter: blur(var(--glass-blur));
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      border-bottom: 1px solid var(--glass-border);
+      box-shadow: var(--shadow-md);
+      z-index: 1999;
+      padding: 1rem;
+      transform: translateY(-8px);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform .25s ease, opacity .25s ease
+    }
+
+    .mobile-menu.open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: all
+    }
+
+    .mobile-nav {
+      display: flex;
+      flex-direction: column;
+      gap: .5rem
+    }
+
+    .mobile-nav a {
+      display: block;
+      padding: .75rem 1rem;
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: .9rem;
+      font-weight: 500;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
+      transition: all var(--transition)
+    }
+
+    .mobile-nav a:hover,
+    .mobile-nav a.active {
+      color: var(--text);
+      background: var(--bg-alt);
+      border-color: var(--glass-border)
+    }
+
+    .mobile-nav a.active {
+      border-color: var(--glow-border)
+    }
+
+    .mobile-menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, .25);
+      z-index: 1998;
+      backdrop-filter: blur(2px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease
+    }
+
+    .mobile-menu-overlay.active {
+      opacity: 1;
+      pointer-events: all
+    }
+
+    .scroll-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--glass);
+      backdrop-filter: blur(var(--glass-blur));
+      border: 1px solid var(--glow-border);
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: var(--shadow), 0 0 20px rgba(99, 102, 241, .15);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all .3s ease;
+      z-index: 1500;
+      color: var(--glow-color)
+    }
+
+    .scroll-to-top svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2
+    }
+
+    .scroll-to-top.visible {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    .scroll-to-top:hover {
+      background: var(--glow-color);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md), 0 0 24px rgba(99, 102, 241, .4)
+    }
+
+    .page-wrap {
+      max-width: 100%
+    }
+
+    .hero {
+      text-align: center;
+      padding: 2rem 0 1.5rem;
+      margin-bottom: 1.5rem
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--glow-color);
+      margin-bottom: .6rem;
+      background: rgba(99, 102, 241, .08);
+      padding: .3rem .9rem;
+      border-radius: 999px;
+      border: 1px solid var(--glow-border)
+    }
+
+    .hero h1 {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 700;
+      margin: 0 0 .5rem;
+      font-family: "Sora", sans-serif;
+      background: linear-gradient(135deg, var(--glow-color), var(--glow-pink), var(--glow-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text
+    }
+
+    .hero p {
+      font-size: .95rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto
+    }
+
+    .hero-copy {
+      font-size: .95rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: .5rem auto 0
+    }
+
+    .tracks h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--text)
+    }
+
+    .track-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem
+    }
+
+    .track {
+      background: var(--glass);
+      backdrop-filter: blur(var(--glass-blur));
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      text-decoration: none;
+      color: var(--text);
+      transition: all var(--transition);
+      display: flex;
+      flex-direction: column;
+      gap: .5rem
+    }
+
+    .track:hover {
+      border-color: var(--glow-border);
+      box-shadow: var(--shadow-md), 0 0 28px rgba(99, 102, 241, .1);
+      transform: translateY(-3px)
+    }
+
+    .track-icon {
+      width: 42px;
+      height: 42px;
+      background: var(--bg-alt);
+      border: 1px solid var(--glow-border);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: .25rem
+    }
+
+    .track-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--glow-color);
+      fill: none;
+      stroke-width: 2
+    }
+
+    .track h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0
+    }
+
+    .track p {
+      font-size: .82rem;
+      color: var(--text-secondary);
+      margin: 0
+    }
+
+    .cheat-section {
+      margin-bottom: 2.5rem;
+      scroll-margin-top: calc(var(--topbar-height) + 1rem)
+    }
+
+    .section-title {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin: 0 0 1rem;
+      padding-bottom: .5rem;
+      border-bottom: 1px solid var(--glass-border);
+      color: var(--text)
+    }
+
+    .code-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem
+    }
+
+    @media(min-width:700px) {
+      .code-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+    }
+
+    @media(min-width:1100px) {
+      .code-grid {
+        grid-template-columns: repeat(3, 1fr)
+      }
+    }
+
+    .code-card {
+      background: var(--glass);
+      backdrop-filter: blur(var(--glass-blur));
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      transition: all var(--transition)
+    }
+
+    .code-card:hover {
+      border-color: var(--glow-border);
+      box-shadow: var(--shadow), 0 0 20px rgba(99, 102, 241, .08);
+      transform: translateY(-2px)
+    }
+
+    .code-card h3 {
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 .35rem
+    }
+
+    .code-card p {
+      font-size: .8rem;
+      color: var(--text-secondary);
+      margin: 0 0 .75rem;
+      line-height: 1.5
+    }
+
+    .code-label {
+      display: inline-block;
+      font-size: .62rem;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--glow-color);
+      font-weight: 700;
+      margin-bottom: .3rem;
+      background: rgba(99, 102, 241, .08);
+      padding: .15rem .5rem;
+      border-radius: 4px
+    }
+
+    .code-block {
+      background: var(--bg-alt);
+      border: 1px solid var(--glass-border);
+      border-left: 3px solid var(--glow-color);
+      border-radius: var(--radius-sm);
+      padding: .85rem 1rem;
+      font-family: "Fira Code", "Cascadia Code", "Consolas", monospace;
+      font-size: .76rem;
+      line-height: 1.65;
+      color: var(--text-secondary);
+      overflow-x: auto;
+      white-space: pre;
+      tab-size: 2
+    }
+
+    body.dark .code-block {
+      background: rgba(0, 0, 0, .35);
+      border-color: rgba(129, 140, 248, .15);
+      border-left-color: var(--glow-color)
+    }
+
+    .section-difficulty {
+      display: inline-block;
+      font-size: .6rem;
+      font-weight: 700;
+      padding: .15rem .5rem;
+      border-radius: 999px;
+      margin-left: .5rem;
+      vertical-align: middle;
+      text-transform: uppercase;
+      letter-spacing: .04em
+    }
+
+    .difficulty-basic {
+      background: #10b981;
+      color: #fff
+    }
+
+    .difficulty-medium {
+      background: #f59e0b;
+      color: #fff
+    }
+
+    .difficulty-advanced {
+      background: #ef4444;
+      color: #fff
+    }
+
+    .pill-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: .5rem;
+      margin-bottom: 2rem
+    }
+
+    .pill-nav a {
+      padding: .4rem 1rem;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      font-size: .78rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all var(--transition)
+    }
+
+    .pill-nav a:hover {
+      color: var(--text);
+      border-color: var(--glow-border);
+      box-shadow: 0 0 12px rgba(99, 102, 241, .12);
+      background: var(--bg-alt)
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(10px)
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity .5s ease, transform .5s ease
+    }
+
+    @media(max-width:900px) {
+      .menu {
+        display: none !important
+      }
+    }
+
+    @media(max-width:640px) {
+      .mobile-menu-toggle {
+        display: flex
+      }
+
+      .menu {
+        display: none !important
+      }
+
+      .code-grid {
+        grid-template-columns: 1fr !important
+      }
+    }
+
+    .cheat-card {
+      background: var(--glass);
+      backdrop-filter: blur(var(--glass-blur));
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      text-decoration: none;
+      color: var(--text);
+      transition: all var(--transition);
+      display: block
+    }
+
+    .cheat-card:hover {
+      border-color: var(--glow-border);
+      box-shadow: var(--shadow-md), 0 0 28px rgba(99, 102, 241, .1);
+      transform: translateY(-4px)
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: .75rem
+    }
+
+    .card-icon {
+      width: 46px;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-alt);
+      border: 1px solid var(--glow-border);
+      border-radius: var(--radius);
+      flex-shrink: 0
+    }
+
+    .card-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--glow-color);
+      fill: none;
+      stroke-width: 1.5
+    }
+
+    .card-header h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin: 0
+    }
+
+    .card-desc {
+      color: var(--text-secondary);
+      font-size: .87rem;
+      line-height: 1.6;
+      margin: 0 0 1rem
+    }
+
+    .card-topics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem
+    }
+
+    .card-topic {
+      font-size: .72rem;
+      padding: .25rem .65rem;
+      background: var(--bg-alt);
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      color: var(--text-secondary)
+    }
+
+    .cheatsheet-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      margin-bottom: 2.5rem
+    }
+
+    @media(min-width:700px) {
+      .cheatsheet-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+    }
+
+    @media(min-width:1000px) {
+      .cheatsheet-grid {
+        grid-template-columns: repeat(3, 1fr)
+      }
+    }
+
+    .comparison-hero {
+      margin: 2rem 0 1.5rem;
+      padding: 2rem;
+      background: var(--glass);
+      backdrop-filter: blur(var(--glass-blur));
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      text-align: center
+    }
+
+    .comparison-hero h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin: 0 0 .5rem
+    }
+
+    .comparison-hero p {
+      color: var(--text-secondary);
+      margin: 0
+    }
+
+    .controls-section {
+      background: var(--glass);
+      backdrop-filter: blur(var(--glass-blur));
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      margin-bottom: 1.5rem
+    }
+
+    .controls-title {
+      font-size: .9rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: .06em
+    }
+
+    .column-selector {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: .75rem
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      padding: .75rem;
+      border-radius: .75rem;
+      background: transparent;
+      transition: background-color .2s ease;
+      cursor: pointer
+    }
+
+    .checkbox-group:hover {
+      background: var(--bg-alt)
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: var(--glow-color);
+      flex-shrink: 0
+    }
+
+    .checkbox-group label {
+      cursor: pointer;
+      font-weight: 500;
+      margin: 0;
+      user-select: none;
+      font-size: .9rem
+    }
+
+    .category-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem
+    }
+
+    .category-pill {
+      padding: .45rem 1.1rem;
+      border: 1.5px solid var(--glass-border);
+      background: transparent;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: .85rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: all .2s ease;
+      user-select: none;
+      font-family: "Space Grotesk", sans-serif
+    }
+
+    .category-pill:hover {
+      border-color: var(--glow-color);
+      color: var(--text);
+      background: var(--glass)
+    }
+
+    .category-pill.active {
+      background: var(--glow-color);
+      color: #fff;
+      border-color: var(--glow-color);
+      font-weight: 600
+    }
+
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap
+    }
+
+    .btn {
+      padding: .7rem 1.75rem;
+      border: 1.5px solid var(--glass-border);
+      background: var(--glass);
+      border-radius: .75rem;
+      cursor: pointer;
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--text);
+      transition: all .3s ease;
+      font-family: "Sora", sans-serif
+    }
+
+    .btn:hover {
+      border-color: var(--glow-color);
+      background: var(--bg-alt)
+    }
+
+    .btn-submit {
+      background: var(--glow-color);
+      color: #fff;
+      border-color: var(--glow-color)
+    }
+
+    .btn-submit:hover {
+      background: var(--glow-pink);
+      border-color: var(--glow-pink)
+    }
+
+    .btn-reset {
+      background: transparent
+    }
+
+    .comparison-grid {
+      display: grid;
+      gap: 1.5rem
+    }
+
+    .comparison-scenario {
+      background: var(--glass);
+      backdrop-filter: blur(var(--glass-blur));
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      overflow-x: auto
+    }
+
+    .scenario-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--glass-border)
+    }
+
+    .scenario-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      flex: 1
+    }
+
+    .category-badge {
+      background: linear-gradient(135deg, var(--glow-color), var(--glow-pink));
+      color: #fff;
+      padding: .35rem .9rem;
+      border-radius: 999px;
+      font-size: .78rem;
+      font-weight: 600;
+      white-space: nowrap;
+      flex-shrink: 0
+    }
+
+    .comparison-columns {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem
+    }
+
+    .tool-column {
+      background: var(--bg-alt);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      display: none
+    }
+
+    .tool-column.active {
+      display: block
+    }
+
+    .tool-header {
+      font-weight: 600;
+      margin-bottom: .75rem;
+      color: var(--text);
+      font-size: .9rem
+    }
+
+    .tool-code {
+      font-family: "Fira Code", "Consolas", monospace;
+      font-size: .78rem;
+      background: rgba(0, 0, 0, .06);
+      padding: .75rem;
+      border-radius: .5rem;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: var(--text-secondary);
+      line-height: 1.5
+    }
+
+    body.dark .tool-code {
+      background: rgba(0, 0, 0, .3)
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 2.5rem;
+      color: var(--text-secondary);
+      background: var(--glass);
+      border: 1px dashed var(--glass-border);
+      border-radius: var(--radius-lg);
+      margin-bottom: 2rem;
+      font-size: .95rem
+    }
+  </style>
+  <style>
+    main {
+      width: min(1300px, calc(100% - 4rem));
+      margin: 0 auto;
+      padding: 1.5rem 0 3rem;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
     }
 
     .theme-toggle:hover {
@@ -474,10 +1438,150 @@
         grid-template-columns: repeat(2, 1fr);
       }
     }
+
+    /* Mobile Menu Button */
+    .mobile-menu-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--glass-border);
+      background: var(--glass);
+      backdrop-filter: blur(var(--glass-blur));
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      color: var(--text);
+      border-radius: var(--radius-sm);
+      padding: 0.4rem;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition);
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+    }
+
+    .mobile-menu-toggle:hover {
+      box-shadow: var(--shadow);
+      transform: translateY(-1px);
+    }
+
+    .hamburger-icon {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: 18px;
+    }
+
+    .hamburger-icon span {
+      display: block;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all var(--transition);
+    }
+
+    .hamburger-icon span:nth-child(1) {
+      width: 100%;
+    }
+
+    .hamburger-icon span:nth-child(2) {
+      width: 14px;
+    }
+
+    .hamburger-icon span:nth-child(3) {
+      width: 10px;
+    }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--topbar-height);
+      left: 0;
+      right: 0;
+      background: var(--glass);
+      backdrop-filter: blur(var(--glass-blur));
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      border-bottom: 1px solid var(--glass-border);
+      box-shadow: var(--shadow-md);
+      z-index: 1999;
+      padding: 1rem;
+      transform: translateY(-10px);
+      opacity: 0;
+      transition: all var(--transition);
+    }
+
+    .mobile-menu.open {
+      display: block;
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .mobile-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .mobile-nav a {
+      display: block;
+      padding: 0.75rem 1rem;
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-weight: 500;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
+      transition: all var(--transition);
+    }
+
+    .mobile-nav a:hover,
+    .mobile-nav a.active {
+      color: var(--text);
+      background: var(--bg-alt);
+      border-color: var(--glass-border);
+    }
+
+    .mobile-nav a.active {
+      border-color: rgba(99, 102, 241, 0.2);
+      box-shadow: var(--shadow-sm), inset 0 0 0 1px rgba(99, 102, 241, 0.15);
+    }
+
+    body.dark .mobile-nav a.active {
+      border-color: rgba(129, 140, 248, 0.3);
+      box-shadow: var(--shadow-sm), inset 0 0 0 1px rgba(129, 140, 248, 0.2);
+    }
+
+    /* Mobile Menu Overlay */
+    .mobile-menu-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 1998;
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+    }
+
+    .mobile-menu-overlay.active {
+      display: block;
+    }
+
+    @media (max-width: 640px) {
+      .mobile-menu-toggle {
+        display: flex;
+      }
+
+      .menu {
+        display: none;
+      }
+    }
   </style>
 </head>
 
-<body class="with-sidebar">
+<body>
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
@@ -491,19 +1595,23 @@
       </svg>
       Data Guide
     </a>
-    <button id="sidebar-toggle" class="sidebar-toggle" type="button" aria-label="Toggle sidebar">
-      <span class="hamburger" aria-hidden="true"></span>
-    </button>
     <nav class="menu" aria-label="Cheatsheet menu">
       <a href="cheatsheet.html" class="active">Overview</a>
       <a href="python-cheatsheet.html">Python</a>
-      <a href="spark-cheatsheet.html">PySpark</a>
-      <a href="postgresql-cheatsheet.html">PostgreSQL</a>
       <a href="numpy-cheatsheet.html">NumPy</a>
       <a href="pandas-cheatsheet.html">Pandas</a>
+      <a href="spark-cheatsheet.html">PySpark</a>
+      <a href="postgresql-cheatsheet.html">PostgreSQL</a>
       <a href="#comparison">Comparison</a>
     </nav>
     <div class="header-actions">
+      <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle mobile menu">
+        <span class="hamburger-icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
       <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
         <span class="toggle-icon" aria-hidden="true">☾</span>
         <span class="toggle-text">Dark</span>
@@ -511,69 +1619,134 @@
     </div>
   </header>
 
-  <div class="sidebar-overlay" id="sidebar-overlay"></div>
-
-  <main class="main-content">
-    <nav class="sidebar" id="sidebar">
-      <div class="logo">
-        <span class="logo-text">Cheatsheet Overview</span>
-      </div>
-      <a href="#comparison" class="nav-item">Tool Comparison</a>
-      <!-- Add links to other cheatsheets -->
-      <div class="nav-title">Cheatsheets</div>
-      <a href="python-cheatsheet.html" class="nav-item">Python</a>
-      <a href="spark-cheatsheet.html" class="nav-item">PySpark</a>
-      <a href="postgresql-cheatsheet.html" class="nav-item">PostgreSQL</a>
-      <a href="numpy-cheatsheet.html" class="nav-item">NumPy</a>
-      <a href="pandas-cheatsheet.html" class="nav-item">Pandas</a>
+  <div id="mobile-menu" class="mobile-menu">
+    <nav class="mobile-nav" aria-label="Cheatsheet mobile menu">
+      <a href="cheatsheet.html" class="active">Overview</a>
+      <a href="python-cheatsheet.html">Python</a>
+      <a href="numpy-cheatsheet.html">NumPy</a>
+      <a href="pandas-cheatsheet.html">Pandas</a>
+      <a href="spark-cheatsheet.html">PySpark</a>
+      <a href="postgresql-cheatsheet.html">PostgreSQL</a>
+      <a href="#comparison">Comparison</a>
     </nav>
-    <!-- Comparison Section -->
-    <div id="comparison">
-      <div class="comparison-hero">
-        <h2>📊 Tool Comparison</h2>
-        <p>Side-by-side comparison of PostgreSQL, Pandas, NumPy, and PySpark</p>
-      </div>
+  </div>
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
 
-      <div class="controls-section">
-        <div class="controls-title">🎯 Select Tools to Compare:</div>
-        <div class="column-selector">
-          <div class="checkbox-group">
-            <input type="checkbox" id="postgresql" name="postgresql">
-            <label for="postgresql">🐘 PostgreSQL</label>
-          </div>
-          <div class="checkbox-group">
-            <input type="checkbox" id="pandas" name="pandas">
-            <label for="pandas">🐼 Pandas</label>
-          </div>
-          <div class="checkbox-group">
-            <input type="checkbox" id="numpy" name="numpy">
-            <label for="numpy">🔢 NumPy</label>
-          </div>
-          <div class="checkbox-group">
-            <input type="checkbox" id="pyspark" name="pyspark">
-            <label for="pyspark">⚡ PySpark</label>
+  <main>
+    <div class="page-wrap">
+      <section class="hero">
+        <p class="eyebrow">Quick Reference</p>
+        <h1>Cheatsheets</h1>
+        <p class="hero-copy">Quick reference guides for Python, SQL, Spark, and data libraries.</p>
+      </section>
+
+      <section class="tracks">
+        <h2>Available Cheatsheets</h2>
+        <div class="track-grid">
+          <a href="python-cheatsheet.html" class="track">
+            <div class="track-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                <path d="M2 17l10 5 10-5" />
+                <path d="M2 12l10 5 10-5" />
+              </svg>
+            </div>
+            <h3>Python</h3>
+            <p>Core syntax, data structures, functions</p>
+          </a>
+          <a href="numpy-cheatsheet.html" class="track">
+            <div class="track-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <path d="M3 9h18" />
+                <path d="M3 15h18" />
+                <path d="M9 3v18" />
+                <path d="M15 3v18" />
+              </svg>
+            </div>
+            <h3>NumPy</h3>
+            <p>Arrays, broadcasting, linear algebra</p>
+          </a>
+          <a href="pandas-cheatsheet.html" class="track">
+            <div class="track-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 3v18h18" />
+                <path d="M7 12l4-4 4 4 4-6" />
+              </svg>
+            </div>
+            <h3>Pandas</h3>
+            <p>DataFrames, filtering, grouping</p>
+          </a>
+          <a href="spark-cheatsheet.html" class="track">
+            <div class="track-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+              </svg>
+            </div>
+            <h3>PySpark</h3>
+            <p>Spark SQL, DataFrames, RDDs</p>
+          </a>
+          <a href="postgresql-cheatsheet.html" class="track">
+            <div class="track-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <ellipse cx="12" cy="5" rx="9" ry="3" />
+                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+              </svg>
+            </div>
+            <h3>PostgreSQL</h3>
+            <p>Queries, joins, window functions</p>
+          </a>
+        </div>
+      </section>
+
+      <!-- Comparison Section -->
+      <section class="comparison-section" id="comparison">
+        <div class="comparison-hero">
+          <h2>Tool Comparison</h2>
+          <p>Side-by-side comparison of PostgreSQL, Pandas, NumPy, and PySpark</p>
+        </div>
+
+
+        <div class="controls-section">
+          <div class="controls-title">🎯 Select Tools to Compare:</div>
+          <div class="column-selector">
+            <div class="checkbox-group">
+              <input type="checkbox" id="postgresql" name="postgresql">
+              <label for="postgresql">🐘 PostgreSQL</label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="pandas" name="pandas">
+              <label for="pandas">🐼 Pandas</label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="numpy" name="numpy">
+              <label for="numpy">🔢 NumPy</label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="pyspark" name="pyspark">
+              <label for="pyspark">⚡ PySpark</label>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="controls-section">
-        <div class="controls-title">📂 Select Categories:</div>
-        <div class="category-selector" id="categorySelector"></div>
+        <div class="controls-section">
+          <div class="controls-title">📂 Select Categories:</div>
+          <div class="category-selector" id="categorySelector"></div>
 
-        <div class="button-group">
-          <button class="btn btn-submit" id="submitBtn" type="button">🔍 Show Comparison</button>
-          <button class="btn btn-reset" id="resetBtn" type="button">↻ Clear All</button>
+          <div class="button-group">
+            <button class="btn btn-submit" id="submitBtn" type="button">🔍 Show Comparison</button>
+            <button class="btn btn-reset" id="resetBtn" type="button">↻ Clear All</button>
+          </div>
         </div>
-      </div>
 
-      <div id="comparisonGrid" class="comparison-grid"></div>
-      <div id="emptyState" class="empty-state" style="display: block;">
-        👋 Select tools and categories, then click "Show Comparison" to view results
-      </div>
+        <div id="comparisonGrid" class="comparison-grid"></div>
+        <div id="emptyState" class="empty-state" style="display: block;">
+          Select tools and categories, then click "Show Comparison" to view results
+        </div>
+      </section>
     </div>
   </main>
-
-  <script src="../app.js"></script>
   <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
       stroke-linejoin="round">
@@ -581,839 +1754,46 @@
     </svg>
   </button>
   <script>
-    // Comparison data
-    const comparisonData = [
-      {
-        category: "Setup & Connection",
-        scenarios: [
-          {
-            scenario: "Connect to database / Initialize",
-            postgresql: "psql -U user -d database_name\n\nOr via Python:\nimport psycopg2\nconn = psycopg2.connect(\n  'dbname=db user=user')",
-            pandas: "import pandas as pd\ndf = pd.read_csv('file.csv')\ndf = pd.read_sql(query, conn)",
-            numpy: "import numpy as np\narr = np.load('file.npy')\narr = np.loadtxt('file.csv')",
-            pyspark: "from pyspark.sql import SparkSession\nspark = SparkSession.builder.appName('app').getOrCreate()\ndf = spark.read.csv('file.csv')"
-          }
-        ]
-      },
-      {
-        category: "Data Inspection",
-        scenarios: [
-          {
-            scenario: "Show table structure / Schema",
-            postgresql: "\\d table_name\nSELECT * FROM information_schema.columns WHERE table_name = 'tbl';",
-            pandas: "df.info()\ndf.dtypes\ndf.columns\ndf.shape",
-            numpy: "arr.dtype\narr.shape\narr.ndim\narr.size",
-            pyspark: "df.printSchema()\ndf.dtypes\ndf.columns"
-          },
-          {
-            scenario: "View first N rows",
-            postgresql: "SELECT * FROM tbl LIMIT 5;",
-            pandas: "df.head(5)",
-            numpy: "arr[:5]\narr[0:5]",
-            pyspark: "df.show(5)"
-          }
-        ]
-      },
-      {
-        category: "Filtering & Selection",
-        scenarios: [
-          {
-            scenario: "Filter rows by condition",
-            postgresql: "SELECT * FROM tbl WHERE age > 30;",
-            pandas: "df[df.age > 30]\ndf.query('age > 30')",
-            numpy: "arr[arr[:,col_idx] > 30]",
-            pyspark: "df.filter(col('age') > 30)"
-          },
-          {
-            scenario: "Select specific columns",
-            postgresql: "SELECT name, salary FROM tbl;",
-            pandas: "df[['name', 'salary']]",
-            numpy: "arr[:, [0, 2]]",
-            pyspark: "df.select('name', 'salary')"
-          }
-        ]
-      },
-      {
-        category: "Sorting",
-        scenarios: [
-          {
-            scenario: "Sort rows",
-            postgresql: "SELECT * FROM tbl ORDER BY age DESC;",
-            pandas: "df.sort_values('age', ascending=False)",
-            numpy: "np.sort(arr)\narr[np.argsort(arr)]",
-            pyspark: "df.orderBy(desc('age'))"
-          }
-        ]
-      },
-      {
-        category: "Aggregation",
-        scenarios: [
-          {
-            scenario: "Count rows",
-            postgresql: "SELECT COUNT(*) FROM tbl;\nSELECT dept, COUNT(*) FROM tbl GROUP BY dept;",
-            pandas: "len(df)\ndf.groupby('dept').size()",
-            numpy: "len(arr)\narr.shape[0]",
-            pyspark: "df.count()\ndf.groupBy('dept').count()"
-          },
-          {
-            scenario: "Sum / Average / Min / Max",
-            postgresql: "SELECT SUM(salary), AVG(salary), MIN(salary), MAX(salary) FROM tbl;",
-            pandas: "df.salary.sum()\ndf.salary.mean()\ndf.salary.min()\ndf.salary.max()",
-            numpy: "np.sum(arr)\nnp.mean(arr)\nnp.min(arr)\nnp.max(arr)",
-            pyspark: "df.select(sum('salary'), avg('salary')).show()"
-          }
-        ]
-      },
-      {
-        category: "Joins & Merges",
-        scenarios: [
-          {
-            scenario: "Inner join",
-            postgresql: "SELECT t1.*, t2.* FROM t1 INNER JOIN t2 ON t1.id = t2.id;",
-            pandas: "pd.merge(df1, df2, on='id', how='inner')",
-            numpy: "# Use Pandas or structured arrays",
-            pyspark: "df1.join(df2, 'id', 'inner')"
-          },
-          {
-            scenario: "Left join (Left outer join)",
-            postgresql: "SELECT t1.*, t2.* FROM t1 LEFT JOIN t2 ON t1.id = t2.id;",
-            pandas: "pd.merge(df1, df2, on='id', how='left')",
-            numpy: "# Use Pandas",
-            pyspark: "df1.join(df2, 'id', 'left')"
-          },
-          {
-            scenario: "Right join (Right outer join)",
-            postgresql: "SELECT t1.*, t2.* FROM t1 RIGHT JOIN t2 ON t1.id = t2.id;",
-            pandas: "pd.merge(df1, df2, on='id', how='right')",
-            numpy: "# Use Pandas",
-            pyspark: "df1.join(df2, 'id', 'right')"
-          },
-          {
-            scenario: "Full outer join",
-            postgresql: "SELECT t1.*, t2.* FROM t1 FULL OUTER JOIN t2 ON t1.id = t2.id;",
-            pandas: "pd.merge(df1, df2, on='id', how='outer')",
-            numpy: "# Use Pandas",
-            pyspark: "df1.join(df2, 'id', 'outer')"
-          },
-          {
-            scenario: "Cross join (Cartesian product)",
-            postgresql: "SELECT t1.*, t2.* FROM t1 CROSS JOIN t2; -- or SELECT t1.*, t2.* FROM t1, t2;",
-            pandas: "df1.assign(key=1).merge(df2.assign(key=1), on='key').drop('key', axis=1)",
-            numpy: "# Use Pandas",
-            pyspark: "df1.crossJoin(df2)"
-          },
-          {
-            scenario: "Join on multiple columns",
-            postgresql: "SELECT t1.*, t2.* FROM t1 JOIN t2 ON t1.id = t2.id AND t1.dept = t2.dept;",
-            pandas: "pd.merge(df1, df2, on=['id', 'dept'], how='inner')",
-            numpy: "# Use Pandas",
-            pyspark: "df1.join(df2, (df1.id == df2.id) & (df1.dept == df2.dept), 'inner')"
-          },
-          {
-            scenario: "Join on different column names",
-            postgresql: "SELECT t1.*, t2.* FROM t1 JOIN t2 ON t1.user_id = t2.id;",
-            pandas: "pd.merge(df1, df2, left_on='user_id', right_on='id', how='inner')",
-            numpy: "# Use Pandas",
-            pyspark: "df1.join(df2, df1.user_id == df2.id, 'inner')"
-          }
-        ]
-      },
-      {
-        category: "Transformations",
-        scenarios: [
-          {
-            scenario: "Add/Create new column",
-            postgresql: "ALTER TABLE tbl ADD COLUMN new_col INT;\nSELECT *, age*2 AS age_doubled FROM tbl;",
-            pandas: "df['new_col'] = value\ndf['age_doubled'] = df['age'] * 2",
-            numpy: "new_col = arr * 2\nnp.column_stack([arr, new_col])",
-            pyspark: "df.withColumn('age_doubled', col('age') * 2)"
-          },
-          {
-            scenario: "Drop column",
-            postgresql: "ALTER TABLE tbl DROP COLUMN old_col;",
-            pandas: "df.drop('col_name', axis=1)",
-            numpy: "np.delete(arr, col_idx, axis=1)",
-            pyspark: "df.drop('col_name')"
-          }
-        ]
-      },
-      {
-        category: "String Operations",
-        scenarios: [
-          {
-            scenario: "Uppercase / Lowercase",
-            postgresql: "SELECT UPPER(name), LOWER(name) FROM tbl;",
-            pandas: "df.name.str.upper()\ndf.name.str.lower()",
-            numpy: "np.char.upper(arr)\nnp.char.lower(arr)",
-            pyspark: "df.select(upper('name'), lower('name'))"
-          }
-        ]
-      },
-      {
-        category: "Date & Time",
-        scenarios: [
-          {
-            scenario: "Extract year/month/day/hour/minute",
-            postgresql: "EXTRACT(YEAR FROM dt), EXTRACT(MONTH FROM dt), EXTRACT(DAY FROM dt), EXTRACT(HOUR FROM dt), EXTRACT(MINUTE FROM dt)",
-            pandas: "df.dt.year, df.dt.month, df.dt.day, df.dt.hour, df.dt.minute",
-            numpy: "arr.astype('datetime64[Y]'), arr.astype('datetime64[M]'), arr.astype('datetime64[D]')",
-            pyspark: "year(col('dt')), month(col('dt')), dayofmonth(col('dt')), hour(col('dt')), minute(col('dt'))"
-          },
-          {
-            scenario: "Day of week / Quarter",
-            postgresql: "EXTRACT(DOW FROM dt), EXTRACT(QUARTER FROM dt) -- DOW: 0=Sun, 6=Sat",
-            pandas: "df.dt.dayofweek, # 0=Mon\ndf.dt.quarter, df.dt.day_name()",
-            numpy: "(arr.astype('datetime64[D]').astype(int) % 7) # days since epoch mod 7",
-            pyspark: "dayofweek(col('dt')), quarter(col('dt'))"
-          },
-          {
-            scenario: "Date difference (days)",
-            postgresql: "end_dt - start_dt, AGE(end_dt, start_dt)",
-            pandas: "(df.end_dt - df.start_dt).dt.days, (df['end_time'] - df['start_time']).dt.total_seconds()/60",
-            numpy: "(arr2-arr1).astype('timedelta64[D]').astype(int)",
-            pyspark: "datediff(col('end_dt'), col('start_dt')) # returns integer days"
-          },
-          {
-            scenario: "Add / subtract interval",
-            postgresql: "NOW() + INTERVAL '7 days', NOW() - INTERVAL '1 month'",
-            pandas: "pd.Timestamp.now() + pd.Timedelta(days=7), pd.Timestamp.now() + pd.DateOffset(months=1)",
-            numpy: "arr + np.timedelta64(7,'D'), arr - np.timedelta64(30,'D')",
-            pyspark: "date_add(col('dt'), 7), date_sub(col('dt'), 7), add_months(col('dt'), 1)"
-          },
-          {
-            scenario: "Truncate to period",
-            postgresql: "DATE_TRUNC('month', dt), DATE_TRUNC('year', dt)",
-            pandas: "df.ts.dt.to_period('M').dt.to_timestamp(), df.dt.dt.floor('D'), df.dt.dt.normalize()",
-            numpy: "arr.astype('datetime64[M]') # month, arr.astype('datetime64[Y]') # year",
-            pyspark: "date_trunc('year', 'ts'), date_trunc('month', 'ts'), trunc(col('dt'),'YYYY')"
-          },
-          {
-            scenario: "Format date to string",
-            postgresql: "TO_CHAR(dt,'YYYY-MM-DD')",
-            pandas: "df['date'].dt.strftime('%Y-%m-%d'), df.dt.astype(str)",
-            numpy: "arr.astype('datetime64[D]').astype(str)",
-            pyspark: "date_format(col('dt'),'yyyy-MM-dd')"
-          },
-          {
-            scenario: "BETWEEN two dates",
-            postgresql: "SELECT * FROM tbl WHERE dt BETWEEN '2024-01-01' AND '2024-12-31';",
-            pandas: "df[df['date'].between('2024-01-01','2024-12-31')]",
-            numpy: "mask=(arr>=np.datetime64('2024-01-01')) & (arr<=np.datetime64('2024-12-31'))",
-            pyspark: "df.filter(col('dt').between('2024-01-01','2024-12-31'))"
-          }
-        ]
-      },
-      {
-        category: "Window Functions",
-        scenarios: [
-          {
-            scenario: "ROW_NUMBER()",
-            postgresql: "SELECT *, ROW_NUMBER() OVER (PARTITION BY dept ORDER BY salary DESC) rn FROM tbl;",
-            pandas: "df.groupby('dept')['salary'].rank(method='first', ascending=False)",
-            numpy: "# argsort within groups",
-            pyspark: "w = Window.partitionBy('dept').orderBy(col('salary').desc())\ndf.withColumn('rn', row_number().over(w))"
-          },
-          {
-            scenario: "RANK() / DENSE_RANK()",
-            postgresql: "SELECT name, salary, RANK() OVER (ORDER BY salary DESC), DENSE_RANK() OVER (ORDER BY salary DESC) FROM tbl;",
-            pandas: "df.salary.rank(method='min', ascending=False), df.salary.rank(method='dense', ascending=False)",
-            numpy: "np.argsort(np.argsort(-arr)) # argsort gives index-based rank",
-            pyspark: "w = Window.orderBy(col('salary').desc())\ndf.withColumn('rnk', rank().over(w)).withColumn('drnk', dense_rank().over(w))"
-          },
-          {
-            scenario: "NTILE (number of buckets)",
-            postgresql: "SELECT *, NTILE(4) OVER (ORDER BY salary) AS quartile FROM tbl;",
-            pandas: "pd.qcut(df.salary, 4, labels=[1,2,3,4])",
-            numpy: "np.digitize(arr, np.percentile(arr,[25,50,75]))",
-            pyspark: "w = Window.orderBy('salary')\ndf.withColumn('q', ntile(4).over(w))"
-          },
-          {
-            scenario: "LAG (previous row value)",
-            postgresql: "SELECT id, sal, LAG(sal,1,0) OVER (ORDER BY id) AS prev_sal FROM tbl;",
-            pandas: "df.sal.shift(1), df.groupby('dept')['sal'].shift(1)",
-            numpy: "np.roll(arr,1) # note: wraps around",
-            pyspark: "w = Window.orderBy('id')\ndf.withColumn('prev', lag('sal',1).over(w))"
-          },
-          {
-            scenario: "LEAD (next row value)",
-            postgresql: "SELECT id, sal, LEAD(sal,1,0) OVER (ORDER BY id) AS next_sal FROM tbl;",
-            pandas: "df.sal.shift(-1)",
-            numpy: "np.roll(arr,-1)",
-            pyspark: "w = Window.orderBy('id')\ndf.withColumn('nxt', lead('sal',1,0).over(w))"
-          },
-          {
-            scenario: "Moving average",
-            postgresql: "SELECT *, AVG(sal) OVER (ORDER BY id ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) AS moving_avg FROM tbl;",
-            pandas: "df.sal.rolling(window=3).mean(), df.sal.rolling(3, min_periods=1).mean()",
-            numpy: "np.convolve(arr, np.ones(3)/3, mode='valid')",
-            pyspark: "w = Window.orderBy('id').rowsBetween(-2, 0)\ndf.withColumn('ma', avg('sal').over(w))"
-          },
-          {
-            scenario: "FIRST_VALUE() / LAST_VALUE()",
-            postgresql: "SELECT *, FIRST_VALUE(sal) OVER (PARTITION BY dept ORDER BY id) AS first_sal FROM tbl;",
-            pandas: "df.groupby('dept')['sal'].transform('first'), df.groupby('dept')['sal'].transform('last')",
-            numpy: "# index 0 / -1 after group sort",
-            pyspark: "w = Window.partitionBy('dept').orderBy('id')\ndf.withColumn('first', first('sal').over(w)).withColumn('last', last('sal').over(w))"
-          },
-          {
-            scenario: "PERCENT_RANK() / CUME_DIST()",
-            postgresql: "SELECT *, PERCENT_RANK() OVER(ORDER BY salary), CUME_DIST() OVER(ORDER BY salary) FROM tbl;",
-            pandas: "df.salary.rank(pct=True), df.salary.rank(pct=True, method='max') # cumulative dist",
-            numpy: "# percentileofscore from scipy",
-            pyspark: "w = Window.orderBy('salary')\ndf.withColumn('prnk', percent_rank().over(w)).withColumn('cdist', cume_dist().over(w))"
-          }
-        ]
-      },
-      {
-        category: "Array Operations",
-        scenarios: [
-          {
-            scenario: "Create arrays",
-            postgresql: "-- N/A in SQL\ngenerate_series(0,9) -- equivalent sets/series",
-            pandas: "pd.Series([1,2,3]), pd.Series(range(10))",
-            numpy: "np.array([1,2,3]), np.zeros((3,3)), np.ones((3,3)), np.eye(3), np.arange(0,10,2), np.linspace(0,1,5)",
-            pyspark: "from pyspark.ml.linalg import Vectors\nVectors.dense([1,2,3])"
-          },
-          {
-            scenario: "Random arrays",
-            postgresql: "RANDOM()",
-            pandas: "pd.Series(np.random.randn(10))",
-            numpy: "np.random.seed(42), np.random.rand(3,3), np.random.randn(3,3), np.random.randint(0,100,size=(3,3)), np.random.choice([1,2,3],size=5)",
-            pyspark: "from pyspark.sql.functions import rand\nspark.range(100).select(rand())"
-          },
-          {
-            scenario: "Reshape / Transpose",
-            postgresql: "-- N/A",
-            pandas: "df.values.reshape(m,n), df.T # transpose DataFrame",
-            numpy: "arr.reshape(3,4), arr.reshape(-1,1), arr.flatten(), arr.ravel(), arr.T",
-            pyspark: "-- DataFrames are tabular, Transposing is not typical"
-          },
-          {
-            scenario: "Stacking / Concatenating arrays",
-            postgresql: "-- N/A",
-            pandas: "pd.concat([df1,df2]), np.hstack / vstack via .values",
-            numpy: "np.concatenate([a1,a2], axis=0), np.hstack([a1,a2]), np.vstack([a1,a2]), np.stack([a1,a2], axis=0), np.dstack([a1,a2])",
-            pyspark: "df1.union(df2), df1.join(df2, on='id') # for column-wise"
-          },
-          {
-            scenario: "Element-wise arithmetic",
-            postgresql: "SELECT a+b, a-b, a*b, a/b FROM tbl;",
-            pandas: "df.a + df.b, df.a * df.b, df.a / df.b, df.a ** 2",
-            numpy: "arr1 + arr2, arr1 * arr2, arr ** 2, np.sqrt(arr), np.log(arr), np.exp(arr)",
-            pyspark: "df.withColumn('c', col('a') + col('b'))"
-          },
-          {
-            scenario: "Matrix multiply / dot product",
-            postgresql: "-- N/A (SQL is row-based)",
-            pandas: "pd.DataFrame(np.dot(A.values, B.values)), A.values @ B.values",
-            numpy: "np.dot(A, B), A @ B, np.matmul(A, B), np.inner(a, b), np.outer(a, b)",
-            pyspark: "from pyspark.mllib.linalg.distributed import RowMatrix"
-          },
-          {
-            scenario: "Linear algebra operations",
-            postgresql: "-- N/A",
-            pandas: "import numpy.linalg as la; la.inv(df.values)",
-            numpy: "np.linalg.det(A), np.linalg.inv(A), np.linalg.eig(A), np.linalg.svd(A), np.linalg.norm(arr), np.linalg.solve(A, b)",
-            pyspark: "from pyspark.ml.linalg import DenseMatrix"
-          },
-          {
-            scenario: "Boolean masking / where",
-            postgresql: "SELECT * FROM tbl WHERE x > 0; SELECT CASE WHEN x>0 THEN x ELSE 0 END FROM tbl;",
-            pandas: "df[df.x > 0], df.x.clip(lower=0)",
-            numpy: "arr[arr > 0], np.where(arr>0, arr, 0), np.clip(arr, 0, None), np.ma.masked_where(arr<0, arr)",
-            pyspark: "df.filter(col('x') > 0), df.withColumn('x', when(col('x')>0, col('x')).otherwise(0))"
-          },
-          {
-            scenario: "Statistical operations",
-            postgresql: "SELECT AVG(x), STDDEV(x), VARIANCE(x), PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY x) FROM tbl;",
-            pandas: "df.x.mean(), df.x.std(), df.x.var(), df.x.median(), df.x.quantile(0.25), df.x.skew(), df.x.kurt()",
-            numpy: "np.mean(arr), np.std(arr), np.var(arr), np.median(arr), np.percentile(arr,[25,50,75]), np.corrcoef(a, b), np.cov(a, b)",
-            pyspark: "df.select(mean('x'), stddev('x'), variance('x'), skewness('x'), kurtosis('x')).show()"
-          }
-        ]
-      },
-      {
-        category: "Writing Data",
-        scenarios: [
-          {
-            scenario: "Insert rows",
-            postgresql: "INSERT INTO tbl (a,b,c) VALUES (1,'x',2.0); INSERT INTO tbl SELECT * FROM src;",
-            pandas: "df.to_sql('tbl', conn, if_exists='append', index=False)",
-            numpy: "# write array to file:\nnp.save('file.npy', arr)",
-            pyspark: "df.write.mode('append').saveAsTable('tbl'), df.write.insertInto('tbl')"
-          },
-          {
-            scenario: "Update/overwrite rows",
-            postgresql: "UPDATE tbl SET salary=salary*1.1 WHERE dept='Eng';",
-            pandas: "df.loc[df.dept=='Eng', 'salary'] *= 1.1",
-            numpy: "arr[arr[:,2]==1, 1] *= 1.1",
-            pyspark: "df.withColumn('salary', when(col('dept')=='Eng', col('salary')*1.1).otherwise(col('salary')))"
-          },
-          {
-            scenario: "Delete / filter out rows",
-            postgresql: "DELETE FROM tbl WHERE dept='HR';",
-            pandas: "df = df[df.dept != 'HR']",
-            numpy: "mask = arr[:,col_idx] != val; arr = arr[mask]",
-            pyspark: "df = df.filter(col('dept')!='HR')"
-          },
-          {
-            scenario: "Write to CSV",
-            postgresql: "COPY tbl TO '/path/f.csv' WITH (FORMAT CSV, HEADER);",
-            pandas: "df.to_csv('file.csv', index=False), df.to_csv('file.csv.gz', compression='gzip')",
-            numpy: "np.savetxt('file.csv', arr, delimiter=',', header='a,b,c', comments='')",
-            pyspark: "df.write.csv('path', header=True), df.coalesce(1).write.csv('path', header=True, mode='overwrite')"
-          },
-          {
-            scenario: "Write to Parquet",
-            postgresql: "-- via extension or FDW",
-            pandas: "df.to_parquet('file.parquet', engine='pyarrow', compression='snappy')",
-            numpy: "import pyarrow as pa; import pyarrow.parquet as pq; pq.write_table(pa.Table.from_pandas(df),'f.parquet')",
-            pyspark: "df.write.parquet('path'), df.write.mode('overwrite').parquet('path')"
-          },
-          {
-            scenario: "Append vs Overwrite mode",
-            postgresql: "INSERT INTO vs TRUNCATE + INSERT; CREATE TABLE tbl AS SELECT ...",
-            pandas: "df.to_sql('t', conn, if_exists='replace'), df.to_sql('t', conn, if_exists='append')",
-            numpy: "# overwrite file: np.save('f.npy', arr)",
-            pyspark: "df.write.mode('overwrite').parquet('p'), df.write.mode('append').parquet('p'), df.write.mode('ignore').parquet('p')"
-          },
-          {
-            scenario: "Write to JSON",
-            postgresql: "SELECT row_to_json(tbl) FROM tbl;",
-            pandas: "df.to_json('file.json', orient='records', lines=True)",
-            numpy: "import json; with open('f.json','w') as f: json.dump(arr.tolist(), f)",
-            pyspark: "df.write.json('path'), df.write.mode('overwrite').json('path')"
-          },
-          {
-            scenario: "Create table from query",
-            postgresql: "CREATE TABLE new_tbl AS SELECT * FROM old_tbl WHERE x>0; CREATE TABLE tbl (col1 INT, col2 TEXT);",
-            pandas: "df_new = df[df.x > 0].copy(), df_new.to_sql('new_tbl', conn)",
-            numpy: "arr_new = arr[arr[:,0]>0].copy()",
-            pyspark: "df.filter(col('x')>0).write.saveAsTable('new_tbl')"
-          }
-        ]
-      },
-      {
-        category: "Advanced Queries",
-        scenarios: [
-          {
-            scenario: "CTE (Common Table Expression)",
-            postgresql: "WITH dept_avg AS (SELECT dept, AVG(sal) avg_s FROM tbl GROUP BY dept) SELECT e.*, d.avg_s FROM tbl e JOIN dept_avg d USING (dept);",
-            pandas: "dept_avg = df.groupby('dept')['sal'].mean().reset_index().rename(columns={'sal':'avg_s'})\npd.merge(df, dept_avg, on='dept')",
-            numpy: "# compute group means: means = {g: np.mean(arr[arr[:,0]==g]) for g in np.unique(arr[:,0])}",
-            pyspark: "dept_avg = df.groupBy('dept').agg(avg('sal').alias('avg_s'))\ndf.join(dept_avg,'dept','left')"
-          },
-          {
-            scenario: "Recursive CTE / Hierarchy",
-            postgresql: "WITH RECURSIVE org AS (SELECT id,name,mgr_id,1 lvl FROM emp WHERE mgr_id IS NULL UNION ALL SELECT e.id,e.name,e.mgr_id,o.lvl+1 FROM emp e JOIN org o ON e.mgr_id = o.id) SELECT * FROM org;",
-            pandas: "# build tree iteratively or use networkx library\nimport networkx as nx",
-            numpy: "# graph traversal with adj matrix\nimport scipy.sparse as sp",
-            pyspark: "# Use GraphX or iterative join in PySpark"
-          },
-          {
-            scenario: "Deduplication (keep latest)",
-            postgresql: "DELETE FROM tbl WHERE id NOT IN (SELECT MAX(id) FROM tbl GROUP BY key);",
-            pandas: "df.sort_values('id', ascending=False).drop_duplicates('key', keep='first')",
-            numpy: "# sort desc then np.unique on key col",
-            pyspark: "w = Window.partitionBy('key').orderBy(col('id').desc())\ndf.withColumn('rn', row_number().over(w)).filter(col('rn')==1).drop('rn')"
-          },
-          {
-            scenario: "Find Nth highest value",
-            postgresql: "SELECT DISTINCT sal FROM tbl ORDER BY sal DESC LIMIT 1 OFFSET N-1;",
-            pandas: "df.sal.nlargest(n).iloc[-1], df.sal.drop_duplicates().nlargest(n).min()",
-            numpy: "np.partition(arr, -n)[-n], np.unique(arr)[-n]",
-            pyspark: "df.select('sal').distinct().orderBy(col('sal').desc()).limit(n).agg(min('sal'))"
-          },
-          {
-            scenario: "Consecutive / gap detection",
-            postgresql: "SELECT id, dt, dt - LAG(dt) OVER (ORDER BY dt) AS gap FROM tbl;",
-            pandas: "df.sort_values('dt')\ndf['gap'] = df.dt.diff()",
-            numpy: "np.diff(arr), np.diff(arr, axis=0)",
-            pyspark: "w = Window.orderBy('dt')\ndf.withColumn('gap', datediff(col('dt'), lag('dt',1).over(w)))"
-          },
-          {
-            scenario: "Pivoting strings (STRING_AGG)",
-            postgresql: "SELECT dept, STRING_AGG(name, ', ') AS members FROM tbl GROUP BY dept;",
-            pandas: "df.groupby('dept')['name'].agg(', '.join).reset_index()",
-            numpy: "# use Python join in vectorized fn",
-            pyspark: "from pyspark.sql.functions import collect_list\ndf.groupBy('dept').agg(concat_ws(', ', collect_list('name')).alias('m'))"
-          },
-          {
-            scenario: "Broadcast join (big + small)",
-            postgresql: "-- PostgreSQL auto-decides; set enable_hashjoin=off for NL join",
-            pandas: "# Pandas always in-memory; auto-broadcast on merge",
-            numpy: "# N/A",
-            pyspark: "from pyspark.sql.functions import broadcast\ndf_big.join(broadcast(df_small), 'key') # forces map-side join"
-          },
-          {
-            scenario: "Caching / Persistence",
-            postgresql: "-- Materialised views: CREATE MATERIALIZED VIEW mv AS SELECT ... FROM tbl; REFRESH MATERIALIZED VIEW mv;",
-            pandas: "# Pandas DF is already in-memory; no explicit cache needed",
-            numpy: "# arrays are always in-memory; use np.memmap for disk-backed: arr = np.memmap('f.dat', dtype='f4', mode='r+', shape=(1000,100))",
-            pyspark: "df.cache(), df.persist(), df.unpersist(), df.persist(StorageLevel.DISK_ONLY)"
-          },
-          {
-            scenario: "Explain / Query plan",
-            postgresql: "EXPLAIN SELECT * FROM tbl; EXPLAIN ANALYZE SELECT * FROM tbl; EXPLAIN (ANALYZE, BUFFERS) SELECT...;",
-            pandas: "# No query plan (in-memory); Profile with: import cProfile; cProfile.run('...')",
-            numpy: "# Time operations: import timeit; timeit.timeit(lambda:np.dot(A,B), number=100)",
-            pyspark: "df.explain(), df.explain(True) # extended, df.explain('cost') # Spark 3.x"
-          },
-          {
-            scenario: "Indexing & Performance",
-            postgresql: "CREATE INDEX idx ON tbl(col); CREATE INDEX idx ON tbl(c1,c2); CREATE INDEX CONCURRENTLY ...; ANALYZE tbl; VACUUM ANALYZE tbl;",
-            pandas: "# Use category dtype: df['c']= df['c'].astype('category'); Avoid iterrows; use vectorised ops; Use .loc not chained indexing",
-            numpy: "# Pre-sort for searchsorted: arr.sort(); np.searchsorted(arr, value); Use views not copies where possible",
-            pyspark: "df.repartition(n, 'key'), df.coalesce(1), df.sortWithinPartitions('key'), # Use Delta Lake for indexing"
-          }
-        ]
-      },
-      {
-        category: "Data Types & Casting",
-        scenarios: [
-          {
-            scenario: "Check data types",
-            postgresql: "SELECT column_name, data_type FROM information_schema.columns WHERE table_name = 'tbl';",
-            pandas: "df.dtypes\ndf.info()",
-            numpy: "arr.dtype\narr.astype(dtype)",
-            pyspark: "df.dtypes\ndf.printSchema()"
-          },
-          {
-            scenario: "Cast to string",
-            postgresql: "SELECT col::text, CAST(col AS varchar) FROM tbl;",
-            pandas: "df['col'].astype(str)\ndf['col'] = df['col'].astype('string')",
-            numpy: "arr.astype(str)\narr.astype('U10')",
-            pyspark: "df.withColumn('col', col('col').cast('string'))"
-          },
-          {
-            scenario: "Cast to integer",
-            postgresql: "SELECT col::int, CAST(col AS integer) FROM tbl;",
-            pandas: "df['col'].astype(int)\ndf['col'] = pd.to_numeric(df['col'], errors='coerce')",
-            numpy: "arr.astype(int)\narr.astype(np.int32)",
-            pyspark: "df.withColumn('col', col('col').cast('int'))"
-          },
-          {
-            scenario: "Cast to float/decimal",
-            postgresql: "SELECT col::numeric, CAST(col AS decimal(10,2)) FROM tbl;",
-            pandas: "df['col'].astype(float)\ndf['col'] = pd.to_numeric(df['col'], errors='coerce')",
-            numpy: "arr.astype(float)\narr.astype(np.float64)",
-            pyspark: "df.withColumn('col', col('col').cast('double'))"
-          },
-          {
-            scenario: "Cast to date/datetime",
-            postgresql: "SELECT col::date, col::timestamp FROM tbl;",
-            pandas: "pd.to_datetime(df['col'])\ndf['col'] = pd.to_datetime(df['col'], errors='coerce')",
-            numpy: "arr.astype('datetime64[D]')\narr.astype('datetime64[ns]')",
-            pyspark: "df.withColumn('col', col('col').cast('date'))\ndf.withColumn('col', col('col').cast('timestamp'))"
-          },
-          {
-            scenario: "Cast to boolean",
-            postgresql: "SELECT col::boolean FROM tbl;",
-            pandas: "df['col'].astype(bool)",
-            numpy: "arr.astype(bool)",
-            pyspark: "df.withColumn('col', col('col').cast('boolean'))"
-          }
-        ]
-      },
-      {
-        category: "Handling Missing Data",
-        scenarios: [
-          {
-            scenario: "Check for null/missing values",
-            postgresql: "SELECT * FROM tbl WHERE col IS NULL;\nSELECT COUNT(*) FROM tbl WHERE col IS NULL;",
-            pandas: "df.isnull().sum()\ndf.isna().any()",
-            numpy: "np.isnan(arr).sum()\nnp.isinf(arr).sum()",
-            pyspark: "df.filter(col('col').isNull())\ndf.select([count(when(col(c).isNull(), c)).alias(c) for c in df.columns])"
-          },
-          {
-            scenario: "Drop rows with nulls",
-            postgresql: "DELETE FROM tbl WHERE col IS NULL;\nSELECT * FROM tbl WHERE col IS NOT NULL;",
-            pandas: "df.dropna()\ndf.dropna(subset=['col'])",
-            numpy: "arr[~np.isnan(arr)]\narr = arr[np.isfinite(arr)]",
-            pyspark: "df.dropna()\ndf.dropna(subset=['col'])"
-          },
-          {
-            scenario: "Fill nulls with value",
-            postgresql: "UPDATE tbl SET col = 'default' WHERE col IS NULL;\nSELECT COALESCE(col, 'default') FROM tbl;",
-            pandas: "df.fillna(0)\ndf['col'].fillna(df['col'].mean())",
-            numpy: "arr = np.nan_to_num(arr, nan=0.0)\narr[np.isnan(arr)] = 0",
-            pyspark: "df.fillna(0)\ndf.na.fill(0)"
-          },
-          {
-            scenario: "Fill nulls with forward/backward fill",
-            postgresql: "-- No direct equivalent, use window functions",
-            pandas: "df.fillna(method='ffill')\ndf.fillna(method='bfill')",
-            numpy: "# Use pandas for this operation",
-            pyspark: "from pyspark.sql.window import Window\nfrom pyspark.sql.functions import last, first\n# Complex window operations needed"
-          },
-          {
-            scenario: "Replace specific values",
-            postgresql: "UPDATE tbl SET col = 'new_val' WHERE col = 'old_val';",
-            pandas: "df.replace('old_val', 'new_val')\ndf['col'].replace({'old_val': 'new_val'})",
-            numpy: "arr[arr == 'old_val'] = 'new_val'",
-            pyspark: "df.withColumn('col', when(col('col') == 'old_val', 'new_val').otherwise(col('col')))"
-          }
-        ]
-      },
-      {
-        category: "Grouping & Pivoting",
-        scenarios: [
-          {
-            scenario: "Group by and aggregate",
-            postgresql: "SELECT dept, COUNT(*), AVG(salary) FROM tbl GROUP BY dept;",
-            pandas: "df.groupby('dept').agg({'salary': 'mean', 'count': 'size'})",
-            numpy: "# Use pandas for groupby operations",
-            pyspark: "df.groupBy('dept').agg(count('*'), avg('salary'))"
-          },
-          {
-            scenario: "Multiple aggregations per group",
-            postgresql: "SELECT dept, COUNT(*), MIN(salary), MAX(salary), AVG(salary) FROM tbl GROUP BY dept;",
-            pandas: "df.groupby('dept').agg({'salary': ['count', 'min', 'max', 'mean']})",
-            numpy: "# Use pandas",
-            pyspark: "df.groupBy('dept').agg(count('*'), min('salary'), max('salary'), avg('salary'))"
-          },
-          {
-            scenario: "Group by multiple columns",
-            postgresql: "SELECT dept, city, COUNT(*) FROM tbl GROUP BY dept, city;",
-            pandas: "df.groupby(['dept', 'city']).size()",
-            numpy: "# Use pandas",
-            pyspark: "df.groupBy('dept', 'city').count()"
-          },
-          {
-            scenario: "Pivot table",
-            postgresql: "-- Use CASE statements or crosstab extension",
-            pandas: "pd.pivot_table(df, values='salary', index='dept', columns='year')",
-            numpy: "# Use pandas",
-            pyspark: "df.groupBy('dept').pivot('year').avg('salary')"
-          },
-          {
-            scenario: "Unpivot/Melt",
-            postgresql: "-- Complex with UNION or unnest",
-            pandas: "pd.melt(df, id_vars=['id'], value_vars=['col1', 'col2'])",
-            numpy: "# Use pandas",
-            pyspark: "# Use stack() or explode() functions"
-          },
-          {
-            scenario: "Rolling/Groupby apply",
-            postgresql: "-- Use window functions",
-            pandas: "df.groupby('dept')['salary'].rolling(3).mean()",
-            numpy: "# Use pandas",
-            pyspark: "from pyspark.sql.window import Window\nw = Window.partitionBy('dept').orderBy('date')\ndf.withColumn('rolling_avg', avg('salary').over(w.rowsBetween(-2, 0)))"
-          }
-        ]
-      },
-      {
-        category: "Data Validation & Quality",
-        scenarios: [
-          {
-            scenario: "Check data integrity constraints",
-            postgresql: "SELECT * FROM tbl WHERE NOT (col > 0);\n-- Check foreign key constraints",
-            pandas: "assert df['col'].notna().all()\nassert (df['col'] > 0).all()",
-            numpy: "assert np.all(arr > 0)\nassert not np.any(np.isnan(arr))",
-            pyspark: "from pyspark.sql.functions import when\n# Use filter and count for validation"
-          },
-          {
-            scenario: "Find duplicates",
-            postgresql: "SELECT col, COUNT(*) FROM tbl GROUP BY col HAVING COUNT(*) > 1;",
-            pandas: "df[df.duplicated()]\ndf.duplicated().sum()",
-            numpy: "unique, counts = np.unique(arr, return_counts=True)\nduplicates = unique[counts > 1]",
-            pyspark: "df.groupBy(df.columns).count().filter('count > 1')"
-          },
-          {
-            scenario: "Remove duplicates",
-            postgresql: "DELETE FROM tbl WHERE id NOT IN (SELECT MIN(id) FROM tbl GROUP BY col);",
-            pandas: "df.drop_duplicates()\ndf.drop_duplicates(subset=['col'])",
-            numpy: "arr = np.unique(arr)",
-            pyspark: "df.dropDuplicates()\ndf.dropDuplicates(['col'])"
-          },
-          {
-            scenario: "Validate data ranges",
-            postgresql: "SELECT * FROM tbl WHERE age < 0 OR age > 150;",
-            pandas: "df[(df['age'] < 0) | (df['age'] > 150)]",
-            numpy: "outliers = arr[(arr < 0) | (arr > 150)]",
-            pyspark: "df.filter((col('age') < 0) | (col('age') > 150))"
-          },
-          {
-            scenario: "Check data consistency",
-            postgresql: "SELECT * FROM orders o LEFT JOIN customers c ON o.customer_id = c.id WHERE c.id IS NULL;",
-            pandas: "# Check referential integrity\ndf_orders[~df_orders['customer_id'].isin(df_customers['id'])]",
-            numpy: "# Use pandas for complex joins",
-            pyspark: "orders_df.join(customers_df, 'customer_id', 'left_anti')"
-          },
-          {
-            scenario: "Data profiling/summary stats",
-            postgresql: "SELECT COUNT(*), AVG(col), STDDEV(col), MIN(col), MAX(col) FROM tbl;",
-            pandas: "df.describe()\ndf['col'].describe()",
-            numpy: "np.mean(arr), np.std(arr), np.min(arr), np.max(arr)",
-            pyspark: "df.describe().show()\ndf.select('col').describe().show()"
-          }
-        ]
-      }
-    ];
-
-    // Initialize comparison
-    function initializeComparison() {
-      // Initialize category pills
-      populateCategories();
-
-      // Setup tool checkboxes
-      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-      checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', function () { });
-      });
-
-      // Setup category pills
-      const categoryPills = document.querySelectorAll('.category-pill');
-      categoryPills.forEach(pill => {
-        pill.addEventListener('click', toggleCategory);
-      });
-
-      // Setup buttons
-      document.getElementById('submitBtn').addEventListener('click', submitComparison);
-      document.getElementById('resetBtn').addEventListener('click', resetComparison);
-    }
-
-    function populateCategories() {
-      const categorySelector = document.getElementById('categorySelector');
-      const categories = comparisonData.map(section => section.category);
-
-      categories.forEach(category => {
-        const pill = document.createElement('button');
-        pill.className = 'category-pill';
-        pill.textContent = category;
-        pill.dataset.category = category;
-        pill.type = 'button';
-        categorySelector.appendChild(pill);
-      });
-    }
-
-    function toggleCategory(e) {
-      e.target.classList.toggle('active');
-    }
-
-    function resetComparison() {
-      // Uncheck all tools
-      document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-        checkbox.checked = false;
-      });
-
-      // Deactivate all categories
-      document.querySelectorAll('.category-pill').forEach(pill => {
-        pill.classList.remove('active');
-      });
-
-      // Clear grid
-      document.getElementById('comparisonGrid').innerHTML = '';
-      document.getElementById('emptyState').style.display = 'block';
-      document.getElementById('emptyState').innerHTML = '👋 Select tools and categories, then click "Show Comparison" to view results';
-    }
-
-    function submitComparison() {
-      const selectedTools = [];
-      document.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
-        selectedTools.push(checkbox.name);
-      });
-
-      const selectedCategories = [];
-      document.querySelectorAll('.category-pill.active').forEach(pill => {
-        selectedCategories.push(pill.dataset.category);
-      });
-
-      const grid = document.getElementById('comparisonGrid');
-      const emptyState = document.getElementById('emptyState');
-
-      if (selectedTools.length === 0 || selectedCategories.length === 0) {
-        grid.innerHTML = '';
-        emptyState.style.display = 'block';
-        emptyState.innerHTML = '⚠️ Please select at least one tool and one category to compare';
-        return;
-      }
-
-      emptyState.style.display = 'none';
-      grid.innerHTML = '';
-
-      const toolNames = {
-        postgresql: '🐘 PostgreSQL',
-        pandas: '🐼 Pandas',
-        numpy: '🔢 NumPy',
-        pyspark: '⚡ PySpark'
-      };
-
-      comparisonData.forEach(section => {
-        // Only include scenarios from selected categories
-        if (!selectedCategories.includes(section.category)) {
-          return;
-        }
-
-        section.scenarios.forEach(scenario => {
-          const div = document.createElement('div');
-          div.className = 'comparison-scenario';
-
-          let html = `<div class="scenario-header">`;
-          html += `<div class="scenario-title">${scenario.scenario}</div>`;
-          html += `<div class="category-badge">${section.category}</div>`;
-          html += `</div>`;
-          html += '<div class="comparison-columns">';
-
-          selectedTools.forEach(tool => {
-            const code = (scenario[tool] || 'N/A').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-            html += `
-              <div class="tool-column active">
-                <div class="tool-header">${toolNames[tool]}</div>
-                <div class="tool-code">${code}</div>
-              </div>
-            `;
-          });
-
-          html += '</div>';
-          div.innerHTML = html;
-          grid.appendChild(div);
-        });
-      });
-    }
-
-    // Scroll to top functionality
-    const scrollToTopBtn = document.getElementById('scrollToTop');
-
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        scrollToTopBtn.classList.add('visible');
-      } else {
-        scrollToTopBtn.classList.remove('visible');
-      }
-    });
-
-    scrollToTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-
-    // Initialize on load
-    document.addEventListener('DOMContentLoaded', initializeComparison);
-
-    // Sidebar toggle functionality
-    document.addEventListener('DOMContentLoaded', function () {
-      const sidebarToggle = document.getElementById('sidebarToggle');
-      const sidebar = document.querySelector('.sidebar');
-      const sidebarOverlay = document.getElementById('sidebarOverlay');
-      const mainContent = document.querySelector('.main-content');
-
-      if (sidebarToggle && sidebar && sidebarOverlay && mainContent) {
-        sidebarToggle.addEventListener('click', function () {
-          sidebar.classList.toggle('active');
-          sidebarOverlay.classList.toggle('active');
-          mainContent.classList.toggle('sidebar-active');
-        });
-
-        sidebarOverlay.addEventListener('click', function () {
-          sidebar.classList.remove('active');
-          sidebarOverlay.classList.remove('active');
-          mainContent.classList.remove('sidebar-active');
+    (function () {
+      var btn = document.getElementById('theme-toggle');
+      var icon = btn && btn.querySelector('.toggle-icon');
+      var saved = localStorage.getItem('theme');
+      var dark = saved === 'dark' || (saved === null && window.matchMedia('(prefers-color-scheme:dark)').matches);
+      if (dark) { document.body.classList.add('dark'); if (icon) icon.textContent = '\u2600\ufe0f'; }
+      if (btn) {
+        btn.addEventListener('click', function () {
+          document.body.classList.toggle('dark');
+          var d = document.body.classList.contains('dark');
+          if (icon) icon.textContent = d ? '\u2600\ufe0f' : '\u263e\ufe0f';
+          localStorage.setItem('theme', d ? 'dark' : 'light');
         });
       }
-    });
+      var tog = document.getElementById('mobile-menu-toggle');
+      var mm = document.getElementById('mobile-menu');
+      var ov = document.getElementById('mobile-menu-overlay');
+      function closeMenu() { if (mm) mm.classList.remove('open'); if (ov) ov.classList.remove('active'); }
+      if (tog) {
+        tog.addEventListener('click', function () {
+          var open = mm && mm.classList.contains('open');
+          if (open) { closeMenu(); } else { if (mm) mm.classList.add('open'); if (ov) ov.classList.add('active'); }
+        });
+      }
+      if (ov) ov.addEventListener('click', closeMenu);
+      var links = document.querySelectorAll('.mobile-nav a');
+      for (var i = 0; i < links.length; i++)links[i].addEventListener('click', closeMenu);
+      var stb = document.getElementById('scrollToTop');
+      if (stb) {
+        window.addEventListener('scroll', function () { stb.classList.toggle('visible', window.pageYOffset > 300); });
+        stb.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+      }
+      var revs = document.querySelectorAll('.reveal');
+      if (revs.length && 'IntersectionObserver' in window) {
+        var obs = new IntersectionObserver(function (ents) {
+          ents.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+        }, { threshold: 0.05 });
+        revs.forEach(function (el) { obs.observe(el); });
+      }
+    })();
   </script>
 </body>
 
