@@ -1,0 +1,5148 @@
+[
+  {
+    "number": 101,
+    "question": "Customers who ordered only in the last 6 months",
+    "explanation": "MIN(order_date) >= 6 months ago means every single order this customer placed falls within the recent window — no older history exists.",
+    "query": "SELECT customer_id FROM orders GROUP BY customer_id HAVING MIN(order_date) >= CURRENT_DATE - INTERVAL '6 months';",
+    "input": {
+      "table": "orders",
+      "headers": [
+        "customer_id",
+        "order_date"
+      ],
+      "rows": [
+        [
+          "101",
+          "2024-12-01"
+        ],
+        [
+          "101",
+          "2025-02-15"
+        ],
+        [
+          "102",
+          "2023-05-01"
+        ],
+        [
+          "102",
+          "2025-01-20"
+        ],
+        [
+          "103",
+          "2025-01-10"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "customer_id"
+      ],
+      "rows": [
+        [
+          "101"
+        ],
+        [
+          "103"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 102,
+    "question": "Total orders per day including days with zero orders",
+    "explanation": "generate_series fills every date in the range. LEFT JOIN pads missing days. COUNT returns 0 for days with no orders.",
+    "query": "WITH dates AS ( SELECT generate_series(MIN(order_date), MAX(order_date), INTERVAL '1 day') AS day FROM orders ) SELECT d.day, COUNT(o.order_id) AS order_count FROM dates d LEFT JOIN orders o ON d.day = o.order_date GROUP BY d.day ORDER BY d.day;",
+    "input": {
+      "table": "orders",
+      "headers": [
+        "order_id",
+        "order_date"
+      ],
+      "rows": [
+        [
+          "1",
+          "2025-01-01"
+        ],
+        [
+          "2",
+          "2025-01-01"
+        ],
+        [
+          "3",
+          "2025-01-03"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "day",
+        "order_count"
+      ],
+      "rows": [
+        [
+          "2025-01-01",
+          "2"
+        ],
+        [
+          "2025-01-02",
+          "0"
+        ],
+        [
+          "2025-01-03",
+          "1"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 103,
+    "question": "Department with the most employees",
+    "explanation": "COUNT per department, ORDER BY descending, LIMIT 1 returns the single department with the most headcount.",
+    "query": "SELECT department_id, COUNT(*) AS employee_count FROM employees GROUP BY department_id ORDER BY employee_count DESC LIMIT 1;",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "id",
+        "dept_id"
+      ],
+      "rows": [
+        [
+          "1",
+          "10"
+        ],
+        [
+          "2",
+          "10"
+        ],
+        [
+          "3",
+          "10"
+        ],
+        [
+          "4",
+          "20"
+        ],
+        [
+          "5",
+          "20"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "dept_id",
+        "employee_count"
+      ],
+      "rows": [
+        [
+          "10",
+          "3"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 104,
+    "question": "Find gaps in employee IDs",
+    "explanation": "ROW_NUMBER produces a sequential counter. Wherever the real id differs from rn, a gap has been found in the sequence.",
+    "query": "WITH numbered AS ( SELECT id, ROW_NUMBER() OVER (ORDER BY id) AS rn FROM employees ) SELECT rn + 1 AS missing_id FROM numbered WHERE id <> rn;",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "id",
+        "name"
+      ],
+      "rows": [
+        [
+          "1",
+          "Alice"
+        ],
+        [
+          "2",
+          "Bob"
+        ],
+        [
+          "4",
+          "Carol"
+        ],
+        [
+          "5",
+          "David"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "missing_id"
+      ],
+      "rows": [
+        [
+          "3"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 105,
+    "question": "Employees hired before their managers",
+    "explanation": "Self-join compares hire dates. Employees hired before their own manager are veterans who predate their boss.",
+    "query": "SELECT e.name AS employee, m.name AS manager, e.hire_date, m.hire_date AS mgr_hire_date FROM employees e JOIN employees m ON e.manager_id = m.id WHERE e.hire_date < m.hire_date;",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "id",
+        "name",
+        "hire_date",
+        "manager_id"
+      ],
+      "rows": [
+        [
+          "1",
+          "CEO",
+          "2010-01-01",
+          "NULL"
+        ],
+        [
+          "2",
+          "Alice",
+          "2008-06-01",
+          "1"
+        ],
+        [
+          "3",
+          "Bob",
+          "2015-03-01",
+          "1"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "employee",
+        "manager",
+        "hire_date",
+        "mgr_hire_date"
+      ],
+      "rows": [
+        [
+          "Alice",
+          "CEO",
+          "2008-06-01",
+          "2010-01-01"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 106,
+    "question": "Departments with average salary above the overall company average",
+    "explanation": "HAVING compares each department's average against a scalar subquery of the company-wide average.",
+    "query": "SELECT department_id, AVG(salary) AS avg_salary FROM employees GROUP BY department_id HAVING AVG(salary) > (SELECT AVG(salary) FROM employees);",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "id",
+        "name",
+        "salary",
+        "dept_id"
+      ],
+      "rows": [
+        [
+          "1",
+          "Alice",
+          "90000",
+          "10"
+        ],
+        [
+          "2",
+          "Bob",
+          "80000",
+          "10"
+        ],
+        [
+          "3",
+          "Carol",
+          "60000",
+          "20"
+        ],
+        [
+          "4",
+          "David",
+          "50000",
+          "20"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "dept_id",
+        "avg_salary"
+      ],
+      "rows": [
+        [
+          "10",
+          "85000.00"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 107,
+    "question": "Employee with the highest number of dependents",
+    "explanation": "COUNT per employee in the dependents table. ORDER BY descending LIMIT 1 finds the employee with the most.",
+    "query": "SELECT employee_id, COUNT(*) AS dependent_count FROM dependents GROUP BY employee_id ORDER BY dependent_count DESC LIMIT 1;",
+    "input": {
+      "table": "dependents",
+      "headers": [
+        "dependent_id",
+        "employee_id"
+      ],
+      "rows": [
+        [
+          "1",
+          "E1"
+        ],
+        [
+          "2",
+          "E1"
+        ],
+        [
+          "3",
+          "E1"
+        ],
+        [
+          "4",
+          "E2"
+        ],
+        [
+          "5",
+          "E2"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "employee_id",
+        "dependent_count"
+      ],
+      "rows": [
+        [
+          "E1",
+          "3"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 108,
+    "question": "Customer with the longest gap between consecutive orders",
+    "explanation": "LAG gives the prior order date per customer. Date difference = gap. MAX per customer then LIMIT 1 finds the biggest gap overall.",
+    "query": "WITH ordered AS ( SELECT customer_id, order_date, LAG(order_date) OVER (PARTITION BY customer_id ORDER BY order_date) AS prev FROM orders ), gaps AS ( SELECT customer_id, order_date - prev AS gap_days FROM ordered WHERE prev IS NOT NULL ) SELECT customer_id, MAX(gap_days) AS longest_gap FROM gaps GROUP BY customer_id ORDER BY longest_gap DESC LIMIT 1;",
+    "input": {
+      "table": "orders",
+      "headers": [
+        "customer_id",
+        "order_date"
+      ],
+      "rows": [
+        [
+          "101",
+          "2024-01-01"
+        ],
+        [
+          "101",
+          "2024-06-01"
+        ],
+        [
+          "101",
+          "2024-06-10"
+        ],
+        [
+          "102",
+          "2024-01-01"
+        ],
+        [
+          "102",
+          "2024-12-01"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "customer_id",
+        "longest_gap"
+      ],
+      "rows": [
+        [
+          "102",
+          "335 days"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 109,
+    "question": "Customers who ordered all products in a specific category",
+    "explanation": "Filter sales to the category's products. Compare each customer's distinct product count to the total in that category.",
+    "query": "SELECT customer_id FROM sales WHERE product_id IN (SELECT product_id FROM products WHERE category_id = 1) GROUP BY customer_id HAVING COUNT(DISTINCT product_id) = (SELECT COUNT(*) FROM products WHERE category_id = 1);",
+    "input": {
+      "table": "sales  (category 1 has 3 products)",
+      "headers": [
+        "customer_id",
+        "product_id"
+      ],
+      "rows": [
+        [
+          "C1",
+          "P1"
+        ],
+        [
+          "C1",
+          "P2"
+        ],
+        [
+          "C1",
+          "P3"
+        ],
+        [
+          "C2",
+          "P1"
+        ],
+        [
+          "C2",
+          "P2"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "customer_id"
+      ],
+      "rows": [
+        [
+          "C1"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 110,
+    "question": "Most recent order date per customer",
+    "explanation": "Simple MAX aggregate over order_date returns the latest order date for each customer.",
+    "query": "SELECT customer_id, MAX(order_date) AS last_order_date FROM orders GROUP BY customer_id;",
+    "input": {
+      "table": "orders",
+      "headers": [
+        "customer_id",
+        "order_date"
+      ],
+      "rows": [
+        [
+          "101",
+          "2024-05-01"
+        ],
+        [
+          "101",
+          "2025-01-15"
+        ],
+        [
+          "102",
+          "2024-11-20"
+        ],
+        [
+          "102",
+          "2025-02-10"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "customer_id",
+        "last_order_date"
+      ],
+      "rows": [
+        [
+          "101",
+          "2025-01-15"
+        ],
+        [
+          "102",
+          "2025-02-10"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 111,
+    "question": "List all employees with their manager names",
+    "explanation": "LEFT JOIN so the root employee (CEO) also appears in results — with NULL as their manager name.",
+    "query": "SELECT e.name AS employee, m.name AS manager FROM employees e LEFT JOIN employees m ON e.manager_id = m.id;",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "id",
+        "name",
+        "manager_id"
+      ],
+      "rows": [
+        [
+          "1",
+          "CEO",
+          "NULL"
+        ],
+        [
+          "2",
+          "Alice",
+          "1"
+        ],
+        [
+          "3",
+          "Bob",
+          "1"
+        ],
+        [
+          "4",
+          "Carol",
+          "2"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "employee",
+        "manager"
+      ],
+      "rows": [
+        [
+          "CEO",
+          "NULL"
+        ],
+        [
+          "Alice",
+          "CEO"
+        ],
+        [
+          "Bob",
+          "CEO"
+        ],
+        [
+          "Carol",
+          "Alice"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 112,
+    "question": "Employees with the same salary as their manager",
+    "explanation": "Self-join on manager_id. Equality on salary reveals cases where employee and manager earn identically.",
+    "query": "SELECT e.name AS employee, m.name AS manager, e.salary FROM employees e JOIN employees m ON e.manager_id = m.id WHERE e.salary = m.salary;",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "id",
+        "name",
+        "salary",
+        "manager_id"
+      ],
+      "rows": [
+        [
+          "1",
+          "CEO",
+          "100000",
+          "NULL"
+        ],
+        [
+          "2",
+          "Alice",
+          "75000",
+          "1"
+        ],
+        [
+          "3",
+          "Bob",
+          "75000",
+          "2"
+        ],
+        [
+          "4",
+          "Carol",
+          "60000",
+          "2"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "employee",
+        "manager",
+        "salary"
+      ],
+      "rows": [
+        [
+          "Bob",
+          "Alice",
+          "75000"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 113,
+    "question": "Products with total sales above the average sales amount",
+    "explanation": "CTE computes the overall average. HAVING compares each product's total revenue against that benchmark.",
+    "query": "WITH avg_sales AS (SELECT AVG(amount) AS avg_amount FROM sales) SELECT product_id, SUM(amount) AS total_sales FROM sales GROUP BY product_id HAVING SUM(amount) > (SELECT avg_amount FROM avg_sales);",
+    "input": {
+      "table": "sales",
+      "headers": [
+        "product_id",
+        "amount"
+      ],
+      "rows": [
+        [
+          "P1",
+          "1000"
+        ],
+        [
+          "P1",
+          "2000"
+        ],
+        [
+          "P2",
+          "500"
+        ],
+        [
+          "P3",
+          "3000"
+        ],
+        [
+          "P3",
+          "2500"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "product_id",
+        "total_sales"
+      ],
+      "rows": [
+        [
+          "P1",
+          "3000"
+        ],
+        [
+          "P3",
+          "5500"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 114,
+    "question": "Number of employees hired each year",
+    "explanation": "EXTRACT YEAR groups employees by their hire year. COUNT gives the annual hiring count.",
+    "query": "SELECT EXTRACT(YEAR FROM hire_date) AS hire_year, COUNT(*) AS count FROM employees GROUP BY hire_year ORDER BY hire_year;",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "id",
+        "name",
+        "hire_date"
+      ],
+      "rows": [
+        [
+          "1",
+          "Alice",
+          "2021-03-01"
+        ],
+        [
+          "2",
+          "Bob",
+          "2021-08-15"
+        ],
+        [
+          "3",
+          "Carol",
+          "2022-01-10"
+        ],
+        [
+          "4",
+          "David",
+          "2023-06-01"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "hire_year",
+        "count"
+      ],
+      "rows": [
+        [
+          "2021",
+          "2"
+        ],
+        [
+          "2022",
+          "1"
+        ],
+        [
+          "2023",
+          "1"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 115,
+    "question": "Employee count per job title within each department",
+    "explanation": "Two-level GROUP BY produces counts at the intersection of department and job title.",
+    "query": "SELECT department_id, job_title, COUNT(*) AS employee_count FROM employees GROUP BY department_id, job_title;",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "dept_id",
+        "job_title",
+        "name"
+      ],
+      "rows": [
+        [
+          "10",
+          "Dev",
+          "Alice"
+        ],
+        [
+          "10",
+          "Dev",
+          "Bob"
+        ],
+        [
+          "10",
+          "Manager",
+          "Carol"
+        ],
+        [
+          "20",
+          "Dev",
+          "David"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "dept_id",
+        "job_title",
+        "employee_count"
+      ],
+      "rows": [
+        [
+          "10",
+          "Dev",
+          "2"
+        ],
+        [
+          "10",
+          "Manager",
+          "1"
+        ],
+        [
+          "20",
+          "Dev",
+          "1"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 116,
+    "question": "Find root employees — those with no manager assigned",
+    "explanation": "manager_id IS NULL marks the top of the hierarchy — the CEO or any root-level employee.",
+    "query": "SELECT * FROM employees WHERE manager_id IS NULL;",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "id",
+        "name",
+        "manager_id"
+      ],
+      "rows": [
+        [
+          "1",
+          "CEO",
+          "NULL"
+        ],
+        [
+          "2",
+          "Alice",
+          "1"
+        ],
+        [
+          "3",
+          "Bob",
+          "1"
+        ],
+        [
+          "4",
+          "Carol",
+          "2"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "id",
+        "name",
+        "manager_id"
+      ],
+      "rows": [
+        [
+          "1",
+          "CEO",
+          "NULL"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 117,
+    "question": "Average salary by department and job title",
+    "explanation": "GROUP BY on two dimensions gives granular salary insights at the department × role level.",
+    "query": "SELECT department_id, job_title, AVG(salary) AS avg_salary FROM employees GROUP BY department_id, job_title;",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "dept_id",
+        "job_title",
+        "salary"
+      ],
+      "rows": [
+        [
+          "10",
+          "Dev",
+          "80000"
+        ],
+        [
+          "10",
+          "Dev",
+          "90000"
+        ],
+        [
+          "10",
+          "Manager",
+          "110000"
+        ],
+        [
+          "20",
+          "Dev",
+          "75000"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "dept_id",
+        "job_title",
+        "avg_salary"
+      ],
+      "rows": [
+        [
+          "10",
+          "Dev",
+          "85000.00"
+        ],
+        [
+          "10",
+          "Manager",
+          "110000.00"
+        ],
+        [
+          "20",
+          "Dev",
+          "75000.00"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 118,
+    "question": "Median salary of all employees",
+    "explanation": "PostgreSQL's PERCENTILE_CONT(0.5) computes the exact interpolated median over all employee salaries.",
+    "query": "SELECT PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY salary) AS median_salary FROM employees;",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "id",
+        "salary"
+      ],
+      "rows": [
+        [
+          "1",
+          "45000"
+        ],
+        [
+          "2",
+          "60000"
+        ],
+        [
+          "3",
+          "75000"
+        ],
+        [
+          "4",
+          "90000"
+        ],
+        [
+          "5",
+          "110000"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "median_salary"
+      ],
+      "rows": [
+        [
+          "75000"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 119,
+    "question": "Employees promoted more than once",
+    "explanation": "Counting rows in the promotions table per employee. Greater than 1 means at least two promotions have occurred.",
+    "query": "SELECT employee_id, COUNT(*) AS promotion_count FROM promotions GROUP BY employee_id HAVING COUNT(*) > 1;",
+    "input": {
+      "table": "promotions",
+      "headers": [
+        "promotion_id",
+        "employee_id"
+      ],
+      "rows": [
+        [
+          "1",
+          "E1"
+        ],
+        [
+          "2",
+          "E1"
+        ],
+        [
+          "3",
+          "E2"
+        ],
+        [
+          "4",
+          "E3"
+        ],
+        [
+          "5",
+          "E3"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "employee_id",
+        "promotion_count"
+      ],
+      "rows": [
+        [
+          "E1",
+          "2"
+        ],
+        [
+          "E3",
+          "2"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 120,
+    "question": "Total sales by product category",
+    "explanation": "JOIN brings in the category from products. GROUP BY and SUM aggregate revenue per category.",
+    "query": "SELECT p.category_id, SUM(s.amount) AS total_sales FROM sales s JOIN products p ON s.product_id = p.product_id GROUP BY p.category_id;",
+    "input": {
+      "table": "sales + products",
+      "headers": [
+        "product_id",
+        "category_id",
+        "sale_amount"
+      ],
+      "rows": [
+        [
+          "P1",
+          "C1",
+          "1000"
+        ],
+        [
+          "P2",
+          "C1",
+          "1500"
+        ],
+        [
+          "P3",
+          "C2",
+          "800"
+        ],
+        [
+          "P4",
+          "C2",
+          "1200"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "category_id",
+        "total_sales"
+      ],
+      "rows": [
+        [
+          "C1",
+          "2500"
+        ],
+        [
+          "C2",
+          "2000"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 121,
+    "question": "Top 3 products by total sales amount",
+    "explanation": "Aggregate per product, sort descending, LIMIT 3 returns the top three best-selling products.",
+    "query": "SELECT product_id, SUM(amount) AS total_sales FROM sales GROUP BY product_id ORDER BY total_sales DESC LIMIT 3;",
+    "input": {
+      "table": "sales",
+      "headers": [
+        "product_id",
+        "amount"
+      ],
+      "rows": [
+        [
+          "P1",
+          "5000"
+        ],
+        [
+          "P2",
+          "8000"
+        ],
+        [
+          "P3",
+          "3000"
+        ],
+        [
+          "P4",
+          "9000"
+        ],
+        [
+          "P5",
+          "6000"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "product_id",
+        "total_sales"
+      ],
+      "rows": [
+        [
+          "P4",
+          "9000"
+        ],
+        [
+          "P2",
+          "8000"
+        ],
+        [
+          "P5",
+          "6000"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 122,
+    "question": "Employees who joined after their department was created",
+    "explanation": "JOIN on department_id then compare hire_date vs creation_date — a standard new-hire vs founding-member check.",
+    "query": "SELECT e.* FROM employees e JOIN departments d ON e.department_id = d.department_id WHERE e.hire_date > d.creation_date;",
+    "input": {
+      "table": "employees + departments",
+      "headers": [
+        "emp_id",
+        "name",
+        "hire_date",
+        "dept_creation_date"
+      ],
+      "rows": [
+        [
+          "1",
+          "Alice",
+          "2022-06-01",
+          "2021-01-01"
+        ],
+        [
+          "2",
+          "Bob",
+          "2019-03-01",
+          "2020-06-01"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "emp_id",
+        "name",
+        "hire_date"
+      ],
+      "rows": [
+        [
+          "1",
+          "Alice",
+          "2022-06-01"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 123,
+    "question": "Customers with no sales records",
+    "explanation": "LEFT JOIN keeps all customers. A NULL sale_id confirms that customer never made any purchase.",
+    "query": "SELECT c.* FROM customers c LEFT JOIN sales s ON c.customer_id = s.customer_id WHERE s.sale_id IS NULL;",
+    "input": {
+      "table": "customers",
+      "headers": [
+        "customer_id",
+        "name"
+      ],
+      "rows": [
+        [
+          "101",
+          "Alice"
+        ],
+        [
+          "102",
+          "Bob"
+        ],
+        [
+          "103",
+          "Carol"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "customer_id",
+        "name"
+      ],
+      "rows": [
+        [
+          "103",
+          "Carol"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 124,
+    "question": "Second highest salary company-wide",
+    "explanation": "Inner subquery finds the global maximum. The outer MAX finds the highest value strictly below it.",
+    "query": "SELECT MAX(salary) AS second_highest FROM employees WHERE salary < (SELECT MAX(salary) FROM employees);",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "id",
+        "name",
+        "salary"
+      ],
+      "rows": [
+        [
+          "1",
+          "Alice",
+          "90000"
+        ],
+        [
+          "2",
+          "Bob",
+          "80000"
+        ],
+        [
+          "3",
+          "Carol",
+          "90000"
+        ],
+        [
+          "4",
+          "David",
+          "70000"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "second_highest"
+      ],
+      "rows": [
+        [
+          "80000"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 125,
+    "question": "Products with sales only in the current month",
+    "explanation": "Both earliest and latest sale dates must fall within the current month — meaning no older sales exist for the product.",
+    "query": "SELECT product_id FROM sales GROUP BY product_id HAVING MAX(sale_date) >= DATE_TRUNC('month', CURRENT_DATE) AND MIN(sale_date) >= DATE_TRUNC('month', CURRENT_DATE);",
+    "input": {
+      "table": "sales  (current month = 2025-03)",
+      "headers": [
+        "product_id",
+        "sale_date"
+      ],
+      "rows": [
+        [
+          "P1",
+          "2025-03-05"
+        ],
+        [
+          "P1",
+          "2025-03-20"
+        ],
+        [
+          "P2",
+          "2025-02-10"
+        ],
+        [
+          "P2",
+          "2025-03-15"
+        ],
+        [
+          "P3",
+          "2025-03-01"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "product_id"
+      ],
+      "rows": [
+        [
+          "P1"
+        ],
+        [
+          "P3"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 126,
+    "question": "Employees with consecutive workdays",
+    "explanation": "Date minus row_number groups consecutive dates under the same grp value, enabling a COUNT per streak.",
+    "query": "WITH attendance AS ( SELECT employee_id, work_date, work_date - ROW_NUMBER() OVER ( PARTITION BY employee_id ORDER BY work_date ) * INTERVAL '1 day' AS grp FROM work_log ) SELECT employee_id, COUNT(*) AS consecutive_days FROM attendance GROUP BY employee_id, grp HAVING COUNT(*) > 1;",
+    "input": {
+      "table": "work_log",
+      "headers": [
+        "employee_id",
+        "work_date"
+      ],
+      "rows": [
+        [
+          "E1",
+          "2025-01-06"
+        ],
+        [
+          "E1",
+          "2025-01-07"
+        ],
+        [
+          "E1",
+          "2025-01-08"
+        ],
+        [
+          "E1",
+          "2025-01-10"
+        ],
+        [
+          "E2",
+          "2025-01-06"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "employee_id",
+        "consecutive_days"
+      ],
+      "rows": [
+        [
+          "E1",
+          "3"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 127,
+    "question": "Average number of orders per customer",
+    "explanation": "Inner query counts orders per customer. Outer AVG averages those per-customer counts.",
+    "query": "SELECT AVG(order_count) AS avg_orders_per_customer FROM ( SELECT customer_id, COUNT(*) AS order_count FROM orders GROUP BY customer_id ) sub;",
+    "input": {
+      "table": "orders",
+      "headers": [
+        "customer_id",
+        "order_id"
+      ],
+      "rows": [
+        [
+          "101",
+          "O1"
+        ],
+        [
+          "101",
+          "O2"
+        ],
+        [
+          "101",
+          "O3"
+        ],
+        [
+          "102",
+          "O4"
+        ],
+        [
+          "103",
+          "O5"
+        ],
+        [
+          "103",
+          "O6"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "avg_orders_per_customer"
+      ],
+      "rows": [
+        [
+          "2.00"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 128,
+    "question": "Employees who worked on more than 5 projects",
+    "explanation": "COUNT(DISTINCT) prevents duplicate project counting. HAVING > 5 identifies the most project-active employees.",
+    "query": "SELECT employee_id, COUNT(DISTINCT project_id) AS project_count FROM project_assignments GROUP BY employee_id HAVING COUNT(DISTINCT project_id) > 5;",
+    "input": {
+      "table": "project_assignments",
+      "headers": [
+        "employee_id",
+        "project_id"
+      ],
+      "rows": [
+        [
+          "E1",
+          "P1"
+        ],
+        [
+          "E1",
+          "P2"
+        ],
+        [
+          "E1",
+          "P3"
+        ],
+        [
+          "E1",
+          "P4"
+        ],
+        [
+          "E1",
+          "P5"
+        ],
+        [
+          "E1",
+          "P6"
+        ],
+        [
+          "E2",
+          "P1"
+        ],
+        [
+          "E2",
+          "P2"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "employee_id",
+        "project_count"
+      ],
+      "rows": [
+        [
+          "E1",
+          "6"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 129,
+    "question": "Total products sold each day",
+    "explanation": "SUM of quantity per day shows total units moved — useful for tracking daily sales volume trends.",
+    "query": "SELECT sale_date, SUM(quantity) AS total_qty_sold FROM sales GROUP BY sale_date ORDER BY sale_date;",
+    "input": {
+      "table": "sales",
+      "headers": [
+        "sale_date",
+        "product_id",
+        "quantity"
+      ],
+      "rows": [
+        [
+          "2025-01-01",
+          "P1",
+          "10"
+        ],
+        [
+          "2025-01-01",
+          "P2",
+          "5"
+        ],
+        [
+          "2025-01-02",
+          "P1",
+          "8"
+        ],
+        [
+          "2025-01-02",
+          "P3",
+          "12"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "sale_date",
+        "total_qty_sold"
+      ],
+      "rows": [
+        [
+          "2025-01-01",
+          "15"
+        ],
+        [
+          "2025-01-02",
+          "20"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 130,
+    "question": "Customers with orders totaling more than $10,000",
+    "explanation": "SUM per customer. HAVING > 10000 filters only the high-value customers.",
+    "query": "SELECT customer_id, SUM(amount) AS total_amount FROM sales GROUP BY customer_id HAVING SUM(amount) > 10000;",
+    "input": {
+      "table": "sales",
+      "headers": [
+        "customer_id",
+        "amount"
+      ],
+      "rows": [
+        [
+          "101",
+          "5000"
+        ],
+        [
+          "101",
+          "6000"
+        ],
+        [
+          "102",
+          "3000"
+        ],
+        [
+          "102",
+          "4000"
+        ],
+        [
+          "103",
+          "2000"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "customer_id",
+        "total_amount"
+      ],
+      "rows": [
+        [
+          "101",
+          "11000"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 131,
+    "question": "Employees who have never received a bonus",
+    "explanation": "LEFT JOIN keeps all employees. A NULL bonus_id confirms no bonus record exists for that employee.",
+    "query": "SELECT e.* FROM employees e LEFT JOIN bonuses b ON e.id = b.employee_id WHERE b.bonus_id IS NULL;",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "id",
+        "name"
+      ],
+      "rows": [
+        [
+          "1",
+          "Alice"
+        ],
+        [
+          "2",
+          "Bob"
+        ],
+        [
+          "3",
+          "Carol"
+        ],
+        [
+          "4",
+          "David"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "id",
+        "name"
+      ],
+      "rows": [
+        [
+          "3",
+          "Carol"
+        ],
+        [
+          "4",
+          "David"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 132,
+    "question": "Department with the lowest average salary",
+    "explanation": "ORDER BY avg_salary ascending (the default) then LIMIT 1 picks the lowest-paid department.",
+    "query": "SELECT department_id, AVG(salary) AS avg_salary FROM employees GROUP BY department_id ORDER BY avg_salary LIMIT 1;",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "dept_id",
+        "name",
+        "salary"
+      ],
+      "rows": [
+        [
+          "10",
+          "Alice",
+          "80000"
+        ],
+        [
+          "10",
+          "Bob",
+          "90000"
+        ],
+        [
+          "20",
+          "Carol",
+          "50000"
+        ],
+        [
+          "20",
+          "David",
+          "55000"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "dept_id",
+        "avg_salary"
+      ],
+      "rows": [
+        [
+          "20",
+          "52500.00"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 133,
+    "question": "Cumulative order count per customer over time",
+    "explanation": "COUNT(*) OVER with ORDER BY accumulates a running count of orders per customer chronologically.",
+    "query": "SELECT customer_id, order_date, COUNT(*) OVER ( PARTITION BY customer_id ORDER BY order_date ) AS cumulative_orders FROM orders;",
+    "input": {
+      "table": "orders",
+      "headers": [
+        "customer_id",
+        "order_date"
+      ],
+      "rows": [
+        [
+          "101",
+          "2025-01-01"
+        ],
+        [
+          "101",
+          "2025-02-01"
+        ],
+        [
+          "101",
+          "2025-03-01"
+        ],
+        [
+          "102",
+          "2025-01-15"
+        ],
+        [
+          "102",
+          "2025-04-01"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "customer_id",
+        "order_date",
+        "cumulative_orders"
+      ],
+      "rows": [
+        [
+          "101",
+          "2025-01-01",
+          "1"
+        ],
+        [
+          "101",
+          "2025-02-01",
+          "2"
+        ],
+        [
+          "101",
+          "2025-03-01",
+          "3"
+        ],
+        [
+          "102",
+          "2025-01-15",
+          "1"
+        ],
+        [
+          "102",
+          "2025-04-01",
+          "2"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 134,
+    "question": "Customers who ordered from only one category",
+    "explanation": "COUNT(DISTINCT category_id) = 1 means all purchases belong to a single product category.",
+    "query": "SELECT customer_id FROM sales s JOIN products p ON s.product_id = p.product_id GROUP BY customer_id HAVING COUNT(DISTINCT p.category_id) = 1;",
+    "input": {
+      "table": "sales + products",
+      "headers": [
+        "customer_id",
+        "product_id",
+        "category_id"
+      ],
+      "rows": [
+        [
+          "C1",
+          "P1",
+          "CAT1"
+        ],
+        [
+          "C1",
+          "P2",
+          "CAT1"
+        ],
+        [
+          "C2",
+          "P3",
+          "CAT1"
+        ],
+        [
+          "C2",
+          "P4",
+          "CAT2"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "customer_id"
+      ],
+      "rows": [
+        [
+          "C1"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 135,
+    "question": "Employees with manager names including those without managers",
+    "explanation": "LEFT JOIN includes the root employee (CEO). Their manager_name column appears as NULL.",
+    "query": "SELECT e.name AS employee_name, m.name AS manager_name FROM employees e LEFT JOIN employees m ON e.manager_id = m.id;",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "id",
+        "name",
+        "manager_id"
+      ],
+      "rows": [
+        [
+          "1",
+          "CEO",
+          "NULL"
+        ],
+        [
+          "2",
+          "Alice",
+          "1"
+        ],
+        [
+          "3",
+          "Bob",
+          "1"
+        ],
+        [
+          "4",
+          "Carol",
+          "2"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "employee_name",
+        "manager_name"
+      ],
+      "rows": [
+        [
+          "CEO",
+          "NULL"
+        ],
+        [
+          "Alice",
+          "CEO"
+        ],
+        [
+          "Bob",
+          "CEO"
+        ],
+        [
+          "Carol",
+          "Alice"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 136,
+    "question": "Products with sales increasing every month for the last 3 months",
+    "explanation": "Two LAG values give the prior two months. All three must be strictly increasing for the product to qualify.",
+    "query": "WITH monthly_sales AS ( SELECT product_id, DATE_TRUNC('month', sale_date) AS month, SUM(amount) AS total_sales FROM sales WHERE sale_date >= CURRENT_DATE - INTERVAL '3 months' GROUP BY product_id, month ), ranked AS ( SELECT product_id, month, total_sales, LAG(total_sales,1) OVER (PARTITION BY product_id ORDER BY month) AS prev1, LAG(total_sales,2) OVER (PARTITION BY product_id ORDER BY month) AS prev2 FROM monthly_sales ) SELECT DISTINCT product_id FROM ranked WHERE total_sales > prev1 AND prev1 > prev2;",
+    "input": {
+      "table": "monthly sales",
+      "headers": [
+        "product_id",
+        "month",
+        "total_sales"
+      ],
+      "rows": [
+        [
+          "P1",
+          "Jan",
+          "1000"
+        ],
+        [
+          "P1",
+          "Feb",
+          "1500"
+        ],
+        [
+          "P1",
+          "Mar",
+          "2000"
+        ],
+        [
+          "P2",
+          "Jan",
+          "1000"
+        ],
+        [
+          "P2",
+          "Feb",
+          "900"
+        ],
+        [
+          "P2",
+          "Mar",
+          "1100"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "product_id"
+      ],
+      "rows": [
+        [
+          "P1"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 137,
+    "question": "Recursive query — all descendants of a given manager",
+    "explanation": "Anchor = the given manager (id = 1). Each recursion finds their direct and indirect reports at any depth.",
+    "query": "WITH RECURSIVE subordinates AS ( SELECT id, name, manager_id FROM employees WHERE id = 1 UNION ALL SELECT e.id, e.name, e.manager_id FROM employees e JOIN subordinates s ON e.manager_id = s.id ) SELECT * FROM subordinates WHERE id != 1;",
+    "input": {
+      "table": "employees  (starting manager id = 1)",
+      "headers": [
+        "id",
+        "name",
+        "manager_id"
+      ],
+      "rows": [
+        [
+          "1",
+          "CEO",
+          "NULL"
+        ],
+        [
+          "2",
+          "Alice",
+          "1"
+        ],
+        [
+          "3",
+          "Bob",
+          "1"
+        ],
+        [
+          "4",
+          "Carol",
+          "2"
+        ],
+        [
+          "5",
+          "David",
+          "2"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "id",
+        "name",
+        "manager_id"
+      ],
+      "rows": [
+        [
+          "2",
+          "Alice",
+          "1"
+        ],
+        [
+          "3",
+          "Bob",
+          "1"
+        ],
+        [
+          "4",
+          "Carol",
+          "2"
+        ],
+        [
+          "5",
+          "David",
+          "2"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 138,
+    "question": "Department with the highest salary variance",
+    "explanation": "VAR_SAMP computes sample variance (Bessel's correction). High variance = wide salary spread within the department.",
+    "query": "SELECT department_id, VAR_SAMP(salary) AS salary_variance FROM employees GROUP BY department_id ORDER BY salary_variance DESC LIMIT 1;",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "dept_id",
+        "name",
+        "salary"
+      ],
+      "rows": [
+        [
+          "10",
+          "Alice",
+          "50000"
+        ],
+        [
+          "10",
+          "Bob",
+          "150000"
+        ],
+        [
+          "20",
+          "Carol",
+          "70000"
+        ],
+        [
+          "20",
+          "David",
+          "80000"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "dept_id",
+        "salary_variance"
+      ],
+      "rows": [
+        [
+          "10",
+          "5000000000.00"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 139,
+    "question": "Difference between consecutive orders per customer",
+    "explanation": "LAG(amount) per customer gives the previous order amount. Subtraction reveals how the customer's spend changed.",
+    "query": "SELECT customer_id, order_date, amount, amount - LAG(amount) OVER ( PARTITION BY customer_id ORDER BY order_date ) AS diff FROM orders;",
+    "input": {
+      "table": "orders",
+      "headers": [
+        "customer_id",
+        "order_date",
+        "amount"
+      ],
+      "rows": [
+        [
+          "C1",
+          "2025-01-01",
+          "200"
+        ],
+        [
+          "C1",
+          "2025-02-01",
+          "350"
+        ],
+        [
+          "C1",
+          "2025-03-01",
+          "300"
+        ],
+        [
+          "C2",
+          "2025-01-15",
+          "500"
+        ],
+        [
+          "C2",
+          "2025-03-20",
+          "600"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "customer_id",
+        "order_date",
+        "amount",
+        "diff"
+      ],
+      "rows": [
+        [
+          "C1",
+          "2025-01-01",
+          "200",
+          "NULL"
+        ],
+        [
+          "C1",
+          "2025-02-01",
+          "350",
+          "150"
+        ],
+        [
+          "C1",
+          "2025-03-01",
+          "300",
+          "-50"
+        ],
+        [
+          "C2",
+          "2025-01-15",
+          "500",
+          "NULL"
+        ],
+        [
+          "C2",
+          "2025-03-20",
+          "600",
+          "100"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 140,
+    "question": "Customers who purchased both Product A and Product B",
+    "explanation": "Filter to only products A and B. COUNT(DISTINCT) = 2 means the customer bought both.",
+    "query": "SELECT customer_id FROM sales WHERE product_id IN ('A', 'B') GROUP BY customer_id HAVING COUNT(DISTINCT product_id) = 2;",
+    "input": {
+      "table": "sales",
+      "headers": [
+        "customer_id",
+        "product_id"
+      ],
+      "rows": [
+        [
+          "C1",
+          "A"
+        ],
+        [
+          "C1",
+          "B"
+        ],
+        [
+          "C2",
+          "A"
+        ],
+        [
+          "C3",
+          "B"
+        ],
+        [
+          "C3",
+          "A"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "customer_id"
+      ],
+      "rows": [
+        [
+          "C1"
+        ],
+        [
+          "C3"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 141,
+    "question": "Top N customers by total sales",
+    "explanation": "Aggregate per customer, sort descending, LIMIT N returns the top-N spenders.",
+    "query": "SELECT customer_id, SUM(amount) AS total_sales FROM sales GROUP BY customer_id ORDER BY total_sales DESC LIMIT 5;  -- change to N",
+    "input": {
+      "table": "sales  (top 3 example)",
+      "headers": [
+        "customer_id",
+        "amount"
+      ],
+      "rows": [
+        [
+          "C1",
+          "5000"
+        ],
+        [
+          "C2",
+          "8000"
+        ],
+        [
+          "C3",
+          "3000"
+        ],
+        [
+          "C4",
+          "9000"
+        ],
+        [
+          "C5",
+          "6000"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "customer_id",
+        "total_sales"
+      ],
+      "rows": [
+        [
+          "C4",
+          "9000"
+        ],
+        [
+          "C2",
+          "8000"
+        ],
+        [
+          "C5",
+          "6000"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 142,
+    "question": "Month with the highest sales in the current year",
+    "explanation": "Filter to current year. Aggregate by month. ORDER BY DESC LIMIT 1 finds the peak sales month.",
+    "query": "SELECT DATE_TRUNC('month', sale_date) AS month, SUM(amount) AS total_sales FROM sales WHERE EXTRACT(YEAR FROM sale_date) = EXTRACT(YEAR FROM CURRENT_DATE) GROUP BY month ORDER BY total_sales DESC LIMIT 1;",
+    "input": {
+      "table": "sales  (2025)",
+      "headers": [
+        "sale_date",
+        "amount"
+      ],
+      "rows": [
+        [
+          "2025-01-10",
+          "10000"
+        ],
+        [
+          "2025-02-15",
+          "15000"
+        ],
+        [
+          "2025-03-01",
+          "12000"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "month",
+        "total_sales"
+      ],
+      "rows": [
+        [
+          "2025-02-01",
+          "15000"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 143,
+    "question": "Employees who worked on a project longer than 6 months",
+    "explanation": "PostgreSQL date arithmetic directly checks if the project duration exceeds 6 months.",
+    "query": "SELECT employee_id FROM project_assignments WHERE end_date - start_date > INTERVAL '6 months';",
+    "input": {
+      "table": "project_assignments",
+      "headers": [
+        "employee_id",
+        "project_id",
+        "start_date",
+        "end_date"
+      ],
+      "rows": [
+        [
+          "E1",
+          "P1",
+          "2024-01-01",
+          "2024-09-01"
+        ],
+        [
+          "E2",
+          "P2",
+          "2024-01-01",
+          "2024-04-01"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "employee_id"
+      ],
+      "rows": [
+        [
+          "E1"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 144,
+    "question": "Find the 5th highest salary",
+    "explanation": "OFFSET 4 skips the top 4 values. LIMIT 1 picks the 5th. Adjust OFFSET to N-1 for any desired rank.",
+    "query": "SELECT DISTINCT salary FROM employees ORDER BY salary DESC LIMIT 1 OFFSET 4;   -- OFFSET = N-1 for the Nth highest",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "id",
+        "salary"
+      ],
+      "rows": [
+        [
+          "1",
+          "90000"
+        ],
+        [
+          "2",
+          "85000"
+        ],
+        [
+          "3",
+          "80000"
+        ],
+        [
+          "4",
+          "75000"
+        ],
+        [
+          "5",
+          "70000"
+        ],
+        [
+          "6",
+          "65000"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "5th highest salary"
+      ],
+      "rows": [
+        [
+          "70000"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 145,
+    "question": "Average salary of employees hired each year",
+    "explanation": "GROUP BY hire year shows how the average pay of new hires has changed year over year.",
+    "query": "SELECT EXTRACT(YEAR FROM hire_date) AS year, AVG(salary) AS avg_salary FROM employees GROUP BY year ORDER BY year;",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "name",
+        "hire_date",
+        "salary"
+      ],
+      "rows": [
+        [
+          "Alice",
+          "2021-03-01",
+          "60000"
+        ],
+        [
+          "Bob",
+          "2021-09-01",
+          "70000"
+        ],
+        [
+          "Carol",
+          "2022-01-15",
+          "80000"
+        ],
+        [
+          "David",
+          "2023-06-01",
+          "90000"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "year",
+        "avg_salary"
+      ],
+      "rows": [
+        [
+          "2021",
+          "65000.00"
+        ],
+        [
+          "2022",
+          "80000.00"
+        ],
+        [
+          "2023",
+          "90000.00"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 146,
+    "question": "Employees with salaries in the 25th–75th percentile (IQR)",
+    "explanation": "PERCENTILE_CONT computes exact quartile boundaries. BETWEEN filters the interquartile range (IQR).",
+    "query": "WITH percentiles AS ( SELECT PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY salary) AS p25, PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY salary) AS p75 FROM employees ) SELECT e.* FROM employees e, percentiles p WHERE e.salary BETWEEN p.p25 AND p.p75;",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "id",
+        "name",
+        "salary"
+      ],
+      "rows": [
+        [
+          "1",
+          "A",
+          "40000"
+        ],
+        [
+          "2",
+          "B",
+          "60000"
+        ],
+        [
+          "3",
+          "C",
+          "80000"
+        ],
+        [
+          "4",
+          "D",
+          "100000"
+        ],
+        [
+          "5",
+          "E",
+          "120000"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "id",
+        "name",
+        "salary"
+      ],
+      "rows": [
+        [
+          "2",
+          "B",
+          "60000"
+        ],
+        [
+          "3",
+          "C",
+          "80000"
+        ],
+        [
+          "4",
+          "D",
+          "100000"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 147,
+    "question": "Employees with salary above their department average",
+    "explanation": "Join employees to a subquery of department averages. Filter where employee salary exceeds the dept average.",
+    "query": "SELECT e.* FROM employees e JOIN ( SELECT department_id, AVG(salary) AS avg_salary FROM employees GROUP BY department_id ) d ON e.department_id = d.department_id WHERE e.salary > d.avg_salary;",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "id",
+        "name",
+        "salary",
+        "dept_id"
+      ],
+      "rows": [
+        [
+          "1",
+          "Alice",
+          "90000",
+          "10"
+        ],
+        [
+          "2",
+          "Bob",
+          "70000",
+          "10"
+        ],
+        [
+          "3",
+          "Carol",
+          "85000",
+          "20"
+        ],
+        [
+          "4",
+          "David",
+          "65000",
+          "20"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "id",
+        "name",
+        "salary",
+        "dept_id"
+      ],
+      "rows": [
+        [
+          "1",
+          "Alice",
+          "90000",
+          "10"
+        ],
+        [
+          "3",
+          "Carol",
+          "85000",
+          "20"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 148,
+    "question": "Difference between each sale and the previous sale (global)",
+    "explanation": "Global LAG (no partition) computes the change from the previous date's sales row in chronological order.",
+    "query": "SELECT sale_date, amount, amount - LAG(amount) OVER (ORDER BY sale_date) AS diff FROM sales;",
+    "input": {
+      "table": "sales",
+      "headers": [
+        "sale_date",
+        "amount"
+      ],
+      "rows": [
+        [
+          "2025-01-01",
+          "1000"
+        ],
+        [
+          "2025-01-02",
+          "1500"
+        ],
+        [
+          "2025-01-03",
+          "1200"
+        ],
+        [
+          "2025-01-04",
+          "1800"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "sale_date",
+        "amount",
+        "diff"
+      ],
+      "rows": [
+        [
+          "2025-01-01",
+          "1000",
+          "NULL"
+        ],
+        [
+          "2025-01-02",
+          "1500",
+          "500"
+        ],
+        [
+          "2025-01-03",
+          "1200",
+          "-300"
+        ],
+        [
+          "2025-01-04",
+          "1800",
+          "600"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 149,
+    "question": "Employees with more than 10 years of tenure",
+    "explanation": "Date arithmetic on hire_date returns an interval. Comparing to 10 years filters long-tenured employees.",
+    "query": "SELECT * FROM employees WHERE CURRENT_DATE - hire_date > INTERVAL '10 years';",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "id",
+        "name",
+        "hire_date"
+      ],
+      "rows": [
+        [
+          "1",
+          "Alice",
+          "2010-01-15"
+        ],
+        [
+          "2",
+          "Bob",
+          "2013-06-01"
+        ],
+        [
+          "3",
+          "Carol",
+          "2008-11-20"
+        ],
+        [
+          "4",
+          "David",
+          "2020-03-01"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "id",
+        "name",
+        "hire_date"
+      ],
+      "rows": [
+        [
+          "1",
+          "Alice",
+          "2010-01-15"
+        ],
+        [
+          "3",
+          "Carol",
+          "2008-11-20"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 150,
+    "question": "Department with the most promotions",
+    "explanation": "JOIN promotions to employees to get the department. COUNT and LIMIT 1 find the most promotion-active dept.",
+    "query": "SELECT e.department_id, COUNT(*) AS promotion_count FROM promotions p JOIN employees e ON p.employee_id = e.id GROUP BY e.department_id ORDER BY promotion_count DESC LIMIT 1;",
+    "input": {
+      "table": "promotions + employees",
+      "headers": [
+        "employee_id",
+        "dept_id",
+        "num_promotions"
+      ],
+      "rows": [
+        [
+          "E1",
+          "10",
+          "3"
+        ],
+        [
+          "E2",
+          "20",
+          "1"
+        ],
+        [
+          "E3",
+          "10",
+          "2"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "dept_id",
+        "promotion_count"
+      ],
+      "rows": [
+        [
+          "10",
+          "5"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 151,
+    "question": "Customers who ordered from at least 3 different categories",
+    "explanation": "JOIN retrieves categories. HAVING COUNT(DISTINCT category_id) >= 3 identifies buyers with diversified purchases.",
+    "query": "SELECT customer_id FROM sales s JOIN products p ON s.product_id = p.product_id GROUP BY customer_id HAVING COUNT(DISTINCT p.category_id) >= 3;",
+    "input": {
+      "table": "sales + products",
+      "headers": [
+        "customer_id",
+        "product_id",
+        "category_id"
+      ],
+      "rows": [
+        [
+          "C1",
+          "P1",
+          "CAT1"
+        ],
+        [
+          "C1",
+          "P2",
+          "CAT2"
+        ],
+        [
+          "C1",
+          "P3",
+          "CAT3"
+        ],
+        [
+          "C2",
+          "P4",
+          "CAT1"
+        ],
+        [
+          "C2",
+          "P5",
+          "CAT2"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "customer_id"
+      ],
+      "rows": [
+        [
+          "C1"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 152,
+    "question": "Average gap in days between orders per customer",
+    "explanation": "LAG gives the prior order date per customer. The date difference is the gap. AVG per customer reveals purchase frequency.",
+    "query": "WITH ordered AS ( SELECT customer_id, order_date, LAG(order_date) OVER (PARTITION BY customer_id ORDER BY order_date) AS prev FROM orders ), gaps AS (SELECT customer_id, order_date - prev AS gap FROM ordered WHERE prev IS NOT NULL) SELECT customer_id, AVG(gap) AS avg_gap_days FROM gaps GROUP BY customer_id;",
+    "input": {
+      "table": "orders",
+      "headers": [
+        "customer_id",
+        "order_date"
+      ],
+      "rows": [
+        [
+          "C1",
+          "2025-01-01"
+        ],
+        [
+          "C1",
+          "2025-01-11"
+        ],
+        [
+          "C1",
+          "2025-01-21"
+        ],
+        [
+          "C2",
+          "2025-01-01"
+        ],
+        [
+          "C2",
+          "2025-02-01"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "customer_id",
+        "avg_gap_days"
+      ],
+      "rows": [
+        [
+          "C1",
+          "10.00 days"
+        ],
+        [
+          "C2",
+          "31.00 days"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 153,
+    "question": "Customers who never ordered product X",
+    "explanation": "Subquery finds all customers who bought product X. NOT IN returns everyone who never appears in that list.",
+    "query": "SELECT customer_id FROM customers WHERE customer_id NOT IN (SELECT DISTINCT customer_id FROM sales WHERE product_id = 'X');",
+    "input": {
+      "table": "sales",
+      "headers": [
+        "customer_id",
+        "product_id"
+      ],
+      "rows": [
+        [
+          "C1",
+          "X"
+        ],
+        [
+          "C1",
+          "Y"
+        ],
+        [
+          "C2",
+          "Y"
+        ],
+        [
+          "C3",
+          "X"
+        ],
+        [
+          "C4",
+          "Z"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "customer_id"
+      ],
+      "rows": [
+        [
+          "C2"
+        ],
+        [
+          "C4"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 154,
+    "question": "Total revenue and order count per country",
+    "explanation": "JOIN customers to orders. GROUP BY country gives geographic breakdown of both order volume and revenue.",
+    "query": "SELECT c.country, COUNT(o.order_id) AS order_count, SUM(o.amount) AS total_revenue FROM customers c JOIN orders o ON c.customer_id = o.customer_id GROUP BY c.country;",
+    "input": {
+      "table": "customers + orders",
+      "headers": [
+        "customer_id",
+        "country",
+        "order_amount"
+      ],
+      "rows": [
+        [
+          "C1",
+          "India",
+          "500"
+        ],
+        [
+          "C1",
+          "India",
+          "700"
+        ],
+        [
+          "C2",
+          "US",
+          "1000"
+        ],
+        [
+          "C3",
+          "India",
+          "300"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "country",
+        "order_count",
+        "total_revenue"
+      ],
+      "rows": [
+        [
+          "India",
+          "3",
+          "1500"
+        ],
+        [
+          "US",
+          "1",
+          "1000"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 155,
+    "question": "Employees hired on the same day as their manager",
+    "explanation": "Self-join then filter on exact hire_date equality — a rare edge case but a valid interview question.",
+    "query": "SELECT e.name AS employee, m.name AS manager, e.hire_date FROM employees e JOIN employees m ON e.manager_id = m.id WHERE e.hire_date = m.hire_date;",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "id",
+        "name",
+        "hire_date",
+        "manager_id"
+      ],
+      "rows": [
+        [
+          "1",
+          "CEO",
+          "2020-01-15",
+          "NULL"
+        ],
+        [
+          "2",
+          "Alice",
+          "2021-06-01",
+          "1"
+        ],
+        [
+          "3",
+          "Bob",
+          "2021-06-01",
+          "1"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "employee",
+        "manager",
+        "hire_date"
+      ],
+      "rows": [
+        [
+          "Alice and Bob",
+          "(same mgr, CEO)",
+          "2021-06-01"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 156,
+    "question": "Top 3 products by quantity sold in each category",
+    "explanation": "ROW_NUMBER per category ranks products by quantity. rn <= 3 keeps the top 3 per category.",
+    "query": "SELECT category_id, product_id, total_quantity FROM ( SELECT p.category_id, s.product_id, SUM(s.quantity) AS total_quantity, ROW_NUMBER() OVER (PARTITION BY p.category_id ORDER BY SUM(s.quantity) DESC) AS rn FROM sales s JOIN products p ON s.product_id = p.product_id GROUP BY p.category_id, s.product_id ) sub WHERE rn <= 3;",
+    "input": {
+      "table": "sales + products",
+      "headers": [
+        "category_id",
+        "product_id",
+        "quantity"
+      ],
+      "rows": [
+        [
+          "C1",
+          "P1",
+          "100"
+        ],
+        [
+          "C1",
+          "P2",
+          "80"
+        ],
+        [
+          "C1",
+          "P3",
+          "60"
+        ],
+        [
+          "C1",
+          "P4",
+          "40"
+        ],
+        [
+          "C2",
+          "P5",
+          "200"
+        ],
+        [
+          "C2",
+          "P6",
+          "150"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "category_id",
+        "product_id",
+        "total_qty"
+      ],
+      "rows": [
+        [
+          "C1",
+          "P1",
+          "100"
+        ],
+        [
+          "C1",
+          "P2",
+          "80"
+        ],
+        [
+          "C1",
+          "P3",
+          "60"
+        ],
+        [
+          "C2",
+          "P5",
+          "200"
+        ],
+        [
+          "C2",
+          "P6",
+          "150"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 157,
+    "question": "Days between first and last order per customer",
+    "explanation": "MAX minus MIN on the date column gives the full span of each customer's ordering history.",
+    "query": "SELECT customer_id, MAX(order_date) - MIN(order_date) AS days_between FROM orders GROUP BY customer_id;",
+    "input": {
+      "table": "orders",
+      "headers": [
+        "customer_id",
+        "order_date"
+      ],
+      "rows": [
+        [
+          "C1",
+          "2024-01-01"
+        ],
+        [
+          "C1",
+          "2024-06-15"
+        ],
+        [
+          "C1",
+          "2025-01-01"
+        ],
+        [
+          "C2",
+          "2024-03-01"
+        ],
+        [
+          "C2",
+          "2024-03-31"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "customer_id",
+        "days_between"
+      ],
+      "rows": [
+        [
+          "C1",
+          "366 days"
+        ],
+        [
+          "C2",
+          "30 days"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 158,
+    "question": "Customers who increased order frequency for 3 consecutive months",
+    "explanation": "Two LAG lookbacks confirm three months of strictly increasing order counts — a strong engagement growth signal.",
+    "query": "WITH monthly_orders AS ( SELECT customer_id, DATE_TRUNC('month', order_date) AS month, COUNT(*) AS cnt FROM orders WHERE order_date >= CURRENT_DATE - INTERVAL '3 months' GROUP BY customer_id, month ), orders_with_lag AS ( SELECT customer_id, month, cnt, LAG(cnt,1) OVER (PARTITION BY customer_id ORDER BY month) AS prev1, LAG(cnt,2) OVER (PARTITION BY customer_id ORDER BY month) AS prev2 FROM monthly_orders ) SELECT DISTINCT customer_id FROM orders_with_lag WHERE cnt > prev1 AND prev1 > prev2;",
+    "input": {
+      "table": "monthly orders",
+      "headers": [
+        "customer_id",
+        "month",
+        "cnt"
+      ],
+      "rows": [
+        [
+          "C1",
+          "Jan",
+          "2"
+        ],
+        [
+          "C1",
+          "Feb",
+          "3"
+        ],
+        [
+          "C1",
+          "Mar",
+          "4"
+        ],
+        [
+          "C2",
+          "Jan",
+          "5"
+        ],
+        [
+          "C2",
+          "Feb",
+          "4"
+        ],
+        [
+          "C2",
+          "Mar",
+          "6"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "customer_id"
+      ],
+      "rows": [
+        [
+          "C1"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 159,
+    "question": "Employees whose salary equals their job title average",
+    "explanation": "Join to job-title averages. Equality on salary finds the rare cases where someone earns exactly the average.",
+    "query": "SELECT e.* FROM employees e JOIN ( SELECT job_title, AVG(salary) AS avg_salary FROM employees GROUP BY job_title ) j ON e.job_title = j.job_title AND e.salary = j.avg_salary;",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "id",
+        "name",
+        "job_title",
+        "salary"
+      ],
+      "rows": [
+        [
+          "1",
+          "Alice",
+          "Dev",
+          "80000"
+        ],
+        [
+          "2",
+          "Bob",
+          "Dev",
+          "80000"
+        ],
+        [
+          "3",
+          "Carol",
+          "Manager",
+          "100000"
+        ],
+        [
+          "4",
+          "David",
+          "Manager",
+          "120000"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "id",
+        "name",
+        "job_title",
+        "salary"
+      ],
+      "rows": [
+        [
+          "1",
+          "Alice",
+          "Dev",
+          "80000"
+        ],
+        [
+          "2",
+          "Bob",
+          "Dev",
+          "80000"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 160,
+    "question": "Salary difference between employees and their managers",
+    "explanation": "Self-join then subtract. Positive = employee earns more; negative = employee earns less than the manager.",
+    "query": "SELECT e.name, m.name AS manager, e.salary, m.salary AS mgr_salary, e.salary - m.salary AS salary_diff FROM employees e JOIN employees m ON e.manager_id = m.id;",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "id",
+        "name",
+        "salary",
+        "manager_id"
+      ],
+      "rows": [
+        [
+          "1",
+          "CEO",
+          "120000",
+          "NULL"
+        ],
+        [
+          "2",
+          "Alice",
+          "95000",
+          "1"
+        ],
+        [
+          "3",
+          "Bob",
+          "130000",
+          "1"
+        ],
+        [
+          "4",
+          "Carol",
+          "80000",
+          "2"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "name",
+        "manager",
+        "salary_diff"
+      ],
+      "rows": [
+        [
+          "Alice",
+          "CEO",
+          "-25000"
+        ],
+        [
+          "Bob",
+          "CEO",
+          "10000"
+        ],
+        [
+          "Carol",
+          "Alice",
+          "-15000"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 161,
+    "question": "Departments with no employees",
+    "explanation": "LEFT JOIN keeps all departments. e.id IS NULL means no employee is assigned to that department.",
+    "query": "SELECT d.* FROM departments d LEFT JOIN employees e ON d.department_id = e.department_id WHERE e.id IS NULL;",
+    "input": {
+      "table": "departments",
+      "headers": [
+        "dept_id",
+        "dept_name"
+      ],
+      "rows": [
+        [
+          "10",
+          "Engineering"
+        ],
+        [
+          "20",
+          "Marketing"
+        ],
+        [
+          "30",
+          "Legal"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "dept_id",
+        "dept_name"
+      ],
+      "rows": [
+        [
+          "30",
+          "Legal"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 162,
+    "question": "Employee with the max salary in each department",
+    "explanation": "CTE finds max salary per department. Join back on both dept and exact salary returns all tied top earners.",
+    "query": "WITH dept_max AS ( SELECT department_id, MAX(salary) AS max_salary FROM employees GROUP BY department_id ) SELECT e.* FROM employees e JOIN dept_max d ON e.department_id = d.department_id AND e.salary = d.max_salary;",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "id",
+        "name",
+        "salary",
+        "dept_id"
+      ],
+      "rows": [
+        [
+          "1",
+          "Alice",
+          "90000",
+          "10"
+        ],
+        [
+          "2",
+          "Bob",
+          "80000",
+          "10"
+        ],
+        [
+          "3",
+          "Carol",
+          "85000",
+          "20"
+        ],
+        [
+          "4",
+          "David",
+          "85000",
+          "20"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "id",
+        "name",
+        "salary",
+        "dept_id"
+      ],
+      "rows": [
+        [
+          "1",
+          "Alice",
+          "90000",
+          "10"
+        ],
+        [
+          "3",
+          "Carol",
+          "85000",
+          "20"
+        ],
+        [
+          "4",
+          "David",
+          "85000",
+          "20"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 163,
+    "question": "Customers who ordered every day in the last week",
+    "explanation": "generate_series creates all 7 days of the past week. Only customers with orders on all 7 days are returned.",
+    "query": "WITH days AS ( SELECT generate_series( CURRENT_DATE - INTERVAL '6 days', CURRENT_DATE, INTERVAL '1 day' ) AS day ) SELECT customer_id FROM orders o JOIN days d ON o.order_date = d.day GROUP BY customer_id HAVING COUNT(DISTINCT o.order_date) = 7;",
+    "input": {
+      "table": "orders  (last 7 days)",
+      "headers": [
+        "customer_id",
+        "days_with_orders"
+      ],
+      "rows": [
+        [
+          "C1",
+          "7 of 7 days"
+        ],
+        [
+          "C2",
+          "5 of 7 days"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "customer_id"
+      ],
+      "rows": [
+        [
+          "C1"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 164,
+    "question": "Product with the highest quantity in a single order",
+    "explanation": "MAX per product finds the peak single-order quantity. ORDER BY DESC LIMIT 1 returns the overall leader.",
+    "query": "SELECT product_id, MAX(quantity) AS max_qty_in_order FROM sales GROUP BY product_id ORDER BY max_qty_in_order DESC LIMIT 1;",
+    "input": {
+      "table": "sales",
+      "headers": [
+        "product_id",
+        "order_id",
+        "quantity"
+      ],
+      "rows": [
+        [
+          "P1",
+          "O1",
+          "50"
+        ],
+        [
+          "P2",
+          "O2",
+          "80"
+        ],
+        [
+          "P2",
+          "O3",
+          "30"
+        ],
+        [
+          "P3",
+          "O4",
+          "100"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "product_id",
+        "max_qty_in_order"
+      ],
+      "rows": [
+        [
+          "P3",
+          "100"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 165,
+    "question": "Employees hired before their department was created",
+    "explanation": "If hire_date < dept creation_date, the employee joined the company before the department even existed.",
+    "query": "SELECT e.* FROM employees e JOIN departments d ON e.department_id = d.department_id WHERE e.hire_date < d.creation_date;",
+    "input": {
+      "table": "employees + departments",
+      "headers": [
+        "emp_id",
+        "name",
+        "hire_date",
+        "dept_creation_date"
+      ],
+      "rows": [
+        [
+          "1",
+          "Alice",
+          "2019-01-01",
+          "2020-06-01"
+        ],
+        [
+          "2",
+          "Bob",
+          "2021-03-01",
+          "2020-06-01"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "emp_id",
+        "name",
+        "hire_date"
+      ],
+      "rows": [
+        [
+          "1",
+          "Alice",
+          "2019-01-01"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 166,
+    "question": "Customers with sales in at least 3 different years",
+    "explanation": "EXTRACT YEAR from each sale; COUNT(DISTINCT) >= 3 identifies long-term loyal customers.",
+    "query": "SELECT customer_id FROM sales GROUP BY customer_id HAVING COUNT(DISTINCT EXTRACT(YEAR FROM sale_date)) >= 3;",
+    "input": {
+      "table": "sales",
+      "headers": [
+        "customer_id",
+        "sale_date"
+      ],
+      "rows": [
+        [
+          "C1",
+          "2022-01-01"
+        ],
+        [
+          "C1",
+          "2023-05-01"
+        ],
+        [
+          "C1",
+          "2024-11-01"
+        ],
+        [
+          "C2",
+          "2023-01-01"
+        ],
+        [
+          "C2",
+          "2024-06-01"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "customer_id"
+      ],
+      "rows": [
+        [
+          "C1"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 167,
+    "question": "Employees earning above company avg but below their dept avg",
+    "explanation": "Employee earns more than the global average but less than their specific department average.",
+    "query": "WITH company_avg AS (SELECT AVG(salary) AS avg_salary FROM employees), dept_avg AS (SELECT department_id, AVG(salary) AS avg_salary FROM employees GROUP BY department_id) SELECT e.* FROM employees e, company_avg ca JOIN dept_avg da ON e.department_id = da.department_id WHERE e.salary > ca.avg_salary AND e.salary < da.avg_salary;",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "id",
+        "name",
+        "salary",
+        "dept_id"
+      ],
+      "rows": [
+        [
+          "1",
+          "Alice",
+          "75000",
+          "10"
+        ],
+        [
+          "2",
+          "Bob",
+          "95000",
+          "10"
+        ],
+        [
+          "3",
+          "Carol",
+          "68000",
+          "20"
+        ],
+        [
+          "4",
+          "David",
+          "72000",
+          "20"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "id",
+        "name",
+        "salary",
+        "dept_id"
+      ],
+      "rows": [
+        [
+          "1",
+          "Alice",
+          "75000",
+          "10"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 168,
+    "question": "Average order amount per customer per year",
+    "explanation": "Two-dimensional GROUP BY: customer × year. AVG reveals each customer's spending pattern over time.",
+    "query": "SELECT customer_id, EXTRACT(YEAR FROM order_date) AS year, AVG(amount) AS avg_order_amount FROM orders GROUP BY customer_id, year;",
+    "input": {
+      "table": "orders",
+      "headers": [
+        "customer_id",
+        "order_date",
+        "amount"
+      ],
+      "rows": [
+        [
+          "C1",
+          "2024-01-01",
+          "200"
+        ],
+        [
+          "C1",
+          "2024-06-01",
+          "400"
+        ],
+        [
+          "C1",
+          "2025-01-01",
+          "500"
+        ],
+        [
+          "C2",
+          "2024-03-01",
+          "300"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "customer_id",
+        "year",
+        "avg_order_amount"
+      ],
+      "rows": [
+        [
+          "C1",
+          "2024",
+          "300.00"
+        ],
+        [
+          "C1",
+          "2025",
+          "500.00"
+        ],
+        [
+          "C2",
+          "2024",
+          "300.00"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 169,
+    "question": "Employees who worked on projects with budget over $1 million",
+    "explanation": "JOIN brings in the project budget. DISTINCT avoids repeating employees assigned to multiple such projects.",
+    "query": "SELECT DISTINCT pa.employee_id FROM project_assignments pa JOIN projects p ON pa.project_id = p.project_id WHERE p.budget > 1000000;",
+    "input": {
+      "table": "projects + project_assignments",
+      "headers": [
+        "project_id",
+        "budget",
+        "employee_id"
+      ],
+      "rows": [
+        [
+          "P1",
+          "500000",
+          "E1"
+        ],
+        [
+          "P2",
+          "2000000",
+          "E1"
+        ],
+        [
+          "P2",
+          "2000000",
+          "E2"
+        ],
+        [
+          "P3",
+          "1500000",
+          "E3"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "employee_id"
+      ],
+      "rows": [
+        [
+          "E1"
+        ],
+        [
+          "E2"
+        ],
+        [
+          "E3"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 170,
+    "question": "Most recent promotion date per employee",
+    "explanation": "Simple MAX aggregate over promotion_date returns the most recent promotion per employee.",
+    "query": "SELECT employee_id, MAX(promotion_date) AS last_promotion_date FROM promotions GROUP BY employee_id;",
+    "input": {
+      "table": "promotions",
+      "headers": [
+        "employee_id",
+        "promotion_date"
+      ],
+      "rows": [
+        [
+          "E1",
+          "2021-03-01"
+        ],
+        [
+          "E1",
+          "2023-08-15"
+        ],
+        [
+          "E2",
+          "2022-05-01"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "employee_id",
+        "last_promotion_date"
+      ],
+      "rows": [
+        [
+          "E1",
+          "2023-08-15"
+        ],
+        [
+          "E2",
+          "2022-05-01"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 171,
+    "question": "Customers whose total orders exceed the average order amount",
+    "explanation": "CTE finds the average single-order amount. HAVING compares each customer's total spend against that benchmark.",
+    "query": "WITH avg_order AS (SELECT AVG(amount) AS avg_amount FROM orders) SELECT customer_id, SUM(amount) AS total_amount FROM orders GROUP BY customer_id HAVING SUM(amount) > (SELECT avg_amount FROM avg_order);",
+    "input": {
+      "table": "orders",
+      "headers": [
+        "customer_id",
+        "amount"
+      ],
+      "rows": [
+        [
+          "C1",
+          "500"
+        ],
+        [
+          "C2",
+          "1000"
+        ],
+        [
+          "C3",
+          "200"
+        ],
+        [
+          "C4",
+          "800"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "customer_id",
+        "total_amount"
+      ],
+      "rows": [
+        [
+          "C1",
+          "500"
+        ],
+        [
+          "C2",
+          "1000"
+        ],
+        [
+          "C4",
+          "800"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 172,
+    "question": "Products that have never been ordered",
+    "explanation": "NOT IN with a subquery cleanly identifies products that are absent from all sales records.",
+    "query": "SELECT product_id FROM products WHERE product_id NOT IN (SELECT DISTINCT product_id FROM sales);",
+    "input": {
+      "table": "products + sales",
+      "headers": [
+        "product_id",
+        "ever_sold"
+      ],
+      "rows": [
+        [
+          "P1",
+          "Yes"
+        ],
+        [
+          "P2",
+          "Yes"
+        ],
+        [
+          "P3",
+          "No"
+        ],
+        [
+          "P4",
+          "No"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "product_id"
+      ],
+      "rows": [
+        [
+          "P3"
+        ],
+        [
+          "P4"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 173,
+    "question": "Month with the lowest sales in the past year",
+    "explanation": "Filter to the last year. Aggregate by month. ORDER BY ascending LIMIT 1 finds the slowest month.",
+    "query": "SELECT DATE_TRUNC('month', sale_date) AS month, SUM(amount) AS total_sales FROM sales WHERE sale_date >= CURRENT_DATE - INTERVAL '1 year' GROUP BY month ORDER BY total_sales LIMIT 1;",
+    "input": {
+      "table": "sales",
+      "headers": [
+        "sale_date",
+        "amount"
+      ],
+      "rows": [
+        [
+          "2024-04-10",
+          "8000"
+        ],
+        [
+          "2024-05-15",
+          "12000"
+        ],
+        [
+          "2024-06-20",
+          "5000"
+        ],
+        [
+          "2024-07-08",
+          "15000"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "month",
+        "total_sales"
+      ],
+      "rows": [
+        [
+          "2024-06-01",
+          "5000"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 174,
+    "question": "Employees hired each month in the last year",
+    "explanation": "DATE_TRUNC normalises to month boundaries. COUNT per month shows the hiring cadence for the past year.",
+    "query": "SELECT DATE_TRUNC('month', hire_date) AS month, COUNT(*) AS hires FROM employees WHERE hire_date >= CURRENT_DATE - INTERVAL '1 year' GROUP BY month ORDER BY month;",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "id",
+        "name",
+        "hire_date"
+      ],
+      "rows": [
+        [
+          "1",
+          "Alice",
+          "2024-07-01"
+        ],
+        [
+          "2",
+          "Bob",
+          "2024-07-15"
+        ],
+        [
+          "3",
+          "Carol",
+          "2024-09-01"
+        ],
+        [
+          "4",
+          "David",
+          "2025-01-10"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "month",
+        "hires"
+      ],
+      "rows": [
+        [
+          "2024-07-01",
+          "2"
+        ],
+        [
+          "2024-09-01",
+          "1"
+        ],
+        [
+          "2025-01-01",
+          "1"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 175,
+    "question": "Department with the highest number of projects",
+    "explanation": "COUNT per department, ORDER BY descending, LIMIT 1 returns the single busiest department.",
+    "query": "SELECT department_id, COUNT(*) AS project_count FROM projects GROUP BY department_id ORDER BY project_count DESC LIMIT 1;",
+    "input": {
+      "table": "projects",
+      "headers": [
+        "project_id",
+        "department_id"
+      ],
+      "rows": [
+        [
+          "P1",
+          "10"
+        ],
+        [
+          "P2",
+          "10"
+        ],
+        [
+          "P3",
+          "10"
+        ],
+        [
+          "P4",
+          "20"
+        ],
+        [
+          "P5",
+          "20"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "dept_id",
+        "project_count"
+      ],
+      "rows": [
+        [
+          "10",
+          "3"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 176,
+    "question": "Employees without any dependents",
+    "explanation": "LEFT JOIN keeps all employees. A NULL dependent_id means that employee has no registered dependents.",
+    "query": "SELECT e.* FROM employees e LEFT JOIN dependents d ON e.id = d.employee_id WHERE d.dependent_id IS NULL;",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "id",
+        "name"
+      ],
+      "rows": [
+        [
+          "1",
+          "Alice"
+        ],
+        [
+          "2",
+          "Bob"
+        ],
+        [
+          "3",
+          "Carol"
+        ],
+        [
+          "4",
+          "David"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "id",
+        "name"
+      ],
+      "rows": [
+        [
+          "2",
+          "Bob"
+        ],
+        [
+          "4",
+          "David"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 177,
+    "question": "Total sales per category including zero-sales categories",
+    "explanation": "Chained LEFT JOINs keep all categories. COALESCE replaces a NULL SUM with 0 for clean output.",
+    "query": "SELECT c.category_id, COALESCE(SUM(s.amount), 0) AS total_sales FROM categories c LEFT JOIN products p ON c.category_id = p.category_id LEFT JOIN sales s ON p.product_id = s.product_id GROUP BY c.category_id;",
+    "input": {
+      "table": "categories",
+      "headers": [
+        "category_id",
+        "name"
+      ],
+      "rows": [
+        [
+          "C1",
+          "Electronics"
+        ],
+        [
+          "C2",
+          "Books"
+        ],
+        [
+          "C3",
+          "Clothing"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "category_id",
+        "total_sales"
+      ],
+      "rows": [
+        [
+          "C1",
+          "5000"
+        ],
+        [
+          "C2",
+          "2000"
+        ],
+        [
+          "C3",
+          "0"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 178,
+    "question": "Employees who were promoted but salary did not increase",
+    "explanation": "Correlated subquery fetches the pre-promotion salary. Current salary <= pre-promotion = no raise was given.",
+    "query": "SELECT e.id, e.name FROM employees e JOIN promotions p ON e.id = p.employee_id WHERE e.salary <= ( SELECT salary_before FROM promotion_history WHERE employee_id = e.id ORDER BY promotion_date DESC LIMIT 1 );",
+    "input": {
+      "table": "employees + promotion_history",
+      "headers": [
+        "emp_id",
+        "name",
+        "salary",
+        "salary_before"
+      ],
+      "rows": [
+        [
+          "E1",
+          "Alice",
+          "70000",
+          "65000"
+        ],
+        [
+          "E2",
+          "Bob",
+          "80000",
+          "80000"
+        ],
+        [
+          "E3",
+          "Carol",
+          "90000",
+          "75000"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "id",
+        "name"
+      ],
+      "rows": [
+        [
+          "E2",
+          "Bob"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 179,
+    "question": "Customers with average order amount above $500",
+    "explanation": "AVG per customer. HAVING > 500 isolates customers with consistently high average order values.",
+    "query": "SELECT customer_id, AVG(amount) AS avg_order_amount FROM orders GROUP BY customer_id HAVING AVG(amount) > 500;",
+    "input": {
+      "table": "orders",
+      "headers": [
+        "customer_id",
+        "amount"
+      ],
+      "rows": [
+        [
+          "C1",
+          "400"
+        ],
+        [
+          "C1",
+          "600"
+        ],
+        [
+          "C1",
+          "700"
+        ],
+        [
+          "C2",
+          "200"
+        ],
+        [
+          "C2",
+          "300"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "customer_id",
+        "avg_order_amount"
+      ],
+      "rows": [
+        [
+          "C1",
+          "566.67"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 180,
+    "question": "Orders where total quantity exceeds 100 units",
+    "explanation": "Summing item quantities per order. HAVING > 100 identifies bulk purchase orders.",
+    "query": "SELECT order_id, SUM(quantity) AS total_quantity FROM order_items GROUP BY order_id HAVING SUM(quantity) > 100;",
+    "input": {
+      "table": "order_items",
+      "headers": [
+        "order_id",
+        "product_id",
+        "quantity"
+      ],
+      "rows": [
+        [
+          "O1",
+          "P1",
+          "60"
+        ],
+        [
+          "O1",
+          "P2",
+          "50"
+        ],
+        [
+          "O2",
+          "P3",
+          "30"
+        ],
+        [
+          "O2",
+          "P4",
+          "40"
+        ],
+        [
+          "O3",
+          "P5",
+          "200"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "order_id",
+        "total_quantity"
+      ],
+      "rows": [
+        [
+          "O1",
+          "110"
+        ],
+        [
+          "O3",
+          "200"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 181,
+    "question": "Products whose sales doubled vs the previous month",
+    "explanation": "LAG provides last month's sales for the same product. >= 2x means at least 100 % month-over-month growth.",
+    "query": "WITH monthly_sales AS ( SELECT product_id, DATE_TRUNC('month', sale_date) AS month, SUM(amount) AS total_sales FROM sales GROUP BY product_id, month ), sales_comparison AS ( SELECT product_id, month, total_sales, LAG(total_sales) OVER (PARTITION BY product_id ORDER BY month) AS prev_sales FROM monthly_sales ) SELECT product_id, month FROM sales_comparison WHERE prev_sales IS NOT NULL AND total_sales >= 2 * prev_sales;",
+    "input": {
+      "table": "sales",
+      "headers": [
+        "product_id",
+        "month",
+        "total_sales"
+      ],
+      "rows": [
+        [
+          "P1",
+          "Jan",
+          "1000"
+        ],
+        [
+          "P1",
+          "Feb",
+          "2200"
+        ],
+        [
+          "P2",
+          "Jan",
+          "500"
+        ],
+        [
+          "P2",
+          "Feb",
+          "800"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "product_id",
+        "month"
+      ],
+      "rows": [
+        [
+          "P1",
+          "Feb"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 182,
+    "question": "Employees with more than 3 projects in 2023",
+    "explanation": "Date filter restricts to 2023. COUNT(DISTINCT) prevents double-counting the same project.",
+    "query": "SELECT employee_id, COUNT(DISTINCT project_id) AS project_count FROM project_assignments WHERE assignment_date BETWEEN '2023-01-01' AND '2023-12-31' GROUP BY employee_id HAVING COUNT(DISTINCT project_id) > 3;",
+    "input": {
+      "table": "project_assignments",
+      "headers": [
+        "employee_id",
+        "project_id",
+        "assignment_date"
+      ],
+      "rows": [
+        [
+          "E1",
+          "P1",
+          "2023-03-01"
+        ],
+        [
+          "E1",
+          "P2",
+          "2023-05-01"
+        ],
+        [
+          "E1",
+          "P3",
+          "2023-07-01"
+        ],
+        [
+          "E1",
+          "P4",
+          "2023-10-01"
+        ],
+        [
+          "E2",
+          "P1",
+          "2023-01-01"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "employee_id",
+        "project_count"
+      ],
+      "rows": [
+        [
+          "E1",
+          "4"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 183,
+    "question": "Customers whose last order was more than 1 year ago",
+    "explanation": "HAVING on MAX(order_date) filters lapsed customers who have not ordered in over a year.",
+    "query": "SELECT customer_id, MAX(order_date) AS last_order_date FROM orders GROUP BY customer_id HAVING MAX(order_date) < CURRENT_DATE - INTERVAL '1 year';",
+    "input": {
+      "table": "orders  (today = 2025-03-15)",
+      "headers": [
+        "customer_id",
+        "order_date"
+      ],
+      "rows": [
+        [
+          "C1",
+          "2024-01-10"
+        ],
+        [
+          "C2",
+          "2023-11-20"
+        ],
+        [
+          "C3",
+          "2025-02-01"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "customer_id",
+        "last_order_date"
+      ],
+      "rows": [
+        [
+          "C2",
+          "2023-11-20"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 184,
+    "question": "Average salary increase percentage per department",
+    "explanation": "Percentage increase = (new − old) / old × 100. AVG per department shows the typical raise size.",
+    "query": "SELECT e.department_id, AVG((e.salary - p.old_salary) / p.old_salary * 100) AS avg_increase_pct FROM employees e JOIN promotions p ON e.id = p.employee_id GROUP BY e.department_id;",
+    "input": {
+      "table": "employees + promotions",
+      "headers": [
+        "emp_id",
+        "dept_id",
+        "salary",
+        "old_salary"
+      ],
+      "rows": [
+        [
+          "E1",
+          "10",
+          "80000",
+          "70000"
+        ],
+        [
+          "E2",
+          "10",
+          "90000",
+          "75000"
+        ],
+        [
+          "E3",
+          "20",
+          "60000",
+          "55000"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "dept_id",
+        "avg_increase_pct"
+      ],
+      "rows": [
+        [
+          "10",
+          "14.29"
+        ],
+        [
+          "20",
+          "9.09"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 185,
+    "question": "Employees who have never been promoted",
+    "explanation": "Subquery collects all promoted employee IDs. NOT IN returns everyone who never appears in that list.",
+    "query": "SELECT * FROM employees WHERE id NOT IN (SELECT DISTINCT employee_id FROM promotions);",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "id",
+        "name"
+      ],
+      "rows": [
+        [
+          "1",
+          "Alice"
+        ],
+        [
+          "2",
+          "Bob"
+        ],
+        [
+          "3",
+          "Carol"
+        ],
+        [
+          "4",
+          "David"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "id",
+        "name"
+      ],
+      "rows": [
+        [
+          "3",
+          "Carol"
+        ],
+        [
+          "4",
+          "David"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 186,
+    "question": "Products ordered by every customer",
+    "explanation": "COUNT(DISTINCT customer_id) = total customers means every single customer bought this product.",
+    "query": "SELECT product_id FROM sales GROUP BY product_id HAVING COUNT(DISTINCT customer_id) = (SELECT COUNT(*) FROM customers);",
+    "input": {
+      "table": "sales  (3 total customers)",
+      "headers": [
+        "customer_id",
+        "product_id"
+      ],
+      "rows": [
+        [
+          "C1",
+          "P1"
+        ],
+        [
+          "C2",
+          "P1"
+        ],
+        [
+          "C3",
+          "P1"
+        ],
+        [
+          "C1",
+          "P2"
+        ],
+        [
+          "C2",
+          "P2"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "product_id"
+      ],
+      "rows": [
+        [
+          "P1"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 187,
+    "question": "Customers with orders over $5,000 in the last 6 months",
+    "explanation": "Filter to recent 6 months. SUM per customer. HAVING > 5000 identifies high-value recent customers.",
+    "query": "SELECT customer_id, SUM(amount) AS total_amount FROM orders WHERE order_date >= CURRENT_DATE - INTERVAL '6 months' GROUP BY customer_id HAVING SUM(amount) > 5000;",
+    "input": {
+      "table": "orders",
+      "headers": [
+        "customer_id",
+        "order_date",
+        "amount"
+      ],
+      "rows": [
+        [
+          "C1",
+          "2025-01-10",
+          "3000"
+        ],
+        [
+          "C1",
+          "2025-02-20",
+          "4000"
+        ],
+        [
+          "C2",
+          "2025-01-15",
+          "2000"
+        ],
+        [
+          "C3",
+          "2025-03-01",
+          "6000"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "customer_id",
+        "total_amount"
+      ],
+      "rows": [
+        [
+          "C1",
+          "7000"
+        ],
+        [
+          "C3",
+          "6000"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 188,
+    "question": "Rank employees by salary within their department",
+    "explanation": "RANK() per department. Tied salaries share a rank and subsequent positions are skipped (1, 1, 3).",
+    "query": "SELECT *, RANK() OVER (PARTITION BY department_id ORDER BY salary DESC) AS salary_rank FROM employees;",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "id",
+        "name",
+        "salary",
+        "dept_id"
+      ],
+      "rows": [
+        [
+          "1",
+          "Alice",
+          "90000",
+          "10"
+        ],
+        [
+          "2",
+          "Bob",
+          "85000",
+          "10"
+        ],
+        [
+          "3",
+          "Carol",
+          "90000",
+          "10"
+        ],
+        [
+          "4",
+          "David",
+          "80000",
+          "20"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "id",
+        "name",
+        "salary",
+        "dept_id",
+        "salary_rank"
+      ],
+      "rows": [
+        [
+          "1",
+          "Alice",
+          "90000",
+          "10",
+          "1"
+        ],
+        [
+          "3",
+          "Carol",
+          "90000",
+          "10",
+          "1"
+        ],
+        [
+          "2",
+          "Bob",
+          "85000",
+          "10",
+          "3"
+        ],
+        [
+          "4",
+          "David",
+          "80000",
+          "20",
+          "1"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 189,
+    "question": "Customers who purchased a product but never reordered it",
+    "explanation": "Count purchases per customer-product pair. count = 1 means exactly one purchase — no repeat order.",
+    "query": "WITH order_counts AS ( SELECT customer_id, product_id, COUNT(*) AS order_count FROM sales GROUP BY customer_id, product_id ) SELECT customer_id, product_id FROM order_counts WHERE order_count = 1;",
+    "input": {
+      "table": "sales",
+      "headers": [
+        "customer_id",
+        "product_id"
+      ],
+      "rows": [
+        [
+          "C1",
+          "P1"
+        ],
+        [
+          "C1",
+          "P1"
+        ],
+        [
+          "C1",
+          "P2"
+        ],
+        [
+          "C2",
+          "P3"
+        ],
+        [
+          "C2",
+          "P4"
+        ],
+        [
+          "C2",
+          "P4"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "customer_id",
+        "product_id"
+      ],
+      "rows": [
+        [
+          "C1",
+          "P2"
+        ],
+        [
+          "C2",
+          "P3"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 190,
+    "question": "Day with the highest number of new hires",
+    "explanation": "GROUP BY hire_date counts daily new hires. ORDER BY DESC LIMIT 1 finds the peak onboarding day.",
+    "query": "SELECT hire_date, COUNT(*) AS hires FROM employees GROUP BY hire_date ORDER BY hires DESC LIMIT 1;",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "id",
+        "name",
+        "hire_date"
+      ],
+      "rows": [
+        [
+          "1",
+          "Alice",
+          "2024-01-15"
+        ],
+        [
+          "2",
+          "Bob",
+          "2024-01-15"
+        ],
+        [
+          "3",
+          "Carol",
+          "2024-01-15"
+        ],
+        [
+          "4",
+          "David",
+          "2024-02-01"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "hire_date",
+        "hires"
+      ],
+      "rows": [
+        [
+          "2024-01-15",
+          "3"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 191,
+    "question": "Employees who worked in more than one department",
+    "explanation": "COUNT(DISTINCT department_id) > 1 identifies employees who moved between departments over time.",
+    "query": "SELECT employee_id FROM employee_department_history GROUP BY employee_id HAVING COUNT(DISTINCT department_id) > 1;",
+    "input": {
+      "table": "emp_dept_history",
+      "headers": [
+        "employee_id",
+        "department_id"
+      ],
+      "rows": [
+        [
+          "E1",
+          "D1"
+        ],
+        [
+          "E1",
+          "D2"
+        ],
+        [
+          "E2",
+          "D1"
+        ],
+        [
+          "E3",
+          "D2"
+        ],
+        [
+          "E3",
+          "D3"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "employee_id"
+      ],
+      "rows": [
+        [
+          "E1"
+        ],
+        [
+          "E3"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 192,
+    "question": "Customer who ordered the most products in 2023",
+    "explanation": "Filter to 2023. SUM quantity per customer. ORDER BY DESC LIMIT 1 returns the highest volume buyer.",
+    "query": "SELECT customer_id, SUM(quantity) AS total_quantity FROM sales WHERE EXTRACT(YEAR FROM sale_date) = 2023 GROUP BY customer_id ORDER BY total_quantity DESC LIMIT 1;",
+    "input": {
+      "table": "sales  (2023)",
+      "headers": [
+        "customer_id",
+        "quantity"
+      ],
+      "rows": [
+        [
+          "C1",
+          "50"
+        ],
+        [
+          "C1",
+          "80"
+        ],
+        [
+          "C2",
+          "200"
+        ],
+        [
+          "C3",
+          "30"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "customer_id",
+        "total_quantity"
+      ],
+      "rows": [
+        [
+          "C2",
+          "200"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 193,
+    "question": "Average days to ship per shipping method",
+    "explanation": "Date subtraction gives duration per order. AVG per shipping method reveals fulfillment efficiency.",
+    "query": "SELECT shipping_method, AVG(shipping_date - order_date) AS avg_shipping_days FROM orders GROUP BY shipping_method;",
+    "input": {
+      "table": "orders",
+      "headers": [
+        "order_id",
+        "shipping_method",
+        "order_date",
+        "shipping_date"
+      ],
+      "rows": [
+        [
+          "O1",
+          "Standard",
+          "2025-01-01",
+          "2025-01-06"
+        ],
+        [
+          "O2",
+          "Express",
+          "2025-01-01",
+          "2025-01-03"
+        ],
+        [
+          "O3",
+          "Standard",
+          "2025-01-10",
+          "2025-01-16"
+        ],
+        [
+          "O4",
+          "Express",
+          "2025-01-10",
+          "2025-01-12"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "shipping_method",
+        "avg_shipping_days"
+      ],
+      "rows": [
+        [
+          "Standard",
+          "5.5 days"
+        ],
+        [
+          "Express",
+          "2 days"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 194,
+    "question": "Employees with overlapping project assignments",
+    "explanation": "Self-join on the same employee. The classic overlap condition detects employees assigned to two simultaneous projects.",
+    "query": "SELECT pa1.employee_id, pa1.project_id AS project1, pa2.project_id AS project2 FROM project_assignments pa1 JOIN project_assignments pa2 ON pa1.employee_id = pa2.employee_id AND pa1.project_id <> pa2.project_id WHERE pa1.start_date <= pa2.end_date AND pa1.end_date >= pa2.start_date;",
+    "input": {
+      "table": "project_assignments",
+      "headers": [
+        "employee_id",
+        "project_id",
+        "start_date",
+        "end_date"
+      ],
+      "rows": [
+        [
+          "E1",
+          "P1",
+          "2025-01-01",
+          "2025-06-30"
+        ],
+        [
+          "E1",
+          "P2",
+          "2025-04-01",
+          "2025-12-31"
+        ],
+        [
+          "E1",
+          "P3",
+          "2025-07-01",
+          "2025-09-30"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "employee_id",
+        "project1",
+        "project2"
+      ],
+      "rows": [
+        [
+          "E1",
+          "P1",
+          "P2"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 195,
+    "question": "Total unique customers per product category",
+    "explanation": "JOIN retrieves category from products. COUNT(DISTINCT customer_id) avoids counting repeat buyers.",
+    "query": "SELECT p.category_id, COUNT(DISTINCT s.customer_id) AS unique_customers FROM sales s JOIN products p ON s.product_id = p.product_id GROUP BY p.category_id;",
+    "input": {
+      "table": "sales + products",
+      "headers": [
+        "category_id",
+        "product_id",
+        "customer_id"
+      ],
+      "rows": [
+        [
+          "C1",
+          "P1",
+          "U1"
+        ],
+        [
+          "C1",
+          "P1",
+          "U2"
+        ],
+        [
+          "C1",
+          "P2",
+          "U1"
+        ],
+        [
+          "C2",
+          "P3",
+          "U3"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "category_id",
+        "unique_customers"
+      ],
+      "rows": [
+        [
+          "C1",
+          "2"
+        ],
+        [
+          "C2",
+          "1"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 196,
+    "question": "Customers whose orders increased 20 %+ month-over-month",
+    "explanation": "LAG gives the prior month count. >= 1.2x = at least 20 % increase from one month to the next.",
+    "query": "WITH monthly_orders AS ( SELECT customer_id, DATE_TRUNC('month', order_date) AS month, COUNT(*) AS cnt FROM orders GROUP BY customer_id, month ), orders_comparison AS ( SELECT customer_id, month, cnt, LAG(cnt) OVER (PARTITION BY customer_id ORDER BY month) AS prev FROM monthly_orders ) SELECT customer_id, month FROM orders_comparison WHERE prev IS NOT NULL AND cnt >= 1.2 * prev;",
+    "input": {
+      "table": "monthly orders",
+      "headers": [
+        "customer_id",
+        "month",
+        "cnt"
+      ],
+      "rows": [
+        [
+          "C1",
+          "Jan",
+          "5"
+        ],
+        [
+          "C1",
+          "Feb",
+          "7"
+        ],
+        [
+          "C2",
+          "Jan",
+          "10"
+        ],
+        [
+          "C2",
+          "Feb",
+          "11"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "customer_id",
+        "month"
+      ],
+      "rows": [
+        [
+          "C1",
+          "Feb"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 197,
+    "question": "Employees with no projects in the last 6 months",
+    "explanation": "Date condition in the JOIN keeps only recent assignments. NULL project_id = no recent project work.",
+    "query": "SELECT e.* FROM employees e LEFT JOIN project_assignments pa ON e.id = pa.employee_id AND pa.start_date >= CURRENT_DATE - INTERVAL '6 months' WHERE pa.project_id IS NULL;",
+    "input": {
+      "table": "employees",
+      "headers": [
+        "id",
+        "name"
+      ],
+      "rows": [
+        [
+          "1",
+          "Alice"
+        ],
+        [
+          "2",
+          "Bob"
+        ],
+        [
+          "3",
+          "Carol"
+        ],
+        [
+          "4",
+          "David"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "id",
+        "name"
+      ],
+      "rows": [
+        [
+          "3",
+          "Carol"
+        ],
+        [
+          "4",
+          "David"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 198,
+    "question": "Employees who changed departments more than twice",
+    "explanation": "COUNT(DISTINCT department_id) > 2 means at least 3 different departments — an internal job-hopper.",
+    "query": "SELECT employee_id FROM employee_department_history GROUP BY employee_id HAVING COUNT(DISTINCT department_id) > 2;",
+    "input": {
+      "table": "emp_dept_history",
+      "headers": [
+        "employee_id",
+        "department_id"
+      ],
+      "rows": [
+        [
+          "E1",
+          "D1"
+        ],
+        [
+          "E1",
+          "D2"
+        ],
+        [
+          "E1",
+          "D3"
+        ],
+        [
+          "E2",
+          "D1"
+        ],
+        [
+          "E2",
+          "D2"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "employee_id"
+      ],
+      "rows": [
+        [
+          "E1"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 199,
+    "question": "Product with the highest average customer rating",
+    "explanation": "AVG rating per product. ORDER BY DESC LIMIT 1 returns the top-rated product.",
+    "query": "SELECT product_id, AVG(rating) AS avg_rating FROM product_reviews GROUP BY product_id ORDER BY avg_rating DESC LIMIT 1;",
+    "input": {
+      "table": "product_reviews",
+      "headers": [
+        "product_id",
+        "rating"
+      ],
+      "rows": [
+        [
+          "P1",
+          "4"
+        ],
+        [
+          "P1",
+          "5"
+        ],
+        [
+          "P2",
+          "3"
+        ],
+        [
+          "P2",
+          "4"
+        ],
+        [
+          "P3",
+          "5"
+        ],
+        [
+          "P3",
+          "5"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "product_id",
+        "avg_rating"
+      ],
+      "rows": [
+        [
+          "P3",
+          "5.00"
+        ]
+      ]
+    }
+  },
+  {
+    "number": 200,
+    "question": "Customers who ordered but never used a discount",
+    "explanation": "DISTINCT avoids repeating the same customer. FALSE discount_used identifies full-price buyers.",
+    "query": "SELECT DISTINCT customer_id FROM orders WHERE discount_used = FALSE;",
+    "input": {
+      "table": "orders",
+      "headers": [
+        "order_id",
+        "customer_id",
+        "discount_used"
+      ],
+      "rows": [
+        [
+          "O1",
+          "C1",
+          "TRUE"
+        ],
+        [
+          "O2",
+          "C1",
+          "FALSE"
+        ],
+        [
+          "O3",
+          "C2",
+          "FALSE"
+        ],
+        [
+          "O4",
+          "C3",
+          "TRUE"
+        ]
+      ]
+    },
+    "output": {
+      "headers": [
+        "customer_id"
+      ],
+      "rows": [
+        [
+          "C1"
+        ],
+        [
+          "C2"
+        ]
+      ]
+    }
+  }
+]

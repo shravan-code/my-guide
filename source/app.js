@@ -191,13 +191,29 @@ function initializeSidebarToggle() {
     document.body.style.overflow = "hidden";
   };
 
-  sidebarToggle?.addEventListener("click", () => {
-    if (sidebar?.classList.contains("open")) {
-      closeSidebar();
+  const toggleSidebar = () => {
+    const isDesktop = window.innerWidth > 920;
+    
+    if (isDesktop) {
+      // On desktop, toggle collapsed class
+      if (sidebar?.classList.contains("collapsed")) {
+        sidebar.classList.remove("collapsed");
+        sidebarToggle?.classList.remove("active");
+      } else {
+        sidebar.classList.add("collapsed");
+        sidebarToggle?.classList.add("active");
+      }
     } else {
-      openSidebar();
+      // On mobile, use open/close
+      if (sidebar?.classList.contains("open")) {
+        closeSidebar();
+      } else {
+        openSidebar();
+      }
     }
-  });
+  };
+
+  sidebarToggle?.addEventListener("click", toggleSidebar);
 
   sidebarOverlay?.addEventListener("click", closeSidebar);
 

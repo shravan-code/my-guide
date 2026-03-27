@@ -22,6 +22,10 @@
   align-self: start;
 }
 
+.sidebar-toggle {
+  display: flex;
+}
+
 .sidebar::-webkit-scrollbar {
   width: 6px;
 }
@@ -102,6 +106,11 @@
   padding: 0;
   margin: 0;
   width: 100%;
+  transition: grid-template-columns 0.3s ease;
+}
+
+.main-content:has(.sidebar.collapsed) {
+  grid-template-columns: 0 1fr;
 }
 
 .page-wrap {
@@ -574,7 +583,7 @@ body:not(.with-sidebar) .hero h1 {
 
 /* ---- Sidebar toggle button (hamburger) ---- */
 .sidebar-toggle {
-  display: flex;
+  display: none;
   position: fixed;
   top: calc(var(--topbar-height) + 0.75rem);
   right: 0.75rem;
@@ -894,18 +903,77 @@ body.dark .mobile-nav a.active {
     z-index: 2001;
     transition: all var(--transition);
   }
+}
 
+/* Desktop: show toggle when sidebar is collapsible */
+@media (min-width: 921px) {
+  .sidebar-toggle {
+    display: flex;
+    position: fixed;
+    top: calc(var(--topbar-height) + 1rem);
+    left: calc(var(--sidebar-width, 260px) + 0.5rem);
+    width: 28px;
+    height: 28px;
+    align-items: center;
+    justify-content: center;
+    background: var(--glass);
+    color: var(--text);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    z-index: 1001;
+    transition: left 0.3s ease;
+    padding: 0.3rem;
+  }
+  
   .sidebar-toggle:hover {
     transform: scale(1.05);
     box-shadow: var(--shadow);
   }
-
+  
   .sidebar-toggle svg {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
+  }
+  
+  .sidebar.collapsed + .sidebar-toggle {
+    background: var(--glow-color);
+    color: var(--bg);
+    border-color: var(--glow-color);
+    box-shadow: 0 0 15px var(--glow-color);
+  }
+  
+  .sidebar.collapsed + .sidebar-toggle:hover {
+    box-shadow: 0 0 25px var(--glow-color);
+    transform: scale(1.1);
   }
 
   .sidebar-toggle.active {
+    left: 0.75rem !important;
+    background: var(--glow-color) !important;
+    color: var(--bg) !important;
+    border-color: var(--glow-color) !important;
+    box-shadow: 0 0 15px var(--glow-color) !important;
+  }
+  
+  .sidebar-toggle.active:hover {
+    box-shadow: 0 0 25px var(--glow-color) !important;
+    transform: scale(1.1);
+  }
+
+  .sidebar.collapsed {
+    transform: translateX(-100%);
+    opacity: 0;
+    pointer-events: none;
+  }
+    pointer-events: none;
+  }
+  
+  .main-content:has(.sidebar.collapsed) {
+    grid-template-columns: 0 1fr;
+  }
+}
     background: var(--bg-alt);
     color: var(--text);
   }

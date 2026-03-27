@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Guide | SQL Practice</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../python/python.css" />
+  <style>
+    .practice-grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+    
+    .practice-card {
+      background: var(--glass);
+      backdrop-filter: blur(var(--glass-blur));
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+    }
+    
+    .practice-card-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      cursor: pointer;
+    }
+    
+    .q-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+      flex: 1;
+    }
+    
+    .q-number {
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      min-width: 36px;
+      height: 36px;
+      background: #ff6b35 !important;
+      color: white !important;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    
+    .q-pill {
+      display: inline-flex !important;
+      align-items: center;
+      padding: 0.25rem 0.65rem;
+      background: #4ecdc4 !important;
+      color: #1a1a2e !important;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    
+    .expand-icon {
+      color: var(--text-muted);
+      transition: transform 0.2s ease;
+    }
+    
+    .expand-icon.expanded {
+      transform: rotate(180deg);
+    }
+    
+    .q-content {
+      display: none;
+    }
+    
+    .q-content.visible {
+      display: block;
+    }
+    
+    .q-explanation {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    
+    .query-block {
+      background: var(--code-bg);
+      border-left: 3px solid var(--glow-color);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 0.95rem;
+      margin-bottom: 1rem;
+      font-family: "JetBrains Mono", Consolas, monospace;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      white-space: pre;
+      word-break: break-word;
+      overflow-x: auto;
+      color: var(--code-text);
+    }
+    
+    .query-block code {
+      font-family: inherit;
+      font-size: inherit;
+      background: transparent;
+    }
+    
+    .query-block .keyword {
+      color: var(--code-keyword);
+      font-weight: 600;
+    }
+    
+    .query-block .string {
+      color: var(--code-string);
+    }
+    
+    .query-block .number {
+      color: var(--code-number);
+    }
+    
+    .query-block .function {
+      color: var(--code-function);
+    }
+    
+    .query-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      margin-top: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .table-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      margin-top: 1rem;
+    }
+    
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+    
+    .data-table th,
+    .data-table td {
+      border: 1px solid var(--border);
+      padding: 0.5rem 0.75rem;
+      text-align: left;
+    }
+    
+    .data-table th {
+      background: var(--code-bg);
+      font-weight: 600;
+      color: var(--primary);
+      border-bottom: 2px solid var(--border);
+    }
+    
+    .data-table td {
+      font-family: "JetBrains Mono", Consolas, monospace;
+      color: var(--code-text);
+    }
+    
+    .data-table tr:nth-child(even) td {
+      background: rgba(0, 0, 0, 0.1);
+    }
+    
+    @media (max-width: 700px) {
+      .q-content {
+        padding-left: 0;
+        margin-top: 1rem;
+      }
+      
+      .data-table {
+        font-size: 0.75rem;
+      }
+      
+      .data-table th,
+      .data-table td {
+        padding: 0.35rem 0.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body class="with-sidebar">
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <header class="topbar glass reveal in">
+    <a class="brand" href="../../index.html">Data Guide</a>
+    <nav class="menu" aria-label="SQL menu">
+      <a href="index.html">Hub</a>
+      <a href="sql-concepts.html">Concepts</a>
+      <a href="sql-modelling.html">Modelling</a>
+      <a href="sql-queries.html">Queries</a>
+      <a href="sql-joins.html">Joins</a>
+      <a href="sql-subqueries.html">Subqueries</a>
+      <a href="sql-windows.html">Windows</a>
+      <a href="sql-methods.html">Methods</a>
+      <a href="sql-practice.html" class="active" aria-current="page">Practice</a>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+      <span class="toggle-icon" aria-hidden="true">☾</span>
+      <span class="toggle-text">Dark</span>
+    </button>
+  </header>
+
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <main class="main-content">
+    <nav class="sidebar" id="sidebar">
+      <div class="logo">
+        <span class="logo-text">SQL Practice</span>
+      </div>
+      <a href="#basics" class="nav-item active" data-filter="basics"><span>1</span> Basics</a>
+      <a href="#aggregation" class="nav-item" data-filter="aggregation"><span>2</span> Aggregation</a>
+      <a href="#joins" class="nav-item" data-filter="joins"><span>3</span> Joins</a>
+      <a href="#subqueries" class="nav-item" data-filter="subqueries"><span>4</span> Subqueries</a>
+      <a href="#window" class="nav-item" data-filter="window"><span>5</span> Window Functions</a>
+      <a href="#dates" class="nav-item" data-filter="dates"><span>6</span> Dates</a>
+      <a href="#strings" class="nav-item" data-filter="strings"><span>7</span> Strings</a>
+      <a href="#recursion" class="nav-item" data-filter="recursion"><span>8</span> Recursion</a>
+      <a href="#pivot" class="nav-item" data-filter="pivot"><span>9</span> Pivot/Unpivot</a>
+    </nav>
+    <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+        <line x1="9" y1="3" x2="9" y2="21"></line>
+      </svg>
+    </button>
+
+    <div class="page-wrap">
+      <section class="hero">
+        <p class="eyebrow">SQL Guide</p>
+        <h1>SQL Practice</h1>
+        <p class="hero-copy">300 hand-picked SQL interview questions with solutions. Click on any question to see the query, input data, and expected output.</p>
+      </section>
+
+      <div class="practice-grid" id="questions-container"></div>
+    </div>
+  </main>
+
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+
+  <script src="../app.js"></script>
+  <script>
+    let questions = [];
+
+    function getCategory(explanation) {
+      const exp = explanation.toLowerCase();
+      if (exp.includes('subquery') || exp.includes('correlated') || exp.includes('scalar')) return 'subqueries';
+      if (exp.includes('window') || exp.includes('over (') || exp.includes('partition')) return 'window';
+      if (exp.includes('join') || exp.includes('left join') || exp.includes('inner join')) return 'joins';
+      if (exp.includes('group by') || exp.includes('count') || exp.includes('sum') || exp.includes('avg') || exp.includes('having') || exp.includes('aggregate') || exp.includes('percentile') || exp.includes('median')) return 'aggregation';
+      if (exp.includes('date') || exp.includes('interval') || exp.includes('timestamp')) return 'dates';
+      if (exp.includes('string') || exp.includes('json') || exp.includes('concat') || exp.includes('array')) return 'strings';
+      if (exp.includes('recursive') || exp.includes('recursion') || exp.includes('hierarchy')) return 'recursion';
+      if (exp.includes('pivot') || exp.includes('unpivot') || exp.includes('case when')) return 'pivot';
+      return 'basics';
+    }
+
+    Promise.all([
+      fetch('sql-questions-full.json').then(res => res.json()),
+      fetch('sql-questions-101-200.json').then(res => res.json()),
+      fetch('sql-questions-201-300.json').then(res => res.json())
+    ])
+      .then(([data1, data2, data3]) => {
+        const combined = [...data1, ...data2, ...data3].map((q, idx) => ({
+          ...q,
+          number: idx + 1,
+          category: getCategory(q.explanation || '')
+        }));
+        questions = combined;
+        initPractice();
+      });
+
+    function initPractice() {
+      const container = document.getElementById('questions-container');
+      const sidebarItems = document.querySelectorAll('.sidebar .nav-item');
+      let currentFilter = 'basics';
+
+      function formatSQL(query) {
+        if (!query) return '';
+        
+        let formatted = query.trim();
+        formatted = formatted.replace(/\s+/g, ' ');
+        
+        formatted = formatted.replace(/\)\s*SELECT\b/gi, ') SELECT');
+        formatted = formatted.replace(/\)\s*INSERT\b/gi, ') INSERT');
+        formatted = formatted.replace(/\)\s*UPDATE\b/gi, ') UPDATE');
+        formatted = formatted.replace(/\)\s*DELETE\b/gi, ') DELETE');
+        
+        formatted = formatted.replace(/\bAS\s+\(/gi, 'AS (');
+        
+        const phrases = [
+          'WITH RECURSIVE', 'WITH', 'SELECT', 'FROM', 'WHERE',
+          'GROUP BY', 'HAVING', 'ORDER BY', 'LIMIT', 'OFFSET',
+          'UNION ALL', 'UNION', 'CASE', 'WHEN', 'THEN', 'ELSE', 'END',
+          'INNER JOIN', 'LEFT JOIN', 'RIGHT JOIN', 'FULL OUTER JOIN', 'CROSS JOIN', 'JOIN',
+          'ON', 'OVER', 'PARTITION BY'
+        ];
+        
+        phrases.forEach(p => {
+          const regex = new RegExp(' ' + p + ' ', 'gi');
+          formatted = formatted.replace(regex, '\n' + p + ' ');
+        });
+        
+        formatted = formatted.replace(/^\nSELECT/, 'SELECT');
+        
+        formatted = formatted.replace(/\) SELECT/g, ')\n\nSELECT');
+        formatted = formatted.replace(/\) INSERT/g, ')\n\nINSERT');
+        formatted = formatted.replace(/\) UPDATE/g, ')\n\nUPDATE');
+        formatted = formatted.replace(/\) DELETE/g, ')\n\nDELETE');
+        
+        formatted = formatted.replace(/^\n/, '');
+        
+        let lines = formatted.split('\n');
+        let indent = 0;
+        
+        lines = lines.map(line => {
+          line = line.trim();
+          if (!line) return '';
+          
+          const openCount = (line.match(/\(/g) || []).length;
+          const closeCount = (line.match(/\)/g) || []).length;
+          
+          if (closeCount > openCount) {
+            indent -= (closeCount - openCount);
+          }
+          
+          let spaces = '  '.repeat(Math.max(0, indent));
+          
+          if (openCount > closeCount) {
+            indent += (openCount - closeCount);
+          }
+          
+          return spaces + line;
+        });
+        
+        return lines.join('\n');
+      }
+
+      function highlightSQL(query) {
+        if (!query) return '';
+        
+        let formatted = formatSQL(query);
+        
+        const sqlKeywords = ['SELECT', 'FROM', 'WHERE', 'AND', 'OR', 'NOT', 'IN', 'IS', 'NULL', 'AS', 'ON', 'JOIN', 'LEFT', 'RIGHT', 'INNER', 'FULL', 'OUTER', 'CROSS', 'GROUP', 'BY', 'HAVING', 'ORDER', 'ASC', 'DESC', 'LIMIT', 'OFFSET', 'UNION', 'ALL', 'DISTINCT', 'CASE', 'WHEN', 'THEN', 'ELSE', 'END', 'WITH', 'RECURSIVE', 'OVER', 'PARTITION', 'ROWS', 'BETWEEN', 'PRECEDING', 'CURRENT', 'FOLLOWING', 'UNBOUNDED', 'RANK', 'DENSE_RANK', 'ROW_NUMBER', 'LAG', 'LEAD', 'FIRST_VALUE', 'LAST_VALUE', 'NTH_VALUE', 'COUNT', 'SUM', 'AVG', 'MIN', 'MAX', 'COALESCE', 'NULLIF', 'CAST', 'INTERVAL', 'EXTRACT', 'DATE_TRUNC', 'PERCENTILE_CONT', 'CUME_DIST', 'PERCENT_RANK', 'NTILE', 'JSON_AGG', 'STRING_AGG', 'ARRAY', 'ANY', 'EXISTS', 'LIKE', 'ILIKE', 'BETWEEN', 'INTO', 'VALUES', 'INSERT', 'UPDATE', 'DELETE', 'SET', 'RETURNING', 'CREATE', 'TABLE', 'DROP', 'ALTER', 'ADD', 'COLUMN', 'PRIMARY', 'KEY', 'FOREIGN', 'REFERENCES', 'INDEX', 'VIEW', 'TRIGGER', 'FUNCTION', 'PROCEDURE', 'BEGIN', 'COMMIT', 'ROLLBACK', 'TRANSACTION', 'GRANT', 'REVOKE', 'CASCADE', 'RESTRICT', 'IF', 'ELSIF', 'LOOP', 'WHILE', 'FOR', 'FOREACH', 'IN', 'OUT', 'INOUT', 'PERCENT', 'TYPE', 'ROW', 'RECORD', 'CONSTRAINT', 'DEFAULT', 'CHECK', 'UNIQUE', 'COMPOSITE'];
+        
+        let result = formatted
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;');
+        
+        result = result.replace(/'[^']*'/g, '<span class="string">$&</span>');
+        result = result.replace(/"[^"]*"/g, '<span class="string">$&</span>');
+        
+        result = result.replace(/\b(\d+(?:\.\d+)?)\b/g, '<span class="number">$1</span>');
+        
+        const keywordPattern = new RegExp('\\b(' + sqlKeywords.join('|') + ')\\b', 'gi');
+        result = result.replace(keywordPattern, '<span class="keyword">$1</span>');
+        
+        result = result.replace(/\n/g, '<br>');
+        
+        return result;
+      }
+
+      function renderQuestions(filter = 'all') {
+        const filtered = questions.filter(q => {
+          return filter === 'all' || q.category === filter;
+        });
+
+        container.innerHTML = filtered.map(q => `
+          <div class="practice-card" id="q${q.number}" data-category="${q.category}">
+            <div class="practice-card-header" onclick="toggleCard(${q.number})">
+              <span class="q-number">${q.number}</span>
+              <span class="q-title">${q.question}</span>
+              <span class="q-pill">${q.category}</span>
+              <svg class="expand-icon" id="icon-${q.number}" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+            <div class="q-content" id="content-${q.number}">
+              <p class="q-explanation">${q.explanation}</p>
+              <div class="query-label">SQL Query</div>
+              <div class="query-block"><code>${highlightSQL(q.query)}</code></div>
+              ${q.input && q.input.headers ? `
+                <div class="table-label">Input: ${q.input.table || 'Table'}</div>
+                <table class="data-table">
+                  <thead><tr>${q.input.headers.map(h => `<th>${h}</th>`).join('')}</tr></thead>
+                  <tbody>${q.input.rows.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join('')}</tr>`).join('')}</tbody>
+                </table>
+              ` : ''}
+              ${q.output && q.output.headers ? `
+                <div class="table-label">Output</div>
+                <table class="data-table">
+                  <thead><tr>${q.output.headers.map(h => `<th>${h}</th>`).join('')}</tr></thead>
+                  <tbody>${q.output.rows.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join('')}</tr>`).join('')}</tbody>
+                </table>
+              ` : ''}
+            </div>
+          </div>
+        `).join('');
+      }
+
+      window.toggleCard = function(num) {
+        const content = document.getElementById(`content-${num}`);
+        const icon = document.getElementById(`icon-${num}`);
+        content.classList.toggle('visible');
+        icon.classList.toggle('expanded');
+      };
+
+      // Sidebar click handlers
+      sidebarItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          sidebarItems.forEach(i => i.classList.remove('active'));
+          item.classList.add('active');
+          currentFilter = item.dataset.filter;
+          renderQuestions(currentFilter);
+          
+          // Close mobile sidebar after selection
+          document.body.classList.remove('sidebar-open');
+        });
+      });
+
+      // Handle hash changes (direct navigation)
+      function handleHash() {
+        const hash = window.location.hash.slice(1);
+        if (hash) {
+          const matchingItem = document.querySelector(`.sidebar .nav-item[data-filter="${hash}"]`);
+          if (matchingItem) {
+            sidebarItems.forEach(i => i.classList.remove('active'));
+            matchingItem.classList.add('active');
+            currentFilter = hash;
+            renderQuestions(currentFilter);
+          }
+        } else {
+          renderQuestions('basics');
+        }
+      }
+      
+      window.addEventListener('hashchange', handleHash);
+      handleHash();
+      
+      // Scroll to top functionality
+      const scrollToTopBtn = document.getElementById('scrollToTop');
+      
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+          scrollToTopBtn.classList.add('visible');
+        } else {
+          scrollToTopBtn.classList.remove('visible');
+        }
+      });
+      
+      scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    }
+  </script>
+</body>
+</html>
