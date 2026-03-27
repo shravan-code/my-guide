@@ -17,7 +17,7 @@
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 20px;
-  --transition-standard: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-standard: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
   --layout-topbar-height: 64px;
   --layout-sidebar-width: 300px;

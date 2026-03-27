@@ -513,6 +513,8 @@ body:not(.with-sidebar) .hero h1 {
     border-right: 1px solid var(--glass-border);
     transform: translateX(-100%);
     transition: transform var(--transition);
+    will-change: transform;
+    -webkit-backface-visibility: hidden;
     z-index: 2000;
   }
 

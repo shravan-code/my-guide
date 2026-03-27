@@ -76,7 +76,16 @@ body {
   min-height: 100%;
 }
 
-html { font-size: var(--font-size-root); }
+html {
+  font-size: var(--font-size-root);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
 body {
   font-size: var(--font-size-body);
   font-family: var(--font-family-body);
@@ -1474,7 +1483,7 @@ body.dark {
 .reveal {
   opacity: 0;
   transform: translateY(16px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .reveal.in {
