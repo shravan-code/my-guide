@@ -328,11 +328,47 @@ body.dark .mobile-nav a.active {
 }
 
 @media (max-width: 920px) {
+  .topbar {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 0.75rem 1rem;
+  }
+
+  .brand {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+    z-index: 1;
+  }
+
+  .header-actions {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    width: 100%;
+    margin-left: 0;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    z-index: 2;
+  }
+
   .mobile-menu-toggle {
     display: flex;
+    grid-column: 1;
+    justify-self: start;
+  }
+
+  .theme-toggle {
+    grid-column: 3;
+    justify-self: end;
   }
 
   .menu {
     display: none;
+  }
+
+  .mobile-menu {
+    padding: 1rem;
   }
 }

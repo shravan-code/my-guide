@@ -17,9 +17,6 @@
 
   <header class="topbar glass reveal in">
     <a class="brand" href="../../index.html">Data Guide</a>
-    <button id="sidebar-toggle" class="sidebar-toggle" type="button" aria-label="Toggle sidebar">
-      <span class="hamburger" aria-hidden="true"></span>
-    </button>
     <nav class="menu" aria-label="Python menu">
       <a href="index.html">Hub</a>
       <a href="python-fundamentals.html">Fundamentals</a>
@@ -1985,11 +1982,13 @@ squares = (x*x <span class="keyword">for</span> x <span class="keyword">in</span
     const closeMobileMenu = () => {
       if (mobileMenu) mobileMenu.classList.remove('open');
       if (mobileMenuOverlay) mobileMenuOverlay.classList.remove('active');
+      document.body.style.overflow = ''; 
     };
 
     const openMobileMenu = () => {
       if (mobileMenu) mobileMenu.classList.add('open');
       if (mobileMenuOverlay) mobileMenuOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
     };
 
     if (mobileMenuToggle) {
@@ -2005,6 +2004,7 @@ squares = (x*x <span class="keyword">for</span> x <span class="keyword">in</span
     if (mobileMenuOverlay) {
       mobileMenuOverlay.addEventListener('click', closeMobileMenu);
     }
+
 
     // Close mobile menu on link click
     const mobileNavLinks = document.querySelectorAll('.mobile-nav a');

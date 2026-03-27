@@ -112,6 +112,14 @@ function buildMobileMenuFromDesktop() {
 }
 
 function initializeMobileMenu() {
+  const hasCustomMobileMenu = Boolean(
+    document.getElementById("mobile-menu") && document.getElementById("mobile-menu-toggle")
+  );
+
+  if (hasCustomMobileMenu) {
+    return;
+  }
+
   buildMobileMenuFromDesktop();
 
   const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
@@ -126,12 +134,14 @@ function initializeMobileMenu() {
     mobileMenu.classList.remove("open");
     mobileMenuOverlay.classList.remove("active");
     mobileMenuToggle.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
   };
 
   const openMobileMenu = () => {
     mobileMenu.classList.add("open");
     mobileMenuOverlay.classList.add("active");
     mobileMenuToggle.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
   };
 
   mobileMenuToggle.addEventListener("click", () => {

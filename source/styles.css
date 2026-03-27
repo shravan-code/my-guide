@@ -618,6 +618,22 @@ body.dark .theme-toggle:hover {
   transition: all var(--transition);
 }
 
+.mobile-nav a strong {
+  display: block;
+  margin-bottom: 0.18rem;
+  font-family: var(--font-family-display);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.mobile-nav a span {
+  display: block;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
 .mobile-nav a:hover,
 .mobile-nav a.active,
 .mobile-nav button:hover {
@@ -652,10 +668,12 @@ body.dark .mobile-nav a.active {
 
 .mobile-menu-overlay {
   position: fixed;
-  inset: 0;
+  top: var(--topbar-height);
+  left: 0;
+  width: 100%;
+  height: calc(100% - var(--topbar-height));
   background: rgba(0, 0, 0, 0.25);
   z-index: 1998;
-  backdrop-filter: blur(2px);
   opacity: 0;
   pointer-events: none;
   transition: opacity .25s ease;
@@ -1109,12 +1127,42 @@ body.dark .logo-item:hover {
 /* Responsive */
 @media (max-width: 920px) {
   .topbar {
-    border-radius: var(--radius);
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    border-radius: 0;
+    padding: 0.75rem 1rem;
+  }
+
+  .brand {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+    z-index: 10;
+    pointer-events: auto;
+  }
+
+  .header-actions {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    width: 100%;
+    margin-left: 0;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    z-index: 5;
   }
 
   .mobile-menu-toggle {
     display: flex;
+    grid-column: 1;
+    justify-self: start;
+  }
+
+  .theme-toggle,
+  .portfolio-link {
+    grid-column: 3;
+    justify-self: end;
   }
 
   .menu {
@@ -1123,6 +1171,10 @@ body.dark .logo-item:hover {
 
   .portfolio-link {
     display: none;
+  }
+
+  .mobile-menu {
+    padding: 1rem;
   }
 
   .grid {
@@ -1143,10 +1195,6 @@ body.dark .logo-item:hover {
 @media (max-width: 640px) {
   .topbar {
     padding: 0.6rem 0.9rem;
-  }
-
-  .header-actions {
-    margin-left: auto;
   }
 
   .portfolio-link {

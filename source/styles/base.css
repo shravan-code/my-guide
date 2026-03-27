@@ -341,18 +341,27 @@ pre.code code, .code code, .code-block code {
 .mobile-menu {
   display: none;
   position: fixed;
-  top: 0;
+  top: var(--topbar-height);
   left: 0;
-  width: 100%;
-  height: 100vh;
+  right: 0;
+  width: auto;
+  max-height: calc(100vh - var(--topbar-height));
   overflow-y: auto;
-  background: var(--bg);
-  z-index: 2000;
-  padding-bottom: 2rem;
+  background: var(--glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--glass-border);
+  z-index: 1999;
+  padding: 1rem;
+  transform: translateY(-10px);
+  opacity: 0;
+  transition: transform .25s ease, opacity .25s ease;
 }
 
 .mobile-menu.open {
   display: block;
+  transform: translateY(0);
+  opacity: 1;
 }
 
 .mobile-menu-header {
@@ -387,8 +396,8 @@ pre.code code, .code code, .code-block code {
 .mobile-nav {
   display: flex;
   flex-direction: column;
-  padding: 1rem;
-  gap: 0.25rem;
+  padding: 0;
+  gap: 0.5rem;
 }
 
 .mobile-nav a {
@@ -428,12 +437,12 @@ pre.code code, .code code, .code-block code {
 .mobile-menu-overlay {
   display: none;
   position: fixed;
-  top: 0;
+  top: var(--topbar-height);
   left: 0;
   width: 100%;
-  height: 100%;
+  height: calc(100% - var(--topbar-height));
   background: rgba(0, 0, 0, 0.5);
-  z-index: 1999;
+  z-index: 1998;
 }
 
 .mobile-menu-overlay.active { display: block; }
