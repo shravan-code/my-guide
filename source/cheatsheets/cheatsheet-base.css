@@ -124,28 +124,29 @@ body.dark .bg-orb {
   font-size: var(--font-size-brand);
   letter-spacing: -.02em;
   text-decoration: none;
-  color: var(--text);
-  transition: color var(--transition);
+  background: linear-gradient(135deg, var(--glow-color), var(--glow-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: all var(--transition);
+}
+
+.brand:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
 }
 
 .brand-icon {
   width: 20px;
   height: 20px;
-  stroke: var(--text);
+  stroke: var(--glow-color);
   fill: none;
   stroke-width: 1.5;
   transition: stroke var(--transition);
 }
 
-.brand:hover {
-  background: linear-gradient(135deg, var(--glow-color), var(--glow-pink));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
 .brand:hover .brand-icon {
-  stroke: var(--glow-color);
+  stroke: var(--glow-pink);
 }
 
 .menu {
@@ -185,7 +186,7 @@ body.dark .bg-orb {
   height: 2px;
   background: linear-gradient(90deg, var(--glow-color), var(--glow-pink));
   border-radius: 1px;
-  box-shadow: 0 0 10px var(--glow-color);
+  box-shadow: none;
 }
 
 .header-actions {
@@ -640,7 +641,7 @@ body.dark .code-block {
 .pill-nav a:hover {
   color: var(--text);
   border-color: var(--glow-border);
-  box-shadow: 0 0 12px rgba(99, 102, 241, .12);
+  box-shadow: none;
   background: var(--bg-alt);
 }
 

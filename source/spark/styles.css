@@ -169,8 +169,32 @@ body.dark .orb-c {
   font-size: 1.15rem;
   letter-spacing: -0.02em;
   text-decoration: none;
-  color: var(--text);
-  transition: color var(--transition);
+  background: linear-gradient(135deg, var(--glow-color), var(--glow-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all var(--transition);
+}
+
+.brand:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.brand-icon {
+  width: 20px;
+  height: 20px;
+  stroke: var(--glow-color);
+  fill: none;
+  stroke-width: 1.5;
+  transition: stroke var(--transition);
+}
+
+.brand:hover .brand-icon {
+  stroke: var(--glow-pink);
 }
 
 .menu a {
@@ -225,21 +249,7 @@ body.dark .orb-c {
   border-color: var(--glass-border);
 }
 
-.menu-trigger::after {
-  content: "";
-  width: 0;
-  height: 0;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-top: 4px solid currentColor;
-  margin-left: 0.4rem;
-  transition: transform 0.2s ease;
-}
-
-.menu-dropdown:hover .menu-trigger::after,
-.menu-dropdown:focus-within .menu-trigger::after {
-  transform: rotate(180deg);
-}
+/* Dropdown arrow removed */
 
 .dropdown-panel {
   position: absolute;

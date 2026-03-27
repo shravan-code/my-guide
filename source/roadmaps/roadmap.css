@@ -55,12 +55,12 @@
   font-size: 1.2rem;
   color: #fff;
   flex-shrink: 0;
-  box-shadow: 0 4px 12px var(--roadmap-phase-shadow);
+  box-shadow: none;
 }
 
 body.dark .phase-number {
   background: linear-gradient(135deg, var(--roadmap-phase-start-dark), var(--roadmap-phase-end-dark));
-  box-shadow: 0 4px 12px var(--roadmap-phase-shadow-dark);
+  box-shadow: none;
 }
 
 .phase-title {
