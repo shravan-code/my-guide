@@ -111,25 +111,7 @@ function buildMobileMenuFromDesktop() {
   document.body.insertAdjacentHTML("beforeend", mobileMenu);
 }
 
-function initializeMobileMenu() {
-  const hasCustomMobileMenu = Boolean(
-    document.getElementById("mobile-menu") && document.getElementById("mobile-menu-toggle")
-  );
-
-  if (hasCustomMobileMenu) {
-    return;
-  }
-
-  buildMobileMenuFromDesktop();
-
-  const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
-  const mobileMenu = document.getElementById("mobile-menu");
-  const mobileMenuOverlay = document.getElementById("mobile-menu-overlay");
-
-  if (!mobileMenuToggle || !mobileMenu || !mobileMenuOverlay) {
-    return;
-  }
-
+function attachMobileHandlers(mobileMenuToggle, mobileMenu, mobileMenuOverlay) {
   const closeMobileMenu = () => {
     mobileMenu.classList.remove("open");
     mobileMenuOverlay.classList.remove("active");
@@ -162,6 +144,25 @@ function initializeMobileMenu() {
       closeMobileMenu();
     }
   });
+}
+
+function initializeMobileMenu() {
+  const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const mobileMenuOverlay = document.getElementById("mobile-menu-overlay");
+
+  if (!mobileMenuToggle || !mobileMenu || !mobileMenuOverlay) {
+    buildMobileMenuFromDesktop();
+    const retryToggle = document.getElementById("mobile-menu-toggle");
+    const retryMenu = document.getElementById("mobile-menu");
+    const retryOverlay = document.getElementById("mobile-menu-overlay");
+    if (retryToggle && retryMenu && retryOverlay) {
+      attachMobileHandlers(retryToggle, retryMenu, retryOverlay);
+    }
+    return;
+  }
+
+  attachMobileHandlers(mobileMenuToggle, mobileMenu, mobileMenuOverlay);
 }
 
 initializeMobileMenu();

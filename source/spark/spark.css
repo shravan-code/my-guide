@@ -507,6 +507,10 @@ body:not(.with-sidebar) .hero h1 {
     left: 0;
     width: var(--sidebar-width);
     height: calc(100vh - var(--topbar-height));
+    background: var(--glass);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-right: 1px solid var(--glass-border);
     transform: translateX(-100%);
     transition: transform var(--transition);
     z-index: 2000;

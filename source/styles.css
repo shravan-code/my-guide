@@ -268,7 +268,7 @@ body.dark .orb-c {
 }
 
 /* Topbar */
-  .topbar {
+.topbar {
   position: sticky;
   top: 0;
   z-index: 2000;

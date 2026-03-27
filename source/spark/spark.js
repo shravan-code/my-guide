@@ -1,31 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
   const sidebar = document.getElementById("sidebar");
-  const sidebarToggle = document.getElementById("sidebar-toggle");
   const sidebarOverlay = document.getElementById("sidebar-overlay");
 
   const closeSidebar = () => {
     if (sidebar) sidebar.classList.remove("open");
     if (sidebarOverlay) sidebarOverlay.classList.remove("active");
   };
-
-  const openSidebar = () => {
-    if (sidebar) sidebar.classList.add("open");
-    if (sidebarOverlay) sidebarOverlay.classList.add("active");
-  };
-
-  if (sidebarToggle) {
-    sidebarToggle.addEventListener("click", () => {
-      if (sidebar && sidebar.classList.contains("open")) {
-        closeSidebar();
-      } else {
-        openSidebar();
-      }
-    });
-  }
-
-  if (sidebarOverlay) {
-    sidebarOverlay.addEventListener("click", closeSidebar);
-  }
 
   const navItems = Array.from(document.querySelectorAll(".nav-item"));
 

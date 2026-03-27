@@ -601,43 +601,6 @@
   </main>
 
   <script src="../app.js"></script>
-  <script>
-    // Mobile menu functionality
-    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-
-    const closeMobileMenu = () => {
-      mobileMenu.classList.remove('open');
-      mobileMenuOverlay.classList.remove('active');
-    };
-
-    const openMobileMenu = () => {
-      mobileMenu.classList.add('open');
-      mobileMenuOverlay.classList.add('active');
-    };
-
-    if (mobileMenuToggle) {
-      mobileMenuToggle.addEventListener('click', () => {
-        if (mobileMenu.classList.contains('open')) {
-          closeMobileMenu();
-        } else {
-          openMobileMenu();
-        }
-      });
-    }
-
-    if (mobileMenuOverlay) {
-      mobileMenuOverlay.addEventListener('click', closeMobileMenu);
-    }
-
-
-    // Close mobile menu on link click
-    const mobileNavLinks = document.querySelectorAll('.mobile-nav a');
-    mobileNavLinks.forEach(link => {
-      link.addEventListener('click', closeMobileMenu);
-    });
-  </script>
   <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
       stroke-linejoin="round">
