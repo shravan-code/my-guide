@@ -5,6 +5,7 @@
   const mobileToggle = document.getElementById("mobile-menu-toggle");
   const mobileMenu = document.getElementById("mobile-menu");
   const mobileOverlay = document.getElementById("mobile-menu-overlay");
+  const mobileClose = document.getElementById("mobile-menu-close");
   const scrollToTop = document.getElementById("scrollToTop");
   const pillLinks = Array.from(document.querySelectorAll('.pill-nav a[href^="#"]'));
 
@@ -28,6 +29,7 @@
     mobileMenu?.classList.remove("open");
     mobileOverlay?.classList.remove("active");
     mobileToggle?.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
   };
 
   mobileToggle?.setAttribute("aria-expanded", "false");
@@ -41,15 +43,17 @@
     mobileMenu?.classList.add("open");
     mobileOverlay?.classList.add("active");
     mobileToggle?.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
   });
 
+  mobileClose?.addEventListener("click", closeMobileMenu);
   mobileOverlay?.addEventListener("click", closeMobileMenu);
   document.querySelectorAll(".mobile-nav a").forEach((link) => {
     link.addEventListener("click", closeMobileMenu);
   });
 
   window.addEventListener("resize", () => {
-    if (window.innerWidth > 640) {
+    if (window.innerWidth > 920) {
       closeMobileMenu();
     }
   });

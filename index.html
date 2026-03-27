@@ -10,7 +10,9 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="source/styles.css" />
+  <link rel="stylesheet" href="source/styles/base.css" />
+  <link rel="stylesheet" href="source/styles/mobile.css" media="screen and (max-width: 920px)" />
+  <link rel="stylesheet" href="source/styles/desktop.css" media="screen and (min-width: 921px)" />
   <link rel="stylesheet" href="source/hub.css" />
   <style>
     /* Spark-style overrides for main page */
@@ -998,6 +1000,22 @@
     <a class="brand" href="index.html">
       Data Guide
     </a>
+    <nav class="menu" aria-label="Main menu">
+      <a href="source/cloud/index.html">Cloud</a>
+      <a href="source/data/index.html">Big Data</a>
+      <a href="source/python/index.html">Python</a>
+      <div class="menu-dropdown">
+        <button class="menu-trigger">Libraries</button>
+        <div class="dropdown-panel">
+          <a href="source/pandas/index.html"><strong>Pandas</strong><span>DataFrames and analysis</span></a>
+          <a href="source/numpy/index.html"><strong>NumPy</strong><span>Numerical computing</span></a>
+          <a href="source/spark/index.html"><strong>Spark</strong><span>Distributed processing</span></a>
+        </div>
+      </div>
+      <a href="source/sql/index.html">SQL</a>
+      <a href="source/cheatsheets/cheatsheet.html">Cheatsheet</a>
+      <a href="source/roadmaps/roadmap.html">Roadmap</a>
+    </nav>
     <div class="header-actions">
       <a href="source/portfolios/portfolio.html" class="portfolio-link" aria-label="Profile">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

@@ -1,0 +1,47 @@
+/* Mobile-specific styles */
+/* Applied when screen width <= 920px */
+
+@media (max-width: 920px) {
+  .topbar {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+  }
+
+  .header-left {
+    display: flex;
+  }
+
+  .brand {
+    justify-self: center;
+  }
+
+  .header-actions {
+    justify-self: end;
+  }
+
+  .mobile-menu-toggle {
+    display: flex;
+  }
+
+  .menu {
+    display: none;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .topbar { padding: 0.6rem 0.9rem; }
+  .grid { grid-template-columns: 1fr; }
+  .track-grid { grid-template-columns: 1fr; }
+  main { padding: 1rem 0.75rem 0; }
+}
+
+@media (max-width: 768px) {
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.3rem; }
+  h3 { font-size: 1.1rem; }
+}

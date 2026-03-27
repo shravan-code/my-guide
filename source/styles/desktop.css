@@ -1,0 +1,24 @@
+/* Desktop-specific styles */
+/* Applied when screen width >= 921px */
+
+@media (min-width: 921px) {
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .header-left {
+    display: none;
+  }
+
+  .brand {
+    margin-right: auto;
+  }
+
+  .mobile-menu-toggle,
+  .mobile-menu,
+  .mobile-menu-overlay {
+    display: none !important;
+  }
+}
