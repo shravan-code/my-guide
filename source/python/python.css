@@ -641,14 +641,12 @@ body:not(.with-sidebar) .hero h1 {
 .sidebar-overlay {
   display: none;
   position: fixed;
-  top: 0;
+  top: var(--topbar-height);
   left: 0;
   width: 100%;
-  height: 100%;
+  height: calc(100% - var(--topbar-height));
   background: rgba(0, 0, 0, 0.3);
   z-index: 1400;
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
 }
 
 .sidebar-overlay.active {
@@ -765,14 +763,12 @@ body.dark .mobile-nav a.active {
 .mobile-menu-overlay {
   display: none;
   position: fixed;
-  top: 0;
+  top: var(--topbar-height);
   left: 0;
   width: 100%;
-  height: 100%;
+  height: calc(100% - var(--topbar-height));
   background: rgba(0, 0, 0, 0.3);
   z-index: 1998;
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
 }
 
 .mobile-menu-overlay.active {
@@ -830,10 +826,74 @@ body.dark .mobile-nav a.active {
     min-height: auto;
   }
 
-  .sidebar,
-  .sidebar-overlay,
-  .sidebar-toggle {
+  .sidebar {
+    position: fixed;
+    top: var(--topbar-height);
+    left: 0;
+    width: var(--sidebar-width, 260px);
+    height: calc(100vh - var(--topbar-height));
+    background: var(--glass);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-right: 1px solid var(--glass-border);
+    z-index: 2000;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+    padding: 1rem 0.75rem;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-overlay {
     display: none;
+    position: fixed;
+    top: var(--topbar-height);
+    left: 0;
+    width: 100%;
+    height: calc(100% - var(--topbar-height));
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1999;
+  }
+
+  .sidebar-overlay.active {
+    display: block;
+  }
+
+  .sidebar-toggle {
+    display: flex;
+    position: fixed;
+    top: calc(var(--topbar-height) + 0.75rem);
+    right: 0.75rem;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    background: var(--glass);
+    color: var(--text);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    z-index: 2001;
+    transition: all var(--transition);
+  }
+
+  .sidebar-toggle:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow);
+  }
+
+  .sidebar-toggle svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .sidebar-toggle.active {
+    background: var(--bg-alt);
+    color: var(--text);
   }
 
   .mobile-menu {

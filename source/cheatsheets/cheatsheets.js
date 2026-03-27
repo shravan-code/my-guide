@@ -5,7 +5,6 @@
   const mobileToggle = document.getElementById("mobile-menu-toggle");
   const mobileMenu = document.getElementById("mobile-menu");
   const mobileOverlay = document.getElementById("mobile-menu-overlay");
-  const mobileClose = document.getElementById("mobile-menu-close");
   const scrollToTop = document.getElementById("scrollToTop");
   const pillLinks = Array.from(document.querySelectorAll('.pill-nav a[href^="#"]'));
 
@@ -49,7 +48,6 @@
     document.body.style.overflow = "hidden";
   });
 
-  mobileClose?.addEventListener("click", closeMobileMenu);
   mobileOverlay?.addEventListener("click", closeMobileMenu);
   document.querySelectorAll(".mobile-nav a").forEach((link) => {
     link.addEventListener("click", closeMobileMenu);
@@ -60,6 +58,47 @@
       closeMobileMenu();
     }
   });
+
+  // Sidebar toggle for mobile
+  const sidebar = document.getElementById("sidebar");
+  const sidebarOverlay = document.getElementById("sidebar-overlay");
+  const sidebarToggle = document.getElementById("sidebar-toggle");
+
+  if (sidebar && sidebarToggle) {
+    const closeSidebar = () => {
+      sidebar?.classList.remove("open");
+      sidebarOverlay?.classList.remove("active");
+      sidebarToggle?.classList.remove("active");
+      document.body.style.overflow = "";
+    };
+
+    const openSidebar = () => {
+      sidebar?.classList.add("open");
+      sidebarOverlay?.classList.add("active");
+      sidebarToggle?.classList.add("active");
+      document.body.style.overflow = "hidden";
+    };
+
+    sidebarToggle?.addEventListener("click", () => {
+      if (sidebar?.classList.contains("open")) {
+        closeSidebar();
+      } else {
+        openSidebar();
+      }
+    });
+
+    sidebarOverlay?.addEventListener("click", closeSidebar);
+
+    document.querySelectorAll(".sidebar .nav-item").forEach((link) => {
+      link.addEventListener("click", closeSidebar);
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 920) {
+        closeSidebar();
+      }
+    });
+  }
 
   if (scrollToTop) {
     const toggleScrollButton = () => {
