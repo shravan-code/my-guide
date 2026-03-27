@@ -364,47 +364,44 @@ body.dark .section-badge.summary {
 }
 
 .keyword {
-  color: var(--text);
+  color: var(--code-keyword);
   font-weight: 600;
 }
 
 .function {
-  color: var(--text);
+  color: var(--code-function);
   font-weight: 500;
 }
 
 .string {
-  color: var(--text);
-  opacity: 0.9;
+  color: var(--code-string);
 }
 
 .number {
-  color: var(--text);
-  opacity: 0.9;
+  color: var(--code-number);
 }
 
 .comment {
-  color: var(--muted);
+  color: var(--code-comment);
   font-style: italic;
 }
 
 .operator {
-  color: var(--text);
-  opacity: 0.8;
+  color: var(--code-operator);
 }
 
 .class-name {
-  color: var(--text);
+  color: var(--code-function);
   font-weight: 600;
 }
 
 .decorator {
-  color: var(--text);
+  color: var(--code-variable);
   font-style: italic;
 }
 
 .method {
-  color: var(--text);
+  color: var(--code-function);
   font-weight: 500;
 }
 

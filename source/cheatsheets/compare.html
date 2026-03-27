@@ -116,11 +116,15 @@
         let comparisonData = [];
 
         const tools = {
-            postgresql: { name: 'PostgreSQL', icon: '🐘', color: '#336791', note: 'SQL queries and analytics' },
-            pandas: { name: 'Pandas', icon: '🐼', color: '#150458', note: 'Tabular Python workflows' },
-            numpy: { name: 'NumPy', icon: '🔢', color: '#013243', note: 'Arrays and vectorized math' },
-            pyspark: { name: 'PySpark', icon: '⚡', color: '#E25A1C', note: 'Distributed data processing' }
+            postgresql: { name: 'PostgreSQL', icon: '🐘', color: '#336791', darkColor: '#60a5fa', note: 'SQL queries and analytics' },
+            pandas: { name: 'Pandas', icon: '🐼', color: '#150458', darkColor: '#a78bfa', note: 'Tabular Python workflows' },
+            numpy: { name: 'NumPy', icon: '🔢', color: '#013243', darkColor: '#22d3ee', note: 'Arrays and vectorized math' },
+            pyspark: { name: 'PySpark', icon: '⚡', color: '#E25A1C', darkColor: '#fb923c', note: 'Distributed data processing' }
         };
+
+        function getToolColor(tool) {
+            return document.body.classList.contains('dark') ? tool.darkColor : tool.color;
+        }
 
         const filterForm = document.getElementById('comparisonFilters');
         const toolOptions = document.getElementById('toolOptions');
@@ -210,7 +214,7 @@
                                             <tr>
                                                 ${selectedTools.map((toolKey) => `
                                                     <th>
-                                                        <span class="tool-chip" style="color:${tools[toolKey].color}">
+                                                        <span class="tool-chip" style="color:${getToolColor(tools[toolKey])}">
                                                             <span>${tools[toolKey].name}</span>
                                                         </span>
                                                     </th>

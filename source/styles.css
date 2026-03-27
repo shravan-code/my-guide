@@ -282,7 +282,6 @@ body.dark .orb-c {
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
   border: 1px solid var(--glass-border);
-  box-shadow: var(--shadow-md), var(--shadow-glow);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -291,7 +290,7 @@ body.dark .orb-c {
 }
 
 .topbar:hover {
-  box-shadow: var(--shadow-lg), var(--shadow-glow);
+  box-shadow: none;
 }
 
 .menu {
@@ -1352,7 +1351,7 @@ body.dark {
 
 .concept:hover {
   border-color: var(--glow-border);
-  box-shadow: none;
+  box-shadow: var(--shadow-md), var(--shadow-glow);
 }
 
 .concept h2 {
@@ -1443,14 +1442,14 @@ body.dark {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: var(--glow-color);
-  color: white;
-  border: none;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.16), rgba(236, 72, 153, 0.16));
+  color: var(--text);
+  border: 1px solid var(--glow-border);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 0 18px rgba(99, 102, 241, 0.28), 0 0 34px rgba(236, 72, 153, 0.16);
   opacity: 0;
   visibility: hidden;
   transition: all var(--transition);
@@ -1459,8 +1458,9 @@ body.dark {
 
 .scroll-to-top:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-  background: var(--glow-pink);
+  box-shadow: 0 0 24px rgba(99, 102, 241, 0.4), 0 0 48px rgba(236, 72, 153, 0.24);
+  border-color: var(--glow-color);
+  color: var(--glow-color);
 }
 
 .scroll-to-top.visible {

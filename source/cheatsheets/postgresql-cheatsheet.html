@@ -14,7 +14,6 @@
   <link rel="stylesheet" href="../styles/mobile.css" media="screen and (max-width: 920px)" />
   <link rel="stylesheet" href="../styles/desktop.css" media="screen and (min-width: 921px)" />
   <link rel="stylesheet" href="cheatsheet-base.css" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -64,25 +63,26 @@
   </div>
   <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
 
-  <main>
+  <main class="main-content">
+    <nav class="sidebar" id="sidebar">
+      <div class="logo">
+        <span class="logo-text">PostgreSQL Cheatsheet</span>
+      </div>
+      <div class="nav-title basics">Basics</div>
+      <a href="#data-structures" class="nav-item active"><span>1</span> Data Structures</a>
+      <a href="#window-functions" class="nav-item"><span>2</span> Window Functions</a>
+      <div class="nav-title intermediate">Intermediate</div>
+      <a href="#ctes-recursive-queries" class="nav-item"><span>3</span> CTEs & Recursive</a>
+      <a href="#aggregation" class="nav-item"><span>4</span> Aggregation</a>
+      <a href="#json-operations" class="nav-item"><span>5</span> JSON Operations</a>
+      <a href="#upsert-manipulation" class="nav-item"><span>6</span> Upsert & Manipulation</a>
+      <div class="nav-title advanced">Advanced</div>
+      <a href="#performance" class="nav-item"><span>7</span> Performance</a>
+      <a href="#tips-tricks" class="nav-item"><span>8</span> Tips & Tricks</a>
+      <a href="#best-practices" class="nav-item"><span>9</span> Best Practices</a>
+    </nav>
 
     <div class="page-wrap">
-      <nav class="sidebar-nav">
-        <div class="nav-category basics">Basics</div>
-        <a href="#data-structures">Data Structures</a>
-        <a href="#window-functions">Window Functions</a>
-        <div class="nav-category intermediate">Intermediate</div>
-        <a href="#ctes-recursive-queries">CTEs & Recursive</a>
-        <a href="#aggregation">Aggregation</a>
-        <a href="#json-operations">JSON Operations</a>
-        <a href="#upsert-manipulation">Upsert & Manipulation</a>
-        <div class="nav-category advanced">Advanced</div>
-        <a href="#performance">Performance</a>
-        <a href="#tips-tricks">Tips & Tricks</a>
-        <a href="#best-practices">Best Practices</a>
-      </nav>
-
-      <div class="content-area">
         <section class="hero">
           <h1>PostgreSQL Cheatsheet</h1>
           <p class="hero-copy">A focused guide to PostgreSQL Cheatsheet.</p>
@@ -776,7 +776,6 @@ COMMIT;
           </div>
         </div>
       </section>
-      </div>
     </div>
   </main>
     <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">

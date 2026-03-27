@@ -51,7 +51,7 @@
 
 .track:hover {
   border-color: var(--glow-border);
-  box-shadow: none;
+  box-shadow: var(--shadow-md), var(--shadow-glow);
   transform: translateY(-2px);
 }
 

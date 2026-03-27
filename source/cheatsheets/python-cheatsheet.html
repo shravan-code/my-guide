@@ -14,7 +14,6 @@
   <link rel="stylesheet" href="../styles/mobile.css" media="screen and (max-width: 920px)" />
   <link rel="stylesheet" href="../styles/desktop.css" media="screen and (min-width: 921px)" />
   <link rel="stylesheet" href="cheatsheet-base.css" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -64,25 +63,26 @@
   </div>
   <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
 
-  <main>
+  <main class="main-content">
+    <nav class="sidebar" id="sidebar">
+      <div class="logo">
+        <span class="logo-text">Python Cheatsheet</span>
+      </div>
+      <div class="nav-title basics">Basics</div>
+      <a href="#data-structures" class="nav-item active"><span>1</span> Data Structures</a>
+      <a href="#comprehensions" class="nav-item"><span>2</span> Comprehensions</a>
+      <div class="nav-title intermediate">Intermediate</div>
+      <a href="#functions" class="nav-item"><span>3</span> Functions</a>
+      <a href="#file-io-errors" class="nav-item"><span>4</span> File I/O & Errors</a>
+      <a href="#classes-oop" class="nav-item"><span>5</span> Classes & OOP</a>
+      <div class="nav-title advanced">Advanced</div>
+      <a href="#concurrency" class="nav-item"><span>6</span> Concurrency</a>
+      <a href="#useful-modules" class="nav-item"><span>7</span> Useful Modules</a>
+      <a href="#tips-tricks" class="nav-item"><span>8</span> Tips & Tricks</a>
+      <a href="#best-practices" class="nav-item"><span>9</span> Best Practices</a>
+    </nav>
 
     <div class="page-wrap">
-      <nav class="sidebar-nav">
-        <div class="nav-category basics">Basics</div>
-        <a href="#data-structures">Data Structures</a>
-        <a href="#comprehensions">Comprehensions</a>
-        <div class="nav-category intermediate">Intermediate</div>
-        <a href="#functions">Functions</a>
-        <a href="#file-io-errors">File I/O & Errors</a>
-        <a href="#classes-oop">Classes & OOP</a>
-        <div class="nav-category advanced">Advanced</div>
-        <a href="#concurrency">Concurrency</a>
-        <a href="#useful-modules">Useful Modules</a>
-        <a href="#tips-tricks">Tips & Tricks</a>
-        <a href="#best-practices">Best Practices</a>
-      </nav>
-
-      <div class="content-area">
         <section class="hero">
           <h1>Python Cheatsheet</h1>
           <p class="hero-copy">A focused guide to Python Cheatsheet.</p>
@@ -910,7 +910,6 @@ sum_val = sum(data)
           </div>
         </div>
       </section>
-      </div>
     </div>
   </main>
     <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">

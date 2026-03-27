@@ -143,7 +143,6 @@ body.dark .orb-c {
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
   border: 1px solid var(--glass-border);
-  box-shadow: var(--shadow-md), var(--shadow-glow);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -152,7 +151,7 @@ body.dark .orb-c {
 }
 
 .topbar:hover {
-  box-shadow: var(--shadow-lg), var(--shadow-glow);
+  box-shadow: none;
 }
 
 .menu {
@@ -921,47 +920,6 @@ th {
 
 tr:last-child td {
   border-bottom: none;
-}
-
-td code {
-  font-family: "JetBrains Mono", Consolas, monospace;
-  font-size: 0.8rem;
-  background: var(--bg-alt);
-  padding: 0.1rem 0.35rem;
-  border-radius: 4px;
-  color: var(--text);
-}
-
-/* Global Code Styles */
-pre.code, .code, .code-block {
-  margin-top: 0.75rem;
-  padding: 0.95rem;
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  border-left: 3px solid var(--glow-color);
-  background: var(--code-bg);
-  overflow-x: auto;
-  font-family: "JetBrains Mono", Consolas, monospace;
-  font-size: 0.85rem;
-  line-height: 1.5;
-}
-
-pre.code code, .code code, .code-block code {
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit;
-  white-space: pre;
-  color: var(--code-text);
-  background: transparent;
-}
-
-:root {
-  --code-bg: #f8f9fa;
-  --code-text: #24292e;
-}
-
-body.dark {
-  --code-bg: #1a1f2e;
-  --code-text: #c9d1d9;
 }
 
 /* Pill Styles */

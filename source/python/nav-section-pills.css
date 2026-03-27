@@ -25,7 +25,7 @@
 
 .pill-nav a:hover {
   border-color: var(--glow-border);
-  box-shadow: none;
+  box-shadow: var(--shadow-sm), var(--shadow-glow);
 }
 
 .pill-nav a.active {

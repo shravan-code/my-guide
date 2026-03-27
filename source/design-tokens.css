@@ -49,17 +49,17 @@
   --color-accent-border-light: rgba(99, 102, 241, 0.2);
   --color-accent-border-dark: rgba(99, 102, 241, 0.3);
 
-  --shadow-sm-light: none;
-  --shadow-light: none;
-  --shadow-md-light: none;
-  --shadow-lg-light: none;
-  --shadow-glow-light: none;
+  --shadow-sm-light: 0 1px 3px rgba(15, 23, 42, 0.05), 0 3px 8px rgba(15, 23, 42, 0.03);
+  --shadow-light: 0 6px 18px rgba(15, 23, 42, 0.07), 0 2px 6px rgba(15, 23, 42, 0.04);
+  --shadow-md-light: 0 12px 30px rgba(15, 23, 42, 0.1), 0 4px 12px rgba(15, 23, 42, 0.06);
+  --shadow-lg-light: 0 18px 44px rgba(15, 23, 42, 0.14), 0 8px 20px rgba(15, 23, 42, 0.08);
+  --shadow-glow-light: 0 0 24px rgba(99, 102, 241, 0.07);
 
-  --shadow-sm-dark: none;
-  --shadow-dark: none;
-  --shadow-md-dark: none;
-  --shadow-lg-dark: none;
-  --shadow-glow-dark: none;
+  --shadow-sm-dark: 0 1px 3px rgba(0, 0, 0, 0.28), 0 3px 8px rgba(0, 0, 0, 0.16);
+  --shadow-dark: 0 8px 22px rgba(0, 0, 0, 0.3), 0 3px 8px rgba(0, 0, 0, 0.2);
+  --shadow-md-dark: 0 14px 34px rgba(0, 0, 0, 0.38), 0 6px 16px rgba(0, 0, 0, 0.24);
+  --shadow-lg-dark: 0 22px 54px rgba(0, 0, 0, 0.45), 0 10px 24px rgba(0, 0, 0, 0.28);
+  --shadow-glow-dark: 0 0 28px rgba(129, 140, 248, 0.12);
 
   --glass-blur-default: 16px;
 }

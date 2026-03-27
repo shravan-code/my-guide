@@ -9,15 +9,18 @@
   const scrollToTop = document.getElementById("scrollToTop");
   const pillLinks = Array.from(document.querySelectorAll('.pill-nav a[href^="#"]'));
 
+  const storageKey = "data-guide-theme";
+
   const setTheme = (isDark) => {
     body.classList.toggle("dark", isDark);
+    document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light");
     if (toggleIcon) {
-      toggleIcon.textContent = isDark ? "\u2600\ufe0f" : "\u263e\ufe0f";
+      toggleIcon.textContent = isDark ? "☀" : "☾";
     }
-    localStorage.setItem("theme", isDark ? "dark" : "light");
+    localStorage.setItem(storageKey, isDark ? "dark" : "light");
   };
 
-  const savedTheme = localStorage.getItem("theme");
+  const savedTheme = localStorage.getItem(storageKey);
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
   setTheme(savedTheme === "dark" || (savedTheme === null && prefersDark));
 

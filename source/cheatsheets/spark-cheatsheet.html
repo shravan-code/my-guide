@@ -14,7 +14,6 @@
   <link rel="stylesheet" href="../styles/mobile.css" media="screen and (max-width: 920px)" />
   <link rel="stylesheet" href="../styles/desktop.css" media="screen and (min-width: 921px)" />
   <link rel="stylesheet" href="cheatsheet-base.css" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -64,27 +63,28 @@
   </div>
   <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
 
-  <main>
+  <main class="main-content">
+    <nav class="sidebar" id="sidebar">
+      <div class="logo">
+        <span class="logo-text">PySpark Cheatsheet</span>
+      </div>
+      <div class="nav-title basics">Basics</div>
+      <a href="#data-structures" class="nav-item active"><span>1</span> Data Structures</a>
+      <a href="#session-configuration" class="nav-item"><span>2</span> Session & Config</a>
+      <div class="nav-title intermediate">Intermediate</div>
+      <a href="#reading-data" class="nav-item"><span>3</span> Reading Data</a>
+      <a href="#transformations" class="nav-item"><span>4</span> Transformations</a>
+      <a href="#joins" class="nav-item"><span>5</span> Joins</a>
+      <a href="#writing-data" class="nav-item"><span>6</span> Writing Data</a>
+      <div class="nav-title advanced">Advanced</div>
+      <a href="#udfs-functions" class="nav-item"><span>7</span> UDFs & Functions</a>
+      <a href="#performance" class="nav-item"><span>8</span> Performance</a>
+      <a href="#tips-tricks" class="nav-item"><span>9</span> Tips & Tricks</a>
+      <a href="#best-practices" class="nav-item"><span>10</span> Best Practices</a>
+      <a href="#useful-modules" class="nav-item"><span>11</span> Useful Modules</a>
+    </nav>
 
     <div class="page-wrap">
-      <nav class="sidebar-nav">
-        <div class="nav-category basics">Basics</div>
-        <a href="#data-structures">Data Structures</a>
-        <a href="#session-configuration">Session & Config</a>
-        <div class="nav-category intermediate">Intermediate</div>
-        <a href="#reading-data">Reading Data</a>
-        <a href="#transformations">Transformations</a>
-        <a href="#joins">Joins</a>
-        <a href="#writing-data">Writing Data</a>
-        <div class="nav-category advanced">Advanced</div>
-        <a href="#udfs-functions">UDFs & Functions</a>
-        <a href="#performance">Performance</a>
-        <a href="#tips-tricks">Tips & Tricks</a>
-        <a href="#best-practices">Best Practices</a>
-        <a href="#useful-modules">Useful Modules</a>
-      </nav>
-
-      <div class="content-area">
         <section class="hero">
           <h1>PySpark Cheatsheet</h1>
           <p class="hero-copy">A focused guide to PySpark Cheatsheet.</p>
@@ -873,7 +873,6 @@ df = df.repartition(200) # only if needed for parallelism
           </div>
         </div>
       </section>
-      </div>
     </div>
   </main>
     <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
