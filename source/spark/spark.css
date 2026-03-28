@@ -51,10 +51,10 @@ body:not(.with-sidebar) .page-wrap {
 /* ---- Sidebar: fixed position with own scroll ---- */
 .sidebar {
   position: fixed;
-  top: 0;
+  top: calc(var(--topbar-height) + var(--layout-breadcrumb-height));
   left: 0;
   width: var(--sidebar-width);
-  height: 100vh;
+  height: calc(100vh - var(--topbar-height) - var(--layout-breadcrumb-height));
   padding: 0 0 0 10px;
   background: transparent;
   overflow-y: auto;
@@ -352,7 +352,7 @@ body:not(.with-sidebar) .hero h1 {
 .sidebar-toggle {
   display: flex;
   position: fixed;
-  top: calc(var(--topbar-height) + 0.75rem);
+  top: calc(var(--topbar-height) + var(--layout-breadcrumb-height) + 0.5rem);
   right: 0.75rem;
   align-items: center;
   justify-content: center;
@@ -429,10 +429,10 @@ body:not(.with-sidebar) .hero h1 {
 .sidebar-overlay {
   display: none;
   position: fixed;
-  top: var(--topbar-height);
+  top: calc(var(--topbar-height) + var(--layout-breadcrumb-height));
   left: 0;
   width: 100%;
-  height: calc(100% - var(--topbar-height));
+  height: calc(100% - var(--topbar-height) - var(--layout-breadcrumb-height));
   background: rgba(0, 0, 0, 0.3);
   z-index: 1999;
 }
@@ -515,10 +515,10 @@ body:not(.with-sidebar) .hero h1 {
   }
 
   .sidebar {
-    top: var(--topbar-height);
+    top: calc(var(--topbar-height) + var(--layout-breadcrumb-height));
     left: 0;
     width: var(--sidebar-width);
-    height: calc(100vh - var(--topbar-height));
+    height: calc(100vh - var(--topbar-height) - var(--layout-breadcrumb-height));
     background: var(--glass);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);

@@ -236,16 +236,21 @@ body.dark .skill-badge.nice-to-have {
   transition: all var(--transition);
 }
 
-.hamburger-icon span:nth-child(2) { width: 14px; }
-.hamburger-icon span:nth-child(3) { width: 10px; }
+.hamburger-icon span:nth-child(2) {
+  width: 14px;
+}
+
+.hamburger-icon span:nth-child(3) {
+  width: 10px;
+}
 
 .mobile-menu {
   display: none;
   position: fixed;
-  top: var(--topbar-height);
+  top: calc(var(--topbar-height) + var(--layout-breadcrumb-height));
   left: 0;
   right: 0;
-  max-height: calc(100vh - var(--topbar-height));
+  max-height: calc(100vh - var(--topbar-height) - var(--layout-breadcrumb-height));
   overflow-y: auto;
   background: var(--glass);
   backdrop-filter: blur(var(--glass-blur));

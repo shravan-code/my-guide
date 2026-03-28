@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Real-world AWS data pipeline examples: batch ETL, streaming, CDC, and data lake architectures." />
+  <title>Data Guide | AWS Data Pipelines</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="../../python/python.css" />
+  <link rel="stylesheet" href="aws.css" />
+</head>
+<body class="with-sidebar">
+  <div class="bg-orb orb-a"></div>
+  <div class="bg-orb orb-b"></div>
+  <div class="bg-orb orb-c"></div>
+
+  <header class="topbar glass reveal in">
+    <a class="brand" href="../../index.html">Data Guide</a>
+    <nav class="menu" aria-label="AWS menu">
+      <a href="index.html">Hub</a>
+      <div class="menu-dropdown">
+        <button class="menu-trigger">Topics</button>
+        <div class="dropdown-panel">
+          <a href="../python/index.html">Python</a>
+          <a href="../spark/index.html">Spark</a>
+          <a href="../cloud/index.html">Cloud</a>
+          <a href="../roadmaps/index.html">Roadmaps</a>
+          <a href="../cheatsheets/index.html">Cheatsheets</a>
+        </div>
+      </div>
+      <a href="../architecture.html">Architecture</a>
+      <div class="menu-dropdown">
+        <button class="menu-trigger">Providers</button>
+        <div class="dropdown-panel">
+          <a href="../cloud-aws.html"><strong>AWS</strong></a>
+          <a href="../cloud-azure.html">Azure</a>
+          <a href="../cloud-gcp.html">GCP</a>
+        </div>
+      </div>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+      <span class="toggle-icon" aria-hidden="true">☾</span>
+      <span class="toggle-text">Dark</span>
+    </button>
+  </header>
+
+  <nav class="breadcrumb">
+    <a href="../../index.html">Home</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    <a href="../index.html">Cloud</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    <a href="../cloud-aws.html">Providers</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    <a href="index.html">AWS</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    <span class="current">Pipelines</span>
+  </nav>
+
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+  <button id="sidebar-toggle" class="sidebar-toggle">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+  </button>
+
+  <main class="main-content">
+    <nav class="sidebar" id="sidebar">
+      <div class="logo"><span class="logo-text">AWS Data Engineering</span></div>
+      <div class="nav-section">
+        <div class="nav-section-title">Overview</div>
+        <a href="index.html" class="nav-item"><span>1</span> Getting Started</a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Services</div>
+        <a href="services.html" class="nav-item"><span>2</span> All Services</a>
+        <a href="storage.html" class="nav-item sub"><span>2.1</span> Storage</a>
+        <a href="streaming.html" class="nav-item sub"><span>2.2</span> Streaming</a>
+        <a href="warehouse.html" class="nav-item sub"><span>2.3</span> Warehouse</a>
+        <a href="serverless.html" class="nav-item sub"><span>2.4</span> Serverless</a>
+        <a href="databases.html" class="nav-item sub"><span>2.5</span> Databases</a>
+        <a href="bigdata.html" class="nav-item sub"><span>2.6</span> Big Data</a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Practice</div>
+        <a href="pipelines.html" class="nav-item active"><span>3</span> Pipelines</a>
+        <a href="interview.html" class="nav-item"><span>4</span> Interview Q&A</a>
+      </div>
+    </nav>
+
+    <div class="page-wrap">
+      <section class="hero">
+        <p class="eyebrow">Pipeline Examples</p>
+        <h1>Real-World Data Pipelines</h1>
+        <p class="hero-copy">End-to-end pipeline architectures with AWS services. From raw data ingestion to analytics-ready datasets.</p>
+      </section>
+
+      <div class="section-nav">
+        <button class="section-nav-btn active" data-target="all">All Pipelines</button>
+        <button class="section-nav-btn" data-target="batch">Batch ETL</button>
+        <button class="section-nav-btn" data-target="streaming">Streaming</button>
+        <button class="section-nav-btn" data-target="cdc">CDC Replication</button>
+        <button class="section-nav-btn" data-target="datalake">Data Lake</button>
+      </div>
+
+      <!-- Pipeline 1: Batch ETL -->
+      <div class="pipeline-card" id="batch-etl">
+        <div class="pipeline-header">
+          <h3>Batch ETL Pipeline</h3>
+          <span style="margin-left: auto; font-size: 0.8rem; color: var(--text-muted);">Daily processing</span>
+        </div>
+        <div class="pipeline-body">
+          <div class="pipeline-diagram">
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonRDSInstance.svg" alt="RDS">
+              <span class="step-name">RDS</span>
+              <span>Source DB</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AWSDatabaseMigrationService.svg" alt="DMS">
+              <span class="step-name">DMS</span>
+              <span>CDC Extract</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonSimpleStorageService.svg" alt="S3">
+              <span class="step-name">S3</span>
+              <span>Landing Zone</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AWSGlue.svg" alt="Glue">
+              <span class="step-name">Glue</span>
+              <span>ETL Job</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonSimpleStorageService.svg" alt="S3">
+              <span class="step-name">S3</span>
+              <span>Curated</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonRedshift.svg" alt="Redshift">
+              <span class="step-name">Redshift</span>
+              <span>Warehouse</span>
+            </div>
+          </div>
+          <div class="pipeline-desc">
+            <p>Daily ETL pipeline that extracts data from RDS, stages in S3, transforms with Glue, and loads to Redshift for analytics.</p>
+            <h4>When to Use</h4>
+            <p>Batch processing with daily or hourly intervals. Good for large datasets that don't require real-time updates. Cost-effective for predictable workloads.</p>
+          </div>
+          <div class="pipeline-benefits">
+            <h4>Benefits</h4>
+            <ul>
+              <li>Cost-effective for large batch operations</li>
+              <li>Glue serverless - no infrastructure to manage</li>
+              <li>DMS handles CDC automatically</li>
+              <li>Redshift Spectrum can query S3 directly</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pipeline 2: Streaming Analytics -->
+      <div class="pipeline-card" id="streaming-analytics">
+        <div class="pipeline-header">
+          <h3>Streaming Analytics Pipeline</h3>
+          <span style="margin-left: auto; font-size: 0.8rem; color: var(--text-muted);">Real-time</span>
+        </div>
+        <div class="pipeline-body">
+          <div class="pipeline-diagram">
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonSimpleStorageService.svg" alt="S3">
+              <span class="step-name">S3</span>
+              <span>Raw Events</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonDataFirehose.svg" alt="Firehose">
+              <span class="step-name">Firehose</span>
+              <span>Ingest</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonSimpleStorageService.svg" alt="S3">
+              <span class="step-name">S3</span>
+              <span>Transformed</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonAthena.svg" alt="Athena">
+              <span class="step-name">Athena</span>
+              <span>Query</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonDynamoDB.svg" alt="DynamoDB">
+              <span class="step-name">DynamoDB</span>
+              <span>Real-time</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonCloudwatch.svg" alt="QuickSight">
+              <span class="step-name">QuickSight</span>
+              <span>Dashboard</span>
+            </div>
+          </div>
+          <div class="pipeline-desc">
+            <p>Real-time streaming pipeline that processes clickstream events, stores in S3 with Parquet, queries with Athena, and updates real-time dashboards.</p>
+            <h4>When to Use</h4>
+            <p>Sub-second latency requirements. User behavior analytics, IoT monitoring, fraud detection. Firehose provides zero-maintenance streaming with automatic scaling.</p>
+          </div>
+          <div class="pipeline-benefits">
+            <h4>Benefits</h4>
+            <ul>
+              <li>Firehose zero-maintenance - no shards to manage</li>
+              <li>Auto-converts to Parquet/ORC for analytics</li>
+              <li>DynamoDB for millisecond real-time lookups</li>
+              <li>QuickSight for live dashboards</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pipeline 3: CDC Replication -->
+      <div class="pipeline-card" id="cdc-replication">
+        <div class="pipeline-header">
+          <h3>CDC Replication Pipeline</h3>
+          <span style="margin-left: auto; font-size: 0.8rem; color: var(--text-muted);">Change data capture</span>
+        </div>
+        <div class="pipeline-body">
+          <div class="pipeline-diagram">
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonRDSInstance.svg" alt="RDS">
+              <span class="step-name">RDS</span>
+              <span>Source</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AWSDatabaseMigrationService.svg" alt="DMS">
+              <span class="step-name">DMS</span>
+              <span>CDC</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonSimpleStorageService.svg" alt="S3">
+              <span class="step-name">S3</span>
+              <span>Change Data</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AWSGlue.svg" alt="Glue">
+              <span class="step-name">Glue</span>
+              <span>Apply CDC</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonRedshift.svg" alt="Redshift">
+              <span class="step-name">Redshift</span>
+              <span>Target</span>
+            </div>
+          </div>
+          <div class="pipeline-desc">
+            <p>Capture changes from RDS and apply them to Redshift using DMS CDC. Maintains near-real-time sync with minimal latency.</p>
+            <h4>When to Use</h4>
+            <p>When you need to keep Redshift in sync with source databases. Supports schema evolution and filtering. Good for populating data warehouses from OLTP systems.</p>
+          </div>
+          <div class="pipeline-benefits">
+            <h4>Benefits</h4>
+            <ul>
+              <li>Minimal impact on source database</li>
+              <li>Handles schema migrations automatically</li>
+              <li>Supports full load + CDC combined</li>
+              <li>Fault-tolerant with automatic recovery</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pipeline 4: Data Lake -->
+      <div class="pipeline-card" id="datalake">
+        <div class="pipeline-header">
+          <h3>Data Lake Architecture</h3>
+          <span style="margin-left: auto; font-size: 0.8rem; color: var(--text-muted);">Multi-source</span>
+        </div>
+        <div class="pipeline-body">
+          <div class="pipeline-diagram">
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonSimpleStorageService.svg" alt="S3">
+              <span class="step-name">S3</span>
+              <span>Raw Zone</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AWSGlue.svg" alt="Glue">
+              <span class="step-name">Glue Crawler</span>
+              <span>Catalog</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AWSLakeFormation.svg" alt="Lake Formation">
+              <span class="step-name">Lake Formation</span>
+              <span>Governance</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonAthena.svg" alt="Athena">
+              <span class="step-name">Athena</span>
+              <span>SQL Query</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonEMR.svg" alt="EMR">
+              <span class="step-name">EMR</span>
+              <span>ML/Analytics</span>
+            </div>
+          </div>
+          <div class="pipeline-desc">
+            <p>Medallion data lake pattern with raw, curated, and analytics zones. Uses Lake Formation for fine-grained access control and Glue for ETL.</p>
+            <h4>When to Use</h4>
+            <p>When you need to store raw data for multiple use cases. Supports schema-on-read, ML training, ad-hoc queries, and compliance archival.</p>
+          </div>
+          <div class="pipeline-benefits">
+            <h4>Benefits</h4>
+            <ul>
+              <li>Single source of truth for all data</li>
+              <li>Supports any data format (Parquet, ORC, JSON)</li>
+              <li>Fine-grained security with Lake Formation</li>
+              <li>Cost-effective with S3 Intelligent Tiering</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pipeline 5: Event-Driven -->
+      <div class="pipeline-card" id="event-driven">
+        <div class="pipeline-header">
+          <h3>Event-Driven Pipeline</h3>
+          <span style="margin-left: auto; font-size: 0.8rem; color: var(--text-muted);">Serverless</span>
+        </div>
+        <div class="pipeline-body">
+          <div class="pipeline-diagram">
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonSimpleStorageService.svg" alt="S3">
+              <span class="step-name">S3 Event</span>
+              <span>Trigger</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonEventBridge.svg" alt="EventBridge">
+              <span class="step-name">EventBridge</span>
+              <span>Event Bus</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AWSLambda.svg" alt="Lambda">
+              <span class="step-name">Lambda</span>
+              <span>Processor</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AWSStepFunctions.svg" alt="Step Functions">
+              <span class="step-name">Step Functions</span>
+              <span>Orchestration</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonDynamoDB.svg" alt="DynamoDB">
+              <span class="step-name">DynamoDB</span>
+              <span>Results</span>
+            </div>
+          </div>
+          <div class="pipeline-desc">
+            <p>Fully serverless event-driven pipeline using EventBridge rules, Lambda for processing, and Step Functions for complex workflows.</p>
+            <h4>When to Use</h4>
+            <p>Microservices architectures, workflows requiring multiple steps with error handling, and scenarios needing audit trails for each processing step.</p>
+          </div>
+          <div class="pipeline-benefits">
+            <h4>Benefits</h4>
+            <ul>
+              <li>Zero server management</li>
+              <li>Automatic scaling</li>
+              <li>Built-in retry and error handling</li>
+              <li>Step Functions provides visual workflow debugging</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pipeline 6: SCD Type 2 -->
+      <div class="pipeline-card" id="scd-type2">
+        <div class="pipeline-header">
+          <h3>SCD Type 2 Pipeline</h3>
+          <span style="margin-left: auto; font-size: 0.8rem; color: var(--text-muted);">Historical tracking</span>
+        </div>
+        <div class="pipeline-body">
+          <div class="pipeline-diagram">
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonRDSInstance.svg" alt="RDS">
+              <span class="step-name">RDS</span>
+              <span>Source</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AWSGlue.svg" alt="Glue">
+              <span class="step-name">Glue</span>
+              <span>SCD Logic</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonRedshift.svg" alt="Redshift">
+              <span class="step-name">Redshift</span>
+              <span>History Table</span>
+            </div>
+          </div>
+          <div class="pipeline-desc">
+            <p>Slowly Changing Dimension Type 2 implementation that maintains full history of changes. Each change creates a new row with effective dates.</p>
+            <h4>When to Use</h4>
+            <p>When you need to track historical changes to dimension attributes. Common for customer data, product catalogs, and pricing history.</p>
+          </div>
+          <div class="code-block">-- Redshift SCD Type 2 Table Structure
+CREATE TABLE customer_dim (
+    customer_key    INT IDENTITY(1,1),
+    customer_id     VARCHAR(50),
+    customer_name   VARCHAR(200),
+    email           VARCHAR(200),
+    effective_date  DATE,
+    expiry_date     DATE,
+    is_current      BOOLEAN
+);
+
+-- Glue: Compare incoming with current, insert new rows
+-- Update expiry_date and is_current for changed records</div>
+          <div class="pipeline-benefits">
+            <h4>Benefits</h4>
+            <ul>
+              <li>Complete audit trail of all changes</li>
+              <li>Point-in-time analysis possible</li>
+              <li>Glue bookmarks enable incremental processing</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pipeline 7: ML Feature Engineering -->
+      <div class="pipeline-card" id="ml-pipeline">
+        <div class="pipeline-header">
+          <h3>ML Feature Engineering Pipeline</h3>
+          <span style="margin-left: auto; font-size: 0.8rem; color: var(--text-muted);">ML/AI ready</span>
+        </div>
+        <div class="pipeline-body">
+          <div class="pipeline-diagram">
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonSimpleStorageService.svg" alt="S3">
+              <span class="step-name">S3</span>
+              <span>Raw Data</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonEMR.svg" alt="EMR">
+              <span class="step-name">EMR Spark</span>
+              <span>Feature Eng</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonSimpleStorageService.svg" alt="S3">
+              <span class="step-name">S3</span>
+              <span>Features</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonSageMaker.svg" alt="SageMaker">
+              <span class="step-name">SageMaker</span>
+              <span>Training</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonSageMaker.svg" alt="SageMaker">
+              <span class="step-name">Endpoints</span>
+              <span>Inference</span>
+            </div>
+          </div>
+          <div class="pipeline-desc">
+            <p>End-to-end ML pipeline using EMR for feature engineering with Spark, storing features in S3, and SageMaker for training and deployment.</p>
+            <h4>When to Use</h4>
+            <p>Large-scale ML feature engineering that exceeds Glue's capabilities. Persistent clusters with Spot instances for cost optimization.</p>
+          </div>
+          <div class="pipeline-benefits">
+            <h4>Benefits</h4>
+            <ul>
+              <li>EMR with Spot for 70% cost savings</li>
+              <li>SparkML for feature engineering at scale</li>
+              <li>SageMaker handles training and deployment</li>
+              <li>Feature Store integration available</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="../../app.js"></script>
+  <script src="aws.js"></script>
+  <button id="scrollToTop" class="scroll-to-top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+  <script>
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    window.addEventListener('scroll', () => scrollToTopBtn.classList.toggle('visible', window.pageYOffset > 300));
+    scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

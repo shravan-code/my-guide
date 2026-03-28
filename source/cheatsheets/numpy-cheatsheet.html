@@ -14,14 +14,14 @@
   <link rel="stylesheet" href="cheatsheet-base.css" />
 </head>
 
-<body>
+<body class="with-sidebar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
   <header class="topbar glass reveal in">
     <a class="brand" href="../../index.html">
-      
+
       Data Guide
     </a>
     <nav class="menu" aria-label="Cheatsheet menu">
@@ -62,13 +62,25 @@
   <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
   <div id="sidebar-overlay" class="sidebar-overlay"></div>
   <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
       <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
       <line x1="9" y1="3" x2="9" y2="21"></line>
     </svg>
   </button>
 
   <main class="main-content">
+    <nav class="breadcrumb">
+      <a href="../../index.html">Home</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+      <a href="cheatsheet.html">Cheatsheets</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+      <span class="current">NumPy</span>
+    </nav>
     <nav class="sidebar" id="sidebar">
       <div class="logo">
         <span class="logo-text">NumPy Cheatsheet</span>
@@ -89,20 +101,20 @@
     </nav>
 
     <div class="page-wrap">
-        <section class="hero">
-          <h1>NumPy Cheatsheet</h1>
-          <p class="hero-copy">A focused guide to NumPy Cheatsheet.</p>
-          <p>Quick reference for NumPy array creation, operations, linear algebra, and broadcasting.</p>
-        </section>
+      <section class="hero">
+        <h1>NumPy Cheatsheet</h1>
+        <p class="hero-copy">A focused guide to NumPy Cheatsheet.</p>
+        <p>Quick reference for NumPy array creation, operations, linear algebra, and broadcasting.</p>
+      </section>
 
-        <section class="cheat-section" id="data-structures">
+      <section class="cheat-section" id="data-structures">
         <h2 class="section-title">Data Structures <span class="section-difficulty difficulty-basic">Basic</span></h2>
         <div class="code-grid">
           <div class="code-card">
             <span class="code-label">ndarray</span>
             <h3>N‑dimensional Array</h3>
             <p>The fundamental NumPy data structure.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 import numpy as np
 
 # Create a 1D array
@@ -121,7 +133,7 @@ print(matrix.ndim) # 2
             <span class="code-label">dtypes</span>
             <h3>Data Types</h3>
             <p>Control memory layout and precision.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 # Explicit dtype
 arr = np.array([1, 2, 3], dtype=np.float32)
 print(arr.dtype) # float32
@@ -146,7 +158,7 @@ print(arr[0]['x']) # 1
             <span class="code-label">From List</span>
             <h3 id="list">Create Arrays</h3>
             <p>Create arrays from various sources.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 import numpy as np
 
 # From list
@@ -165,7 +177,7 @@ arr_view = arr.view()
             <span class="code-label">Ranges</span>
             <h3>Ranges & Sequences</h3>
             <p>Create arrays with ranges.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 # Arange (like range)
 arr = np.arange(0, 10) # [0, 1, 2, ..., 9]
 arr = np.arange(0, 10, 0.5) # Step 0.5
@@ -180,7 +192,7 @@ arr = np.linspace(0, 1, 10, endpoint=False) # Exclude end
             <span class="code-label">Special</span>
             <h3>Special Arrays</h3>
             <p>Arrays with special values.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 # Zeros and ones
 zeros = np.zeros(5) # [0, 0, 0, 0, 0]
 zeros = np.zeros((3, 4)) # 3x4 matrix
@@ -199,7 +211,7 @@ full = np.full_like(arr, 0) # Same shape as arr, filled with 0
             <span class="code-label">Random</span>
             <h3>Random Arrays</h3>
             <p>Generate random arrays.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 # Set seed for reproducibility
 np.random.seed(42)
 
@@ -230,7 +242,7 @@ choices = np.random.choice([1, 2, 3, 4, 5], size=3)
             <span class="code-label">Basic</span>
             <h3>Basic Indexing</h3>
             <p>Access array elements.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 arr = np.array([10, 20, 30, 40, 50])
 
 # Single element
@@ -250,7 +262,7 @@ arr[::-1] # [50, 40, 30, 20, 10] (reverse)
             <span class="code-label">2D</span>
             <h3>Multi-dimensional Indexing</h3>
             <p>Index into multi-dimensional arrays.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 matrix = np.array([[1, 2, 3],
 [4, 5, 6],
 [7, 8, 9]])
@@ -274,7 +286,7 @@ matrix[0:2, 1:3] # [[2, 3], [5, 6]]
             <span class="code-label">Boolean</span>
             <h3>Boolean Indexing</h3>
             <p>Filter arrays with conditions.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 arr = np.array([1, 5, 2, 8, 3, 9, 4])
 
 # Boolean mask
@@ -294,7 +306,7 @@ np.where(arr > 5, arr, 0) # [0, 0, 0, 8, 0, 9, 0]
             <span class="code-label">Fancy</span>
             <h3>Fancy Indexing</h3>
             <p>Index with arrays/lists.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 arr = np.array([10, 20, 30, 40, 50])
 
 # Index array
@@ -325,7 +337,7 @@ arr[idx[:2]]
             <span class="code-label">Arithmetic</span>
             <h3>Mathematical Operations</h3>
             <p>Element-wise math operations.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 a = np.array([1, 2, 3])
 b = np.array([4, 5, 6])
 
@@ -354,7 +366,7 @@ np.matmul(a.reshape(1,3), b.reshape(3,1)) # [[32]]
             <span class="code-label">Statistics</span>
             <h3>Statistical Functions</h3>
             <p>Compute statistics on arrays.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 arr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 
 # Basic stats
@@ -381,7 +393,7 @@ np.percentile(arr, 75) # 7.75 (Q3)
             <span class="code-label">Axis</span>
             <h3>Axis Operations</h3>
             <p>Operations along specific axis.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 matrix = np.array([[1, 2, 3],
 [4, 5, 6],
 [7, 8, 9]])
@@ -404,7 +416,7 @@ np.sum(matrix, axis=0, keepdims=True) # [[12, 15, 18]]
             <span class="code-label">Comparison</span>
             <h3>Comparison Operations</h3>
             <p>Compare arrays element-wise.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 a = np.array([1, 2, 3, 4])
 b = np.array([2, 2, 2, 4])
 
@@ -437,7 +449,7 @@ False, True]
             <span class="code-label">Reshape</span>
             <h3>Reshape Arrays</h3>
             <p>Change array shape.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 arr = np.arange(12)
 
 # Reshape
@@ -463,7 +475,7 @@ np.transpose(matrix)
             <span class="code-label">Stack</span>
             <h3>Stack Arrays</h3>
             <p>Combine arrays.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 a = np.array([1, 2, 3])
 b = np.array([4, 5, 6])
 
@@ -488,7 +500,7 @@ np.concatenate([[a], [b]]) # [[1,2,3], [4,5,6]]
             <span class="code-label">Split</span>
             <h3>Split Arrays</h3>
             <p>Split arrays into sub-arrays.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 arr = np.arange(12)
 
 # Split into equal parts
@@ -511,7 +523,7 @@ np.hsplit(matrix, [1, 3]) # Split at cols 1 and 3
             <span class="code-label">Tile/Repeat</span>
             <h3>Tile & Repeat</h3>
             <p>Repeat or tile arrays.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 arr = np.array([1, 2, 3])
 
 # Repeat elements
@@ -540,7 +552,7 @@ np.unique(arr, return_counts=True)
             <span class="code-label">Matrix</span>
             <h3>Matrix Operations</h3>
             <p>Basic linear algebra operations.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 A = np.array([[1, 2], [3, 4]])
 B = np.array([[5, 6], [7, 8]])
 
@@ -570,7 +582,7 @@ A**3 = np.linalg.matrix_power(A, 3)
             <span class="code-label">Decomposition</span>
             <h3>Matrix Decomposition</h3>
             <p>Decompose matrices.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 # Eigenvalues and eigenvectors
 vals, vecs = np.linalg.eig(A)
 
@@ -592,7 +604,7 @@ P, L, U = linalg.lu(A)
             <span class="code-label">Solve</span>
             <h3>Solve Linear Systems</h3>
             <p>Solve Ax = b systems.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 # Solve Ax = b
 A = np.array([[3, 1], [1, 2]])
 b = np.array([9, 8])
@@ -619,7 +631,7 @@ np.linalg.norm(b, ord=1) # 1-norm
             <span class="code-label">Vector</span>
             <h3>Vector Operations</h3>
             <p>Vector math and operations.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 v1 = np.array([1, 2, 3])
 v2 = np.array([4, 5, 6])
 
@@ -651,7 +663,7 @@ angle = np.arccos(cos_angle)
             <span class="code-label">Rules</span>
             <h3>Broadcasting Rules</h3>
             <p>Understand how broadcasting works.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 # Rule 1: Arrays with fewer dimensions prepend 1s
 # (3,) and (2,3) -> (1,3) and (2,3)
 
@@ -674,7 +686,7 @@ arr + 10 # [[11,12], [13,14]]
             <span class="code-label">Examples</span>
             <h3>Common Patterns</h3>
             <p>Practical broadcasting examples.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 # Row operations
 matrix = np.array([[1, 2, 3], [4, 5, 6]])
 row = np.array([10, 20, 30])
@@ -701,7 +713,7 @@ distances = np.sqrt((diff**2).sum(axis=2))
             <span class="code-label">Newaxis</span>
             <h3>np.newaxis</h3>
             <p>Add dimensions for broadcasting.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 arr = np.array([1, 2, 3, 4])
 
 # Add row dimension
@@ -734,7 +746,7 @@ np.expand_dims(arr, axis=1) # Add column
             <span class="code-label">numpy.linalg</span>
             <h3>Linear Algebra</h3>
             <p>Matrix operations, decompositions, and solvers.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 import numpy as np
 from numpy import linalg as LA
 
@@ -754,7 +766,7 @@ U, s, Vh = LA.svd(A, full_matrices=False)
             <span class="code-label">numpy.fft</span>
             <h3>Fast Fourier Transform</h3>
             <p>Discrete Fourier transforms and related routines.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 import numpy as np
 from numpy import fft
 
@@ -772,7 +784,7 @@ freq2d = fft.fft2(image)
             <span class="code-label">numpy.random</span>
             <h3>Random Sampling</h3>
             <p>Random number generation and distributions.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 import numpy as np
 
 # Set seed for reproducibility
@@ -797,7 +809,7 @@ choices = rng.choice(['a', 'b', 'c'], size=10)
             <span class="code-label">Tip</span>
             <h3>Use vectorized operations</h3>
             <p>Replace Python loops with NumPy vectorized functions for massive speed gains.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 # Slow
 result = []
 for i in range(len(arr)):
@@ -811,7 +823,7 @@ result = arr * 2
             <span class="code-label">Trick</span>
             <h3>Use broadcasting effectively</h3>
             <p>Operate on arrays of different shapes without explicit loops.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 # Create a 5x5 array of ones
 ones = np.ones((5, 5))
 
@@ -824,7 +836,7 @@ result = ones - row_vector # Broadcasting works
             <span class="code-label">Tip</span>
             <h3>Use `np.where` for conditional selection</h3>
             <p>Vectorized if-else for array elements.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 arr = np.array([1, -2, 3, -4, 5])
 # Replace negative values with zero
 positive = np.where(arr > 0, arr, 0)
@@ -845,7 +857,7 @@ result = np.where(cond, arr, -arr)
             <span class="code-label">Memory</span>
             <h3>Use dtype wisely</h3>
             <p>Use explicit dtypes and avoid object arrays to reduce memory and improve speed.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 arr = np.array([1, 2, 3], dtype=np.int16)
 arr = arr.astype(np.float32)
 </code></pre>
@@ -854,7 +866,7 @@ arr = arr.astype(np.float32)
             <span class="code-label">IO</span>
             <h3>Prefer binary formats</h3>
             <p>Use `np.save`/`np.load` for numpy arrays instead of text files.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 np.save('data.npy', arr)
 arr2 = np.load('data.npy')
 </code></pre>
@@ -863,7 +875,7 @@ arr2 = np.load('data.npy')
             <span class="code-label">Profiling</span>
             <h3>Profile with `%timeit`</h3>
             <p>Measure before optimizing to choose the best approach.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 # in notebook
 %timeit arr * 2
 %timeit np.multiply(arr, 2)
@@ -873,12 +885,13 @@ arr2 = np.load('data.npy')
       </section>
     </div>
   </main>
-    <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
       stroke-linejoin="round">
       <path d="M12 19V5M5 12l7-7 7 7" />
     </svg>
   </button>
+  <script src="../app.js"></script>
   <script src="cheatsheets.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
@@ -887,4 +900,5 @@ arr2 = np.load('data.npy')
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
   <script>Prism.highlightAll();</script>
 </body>
+
 </html>

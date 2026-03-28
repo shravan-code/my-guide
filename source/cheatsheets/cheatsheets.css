@@ -60,12 +60,12 @@ main,
 }
 
 .mobile-menu {
-  top: var(--topbar-height);
+  top: calc(var(--topbar-height) + var(--layout-breadcrumb-height));
   left: 0;
   right: 0;
   width: auto;
   height: auto;
-  max-height: calc(100vh - var(--topbar-height));
+  max-height: calc(100vh - var(--topbar-height) - var(--layout-breadcrumb-height));
   background: var(--glass);
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
@@ -103,10 +103,10 @@ main,
 
 .mobile-menu-overlay {
   position: fixed;
-  top: var(--topbar-height);
+  top: calc(var(--topbar-height) + var(--layout-breadcrumb-height));
   left: 0;
   width: 100%;
-  height: calc(100% - var(--topbar-height));
+  height: calc(100% - var(--topbar-height) - var(--layout-breadcrumb-height));
   background: rgba(0, 0, 0, 0.3);
   z-index: 1998;
 }
@@ -238,8 +238,8 @@ main {
   cursor: pointer;
 }
 
-.pill-input:checked + .tool-label,
-.pill-input:checked + .category-label,
+.pill-input:checked+.tool-label,
+.pill-input:checked+.category-label,
 .tool-label:hover,
 .category-label:hover {
   color: var(--text);
@@ -493,6 +493,7 @@ main {
 }
 
 @media (max-width: 480px) {
+
   .comparison-table th,
   .comparison-table td {
     min-width: 150px;

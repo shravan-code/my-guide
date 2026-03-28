@@ -14,14 +14,14 @@
   <link rel="stylesheet" href="cheatsheet-base.css" />
 </head>
 
-<body>
+<body class="with-sidebar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
   <header class="topbar glass reveal in">
     <a class="brand" href="../../index.html">
-      
+
       Data Guide
     </a>
     <nav class="menu" aria-label="Cheatsheet menu">
@@ -62,13 +62,25 @@
   <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
   <div id="sidebar-overlay" class="sidebar-overlay"></div>
   <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
       <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
       <line x1="9" y1="3" x2="9" y2="21"></line>
     </svg>
   </button>
 
   <main class="main-content">
+    <nav class="breadcrumb">
+      <a href="../../index.html">Home</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+      <a href="cheatsheet.html">Cheatsheets</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+      <span class="current">Python</span>
+    </nav>
     <nav class="sidebar" id="sidebar">
       <div class="logo">
         <span class="logo-text">Python Cheatsheet</span>
@@ -88,20 +100,20 @@
     </nav>
 
     <div class="page-wrap">
-        <section class="hero">
-          <h1>Python Cheatsheet</h1>
-          <p class="hero-copy">A focused guide to Python Cheatsheet.</p>
-          <p>Quick reference for Python fundamentals, data structures, and common patterns.</p>
-        </section>
+      <section class="hero">
+        <h1>Python Cheatsheet</h1>
+        <p class="hero-copy">A focused guide to Python Cheatsheet.</p>
+        <p>Quick reference for Python fundamentals, data structures, and common patterns.</p>
+      </section>
 
-        <section class="cheat-section" id="data-structures">
+      <section class="cheat-section" id="data-structures">
         <h2 class="section-title">Data Structures <span class="section-difficulty difficulty-basic">Basic</span></h2>
         <div class="code-grid">
           <div class="code-card">
             <span class="code-label">List</span>
             <h3 id="list">List Operations</h3>
             <p>Mutable ordered collection.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 # Create
 lst = [1, 2, 3] # lst is [1, 2, 3]
 lst = list(range(10)) # lst becomes [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -120,7 +132,7 @@ lst[::-1] # returns [9, 8, 7, 6, 5, 5, 4, 4, 2, 1, 0, 0]
             <span class="code-label">Dict</span>
             <h3>Dictionary Operations</h3>
             <p>Key-value pair storage.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 # Create
 d = {'a': 1, 'b': 2} # d is {'a': 1, 'b': 2}
 keys = ['x', 'y']
@@ -144,7 +156,7 @@ d.setdefault('x', 0) # returns 10 (key exists), d unchanged
             <span class="code-label">Set</span>
             <h3>Set Operations</h3>
             <p>Unique unordered collection.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 # Create
 s = {1, 2, 3}
 s = set([1, 2, 2, 3])
@@ -165,7 +177,7 @@ a ^ b # Symmetric diff
             <span class="code-label">Tuple</span>
             <h3>Tuple Unpacking</h3>
             <p>Immutable ordered collection.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 # Create
 t = (1, 2, 3)
 t = tuple([1, 2, 3])
@@ -194,7 +206,7 @@ p = Point(1, 2)
             <span class="code-label">List</span>
             <h3>List Comprehension</h3>
             <p>Create lists in a single line.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 # Basic
 squares = [x**2 for x in range(10)]
 # squares = [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
@@ -218,7 +230,7 @@ words = [w.strip().lower() for w in text]
             <span class="code-label">Dict</span>
             <h3>Dict Comprehension</h3>
             <p>Create dictionaries concisely.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 # From two lists
 d = {k: v for k, v in zip(keys, values)}
 
@@ -236,7 +248,7 @@ inv = {v: k for k, v in d.items()}
             <span class="code-label">Set</span>
             <h3>Set Comprehension</h3>
             <p>Create sets with transformations.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 # Basic
 unique = {x % 5 for x in range(100)}
 
@@ -252,7 +264,7 @@ chars = {c.lower() for c in text if c.isalpha()}
             <span class="code-label">Generator</span>
             <h3>Generator Expression</h3>
             <p>Memory-efficient iteration.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 # Generator (lazy)
 gen = (x**2 for x in range(1000000))
 
@@ -279,7 +291,7 @@ result = itertools.chain(gen1, gen2)
             <span class="code-label">Basics</span>
             <h3>Function Basics</h3>
             <p>Define and call functions.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 # Basic function
 def greet(name, greeting="Hello"):
 """Return a greeting."""
@@ -301,7 +313,7 @@ return min(data), max(data), sum(data)
             <span class="code-label">Decorators</span>
             <h3>Function Decorators</h3>
             <p>Wrap functions to extend behavior.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 import time
 from functools import wraps
 
@@ -323,7 +335,7 @@ time.sleep(1)
             <span class="code-label">Functional</span>
             <h3>Functional Tools</h3>
             <p>Map, filter, reduce operations.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 # Map
 list(map(str.upper, names))
 
@@ -342,7 +354,7 @@ sorted(data, key=lambda x: x['age'], reverse=True)
             <span class="code-label">Closures</span>
             <h3>Closures & Scope</h3>
             <p>Functions that capture variables.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 # Closure
 def make_multiplier(n):
 def multiplier(x):
@@ -372,7 +384,7 @@ return increment
             <span class="code-label">Files</span>
             <h3>File Operations</h3>
             <p>Read and write files safely.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 # Read entire file
 with open('file.txt', 'r') as f:
 content = f.read()
@@ -394,7 +406,7 @@ f.write('new line\n')
             <span class="code-label">JSON</span>
             <h3>JSON Handling</h3>
             <p>Parse and write JSON data.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 import json
 
 # Read JSON
@@ -414,7 +426,7 @@ data = json.loads(json_str)
             <span class="code-label">Exceptions</span>
             <h3>Error Handling</h3>
             <p>Handle exceptions gracefully.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 try:
 result = risky_operation()
 except ValueError as e:
@@ -434,7 +446,7 @@ cleanup()
             <span class="code-label">Custom</span>
             <h3>Custom Exceptions</h3>
             <p>Create your own exception classes.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 class CustomError(Exception):
 def __init__(self, message, code):
 super().__init__(message)
@@ -463,7 +475,7 @@ print(f"Error {e.code}: {e}")
             <span class="code-label">Class</span>
             <h3>Class Basics</h3>
             <p>Define classes with methods.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 class Person:
 species = "Human" # Class variable
 
@@ -485,7 +497,7 @@ print(p.greet())
             <span class="code-label">Inheritance</span>
             <h3>Inheritance</h3>
             <p>Create specialized classes.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 class Employee(Person):
 def __init__(self, name, age, emp_id):
 super().__init__(name, age)
@@ -505,7 +517,7 @@ class C(A, B): pass
             <span class="code-label">Properties</span>
             <h3>Properties & Methods</h3>
             <p>Controlled attribute access.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 class Circle:
 def __init__(self, radius):
 self._radius = radius
@@ -519,12 +531,12 @@ def radius(self, value):
 if value < 0: raise ValueError("Negative!") self._radius=value @property def area(self): return 3.14159 *
 self._radius ** 2
 </code></pre>
-            </div>
-            <div class="code-card">
-              <span class="code-label">Dataclass</span>
-              <h3>Data Classes</h3>
-              <p>Simplified class creation.</p>
-<pre class="code-block"><code class="language-python">
+          </div>
+          <div class="code-card">
+            <span class="code-label">Dataclass</span>
+            <h3>Data Classes</h3>
+            <p>Simplified class creation.</p>
+            <pre class="code-block"><code class="language-python">
 from dataclasses import dataclass, field
 
 @dataclass
@@ -540,8 +552,8 @@ return self.age >= 18
 user = User("Alice", "alice@example.com", 30)
 print(user) # User(name='Alice', ...)
 </code></pre>
-            </div>
           </div>
+        </div>
       </section>
 
       <section class="cheat-section" id="concurrency">
@@ -551,7 +563,7 @@ print(user) # User(name='Alice', ...)
             <span class="code-label">Threading</span>
             <h3>Threading</h3>
             <p>Run tasks concurrently (I/O bound).</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 import threading
 from concurrent.futures import ThreadPoolExecutor
 
@@ -573,7 +585,7 @@ t.join()
             <span class="code-label">Multiprocessing</span>
             <h3>Multiprocessing</h3>
             <p>Parallel execution (CPU bound).</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 from multiprocessing import Pool
 from concurrent.futures import ProcessPoolExecutor
 
@@ -593,7 +605,7 @@ results = list(executor.map(heavy_task, data))
             <span class="code-label">Async</span>
             <h3>Async/Await</h3>
             <p>Asynchronous programming.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 import asyncio
 import aiohttp
 
@@ -615,7 +627,7 @@ asyncio.run(main())
             <span class="code-label">Queue</span>
             <h3>Queue</h3>
             <p>Thread-safe data sharing.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 from queue import Queue
 from threading import Thread
 
@@ -645,7 +657,7 @@ q.join()
             <span class="code-label">Collections</span>
             <h3>collections Module</h3>
             <p>Specialized container datatypes.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 from collections import Counter, defaultdict, deque, OrderedDict, namedtuple
 
 # Counter
@@ -685,7 +697,7 @@ p.x, p.y # (1, 2)
             <span class="code-label">itertools</span>
             <h3>itertools Module</h3>
             <p>Iterator building blocks.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 from itertools import chain, product, groupby, islice, takewhile, dropwhile,
 permutations, combinations, compress
 
@@ -725,12 +737,12 @@ taken = list(takewhile(lambda x: x<4, nums)) # [1,2,3] # dropwhile (drop while c
 dropped=list(dropwhile(lambda x: x<4, nums)) # [4,5,1,2] # compress (filter based on selectors)
 selectors=[1,0,1,0,1] compressed=list(compress(['a','b','c','d','e'], selectors)) # ['a','c','e']
 </code></pre>
-            </div>
-            <div class="code-card">
-              <span class="code-label">datetime</span>
-              <h3>datetime Module</h3>
-              <p>Date and time handling.</p>
-<pre class="code-block"><code class="language-python">
+          </div>
+          <div class="code-card">
+            <span class="code-label">datetime</span>
+            <h3>datetime Module</h3>
+            <p>Date and time handling.</p>
+            <pre class="code-block"><code class="language-python">
 from datetime import datetime, timedelta, date, time, timezone
 
 # Current time
@@ -766,12 +778,12 @@ from_ts = datetime.fromtimestamp(1700000000) # datetime from timestamp
 # ISO format
 iso_str = now.isoformat() # '2024-03-15T10:30:45.123456'
 </code></pre>
-            </div>
-            <div class="code-card">
-              <span class="code-label">logging</span>
-              <h3>logging Module</h3>
-              <p>Professional logging setup.</p>
-<pre class="code-block"><code class="language-python">
+          </div>
+          <div class="code-card">
+            <span class="code-label">logging</span>
+            <h3>logging Module</h3>
+            <p>Professional logging setup.</p>
+            <pre class="code-block"><code class="language-python">
 import logging
 
 # Basic configuration (call once)
@@ -819,8 +831,8 @@ def filter(self, record):
 return record.levelno == logging.INFO
 logger.addFilter(InfoFilter())
 </code></pre>
-            </div>
           </div>
+        </div>
       </section>
       <section class="cheat-section" id="tips-tricks">
         <h2 class="section-title">Tips & Tricks</h2>
@@ -829,7 +841,7 @@ logger.addFilter(InfoFilter())
             <span class="code-label">Tip</span>
             <h3>Use list comprehensions wisely</h3>
             <p>Avoid complex logic in comprehensions; keep them readable.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 # Good
 squares = [x**2 for x in range(10)]
 
@@ -841,7 +853,7 @@ result = [x**2 for x in range(10) if x % 2 == 0 if x > 3]
             <span class="code-label">Trick</span>
             <h3>Swap variables without temp</h3>
             <p>Python allows tuple unpacking for swapping.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 a, b = 1, 2
 a, b = b, a # a=2, b=1
 </code></pre>
@@ -850,7 +862,7 @@ a, b = b, a # a=2, b=1
             <span class="code-label">Tip</span>
             <h3>Use `enumerate` for indexed loops</h3>
             <p>Instead of range(len(...)).</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 items = ['a', 'b', 'c']
 for idx, val in enumerate(items):
 print(f'{idx}: {val}')
@@ -860,7 +872,7 @@ print(f'{idx}: {val}')
             <span class="code-label">Trick</span>
             <h3>Dictionary merging with `|`</h3>
             <p>Python 3.9+ supports merge operator.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 dict1 = {'a': 1, 'b': 2}
 dict2 = {'b': 3, 'c': 4}
 merged = dict1 | dict2 # {'a':1, 'b':3, 'c':4}
@@ -876,7 +888,7 @@ merged = dict1 | dict2 # {'a':1, 'b':3, 'c':4}
             <span class="code-label">Readability</span>
             <h3>Follow PEP 8</h3>
             <p>Use consistent style, spacing, and naming to keep code maintainable.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 # Example: prefer clear variable names
 user_count = len(users)
 if user_count > 0:
@@ -887,7 +899,7 @@ print(f"Total users: {user_count}")
             <span class="code-label">Testing</span>
             <h3>Write tests for key logic</h3>
             <p>Unit tests prevent regressions and improve confidence.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 import pytest
 
 def increment(x):
@@ -902,7 +914,7 @@ assert increment(-1) == 0
             <span class="code-label">Performance</span>
             <h3>Prefer builtins over loops</h3>
             <p>Use list comprehensions, map/filter, and numpy/pandas to speed loops.</p>
-<pre class="code-block"><code class="language-python">
+            <pre class="code-block"><code class="language-python">
 # avoid slow loops over lists
 # slow
 sum_val = 0
@@ -917,12 +929,13 @@ sum_val = sum(data)
       </section>
     </div>
   </main>
-    <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
       stroke-linejoin="round">
       <path d="M12 19V5M5 12l7-7 7 7" />
     </svg>
   </button>
+  <script src="../app.js"></script>
   <script src="cheatsheets.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
@@ -931,4 +944,5 @@ sum_val = sum(data)
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
   <script>Prism.highlightAll();</script>
 </body>
+
 </html>

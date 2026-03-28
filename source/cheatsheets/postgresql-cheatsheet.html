@@ -14,14 +14,14 @@
   <link rel="stylesheet" href="cheatsheet-base.css" />
 </head>
 
-<body>
+<body class="with-sidebar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
   <header class="topbar glass reveal in">
     <a class="brand" href="../../index.html">
-      
+
       Data Guide
     </a>
     <nav class="menu" aria-label="Cheatsheet menu">
@@ -62,13 +62,25 @@
   <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
   <div id="sidebar-overlay" class="sidebar-overlay"></div>
   <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
       <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
       <line x1="9" y1="3" x2="9" y2="21"></line>
     </svg>
   </button>
 
   <main class="main-content">
+    <nav class="breadcrumb">
+      <a href="../../index.html">Home</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+      <a href="cheatsheet.html">Cheatsheets</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+      <span class="current">PostgreSQL</span>
+    </nav>
     <nav class="sidebar" id="sidebar">
       <div class="logo">
         <span class="logo-text">PostgreSQL Cheatsheet</span>
@@ -88,20 +100,20 @@
     </nav>
 
     <div class="page-wrap">
-        <section class="hero">
-          <h1>PostgreSQL Cheatsheet</h1>
-          <p class="hero-copy">A focused guide to PostgreSQL Cheatsheet.</p>
-          <p>Quick reference for PostgreSQL queries, window functions, CTEs, and performance optimization.</p>
-        </section>
+      <section class="hero">
+        <h1>PostgreSQL Cheatsheet</h1>
+        <p class="hero-copy">A focused guide to PostgreSQL Cheatsheet.</p>
+        <p>Quick reference for PostgreSQL queries, window functions, CTEs, and performance optimization.</p>
+      </section>
 
-        <section class="cheat-section" id="data-structures">
+      <section class="cheat-section" id="data-structures">
         <h2 class="section-title">Data Structures <span class="section-difficulty difficulty-basic">Basic</span></h2>
         <div class="code-grid">
           <div class="code-card">
             <span class="code-label">Tables</span>
             <h3>Tables</h3>
             <p>Primary structured storage in PostgreSQL.</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 CREATE TABLE users (
 id SERIAL PRIMARY KEY,
 username VARCHAR(50) UNIQUE NOT NULL,
@@ -118,7 +130,7 @@ VALUES ('alice', 'alice@example.com');
             <span class="code-label">Arrays</span>
             <h3>Arrays</h3>
             <p>Built‑in array data type for storing lists.</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 CREATE TABLE products (
 id INT PRIMARY KEY,
 name TEXT,
@@ -143,7 +155,7 @@ SELECT * FROM products WHERE 'electronics' = ANY(tags);
             <span class="code-label">Ranking</span>
             <h3 id="list">ROW_NUMBER, RANK, DENSE_RANK</h3>
             <p>Rank rows within partitions.</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 SELECT
 id,
 name,
@@ -162,7 +174,7 @@ ORDER BY amount DESC
             <span class="code-label">Offset</span>
             <h3>LAG & LEAD</h3>
             <p>Access previous/next rows.</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 SELECT
 date,
 amount,
@@ -176,7 +188,7 @@ FROM daily_sales;
             <span class="code-label">Aggregation</span>
             <h3>Running Totals</h3>
             <p>Cumulative aggregations.</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 SELECT
 date,
 amount,
@@ -193,7 +205,7 @@ FROM daily_sales;
             <span class="code-label">NTILE</span>
             <h3>NTILE & PERCENTILE</h3>
             <p>Divide into buckets.</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 SELECT
 id,
 amount,
@@ -215,7 +227,7 @@ FROM orders;
             <span class="code-label">CTE</span>
             <h3>Common Table Expressions</h3>
             <p>Create reusable query blocks.</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 WITH monthly_sales AS (
 SELECT
 DATE_TRUNC('month', created_at) as month,
@@ -240,7 +252,7 @@ SELECT * FROM growth ORDER BY month;
             <span class="code-label">Recursive</span>
             <h3>Recursive CTE</h3>
             <p>Query hierarchical data.</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 WITH RECURSIVE org_chart AS (
 -- Base case: top-level manager
 SELECT id, name, manager_id, 1 as level
@@ -261,7 +273,7 @@ SELECT * FROM org_chart ORDER BY level, id;
             <span class="code-label">Multiple CTEs</span>
             <h3>Chained CTEs</h3>
             <p>Use multiple CTEs together.</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 WITH
 active_users AS (
 SELECT id, name, email
@@ -289,7 +301,7 @@ LEFT JOIN user_orders o ON u.id = o.user_id;
             <span class="code-label">Materialized</span>
             <h3>Materialized CTE</h3>
             <p>Force CTE materialization.</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 WITH large_cte AS MATERIALIZED (
 SELECT * FROM huge_table
 WHERE complex_condition = true
@@ -319,7 +331,7 @@ WHERE o.user_id = u.id
             <span class="code-label">GROUPING SETS</span>
             <h3>Multiple Aggregation Levels</h3>
             <p>Aggregate at multiple levels in one query.</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 SELECT
 COALESCE(category, 'ALL') as category,
 COALESCE(status, 'ALL') as status,
@@ -338,7 +350,7 @@ GROUP BY GROUPING SETS (
             <span class="code-label">ROLLUP</span>
             <h3>ROLLUP</h3>
             <p>Generate subtotals and grand total.</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 SELECT
 region,
 product,
@@ -354,7 +366,7 @@ GROUP BY ROLLUP(region, product);
             <span class="code-label">CUBE</span>
             <h3>CUBE</h3>
             <p>All combinations of grouping columns.</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 SELECT
 region,
 product,
@@ -371,7 +383,7 @@ GROUP BY CUBE(region, product, YEAR(sale_date));
             <span class="code-label">FILTER</span>
             <h3>Conditional Aggregation</h3>
             <p>Aggregate with FILTER clause.</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 SELECT
 category,
 COUNT(*) as total,
@@ -393,7 +405,7 @@ GROUP BY category;
             <span class="code-label">Extract</span>
             <h3>JSON Extraction</h3>
             <p>Extract values from JSON columns.</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 -- Arrow operator (returns JSONB value)
 data->>'name' -- text
 data->'address'->>'city' -- text nested
@@ -417,7 +429,7 @@ FROM users;
             <span class="code-label">Build</span>
             <h3>Build JSON</h3>
             <p>Create JSON from query results.</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 -- Single object
 SELECT jsonb_build_object(
 'id', id,
@@ -445,7 +457,7 @@ jsonb_build_object('id', id, 'amount', amount)
             <span class="code-label">Query</span>
             <h3>Query JSON</h3>
             <p>Filter and search JSON data.</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 -- Existence check
 data ? 'name' -- key exists
 data ?| array['a','b'] -- any key exists
@@ -467,7 +479,7 @@ AND (data->>'amount')::numeric > 100;
             <span class="code-label">Index</span>
             <h3>JSON Indexing</h3>
             <p>Index JSON for performance.</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 -- GIN index for containment queries
 CREATE INDEX idx_data_gin ON table_name
 USING GIN (data);
@@ -497,7 +509,7 @@ USING BRIN ((data->>'timestamp'));
             <span class="code-label">UPSERT</span>
             <h3>INSERT ON CONFLICT</h3>
             <p>Insert or update based on conflicts.</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 INSERT INTO users (id, name, email, updated_at)
 VALUES (1, 'John', 'john@example.com', NOW())
 ON CONFLICT (id)
@@ -520,7 +532,7 @@ ON users (email) WHERE status = 'active';
             <span class="code-label">MERGE</span>
             <h3>MERGE Statement</h3>
             <p>SQL:2003 standard merge (UPSERT).</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 MERGE INTO target t
 USING source s
 ON t.id = s.id
@@ -540,7 +552,7 @@ VALUES (s.id, s.name, s.email, NOW());
             <span class="code-label">DELETE</span>
             <h3>DELETE with RETURNING</h3>
             <p>Delete and return affected rows.</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 -- Delete and return
 DELETE FROM orders
 WHERE created_at < NOW() - INTERVAL '1 year' RETURNING id, name, amount; -- Delete with CTE WITH
@@ -548,12 +560,12 @@ old_records AS ( SELECT id FROM archive_logs WHERE created_at < NOW() - INTERVAL
 logs WHERE id IN (SELECT id FROM old_records) RETURNING *; -- Truncate with cascade TRUNCATE TABLE logs
 CASCADE;
 </code></pre>
-            </div>
-            <div class="code-card">
-              <span class="code-label">UPDATE</span>
-              <h3>UPDATE with FROM</h3>
-              <p>Update using joins.</p>
-<pre class="code-block"><code class="language-sql">
+          </div>
+          <div class="code-card">
+            <span class="code-label">UPDATE</span>
+            <h3>UPDATE with FROM</h3>
+            <p>Update using joins.</p>
+            <pre class="code-block"><code class="language-sql">
 -- Update with JOIN
 UPDATE orders o
 SET status = 'processed'
@@ -580,8 +592,8 @@ SET total_spent = stats.total
 FROM stats
 WHERE u.id = stats.user_id;
 </code></pre>
-            </div>
           </div>
+        </div>
       </section>
 
       <section class="cheat-section" id="performance">
@@ -591,7 +603,7 @@ WHERE u.id = stats.user_id;
             <span class="code-label">EXPLAIN</span>
             <h3>Query Analysis</h3>
             <p>Analyze query execution plans.</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 -- Basic explain
 EXPLAIN SELECT * FROM orders WHERE user_id = 123;
 
@@ -611,7 +623,7 @@ SELECT * FROM orders WHERE user_id = 123;
             <span class="code-label">Indexes</span>
             <h3>Index Types</h3>
             <p>Choose the right index type.</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 -- B-tree (default, ordered)
 CREATE INDEX idx_orders_user ON orders(user_id);
 
@@ -637,7 +649,7 @@ USING BRIN (created_at);
             <span class="code-label">Vacuum</span>
             <h3>Maintenance</h3>
             <p>Database maintenance commands.</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 -- Analyze table stats
 ANALYZE orders;
 
@@ -664,7 +676,7 @@ ORDER BY n_dead_tup DESC;
             <span class="code-label">Monitoring</span>
             <h3>Performance Monitoring</h3>
             <p>Find slow queries and issues.</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 -- Current queries
 SELECT pid, query, state, duration_ms
 FROM pg_stat_activity
@@ -693,7 +705,7 @@ ORDER BY pg_total_relation_size(schemaname||'.'||tablename) DESC;
             <span class="code-label">Tip</span>
             <h3>Use EXPLAIN ANALYZE for query optimization</h3>
             <p>Understand query execution plans and identify bottlenecks.</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 EXPLAIN ANALYZE
 SELECT * FROM orders
 WHERE customer_id = 123
@@ -705,7 +717,7 @@ LIMIT 10;
             <span class="code-label">Trick</span>
             <h3>Use CTEs for complex queries</h3>
             <p>Break down complex logic into readable steps.</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 WITH monthly_sales AS (
 SELECT
 DATE_TRUNC('month', order_date) as month,
@@ -727,7 +739,7 @@ SELECT * FROM growth;
             <span class="code-label">Tip</span>
             <h3>Use window functions for analytics</h3>
             <p>Perform calculations across rows without grouping.</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 SELECT
 customer_id,
 order_date,
@@ -754,7 +766,7 @@ FROM orders;
             <span class="code-label">Indexing</span>
             <h3>Use the right indexes</h3>
             <p>Index columns used in joins and where clauses to speed lookups.</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 CREATE INDEX idx_orders_customer ON orders(customer_id);
 CREATE INDEX idx_orders_date ON orders(order_date);
 </code></pre>
@@ -763,7 +775,7 @@ CREATE INDEX idx_orders_date ON orders(order_date);
             <span class="code-label">Vacuum</span>
             <h3>Regular maintenance</h3>
             <p>Run VACUUM and ANALYZE to keep optimizer stats fresh and reduce bloat.</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 VACUUM ANALYZE;
 ANALYZE orders;
 </code></pre>
@@ -772,7 +784,7 @@ ANALYZE orders;
             <span class="code-label">Transactions</span>
             <h3>Use explicit transactions</h3>
             <p>Group DML in transactions to maintain data integrity.</p>
-<pre class="code-block"><code class="language-sql">
+            <pre class="code-block"><code class="language-sql">
 BEGIN;
 UPDATE accounts SET balance = balance - 100 WHERE id = 1;
 UPDATE accounts SET balance = balance + 100 WHERE id = 2;
@@ -783,12 +795,13 @@ COMMIT;
       </section>
     </div>
   </main>
-    <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
       stroke-linejoin="round">
       <path d="M12 19V5M5 12l7-7 7 7" />
     </svg>
   </button>
+  <script src="../app.js"></script>
   <script src="cheatsheets.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
@@ -797,4 +810,5 @@ COMMIT;
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
   <script>Prism.highlightAll();</script>
 </body>
+
 </html>

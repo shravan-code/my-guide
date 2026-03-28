@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects | Shravan Kumar Tela</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+        main {
+            width: min(1300px, calc(100% - 4rem));
+            margin: 0 auto;
+            padding: 1.5rem 0 3rem;
+        }
+
+        .topbar {
+            height: var(--topbar-height);
+            padding: 0 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+            font-family: "Sora", sans-serif;
+            font-weight: 700;
+            font-size: 1.15rem;
+            letter-spacing: -0.02em;
+            text-decoration: none;
+            color: var(--text);
+            transition: color var(--transition);
+        }
+
+        .menu {
+            display: flex;
+            gap: 0.65rem;
+            margin-left: 2rem;
+        }
+
+        .menu a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.48rem 0.8rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid transparent;
+            transition: all var(--transition);
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            color: var(--text);
+            background: var(--bg-alt);
+            border-color: var(--glass-border);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 2.5rem 0 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            margin: 0 0 0.5rem;
+            font-family: "Sora", sans-serif;
+            background: linear-gradient(135deg, var(--glow-color), var(--glow-pink), var(--glow-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            max-width: 760px;
+            margin: 0 auto;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .project-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 1.2rem;
+            transition: all var(--transition);
+        }
+
+        .project-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+            border-color: var(--glow-border);
+        }
+
+        .project-card h3 {
+            margin: 0 0 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        .project-card p {
+            margin: 0;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-orb orb-a" aria-hidden="true"></div>
+    <div class="bg-orb orb-b" aria-hidden="true"></div>
+    <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+    <header class="topbar glass reveal in">
+        <a class="brand" href="../../index.html">Data Guide</a>
+        <nav class="menu" aria-label="Portfolio menu">
+            <a href="portfolio.html">Overview</a>
+            <a href="projects.html" class="active" aria-current="page">Projects</a>
+            <a href="self.html">Self-Taught</a>
+            <a href="experienced.html">Experienced</a>
+        </nav>
+        <div class="header-actions">
+            <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+                <span class="toggle-icon" aria-hidden="true">☾</span>
+                <span class="toggle-text">Dark</span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <nav class="breadcrumb">
+            <a href="../../index.html">Home</a>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6" />
+            </svg>
+            <a href="portfolio.html">Portfolio</a>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6" />
+            </svg>
+            <span class="current">Projects</span>
+        </nav>
+
+        <section class="hero">
+            <p class="eyebrow">Primary work tracks</p>
+            <h1>Projects</h1>
+            <p>Explore portfolio paths and deep dive into the journeys.</p>
+        </section>
+
+        <div class="project-grid">
+            <article class="project-card">
+                <h3>Self-Taught Journey</h3>
+                <p>Learn how the path from beginner to data engineer was built with self-learning, small projects, and
+                    real-world challenges.</p>
+                <a href="self.html" class="portfolio-link" style="margin-top:0.75rem;display:inline-flex;">View
+                    story</a>
+            </article>
+            <article class="project-card">
+                <h3>Experienced View</h3>
+                <p>See the professional lens on performance tuning, production pipelines, DevOps, and advanced
+                    architecture patterns.</p>
+                <a href="experienced.html" class="portfolio-link" style="margin-top:0.75rem;display:inline-flex;">View
+                    story</a>
+            </article>
+        </div>
+    </main>
+
+    <script src="../app.js"></script>
+</body>
+
+</html>

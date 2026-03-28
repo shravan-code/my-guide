@@ -177,32 +177,45 @@ function initializeSidebarToggle() {
     return;
   }
 
+  const mainContent = document.querySelector(".main-content");
+
+  const setCollapsedState = (collapsed) => {
+    if (!mainContent) return;
+    mainContent.classList.toggle("sidebar-collapsed", collapsed);
+  };
+
   const closeSidebar = () => {
     sidebar?.classList.remove("open");
+    sidebar?.classList.remove("collapsed");
     sidebarOverlay?.classList.remove("active");
     sidebarToggle?.classList.remove("active");
+    setCollapsedState(false);
     document.body.style.overflow = "";
   };
 
   const openSidebar = () => {
     sidebar?.classList.add("open");
+    sidebar?.classList.remove("collapsed");
     sidebarOverlay?.classList.add("active");
     sidebarToggle?.classList.add("active");
+    setCollapsedState(false);
     document.body.style.overflow = "hidden";
   };
 
   const toggleSidebar = () => {
     const isDesktop = window.innerWidth > 920;
-    
+
     if (isDesktop) {
       // On desktop, toggle collapsed class
-      if (sidebar?.classList.contains("collapsed")) {
-        sidebar.classList.remove("collapsed");
-        sidebarToggle?.classList.remove("active");
-      } else {
-        sidebar.classList.add("collapsed");
+      const collapsed = !sidebar?.classList.contains("collapsed");
+      if (collapsed) {
+        sidebar?.classList.add("collapsed");
         sidebarToggle?.classList.add("active");
+      } else {
+        sidebar?.classList.remove("collapsed");
+        sidebarToggle?.classList.remove("active");
       }
+      setCollapsedState(collapsed);
     } else {
       // On mobile, use open/close
       if (sidebar?.classList.contains("open")) {
