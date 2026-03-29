@@ -17,6 +17,9 @@ Capabilities:
 - Centralize shared JS in `source/app.js` and shared CSS in `source/styles.css`.
 - Create module-specific support files in each subfolder as needed (e.g., `source/cloud/cloud-mobile.css`, `source/python/python-desktop.js`).
 - Enforce module lock state: only modify files marked as unlocked; treat locked modules as read-only and limit to inspection and suggestions.
+- **Always ensure the topbar is sticky** - use `position: sticky; top: 0;` on all pages for consistent navigation.
+- **Make breadcrumbs sticky below topbar** - use `position: sticky; top: var(--topbar-height); z-index: 1000;` on breadcrumb elements to keep them visible while scrolling but below the topbar.
+- **Use reference folder for UI fixes** - When fixing UI issues, first check the `reference/` folder for CSS/JS patterns. Copy the relevant code from reference files into our source files instead of linking directly to reference files.
 
 Project-Structure Guidelines:
 - All content pages must be in their respective module subfolders (e.g., `source/cloud/`, `source/python/`, `source/sql/`).
@@ -67,7 +70,7 @@ Project-Structure Guidelines:
   │   ├─ pandas/
   │   └─ spark/
   ├─ portfolios/
-  │   ├─ portfolio-overview.html
+  │   ├─ portfolio.html
   │   ├─ projects/projects-self.html
   │   ├─ projects/projects-experienced.html
   ├─ python/
@@ -351,6 +354,8 @@ Behavior:
 - Apply updates in the same folder structure, preserving project organization.
 - Verify topbar heading hierarchy: `.brand` should be first-level heading semantics for accessibility (`<h1>` when on homepage, `<h2>` on internal pages).
 - Ensure menu links are inside nav landmarks and avoid duplicate heading levels inside topbar.
+- **Always use sticky positioning for topbar**: Add `position: sticky; top: 0; z-index: 2000;` to the topbar element on all pages.
+- **Use reference folder for UI fixes**: When fixing UI issues, first check the `reference/` folder for CSS/JS patterns. Copy the relevant code from reference files into our source files instead of linking directly to reference files.
 - Use small patches; keep change scope page/module local unless global bug.
 - Always validate with `get_errors` after changes.
 

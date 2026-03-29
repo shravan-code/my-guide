@@ -7,9 +7,233 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
-  <link rel="stylesheet" href="../python/python.css" />
+  <link rel="stylesheet" href="../../styles/styles.css" />
+  <link rel="stylesheet" href="../../styles/sidebar.css" />
+  <link rel="stylesheet" href="../styles/portfolio.css" />
   <style>
+    /* Theme transition overlay */
+    .theme-transition-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .theme-transition-overlay.flash-light {
+      background: radial-gradient(circle at center, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 70%);
+      opacity: 1;
+      animation: fadeOutUp 0.6s ease forwards;
+    }
+
+    .theme-transition-overlay.flash-dark {
+      background: radial-gradient(circle at center, rgba(30,30,30,0.95) 0%, rgba(15,15,15,0) 70%);
+      opacity: 1;
+      animation: fadeOutDown 0.6s ease forwards;
+    }
+
+    @keyframes fadeOutUp {
+      0% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(1.2); }
+    }
+
+    @keyframes fadeOutDown {
+      0% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(1.2); }
+    }
+
+    /* Topbar sticky */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 2000;
+    }
+
+    .brand {
+      z-index: 10;
+    }
+
+    .header-actions {
+      z-index: 5;
+    }
+
+    /* Page elements transition smoothly */
+    body, .topbar, .glass, main, .bg-orb, .sidebar, .project-meta, .topic-section, footer {
+      transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, opacity 0.4s ease;
+    }
+
+    .bg-orb {
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease, background 0.4s ease;
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--glass-border);
+      background: var(--glass);
+      backdrop-filter: blur(var(--glass-blur));
+      color: var(--text);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all var(--transition);
+      box-shadow: none;
+      overflow: hidden;
+    }
+
+    .theme-toggle:hover {
+      transform: translateY(-1px);
+      border-color: var(--glow-border);
+    }
+
+    .theme-toggle:hover .theme-icon-wrapper {
+      transform: scale(1.1);
+    }
+
+    .theme-icon-wrapper {
+      position: relative;
+      width: 20px;
+      height: 20px;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .theme-sun, .theme-moon {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      transition: all 0.4s ease;
+    }
+
+    .theme-sun {
+      opacity: 1;
+      transform: rotate(0deg) scale(1);
+      stroke: #1a1a1a;
+    }
+
+    .theme-moon {
+      opacity: 0;
+      transform: rotate(-90deg) scale(0.5);
+      stroke: #1a1a1a;
+    }
+
+    body.dark .theme-sun {
+      opacity: 0;
+      transform: rotate(90deg) scale(0.5);
+    }
+
+    body.dark .theme-moon {
+      opacity: 1;
+      transform: rotate(0deg) scale(1);
+      stroke: #ffffff;
+    }
+
+    .theme-toggle.animating .theme-icon-wrapper {
+      animation: themeToggleBounce 0.5s ease;
+    }
+
+    @keyframes themeToggleBounce {
+      0% { transform: scale(1) rotate(0deg); }
+      30% { transform: scale(1.3) rotate(15deg); }
+      50% { transform: scale(0.9) rotate(-10deg); }
+      70% { transform: scale(1.1) rotate(5deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+
+    .theme-toggle svg {
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+
+    /* Hamburger Button */
+    .hamburger-btn {
+      display: none;
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      z-index: 1000;
+    }
+
+    .hamburger-btn span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger-btn.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger-btn.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* Mobile Menu */
+    .new-mobile-menu {
+      display: none;
+      position: fixed;
+      top: 60px;
+      left: 0;
+      right: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 1rem;
+      z-index: 999;
+    }
+
+    .new-mobile-menu.show {
+      display: block;
+    }
+
+    .new-mobile-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .new-mobile-nav a {
+      padding: 0.75rem 1rem;
+      color: var(--text);
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+    }
+
+    .new-mobile-nav a:hover {
+      background: var(--bg-alt);
+    }
+
+    @media (max-width: 920px) {
+      .hamburger-btn {
+        display: flex !important;
+      }
+    }
+
     .project-meta {
       display: flex;
       flex-wrap: wrap;
@@ -269,63 +493,171 @@
       font-weight: 500;
       white-space: nowrap;
     }
+
+    /* Breadcrumb styles */
+    .breadcrumb {
+      padding: 0.5rem 1.5rem;
+      background: var(--bg);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .breadcrumb-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .breadcrumb-link:hover {
+      color: var(--glow-color);
+      text-decoration: underline;
+    }
+
+    .breadcrumb .current {
+      color: var(--text);
+    }
+
+    .breadcrumb svg {
+      stroke: var(--text-muted);
+    }
+
+    .breadcrumb .separator {
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    /* Main content with breadcrumb */
+    .main-content {
+      display: grid !important;
+      grid-template-columns: 260px 1fr !important;
+      grid-template-rows: auto 1fr !important;
+      gap: 0 !important;
+      padding: 0 !important;
+      align-items: start;
+    }
+
+    .main-content > .breadcrumb {
+      grid-column: 1 / -1;
+      grid-row: 1;
+      margin: 0;
+      border-radius: 0;
+    }
+
+    /* Sidebar toggle button */
+    .sidebar-toggle {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all var(--transition);
+      z-index: 100;
+    }
+
+    .sidebar-toggle:hover {
+      background: var(--bg-alt);
+      border-color: var(--glow-border);
+    }
+
+    .sidebar-toggle svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--text);
+    }
+
+    /* Sidebar collapsed state */
+    .main-content.sidebar-collapsed {
+      grid-template-columns: 0 1fr !important;
+    }
+
+    .main-content.sidebar-collapsed .sidebar {
+      display: none;
+    }
+
+    .main-content.sidebar-collapsed .page-wrap {
+      grid-column: 1 / -1;
+    }
+
+    /* When sidebar is collapsed, move toggle */
+    body.sidebar-collapsed .sidebar-toggle {
+      position: fixed;
+      left: 10px;
+      top: 70px;
+    }
+
+    .main-content.sidebar-collapsed .sidebar-toggle {
+      position: fixed;
+      left: 10px;
+      top: calc(var(--topbar-height) + 70px);
+      margin-left: 0;
+    }
+
+    /* Page wrap */
+    .page-wrap {
+      padding: 1.5rem;
+    }
   </style>
 </head>
 <body class="with-sidebar">
+  <!-- Theme transition overlay -->
+  <div id="theme-overlay" class="theme-transition-overlay"></div>
+  
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
   <header class="topbar glass reveal in">
-    <a class="brand" href="../../index.html">Data Guide</a>
-    <nav class="menu" aria-label="Portfolio menu">
-      <a href="self.html">Self</a>
-      <a href="experienced.html" class="active" aria-current="page">Experienced</a>
-    </nav>
+    <!-- NEW Hamburger Button -->
+    <button id="hamburger-btn" class="hamburger-btn" aria-label="Open menu" type="button">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div class="brand-menu-wrapper">
+      <a class="brand" href="../../../index.html">Data Guide</a>
+      <nav class="menu" aria-label="Portfolio menu">
+        <a href="projects-self.html">Self</a>
+        <a href="projects-experienced.html" class="active" aria-current="page">Experienced</a>
+      </nav>
+    </div>
     <div class="header-actions">
-      <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle mobile menu">
-        <span class="hamburger-icon" aria-hidden="true">
-          <span></span>
-          <span></span>
-          <span></span>
-        </span>
-      </button>
       <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
-        <span class="toggle-icon" aria-hidden="true">☾</span>
-        <span class="toggle-text">Dark</span>
+        <span class="theme-icon-wrapper">
+          <svg class="theme-sun" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+          </svg>
+          <svg class="theme-moon" viewBox="0 0 24 24" fill="none">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </span>
       </button>
     </div>
   </header>
 
-  <div id="mobile-menu" class="mobile-menu">
-    <nav class="mobile-nav" aria-label="Portfolio mobile menu">
-      <a href="self.html">Self</a>
-      <a href="experienced.html" class="active" aria-current="page">Experienced</a>
+  <!-- NEW Mobile Menu -->
+  <div id="new-mobile-menu" class="new-mobile-menu">
+    <nav class="new-mobile-nav">
+      <a href="projects-self.html">Self</a>
+      <a href="projects-experienced.html">Experienced</a>
+      <a href="../../../index.html">Home</a>
     </nav>
   </div>
-  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
 
-  <nav class="breadcrumb" style="display: flex; align-items: center; justify-content: space-between;">
-    <div style="display: flex; align-items: center; gap: 0.5rem;">
-      <a href="../../index.html">Home</a>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg>
-      <a href="portfolio.html">Portfolio</a>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg>
-      <span class="current">Experienced</span>
-    </div>
-    <span id="career-timer" style="background: linear-gradient(90deg, #60a5fa, #c084fc, #f472b6); -webkit-background-clip: text; background-clip: text; color: transparent; font-size: 0.85rem; font-weight: 600;"></span>
+  <nav class="breadcrumb" style="position: sticky; top: var(--topbar-height); z-index: 1001; display: flex; align-items: center; gap: 0.5rem;">
+    <a href="../../../index.html" class="breadcrumb-link">Home</a>
+    <span class="separator">›</span>
+    <a href="../portfolio.html" class="breadcrumb-link">Projects</a>
+    <span class="separator">›</span>
+    <span class="current" style="font-weight: 600;">Experienced</span>
   </nav>
 
   <div id="sidebar-overlay" class="sidebar-overlay"></div>
-  <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-      <line x1="9" y1="3" x2="9" y2="21"></line>
-    </svg>
-  </button>
 
-  <main class="main-content">
-    <nav class="sidebar" id="sidebar">
+  <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
       <div class="logo">
         <span class="logo-text">Projects</span>
       </div>
@@ -724,7 +1056,8 @@
     </div>
   </main>
 
-  <script src="../app.js"></script>
+  <script src="../../scripts/app.js"></script>
+  <script src="../scripts/portfolio.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const navItems = document.querySelectorAll('.nav-item[data-project]');
@@ -821,5 +1154,5 @@
       setInterval(updateCareerTimer, 86400000); // Update daily
     });
   </script>
-</body>
-</html>
+  </body>
+  </html>

@@ -10,7 +10,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../styles/styles.css" />
   <style>
     main {
       width: min(1300px, calc(100% - 4rem));
@@ -80,11 +80,23 @@
       transition: all var(--transition);
     }
 
-    .menu a:hover {
+    .menu a:hover,
+    .menu a.active {
       color: var(--text);
       background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.1));
       border-color: var(--glow-border);
       box-shadow: none;
+    }
+
+    .menu a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--glow-color), var(--glow-pink));
+      border-radius: 1px;
     }
 
     .header-actions {
@@ -112,8 +124,8 @@
     }
 
     .theme-toggle {
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -121,16 +133,15 @@
       background: var(--glass);
       backdrop-filter: blur(var(--glass-blur));
       color: var(--text);
-      border-radius: var(--radius-sm);
+      border-radius: 999px;
       cursor: pointer;
       transition: all var(--transition);
-      box-shadow: var(--shadow-sm);
+      overflow: hidden;
     }
 
     .theme-toggle:hover {
-      box-shadow: var(--shadow), 0 0 25px rgba(99, 102, 241, 0.25);
-      border-color: var(--glow-color);
-      transform: translateY(-2px) scale(1.05);
+      transform: translateY(-1px);
+      border-color: var(--glow-border);
     }
 
     .theme-toggle svg {
@@ -143,6 +154,45 @@
 
     .toggle-text {
       display: none;
+    }
+
+    /* Mobile Menu Toggle */
+    .mobile-menu-toggle {
+      display: none;
+      width: 38px;
+      height: 38px;
+      align-items: center;
+      justify-content: center;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      color: var(--text);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .mobile-menu-toggle:hover {
+      background: var(--bg-alt);
+      transform: scale(1.05);
+    }
+
+    .hamburger-icon {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: 18px;
+    }
+
+    .hamburger-icon span {
+      display: block;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all var(--transition);
+    }
+
+    .hamburger-icon span:nth-child(2) {
+      width: 14px;
     }
 
     /* Hero */
@@ -296,7 +346,6 @@
       background: var(--bg-alt);
       color: var(--glow-color);
       border-color: var(--glow-border);
-      box-shadow: 0 0 20px rgba(99, 102, 241, 0.15);
       transform: translateY(-2px);
     }
 
@@ -599,10 +648,10 @@
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
   <header class="topbar glass reveal in">
-    <a class="brand" href="../../index.html">Data Guide</a>
+    <a class="brand" href="../../../index.html">Data Guide</a>
     <nav class="menu" aria-label="Portfolio menu">
       <a href="portfolio.html" class="active" aria-current="page">Overview</a>
-      <a href="experienced.html">Projects</a>
+      <a href="projects/projects-experienced.html">Projects</a>
     </nav>
     <div class="header-actions">
       <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle mobile menu">
@@ -622,23 +671,15 @@
   <div id="mobile-menu" class="mobile-menu">
     <nav class="mobile-nav" aria-label="Portfolio mobile menu">
       <a href="portfolio.html" class="active" aria-current="page">Overview</a>
-      <a href="experienced.html">Projects</a>
+      <a href="projects/projects-experienced.html">Projects</a>
     </nav>
   </div>
   <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
 
-  <nav class="breadcrumb">
-    <a href="../../index.html">Home</a>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <polyline points="9 18 15 12 9 6" />
-    </svg>
-    <span class="current">Portfolio</span>
-  </nav>
-
   <main>
     <section class="hero">
       <div class="profile-image">
-        <img src="../../assets/images/profile-pic.jpeg" alt="Shravan Kumar Tela" />
+        <img src="assets/profile-pic.jpeg" alt="Shravan Kumar Tela" />
       </div>
       <h1>Shravan Kumar Tela</h1>
       <p class="subtitle">
@@ -656,7 +697,7 @@
         SQL optimisation, and efficient data transformations.
       </p>
       <div class="portfolio-links">
-        <a href="projects.html" class="portfolio-link">Explore Projects</a>
+        <a href="projects/projects-experienced.html" class="portfolio-link">Explore Projects</a>
       </div>
       <div class="contact-bar">
         <a href="mailto:shra1.mywork@gmail.com" class="contact-item">
@@ -840,32 +881,13 @@
     </section>
   </main>
 
-  <script src="../app.js"></script>
+  <script src="../scripts/app.js"></script>
   <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
       stroke-linejoin="round">
       <path d="M12 19V5M5 12l7-7 7 7" />
     </svg>
   </button>
-  <script>
-    // Scroll to top functionality
-    const scrollToTopBtn = document.getElementById('scrollToTop');
-
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        scrollToTopBtn.classList.add('visible');
-      } else {
-        scrollToTopBtn.classList.remove('visible');
-      }
-    });
-
-    scrollToTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-  </script>
 </body>
 
 </html>
