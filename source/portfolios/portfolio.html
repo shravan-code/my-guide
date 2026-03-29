@@ -602,9 +602,16 @@
     <a class="brand" href="../../index.html">Data Guide</a>
     <nav class="menu" aria-label="Portfolio menu">
       <a href="portfolio.html" class="active" aria-current="page">Overview</a>
-      <a href="projects.html">Projects</a>
+      <a href="experienced.html">Projects</a>
     </nav>
     <div class="header-actions">
+      <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle mobile menu">
+        <span class="hamburger-icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
       <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
         <span class="toggle-icon" aria-hidden="true">☾</span>
         <span class="toggle-text">Dark</span>
@@ -612,14 +619,23 @@
     </div>
   </header>
 
-  <main>
-    <nav class="breadcrumb">
-      <a href="../../index.html">Home</a>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <polyline points="9 18 15 12 9 6" />
-      </svg>
-      <span class="current">Portfolio</span>
+  <div id="mobile-menu" class="mobile-menu">
+    <nav class="mobile-nav" aria-label="Portfolio mobile menu">
+      <a href="portfolio.html" class="active" aria-current="page">Overview</a>
+      <a href="experienced.html">Projects</a>
     </nav>
+  </div>
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
+
+  <nav class="breadcrumb">
+    <a href="../../index.html">Home</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="9 18 15 12 9 6" />
+    </svg>
+    <span class="current">Portfolio</span>
+  </nav>
+
+  <main>
     <section class="hero">
       <div class="profile-image">
         <img src="../../assets/images/profile-pic.jpeg" alt="Shravan Kumar Tela" />

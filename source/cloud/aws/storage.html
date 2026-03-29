@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,28 +8,32 @@
   <title>Data Guide | AWS Storage & Data Lake</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="../../styles.css" />
   <link rel="stylesheet" href="../../python/python.css" />
   <link rel="stylesheet" href="aws.css" />
 </head>
+
 <body class="with-sidebar">
   <div class="bg-orb orb-a"></div>
   <div class="bg-orb orb-b"></div>
   <div class="bg-orb orb-c"></div>
 
   <header class="topbar glass reveal in">
-    <a class="brand" href="../../index.html">Data Guide</a>
+    <a class="brand" href="../../../index.html">Data Guide</a>
     <nav class="menu" aria-label="AWS menu">
       <a href="index.html">Hub</a>
       <div class="menu-dropdown">
         <button class="menu-trigger">Topics</button>
         <div class="dropdown-panel">
-          <a href="../python/index.html">Python</a>
-          <a href="../spark/index.html">Spark</a>
-          <a href="../cloud/index.html">Cloud</a>
-          <a href="../roadmaps/index.html">Roadmaps</a>
-          <a href="../cheatsheets/index.html">Cheatsheets</a>
+          <a href="../cloud-topics.html"><strong>Overview</strong><span>All cloud topics</span></a>
+          <a href="../cloud-basics.html"><strong>Basics</strong><span>IaaS, PaaS, SaaS, deployment models</span></a>
+          <a href="../cloud-services.html"><strong>Services</strong><span>Service comparison across providers</span></a>
+          <a href="../cloud-storage.html"><strong>Storage</strong><span>Object, block, file, data lakes</span></a>
+          <a href="../cloud-compute.html"><strong>Compute</strong><span>VMs, containers, Kubernetes</span></a>
+          <a href="../cloud-serverless.html"><strong>Serverless</strong><span>Functions and managed services</span></a>
         </div>
       </div>
       <a href="../architecture.html">Architecture</a>
@@ -48,20 +53,31 @@
   </header>
 
   <nav class="breadcrumb">
-    <a href="../../index.html">Home</a>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    <a href="../../../index.html">Home</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="9 18 15 12 9 6" />
+    </svg>
     <a href="../index.html">Cloud</a>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-    <a href="../cloud-aws.html">Providers</a>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="9 18 15 12 9 6" />
+    </svg>
+    <a href="../../cloud-aws.html">Providers</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="9 18 15 12 9 6" />
+    </svg>
     <a href="index.html">AWS</a>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="9 18 15 12 9 6" />
+    </svg>
     <span class="current">Storage</span>
   </nav>
 
   <div id="sidebar-overlay" class="sidebar-overlay"></div>
   <button id="sidebar-toggle" class="sidebar-toggle">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <line x1="9" y1="3" x2="9" y2="21" />
+    </svg>
   </button>
 
   <main class="main-content">
@@ -98,17 +114,21 @@
       <!-- S3 -->
       <div class="service-card" id="s3">
         <div class="service-card-header">
-          <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonSimpleStorageService.svg" alt="S3">
+          <img
+            src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonSimpleStorageService.svg"
+            alt="S3">
           <h3>S3 - Simple Storage Service</h3>
         </div>
         <div class="service-card-body">
           <div class="what-box">
             <h4>What It Does</h4>
-            <p>Object storage service with 99.999999999% (11 9's) durability. Stores any amount of data as objects in buckets. Supports versioning, encryption, lifecycle policies, and cross-region replication.</p>
+            <p>Object storage service with 99.999999999% (11 9's) durability. Stores any amount of data as objects in
+              buckets. Supports versioning, encryption, lifecycle policies, and cross-region replication.</p>
           </div>
           <div class="why-box">
             <h4>Why Use It</h4>
-            <p>Foundation of modern data architecture. Unlimited scalability, pay-per-use pricing, and integration with every AWS analytics service. Supports multiple storage classes for cost optimization.</p>
+            <p>Foundation of modern data architecture. Unlimited scalability, pay-per-use pricing, and integration with
+              every AWS analytics service. Supports multiple storage classes for cost optimization.</p>
           </div>
           <h4>Storage Classes</h4>
           <ul>
@@ -128,7 +148,9 @@
           </ul>
           <div class="arch-flow">
             <div class="service-node">
-              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonSimpleStorageService.svg" alt="S3">
+              <img
+                src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonSimpleStorageService.svg"
+                alt="S3">
               <span class="label">S3</span>
               <span class="sublabel">Buckets</span>
             </div>
@@ -140,7 +162,8 @@
             </div>
             <span class="arch-arrow">→</span>
             <div class="service-node">
-              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonAthena.svg" alt="Athena">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonAthena.svg"
+                alt="Athena">
               <span class="label">Athena</span>
               <span class="sublabel">Query</span>
             </div>
@@ -151,17 +174,20 @@
       <!-- Lake Formation -->
       <div class="service-card" id="lake-formation">
         <div class="service-card-header">
-          <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AWSLakeFormation.svg" alt="Lake Formation">
+          <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AWSLakeFormation.svg"
+            alt="Lake Formation">
           <h3>Lake Formation - Data Lake Governance</h3>
         </div>
         <div class="service-card-body">
           <div class="what-box">
             <h4>What It Does</h4>
-            <p>Centralized data lake governance built on Glue Catalog. Provides fine-grained access control, row-level security, data masking, and automated data ingestion.</p>
+            <p>Centralized data lake governance built on Glue Catalog. Provides fine-grained access control, row-level
+              security, data masking, and automated data ingestion.</p>
           </div>
           <div class="why-box">
             <h4>Why Use It</h4>
-            <p>Simplifies secure data lake setup from weeks to days. Enforces consistent security policies across all data sources. Integrates with IAM, SSO, and active directories.</p>
+            <p>Simplifies secure data lake setup from weeks to days. Enforces consistent security policies across all
+              data sources. Integrates with IAM, SSO, and active directories.</p>
           </div>
           <h4>Key Features</h4>
           <ul>
@@ -173,19 +199,23 @@
           </ul>
           <div class="arch-flow">
             <div class="service-node">
-              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonSimpleStorageService.svg" alt="S3">
+              <img
+                src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonSimpleStorageService.svg"
+                alt="S3">
               <span class="label">S3</span>
               <span class="sublabel">Data</span>
             </div>
             <span class="arch-arrow">→</span>
             <div class="service-node">
-              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AWSLakeFormation.svg" alt="Lake Formation">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AWSLakeFormation.svg"
+                alt="Lake Formation">
               <span class="label">Lake Formation</span>
               <span class="sublabel">Govern</span>
             </div>
             <span class="arch-arrow">→</span>
             <div class="service-node">
-              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonRedshift.svg" alt="Redshift">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonRedshift.svg"
+                alt="Redshift">
               <span class="label">Redshift</span>
               <span class="sublabel">Analytics</span>
             </div>
@@ -196,17 +226,20 @@
       <!-- EFS -->
       <div class="service-card" id="efs">
         <div class="service-card-header">
-          <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonElasticFileSystem.svg" alt="EFS">
+          <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonElasticFileSystem.svg"
+            alt="EFS">
           <h3>EFS - Elastic File System</h3>
         </div>
         <div class="service-card-body">
           <div class="what-box">
             <h4>What It Does</h4>
-            <p>Managed NFS file storage for EC2 instances. Scalable on-demand without provisioning. Supports thousands of concurrent connections.</p>
+            <p>Managed NFS file storage for EC2 instances. Scalable on-demand without provisioning. Supports thousands
+              of concurrent connections.</p>
           </div>
           <div class="why-box">
             <h4>Why Use It</h4>
-            <p>Shared storage for Spark clusters, ML training, and big data workloads. Unlike S3, supports POSIX file system semantics.</p>
+            <p>Shared storage for Spark clusters, ML training, and big data workloads. Unlike S3, supports POSIX file
+              system semantics.</p>
           </div>
           <h4>Use Cases</h4>
           <ul>
@@ -224,7 +257,9 @@
   <script src="../../app.js"></script>
   <script src="aws.js"></script>
   <button id="scrollToTop" class="scroll-to-top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
   </button>
   <script>
     const scrollToTopBtn = document.getElementById('scrollToTop');
@@ -232,4 +267,5 @@
     scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   </script>
 </body>
+
 </html>

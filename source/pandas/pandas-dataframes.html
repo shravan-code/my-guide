@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -26,23 +27,47 @@
       <a href="pandas-dataframes.html" class="active" aria-current="page">DataFrames</a>
       <a href="methods.html">Methods</a>
     </nav>
-    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
-      <span class="toggle-icon" aria-hidden="true">☾</span>
-      <span class="toggle-text">Dark</span>
-    </button>
+    <div class="header-actions">
+      <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle mobile menu">
+        <span class="hamburger-icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+        <span class="toggle-icon" aria-hidden="true">☾</span>
+        <span class="toggle-text">Dark</span>
+      </button>
+    </div>
   </header>
+
+  <div id="mobile-menu" class="mobile-menu">
+    <nav class="mobile-nav" aria-label="Pandas mobile menu">
+      <a href="index.html">Hub</a>
+      <a href="pandas-series.html">Series</a>
+      <a href="pandas-dataframes.html" class="active" aria-current="page">DataFrames</a>
+      <a href="methods.html">Methods</a>
+    </nav>
+  </div>
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
 
   <nav class="breadcrumb">
     <a href="../../index.html">Home</a>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="9 18 15 12 9 6" />
+    </svg>
     <a href="index.html">Pandas</a>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="9 18 15 12 9 6" />
+    </svg>
     <span class="current">DataFrames</span>
   </nav>
 
   <div id="sidebar-overlay" class="sidebar-overlay"></div>
   <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
       <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
       <line x1="9" y1="3" x2="9" y2="21"></line>
     </svg>
@@ -89,7 +114,8 @@
       <!-- Section 1: What is DataFrame -->
       <section class="topic-section" id="what-is-dataframe">
         <h2> What is a DataFrame? <span class="level-badge basic">Basic</span> </h2>
-        <p>A DataFrame is a two-dimensional labeled data structure with columns of potentially different types. It is the primary workhorse of Pandas and is similar to a spreadsheet or SQL table.</p>
+        <p>A DataFrame is a two-dimensional labeled data structure with columns of potentially different types. It is
+          the primary workhorse of Pandas and is similar to a spreadsheet or SQL table.</p>
 
         <div class="split-grid">
           <div class="split-item">
@@ -118,10 +144,11 @@
       <!-- Section 2: Creating DataFrames -->
       <section class="topic-section" id="creating-dataframes">
         <h2> Creating DataFrames <span class="level-badge basic">Basic</span> </h2>
-        <p>DataFrames can be created from various sources including dictionaries, lists, files, and other data structures.</p>
+        <p>DataFrames can be created from various sources including dictionaries, lists, files, and other data
+          structures.</p>
 
         <div class="code-block">
-<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+          <code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
 <span class="keyword">import</span> numpy <span class="keyword">as</span> np
 
 <span class="comment"># From a dictionary of lists</span>
@@ -159,7 +186,7 @@ df = pd.<span class="function">read_sql</span>(<span class="string">'SELECT * FR
           <div class="split-item">
             <h4>Column Selection</h4>
             <div class="code-block">
-<code><span class="comment"># Single column (returns Series)</span>
+              <code><span class="comment"># Single column (returns Series)</span>
 df[<span class="string">'Name'</span>]
 
 <span class="comment"># Multiple columns (returns DataFrame)</span>
@@ -173,7 +200,7 @@ df.Name
           <div class="split-item">
             <h4>Row Selection</h4>
             <div class="code-block">
-<code><span class="comment"># By label (.loc)</span>
+              <code><span class="comment"># By label (.loc)</span>
 df.loc[<span class="number">0</span>]              <span class="comment"># First row</span>
 df.loc[<span class="number">0</span>:<span class="number">2</span>]            <span class="comment"># Rows 0-2</span>
 
@@ -186,7 +213,7 @@ df.iloc[<span class="number">0</span>:<span class="number">2</span>]           <
         </div>
 
         <div class="code-block">
-<code><span class="comment"># Cell selection</span>
+          <code><span class="comment"># Cell selection</span>
 df.loc[<span class="number">0</span>, <span class="string">'Name'</span>]      <span class="comment"># Row 0, Name column</span>
 df.iloc[<span class="number">0</span>, <span class="number">1</span>]          <span class="comment"># Row 0, Column 1</span>
 
@@ -206,7 +233,7 @@ df[df[<span class="string">'Age'</span>].<span class="function">between</span>(<
         <p>Transform and manipulate your data with powerful DataFrame methods.</p>
 
         <div class="code-block">
-<code><span class="comment"># Add new columns</span>
+          <code><span class="comment"># Add new columns</span>
 df[<span class="string">'Salary'</span>] = [<span class="number">50000</span>, <span class="number">60000</span>, <span class="number">70000</span>]
 df[<span class="string">'Age_in_10'</span>] = df[<span class="string">'Age'</span>] + <span class="number">10</span>
 df[<span class="string">'Name_Upper'</span>] = df[<span class="string">'Name'</span>].str.upper()
@@ -239,7 +266,7 @@ df[<span class="string">'Age'</span>] = df[<span class="string">'Age'</span>].as
         <p>Group data by categories and compute aggregate statistics with <code>groupby()</code>.</p>
 
         <div class="code-block">
-<code><span class="comment"># Basic groupby</span>
+          <code><span class="comment"># Basic groupby</span>
 grouped = df.<span class="function">groupby</span>(<span class="string">'City'</span>)
 
 <span class="comment"># Single aggregation</span>
@@ -273,7 +300,7 @@ df.<span class="function">groupby</span>(<span class="string">'City'</span>).<sp
         <p>Identify, analyze, and handle missing values in your DataFrame.</p>
 
         <div class="code-block">
-<code><span class="comment"># Detect missing values</span>
+          <code><span class="comment"># Detect missing values</span>
 df.<span class="function">isnull</span>()              <span class="comment"># Boolean mask</span>
 df.<span class="function">isnull</span>().<span class="function">sum</span>()         <span class="comment"># Count per column</span>
 df.<span class="function">isnull</span>().<span class="function">sum</span>().<span class="function">sum</span>()    <span class="comment"># Total missing</span>
@@ -303,7 +330,7 @@ df.<span class="function">replace</span>({<span class="string">'N/A'</span>: np.
         <p>Combine multiple DataFrames using SQL-like joins.</p>
 
         <div class="code-block">
-<code><span class="comment"># Inner join (default)</span>
+          <code><span class="comment"># Inner join (default)</span>
 pd.<span class="function">merge</span>(df1, df2, on=<span class="string">'id'</span>)
 
 <span class="comment"># Different column names</span>
@@ -331,7 +358,7 @@ pd.<span class="function">concat</span>([df1, df2], axis=<span class="number">1<
         <p>Reshape data and create summary tables with <code>pivot_table()</code>.</p>
 
         <div class="code-block">
-<code><span class="comment"># Basic pivot table</span>
+          <code><span class="comment"># Basic pivot table</span>
 pivot = df.<span class="function">pivot_table</span>(
     values=<span class="string">'Sales'</span>,
     index=<span class="string">'Region'</span>,
@@ -367,7 +394,7 @@ pd.<span class="function">crosstab</span>(df[<span class="string">'Region'</span
         <p>Apply functions to DataFrame elements, rows, or columns.</p>
 
         <div class="code-block">
-<code><span class="comment"># Apply function to each column/row</span>
+          <code><span class="comment"># Apply function to each column/row</span>
 df.<span class="function">apply</span>(<span class="keyword">lambda</span> x: x.<span class="function">max</span>() - x.<span class="function">min</span>())  <span class="comment"># Column-wise</span>
 df.<span class="function">apply</span>(<span class="keyword">lambda</span> x: x.<span class="function">max</span>() - x.<span class="function">min</span>(), axis=<span class="number">1</span>)  <span class="comment"># Row-wise</span>
 
@@ -392,7 +419,8 @@ df[<span class="string">'Age_Squared'</span>] = df[<span class="string">'Age'</s
         </div>
 
         <div class="warning-box">
-          <p><strong>Warning:</strong> <code>apply()</code> is slower than vectorized operations. Use built-in methods and vectorized operations whenever possible for better performance.</p>
+          <p><strong>Warning:</strong> <code>apply()</code> is slower than vectorized operations. Use built-in methods
+            and vectorized operations whenever possible for better performance.</p>
         </div>
       </section>
 
@@ -402,7 +430,7 @@ df[<span class="string">'Age_Squared'</span>] = df[<span class="string">'Age'</s
         <p>Multi-index allows multiple levels of indexing for complex data structures.</p>
 
         <div class="code-block">
-<code><span class="comment"># Create MultiIndex DataFrame</span>
+          <code><span class="comment"># Create MultiIndex DataFrame</span>
 index = pd.<span class="function">MultiIndex</span>.from_tuples([
     (<span class="string">'A'</span>, <span class="number">1</span>), (<span class="string">'A'</span>, <span class="number">2</span>),
     (<span class="string">'B'</span>, <span class="number">1</span>), (<span class="string">'B'</span>, <span class="number">2</span>)
@@ -436,7 +464,7 @@ df.<span class="function">stack</span>()                <span class="comment"># 
           <div class="split-item">
             <h4>Check Memory Usage</h4>
             <div class="code-block">
-<code><span class="comment"># Overall memory usage</span>
+              <code><span class="comment"># Overall memory usage</span>
 df.<span class="function">memory_usage</span>(deep=<span class="keyword">True</span>)
 
 <span class="comment"># Total memory in MB</span>
@@ -450,7 +478,7 @@ df.<span class="function">info</span>(memory_usage=<span class="string">'deep'</
           <div class="split-item">
             <h4>Downcast Numerics</h4>
             <div class="code-block">
-<code><span class="keyword">def</span> <span class="function">optimize_floats</span>(df):
+              <code><span class="keyword">def</span> <span class="function">optimize_floats</span>(df):
     floats = df.select_dtypes(include=[<span class="string">'float64'</span>]).columns
     df[floats] = df[floats].astype(np.float32)
     <span class="keyword">return</span> df
@@ -465,7 +493,7 @@ df.<span class="function">info</span>(memory_usage=<span class="string">'deep'</
         </div>
 
         <div class="code-block">
-<code><span class="comment"># Convert strings to category for low cardinality</span>
+          <code><span class="comment"># Convert strings to category for low cardinality</span>
 <span class="keyword">for</span> col <span class="keyword">in</span> df.select_dtypes(include=[<span class="string">'object'</span>]):
     num_unique = df[col].nunique()
     num_total = <span class="function">len</span>(df)
@@ -504,7 +532,7 @@ df[<span class="string">'int_col'</span>] = df[<span class="string">'int_col'</s
           <div class="split-item">
             <h4>Use Vectorized Operations</h4>
             <div class="code-block">
-<code><span class="comment"># ❌ Slow: Iteration</span>
+              <code><span class="comment"># ❌ Slow: Iteration</span>
 <span class="keyword">for</span> idx, row <span class="keyword">in</span> df.<span class="function">iterrows</span>():
     df.loc[idx, <span class="string">'result'</span>] = row[<span class="string">'a'</span>] + row[<span class="string">'b'</span>]
 
@@ -516,7 +544,7 @@ df[<span class="string">'result'</span>] = df[<span class="string">'a'</span>] +
           <div class="split-item">
             <h4>Avoid Itertuples</h4>
             <div class="code-block">
-<code><span class="comment"># ❌ Slowest: iterrows()</span>
+              <code><span class="comment"># ❌ Slowest: iterrows()</span>
 <span class="keyword">for</span> row <span class="keyword">in</span> df.<span class="function">iterrows</span>():
     <span class="keyword">pass</span>
 
@@ -532,7 +560,7 @@ result = df[<span class="string">'col1'</span>] * df[<span class="string">'col2'
         </div>
 
         <div class="code-block">
-<code><span class="comment"># Use query() for complex filtering</span>
+          <code><span class="comment"># Use query() for complex filtering</span>
 result = df.<span class="function">query</span>(<span class="string">'Age > 25 and City in ["NYC", "LA"]'</span>)
 
 <span class="comment"># Use eval() for complex expressions</span>
@@ -552,7 +580,8 @@ df = pd.<span class="function">concat</span>([chunk.<span class="function">query
         </div>
 
         <div class="tip-box">
-          <p><strong>Tip:</strong> Profile your code with <code>%timeit</code> in Jupyter or <code>timeit</code> module to measure performance improvements.</p>
+          <p><strong>Tip:</strong> Profile your code with <code>%timeit</code> in Jupyter or <code>timeit</code> module
+            to measure performance improvements.</p>
         </div>
       </section>
 
@@ -591,7 +620,7 @@ df = pd.<span class="function">concat</span>([chunk.<span class="function">query
         <h2> Tips & Tricks <span class="level-badge intermediate">Intermediate</span> </h2>
 
         <div class="code-block">
-<code><span class="comment"># 1. Quick summary with describe()</span>
+          <code><span class="comment"># 1. Quick summary with describe()</span>
 df.<span class="function">describe</span>()           <span class="comment"># Stats for numeric columns</span>
 df.<span class="function">describe</span>(include=<span class="string">'all'</span>) <span class="comment"># Include all columns</span>
 
@@ -628,7 +657,9 @@ result = (df
         </div>
 
         <div class="tip-box">
-          <p><strong>Pro Tip:</strong> Enable copy-on-write mode in Pandas 2.0+ with <code>pd.options.mode.copy_on_write = True</code> for better memory efficiency and cleaner code.</p>
+          <p><strong>Pro Tip:</strong> Enable copy-on-write mode in Pandas 2.0+ with
+            <code>pd.options.mode.copy_on_write = True</code> for better memory efficiency and cleaner code.
+          </p>
         </div>
       </section>
     </div>
@@ -678,14 +709,15 @@ result = (df
     setActiveNav(initialId);
   </script>
   <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 19V5M5 12l7-7 7 7"/>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7" />
     </svg>
   </button>
   <script>
     // Scroll to top functionality
     const scrollToTopBtn = document.getElementById('scrollToTop');
-    
+
     window.addEventListener('scroll', () => {
       if (window.pageYOffset > 300) {
         scrollToTopBtn.classList.add('visible');
@@ -693,7 +725,7 @@ result = (df
         scrollToTopBtn.classList.remove('visible');
       }
     });
-    
+
     scrollToTopBtn.addEventListener('click', () => {
       window.scrollTo({
         top: 0,
@@ -702,4 +734,5 @@ result = (df
     });
   </script>
 </body>
+
 </html>

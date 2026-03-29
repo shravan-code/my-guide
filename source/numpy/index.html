@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,7 +21,7 @@
 
   <header class="topbar glass reveal in">
     <a class="brand" href="../../index.html">
-      
+
       Data Guide
     </a>
     <nav class="menu" aria-label="NumPy menu">
@@ -30,11 +31,39 @@
       <a href="numpy-operations.html">Operations</a>
       <a href="methods.html">Methods</a>
     </nav>
-    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
-      <span class="toggle-icon" aria-hidden="true">☾</span>
-      <span class="toggle-text">Dark</span>
-    </button>
+    <div class="header-actions">
+      <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle mobile menu">
+        <span class="hamburger-icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+        <span class="toggle-icon" aria-hidden="true">☾</span>
+        <span class="toggle-text">Dark</span>
+      </button>
+    </div>
   </header>
+
+  <div id="mobile-menu" class="mobile-menu">
+    <nav class="mobile-nav" aria-label="NumPy mobile menu">
+      <a href="index.html" class="active" aria-current="page">Hub</a>
+      <a href="numpy-basics.html">Basics</a>
+      <a href="numpy-arrays.html">Arrays</a>
+      <a href="numpy-operations.html">Operations</a>
+      <a href="methods.html">Methods</a>
+    </nav>
+  </div>
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
+
+  <nav class="breadcrumb">
+    <a href="../../index.html">Home</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="9 18 15 12 9 6" />
+    </svg>
+    <span class="current">NumPy</span>
+  </nav>
 
   <main>
     <div class="page-wrap">
@@ -87,14 +116,15 @@
   </main>
   <script src="../app.js"></script>
   <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 19V5M5 12l7-7 7 7"/>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7" />
     </svg>
   </button>
   <script>
     // Scroll to top functionality
     const scrollToTopBtn = document.getElementById('scrollToTop');
-    
+
     window.addEventListener('scroll', () => {
       if (window.pageYOffset > 300) {
         scrollToTopBtn.classList.add('visible');
@@ -102,7 +132,7 @@
         scrollToTopBtn.classList.remove('visible');
       }
     });
-    
+
     scrollToTopBtn.addEventListener('click', () => {
       window.scrollTo({
         top: 0,

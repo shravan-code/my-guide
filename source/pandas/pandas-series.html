@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -26,23 +27,47 @@
       <a href="pandas-dataframes.html">DataFrames</a>
       <a href="methods.html">Methods</a>
     </nav>
-    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
-      <span class="toggle-icon" aria-hidden="true">☾</span>
-      <span class="toggle-text">Dark</span>
-    </button>
+    <div class="header-actions">
+      <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle mobile menu">
+        <span class="hamburger-icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+        <span class="toggle-icon" aria-hidden="true">☾</span>
+        <span class="toggle-text">Dark</span>
+      </button>
+    </div>
   </header>
+
+  <div id="mobile-menu" class="mobile-menu">
+    <nav class="mobile-nav" aria-label="Pandas mobile menu">
+      <a href="index.html">Hub</a>
+      <a href="pandas-series.html" class="active" aria-current="page">Series</a>
+      <a href="pandas-dataframes.html">DataFrames</a>
+      <a href="methods.html">Methods</a>
+    </nav>
+  </div>
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
 
   <nav class="breadcrumb">
     <a href="../../index.html">Home</a>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="9 18 15 12 9 6" />
+    </svg>
     <a href="index.html">Pandas</a>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="9 18 15 12 9 6" />
+    </svg>
     <span class="current">Series</span>
   </nav>
 
   <div id="sidebar-overlay" class="sidebar-overlay"></div>
   <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
       <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
       <line x1="9" y1="3" x2="9" y2="21"></line>
     </svg>
@@ -87,7 +112,8 @@
       <!-- Section 1: What is Series -->
       <section class="topic-section" id="what-is-series">
         <h2> What is a Series? <span class="level-badge basic">Basic</span> </h2>
-        <p>A Series is a one-dimensional labeled array capable of holding any data type (integers, strings, floats, Python objects, etc.). It is the fundamental building block of Pandas DataFrames.</p>
+        <p>A Series is a one-dimensional labeled array capable of holding any data type (integers, strings, floats,
+          Python objects, etc.). It is the fundamental building block of Pandas DataFrames.</p>
 
         <div class="split-grid">
           <div class="split-item">
@@ -116,10 +142,11 @@
       <!-- Section 2: Creating Series -->
       <section class="topic-section" id="creating-series">
         <h2> Creating Series <span class="level-badge basic">Basic</span> </h2>
-        <p>A Series can be created from various data sources including lists, dictionaries, NumPy arrays, and scalars.</p>
+        <p>A Series can be created from various data sources including lists, dictionaries, NumPy arrays, and scalars.
+        </p>
 
         <div class="code-block">
-<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+          <code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
 <span class="keyword">import</span> numpy <span class="keyword">as</span> np
 
 <span class="comment"># From a list</span>
@@ -140,7 +167,8 @@ s = pd.<span class="function">Series</span>([<span class="number">10</span>, <sp
         </div>
 
         <div class="tip-box">
-          <p><strong>Tip:</strong> Always name your Series when working with DataFrames. The name is used as the column name when converting to DataFrame.</p>
+          <p><strong>Tip:</strong> Always name your Series when working with DataFrames. The name is used as the column
+            name when converting to DataFrame.</p>
         </div>
       </section>
 
@@ -150,7 +178,7 @@ s = pd.<span class="function">Series</span>([<span class="number">10</span>, <sp
         <p>Series can be accessed using index labels (.loc), integer positions (.iloc), or boolean masks.</p>
 
         <div class="code-block">
-<code>s = pd.<span class="function">Series</span>([<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>], index=[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>])
+          <code>s = pd.<span class="function">Series</span>([<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>], index=[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>])
 
 <span class="comment"># By label (.loc)</span>
 <span class="function">print</span>(s[<span class="string">'a'</span>])            <span class="comment"># 10</span>
@@ -182,7 +210,7 @@ s = pd.<span class="function">Series</span>([<span class="number">10</span>, <sp
           <div class="split-item">
             <h4>Arithmetic Operations</h4>
             <div class="code-block">
-<code>s = pd.<span class="function">Series</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])
+              <code>s = pd.<span class="function">Series</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])
 
 s * <span class="number">2</span>          <span class="comment"># [2, 4, 6, 8, 10]</span>
 s + <span class="number">10</span>         <span class="comment"># [11, 12, 13, 14, 15]</span>
@@ -194,7 +222,7 @@ s1 + s2        <span class="comment"># Element-wise addition</span>
           <div class="split-item">
             <h4>Aggregation Methods</h4>
             <div class="code-block">
-<code>s.<span class="function">sum</span>()       <span class="comment"># 15</span>
+              <code>s.<span class="function">sum</span>()       <span class="comment"># 15</span>
 s.<span class="function">mean</span>()      <span class="comment"># 3.0</span>
 s.<span class="function">median</span>()    <span class="comment"># 3.0</span>
 s.<span class="function">std</span>()       <span class="comment"># 1.581</span>
@@ -207,7 +235,7 @@ s.<span class="function">describe</span>()  <span class="comment"># Summary stat
         </div>
 
         <div class="code-block">
-<code><span class="comment"># Alignment - Series align by index automatically</span>
+          <code><span class="comment"># Alignment - Series align by index automatically</span>
 s1 = pd.<span class="function">Series</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], index=[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>])
 s2 = pd.<span class="function">Series</span>([<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>], index=[<span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>])
 
@@ -226,7 +254,7 @@ s2 = pd.<span class="function">Series</span>([<span class="number">10</span>, <s
         <p>Series often contain missing values (NaN) that need to be handled appropriately for analysis.</p>
 
         <div class="code-block">
-<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+          <code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
 
 s = pd.<span class="function">Series</span>([<span class="number">1</span>, <span class="number">2</span>, np.nan, <span class="number">4</span>, np.nan, <span class="number">6</span>])
 
@@ -248,7 +276,8 @@ s.<span class="function">interpolate</span>()    <span class="comment"># Linear 
         </div>
 
         <div class="tip-box">
-          <p><strong>Tip:</strong> Use <code>pd.NA</code> instead of <code>np.nan</code> for nullable integer types. It preserves integer dtype instead of converting to float.</p>
+          <p><strong>Tip:</strong> Use <code>pd.NA</code> instead of <code>np.nan</code> for nullable integer types. It
+            preserves integer dtype instead of converting to float.</p>
         </div>
       </section>
 
@@ -258,7 +287,7 @@ s.<span class="function">interpolate</span>()    <span class="comment"># Linear 
         <p>Series with string data supports vectorized string operations via the <code>.str</code> accessor.</p>
 
         <div class="code-block">
-<code>names = pd.<span class="function">Series</span>([<span class="string">'Alice'</span>, <span class="string">'Bob'</span>, <span class="string">'Charlie'</span>])
+          <code>names = pd.<span class="function">Series</span>([<span class="string">'Alice'</span>, <span class="string">'Bob'</span>, <span class="string">'Charlie'</span>])
 
 <span class="comment"># Case transformations</span>
 names.str.<span class="function">lower</span>()       <span class="comment"># ['alice', 'bob', 'charlie']</span>
@@ -287,7 +316,7 @@ names.str.<span class="function">get_dummies</span>()      <span class="comment"
         <p>Series with datetime index enables powerful time series operations.</p>
 
         <div class="code-block">
-<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+          <code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
 
 <span class="comment"># Create datetime range</span>
 dates = pd.<span class="function">date_range</span>(<span class="string">'2024-01-01'</span>, periods=<span class="number">365</span>, freq=<span class="string">'D'</span>)
@@ -315,7 +344,7 @@ ts.index.<span class="function">quarter</span>        <span class="comment"># Qu
         <p>Use categorical dtype for columns with low cardinality to save memory and enable faster operations.</p>
 
         <div class="code-block">
-<code><span class="comment"># Create categorical Series</span>
+          <code><span class="comment"># Create categorical Series</span>
 colors = pd.<span class="function">Series</span>([<span class="string">'red'</span>, <span class="string">'blue'</span>, <span class="string">'green'</span>, <span class="string">'red'</span>, <span class="string">'blue'</span>])
 cat_colors = colors.<span class="function">astype</span>(<span class="string">'category'</span>)
 
@@ -343,7 +372,7 @@ priority = pd.<span class="function">Series</span>([<span class="string">'high'<
           <div class="split-item">
             <h4>Check Memory Usage</h4>
             <div class="code-block">
-<code><span class="comment"># Series memory usage</span>
+              <code><span class="comment"># Series memory usage</span>
 s.<span class="function">memory_usage</span>(deep=<span class="keyword">True</span>)
 
 <span class="comment"># Check dtype</span>
@@ -355,7 +384,7 @@ s.<span class="function">apply</span>(type).<span class="function">unique</span>
           <div class="split-item">
             <h4>Downcast Numeric Types</h4>
             <div class="code-block">
-<code><span class="comment"># Downcast integers</span>
+              <code><span class="comment"># Downcast integers</span>
 s_int = pd.<span class="function">to_numeric</span>(s, downcast=<span class="string">'integer'</span>)
 
 <span class="comment"># Downcast floats</span>
@@ -369,7 +398,7 @@ s_float = pd.<span class="function">to_numeric</span>(s, downcast=<span class="s
         </div>
 
         <div class="code-block">
-<code><span class="comment"># Convert object to category for low cardinality</span>
+          <code><span class="comment"># Convert object to category for low cardinality</span>
 s = pd.<span class="function">Series</span>([<span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'A'</span>] * <span class="number">1000000</span>)
 
 <span class="comment"># Before: ~48MB (object dtype)</span>
@@ -394,7 +423,7 @@ s = pd.<span class="function">Series</span>([<span class="number">1</span>, <spa
           <div class="split-item">
             <h4>Use Vectorized Operations</h4>
             <div class="code-block">
-<code><span class="comment"># ❌ Slow: Python loop</span>
+              <code><span class="comment"># ❌ Slow: Python loop</span>
 result = []
 <span class="keyword">for</span> x <span class="keyword">in</span> s:
     result.<span class="function">append</span>(x * <span class="number">2</span>)
@@ -410,7 +439,7 @@ result = s.<span class="function">apply</span>(<span class="keyword">lambda</spa
           <div class="split-item">
             <h4>Use Built-in Methods</h4>
             <div class="code-block">
-<code><span class="comment"># ❌ Slower</span>
+              <code><span class="comment"># ❌ Slower</span>
 s.<span class="function">apply</span>(<span class="keyword">lambda</span> x: x > s.<span class="function">mean</span>())
 
 <span class="comment"># ✅ Faster</span>
@@ -427,7 +456,8 @@ s.str.<span class="function">lower</span>()
         </div>
 
         <div class="tip-box">
-          <p><strong>Tip:</strong> Use <code>inplace=True</code> sparingly - it often creates a copy internally anyway. Prefer method chaining for better readability.</p>
+          <p><strong>Tip:</strong> Use <code>inplace=True</code> sparingly - it often creates a copy internally anyway.
+            Prefer method chaining for better readability.</p>
         </div>
       </section>
 
@@ -466,7 +496,7 @@ s.str.<span class="function">lower</span>()
         <h2> Tips & Tricks <span class="level-badge intermediate">Intermediate</span> </h2>
 
         <div class="code-block">
-<code><span class="comment"># 1. Fast lookup with isin()</span>
+          <code><span class="comment"># 1. Fast lookup with isin()</span>
 s = pd.<span class="function">Series</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])
 s.<span class="function">isin</span>([<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>])        <span class="comment"># [False, True, False, True, False]</span>
 
@@ -497,7 +527,8 @@ s.<span class="function">quantile</span>([<span class="number">0.25</span>, <spa
         </div>
 
         <div class="tip-box">
-          <p><strong>Pro Tip:</strong> Use <code>pd.set_option('mode.copy_on_write', True)</code> in Pandas 2.0+ to enable copy-on-write semantics and avoid unexpected SettingWithCopy warnings.</p>
+          <p><strong>Pro Tip:</strong> Use <code>pd.set_option('mode.copy_on_write', True)</code> in Pandas 2.0+ to
+            enable copy-on-write semantics and avoid unexpected SettingWithCopy warnings.</p>
         </div>
       </section>
     </div>
@@ -547,14 +578,15 @@ s.<span class="function">quantile</span>([<span class="number">0.25</span>, <spa
     setActiveNav(initialId);
   </script>
   <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 19V5M5 12l7-7 7 7"/>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7" />
     </svg>
   </button>
   <script>
     // Scroll to top functionality
     const scrollToTopBtn = document.getElementById('scrollToTop');
-    
+
     window.addEventListener('scroll', () => {
       if (window.pageYOffset > 300) {
         scrollToTopBtn.classList.add('visible');
@@ -562,7 +594,7 @@ s.<span class="function">quantile</span>([<span class="number">0.25</span>, <spa
         scrollToTopBtn.classList.remove('visible');
       }
     });
-    
+
     scrollToTopBtn.addEventListener('click', () => {
       window.scrollTo({
         top: 0,
@@ -571,4 +603,5 @@ s.<span class="function">quantile</span>([<span class="number">0.25</span>, <spa
     });
   </script>
 </body>
+
 </html>

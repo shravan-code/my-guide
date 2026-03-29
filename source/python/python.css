@@ -40,6 +40,16 @@
   cursor: pointer;
 }
 
+@media (max-width: 920px) {
+  .sidebar-toggle {
+    position: fixed;
+    top: calc(var(--topbar-height) + var(--layout-breadcrumb-height) + 0.5rem);
+    right: 0.75rem;
+    z-index: 2001;
+  }
+}
+}
+
 .sidebar::-webkit-scrollbar {
   width: 6px;
 }

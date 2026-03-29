@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -26,23 +27,47 @@
       <a href="pandas-dataframes.html">DataFrames</a>
       <a href="methods.html" class="active" aria-current="page">Methods</a>
     </nav>
-    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
-      <span class="toggle-icon" aria-hidden="true">☾</span>
-      <span class="toggle-text">Dark</span>
-    </button>
+    <div class="header-actions">
+      <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle mobile menu">
+        <span class="hamburger-icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+        <span class="toggle-icon" aria-hidden="true">☾</span>
+        <span class="toggle-text">Dark</span>
+      </button>
+    </div>
   </header>
+
+  <div id="mobile-menu" class="mobile-menu">
+    <nav class="mobile-nav" aria-label="Pandas mobile menu">
+      <a href="index.html">Hub</a>
+      <a href="pandas-series.html">Series</a>
+      <a href="pandas-dataframes.html">DataFrames</a>
+      <a href="methods.html" class="active" aria-current="page">Methods</a>
+    </nav>
+  </div>
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
 
   <nav class="breadcrumb">
     <a href="../../index.html">Home</a>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="9 18 15 12 9 6" />
+    </svg>
     <a href="index.html">Pandas</a>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="9 18 15 12 9 6" />
+    </svg>
     <span class="current">Methods</span>
   </nav>
 
   <div id="sidebar-overlay" class="sidebar-overlay"></div>
   <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
       <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
       <line x1="9" y1="3" x2="9" y2="21"></line>
     </svg>
@@ -89,7 +114,7 @@
         <p>Methods for creating Series objects from various data sources.</p>
 
         <div class="code-block">
-<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+          <code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
 <span class="keyword">import</span> numpy <span class="keyword">as</span> np
 
 <span class="comment"># pd.Series() - Create from various sources</span>
@@ -109,7 +134,9 @@ business_dates = pd.<span class="function">bdate_range</span>(<span class="strin
         </div>
 
         <div class="tip-box">
-          <p><strong>Tip:</strong> Use <code>dtype</code> parameter to specify data type and save memory. For example, <code>dtype='int32'</code> uses less memory than <code>int64</code>.</p>
+          <p><strong>Tip:</strong> Use <code>dtype</code> parameter to specify data type and save memory. For example,
+            <code>dtype='int32'</code> uses less memory than <code>int64</code>.
+          </p>
         </div>
       </section>
 
@@ -122,7 +149,7 @@ business_dates = pd.<span class="function">bdate_range</span>(<span class="strin
           <div class="split-item">
             <h4>Index Access</h4>
             <div class="code-block">
-<code>s = pd.<span class="function">Series</span>([<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>],
+              <code>s = pd.<span class="function">Series</span>([<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>],
              index=[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>])
 
 <span class="comment"># .loc[] - Label-based</span>
@@ -140,7 +167,7 @@ s.<span class="function">iloc</span>[<span class="number">1</span>:<span class="
           <div class="split-item">
             <h4>Query Methods</h4>
             <div class="code-block">
-<code><span class="comment"># .get() - Safe access with default</span>
+              <code><span class="comment"># .get() - Safe access with default</span>
 s.<span class="function">get</span>(<span class="string">'a'</span>)         <span class="comment"># 10</span>
 s.<span class="function">get</span>(<span class="string">'z'</span>, <span class="number">0</span>)     <span class="comment"># 0 (default)</span>
 
@@ -170,7 +197,7 @@ s.<span class="function">idxmax</span>()        <span class="comment"># 'd' (ind
           <div class="split-item">
             <h4>Basic Statistics</h4>
             <div class="code-block">
-<code>s = pd.<span class="function">Series</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])
+              <code>s = pd.<span class="function">Series</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])
 
 s.<span class="function">sum</span>()      <span class="comment"># 15</span>
 s.<span class="function">prod</span>()     <span class="comment"># 120</span>
@@ -186,7 +213,7 @@ s.<span class="function">sem</span>()      <span class="comment"># Standard erro
           <div class="split-item">
             <h4>Min/Max & Range</h4>
             <div class="code-block">
-<code><span class="comment"># Basic min/max</span>
+              <code><span class="comment"># Basic min/max</span>
 s.<span class="function">min</span>()      <span class="comment"># 1</span>
 s.<span class="function">max</span>()      <span class="comment"># 5</span>
 s.<span class="function">argmin</span>()   <span class="comment"># 0 (position of min)</span>
@@ -207,7 +234,7 @@ s.<span class="function">kurt</span>()     <span class="comment"># Kurtosis</spa
         </div>
 
         <div class="code-block">
-<code><span class="comment"># .describe() - Comprehensive summary</span>
+          <code><span class="comment"># .describe() - Comprehensive summary</span>
 s.<span class="function">describe</span>()
 <span class="comment"># count     5.000000</span>
 <span class="comment"># mean      3.000000</span>
@@ -235,7 +262,7 @@ s.<span class="function">count</span>()      <span class="comment"># 5</span></c
           <div class="split-item">
             <h4>Apply & Map</h4>
             <div class="code-block">
-<code>s = pd.<span class="function">Series</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])
+              <code>s = pd.<span class="function">Series</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])
 
 <span class="comment"># .apply() - Apply function</span>
 s.<span class="function">apply</span>(<span class="keyword">lambda</span> x: x ** <span class="number">2</span>)
@@ -253,7 +280,7 @@ s.<span class="function">map</span>({<span class="number">1</span>: <span class=
           <div class="split-item">
             <h4>Arithmetic & Math</h4>
             <div class="code-block">
-<code><span class="comment"># Arithmetic operations</span>
+              <code><span class="comment"># Arithmetic operations</span>
 s.<span class="function">add</span>(<span class="number">10</span>)         <span class="comment"># s + 10</span>
 s.<span class="function">sub</span>(<span class="number">2</span>)          <span class="comment"># s - 2</span>
 s.<span class="function">mul</span>(<span class="number">3</span>)          <span class="comment"># s * 3</span>
@@ -272,7 +299,7 @@ s.<span class="function">abs</span>()           <span class="comment"># Absolute
         </div>
 
         <div class="code-block">
-<code><span class="comment"># .pct_change() - Percentage change</span>
+          <code><span class="comment"># .pct_change() - Percentage change</span>
 s = pd.<span class="function">Series</span>([<span class="number">100</span>, <span class="number">110</span>, <span class="number">105</span>, <span class="number">120</span>])
 s.<span class="function">pct_change</span>()      <span class="comment"># [NaN, 0.10, -0.045, 0.143]</span>
 s.<span class="function">pct_change</span>(<span class="number">2</span>)     <span class="comment"># 2-period change</span>
@@ -304,7 +331,7 @@ s.<span class="function">cummin</span>()          <span class="comment"># Cumula
         <p>Methods to sort Series by values or index.</p>
 
         <div class="code-block">
-<code>s = pd.<span class="function">Series</span>([<span class="number">3</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">5</span>], index=[<span class="string">'c'</span>, <span class="string">'a'</span>, <span class="string">'d'</span>, <span class="string">'b'</span>, <span class="string">'e'</span>])
+          <code>s = pd.<span class="function">Series</span>([<span class="number">3</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">5</span>], index=[<span class="string">'c'</span>, <span class="string">'a'</span>, <span class="string">'d'</span>, <span class="string">'b'</span>, <span class="string">'e'</span>])
 
 <span class="comment"># .sort_values() - Sort by values</span>
 s.<span class="function">sort_values</span>()                 <span class="comment"># Ascending (default)</span>
@@ -335,7 +362,7 @@ s.<span class="function">value_counts</span>(sort=<span class="keyword">False</s
           <div class="split-item">
             <h4>Detection</h4>
             <div class="code-block">
-<code>s = pd.<span class="function">Series</span>([<span class="number">1</span>, <span class="number">2</span>, np.nan, <span class="number">4</span>, np.nan])
+              <code>s = pd.<span class="function">Series</span>([<span class="number">1</span>, <span class="number">2</span>, np.nan, <span class="number">4</span>, np.nan])
 
 <span class="comment"># Detection methods</span>
 s.<span class="function">isna</span>()       <span class="comment"># Boolean: [F, F, T, F, T]</span>
@@ -350,7 +377,7 @@ s.<span class="function">count</span>()      <span class="comment"># 3 (non-null
           <div class="split-item">
             <h4>Removal</h4>
             <div class="code-block">
-<code><span class="comment"># .dropna() - Remove missing values</span>
+              <code><span class="comment"># .dropna() - Remove missing values</span>
 s.<span class="function">dropna</span>()           <span class="comment"># Remove NaN entries</span>
 s.<span class="function">dropna</span>(how=<span class="string">'all'</span>)   <span class="comment"># Only drop if all NaN</span>
 
@@ -364,7 +391,7 @@ s.<span class="function">replace</span>([<span class="number">1</span>, <span cl
         </div>
 
         <div class="code-block">
-<code><span class="comment"># .fillna() - Fill missing values</span>
+          <code><span class="comment"># .fillna() - Fill missing values</span>
 s.<span class="function">fillna</span>(<span class="number">0</span>)                           <span class="comment"># Fill with 0</span>
 s.<span class="function">fillna</span>(s.<span class="function">mean</span>())                    <span class="comment"># Fill with mean</span>
 s.<span class="function">fillna</span>(s.<span class="function">median</span>())                  <span class="comment"># Fill with median</span>
@@ -391,7 +418,7 @@ s.<span class="function">interpolate</span>(limit_direction=<span class="string"
           <div class="split-item">
             <h4>Case & Whitespace</h4>
             <div class="code-block">
-<code>s = pd.<span class="function">Series</span>([<span class="string">'Hello'</span>, <span class="string">'WORLD'</span>, <span class="string">'  test  '</span>])
+              <code>s = pd.<span class="function">Series</span>([<span class="string">'Hello'</span>, <span class="string">'WORLD'</span>, <span class="string">'  test  '</span>])
 
 s.str.<span class="function">lower</span>()        <span class="comment"># ['hello', 'world', '  test  ']</span>
 s.str.<span class="function">upper</span>()        <span class="comment"># ['HELLO', 'WORLD', '  TEST  ']</span>
@@ -407,7 +434,7 @@ s.str.<span class="function">rstrip</span>()       <span class="comment"># Right
           <div class="split-item">
             <h4>Search & Find</h4>
             <div class="code-block">
-<code>s = pd.<span class="function">Series</span>([<span class="string">'apple'</span>, <span class="string">'banana'</span>, <span class="string">'cherry'</span>])
+              <code>s = pd.<span class="function">Series</span>([<span class="string">'apple'</span>, <span class="string">'banana'</span>, <span class="string">'cherry'</span>])
 
 s.str.<span class="function">contains</span>(<span class="string">'a'</span>)      <span class="comment"># [True, True, False]</span>
 s.str.<span class="function">startswith</span>(<span class="string">'a'</span>)   <span class="comment"># [True, False, False]</span>
@@ -425,7 +452,7 @@ s.str.<span class="function">match</span>(<span class="string">r'^[a-c]'</span>)
           <div class="split-item">
             <h4>Transform</h4>
             <div class="code-block">
-<code><span class="comment"># Replace</span>
+              <code><span class="comment"># Replace</span>
 s.str.<span class="function">replace</span>(<span class="string">'a'</span>, <span class="string">'X'</span>)
 s.str.<span class="function">replace</span>(<span class="string">r'[aeiou]'</span>, <span class="string">'*'</span>, regex=<span class="keyword">True</span>)
 
@@ -443,7 +470,7 @@ s.str[<span class="number">1</span>:<span class="number">3</span>]            <s
           <div class="split-item">
             <h4>Extract & Encode</h4>
             <div class="code-block">
-<code><span class="comment"># Extract regex groups</span>
+              <code><span class="comment"># Extract regex groups</span>
 s = pd.<span class="function">Series</span>([<span class="string">'John 25'</span>, <span class="string">'Jane 30'</span>])
 s.str.<span class="function">extract</span>(<span class="string">r'(\w+) (\d+)'</span>)
 <span class="comment"># Returns DataFrame with columns [0, 1]</span>
@@ -469,7 +496,7 @@ s.str.<span class="function">decode</span>(<span class="string">'utf-8'</span>) 
         <p>Access datetime properties and methods via the <code>.dt</code> accessor.</p>
 
         <div class="code-block">
-<code><span class="comment"># Create datetime Series</span>
+          <code><span class="comment"># Create datetime Series</span>
 dates = pd.<span class="function">Series</span>(pd.<span class="function">date_range</span>(<span class="string">'2024-01-01'</span>, periods=<span class="number">5</span>, freq=<span class="string">'D'</span>))
 
 <span class="comment"># Date components</span>
@@ -495,7 +522,7 @@ dates.dt.is_leap_year   <span class="comment"># Leap year check</span></code>
         </div>
 
         <div class="code-block">
-<code><span class="comment"># Date arithmetic and transformations</span>
+          <code><span class="comment"># Date arithmetic and transformations</span>
 dates.dt.strftime(<span class="string">'%Y-%m-%d'</span>)     <span class="comment"># Format to string</span>
 dates.dt.to_period(<span class="string">'M'</span>)            <span class="comment"># Convert to period</span>
 dates.dt.to_pydatetime()            <span class="comment"># Convert to datetime</span>
@@ -519,7 +546,7 @@ timedeltas.dt.total_seconds()  <span class="comment"># Total seconds</span></cod
           <div class="split-item">
             <h4>Creation</h4>
             <div class="code-block">
-<code><span class="comment"># pd.DataFrame() - Create DataFrame</span>
+              <code><span class="comment"># pd.DataFrame() - Create DataFrame</span>
 df = pd.<span class="function">DataFrame</span>({<span class="string">'A'</span>: [<span class="number">1</span>,<span class="number">2</span>], <span class="string">'B'</span>: [<span class="number">3</span>,<span class="number">4</span>]})
 df = pd.<span class="function">DataFrame</span>(data, columns=[<span class="string">'A'</span>,<span class="string">'B'</span>])
 df = pd.<span class="function">DataFrame</span>(data, index=[<span class="string">'x'</span>,<span class="string">'y'</span>])
@@ -535,7 +562,7 @@ df = pd.<span class="function">DataFrame</span>({
           <div class="split-item">
             <h4>Read Methods</h4>
             <div class="code-block">
-<code>pd.<span class="function">read_csv</span>(<span class="string">'file.csv'</span>)
+              <code>pd.<span class="function">read_csv</span>(<span class="string">'file.csv'</span>)
 pd.<span class="function">read_excel</span>(<span class="string">'file.xlsx'</span>)
 pd.<span class="function">read_json</span>(<span class="string">'file.json'</span>)
 pd.<span class="function">read_parquet</span>(<span class="string">'file.parquet'</span>)
@@ -552,7 +579,7 @@ pd.<span class="function">read_hdf</span>(<span class="string">'file.h5'</span>)
           <div class="split-item">
             <h4>Write Methods</h4>
             <div class="code-block">
-<code>df.<span class="function">to_csv</span>(<span class="string">'output.csv'</span>)
+              <code>df.<span class="function">to_csv</span>(<span class="string">'output.csv'</span>)
 df.<span class="function">to_csv</span>(<span class="string">'output.csv'</span>, index=<span class="keyword">False</span>)
 df.<span class="function">to_excel</span>(<span class="string">'output.xlsx'</span>)
 df.<span class="function">to_json</span>(<span class="string">'output.json'</span>)
@@ -566,7 +593,7 @@ df.<span class="function">to_clipboard</span>()
           <div class="split-item">
             <h4>Common Parameters</h4>
             <div class="code-block">
-<code><span class="comment"># read_csv parameters</span>
+              <code><span class="comment"># read_csv parameters</span>
 pd.<span class="function">read_csv</span>(<span class="string">'file.csv'</span>,
     sep=<span class="string">','</span>,           <span class="comment"># Delimiter</span>
     header=<span class="number">0</span>,          <span class="comment"># Header row</span>
@@ -587,7 +614,7 @@ pd.<span class="function">read_csv</span>(<span class="string">'file.csv'</span>
         <p>Methods to examine and understand your DataFrame structure.</p>
 
         <div class="code-block">
-<code><span class="comment"># View data</span>
+          <code><span class="comment"># View data</span>
 df.<span class="function">head</span>(<span class="number">5</span>)             <span class="comment"># First 5 rows</span>
 df.<span class="function">tail</span>(<span class="number">5</span>)             <span class="comment"># Last 5 rows</span>
 df.<span class="function">sample</span>(<span class="number">5</span>)           <span class="comment"># Random 5 rows</span>
@@ -620,7 +647,7 @@ df.<span class="function">value_counts</span>(subset=[<span class="string">'col1
           <div class="split-item">
             <h4>Column Selection</h4>
             <div class="code-block">
-<code><span class="comment"># Single column (returns Series)</span>
+              <code><span class="comment"># Single column (returns Series)</span>
 df[<span class="string">'Name'</span>]
 df.Name  <span class="comment"># Only if valid identifier</span>
 
@@ -637,7 +664,7 @@ df.<span class="function">filter</span>(regex=<span class="string">'^col'</span>
           <div class="split-item">
             <h4>Row Selection</h4>
             <div class="code-block">
-<code><span class="comment"># .loc[] - Label-based</span>
+              <code><span class="comment"># .loc[] - Label-based</span>
 df.<span class="function">loc</span>[<span class="number">0</span>]              <span class="comment"># Row 0</span>
 df.<span class="function">loc</span>[<span class="number">0</span>:<span class="number">5</span>]            <span class="comment"># Rows 0-5</span>
 df.<span class="function">loc</span>[:, <span class="string">'Name'</span>]     <span class="comment"># All rows, Name col</span>
@@ -656,7 +683,7 @@ df.<span class="function">iat</span>[<span class="number">0</span>, <span class=
         </div>
 
         <div class="code-block">
-<code><span class="comment"># .query() - Filter with expression</span>
+          <code><span class="comment"># .query() - Filter with expression</span>
 df.<span class="function">query</span>(<span class="string">'Age > 25'</span>)
 df.<span class="function">query</span>(<span class="string">'Age > 25 and City == "NYC"'</span>)
 df.<span class="function">query</span>(<span class="string">'Name in ["Alice", "Bob"]'</span>)
@@ -682,7 +709,7 @@ df.<span class="function">mask</span>(df[<span class="string">'Age'</span>] > <s
           <div class="split-item">
             <h4>Add/Remove Columns</h4>
             <div class="code-block">
-<code><span class="comment"># Add columns</span>
+              <code><span class="comment"># Add columns</span>
 df[<span class="string">'new_col'</span>] = <span class="number">100</span>
 df[<span class="string">'computed'</span>] = df[<span class="string">'a'</span>] + df[<span class="string">'b'</span>]
 
@@ -703,7 +730,7 @@ df.<span class="function">drop</span>(<span class="string">'col1'</span>, axis=<
           <div class="split-item">
             <h4>Add/Remove Rows</h4>
             <div class="code-block">
-<code><span class="comment"># .append() - Add rows (deprecated)</span>
+              <code><span class="comment"># .append() - Add rows (deprecated)</span>
 <span class="comment"># Use pd.concat() instead</span>
 df = pd.<span class="function">concat</span>([df, new_df])
 
@@ -719,7 +746,7 @@ df.<span class="function">dropna</span>()                    <span class="commen
         </div>
 
         <div class="code-block">
-<code><span class="comment"># .rename() - Rename columns/index</span>
+          <code><span class="comment"># .rename() - Rename columns/index</span>
 df.<span class="function">rename</span>(columns={<span class="string">'old'</span>: <span class="string">'new'</span>, <span class="string">'a'</span>: <span class="string">'b'</span>})
 df.<span class="function">rename</span>(index={<span class="number">0</span>: <span class="string">'first'</span>, <span class="number">1</span>: <span class="string">'second'</span>})
 df.<span class="function">rename</span>(columns=<span class="keyword">lambda</span> x: x.<span class="function">upper</span>())
@@ -747,7 +774,7 @@ df.<span class="function">reindex</span>(columns=[<span class="string">'a'</span
         <p>Split data into groups and apply aggregate functions.</p>
 
         <div class="code-block">
-<code><span class="comment"># .groupby() - Group by column(s)</span>
+          <code><span class="comment"># .groupby() - Group by column(s)</span>
 grouped = df.<span class="function">groupby</span>(<span class="string">'category'</span>)
 grouped = df.<span class="function">groupby</span>([<span class="string">'category'</span>, <span class="string">'region'</span>])  <span class="comment"># Multiple columns</span>
 
@@ -784,7 +811,7 @@ grouped.<span class="function">count</span>()          <span class="comment"># N
         <p>Combine multiple DataFrames using various join strategies.</p>
 
         <div class="code-block">
-<code><span class="comment"># pd.merge() - SQL-style joins</span>
+          <code><span class="comment"># pd.merge() - SQL-style joins</span>
 pd.<span class="function">merge</span>(df1, df2, on=<span class="string">'key'</span>)                    <span class="comment"># Inner join</span>
 pd.<span class="function">merge</span>(df1, df2, on=<span class="string">'key'</span>, how=<span class="string">'left'</span>)        <span class="comment"># Left join</span>
 pd.<span class="function">merge</span>(df1, df2, on=<span class="string">'key'</span>, how=<span class="string">'right'</span>)       <span class="comment"># Right join</span>
@@ -843,7 +870,7 @@ pd.<span class="function">concat</span>([df1, df2], ignore_index=<span class="ke
         <p>Methods to reshape and pivot DataFrames.</p>
 
         <div class="code-block">
-<code><span class="comment"># .pivot() - Reshape data</span>
+          <code><span class="comment"># .pivot() - Reshape data</span>
 df.<span class="function">pivot</span>(index=<span class="string">'date'</span>, columns=<span class="string">'category'</span>, values=<span class="string">'sales'</span>)
 df.<span class="function">pivot_table</span>(values=<span class="string">'sales'</span>, index=<span class="string">'region'</span>, aggfunc=<span class="string">'sum'</span>)
 
@@ -893,7 +920,7 @@ df.<span class="function">T</span></code>
         <p>Apply functions to DataFrames for custom transformations.</p>
 
         <div class="code-block">
-<code><span class="comment"># .apply() - Apply function to rows/columns</span>
+          <code><span class="comment"># .apply() - Apply function to rows/columns</span>
 df.<span class="function">apply</span>(<span class="keyword">lambda</span> x: x.<span class="function">max</span>() - x.<span class="function">min</span>())         <span class="comment"># Column-wise</span>
 df.<span class="function">apply</span>(<span class="keyword">lambda</span> x: x.<span class="function">max</span>() - x.<span class="function">min</span>(), axis=<span class="number">1</span>) <span class="comment"># Row-wise</span>
 df.<span class="function">apply</span>(np.<span class="function">sum</span>)                               <span class="comment"># Apply numpy function</span>
@@ -920,7 +947,8 @@ df.<span class="function">assign</span>(
         </div>
 
         <div class="warning-box">
-          <p><strong>Warning:</strong> <code>.apply()</code> is significantly slower than vectorized operations. Use built-in methods and vectorized operations whenever possible for better performance.</p>
+          <p><strong>Warning:</strong> <code>.apply()</code> is significantly slower than vectorized operations. Use
+            built-in methods and vectorized operations whenever possible for better performance.</p>
         </div>
       </section>
 
@@ -930,7 +958,7 @@ df.<span class="function">assign</span>(
         <p>Apply rolling, expanding, and exponentially weighted calculations.</p>
 
         <div class="code-block">
-<code><span class="comment"># .rolling() - Rolling window calculations</span>
+          <code><span class="comment"># .rolling() - Rolling window calculations</span>
 df[<span class="string">'MA7'</span>] = df[<span class="string">'close'</span>].<span class="function">rolling</span>(window=<span class="number">7</span>).<span class="function">mean</span>()
 df[<span class="string">'MA30'</span>] = df[<span class="string">'close'</span>].<span class="function">rolling</span>(<span class="number">30</span>).<span class="function">mean</span>()
 df[<span class="string">'std'</span>] = df[<span class="string">'close'</span>].<span class="function">rolling</span>(<span class="number">20</span>).<span class="function">std</span>()
@@ -949,7 +977,7 @@ df[<span class="string">'MA5'</span>] = df[<span class="string">'close'</span>].
           <div class="split-item">
             <h4>Expanding Windows</h4>
             <div class="code-block">
-<code><span class="comment"># .expanding() - Cumulative from start</span>
+              <code><span class="comment"># .expanding() - Cumulative from start</span>
 df[<span class="string">'exp_mean'</span>] = df[<span class="string">'value'</span>].<span class="function">expanding</span>().<span class="function">mean</span>()
 df[<span class="string">'exp_max'</span>] = df[<span class="string">'value'</span>].<span class="function">expanding</span>().<span class="function">max</span>()
 df[<span class="string">'exp_std'</span>] = df[<span class="string">'value'</span>].<span class="function">expanding</span>().<span class="function">std</span>()
@@ -962,7 +990,7 @@ df[<span class="string">'cummean'</span>] = df[<span class="string">'value'</spa
           <div class="split-item">
             <h4>Exponentially Weighted</h4>
             <div class="code-block">
-<code><span class="comment"># .ewm() - Exponentially weighted</span>
+              <code><span class="comment"># .ewm() - Exponentially weighted</span>
 df[<span class="string">'ewm_mean'</span>] = df[<span class="string">'value'</span>].<span class="function">ewm</span>(span=<span class="number">10</span>).<span class="function">mean</span>()
 df[<span class="string">'ewm_std'</span>] = df[<span class="string">'value'</span>].<span class="function">ewm</span>(span=<span class="number">10</span>).<span class="function">std</span>()
 
@@ -977,7 +1005,7 @@ df[<span class="string">'ewm_adj'</span>] = df[<span class="string">'value'</spa
         </div>
 
         <div class="code-block">
-<code><span class="comment"># .shift() with groupby - Lag features</span>
+          <code><span class="comment"># .shift() with groupby - Lag features</span>
 df[<span class="string">'prev_value'</span>] = df.<span class="function">groupby</span>(<span class="string">'category'</span>)[<span class="string">'value'</span>].<span class="function">shift</span>(<span class="number">1</span>)
 
 <span class="comment"># Differencing within groups</span>
@@ -988,7 +1016,8 @@ df[<span class="string">'rank'</span>] = df.<span class="function">groupby</span
         </div>
 
         <div class="tip-box">
-          <p><strong>Tip:</strong> Use <code>min_periods=1</code> in rolling windows to avoid NaN values at the start. For EWMA, use <code>span</code> parameter which controls the decay rate (larger span = smoother).</p>
+          <p><strong>Tip:</strong> Use <code>min_periods=1</code> in rolling windows to avoid NaN values at the start.
+            For EWMA, use <code>span</code> parameter which controls the decay rate (larger span = smoother).</p>
         </div>
       </section>
     </div>
@@ -1038,14 +1067,15 @@ df[<span class="string">'rank'</span>] = df.<span class="function">groupby</span
     setActiveNav(initialId);
   </script>
   <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 19V5M5 12l7-7 7 7"/>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7" />
     </svg>
   </button>
   <script>
     // Scroll to top functionality
     const scrollToTopBtn = document.getElementById('scrollToTop');
-    
+
     window.addEventListener('scroll', () => {
       if (window.pageYOffset > 300) {
         scrollToTopBtn.classList.add('visible');
@@ -1053,7 +1083,7 @@ df[<span class="string">'rank'</span>] = df.<span class="function">groupby</span
         scrollToTopBtn.classList.remove('visible');
       }
     });
-    
+
     scrollToTopBtn.addEventListener('click', () => {
       window.scrollTo({
         top: 0,
@@ -1062,4 +1092,5 @@ df[<span class="string">'rank'</span>] = df.<span class="function">groupby</span
     });
   </script>
 </body>
+
 </html>

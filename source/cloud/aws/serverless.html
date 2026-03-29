@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,28 +8,32 @@
   <title>Data Guide | AWS Serverless & Event-Driven</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="../../styles.css" />
   <link rel="stylesheet" href="../../python/python.css" />
   <link rel="stylesheet" href="aws.css" />
 </head>
+
 <body class="with-sidebar">
   <div class="bg-orb orb-a"></div>
   <div class="bg-orb orb-b"></div>
   <div class="bg-orb orb-c"></div>
 
   <header class="topbar glass reveal in">
-    <a class="brand" href="../../index.html">Data Guide</a>
+    <a class="brand" href="../../../index.html">Data Guide</a>
     <nav class="menu" aria-label="AWS menu">
       <a href="index.html">Hub</a>
       <div class="menu-dropdown">
         <button class="menu-trigger">Topics</button>
         <div class="dropdown-panel">
-          <a href="../python/index.html">Python</a>
-          <a href="../spark/index.html">Spark</a>
-          <a href="../cloud/index.html">Cloud</a>
-          <a href="../roadmaps/index.html">Roadmaps</a>
-          <a href="../cheatsheets/index.html">Cheatsheets</a>
+          <a href="../cloud-topics.html"><strong>Overview</strong><span>All cloud topics</span></a>
+          <a href="../cloud-basics.html"><strong>Basics</strong><span>IaaS, PaaS, SaaS, deployment models</span></a>
+          <a href="../cloud-services.html"><strong>Services</strong><span>Service comparison across providers</span></a>
+          <a href="../cloud-storage.html"><strong>Storage</strong><span>Object, block, file, data lakes</span></a>
+          <a href="../cloud-compute.html"><strong>Compute</strong><span>VMs, containers, Kubernetes</span></a>
+          <a href="../cloud-serverless.html"><strong>Serverless</strong><span>Functions and managed services</span></a>
         </div>
       </div>
       <a href="../architecture.html">Architecture</a>
@@ -48,20 +53,31 @@
   </header>
 
   <nav class="breadcrumb">
-    <a href="../../index.html">Home</a>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    <a href="../../../index.html">Home</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="9 18 15 12 9 6" />
+    </svg>
     <a href="../index.html">Cloud</a>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-    <a href="../cloud-aws.html">Providers</a>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="9 18 15 12 9 6" />
+    </svg>
+    <a href="../../cloud-aws.html">Providers</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="9 18 15 12 9 6" />
+    </svg>
     <a href="index.html">AWS</a>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="9 18 15 12 9 6" />
+    </svg>
     <span class="current">Serverless</span>
   </nav>
 
   <div id="sidebar-overlay" class="sidebar-overlay"></div>
   <button id="sidebar-toggle" class="sidebar-toggle">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <line x1="9" y1="3" x2="9" y2="21" />
+    </svg>
   </button>
 
   <main class="main-content">
@@ -92,7 +108,8 @@
       <section class="hero">
         <p class="eyebrow">Serverless & Event-Driven</p>
         <h1>Lambda & Event-Driven Architecture</h1>
-        <p class="hero-copy">Serverless compute and workflow orchestration with Lambda, Step Functions, and EventBridge.</p>
+        <p class="hero-copy">Serverless compute and workflow orchestration with Lambda, Step Functions, and EventBridge.
+        </p>
       </section>
 
       <!-- Lambda -->
@@ -104,11 +121,13 @@
         <div class="service-card-body">
           <div class="what-box">
             <h4>What It Does</h4>
-            <p>Serverless compute service that runs code in response to events. Automatically manages compute resources, scales to handle any load.</p>
+            <p>Serverless compute service that runs code in response to events. Automatically manages compute resources,
+              scales to handle any load.</p>
           </div>
           <div class="why-box">
             <h4>Why Use It</h4>
-            <p>Pay only for compute time consumed. No servers to manage. Perfect for event-driven processing, microservices, and ETL transformations.</p>
+            <p>Pay only for compute time consumed. No servers to manage. Perfect for event-driven processing,
+              microservices, and ETL transformations.</p>
           </div>
           <h4>Limits</h4>
           <ul>
@@ -125,19 +144,23 @@
           </ul>
           <div class="arch-flow">
             <div class="service-node">
-              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonSimpleStorageService.svg" alt="S3">
+              <img
+                src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonSimpleStorageService.svg"
+                alt="S3">
               <span class="label">S3</span>
               <span class="sublabel">Event</span>
             </div>
             <span class="arch-arrow">→</span>
             <div class="service-node">
-              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AWSLambda.svg" alt="Lambda">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AWSLambda.svg"
+                alt="Lambda">
               <span class="label">Lambda</span>
               <span class="sublabel">Process</span>
             </div>
             <span class="arch-arrow">→</span>
             <div class="service-node">
-              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonDynamoDB.svg" alt="DynamoDB">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonDynamoDB.svg"
+                alt="DynamoDB">
               <span class="label">DynamoDB</span>
               <span class="sublabel">Store</span>
             </div>
@@ -148,17 +171,20 @@
       <!-- Step Functions -->
       <div class="service-card" id="step-functions">
         <div class="service-card-header">
-          <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AWSStepFunctions.svg" alt="Step Functions">
+          <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AWSStepFunctions.svg"
+            alt="Step Functions">
           <h3>AWS Step Functions</h3>
         </div>
         <div class="service-card-body">
           <div class="what-box">
             <h4>What It Does</h4>
-            <p>Orchestration service for coordinating distributed applications. Visual workflows with built-in error handling, retries, and parallel execution.</p>
+            <p>Orchestration service for coordinating distributed applications. Visual workflows with built-in error
+              handling, retries, and parallel execution.</p>
           </div>
           <div class="why-box">
             <h4>Why Use It</h4>
-            <p>No code for workflow logic. Built-in retry/compensation. Visual debugging. Integrates with 200+ AWS services.</p>
+            <p>No code for workflow logic. Built-in retry/compensation. Visual debugging. Integrates with 200+ AWS
+              services.</p>
           </div>
           <h4>When to Use</h4>
           <ul>
@@ -169,37 +195,40 @@
             <li>Distributed transaction coordination</li>
           </ul>
           <div class="code-block">{
-  "StartAt": "ProcessData",
-  "States": {
-    "ProcessData": {
-      "Type": "Task",
-      "Resource": "arn:aws:lambda:...:function:process",
-      "Next": "StoreResults"
-    },
-    "StoreResults": {
-      "Type": "Task",
-      "Resource": "arn:aws:lambda:...:function:store",
-      "End": true
-    }
-  }
-}</div>
+            "StartAt": "ProcessData",
+            "States": {
+            "ProcessData": {
+            "Type": "Task",
+            "Resource": "arn:aws:lambda:...:function:process",
+            "Next": "StoreResults"
+            },
+            "StoreResults": {
+            "Type": "Task",
+            "Resource": "arn:aws:lambda:...:function:store",
+            "End": true
+            }
+            }
+            }</div>
         </div>
       </div>
 
       <!-- EventBridge -->
       <div class="service-card" id="eventbridge">
         <div class="service-card-header">
-          <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonEventBridge.svg" alt="EventBridge">
+          <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonEventBridge.svg"
+            alt="EventBridge">
           <h3>Amazon EventBridge</h3>
         </div>
         <div class="service-card-body">
           <div class="what-box">
             <h4>What It Does</h4>
-            <p>Serverless event bus that connects applications using events. Routes events from AWS services, SaaS apps, and custom sources to targets.</p>
+            <p>Serverless event bus that connects applications using events. Routes events from AWS services, SaaS apps,
+              and custom sources to targets.</p>
           </div>
           <div class="why-box">
             <h4>Why Use It</h4>
-            <p>Decouples microservices, enables event-driven architectures. Native integration with 200+ AWS services and SaaS partners.</p>
+            <p>Decouples microservices, enables event-driven architectures. Native integration with 200+ AWS services
+              and SaaS partners.</p>
           </div>
           <h4>Components</h4>
           <ul>
@@ -217,13 +246,15 @@
             </div>
             <span class="arch-arrow">→</span>
             <div class="service-node">
-              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonEventBridge.svg" alt="EventBridge">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonEventBridge.svg"
+                alt="EventBridge">
               <span class="label">EventBridge</span>
               <span class="sublabel">Bus</span>
             </div>
             <span class="arch-arrow">→</span>
             <div class="service-node">
-              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AWSLambda.svg" alt="Lambda">
+              <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AWSLambda.svg"
+                alt="Lambda">
               <span class="label">Lambda</span>
               <span class="sublabel">Target</span>
             </div>
@@ -237,7 +268,9 @@
   <script src="../../app.js"></script>
   <script src="aws.js"></script>
   <button id="scrollToTop" class="scroll-to-top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
   </button>
   <script>
     const scrollToTopBtn = document.getElementById('scrollToTop');
@@ -245,4 +278,5 @@
     scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   </script>
 </body>
+
 </html>
