@@ -137,11 +137,12 @@ pre.code code, .code code, .code-block code {
 .topbar {
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 2000;
   height: var(--topbar-height);
   padding: 0 1.5rem;
   background: var(--glass);
   backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--glass-border);
   box-shadow: none;
   display: flex;
@@ -442,7 +443,7 @@ pre.code code, .code code, .code-block code {
   left: 0;
   width: 100%;
   height: calc(100% - var(--topbar-height));
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.15);
   z-index: 1998;
 }
 

@@ -964,19 +964,18 @@ ctx = <span class="class-name">Context</span>(<span class="class-name">QuickSort
       });
     };
 
-    navItems.forEach((item) => {
-      item.addEventListener("click", function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute("href").substring(1);
-        const target = document.getElementById(targetId);
-        if (!target) return;
-        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
-        window.scrollTo({ top: targetPosition - 100, behavior: "smooth" });
-        history.replaceState(null, "", "#" + targetId);
-        setActiveNav(targetId);
-        closeSidebar();
-      });
-    });
+     navItems.forEach((item) => {
+       item.addEventListener("click", function (e) {
+         e.preventDefault();
+         const targetId = this.getAttribute("href").substring(1);
+         const target = document.getElementById(targetId);
+         if (!target) return;
+         const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+         window.scrollTo({ top: targetPosition - 100, behavior: "smooth" });
+         history.replaceState(null, "", "#" + targetId);
+         setActiveNav(targetId);
+       });
+     });
 
     const sectionObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {

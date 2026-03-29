@@ -1,0 +1,29 @@
+/* Cloud mobile styles (max-width: 920px) */
+@media (max-width: 920px) {
+    .topbar {
+        padding: 0.75rem 0.9rem;
+    }
+
+    .topbar .brand {
+        font-size: 1.1rem;
+    }
+
+    .breadcrumb {
+        position: sticky;
+        top: var(--topbar-height);
+        z-index: 1800;
+        padding: 0 1rem;
+    }
+
+    .page-wrap {
+        padding-top: 0.5rem;
+    }
+
+    .track-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        margin-bottom: 1rem;
+    }
+}

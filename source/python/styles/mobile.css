@@ -1,0 +1,23 @@
+/* Python mobile styles */
+@media (max-width: 920px) {
+    .topbar {
+        padding: 0.7rem 0.9rem;
+    }
+
+    .breadcrumb {
+        position: sticky;
+        top: var(--topbar-height);
+        z-index: 1800;
+        padding: 0 1rem;
+    }
+
+    .main-content {
+        grid-template-columns: 1fr !important;
+    }
+
+    nav.sidebar {
+        position: fixed;
+        width: 100%;
+        top: calc(var(--topbar-height) + var(--layout-breadcrumb-height));
+    }
+}
