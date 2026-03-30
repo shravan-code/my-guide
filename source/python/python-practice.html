@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Guide | Python Practice</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="python.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" />
+  <style>
+    .practice-grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .practice-card {
+      background: var(--glass);
+      backdrop-filter: blur(var(--glass-blur));
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+    }
+
+    .practice-card-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      cursor: pointer;
+    }
+
+    .q-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+      flex: 1;
+    }
+
+    .q-number {
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      min-width: 36px;
+      height: 36px;
+      background: #ff6b35 !important;
+      color: white !important;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .q-pill {
+      display: inline-flex !important;
+      align-items: center;
+      padding: 0.25rem 0.65rem;
+      background: #4ecdc4 !important;
+      color: #1a1a2e !important;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .expand-icon {
+      color: var(--text-muted);
+      transition: transform 0.2s ease;
+    }
+
+    .expand-icon.expanded {
+      transform: rotate(180deg);
+    }
+
+    .q-content {
+      display: none;
+    }
+
+    .q-content.visible {
+      display: block;
+    }
+
+    .q-answer {
+      background: var(--code-bg);
+      border-left: 3px solid var(--glow-color);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 1rem;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--text);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .answer-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      margin-top: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    code {
+      background: var(--code-bg);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-family: "JetBrains Mono", Consolas, monospace;
+      font-size: 0.85em;
+    }
+
+    pre {
+      background: var(--code-bg);
+      padding: 1rem;
+      border-radius: var(--radius-sm);
+      overflow-x: auto;
+      font-family: "JetBrains Mono", Consolas, monospace;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      margin: 0.5rem 0;
+    }
+
+    .code-block {
+      background: var(--code-bg);
+      border-left: 3px solid var(--glow-color);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 1rem;
+      overflow-x: auto;
+      font-family: "JetBrains Mono", Consolas, monospace;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      margin: 0.5rem 0;
+    }
+
+    .token.comment {
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .token.string {
+      color: var(--code-string);
+    }
+
+    .token.number {
+      color: var(--code-number);
+    }
+
+    .token.keyword {
+      color: var(--code-keyword);
+      font-weight: 600;
+    }
+
+    .token.builtin {
+      color: var(--code-function);
+    }
+
+    .token.function {
+      color: var(--code-function);
+    }
+
+    .token.operator {
+      color: var(--code-keyword);
+    }
+
+    .token.punctuation {
+      color: var(--text-muted);
+    }
+
+    .token.boolean {
+      color: var(--code-number);
+    }
+
+    .q-explanation {
+      background: var(--glass);
+      border-left: 3px solid var(--primary);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 1rem;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--text);
+      margin: 0.5rem 0;
+    }
+
+    .io-container {
+      display: flex;
+      gap: 1rem;
+      margin: 0.5rem 0;
+    }
+
+    .io-container .io-box {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .io-box {
+      background: var(--glass);
+      backdrop-filter: blur(var(--glass-blur));
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      overflow-x: auto;
+      box-shadow: var(--shadow);
+    }
+
+    .io-box.input-box {
+      border-left: 3px solid var(--glow-color);
+    }
+
+    .io-box.output-box {
+      border-left: 3px solid var(--primary);
+    }
+
+    .io-box code {
+      background: transparent;
+      padding: 0;
+      white-space: pre;
+      display: block;
+      font-family: "JetBrains Mono", Consolas, monospace;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: var(--code-text);
+    }
+
+    .io-box .answer-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+
+    .io-box.input-box .answer-label {
+      color: var(--glow-color);
+    }
+
+    .io-box.output-box .answer-label {
+      color: var(--primary);
+    }
+
+    /* Prism.js Syntax Highlighting */
+    .token.comment {
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .token.string {
+      color: var(--code-string);
+    }
+
+    .token.number {
+      color: var(--code-number);
+    }
+
+    .token.keyword {
+      color: var(--code-keyword);
+      font-weight: 600;
+    }
+
+    .token.builtin {
+      color: var(--code-function);
+    }
+
+    .token.function {
+      color: var(--code-function);
+    }
+
+    .token.operator {
+      color: var(--code-keyword);
+    }
+
+    .token.punctuation {
+      color: var(--text-muted);
+    }
+
+    .token.boolean {
+      color: var(--code-number);
+    }
+
+    /* Line wrappers for code display */
+    .code-line {
+      display: block;
+      min-height: 1.5em;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    @media (max-width: 700px) {
+      .q-content {
+        margin-top: 1rem;
+      }
+
+      .io-container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body class="with-sidebar">
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <header class="topbar glass reveal in">
+    <a class="brand" href="../../index.html">Data Guide</a>
+    <nav class="menu" aria-label="Python menu">
+      <a href="index.html">Hub</a>
+      <a href="python-fundamentals.html">Fundamentals</a>
+      <a href="python-oops.html">OOP</a>
+      <a href="methods.html">Methods</a>
+      <a href="memory-performance.html">Memory</a>
+      <a href="python-practice.html" class="active" aria-current="page">Practice</a>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+      <span class="toggle-icon" aria-hidden="true">☾</span>
+      <span class="toggle-text">Dark</span>
+    </button>
+  </header>
+
+  <nav class="breadcrumb">
+    <a href="../../index.html">Home</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    <a href="index.html">Python</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    <span class="current">Practice</span>
+  </nav>
+
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <main class="main-content">
+    <nav class="sidebar" id="sidebar">
+      <div class="logo">
+        <span class="logo-text">Python Practice</span>
+      </div>
+      <a href="#lists" class="nav-item active" data-filter="lists"><span>1</span> Lists</a>
+      <a href="#dictionaries" class="nav-item" data-filter="dictionaries"><span>2</span> Dictionaries</a>
+      <a href="#strings" class="nav-item" data-filter="strings"><span>3</span> Strings</a>
+      <a href="#numeric" class="nav-item" data-filter="numeric"><span>4</span> Numeric</a>
+      <a href="#sets" class="nav-item" data-filter="sets"><span>5</span> Sets</a>
+      <a href="#tuples" class="nav-item" data-filter="tuples"><span>6</span> Tuples</a>
+      <a href="#mutable" class="nav-item" data-filter="mutable"><span>7</span> Mutable</a>
+      <a href="#immutable" class="nav-item" data-filter="immutable"><span>8</span> Immutable</a>
+    </nav>
+    <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+        <line x1="9" y1="3" x2="9" y2="21"></line>
+      </svg>
+    </button>
+
+    <div class="page-wrap">
+      <section class="hero">
+        <p class="eyebrow">Python Guide</p>
+        <h1>Python Practice</h1>
+        <p class="hero-copy">160 Python Data Science interview questions with detailed answers. Click on any question to
+          see the solution.</p>
+      </section>
+
+      <div class="practice-grid" id="questions-container"></div>
+
+    </div>
+  </main>
+
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  </button>
+
+  <script src="../app.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+  <script>
+    let questions = [];
+
+    function getCategory(topic) {
+      const t = topic.toLowerCase();
+      const mapping = {
+        'lists': 'lists',
+        'dictionaries': 'dictionaries',
+        'strings': 'strings',
+        'numeric': 'numeric',
+        'sets': 'sets',
+        'tuples': 'tuples',
+        'mutable': 'mutable',
+        'immutable': 'immutable'
+      };
+      return mapping[t] || 'lists';
+    }
+
+    fetch('python-questions.json')
+      .then(res => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then(data => {
+        questions = data.map((q, idx) => ({
+          ...q,
+          number: idx + 1,
+          category: getCategory(q.category || q.topic || 'lists')
+        }));
+        initPractice();
+      })
+      .catch(err => {
+        console.error('Failed to load questions:', err);
+        const errorContainer = document.getElementById('questions-container');
+        if (errorContainer) {
+          errorContainer.innerHTML = '<p style="color: var(--text-muted);">Failed to load questions. Please try again later.</p>';
+        }
+      });
+
+    function initPractice() {
+      const container = document.getElementById('questions-container');
+      const sidebarItems = document.querySelectorAll('.sidebar .nav-item');
+      let currentFilter = 'lists';
+
+      function escapeHtml(text) {
+        if (!text) return '';
+        return text
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+
+      function highlightPython(code) {
+        if (!code) return '';
+        return Prism.highlight(code, Prism.languages.python, 'python');
+      }
+
+      function normalizeText(str) {
+        if (!str) return '';
+        return str.replace(/\n\s*/g, ' ').trim();
+      }
+
+      function renderQuestions(filter = 'all') {
+        const filtered = questions.filter(q => {
+          return filter === 'all' || q.category === filter;
+        });
+
+        container.innerHTML = filtered.map(q => `
+            <div class="practice-card" id="q${q.number}" data-category="${q.category}">
+              <div class="practice-card-header" onclick="toggleCard(${q.number})">
+                <span class="q-number">${q.number}</span>
+                <span class="q-title">${normalizeText(q.question)}</span>
+                <span class="q-pill">${q.category}</span>
+                <svg class="expand-icon" id="icon-${q.number}" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+              <div class="q-content" id="content-${q.number}">
+                <div class="answer-label">Input Code</div>
+                <pre class="code-block"><code class="language-python">${highlightPython(q.input)}</code></pre>
+                <div class="answer-label">Output</div>
+                <pre class="code-block"><code class="language-python">${highlightPython(q.output)}</code></pre>
+                <div class="answer-label">Explanation</div>
+                <div class="q-explanation">${normalizeText(q.explanation)}</div>
+              </div>
+            </div>
+           `).join('');
+        Prism.highlightAllUnder(container);
+      }
+
+      window.toggleCard = function (num) {
+        const content = document.getElementById(`content-${num}`);
+        const icon = document.getElementById(`icon-${num}`);
+        content.classList.toggle('visible');
+        icon.classList.toggle('expanded');
+      };
+
+      // Sidebar click handlers
+      sidebarItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          sidebarItems.forEach(i => i.classList.remove('active'));
+          item.classList.add('active');
+          currentFilter = item.dataset.filter;
+          renderQuestions(currentFilter);
+          // Close mobile sidebar after selection
+          document.body.classList.remove('sidebar-open');
+        });
+      });
+
+      // Handle hash changes
+      function handleHash() {
+        const hash = window.location.hash.slice(1);
+        if (hash) {
+          const matchingItem = document.querySelector(`.sidebar .nav-item[data-filter="${hash}"]`);
+          if (matchingItem) {
+            sidebarItems.forEach(i => i.classList.remove('active'));
+            matchingItem.classList.add('active');
+            currentFilter = hash;
+            renderQuestions(currentFilter);
+          }
+        } else {
+          renderQuestions('lists');
+        }
+      }
+
+      window.addEventListener('hashchange', handleHash);
+      handleHash();
+
+      // Scroll to top functionality
+      const scrollToTopBtn = document.getElementById('scrollToTop');
+
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+          scrollToTopBtn.classList.add('visible');
+        } else {
+          scrollToTopBtn.classList.remove('visible');
+        }
+      });
+
+      scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    }
+  </script>
+</body>
+
+</html>

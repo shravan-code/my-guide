@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Guide | SQL Roadmap</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../hub.css" />
+  <link rel="stylesheet" href="roadmap.css" />
+  <style>
+    :root {
+      --roadmap-phase-start: #f59e0b;
+      --roadmap-phase-end: #f97316;
+      --roadmap-phase-shadow: rgba(245, 158, 11, 0.3);
+      --roadmap-phase-start-dark: #fbbf24;
+      --roadmap-phase-end-dark: #fb923c;
+      --roadmap-phase-shadow-dark: rgba(251, 191, 36, 0.25);
+      --roadmap-link: #f59e0b;
+      --roadmap-link-dark: #fbbf24;
+      --roadmap-required-bg: rgba(245, 158, 11, 0.12);
+      --roadmap-required-border: rgba(245, 158, 11, 0.3);
+      --roadmap-required-text: #f59e0b;
+      --roadmap-required-bg-dark: rgba(251, 191, 36, 0.15);
+      --roadmap-required-border-dark: rgba(251, 191, 36, 0.3);
+      --roadmap-required-text-dark: #fbbf24;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <header class="topbar glass reveal in">
+    <a class="brand" href="../../index.html">
+      
+      Data Guide
+    </a>
+    <nav class="menu" aria-label="Main menu">
+      <a href="roadmap.html">Data Engineering</a>
+      <a href="python-roadmap.html">Python</a>
+      <a href="sql-roadmap.html" class="active" aria-current="page">SQL</a>
+      <a href="spark-roadmap.html">Spark</a>
+      <a href="ml-engineer-roadmap.html">ML Engineer</a>
+      <a href="ai-engineer-roadmap.html">AI Engineer</a>
+    </nav>
+    <div class="header-actions">
+      <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle mobile menu">
+        <span class="hamburger-icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+        <span class="toggle-icon" aria-hidden="true">☾</span>
+        <span class="toggle-text">Dark</span>
+      </button>
+    </div>
+  </header>
+
+  <div id="mobile-menu" class="mobile-menu">
+    <nav class="mobile-nav" aria-label="Roadmap mobile menu">
+      <a href="roadmap.html">Data Engineering</a>
+      <a href="python-roadmap.html">Python</a>
+      <a href="sql-roadmap.html" class="active" aria-current="page">SQL</a>
+      <a href="spark-roadmap.html">Spark</a>
+      <a href="ml-engineer-roadmap.html">ML Engineer</a>
+      <a href="ai-engineer-roadmap.html">AI Engineer</a>
+    </nav>
+  </div>
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
+
+  <nav class="breadcrumb">
+    <a href="../../index.html">Home</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    <a href="roadmap.html">Roadmaps</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    <span class="current">SQL</span>
+  </nav>
+
+  <main>
+    <div class="page-wrap">
+      <section class="hero">
+        <p class="eyebrow">Your Learning Path</p>
+        <h1>SQL Roadmap</h1>
+        <p class="hero-copy">Master SQL from basics to advanced analytics. Learn querying, optimization, modeling, and
+          window functions.</p>
+      </section>
+
+      <div class="roadmap-container">
+
+        <!-- Phase 1: SQL Basics -->
+        <div class="roadmap-phase">
+          <div class="phase-connector"></div>
+          <div class="phase-header">
+            <div class="phase-number">1</div>
+            <div>
+              <h2 id="sql-basics" class="phase-title">SQL Basics</h2>
+              <p class="phase-description">Learn the fundamentals of SQL querying</p>
+            </div>
+          </div>
+          <div class="topic-grid">
+            <div class="topic-card">
+              <h4><a href="../sql/sql-queries.html">SELECT, FROM, WHERE</a></h4>
+              <p>Basic data retrieval and filtering.</p>
+              <ul>
+                <li>SELECT statement</li>
+                <li>FROM clause</li>
+                <li>WHERE with conditions</li>
+                <li>Basic operators (=, <,>, !=)</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4><a href="../sql/sql-queries.html">ORDER BY, LIMIT</a></h4>
+              <p>Sorting and limiting results.</p>
+              <ul>
+                <li>ASC and DESC ordering</li>
+                <li>Multiple column sorting</li>
+                <li>LIMIT and TOP clauses</li>
+                <li>OFFSET for pagination</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4><a href="../sql/sql-queries.html">DISTINCT, Aliases</a></h4>
+              <p>Remove duplicates and rename columns.</p>
+              <ul>
+                <li>DISTINCT keyword</li>
+                <li>Column aliases (AS)</li>
+                <li>Table aliases</li>
+                <li>Quotes for identifiers</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4><a href="../sql/sql-concepts.html">Comparison & Logical Operators</a></h4>
+              <p>Advanced filtering with operators.</p>
+              <ul>
+                <li>AND, OR, NOT</li>
+                <li>IN, BETWEEN, LIKE</li>
+                <li>IS NULL, IS NOT NULL</li>
+                <li>Wildcards (%, _)</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 2: Filtering & Functions -->
+        <div class="roadmap-phase">
+          <div class="phase-connector"></div>
+          <div class="phase-header">
+            <div class="phase-number">2</div>
+            <div>
+              <h2 id="filtering-functions" class="phase-title">Filtering & Functions</h2>
+              <p class="phase-description">Transform and aggregate data effectively</p>
+            </div>
+          </div>
+          <div class="topic-grid">
+            <div class="topic-card">
+              <h4><a href="../sql/sql-methods.html">String Functions</a></h4>
+              <p>Manipulate text data.</p>
+              <ul>
+                <li>CONCAT and ||</li>
+                <li>SUBSTRING/SUBSTR</li>
+                <li>LENGTH/LEN</li>
+                <li>UPPER, LOWER, TRIM</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4><a href="../sql/sql-methods.html">Date Functions</a></h4>
+              <p>Work with date and time data.</p>
+              <ul>
+                <li>NOW, CURRENT_TIMESTAMP</li>
+                <li>DATEADD/DATE_ADD</li>
+                <li>DATEDIFF</li>
+                <li>EXTRACT, DATE_TRUNC</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4><a href="../sql/sql-methods.html">Aggregate Functions</a></h4>
+              <p>Calculate summary statistics.</p>
+              <ul>
+                <li>COUNT, COUNT(*)</li>
+                <li>SUM, AVG</li>
+                <li>MIN, MAX</li>
+                <li>DISTINCT within aggregates</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4><a href="../sql/sql-queries.html">GROUP BY and HAVING</a></h4>
+              <p>Group and filter aggregated data.</p>
+              <ul>
+                <li>GROUP BY clause</li>
+                <li>HAVING for group filtering</li>
+                <li>Multiple grouping columns</li>
+                <li>ROLLUP, CUBE (advanced)</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 3: JOINs -->
+        <div class="roadmap-phase">
+          <div class="phase-connector"></div>
+          <div class="phase-header">
+            <div class="phase-number">3</div>
+            <div>
+              <h2 id="joins" class="phase-title">JOINs</h2>
+              <p class="phase-description">Combine data from multiple tables</p>
+            </div>
+          </div>
+          <div class="topic-grid">
+            <div class="topic-card">
+              <h4><a href="../sql/sql-joins.html">INNER JOIN</a></h4>
+              <p>Match rows from both tables.</p>
+              <ul>
+                <li>INNER JOIN syntax</li>
+                <li>ON clause with conditions</li>
+                <li>Multiple table joins</li>
+                <li>Join vs subquery performance</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4><a href="../sql/sql-joins.html">LEFT/RIGHT OUTER JOIN</a></h4>
+              <p>Keep all rows from one table.</p>
+              <ul>
+                <li>LEFT OUTER JOIN</li>
+                <li>RIGHT OUTER JOIN</li>
+                <li>Finding unmatched records</li>
+                <li>CHECK for NULL patterns</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4><a href="../sql/sql-joins.html">FULL OUTER JOIN</a></h4>
+              <p>Keep all rows from both tables.</p>
+              <ul>
+                <li>FULL OUTER JOIN syntax</li>
+                <li>When to use FULL vs LEFT/RIGHT</li>
+                <li>Simulating with UNION</li>
+                <li>Cross-database joins</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4><a href="../sql/sql-joins.html">CROSS JOIN & Self-Joins</a></h4>
+              <p>Cartesian products and table self-reference.</p>
+              <ul>
+                <li>CROSS JOIN (Cartesian product)</li>
+                <li>Self-joins for hierarchical data</li>
+                <li>NON-EQUI joins</li>
+                <li>NATURAL JOIN (use cautiously)</li>
+              </ul>
+              <span class="skill-badge nice-to-have">Nice to Have</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 4: Subqueries & CTEs -->
+        <div class="roadmap-phase">
+          <div class="phase-connector"></div>
+          <div class="phase-header">
+            <div class="phase-number">4</div>
+            <div>
+              <h2 id="subqueries-ctes" class="phase-title">Subqueries & CTEs</h2>
+              <p class="phase-description">Nest queries and improve readability</p>
+            </div>
+          </div>
+          <div class="topic-grid">
+            <div class="topic-card">
+              <h4><a href="../sql/sql-subqueries.html">Scalar Subqueries</a></h4>
+              <p>Return a single value in queries.</p>
+              <ul>
+                <li>Subquery in SELECT</li>
+                <li>Subquery in WHERE</li>
+                <li>Subquery in FROM</li>
+                <li>Performance considerations</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4><a href="../sql/sql-subqueries.html">Correlated Subqueries</a></h4>
+              <p>Reference outer query from subquery.</p>
+              <ul>
+                <li>EXISTS and NOT EXISTS</li>
+                <li>Correlated vs non-correlated</li>
+                <li>Performance implications</li>
+                <li>Alternative with JOINs</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4><a href="../sql/sql-subqueries.html">Common Table Expressions (WITH)</a></h4>
+              <p>Improve readability with named temporary results.</p>
+              <ul>
+                <li>WITH clause syntax</li>
+                <li>Multiple CTEs</li>
+                <li>CTE vs subquery</li>
+                <li>Materialized hints (PostgreSQL)</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4><a href="../sql/sql-subqueries.html">Recursive CTEs</a></h4>
+              <p>Query hierarchical and graph data.</p>
+              <ul>
+                <li>Anchor and recursive members</li>
+                <li>UNION ALL in recursion</li>
+                <li>Termination conditions</li>
+                <li>Tree and graph traversal</li>
+              </ul>
+              <span class="skill-badge nice-to-have">Nice to Have</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 5: Window Functions -->
+        <div class="roadmap-phase">
+          <div class="phase-connector"></div>
+          <div class="phase-header">
+            <div class="phase-number">5</div>
+            <div>
+              <h2 id="window-functions" class="phase-title">Window Functions</h2>
+              <p class="phase-description">Perform calculations across sets of rows</p>
+            </div>
+          </div>
+          <div class="topic-grid">
+            <div class="topic-card">
+              <h4><a href="../sql/sql-windows.html">ROW_NUMBER, RANK, DENSE_RANK</a></h4>
+              <p>Rank and number rows in result sets.</p>
+              <ul>
+                <li>ROW_NUMBER() unique ranking</li>
+                <li>RANK() with gaps</li>
+                <li>DENSE_RANK() without gaps</li>
+                <li>NTILE for bucketing</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4><a href="../sql/sql-windows.html">LAG, LEAD, FIRST_VALUE, LAST_VALUE</a></h4>
+              <p>Access adjacent and boundary rows.</p>
+              <ul>
+                <li>LAG() previous row value</li>
+                <li>LEAD() next row value</li>
+                <li>FIRST_VALUE() and LAST_VALUE()</li>
+                <li>Default values with LAG/LEAD</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4><a href="../sql/sql-windows.html">PARTITION BY and ORDER BY</a></h4>
+              <p>Define window frames for calculations.</p>
+              <ul>
+                <li>PARTITION BY clause</li>
+                <li>ORDER BY in window</li>
+                <li>Frame specifications (ROWS, RANGE)</li>
+                <li>UNBOUNDED and CURRENT ROW</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4><a href="../sql/sql-windows.html">Running Totals & Moving Averages</a></h4>
+              <p>Calculate cumulative and rolling metrics.</p>
+              <ul>
+                <li>SUM() OVER for running totals</li>
+                <li>AVG() OVER for moving averages</li>
+                <li>COUNT() OVER for running counts</li>
+                <li>Custom window frames</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 6: Data Modeling -->
+        <div class="roadmap-phase">
+          <div class="phase-connector"></div>
+          <div class="phase-header">
+            <div class="phase-number">6</div>
+            <div>
+              <h2 id="data-modeling" class="phase-title">Data Modeling</h2>
+              <p class="phase-description">Design efficient and scalable schemas</p>
+            </div>
+          </div>
+          <div class="topic-grid">
+            <div class="topic-card">
+              <h4><a href="../sql/sql-modelling.html">Normalization (1NF, 2NF, 3NF, BCNF)</a></h4>
+              <p>Organize data to reduce redundancy.</p>
+              <ul>
+                <li>First Normal Form (1NF)</li>
+                <li>Second Normal Form (2NF)</li>
+                <li>Third Normal Form (3NF)</li>
+                <li>Boyce-Codd Normal Form (BCNF)</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4><a href="../sql/sql-modelling.html">Star and Snowflake Schemas</a></h4>
+              <p>Design for analytical workloads.</p>
+              <ul>
+                <li>Fact and dimension tables</li>
+                <li>Star schema structure</li>
+                <li>Snowflake schema (normalized)</li>
+                <li>When to use each pattern</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4><a href="../sql/sql-modelling.html">Surrogate vs Natural Keys</a></h4>
+              <p>Choose appropriate primary keys.</p>
+              <ul>
+                <li>Natural keys (business data)</li>
+                <li>Surrogate keys (generated)</li>
+                <li>Surrogate key benefits</li>
+                <li>Composite primary keys</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4><a href="../sql/sql-modelling.html">Slowly Changing Dimensions</a></h4>
+              <p>Track historical changes in dimension data.</p>
+              <ul>
+                <li>Type 1 (overwrite)</li>
+                <li>Type 2 (add new row)</li>
+                <li>Type 3 (add new column)</li>
+                <li>Type 6 (hybrid approach)</li>
+              </ul>
+              <span class="skill-badge nice-to-have">Nice to Have</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 7: Performance Optimization -->
+        <div class="roadmap-phase">
+          <div class="phase-connector"></div>
+          <div class="phase-header">
+            <div class="phase-number">7</div>
+            <div>
+              <h2 id="performance-optimization" class="phase-title">Performance Optimization</h2>
+              <p class="phase-description">Make queries run faster and more efficiently</p>
+            </div>
+          </div>
+          <div class="topic-grid">
+            <div class="topic-card">
+              <h4><a href="../sql/sql-concepts.html">Indexes (B-tree, Hash, Composite)</a></h4>
+              <p>Speed up data retrieval operations.</p>
+              <ul>
+                <li>B-tree indexes (default)</li>
+                <li>Hash indexes</li>
+                <li>Composite (multi-column) indexes</li>
+                <li>Covering indexes</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4><a href="../sql/sql-concepts.html">EXPLAIN and Query Plans</a></h4>
+              <p>Analyze how queries execute.</p>
+              <ul>
+                <li>EXPLAIN / EXPLAIN ANALYZE</li>
+                <li>Reading query execution plans</li>
+                <li>Sequential vs index scans</li>
+                <li>Join algorithms (NLJ, HJ, SMJ)</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+            <div class="topic-card">
+              <h4><a href="../sql/sql-concepts.html">Partitioning Strategies</a></h4>
+              <p>Divide large tables for better performance.</p>
+              <ul>
+                <li>Range partitioning</li>
+                <li>List partitioning</li>
+                <li>Hash partitioning</li>
+                <li>Subpartitioning</li>
+              </ul>
+              <span class="skill-badge nice-to-have">Nice to Have</span>
+            </div>
+            <div class="topic-card">
+              <h4><a href="../sql/sql-concepts.html">Query Optimization Techniques</a></h4>
+              <p>Best practices for writing efficient SQL.</p>
+              <ul>
+                <li>Index-friendly WHERE clauses</li>
+                <li>Avoiding SELECT *</li>
+                <li>Using EXISTS vs IN</li>
+                <li>Correlated subquery optimization</li>
+              </ul>
+              <span class="skill-badge required">Required</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 8: Advanced SQL -->
+        <div class="roadmap-phase">
+          <div class="phase-header">
+            <div class="phase-number">8</div>
+            <div>
+              <h2 id="advanced-sql" class="phase-title">Advanced SQL</h2>
+              <p class="phase-description">Specialized features for complex scenarios</p>
+            </div>
+          </div>
+          <div class="topic-grid">
+            <div class="topic-card">
+              <h4><a href="../sql/sql-windows.html">Window Frame Specifications</a></h4>
+              <p>Define precise window boundaries.</p>
+              <ul>
+                <li>ROWS BETWEEN</li>
+                <li>RANGE BETWEEN</li>
+                <li>GROUPS (PostgreSQL 11+)</li>
+                <li>Frame exclusions</li>
+              </ul>
+              <span class="skill-badge nice-to-have">Nice to Have</span>
+            </div>
+            <div class="topic-card">
+              <h4><a href="../sql/sql-methods.html">PIVOT and UNPIVOT</a></h4>
+              <p>Transform rows to columns and vice versa.</p>
+              <ul>
+                <li>PIVOT operator (SQL Server)</li>
+                <li>Conditional aggregation</li>
+                <li>UNPIVOT operator</li>
+                <li>Crosstab queries</li>
+              </ul>
+              <span class="skill-badge nice-to-have">Nice to Have</span>
+            </div>
+            <div class="topic-card">
+              <h4><a href="../sql/sql-methods.html">JSON Operations</a></h4>
+              <p>Query and manipulate JSON data.</p>
+              <ul>
+                <li>JSON_EXTRACT, -> operators</li>
+                <li>JSONB in PostgreSQL</li>
+                <li>JSON path queries</li>
+                <li>Creating JSON from rows</li>
+              </ul>
+              <span class="skill-badge nice-to-have">Nice to Have</span>
+            </div>
+            <div class="topic-card">
+              <h4><a href="../sql/sql-methods.html">Full-Text Search</a></h4>
+              <p>Search text content efficiently.</p>
+              <ul>
+                <li>MATCH ... AGAINST (MySQL)</li>
+                <li>tsvector/tsquery (PostgreSQL)</li>
+                <li>CONTAINS (SQL Server)</li>
+                <li>Ranking and highlighting</li>
+              </ul>
+              <span class="skill-badge nice-to-have">Nice to Have</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick Reference Section -->
+      <section class="tracks">
+        <h2 id="quick-reference">Quick Reference</h2>
+        <div class="track-grid">
+          <a href="../sql/index.html" class="track">
+            <h3>SQL Hub</h3>
+            <p>All SQL resources</p>
+          </a>
+          <a href="../sql/sql-queries.html" class="track">
+            <h3>Queries</h3>
+            <p>SELECT, WHERE, GROUP BY</p>
+          </a>
+          <a href="../sql/sql-joins.html" class="track">
+            <h3>JOINs</h3>
+            <p>Combining tables</p>
+          </a>
+          <a href="../sql/sql-subqueries.html" class="track">
+            <h3>Subqueries & CTEs</h3>
+            <p>Nested queries</p>
+          </a>
+          <a href="../sql/sql-windows.html" class="track">
+            <h3>Window Functions</h3>
+            <p>Advanced analytics</p>
+          </a>
+          <a href="../sql/sql-modelling.html" class="track">
+            <h3>Data Modeling</h3>
+            <p>Schema design</p>
+          </a>
+          <a href="../sql/sql-methods.html" class="track">
+            <h3>Functions</h3>
+            <p>String, date, JSON</p>
+          </a>
+          <a href="../sql/sql-concepts.html" class="track">
+            <h3>Concepts</h3>
+            <p>Indexes, optimization</p>
+          </a>
+          <a href="roadmap.html" class="track">
+            <h3>Data Engineering</h3>
+            <p>DE roadmap</p>
+          </a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+</body>
+
+</html>

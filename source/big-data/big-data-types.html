@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Guide | Data Types</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../python/python.css" />
+</head>
+
+<body class="with-sidebar">
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <header class="topbar glass reveal in">
+    <a class="brand" href="../../index.html">Data Guide</a>
+    <nav class="menu" aria-label="Data menu">
+      <a href="index.html">Hub</a>
+      <a href="data-types.html" class="active" aria-current="page">Data Types</a>
+      <a href="data-formats.html">Data Formats</a>
+      <a href="data-quality.html">Data Quality</a>
+      <a href="data-pipeline.html">Data Pipelines</a>
+    </nav>
+    <div class="header-actions">
+      <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle mobile menu">
+        <span class="hamburger-icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+        <span class="toggle-icon" aria-hidden="true">☾</span>
+        <span class="toggle-text">Dark</span>
+      </button>
+    </div>
+  </header>
+
+  <div id="mobile-menu" class="mobile-menu">
+    <nav class="mobile-nav" aria-label="Data mobile menu">
+      <a href="index.html">Hub</a>
+      <a href="data-types.html" class="active" aria-current="page">Data Types</a>
+      <a href="data-formats.html">Data Formats</a>
+      <a href="data-quality.html">Data Quality</a>
+      <a href="data-pipeline.html">Data Pipelines</a>
+    </nav>
+  </div>
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
+
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+  <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+      <line x1="9" y1="3" x2="9" y2="21"></line>
+    </svg>
+  </button>
+
+  <main class="main-content">
+    <nav class="breadcrumb">
+      <a href="../../index.html">Home</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      <a href="index.html">Data</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      <span class="current">Types</span>
+    </nav>
+    <nav class="sidebar" id="sidebar">
+      <div class="logo">
+        <span class="logo-text">Data Types</span>
+      </div>
+
+      <div class="nav-title">Classification</div>
+      <a href="#structured" class="nav-item active"><span>1</span> Structured Data</a>
+      <a href="#semi-structured" class="nav-item"><span>2</span> Semi-Structured</a>
+      <a href="#unstructured" class="nav-item"><span>3</span> Unstructured</a>
+
+      <div class="nav-title">Data Characteristics</div>
+      <a href="#cardinality" class="nav-item"><span>4</span> Cardinality</a>
+      <a href="#dimensionality" class="nav-item"><span>5</span> Dimensionality</a>
+      <a href="#sparsity" class="nav-item"><span>6</span> Sparsity</a>
+
+      <div class="nav-title">Data States</div>
+      <a href="#data-states" class="nav-item"><span>7</span> Data at Rest vs Motion</a>
+      <a href="#data-volumes" class="nav-item"><span>8</span> Data Volumes</a>
+
+      <div class="nav-title">Data Relationships</div>
+      <a href="#one-to-one" class="nav-item"><span>9</span> One-to-One</a>
+      <a href="#one-to-many" class="nav-item"><span>10</span> One-to-Many</a>
+      <a href="#many-to-many" class="nav-item"><span>11</span> Many-to-Many</a>
+    </nav>
+
+    <div class="page-wrap">
+      <section class="hero">
+        <h1>Data Types</h1>
+        <p class="hero-copy">A focused guide to Data Types.</p>
+      </section>
+
+      <!-- Section 1: Structured Data -->
+      <section class="topic-section" id="structured">
+        <h2> Structured Data <span class="level-badge basic">Basic</span> </h2>
+        <p>Structured data is organized in a fixed schema with predefined rows and columns. It fits neatly into relational databases and spreadsheets.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Characteristics</h4>
+            <ul>
+              <li><strong>Schema:</strong> Predefined and rigid</li>
+              <li><strong>Storage:</strong> Relational databases (RDBMS)</li>
+              <li><strong>Query:</strong> SQL</li>
+              <li><strong>Examples:</strong> Customer records, transactions, inventory</li>
+            </ul>
+          </div>
+          <div class="split-item">
+            <h4>Example Structure</h4>
+            <div class="code-block">
+<code><span class="comment">-- Relational table structure</span>
+customers (
+    id          <span class="keyword">INTEGER PRIMARY KEY</span>,
+    name        <span class="keyword">VARCHAR</span>(100),
+    email       <span class="keyword">VARCHAR</span>(255),
+    created_at  <span class="keyword">TIMESTAMP</span>
+)
+
+<span class="comment">-- Excel/CSV structure</span>
+id,name,email,created_at
+1,Alice,alice@co.com,2024-01-15
+2,Bob,bob@co.com,2024-02-20
+            </code>
+            </div>
+          </div>
+        </div>
+
+        <div class="flowchart">
+          <h3>Structured Data Storage</h3>
+          <div class="flow-row">
+            <span class="flow-node">Data Source</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Schema Definition</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">RDBMS</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">SQL Queries</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: Semi-Structured Data -->
+      <section class="topic-section" id="semi-structured">
+        <h2> Semi-Structured Data <span class="level-badge basic">Basic</span> </h2>
+        <p>Semi-structured data has some organizational properties (tags, markers) but doesn't conform to a rigid schema.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Characteristics</h4>
+            <ul>
+              <li><strong>Schema:</strong> Flexible, self-describing</li>
+              <li><strong>Storage:</strong> Document stores, JSON columns</li>
+              <li><strong>Query:</strong> JSONPath, XPath, NoSQL queries</li>
+              <li><strong>Examples:</strong> JSON, XML, YAML, emails</li>
+            </ul>
+          </div>
+          <div class="split-item">
+            <h4>JSON Example</h4>
+            <div class="code-block">
+<code>{
+  <span class="string">"user_id"</span>: <span class="number">123</span>,
+  <span class="string">"name"</span>: <span class="string">"Alice"</span>,
+  <span class="string">"address"</span>: {
+    <span class="string">"city"</span>: <span class="string">"Seattle"</span>,
+    <span class="string">"state"</span>: <span class="string">"WA"</span>
+  },
+  <span class="string">"tags"</span>: [<span class="string">"premium"</span>, <span class="string">"verified"</span>]
+}
+            </code>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-block">
+<code><span class="comment">-- PostgreSQL JSONB storage</span>
+<span class="keyword">CREATE TABLE</span> user_profiles (
+    id <span class="keyword">SERIAL PRIMARY KEY</span>,
+    profile <span class="keyword">JSONB NOT NULL</span>
+);
+
+<span class="comment">-- Query semi-structured data</span>
+<span class="keyword">SELECT</span>
+    profile <span class="keyword">->></span> <span class="string">'name'</span> <span class="keyword">AS</span> name,
+    profile <span class="keyword">#>></span> <span class="string">'{address,city}'</span> <span class="keyword">AS</span> city
+<span class="keyword">FROM</span> user_profiles
+<span class="keyword">WHERE</span> profile <span class="keyword">@></span> <span class="string">'{"tags":["premium"]}'</span>::<span class="keyword">JSONB</span>;
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 3: Unstructured Data -->
+      <section class="topic-section" id="unstructured">
+        <h2> Unstructured Data <span class="level-badge basic">Basic</span> </h2>
+        <p>Unstructured data has no predefined schema or organization. It requires special processing to extract value.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Characteristics</h4>
+            <ul>
+              <li><strong>Schema:</strong> None</li>
+              <li><strong>Storage:</strong> Data lakes, object storage</li>
+              <li><strong>Processing:</strong> ML, NLP, computer vision</li>
+              <li><strong>Examples:</strong> Text documents, images, video, audio</li>
+            </ul>
+          </div>
+          <div class="split-item">
+            <h4>Examples by Type</h4>
+            <ul>
+              <li><strong>Text:</strong> Emails, social media posts, articles</li>
+              <li><strong>Images:</strong> Photos, satellite imagery, X-rays</li>
+              <li><strong>Audio:</strong> Podcasts, voice recordings, music</li>
+              <li><strong>Video:</strong> Surveillance, meetings, streaming</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="flowchart">
+          <h3>Unstructured Data Processing</h3>
+          <div class="flow-row">
+            <span class="flow-node">Raw Data</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Feature Extraction</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Structured Output</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Analysis</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: Cardinality -->
+      <section class="topic-section" id="cardinality">
+        <h2> Cardinality <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>Cardinality refers to the uniqueness of values in a column. It affects indexing strategy and query performance.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Cardinality Levels</h4>
+            <ul>
+              <li><strong>High:</strong> Nearly unique values (email, UUID)</li>
+              <li><strong>Medium:</strong> Some重复 (city, product category)</li>
+              <li><strong>Low:</strong> Few distinct values (status, boolean)</li>
+              <li><strong>Unique:</strong> Every value is different (primary key)</li>
+            </ul>
+          </div>
+          <div class="split-item">
+            <h4>Analysis Query</h4>
+            <div class="code-block">
+<code><span class="comment">-- Check column cardinality</span>
+<span class="keyword">SELECT</span>
+    <span class="function">COUNT</span>(<span class="keyword">DISTINCT</span> status) <span class="keyword">AS</span> cardinality,
+    <span class="function">COUNT</span>(*) <span class="keyword">AS</span> total_rows,
+    <span class="function">ROUND</span>(
+        <span class="function">COUNT</span>(<span class="keyword">DISTINCT</span> status)::<span class="keyword">DECIMAL</span>
+        / <span class="function">COUNT</span>(*) * <span class="number">100</span>, <span class="number">2</span>
+    ) <span class="keyword">AS</span> uniqueness_pct
+<span class="keyword">FROM</span> orders;
+            </code>
+            </div>
+          </div>
+        </div>
+
+        <div class="flowchart">
+          <h3>Cardinality & Index Strategy</h3>
+          <div class="flow-row">
+            <span class="flow-node">High Cardinality</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">B-tree Index</span>
+          </div>
+          <div class="flow-row" style="margin-top: 0.5rem;">
+            <span class="flow-node">Low Cardinality</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Bitmap Index / GIN</span>
+          </div>
+          <div class="flow-row" style="margin-top: 0.5rem;">
+            <span class="flow-node">Text Search</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">GIN (Full-text)</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 5: Dimensionality -->
+      <section class="topic-section" id="dimensionality">
+        <h2> Dimensionality <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>Dimensionality refers to the number of features or attributes in a dataset. High dimensionality can lead to performance and analysis challenges.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Dimensionality Concepts</h4>
+            <ul>
+              <li><strong>Low-dimensional:</strong> Few columns (2-10)</li>
+              <li><strong>High-dimensional:</strong> Many columns (100+)</li>
+              <li><strong>Curse of Dimensionality:</strong> Distance metrics lose meaning</li>
+              <li><strong>Dimensionality Reduction:</strong> PCA, t-SNE, UMAP</li>
+            </ul>
+          </div>
+          <div class="split-item">
+            <h4>Example Impact</h4>
+            <div class="code-block">
+<code><span class="comment">-- Low-dimensional (easy to query)</span>
+users(id, name, age)
+
+<span class="comment">-- High-dimensional (100+ features)</span>
+<span class="comment">-- Common in ML datasets:</span>
+<span class="comment">-- - User behavior vectors</span>
+<span class="comment">-- - Image embeddings</span>
+<span class="comment">-- - NLP token features</span>
+
+<span class="comment">-- Reduce with PCA in Python</span>
+<span class="comment"># from sklearn.decomposition import PCA</span>
+<span class="comment"># pca = PCA(n_components=10)</span>
+<span class="comment"># reduced = pca.fit_transform(data)</span>
+            </code>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 6: Sparsity -->
+      <section class="topic-section" id="sparsity">
+        <h2> Sparsity <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>Sparsity describes datasets where most values are zero or null. Common in recommendation systems and NLP.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Sparse vs Dense</h4>
+            <div class="code-block">
+<code><span class="comment">-- Dense matrix (most values present)</span>
+[[1, 2, 3],
+ [4, 5, 6],
+ [7, 8, 9]]
+
+<span class="comment">-- Sparse matrix (mostly zeros)</span>
+[[1, 0, 0],
+ [0, 0, 6],
+ [0, 8, 0]]
+            </code>
+            </div>
+          </div>
+          <div class="split-item">
+            <h4>Storage Options</h4>
+            <ul>
+              <li><strong>Compressed Sparse Row (CSR):</strong> Efficient row operations</li>
+              <li><strong>Compressed Sparse Column (CSC):</strong> Efficient column operations</li>
+              <li><strong>Dictionary:</strong> Store only non-zero values</li>
+              <li><strong>PostgreSQL:</strong> JSONB for sparse columns</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="code-block">
+<code><span class="comment">-- Sparse data in PostgreSQL</span>
+<span class="keyword">CREATE TABLE</span> user_preferences (
+    user_id <span class="keyword">INTEGER PRIMARY KEY</span>,
+    preferences <span class="keyword">JSONB DEFAULT</span> <span class="string">'{}'</span>::<span class="keyword">JSONB</span>
+);
+
+<span class="comment">-- Only store non-null preferences</span>
+<span class="keyword">INSERT INTO</span> user_preferences <span class="keyword">VALUES</span>
+    (<span class="number">1</span>, <span class="string">'{"theme": "dark", "lang": "en"}'</span>),
+    (<span class="number">2</span>, <span class="string">'{"notifications": true}'</span>);
+
+<span class="comment">-- Sparse = efficient storage</span>
+<span class="comment">-- Dense = would store null for all other columns</span>
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 7: Data States -->
+      <section class="topic-section" id="data-states">
+        <h2> Data at Rest vs Motion <span class="level-badge basic">Basic</span> </h2>
+        <p>Data exists in different states throughout its lifecycle. Each state requires different handling and security measures.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Data at Rest</h4>
+            <ul>
+              <li>Stored in databases, files, data lakes</li>
+              <li>Encrypted storage (AES-256)</li>
+              <li>Access controls and auditing</li>
+              <li>Backup and recovery procedures</li>
+            </ul>
+          </div>
+          <div class="split-item">
+            <h4>Data in Motion</h4>
+            <ul>
+              <li>Transmitted over networks</li>
+              <li>Encrypted transport (TLS/SSL)</li>
+              <li>API rate limiting</li>
+              <li>Message queuing (Kafka, RabbitMQ)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="flowchart">
+          <h3>Data States in Pipeline</h3>
+          <div class="flow-row">
+            <span class="flow-node">Source (Rest)</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Extract (Motion)</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Staging (Rest)</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Transform (Motion)</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Warehouse (Rest)</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 8: Data Volumes -->
+      <section class="topic-section" id="data-volumes">
+        <h2> Data Volumes <span class="level-badge basic">Basic</span> </h2>
+        <p>Understanding data scale helps choose appropriate storage, processing, and architecture patterns.</p>
+
+        <div class="code-block">
+<code><span class="comment">-- Data volume scale</span>
+<span class="comment">-- Kilobyte (KB)   ~ 1,000 bytes       = 1 page of text</span>
+<span class="comment">-- Megabyte (MB)   ~ 1,000,000 bytes   = 1 book</span>
+<span class="comment">-- Gigabyte (GB)   ~ 1,000,000,000     = 1 movie (HD)</span>
+<span class="comment">-- Terabyte (TB)   ~ 1,000,000,000,000 = 500 hours of HD video</span>
+<span class="comment">-- Petabyte (PB)   ~ 1,000 TB          = 10 years of HD video</span>
+<span class="comment">-- Exabyte (EB)    ~ 1,000 PB          = All words ever spoken</span>
+
+<span class="comment">-- PostgreSQL table size check</span>
+<span class="keyword">SELECT</span>
+    relname <span class="keyword">AS</span> table_name,
+    pg_size_pretty(pg_total_relation_size(relid)) <span class="keyword">AS</span> total_size,
+    pg_size_pretty(pg_relation_size(relid)) <span class="keyword">AS</span> table_size,
+    pg_size_pretty(pg_total_relation_size(relid) - pg_relation_size(relid)) <span class="keyword">AS</span> index_size
+<span class="keyword">FROM</span> pg_catalog.pg_statio_user_tables
+<span class="keyword">ORDER BY</span> pg_total_relation_size(relid) <span class="keyword">DESC</span>;
+        </code>
+        </div>
+
+        <div class="flowchart">
+          <h3>Volume → Tool Selection</h3>
+          <div class="flow-row">
+            <span class="flow-node">&lt; 1 GB</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">SQLite / Postgres</span>
+          </div>
+          <div class="flow-row" style="margin-top: 0.5rem;">
+            <span class="flow-node">1 GB - 1 TB</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">PostgreSQL / MySQL</span>
+          </div>
+          <div class="flow-row" style="margin-top: 0.5rem;">
+            <span class="flow-node">1 TB - 1 PB</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Spark / Data Warehouse</span>
+          </div>
+          <div class="flow-row" style="margin-top: 0.5rem;">
+            <span class="flow-node">&gt; 1 PB</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Distributed Systems</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 9: One-to-One -->
+      <section class="topic-section" id="one-to-one">
+        <h2> One-to-One Relationships <span class="level-badge basic">Basic</span> </h2>
+        <p>Each record in Table A relates to exactly one record in Table B, and vice versa.</p>
+
+        <div class="code-block">
+<code><span class="comment">-- One-to-One: User profile</span>
+<span class="keyword">CREATE TABLE</span> users (
+    id <span class="keyword">SERIAL PRIMARY KEY</span>,
+    username <span class="keyword">VARCHAR</span>(50) <span class="keyword">UNIQUE NOT NULL</span>,
+    email <span class="keyword">VARCHAR</span>(255) <span class="keyword">UNIQUE NOT NULL</span>
+);
+
+<span class="keyword">CREATE TABLE</span> user_profiles (
+    user_id <span class="keyword">INTEGER PRIMARY KEY REFERENCES</span> users(id),
+    bio <span class="keyword">TEXT</span>,
+    avatar_url <span class="keyword">VARCHAR</span>(500),
+    birth_date <span class="keyword">DATE</span>
+);
+
+<span class="comment">-- Query</span>
+<span class="keyword">SELECT</span> u.username, p.bio
+<span class="keyword">FROM</span> users u
+<span class="keyword">JOIN</span> user_profiles p <span class="keyword">ON</span> u.id = p.user_id;
+        </code>
+        </div>
+
+        <div class="flowchart">
+          <h3>One-to-One Structure</h3>
+          <div class="flow-row">
+            <span class="flow-node">users [1]</span>
+            <span class="flow-arrow">↔</span>
+            <span class="flow-node">[1] user_profiles</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 10: One-to-Many -->
+      <section class="topic-section" id="one-to-many">
+        <h2> One-to-Many Relationships <span class="level-badge basic">Basic</span> </h2>
+        <p>The most common relationship type. One record in Table A relates to many records in Table B.</p>
+
+        <div class="code-block">
+<code><span class="comment">-- One-to-Many: Customer to Orders</span>
+<span class="keyword">CREATE TABLE</span> customers (
+    id <span class="keyword">SERIAL PRIMARY KEY</span>,
+    name <span class="keyword">VARCHAR</span>(100) <span class="keyword">NOT NULL</span>
+);
+
+<span class="keyword">CREATE TABLE</span> orders (
+    id <span class="keyword">SERIAL PRIMARY KEY</span>,
+    customer_id <span class="keyword">INTEGER REFERENCES</span> customers(id),
+    order_date <span class="keyword">DATE DEFAULT</span> <span class="function">CURRENT_DATE</span>,
+    total <span class="keyword">DECIMAL</span>(10,2)
+);
+
+<span class="comment">-- Query: Orders per customer</span>
+<span class="keyword">SELECT</span>
+    c.name,
+    <span class="function">COUNT</span>(o.id) <span class="keyword">AS</span> order_count,
+    <span class="function">SUM</span>(o.total) <span class="keyword">AS</span> total_spent
+<span class="keyword">FROM</span> customers c
+<span class="keyword">LEFT JOIN</span> orders o <span class="keyword">ON</span> c.id = o.customer_id
+<span class="keyword">GROUP BY</span> c.id, c.name;
+        </code>
+        </div>
+
+        <div class="flowchart">
+          <h3>One-to-Many Structure</h3>
+          <div class="flow-row">
+            <span class="flow-node">customers [1]</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">[*] orders</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 11: Many-to-Many -->
+      <section class="topic-section" id="many-to-many">
+        <h2> Many-to-Many Relationships <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>Records in both tables can relate to multiple records in the other. Requires a junction table.</p>
+
+        <div class="code-block">
+<code><span class="comment">-- Many-to-Many: Students and Courses</span>
+<span class="keyword">CREATE TABLE</span> students (
+    id <span class="keyword">SERIAL PRIMARY KEY</span>,
+    name <span class="keyword">VARCHAR</span>(100)
+);
+
+<span class="keyword">CREATE TABLE</span> courses (
+    id <span class="keyword">SERIAL PRIMARY KEY</span>,
+    title <span class="keyword">VARCHAR</span>(200),
+    credits <span class="keyword">INTEGER</span>
+);
+
+<span class="comment">-- Junction table</span>
+<span class="keyword">CREATE TABLE</span> enrollments (
+    student_id <span class="keyword">INTEGER REFERENCES</span> students(id),
+    course_id <span class="keyword">INTEGER REFERENCES</span> courses(id),
+    enrolled_at <span class="keyword">TIMESTAMPTZ DEFAULT</span> <span class="function">NOW</span>(),
+    grade <span class="keyword">CHAR</span>(2),
+    <span class="keyword">PRIMARY KEY</span> (student_id, course_id)
+);
+
+<span class="comment">-- Query: Courses per student</span>
+<span class="keyword">SELECT</span>
+    s.name,
+    <span class="function">STRING_AGG</span>(c.title, <span class="string">', '</span>) <span class="keyword">AS</span> courses
+<span class="keyword">FROM</span> students s
+<span class="keyword">JOIN</span> enrollments e <span class="keyword">ON</span> s.id = e.student_id
+<span class="keyword">JOIN</span> courses c <span class="keyword">ON</span> e.course_id = c.id
+<span class="keyword">GROUP BY</span> s.id, s.name;
+        </code>
+        </div>
+
+        <div class="flowchart">
+          <h3>Many-to-Many Structure</h3>
+          <div class="flow-row">
+            <span class="flow-node">students [*]</span>
+            <span class="flow-arrow">←→</span>
+            <span class="flow-node">enrollments</span>
+            <span class="flow-arrow">←→</span>
+            <span class="flow-node">courses [*]</span>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+</body>
+</html>

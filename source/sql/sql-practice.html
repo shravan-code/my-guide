@@ -29,9 +29,9 @@
     .practice-card-header {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 0.75rem;
       margin-bottom: 1rem;
-      cursor: pointer;
+      flex-wrap: wrap;
     }
     
     .q-title {
@@ -70,6 +70,32 @@
       flex-shrink: 0;
     }
     
+    .nav-count {
+      margin-left: auto;
+      padding: 0.15rem 0.5rem;
+      background: rgba(255, 107, 53, 0.15);
+      color: #ff6b35;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      min-width: 24px;
+      text-align: center;
+    }
+    
+    .nav-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 22px;
+      height: 22px;
+      background: rgba(255, 107, 53, 0.1);
+      color: #ff6b35;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      margin-right: 0.5rem;
+    }
+    
     .expand-icon {
       color: var(--text-muted);
       transition: transform 0.2s ease;
@@ -80,10 +106,6 @@
     }
     
     .q-content {
-      display: none;
-    }
-    
-    .q-content.visible {
       display: block;
     }
     
@@ -103,16 +125,31 @@
       font-family: "JetBrains Mono", Consolas, monospace;
       font-size: 0.85rem;
       line-height: 1.6;
-      white-space: pre;
-      word-break: break-word;
-      overflow-x: auto;
       color: var(--code-text);
+      overflow-x: auto;
     }
     
-    .query-block code {
+    .query-block pre {
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      border: none;
+      white-space: pre;
+      overflow-wrap: normal;
+      overflow-x: auto;
+      font-family: inherit;
+      font-size: inherit;
+      line-height: inherit;
+      color: inherit;
+    }
+    
+    .query-block pre code {
       font-family: inherit;
       font-size: inherit;
       background: transparent;
+      white-space: pre;
+      padding: 0;
+      color: inherit;
     }
     
     .query-block .keyword {
@@ -183,6 +220,67 @@
       background: rgba(0, 0, 0, 0.1);
     }
     
+    .data-text {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      margin-bottom: 1.5rem;
+      font-family: "JetBrains Mono", Consolas, monospace;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: var(--code-text);
+      overflow-x: auto;
+      white-space: pre;
+    }
+    
+    .io-block {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .io-block.side-by-side {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .io-block.side-by-side .io-panel {
+      flex: 1;
+      min-width: 0;
+    }
+    
+    .io-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .io-block .data-text {
+      margin-bottom: 0;
+      background: rgba(0, 0, 0, 0.2);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .data-text.error {
+      color: #ff6b35;
+    }
+    
+    .loading-state {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-muted);
+    }
+    
+    .loading-state p {
+      font-size: 1.1rem;
+    }
+    
     @media (max-width: 700px) {
       .q-content {
         padding-left: 0;
@@ -197,8 +295,18 @@
       .data-table td {
         padding: 0.35rem 0.5rem;
       }
+      
+      .data-text {
+        font-size: 0.75rem;
+        padding: 0.5rem;
+      }
+      
+      .io-block.side-by-side {
+        flex-direction: column;
+      }
     }
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" />
 </head>
 
 <body class="with-sidebar">
@@ -219,11 +327,35 @@
       <a href="sql-methods.html">Methods</a>
       <a href="sql-practice.html" class="active" aria-current="page">Practice</a>
     </nav>
-    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
-      <span class="toggle-icon" aria-hidden="true">☾</span>
-      <span class="toggle-text">Dark</span>
-    </button>
+    <div class="header-actions">
+      <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle mobile menu">
+        <span class="hamburger-icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+        <span class="toggle-icon" aria-hidden="true">☾</span>
+        <span class="toggle-text">Dark</span>
+      </button>
+    </div>
   </header>
+
+  <div id="mobile-menu" class="mobile-menu">
+    <nav class="mobile-nav" aria-label="SQL mobile menu">
+      <a href="index.html">Hub</a>
+      <a href="sql-concepts.html">Concepts</a>
+      <a href="sql-modelling.html">Modelling</a>
+      <a href="sql-queries.html">Queries</a>
+      <a href="sql-joins.html">Joins</a>
+      <a href="sql-subqueries.html">Subqueries</a>
+      <a href="sql-windows.html">Windows</a>
+      <a href="sql-methods.html">Methods</a>
+      <a href="sql-practice.html" class="active" aria-current="page">Practice</a>
+    </nav>
+  </div>
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
 
   <div id="sidebar-overlay" class="sidebar-overlay"></div>
 
@@ -232,15 +364,15 @@
       <div class="logo">
         <span class="logo-text">SQL Practice</span>
       </div>
-      <a href="#basics" class="nav-item active" data-filter="basics"><span>1</span> Basics</a>
-      <a href="#aggregation" class="nav-item" data-filter="aggregation"><span>2</span> Aggregation</a>
-      <a href="#joins" class="nav-item" data-filter="joins"><span>3</span> Joins</a>
-      <a href="#subqueries" class="nav-item" data-filter="subqueries"><span>4</span> Subqueries</a>
-      <a href="#window" class="nav-item" data-filter="window"><span>5</span> Window Functions</a>
-      <a href="#dates" class="nav-item" data-filter="dates"><span>6</span> Dates</a>
-      <a href="#strings" class="nav-item" data-filter="strings"><span>7</span> Strings</a>
-      <a href="#recursion" class="nav-item" data-filter="recursion"><span>8</span> Recursion</a>
-      <a href="#pivot" class="nav-item" data-filter="pivot"><span>9</span> Pivot/Unpivot</a>
+      <a href="#basics" class="nav-item active" data-filter="basics"><span class="nav-num">1</span> Basics <span class="nav-count" data-count="basics">0</span></a>
+      <a href="#aggregation" class="nav-item" data-filter="aggregation"><span class="nav-num">2</span> Aggregation <span class="nav-count" data-count="aggregation">0</span></a>
+      <a href="#joins" class="nav-item" data-filter="joins"><span class="nav-num">3</span> Joins <span class="nav-count" data-count="joins">0</span></a>
+      <a href="#subqueries" class="nav-item" data-filter="subqueries"><span class="nav-num">4</span> Subqueries <span class="nav-count" data-count="subqueries">0</span></a>
+      <a href="#window" class="nav-item" data-filter="window"><span class="nav-num">5</span> Window Functions <span class="nav-count" data-count="window">0</span></a>
+      <a href="#dates" class="nav-item" data-filter="dates"><span class="nav-num">6</span> Dates <span class="nav-count" data-count="dates">0</span></a>
+      <a href="#strings" class="nav-item" data-filter="strings"><span class="nav-num">7</span> Strings <span class="nav-count" data-count="strings">0</span></a>
+      <a href="#recursion" class="nav-item" data-filter="recursion"><span class="nav-num">8</span> Recursion <span class="nav-count" data-count="recursion">0</span></a>
+      <a href="#pivot" class="nav-item" data-filter="pivot"><span class="nav-num">9</span> Pivot/Unpivot <span class="nav-count" data-count="pivot">0</span></a>
     </nav>
     <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -249,11 +381,19 @@
       </svg>
     </button>
 
+    <nav class="breadcrumb">
+      <a href="../../index.html">Home</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      <a href="index.html">SQL</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      <span class="current">Practice</span>
+    </nav>
+
     <div class="page-wrap">
       <section class="hero">
         <p class="eyebrow">SQL Guide</p>
         <h1>SQL Practice</h1>
-        <p class="hero-copy">300 hand-picked SQL interview questions with solutions. Click on any question to see the query, input data, and expected output.</p>
+        <p class="hero-copy">SQL practice questions with solutions. Each question shows the query and input data.</p>
       </section>
 
       <div class="practice-grid" id="questions-container"></div>
@@ -267,174 +407,527 @@
   </button>
 
   <script src="../app.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
   <script>
     let questions = [];
+    let questionsByCategory = {};
+    let db = null;
+    let SQL = null;
+    let renderedCache = {};
+    let currentCategory = null;
 
-    function getCategory(explanation) {
-      const exp = explanation.toLowerCase();
-      if (exp.includes('subquery') || exp.includes('correlated') || exp.includes('scalar')) return 'subqueries';
-      if (exp.includes('window') || exp.includes('over (') || exp.includes('partition')) return 'window';
-      if (exp.includes('join') || exp.includes('left join') || exp.includes('inner join')) return 'joins';
-      if (exp.includes('group by') || exp.includes('count') || exp.includes('sum') || exp.includes('avg') || exp.includes('having') || exp.includes('aggregate') || exp.includes('percentile') || exp.includes('median')) return 'aggregation';
-      if (exp.includes('date') || exp.includes('interval') || exp.includes('timestamp')) return 'dates';
-      if (exp.includes('string') || exp.includes('json') || exp.includes('concat') || exp.includes('array')) return 'strings';
-      if (exp.includes('recursive') || exp.includes('recursion') || exp.includes('hierarchy')) return 'recursion';
-      if (exp.includes('pivot') || exp.includes('unpivot') || exp.includes('case when')) return 'pivot';
+    async function initSQL() {
+      try {
+        SQL = await initSqlJs({
+          locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}`
+        });
+        db = new SQL.Database();
+        return true;
+      } catch (e) {
+        console.error('Failed to initialize SQL:', e);
+        return false;
+      }
+    }
+
+    function getCategory(question, query) {
+      const q = (question + ' ' + (query || '')).toLowerCase();
+      if (q.includes('recursive') || q.includes('recursion') || q.includes('hierarchy') || q.includes('fibonacci') || q.includes('factorial') || q.includes('subtree') || q.includes('ancestor') || q.includes('descendant')) return 'recursion';
+      if (q.includes('pivot') || q.includes('unpivot') || q.includes('transpose') || q.includes('rows to columns') || q.includes('columns to rows') || q.includes('repeat(') || q.includes('filter (where')) return 'pivot';
+      if (q.includes('subquery') || q.includes('correlated') || q.includes('scalar') || q.includes('second highest') || q.includes('above average') || q.includes('below average') || q.includes('not in') || q.includes('in (select') || q.includes('exists') || q.includes('all (')) return 'subqueries';
+      if (q.includes('window') || q.includes('over (') || q.includes('partition by') || q.includes('row_number') || q.includes('rank()') || q.includes('lag(') || q.includes('lead(') || q.includes('ntile') || q.includes('first_value') || q.includes('last_value')) return 'window';
+      if (q.includes('join') || q.includes('cross join')) return 'joins';
+      if (q.includes('group by') || q.includes('count(') || q.includes('sum(') || q.includes('avg(') || q.includes('having') || q.includes('aggregate') || q.includes('percentile') || q.includes('median')) return 'aggregation';
+      if (q.includes('date') || q.includes('interval') || q.includes('timestamp') || q.includes('year') || q.includes('month') || q.includes('day') || q.includes('week')) return 'dates';
+      if (q.includes('string') || q.includes('json') || q.includes('concat') || q.includes('array') || q.includes('string_agg') || q.includes('upper(') || q.includes('lower(') || q.includes('substring') || q.includes('replace') || q.includes('regexp') || q.includes('trim') || q.includes('length') || q.includes('split')) return 'strings';
       return 'basics';
     }
 
-    Promise.all([
-      fetch('sql-questions-full.json').then(res => res.json()),
-      fetch('sql-questions-101-200.json').then(res => res.json()),
-      fetch('sql-questions-201-300.json').then(res => res.json())
-    ])
-      .then(([data1, data2, data3]) => {
-        const combined = [...data1, ...data2, ...data3].map((q, idx) => ({
-          ...q,
-          number: idx + 1,
-          category: getCategory(q.explanation || '')
-        }));
-        questions = combined;
-        initPractice();
+    async function main() {
+      try {
+        const sqlReady = await initSQL();
+        console.log('SQL initialized:', sqlReady);
+        
+        fetch('sql_queries.sql')
+          .then(res => res.text())
+          .then(text => {
+            console.log('Text length:', text.length);
+            questions = parseSQLFile(text);
+            console.log('Questions parsed:', questions.length);
+            groupByCategory();
+            updateCategoryCounts();
+            console.log('Calling initPractice...');
+            initPractice(sqlReady);
+            console.log('initPractice returned');
+          })
+          .catch(err => console.error('Fetch error:', err));
+      } catch (err) {
+        console.error('Main error:', err);
+      }
+    }
+
+    function updateCategoryCounts() {
+      const counts = {};
+      questions.forEach(q => {
+        counts[q.category] = (counts[q.category] || 0) + 1;
+      });
+      document.querySelectorAll('.nav-count').forEach(el => {
+        const cat = el.dataset.count;
+        el.textContent = counts[cat] || 0;
+      });
+    }
+
+    function parseSQLFile(text) {
+      const result = [];
+      const separator = /-- ={30,}\r?\n?/;
+      console.log('Separator regex:', separator);
+      console.log('Text length:', text.length);
+      const blocks = text.split(separator).filter(b => b.trim());
+      console.log('Blocks found:', blocks.length);
+      console.log('Sample block 0 (first 200 chars):', blocks[0]?.substring(0, 200));
+      console.log('Sample block 1 (first 200 chars):', blocks[1]?.substring(0, 200));
+
+      blocks.forEach(block => {
+        const lines = block.trim().split('\n');
+        
+        let questionIdx = -1;
+        for (let i = 0; i < lines.length; i++) {
+          if (lines[i].trim().startsWith('-- Question')) {
+            questionIdx = i;
+            break;
+          }
+        }
+        if (questionIdx === -1) return;
+        
+        const match = lines[questionIdx].trim().match(/-- Question (\d+):\s*(.*)/);
+        if (!match) return;
+        
+        const questionTitle = match[2].trim();
+        
+        let inputIdx = -1;
+        let inputTableNames = [];
+        for (let i = 0; i < lines.length; i++) {
+          if (lines[i].trim().startsWith('-- Input table:')) {
+            inputIdx = i;
+            const namesLine = lines[i].trim().replace('-- Input table:', '').trim();
+            inputTableNames = namesLine.split(' vs ').map(n => n.trim());
+            break;
+          }
+        }
+        
+        const queryLines = [];
+        for (let i = questionIdx + 1; i < (inputIdx >= 0 ? inputIdx : lines.length); i++) {
+          const line = lines[i];
+          const trimmed = line.trim();
+          if (trimmed === '' && queryLines.length === 0) continue;
+          queryLines.push(line);
+        }
+        const query = queryLines.join('\n').trim();
+        if (!query) return;
+        
+        const tables = [];
+        
+        if (inputIdx >= 0) {
+          let outputIdx = -1;
+          for (let i = inputIdx; i < lines.length; i++) {
+            if (lines[i].trim().startsWith('-- Output table:')) {
+              outputIdx = i;
+              break;
+            }
+          }
+          
+          const inputLines = lines.slice(inputIdx, outputIdx >= 0 ? outputIdx : lines.length);
+          
+          for (let i = 0; i < inputLines.length; i++) {
+            const line = inputLines[i];
+            const trimmed = line.trim();
+            
+            if (trimmed.startsWith('CREATE TABLE')) {
+              let createText = '';
+              let parenCount = 0;
+              for (let j = i; j < inputLines.length; j++) {
+                createText += ' ' + inputLines[j].trim();
+                for (const ch of inputLines[j]) {
+                  if (ch === '(') parenCount++;
+                  if (ch === ')') parenCount--;
+                }
+                if (parenCount <= 0 && inputLines[j].includes(')')) break;
+              }
+              
+              const tableMatch = createText.match(/CREATE TABLE\s+(\w+)\s*\(/i);
+              if (tableMatch) {
+                const tableName = tableMatch[1];
+                let existingTable = tables.find(t => t.name === tableName);
+                if (!existingTable) {
+                  existingTable = { name: tableName, headers: [], rows: [] };
+                  tables.push(existingTable);
+                }
+                
+                const startParen = createText.indexOf('(');
+                if (startParen >= 0) {
+                  let depth = 1;
+                  let endParen = startParen + 1;
+                  while (depth > 0 && endParen < createText.length) {
+                    if (createText[endParen] === '(') depth++;
+                    if (createText[endParen] === ')') depth--;
+                    endParen++;
+                  }
+                  const colDefs = createText.substring(startParen + 1, endParen - 1);
+                  existingTable.headers = colDefs.split(',').map(c => {
+                    const parts = c.trim().split(/\s+/);
+                    return parts[0];
+                  }).filter(h => h && !h.match(/^\d+$/) && h !== '(');
+                }
+              }
+            } else if (trimmed.startsWith('INSERT INTO')) {
+              let valuesLine = trimmed.includes('VALUES') ? trimmed : 
+                (inputLines[i + 1] && inputLines[i + 1].trim().startsWith('VALUES') ? inputLines[i + 1].trim() : '');
+              
+              const valuesMatch = valuesLine.match(/VALUES\s*\((.+)\)\s*;?\s*$/i);
+              if (valuesMatch) {
+                const values = [];
+                let inQuote = false, current = '';
+                for (const ch of valuesMatch[1]) {
+                  if (ch === "'") { inQuote = !inQuote; current += ch; }
+                  else if (ch === ',' && !inQuote) { values.push(current.trim()); current = ''; }
+                  else current += ch;
+                }
+                if (current.trim()) values.push(current.trim());
+                const row = values.map(v => v.startsWith("'") && v.endsWith("'") ? v.slice(1, -1) : v);
+                
+                let tableName = inputTableNames[0] || 'table';
+                const tableMatch = trimmed.match(/INSERT INTO\s+(\w+)/i);
+                if (tableMatch) tableName = tableMatch[1];
+                
+                let table = tables.find(t => t.name === tableName);
+                if (!table) {
+                  table = { name: tableName, headers: [], rows: [] };
+                  tables.push(table);
+                }
+                table.rows.push(row);
+              }
+            }
+          }
+          
+          for (const table of tables) {
+            if (table.headers.length === 0 && table.rows.length > 0) {
+              table.headers = table.rows[0].map((_, i) => `col${i + 1}`);
+            }
+          }
+          
+          if (tables.length === 0 && inputTableNames.length > 0) {
+            tables.push({ name: inputTableNames[0], headers: [], rows: [] });
+          }
+        }
+        
+        for (const table of tables) {
+          if (table.headers.length === 0 && table.rows.length > 0) {
+            table.headers = table.rows[0].map((_, i) => `col${i + 1}`);
+          }
+        }
+        
+        result.push({
+          question: questionTitle,
+          explanation: `Practice SQL: ${questionTitle}`,
+          query: query,
+          tables: tables,
+          input: tables.length > 0 ? tables[0] : { table: 'table', headers: [], rows: [] }
+        });
       });
 
-    function initPractice() {
+      return result.map((q, idx) => ({
+        ...q,
+        number: idx + 1,
+        category: getCategory(q.question, q.query)
+      }));
+    }
+    
+    // Debug: test parsing
+    function testParse() {
+      fetch('sql_queries.sql')
+        .then(res => res.text())
+        .then(text => {
+          const separator = /-- ={30,}\r?\n?/;
+          const blocks = text.split(separator).filter(b => b.trim());
+          console.log('Blocks:', blocks.length);
+          
+          let questions = 0;
+          blocks.forEach(block => {
+            const lines = block.trim().split('\n');
+            for (let i = 0; i < lines.length; i++) {
+              if (lines[i].trim().startsWith('-- Question')) {
+                questions++;
+                break;
+              }
+            }
+          });
+          console.log('Questions with -- Question:', questions);
+        });
+    }
+    // Uncomment to test: testParse();
+    
+    function groupByCategory() {
+      questionsByCategory = {};
+      questions.forEach(q => {
+        if (!questionsByCategory[q.category]) {
+          questionsByCategory[q.category] = [];
+        }
+        questionsByCategory[q.category].push(q);
+      });
+      console.log('Category breakdown:', Object.entries(questionsByCategory).map(([k,v]) => `${k}: ${v.length}`).join(', '));
+    }
+
+    function initPractice(sqlReady) {
+      console.log('initPractice called, sqlReady:', sqlReady);
       const container = document.getElementById('questions-container');
       const sidebarItems = document.querySelectorAll('.sidebar .nav-item');
       let currentFilter = 'basics';
+      console.log('Container found:', container, 'Sidebar items:', sidebarItems.length);
 
       function formatSQL(query) {
         if (!query) return '';
+        let sql = query.replace(/\s+/g, ' ').trim();
+        const strings = [];
+        sql = sql.replace(/'([^']*)'/g, (match) => {
+          strings.push(match);
+          return `__STR${strings.length - 1}__`;
+        });
         
-        let formatted = query.trim();
-        formatted = formatted.replace(/\s+/g, ' ');
-        
-        formatted = formatted.replace(/\)\s*SELECT\b/gi, ') SELECT');
-        formatted = formatted.replace(/\)\s*INSERT\b/gi, ') INSERT');
-        formatted = formatted.replace(/\)\s*UPDATE\b/gi, ') UPDATE');
-        formatted = formatted.replace(/\)\s*DELETE\b/gi, ') DELETE');
-        
-        formatted = formatted.replace(/\bAS\s+\(/gi, 'AS (');
-        
-        const phrases = [
-          'WITH RECURSIVE', 'WITH', 'SELECT', 'FROM', 'WHERE',
-          'GROUP BY', 'HAVING', 'ORDER BY', 'LIMIT', 'OFFSET',
-          'UNION ALL', 'UNION', 'CASE', 'WHEN', 'THEN', 'ELSE', 'END',
-          'INNER JOIN', 'LEFT JOIN', 'RIGHT JOIN', 'FULL OUTER JOIN', 'CROSS JOIN', 'JOIN',
-          'ON', 'OVER', 'PARTITION BY'
+        const kwList = [
+          'SELECT', 'FROM', 'WHERE', 'GROUP BY', 'HAVING', 'ORDER BY',
+          'LIMIT', 'OFFSET', 'UNION ALL', 'UNION', 'INTERSECT', 'EXCEPT',
+          'INSERT INTO', 'UPDATE', 'DELETE FROM', 'CREATE TABLE', 'VALUES',
+          'SET', 'WITH RECURSIVE', 'WITH', 'CASE', 'WHEN', 'THEN', 'ELSE', 'END',
+          'LEFT JOIN', 'RIGHT JOIN', 'INNER JOIN', 'FULL OUTER JOIN', 'CROSS JOIN',
+          'PARTITION BY', 'ROW_NUMBER', 'DENSE_RANK', 'LEFT OUTER JOIN',
+          'FULL JOIN', 'CROSS APPLY', 'OUTER APPLY',
+          'JOIN', 'ON', 'USING', 'OVER', 'AS', 'AND', 'OR', 'NOT',
+          'IN', 'EXISTS', 'BETWEEN', 'LIKE', 'IS NULL', 'IS NOT NULL',
+          'NULLS FIRST', 'NULLS LAST', 'FETCH FIRST', 'ROWS ONLY',
+          'ASC', 'DESC', 'TOP', 'DISTINCT', 'ALL',
+          'COUNT', 'SUM', 'AVG', 'MIN', 'MAX', 'COALESCE', 'NULLIF',
+          'CAST', 'CONVERT', 'TRIM', 'UPPER', 'LOWER', 'LENGTH',
+          'DATE_TRUNC', 'EXTRACT', 'INTERVAL', 'CURRENT_DATE', 'CURRENT_TIMESTAMP',
+          'ROW', 'ROWS', 'UNBOUNDED', 'PRECEDING', 'FOLLOWING', 'CURRENT',
+          'PERCENTILE_CONT', 'CUME_DIST', 'PERCENT_RANK', 'RANK', 'LAG', 'LEAD', 'NTILE',
+          'VARCHAR', 'INT', 'INTEGER', 'BIGINT', 'FLOAT', 'DOUBLE', 'DECIMAL',
+          'BOOLEAN', 'TEXT', 'CHAR', 'DATE', 'DATETIME', 'TIMESTAMP',
+          'FILTER', 'WITHIN GROUP', 'PIVOT', 'UNPIVOT'
         ];
         
-        phrases.forEach(p => {
-          const regex = new RegExp(' ' + p + ' ', 'gi');
-          formatted = formatted.replace(regex, '\n' + p + ' ');
-        });
+        const kwRegex = new RegExp('\\b(' + kwList.map(k => k.replace(/\s+/g, '\\s+')).join('|') + ')\\b', 'gi');
+        sql = sql.replace(kwRegex, (match) => match.toUpperCase());
         
-        formatted = formatted.replace(/^\nSELECT/, 'SELECT');
+        const clauseKeywords = /\b(SELECT|FROM|WHERE|GROUP BY|HAVING|ORDER BY|LIMIT|OFFSET|UNION ALL|UNION|INTERSECT|EXCEPT|INSERT INTO|VALUES|WITH RECURSIVE|WITH|CASE|WHEN|THEN|ELSE|END|LEFT JOIN|RIGHT JOIN|INNER JOIN|FULL OUTER JOIN|CROSS JOIN|JOIN|ON|PIVOT|UNPIVOT)\s*/g;
+        sql = sql.replace(clauseKeywords, (match) => '\n' + match.trim() + ' ');
         
-        formatted = formatted.replace(/\) SELECT/g, ')\n\nSELECT');
-        formatted = formatted.replace(/\) INSERT/g, ')\n\nINSERT');
-        formatted = formatted.replace(/\) UPDATE/g, ')\n\nUPDATE');
-        formatted = formatted.replace(/\) DELETE/g, ')\n\nDELETE');
+        sql = sql.replace(/,\s*(?=[^()]*\bFROM\b)/g, ',\n    ');
+        sql = sql.replace(/,\s*(?=[^()]*\bGROUP BY\b)/g, ',\n    ');
+        sql = sql.replace(/,\s*(?=[^()]*\bORDER BY\b)/g, ',\n    ');
         
-        formatted = formatted.replace(/^\n/, '');
+        sql = sql.replace(/\)\s*AS\s+/g, ') AS ');
         
-        let lines = formatted.split('\n');
+        const lines = sql.split('\n').filter(l => l.trim());
         let indent = 0;
+        const result = [];
         
-        lines = lines.map(line => {
+        for (let line of lines) {
           line = line.trim();
-          if (!line) return '';
+          if (!line) continue;
           
-          const openCount = (line.match(/\(/g) || []).length;
-          const closeCount = (line.match(/\)/g) || []).length;
-          
-          if (closeCount > openCount) {
-            indent -= (closeCount - openCount);
+          const startsWithClose = /^[)\]]/.test(line);
+          if (startsWithClose) {
+            indent = Math.max(0, indent - 1);
           }
           
-          let spaces = '  '.repeat(Math.max(0, indent));
+          const endsWithOpen = /\(\s*$/.test(line);
           
-          if (openCount > closeCount) {
-            indent += (openCount - closeCount);
+          result.push('  '.repeat(indent) + line);
+          
+          if (endsWithOpen) {
+            indent++;
           }
           
-          return spaces + line;
+          if (/\bCASE\b/.test(line) && !/\bEND\b/.test(line)) {
+            indent++;
+          }
+          if (/\bEND\b/.test(line) && !startsWithClose) {
+            indent = Math.max(0, indent - 1);
+          }
+        }
+        
+        sql = result.join('\n');
+        sql = sql.replace(/  +/g, ' ');
+        sql = sql.replace(/\n\s*\n/g, '\n');
+        
+        strings.forEach((str, idx) => {
+          sql = sql.replace(`__STR${idx}__`, str);
         });
         
-        return lines.join('\n');
+        return sql;
       }
 
       function highlightSQL(query) {
         if (!query) return '';
-        
-        let formatted = formatSQL(query);
-        
-        const sqlKeywords = ['SELECT', 'FROM', 'WHERE', 'AND', 'OR', 'NOT', 'IN', 'IS', 'NULL', 'AS', 'ON', 'JOIN', 'LEFT', 'RIGHT', 'INNER', 'FULL', 'OUTER', 'CROSS', 'GROUP', 'BY', 'HAVING', 'ORDER', 'ASC', 'DESC', 'LIMIT', 'OFFSET', 'UNION', 'ALL', 'DISTINCT', 'CASE', 'WHEN', 'THEN', 'ELSE', 'END', 'WITH', 'RECURSIVE', 'OVER', 'PARTITION', 'ROWS', 'BETWEEN', 'PRECEDING', 'CURRENT', 'FOLLOWING', 'UNBOUNDED', 'RANK', 'DENSE_RANK', 'ROW_NUMBER', 'LAG', 'LEAD', 'FIRST_VALUE', 'LAST_VALUE', 'NTH_VALUE', 'COUNT', 'SUM', 'AVG', 'MIN', 'MAX', 'COALESCE', 'NULLIF', 'CAST', 'INTERVAL', 'EXTRACT', 'DATE_TRUNC', 'PERCENTILE_CONT', 'CUME_DIST', 'PERCENT_RANK', 'NTILE', 'JSON_AGG', 'STRING_AGG', 'ARRAY', 'ANY', 'EXISTS', 'LIKE', 'ILIKE', 'BETWEEN', 'INTO', 'VALUES', 'INSERT', 'UPDATE', 'DELETE', 'SET', 'RETURNING', 'CREATE', 'TABLE', 'DROP', 'ALTER', 'ADD', 'COLUMN', 'PRIMARY', 'KEY', 'FOREIGN', 'REFERENCES', 'INDEX', 'VIEW', 'TRIGGER', 'FUNCTION', 'PROCEDURE', 'BEGIN', 'COMMIT', 'ROLLBACK', 'TRANSACTION', 'GRANT', 'REVOKE', 'CASCADE', 'RESTRICT', 'IF', 'ELSIF', 'LOOP', 'WHILE', 'FOR', 'FOREACH', 'IN', 'OUT', 'INOUT', 'PERCENT', 'TYPE', 'ROW', 'RECORD', 'CONSTRAINT', 'DEFAULT', 'CHECK', 'UNIQUE', 'COMPOSITE'];
-        
-        let result = formatted
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;');
-        
-        result = result.replace(/'[^']*'/g, '<span class="string">$&</span>');
-        result = result.replace(/"[^"]*"/g, '<span class="string">$&</span>');
-        
-        result = result.replace(/\b(\d+(?:\.\d+)?)\b/g, '<span class="number">$1</span>');
-        
-        const keywordPattern = new RegExp('\\b(' + sqlKeywords.join('|') + ')\\b', 'gi');
-        result = result.replace(keywordPattern, '<span class="keyword">$1</span>');
-        
-        result = result.replace(/\n/g, '<br>');
-        
-        return result;
+        try {
+          const formatted = formatSQL(query);
+          return Prism.highlight(formatted, Prism.languages.sql, 'sql');
+        } catch (e) {
+          return query
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+        }
       }
 
-      function renderQuestions(filter = 'all') {
-        const filtered = questions.filter(q => {
-          return filter === 'all' || q.category === filter;
+      function computeOutputForQuestion(question) {
+        if (!db || !question.query) return { headers: [], rows: [], error: 'SQL engine not ready' };
+        
+        const allTables = question.tables || [];
+        if (allTables.length === 0) return { headers: [], rows: [], error: 'No input tables' };
+        
+        // Create all tables
+        for (const table of allTables) {
+          if (!table.name || !table.headers.length) continue;
+          try {
+            db.run(`DROP TABLE IF EXISTS "${table.name}"`);
+            const cols = table.headers.map(h => `"${h}" TEXT`).join(', ');
+            db.run(`CREATE TABLE "${table.name}" (${cols})`);
+            
+            for (const row of table.rows) {
+              const values = row.map(v => {
+                if (v === null || v === 'NULL' || v === 'null') return 'NULL';
+                return `'${String(v).replace(/'/g, "''")}'`;
+              }).join(', ');
+              db.run(`INSERT INTO "${table.name}" VALUES (${values})`);
+            }
+          } catch (e) {
+            // Continue with other tables
+          }
+        }
+        
+        // Get table name map (handles aliases)
+        const tableNameMap = {};
+        for (const table of allTables) {
+          if (table.name) {
+            tableNameMap[table.name] = table.name;
+          }
+        }
+        
+        // Fix query table names
+        let query = question.query;
+        
+        // Replace known table aliases with actual names
+        const aliases = {
+          't1': allTables[0]?.name,
+          't2': allTables[1]?.name,
+          'e': allTables[0]?.name,
+          'd': 'departments',
+          's': 'sales',
+          'c': 'customers',
+          'o': 'orders',
+          'p': 'products',
+          'emp': 'employees',
+          'dept': 'departments'
+        };
+        
+        for (const [alias, actual] of Object.entries(aliases)) {
+          if (actual) {
+            query = query.replace(new RegExp(`\\b${alias}\\b`, 'g'), actual);
+          }
+        }
+        
+        try {
+          const results = db.exec(query);
+          if (results.length === 0) return { headers: [], rows: [] };
+          return { headers: results[0].columns, rows: results[0].values };
+        } catch (e) {
+          return { headers: [], rows: [], error: e.message };
+        }
+      }
+      
+      function formatTableAsText(t) {
+        if (!t.headers.length && !t.rows.length) return '';
+        const colWidths = t.headers.map((h, i) => {
+          const maxRowWidth = Math.max(...(t.rows.length ? t.rows.map(r => String(r[i] || '').length) : [0]));
+          return Math.max(h.length, maxRowWidth, 3);
         });
+        const headerRow = t.headers.map((h, i) => h.padEnd(colWidths[i])).join(' | ');
+        const separator = colWidths.map(w => '-'.repeat(w)).join('-+-');
+        const dataRows = t.rows.map(r => r.map((c, i) => String(c || '').padEnd(colWidths[i])).join(' | '));
+        return [headerRow, separator, ...dataRows].join('\n');
+      }
+      
+      function renderQuestions(filter = 'all') {
+        try {
+          if (renderedCache[filter]) {
+            container.innerHTML = renderedCache[filter];
+            currentCategory = filter;
+            return;
+          }
+          
+          container.innerHTML = '<div class="loading-state"><p>Loading...</p></div>';
+          
+          setTimeout(() => {
+            const categoryQuestions = questionsByCategory[filter] || [];
+            console.log('Rendering', categoryQuestions.length, 'questions for filter:', filter);
 
-        container.innerHTML = filtered.map(q => `
-          <div class="practice-card" id="q${q.number}" data-category="${q.category}">
-            <div class="practice-card-header" onclick="toggleCard(${q.number})">
-              <span class="q-number">${q.number}</span>
-              <span class="q-title">${q.question}</span>
-              <span class="q-pill">${q.category}</span>
-              <svg class="expand-icon" id="icon-${q.number}" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </div>
-            <div class="q-content" id="content-${q.number}">
-              <p class="q-explanation">${q.explanation}</p>
-              <div class="query-label">SQL Query</div>
-              <div class="query-block"><code>${highlightSQL(q.query)}</code></div>
-              ${q.input && q.input.headers ? `
-                <div class="table-label">Input: ${q.input.table || 'Table'}</div>
-                <table class="data-table">
-                  <thead><tr>${q.input.headers.map(h => `<th>${h}</th>`).join('')}</tr></thead>
-                  <tbody>${q.input.rows.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join('')}</tr>`).join('')}</tbody>
-                </table>
-              ` : ''}
-              ${q.output && q.output.headers ? `
-                <div class="table-label">Output</div>
-                <table class="data-table">
-                  <thead><tr>${q.output.headers.map(h => `<th>${h}</th>`).join('')}</tr></thead>
-                  <tbody>${q.output.rows.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join('')}</tr>`).join('')}</tbody>
-                </table>
-              ` : ''}
-            </div>
-          </div>
-        `).join('');
+            const html = categoryQuestions.map(q => {
+              const inputTables = q.tables || [q.input];
+              const allInputsHtml = inputTables.map((t, idx) => {
+                const label = inputTables.length > 1 ? `${t.name || 'Table ' + (idx + 1)}` : 'Input Table';
+                return `${label}:\n${formatTableAsText(t)}`;
+              }).join('\n');
+              
+              let outputHtml = '';
+              if (sqlReady) {
+                const result = computeOutputForQuestion(q);
+                if (result.error) {
+                  outputHtml = `<pre class="data-text error">Error: ${result.error}</pre>`;
+                } else if (result.rows.length === 0) {
+                  outputHtml = `<pre class="data-text">Empty Result</pre>`;
+                } else {
+                  outputHtml = `<pre class="data-text">${formatTableAsText(result)}</pre>`;
+                }
+              } else {
+                outputHtml = `<pre class="data-text">Loading...</pre>`;
+              }
+              
+              return `
+                <div class="practice-card" id="q${q.number}" data-category="${q.category}">
+                  <div class="practice-card-header">
+                    <span class="q-number">${q.number}</span>
+                    <span class="q-title">${q.question}</span>
+                    <span class="q-pill">${q.category}</span>
+                  </div>
+                  <div class="q-content" id="content-${q.number}">
+                    <div class="query-label">SQL Query</div>
+                    <div class="query-block"><pre><code class="language-sql">${highlightSQL(q.query)}</code></pre></div>
+                    <div class="io-block side-by-side">
+                      <div class="io-panel">
+                        <div class="io-label">Input</div>
+                        <pre class="data-text">${allInputsHtml}</pre>
+                      </div>
+                      <div class="io-panel">
+                        <div class="io-label">Output</div>
+                        ${outputHtml}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              `;
+            }).join('');
+            
+            renderedCache[filter] = html;
+            container.innerHTML = html;
+            currentCategory = filter;
+          }, 10);
+        } catch (err) {
+          console.error('Render error:', err);
+        }
       }
 
-      window.toggleCard = function(num) {
-        const content = document.getElementById(`content-${num}`);
-        const icon = document.getElementById(`icon-${num}`);
-        content.classList.toggle('visible');
-        icon.classList.toggle('expanded');
-      };
-
-      // Sidebar click handlers
       sidebarItems.forEach(item => {
         item.addEventListener('click', (e) => {
           e.preventDefault();
@@ -442,13 +935,10 @@
           item.classList.add('active');
           currentFilter = item.dataset.filter;
           renderQuestions(currentFilter);
-          
-          // Close mobile sidebar after selection
           document.body.classList.remove('sidebar-open');
         });
       });
 
-      // Handle hash changes (direct navigation)
       function handleHash() {
         const hash = window.location.hash.slice(1);
         if (hash) {
@@ -467,7 +957,6 @@
       window.addEventListener('hashchange', handleHash);
       handleHash();
       
-      // Scroll to top functionality
       const scrollToTopBtn = document.getElementById('scrollToTop');
       
       window.addEventListener('scroll', () => {
@@ -485,6 +974,8 @@
         });
       });
     }
+
+    main();
   </script>
 </body>
 </html>

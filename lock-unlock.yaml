@@ -1,0 +1,101 @@
+# =============================================================================
+# Lock/Unlock Configuration for Data Guide Agent
+# =============================================================================
+# This file controls which folders the Data Guide Agent can modify.
+# - locked: true  -> Agent can only READ (inspect and suggest)
+# - locked: false -> Agent can READ and WRITE (modify files)
+# =============================================================================
+
+# Module Folders (under source/)
+modules:
+  # Main content modules
+  cloud:
+    locked: true
+    description: "Cloud computing hub (AWS, Azure, GCP)"
+
+  python:
+    locked: true
+    description: "Python programming guide"
+
+  sql:
+    locked: true
+    description: "SQL and database concepts"
+
+  spark:
+    locked: true
+    description: "Apache Spark big data processing"
+
+  data:
+    locked: true
+    description: "Data formats, types, pipelines, and quality"
+
+  big-data:
+    locked: true
+    description: "Big data concepts and patterns"
+
+  # Library-specific modules
+  libraries:
+    locked: true
+    description: "Data libraries (Pandas, NumPy, etc.)"
+
+  # Reference modules
+  cheatsheets:
+    locked: true
+    description: "Quick reference guides and cheatsheets"
+
+  roadmaps:
+    locked: true
+    description: "Career learning roadmaps"
+
+  portfolios:
+    locked: false
+    description: "Portfolio examples and projects"
+
+# Shared/Common Folders
+shared:
+  scripts:
+    locked: false
+    description: "Shared JavaScript files (app.js)"
+
+  styles:
+    locked: false
+    description: "Shared CSS styles (styles.css)"
+
+  assets:
+    locked: false
+    description: "Static assets (images, fonts, etc.)"
+
+  tools:
+    locked: false
+    description: "Development tools and utilities"
+
+# Root-level files
+root:
+  index:
+    locked: true
+    description: "Main index.html entry point"
+
+  readme:
+    locked: false
+    description: "Project README.md"
+
+# =============================================================================
+# USAGE INSTRUCTIONS
+# =============================================================================
+# To lock a folder:
+#   Set `locked: true` for that folder
+#
+# To unlock a folder:
+#   Set `locked: false` for that folder
+#
+# The agent checks this file before making any modifications.
+# Locked folders are treated as READ-ONLY.
+# =============================================================================
+
+# Example: Lock python module
+# python:
+#   locked: true
+
+# Example: Unlock specific folder
+# python:
+#   locked: false

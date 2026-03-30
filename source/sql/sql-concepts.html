@@ -31,11 +31,35 @@
       <a href="sql-methods.html">Methods</a>
       <a href="sql-practice.html">Practice</a>
     </nav>
-    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
-      <span class="toggle-icon" aria-hidden="true">☾</span>
-      <span class="toggle-text">Dark</span>
-    </button>
+    <div class="header-actions">
+      <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle mobile menu">
+        <span class="hamburger-icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+        <span class="toggle-icon" aria-hidden="true">☾</span>
+        <span class="toggle-text">Dark</span>
+      </button>
+    </div>
   </header>
+
+  <div id="mobile-menu" class="mobile-menu">
+    <nav class="mobile-nav" aria-label="SQL mobile menu">
+      <a href="index.html">Hub</a>
+      <a href="sql-concepts.html" class="active" aria-current="page">Concepts</a>
+      <a href="sql-modelling.html">Modelling</a>
+      <a href="sql-queries.html">Queries</a>
+      <a href="sql-joins.html">Joins</a>
+      <a href="sql-subqueries.html">Subqueries</a>
+      <a href="sql-windows.html">Windows</a>
+      <a href="sql-methods.html">Methods</a>
+      <a href="sql-practice.html">Practice</a>
+    </nav>
+  </div>
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
 
   <div id="sidebar-overlay" class="sidebar-overlay"></div>
   <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
@@ -46,6 +70,13 @@
   </button>
 
   <main class="main-content">
+    <nav class="breadcrumb">
+      <a href="../../index.html">Home</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      <a href="index.html">SQL</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      <span class="current">Concepts</span>
+    </nav>
     <nav class="sidebar" id="sidebar">
       <div class="logo">
         <span class="logo-text">PostgreSQL Concepts</span>

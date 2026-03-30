@@ -51,6 +51,15 @@
     </nav>
   </div>
   <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
+
+  <nav class="breadcrumb">
+    <a href="../../index.html">Home</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    <a href="index.html">Python</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    <span class="current">OOPs</span>
+  </nav>
+
   <div id="sidebar-overlay" class="sidebar-overlay"></div>
   <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -955,19 +964,18 @@ ctx = <span class="class-name">Context</span>(<span class="class-name">QuickSort
       });
     };
 
-    navItems.forEach((item) => {
-      item.addEventListener("click", function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute("href").substring(1);
-        const target = document.getElementById(targetId);
-        if (!target) return;
-        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
-        window.scrollTo({ top: targetPosition - 100, behavior: "smooth" });
-        history.replaceState(null, "", "#" + targetId);
-        setActiveNav(targetId);
-        closeSidebar();
-      });
-    });
+     navItems.forEach((item) => {
+       item.addEventListener("click", function (e) {
+         e.preventDefault();
+         const targetId = this.getAttribute("href").substring(1);
+         const target = document.getElementById(targetId);
+         if (!target) return;
+         const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+         window.scrollTo({ top: targetPosition - 100, behavior: "smooth" });
+         history.replaceState(null, "", "#" + targetId);
+         setActiveNav(targetId);
+       });
+     });
 
     const sectionObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="AWS Data Engineering complete guide with services, pipelines, and interview preparation." />
+  <title>Data Guide | AWS Data Engineering</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="../../python/python.css" />
+  <link rel="stylesheet" href="aws.css" />
+</head>
+
+<body class="with-sidebar">
+  <div class="bg-orb orb-a"></div>
+  <div class="bg-orb orb-b"></div>
+  <div class="bg-orb orb-c"></div>
+
+  <header class="topbar glass reveal in">
+    <a class="brand" href="../../../index.html">Data Guide</a>
+    <nav class="menu" aria-label="AWS menu">
+      <a href="index.html" class="active" aria-current="page">Hub</a>
+      <div class="menu-dropdown">
+        <button class="menu-trigger">Topics</button>
+        <div class="dropdown-panel">
+          <a href="../cloud-topics.html"><strong>Overview</strong><span>All cloud topics</span></a>
+          <a href="../cloud-basics.html"><strong>Basics</strong><span>IaaS, PaaS, SaaS, deployment models</span></a>
+          <a href="../cloud-services.html"><strong>Services</strong><span>Service comparison across providers</span></a>
+          <a href="../cloud-storage.html"><strong>Storage</strong><span>Object, block, file, data lakes</span></a>
+          <a href="../cloud-compute.html"><strong>Compute</strong><span>VMs, containers, Kubernetes</span></a>
+          <a href="../cloud-serverless.html"><strong>Serverless</strong><span>Functions and managed services</span></a>
+        </div>
+      </div>
+      <a href="../architecture.html">Architecture</a>
+      <div class="menu-dropdown">
+        <button class="menu-trigger">Providers</button>
+        <div class="dropdown-panel">
+          <a href="../cloud-aws.html"><strong>AWS</strong></a>
+          <a href="../cloud-azure.html">Azure</a>
+          <a href="../cloud-gcp.html">GCP</a>
+        </div>
+      </div>
+    </nav>
+    <div class="header-actions">
+      <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle mobile menu">
+        <span class="hamburger-icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+        <span class="toggle-icon" aria-hidden="true">☾</span>
+        <span class="toggle-text">Dark</span>
+      </button>
+    </div>
+  </header>
+
+  <div id="mobile-menu" class="mobile-menu">
+    <nav class="mobile-nav" aria-label="AWS mobile menu">
+      <a href="index.html" class="active" aria-current="page">Hub</a>
+      <a href="../cloud-topics.html">Topics: Overview</a>
+      <a href="../cloud-basics.html">Topics: Basics</a>
+      <a href="../cloud-services.html">Topics: Services</a>
+      <a href="../cloud-storage.html">Topics: Storage</a>
+      <a href="../cloud-compute.html">Topics: Compute</a>
+      <a href="../cloud-serverless.html">Topics: Serverless</a>
+      <a href="../architecture.html">Architecture</a>
+      <a href="../cloud-aws.html">Providers: AWS</a>
+      <a href="../cloud-azure.html">Providers: Azure</a>
+      <a href="../cloud-gcp.html">Providers: GCP</a>
+    </nav>
+  </div>
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Home</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="9 18 15 12 9 6" />
+    </svg>
+    <a href="../index.html">Cloud</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="9 18 15 12 9 6" />
+    </svg>
+    <a href="../../cloud-aws.html">Providers</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="9 18 15 12 9 6" />
+    </svg>
+    <span class="current">AWS</span>
+  </nav>
+
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+  <button id="sidebar-toggle" class="sidebar-toggle">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <line x1="9" y1="3" x2="9" y2="21" />
+    </svg>
+  </button>
+
+  <main class="main-content">
+    <nav class="sidebar" id="sidebar">
+      <div class="logo"><span class="logo-text">AWS Data Engineering</span></div>
+      <div class="nav-section">
+        <div class="nav-section-title">Overview</div>
+        <a href="index.html" class="nav-item"><span>1</span> Getting Started</a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Services</div>
+        <a href="services.html" class="nav-item"><span>2</span> All Services</a>
+        <a href="storage.html" class="nav-item sub"><span>2.1</span> Storage</a>
+        <a href="streaming.html" class="nav-item sub"><span>2.2</span> Streaming</a>
+        <a href="warehouse.html" class="nav-item sub"><span>2.3</span> Warehouse</a>
+        <a href="serverless.html" class="nav-item sub"><span>2.4</span> Serverless</a>
+        <a href="databases.html" class="nav-item sub"><span>2.5</span> Databases</a>
+        <a href="bigdata.html" class="nav-item sub"><span>2.6</span> Big Data</a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Practice</div>
+        <a href="pipelines.html" class="nav-item"><span>3</span> Pipelines</a>
+        <a href="interview.html" class="nav-item"><span>4</span> Interview Q&A</a>
+      </div>
+    </nav>
+
+    <div class="page-wrap">
+      <section class="hero">
+        <p class="eyebrow">Cloud Data Engineering</p>
+        <h1>AWS Data Engineering</h1>
+        <p class="hero-copy">Complete guide to building data pipelines with AWS services. Learn storage, streaming,
+          processing, and analytics with practical examples.</p>
+      </section>
+
+      <section class="topic-section">
+        <h2>What You'll Learn</h2>
+        <div class="grid-cards">
+          <a href="services.html" class="card-link">
+            <div class="grid-card">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AmazonSimpleStorageService.svg"
+                  alt="Services">
+              </div>
+              <h3>Services</h3>
+              <p>Deep dive into S3, Glue, Kinesis, Redshift, Lambda, and more. Understand what each service does and
+                when to use it.</p>
+            </div>
+          </a>
+          <a href="pipelines.html" class="card-link">
+            <div class="grid-card">
+              <div class="card-icon">
+                <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AWSGlue.svg"
+                  alt="Pipelines">
+              </div>
+              <h3>Pipelines</h3>
+              <p>Real-world pipeline examples: batch ETL, streaming analytics, CDC replication, and data lake
+                architectures.</p>
+            </div>
+          </a>
+          <a href="interview.html" class="card-link">
+            <div class="grid-card">
+              <div class="card-icon">
+                <img src="https://cdn.jsdelivr.net/npm/aws-icons@3.3.0/icons/architecture-service/AWSLogo.svg"
+                  alt="Interview">
+              </div>
+              <h3>Interview Prep</h3>
+              <p>50+ real interview questions with detailed answers covering architecture, optimization, and best
+                practices.</p>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section class="topic-section">
+        <h2>9-Layer Architecture</h2>
+        <p>Every data pipeline follows these layers. AWS services map to each layer:</p>
+        <div class="layer-summary">
+          <div class="layer-row">
+            <span class="layer-num">1</span>
+            <span class="layer-name">Data Source</span>
+            <span class="layer-services">RDS, S3, APIs, IoT</span>
+          </div>
+          <div class="layer-row">
+            <span class="layer-num">2</span>
+            <span class="layer-name">Ingestion</span>
+            <span class="layer-services">DMS, Kinesis, Glue, DataSync</span>
+          </div>
+          <div class="layer-row">
+            <span class="layer-num">3</span>
+            <span class="layer-name">Processing</span>
+            <span class="layer-services">Glue, EMR, Lambda, Step Functions</span>
+          </div>
+          <div class="layer-row">
+            <span class="layer-num">4</span>
+            <span class="layer-name">Storage</span>
+            <span class="layer-services">S3, Lake Formation, DynamoDB</span>
+          </div>
+          <div class="layer-row">
+            <span class="layer-num">5</span>
+            <span class="layer-name">Orchestration</span>
+            <span class="layer-services">MWAA, Step Functions, EventBridge</span>
+          </div>
+          <div class="layer-row">
+            <span class="layer-num">6</span>
+            <span class="layer-name">Query & Analytics</span>
+            <span class="layer-services">Athena, Redshift, QuickSight</span>
+          </div>
+          <div class="layer-row">
+            <span class="layer-num">7</span>
+            <span class="layer-name">Monitoring</span>
+            <span class="layer-services">CloudWatch, CloudTrail, X-Ray</span>
+          </div>
+          <div class="layer-row">
+            <span class="layer-num">8</span>
+            <span class="layer-name">Security</span>
+            <span class="layer-services">IAM, KMS, Secrets Manager, VPC</span>
+          </div>
+          <div class="layer-row">
+            <span class="layer-num">9</span>
+            <span class="layer-name">Catalog & Metadata</span>
+            <span class="layer-services">Glue Catalog, Lake Formation</span>
+          </div>
+        </div>
+        <p class="text-center mt-2"><a href="../architecture.html" class="btn-link">View Full Architecture Guide →</a>
+        </p>
+      </section>
+
+      <section class="topic-section">
+        <h2>Quick Start</h2>
+        <div class="quick-start">
+          <div class="qs-step">
+            <span class="qs-num">1</span>
+            <div>
+              <h4>Start with Services</h4>
+              <p>Understand each AWS service's role in the data pipeline.</p>
+              <a href="services.html" class="btn-sm">Explore Services →</a>
+            </div>
+          </div>
+          <div class="qs-step">
+            <span class="qs-num">2</span>
+            <div>
+              <h4>Build Pipelines</h4>
+              <p>See real examples of how services connect together.</p>
+              <a href="pipelines.html" class="btn-sm">View Pipelines →</a>
+            </div>
+          </div>
+          <div class="qs-step">
+            <span class="qs-num">3</span>
+            <div>
+              <h4>Practice Interview Questions</h4>
+              <p>Test your knowledge with 50+ real interview questions.</p>
+              <a href="interview.html" class="btn-sm">Start Interview Prep →</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="../../app.js"></script>
+  <script src="aws.js"></script>
+  <button id="scrollToTop" class="scroll-to-top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  </button>
+  <script>
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    window.addEventListener('scroll', () => scrollToTopBtn.classList.toggle('visible', window.pageYOffset > 300));
+    scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+
+</html>

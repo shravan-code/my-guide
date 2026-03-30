@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Guide | Cloud Serverless</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../python/python.css" />
+</head>
+
+<body class="with-sidebar">
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <header class="topbar glass reveal in">
+    <a class="brand" href="../../index.html">Data Guide</a>
+    <nav class="menu" aria-label="Cloud menu">
+      <a href="index.html">Hub</a>
+      <div class="menu-dropdown">
+        <button class="menu-trigger">Topics</button>
+        <div class="dropdown-panel">
+          <a href="cloud-topics.html"><strong>Overview</strong><span>All cloud topics</span></a>
+          <a href="cloud-basics.html"><strong>Basics</strong><span>IaaS, PaaS, SaaS, deployment models</span></a>
+          <a href="cloud-services.html"><strong>Services</strong><span>Service comparison across providers</span></a>
+          <a href="cloud-storage.html"><strong>Storage</strong><span>Object, block, file, data lakes</span></a>
+          <a href="cloud-compute.html"><strong>Compute</strong><span>VMs, containers, Kubernetes</span></a>
+          <a href="cloud-serverless.html" class="active"><strong>Serverless</strong><span>Functions and managed services</span></a>
+        </div>
+      </div>
+      <div class="menu-dropdown">
+        <button class="menu-trigger">Providers</button>
+        <div class="dropdown-panel">
+          <a href="cloud-aws.html"><strong>AWS</strong><span>Amazon Web Services</span></a>
+          <a href="cloud-azure.html"><strong>Azure</strong><span>Microsoft Azure</span></a>
+          <a href="cloud-gcp.html"><strong>GCP</strong><span>Google Cloud Platform</span></a>
+        </div>
+      </div>
+    </nav>
+    <div class="header-actions">
+      <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle mobile menu">
+        <span class="hamburger-icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+        <span class="toggle-icon" aria-hidden="true">☾</span>
+        <span class="toggle-text">Dark</span>
+      </button>
+    </div>
+  </header>
+
+  <div id="mobile-menu" class="mobile-menu">
+    <nav class="mobile-nav" aria-label="Cloud mobile menu">
+      <a href="index.html">Hub</a>
+      <a href="cloud-topics.html">Overview</a>
+      <a href="cloud-basics.html">Basics</a>
+      <a href="cloud-services.html">Services</a>
+      <a href="cloud-storage.html">Storage</a>
+      <a href="cloud-compute.html">Compute</a>
+      <a href="cloud-serverless.html" class="active">Serverless</a>
+      <a href="cloud-aws.html">AWS</a>
+      <a href="cloud-azure.html">Azure</a>
+      <a href="cloud-gcp.html">GCP</a>
+    </nav>
+  </div>
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
+
+  <nav class="breadcrumb">
+    <a href="../../index.html">Home</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    <a href="index.html">Cloud</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    <span class="current">Serverless</span>
+  </nav>
+
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+  <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+      <line x1="9" y1="3" x2="9" y2="21"></line>
+    </svg>
+  </button>
+
+  <main class="main-content">
+    <nav class="sidebar" id="sidebar">
+      <div class="logo">
+        <span class="logo-text">Serverless</span>
+      </div>
+
+      <div class="nav-title">Functions</div>
+      <a href="#lambda" class="nav-item active"><span>1</span> AWS Lambda</a>
+      <a href="#azure-functions" class="nav-item"><span>2</span> Azure Functions</a>
+      <a href="#cloud-functions" class="nav-item"><span>3</span> Cloud Functions</a>
+
+      <div class="nav-title">Managed Services</div>
+      <a href="#managed-services" class="nav-item"><span>4</span> Serverless Databases</a>
+      <a href="#step-functions" class="nav-item"><span>5</span> Workflow Orchestration</a>
+      <a href="#api-gateway" class="nav-item"><span>6</span> API Gateway</a>
+
+      <div class="nav-title">Patterns</div>
+      <a href="#event-driven" class="nav-item"><span>7</span> Event-Driven</a>
+      <a href="#fan-out" class="nav-item"><span>8</span> Fan-Out Pattern</a>
+      <a href="#saga" class="nav-item"><span>9</span> Saga Pattern</a>
+    </nav>
+
+    <div class="page-wrap">
+      <section class="hero">
+        <p class="eyebrow">Cloud Guide</p>
+        <h1>Cloud Serverless</h1>
+        <p class="hero-copy">A focused guide to Cloud Serverless.</p>
+      </section>
+
+      <!-- Section 1: Lambda -->
+      <section class="topic-section" id="lambda">
+        <h2> AWS Lambda <span class="level-badge basic">Basic</span> </h2>
+        <p>Lambda runs code without provisioning servers. Pay only for compute time consumed.</p>
+
+        <div class="code-block">
+<code><span class="comment"># Lambda with Python</span>
+<span class="keyword">import</span> json
+<span class="keyword">import</span> boto3
+
+s3 = boto3.client(<span class="string">'s3'</span>)
+
+<span class="keyword">def</span> <span class="function">lambda_handler</span>(event, context):
+    <span class="comment"># Get S3 event</span>
+    bucket = event[<span class="string">'Records'</span>][<span class="number">0</span>][<span class="string">'s3'</span>][<span class="string">'bucket'</span>][<span class="string">'name'</span>]
+    key = event[<span class="number">0</span>][<span class="string">'s3'</span>][<span class="string">'object'</span>][<span class="string">'key'</span>]
+
+    <span class="comment"># Process file</span>
+    response = s3.get_object(Bucket=bucket, Key=key)
+    data = response[<span class="string">'Body'</span>].read()
+
+    <span class="comment"># Transform and save</span>
+    processed = process_data(data)
+    s3.put_object(Bucket=<span class="string">'output-bucket'</span>, Key=key, Body=processed)
+
+    <span class="keyword">return</span> {<span class="string">'statusCode'</span>: <span class="number">200</span>, <span class="string">'body'</span>: <span class="string">'OK'</span>}
+
+<span class="comment"># Deploy with AWS CLI</span>
+aws lambda create-function \
+    --function-name process-file \
+    --runtime python3.11 \
+    --handler lambda_function.lambda_handler \
+    --role arn:aws:iam::123456789:role/lambda-role \
+    --zip-file fileb://function.zip
+
+<span class="comment"># Lambda limits (default)</span>
+<span class="comment"># Memory: 128 MB - 10 GB</span>
+<span class="comment"># Timeout: 15 minutes max</span>
+<span class="comment"># Package size: 50 MB (zipped), 250 MB (unzipped)</span>
+<span class="comment"># Concurrent executions: 1000 (default)</span>
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 2: Azure Functions -->
+      <section class="topic-section" id="azure-functions">
+        <h2> Azure Functions <span class="level-badge basic">Basic</span> </h2>
+        <p>Azure Functions provides event-driven serverless compute with support for multiple languages.</p>
+
+        <div class="code-block">
+<code><span class="comment"># Azure Functions with Python</span>
+<span class="keyword">import</span> azure.functions <span class="keyword">as</span> func
+<span class="keyword">import</span> logging
+
+app = func.FunctionApp()
+
+<span class="keyword">@app</span>.route(route=<span class="string">"hello"</span>, methods=[<span class="string">"GET"</span>])
+<span class="keyword">def</span> <span class="function">hello</span>(req: func.HttpRequest) -> func.HttpResponse:
+    name = req.params.get(<span class="string">'name'</span>)
+    <span class="keyword">return</span> func.HttpResponse(
+        f<span class="string">"Hello, {name}!"</span>,
+        status_code=<span class="number">200</span>
+    )
+
+<span class="comment"># Create and deploy</span>
+func init my-app --python
+func new --name http-trigger --template "HTTP trigger"
+func azure functionapp publish my-app
+
+<span class="comment"># Function types</span>
+<span class="comment"># HTTP Trigger - REST APIs</span>
+<span class="comment"># Timer Trigger - Scheduled jobs</span>
+<span class="comment"># Blob Trigger - File uploads</span>
+<span class="comment"># Queue Trigger - Message processing</span>
+<span class="comment"># Event Hub Trigger - Streaming</span>
+<span class="comment"># Cosmos DB Trigger - Document changes</span>
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 3: Cloud Functions -->
+      <section class="topic-section" id="cloud-functions">
+        <h2> Google Cloud Functions <span class="level-badge basic">Basic</span> </h2>
+        <p>Google Cloud Functions runs event-driven code with automatic scaling and pay-per-use pricing.</p>
+
+        <div class="code-block">
+<code><span class="comment"># Cloud Functions Gen2</span>
+<span class="keyword">def</span> <span class="function">hello_http</span>(request):
+    request_json = request.get_json()
+    <span class="keyword">if</span> request.args <span class="keyword">and</span> <span class="string">'name'</span> <span class="keyword">in</span> request.args:
+        name = request.args.get(<span class="string">'name'</span>)
+    <span class="keyword">elif</span> request_json <span class="keyword">and</span> <span class="string">'name'</span> <span class="keyword">in</span> request_json:
+        name = request_json[<span class="string">'name'</span>]
+    <span class="keyword">else</span>:
+        name = <span class="string">'World'</span>
+    <span class="keyword">return</span> f<span class="string">'Hello {name}!'</span>
+
+<span class="comment"># Deploy</span>
+gcloud functions deploy hello-http \
+    --gen2 \
+    --runtime=python311 \
+    --region=us-central1 \
+    --trigger-http \
+    --allow-unauthenticated
+
+<span class="comment"># Event-driven triggers</span>
+gcloud functions deploy process-upload \
+    --gen2 \
+    --runtime=python311 \
+    --trigger-event-filters="type=google.cloud.storage.object.v1.finalized" \
+    --trigger-event-filters="bucket=my-bucket"
+
+<span class="comment"># Limits:</span>
+<span class="comment"># Memory: 128 MB - 32 GB</span>
+<span class="comment"># Timeout: 9 min (HTTP), 60 min (event)</span>
+<span class="comment"># Max instances: 1000 (default)</span>
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 4: Managed Services -->
+      <section class="topic-section" id="managed-services">
+        <h2> Serverless Databases <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>Managed databases eliminate server management while providing automatic scaling and high availability.</p>
+
+        <div class="code-block">
+<code><span class="comment"># Serverless Database Options</span>
+
+<span class="comment"># AWS DynamoDB (Serverless NoSQL)</span>
+aws dynamodb create-table \
+    --table-name users \
+    --attribute-definitions \
+        AttributeName=userId,AttributeType=S \
+    --key-schema \
+        AttributeName=userId,KeyType=HASH \
+    --billing-mode PAY_PER_REQUEST
+
+<span class="comment"># Auto-scaling capacity</span>
+aws dynamodb update-table \
+    --table-name users \
+    --billing-mode PAY_PER_REQUEST
+
+<span class="comment"># Azure Cosmos DB (Serverless Multi-model)</span>
+az cosmosdb create \
+    --name my-cosmos \
+    --resource-group myRG \
+    --capabilities EnableServerless
+
+<span class="comment"># Google Cloud Firestore (Serverless Document DB)</span>
+gcloud firestore databases create \
+    --location=nam5 \
+    --type=firestore-native
+
+<span class="comment"># AWS Aurora Serverless (Serverless SQL)</span>
+<span class="comment"># Auto-scales compute capacity</span>
+<span class="comment"># Pay per ACU-second</span>
+<span class="comment"># Pause when idle</span>
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 5: Step Functions -->
+      <section class="topic-section" id="step-functions">
+        <h2> Workflow Orchestration <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>Serverless workflow services coordinate multiple functions and services into business processes.</p>
+
+        <div class="code-block">
+<code><span class="comment"># AWS Step Functions (State Machine)</span>
+{
+  <span class="string">"Comment"</span>: <span class="string">"Order Processing Workflow"</span>,
+  <span class="string">"StartAt"</span>: <span class="string">"ValidateOrder"</span>,
+  <span class="string">"States"</span>: {
+    <span class="string">"ValidateOrder"</span>: {
+      <span class="string">"Type"</span>: <span class="string">"Task"</span>,
+      <span class="string">"Resource"</span>: <span class="string">"arn:aws:lambda:us-east-1:123:function:validate"</span>,
+      <span class="string">"Next"</span>: <span class="string">"ProcessPayment"</span>,
+      <span class="string">"Catch"</span>: [{
+        <span class="string">"ErrorEquals"</span>: [<span class="string">"States.ALL"</span>],
+        <span class="string">"Next"</span>: <span class="string">"HandleError"</span>
+      }]
+    },
+    <span class="string">"ProcessPayment"</span>: {
+      <span class="string">"Type"</span>: <span class="string">"Task"</span>,
+      <span class="string">"Resource"</span>: <span class="string">"arn:aws:lambda:us-east-1:123:function:payment"</span>,
+      <span class="string">"Next"</span>: <span class="string">"FulfillOrder"</span>
+    },
+    <span class="string">"FulfillOrder"</span>: {
+      <span class="string">"Type"</span>: <span class="string">"Task"</span>,
+      <span class="string">"Resource"</span>: <span class="string">"arn:aws:lambda:us-east-1:123:function:fulfill"</span>,
+      <span class="string">"End"</span>: <span class="keyword">true</span>
+    },
+    <span class="string">"HandleError"</span>: {
+      <span class="string">"Type"</span>: <span class="string">"Task"</span>,
+      <span class="string">"Resource"</span>: <span class="string">"arn:aws:lambda:us-east-1:123:function:error"</span>,
+      <span class="string">"End"</span>: <span class="keyword">true</span>
+    }
+  }
+}
+
+<span class="comment"># Azure Durable Functions</span>
+<span class="comment"># Google Cloud Workflows</span>
+        </code>
+        </div>
+
+        <div class="flowchart">
+          <h3>Step Functions Workflow</h3>
+          <div class="flow-row">
+            <span class="flow-node">Validate</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Payment</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Fulfill</span>
+          </div>
+          <div class="flow-row" style="margin-top: 0.5rem;">
+            <span class="flow-node">Validate</span>
+            <span class="flow-arrow">↘</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node" style="background: var(--glow-border); color: var(--text);">Error Handler</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 6: API Gateway -->
+      <section class="topic-section" id="api-gateway">
+        <h2> API Gateway <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>API Gateway creates REST/HTTP APIs that route requests to Lambda functions or other backend services.</p>
+
+        <div class="code-block">
+<code><span class="comment"># AWS API Gateway + Lambda</span>
+
+<span class="comment"># Create REST API</span>
+aws apigateway create-rest-api \
+    --name my-api \
+    --description "My API"
+
+<span class="comment"># Create resource and method</span>
+aws apigateway create-resource \
+    --rest-api-id abc123 \
+    --parent-id xyz789 \
+    --path-part hello
+
+aws apigateway put-method \
+    --rest-api-id abc123 \
+    --resource-id def456 \
+    --http-method GET \
+    --authorization-type NONE
+
+aws apigateway put-integration \
+    --rest-api-id abc123 \
+    --resource-id def456 \
+    --http-method GET \
+    --type AWS_PROXY \
+    --integration-uri arn:aws:lambda:us-east-1:123:function:hello
+
+<span class="comment"># Deploy API</span>
+aws apigateway create-deployment \
+    --rest-api-id abc123 \
+    --stage-name prod
+
+<span class="comment"># Result: https://abc123.execute-api.us-east-1.amazonaws.com/prod/hello</span>
+
+<span class="comment"># Azure API Management</span>
+<span class="comment"># Google Cloud API Gateway / API Gateway</span>
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 7: Event-Driven -->
+      <section class="topic-section" id="event-driven">
+        <h2> Event-Driven Architecture <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>Event-driven architecture uses events to trigger and communicate between decoupled services.</p>
+
+        <div class="code-block">
+<code><span class="comment"># Event Sources</span>
+
+<span class="comment"># AWS Event Sources for Lambda</span>
+- S3 (object created/deleted)
+- DynamoDB Streams (table changes)
+- SQS (message in queue)
+- SNS (notification)
+- EventBridge (scheduled/custom events)
+- API Gateway (HTTP request)
+- Kinesis (stream records)
+
+<span class="comment"># EventBridge Rule (scheduled)</span>
+{
+  <span class="string">"ScheduleExpression"</span>: <span class="string">"rate(5 minutes)"</span>,
+  <span class="string">"Target"</span>: {
+    <span class="string">"Arn"</span>: <span class="string">"arn:aws:lambda:us-east-1:123:function:process"</span>
+  }
+}
+
+<span class="comment"># EventBridge Rule (custom event)</span>
+{
+  <span class="string">"detail-type"</span>: [<span class="string">"OrderPlaced"</span>],
+  <span class="string">"source"</span>: [<span class="string">"com.myapp.orders"</span>],
+  <span class="string">"detail"</span>: {
+    <span class="string">"status"</span>: [<span class="string">"confirmed"</span>]
+  }
+}
+        </code>
+        </div>
+
+        <div class="flowchart">
+          <h3>Event-Driven Flow</h3>
+          <div class="flow-row">
+            <span class="flow-node">Event Source</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Event Bus/Queue</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Lambda/Function</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Action</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 8: Fan-Out -->
+      <section class="topic-section" id="fan-out">
+        <h2> Fan-Out Pattern <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>Fan-out pattern processes tasks in parallel by distributing work to multiple consumers.</p>
+
+        <div class="code-block">
+<code><span class="comment"># Fan-Out Pattern (SNS + SQS)</span>
+
+<span class="comment"># 1. SNS Topic broadcasts event</span>
+aws sns create-topic --name order-events
+
+<span class="comment"># 2. Multiple SQS queues subscribe</span>
+aws sqs create-queue --name email-queue
+aws sqs create-queue --name inventory-queue
+aws sqs create-queue --name analytics-queue
+
+aws sns subscribe \
+    --topic-arn arn:aws:sns:us-east-1:123:order-events \
+    --protocol sqs \
+    --notification-endpoint arn:aws:sqs:us-east-1:123:email-queue
+
+<span class="comment"># 3. Each Lambda processes from its queue</span>
+<span class="comment"># email-processor Lambda</span>
+<span class="comment"># inventory-processor Lambda</span>
+<span class="comment"># analytics-processor Lambda</span>
+
+<span class="comment"># Benefits:</span>
+<span class="comment"># - Parallel processing</span>
+<span class="comment"># - Independent scaling</span>
+<span class="comment"># - Failure isolation</span>
+<span class="comment"># - Retry handling per consumer</span>
+        </code>
+        </div>
+
+        <div class="flowchart">
+          <h3>Fan-Out Architecture</h3>
+          <div class="flow-row">
+            <span class="flow-node">Order Event</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">SNS Topic</span>
+          </div>
+          <div class="flow-row" style="margin-top: 0.25rem; margin-left: 4rem;">
+            <span class="flow-arrow">↓</span>
+          </div>
+          <div class="flow-row">
+            <span class="flow-node">Email Queue</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Email Lambda</span>
+          </div>
+          <div class="flow-row">
+            <span class="flow-node">Inventory Queue</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Inventory Lambda</span>
+          </div>
+          <div class="flow-row">
+            <span class="flow-node">Analytics Queue</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Analytics Lambda</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 9: Saga Pattern -->
+      <section class="topic-section" id="saga">
+        <h2> Saga Pattern <span class="level-badge advanced">Advanced</span> </h2>
+        <p>Saga pattern manages distributed transactions by defining compensating actions for each step.</p>
+
+        <div class="code-block">
+<code><span class="comment"># Saga Pattern (Order Processing)</span>
+
+<span class="comment"># Steps with compensations:</span>
+1. Reserve Inventory    → Compensate: Release Inventory
+2. Process Payment      → Compensate: Refund Payment
+3. Create Shipment      → Compensate: Cancel Shipment
+4. Update Order Status  → Compensate: Revert Status
+
+<span class="comment"># Step Functions Saga</span>
+{
+  <span class="string">"StartAt"</span>: <span class="string">"ReserveInventory"</span>,
+  <span class="string">"States"</span>: {
+    <span class="string">"ReserveInventory"</span>: {
+      <span class="string">"Type"</span>: <span class="string">"Task"</span>,
+      <span class="string">"Resource"</span>: <span class="string">"...inventory:reserve"</span>,
+      <span class="string">"Catch"</span>: [{
+        <span class="string">"Next"</span>: <span class="string">"Fail"</span>
+      }],
+      <span class="string">"Next"</span>: <span class="string">"ProcessPayment"</span>
+    },
+    <span class="string">"ProcessPayment"</span>: {
+      <span class="string">"Type"</span>: <span class="string">"Task"</span>,
+      <span class="string">"Resource"</span>: <span class="string">"...payment:charge"</span>,
+      <span class="string">"Catch"</span>: [{
+        <span class="string">"Next"</span>: <span class="string">"ReleaseInventory"</span>  <span class="comment"># Compensate</span>
+      }],
+      <span class="string">"Next"</span>: <span class="string">"CreateShipment"</span>
+    },
+    <span class="string">"ReleaseInventory"</span>: {
+      <span class="string">"Type"</span>: <span class="string">"Task"</span>,
+      <span class="string">"Resource"</span>: <span class="string">"...inventory:release"</span>,
+      <span class="string">"Next"</span>: <span class="string">"Fail"</span>
+    }
+  }
+}
+
+<span class="comment"># Alternatives:</span>
+<span class="comment"># - Choreography: Services react to events</span>
+<span class="comment"># - Orchestration: Central coordinator (Step Functions)</span>
+        </code>
+        </div>
+
+        <div class="flowchart">
+          <h3>Saga Compensation Flow</h3>
+          <div class="flow-row">
+            <span class="flow-node">Reserve Inventory</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Process Payment</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node">Create Shipment</span>
+          </div>
+          <div class="flow-row" style="margin-top: 0.5rem;">
+            <span class="flow-node">Release Inventory</span>
+            <span class="flow-arrow">←</span>
+            <span class="flow-node">Refund Payment</span>
+            <span class="flow-arrow">←</span>
+            <span class="flow-node">Cancel Shipment</span>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+</body>
+</html>
