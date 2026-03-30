@@ -525,80 +525,6 @@
       font-size: 1rem;
     }
 
-    /* Main content with breadcrumb */
-    .main-content {
-      display: grid !important;
-      grid-template-columns: 260px 1fr !important;
-      grid-template-rows: auto 1fr !important;
-      gap: 0 !important;
-      padding: 0 !important;
-      align-items: start;
-    }
-
-    .main-content > .breadcrumb {
-      grid-column: 1 / -1;
-      grid-row: 1;
-      margin: 0;
-      border-radius: 0;
-    }
-
-    /* Sidebar toggle button */
-    .sidebar-toggle {
-      width: 36px;
-      height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      transition: all var(--transition);
-      z-index: 100;
-    }
-
-    .sidebar-toggle:hover {
-      background: var(--bg-alt);
-      border-color: var(--glow-border);
-    }
-
-    .sidebar-toggle svg {
-      width: 18px;
-      height: 18px;
-      stroke: var(--text);
-    }
-
-    /* Sidebar collapsed state */
-    .main-content.sidebar-collapsed {
-      grid-template-columns: 0 1fr !important;
-    }
-
-    .main-content.sidebar-collapsed .sidebar {
-      display: none;
-    }
-
-    .main-content.sidebar-collapsed .page-wrap {
-      grid-column: 1 / -1;
-    }
-
-    /* When sidebar is collapsed, move toggle */
-    body.sidebar-collapsed .sidebar-toggle {
-      position: fixed;
-      left: 10px;
-      top: 70px;
-    }
-
-    .main-content.sidebar-collapsed .sidebar-toggle {
-      position: fixed;
-      left: 10px;
-      top: calc(var(--topbar-height) + 70px);
-      margin-left: 0;
-    }
-
-    /* Page wrap */
-    .page-wrap {
-      padding: 1.5rem;
-    }
   </style>
 </head>
 <body class="with-sidebar">
@@ -647,17 +573,18 @@
     </nav>
   </div>
 
-  <nav class="breadcrumb" style="position: sticky; top: var(--topbar-height); z-index: 1001; display: flex; align-items: center; gap: 0.5rem;">
-    <a href="../../../index.html" class="breadcrumb-link">Home</a>
-    <span class="separator">›</span>
-    <a href="../portfolio.html" class="breadcrumb-link">Projects</a>
-    <span class="separator">›</span>
-    <span class="current" style="font-weight: 600;">Experienced</span>
-  </nav>
+  <main class="main-content">
+    <nav class="breadcrumb" style="position: sticky; top: var(--topbar-height); z-index: 1001; display: flex; align-items: center; gap: 0.5rem;">
+      <a href="../../../index.html" class="breadcrumb-link">Home</a>
+      <span class="separator">›</span>
+      <a href="../portfolio.html" class="breadcrumb-link">Projects</a>
+      <span class="separator">›</span>
+      <span class="current" style="font-weight: 600;">Experienced</span>
+    </nav>
 
-  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
 
-  <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
+    <nav class="sidebar">
       <div class="logo">
         <span class="logo-text">Projects</span>
       </div>
@@ -668,6 +595,12 @@
       <a href="#p2-batch" class="nav-item section-link" data-section="p2-batch">→ BATCH Pipelines</a>
       <a href="#" class="nav-item" data-project="project-3">CIP-Madras</a>
     </nav>
+
+    <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 12h18M3 6h18M3 18h18"/>
+      </svg>
+    </button>
 
     <div class="page-wrap">
       <!-- PROJECT 1 -->
