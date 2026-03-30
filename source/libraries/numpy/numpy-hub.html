@@ -10,8 +10,8 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
-  <link rel="stylesheet" href="../hub.css" />
+  <link rel="stylesheet" href="../../styles/styles.css" />
+  <link rel="stylesheet" href="../styles/hub.css" />
 </head>
 
 <body>
@@ -20,8 +20,10 @@
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
   <header class="topbar glass reveal in">
-    <a class="brand" href="../../index.html">
-
+    <a class="brand" href="../../../index.html">
+      <svg class="brand-icon" viewBox="0 0 24 24">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+      </svg>
       Data Guide
     </a>
     <nav class="menu" aria-label="NumPy menu">
@@ -32,17 +34,13 @@
       <a href="methods.html">Methods</a>
     </nav>
     <div class="header-actions">
-      <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle mobile menu">
-        <span class="hamburger-icon" aria-hidden="true">
-          <span></span>
-          <span></span>
-          <span></span>
-        </span>
-      </button>
-      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
-        <span class="toggle-icon" aria-hidden="true">☾</span>
-        <span class="toggle-text">Dark</span>
-      </button>
+      <a href="../../../source/portfolios/portfolio.html" class="portfolio-link" title="View Portfolio">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z" />
+          <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16" />
+        </svg>
+      </a>
+      <button id="theme-toggle" class="theme-toggle"><span class="toggle-icon">☾</span></button>
     </div>
   </header>
 
@@ -114,7 +112,7 @@
       </section>
     </div>
   </main>
-  <script src="../app.js"></script>
+  <script src="../../scripts/app.js"></script>
   <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
       stroke-linejoin="round">
