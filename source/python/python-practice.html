@@ -379,7 +379,7 @@
     </svg>
   </button>
 
-  <script src="../app.js"></script>
+  <script src="../scripts/app.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
@@ -513,24 +513,6 @@
 
       window.addEventListener('hashchange', handleHash);
       handleHash();
-
-      // Scroll to top functionality
-      const scrollToTopBtn = document.getElementById('scrollToTop');
-
-      window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 300) {
-          scrollToTopBtn.classList.add('visible');
-        } else {
-          scrollToTopBtn.classList.remove('visible');
-        }
-      });
-
-      scrollToTopBtn.addEventListener('click', () => {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
-      });
     }
   </script>
 </body>

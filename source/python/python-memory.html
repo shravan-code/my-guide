@@ -1957,7 +1957,7 @@ squares = (x*x <span class="keyword">for</span> x <span class="keyword">in</span
     </div>
   </main>
 
-  <script src="../app.js"></script>
+  <script src="../scripts/app.js"></script>
   <script src="python.js"></script>
   <script>
     const navItems = Array.from(document.querySelectorAll(".nav-item"));
@@ -2029,24 +2029,5 @@ squares = (x*x <span class="keyword">for</span> x <span class="keyword">in</span
       <path d="M12 19V5M5 12l7-7 7 7"/>
     </svg>
   </button>
-  <script>
-    // Scroll to top functionality
-    const scrollToTopBtn = document.getElementById('scrollToTop');
-    
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        scrollToTopBtn.classList.add('visible');
-      } else {
-        scrollToTopBtn.classList.remove('visible');
-      }
-    });
-    
-    scrollToTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-  </script>
 </body>
 </html>

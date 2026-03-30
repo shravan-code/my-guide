@@ -307,7 +307,7 @@ body.dark .orb-c {
 .topbar {
   position: sticky;
   top: 0;
-  z-index: 2000;
+  z-index: var(--z-topbar);
   margin: 0;
   width: 100%;
   left: 0;
@@ -673,7 +673,7 @@ body.dark .theme-toggle:hover {
   -webkit-backdrop-filter: blur(var(--glass-blur));
   border-bottom: 1px solid var(--glass-border);
   box-shadow: var(--shadow-md);
-  z-index: 1999;
+  z-index: var(--z-mobile-panel);
   padding: 1rem;
   transform: translateY(-8px);
   opacity: 0;
@@ -1433,7 +1433,7 @@ body.dark .mobile-menu {
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-right: 1px solid var(--glass-border);
-      z-index: 2000;
+      z-index: var(--z-topbar);
       transform: translateX(-100%);
       transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       overflow-y: auto;
@@ -1454,7 +1454,7 @@ body.dark .mobile-menu {
       width: 100%;
       height: calc(100vh - var(--topbar-height) - var(--layout-breadcrumb-height));
       background: rgba(0, 0, 0, 0.15);
-      z-index: 1999;
+      z-index: var(--z-mobile-panel);
       transition: opacity 0.2s ease;
     }
 
@@ -1809,7 +1809,7 @@ body.dark .mobile-menu {
     opacity: 0;
     visibility: hidden;
     transition: all var(--transition);
-    z-index: 9999;
+    z-index: var(--z-scroll-top);
   }
 
   .scroll-to-top:hover {

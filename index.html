@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="source/styles/base.css" />
   <link rel="stylesheet" href="source/styles/mobile.css" media="screen and (max-width: 920px)" />
   <link rel="stylesheet" href="source/styles/desktop.css" media="screen and (min-width: 921px)" />
-  <link rel="stylesheet" href="source/hub.css" />
+  <link rel="stylesheet" href="source/styles/hub.css" />
   <style>
     /* Spark-style overrides for main page */
     body {
@@ -1022,13 +1022,13 @@
       Data Guide
     </a>
     <nav class="menu" aria-label="Main menu">
-      <a href="source/cloud/index.html">Cloud</a>
-      <a href="source/data/index.html">Big Data</a>
-      <a href="source/python/index.html">Python</a>
+      <a href="source/cloud/cloud-index.html">Cloud</a>
+      <a href="source/big-data/big-data-index.html">Big Data</a>
+      <a href="source/python/python-hub.html">Python</a>
       <a href="source/libraries/libraries-hub.html">Libraries</a>
       <a href="source/sql/index.html">SQL</a>
-      <a href="source/cheatsheets/cheatsheet.html">Cheatsheet</a>
-      <a href="source/roadmaps/roadmap.html">Roadmap</a>
+      <a href="source/cheatsheets/cheatsheet-index.html">Cheatsheet</a>
+      <a href="source/roadmaps/roadmaps-data-engineer.html">Roadmap</a>
     </nav>
     <div class="header-actions">
       <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Open menu">
@@ -1054,13 +1054,13 @@
   <!-- Mobile Menu -->
   <div id="mobile-menu" class="mobile-menu">
     <nav class="mobile-nav" aria-label="Main menu">
-      <a href="source/cloud/index.html">Cloud</a>
-      <a href="source/data/index.html">Big Data</a>
-      <a href="source/python/index.html">Python</a>
+      <a href="source/cloud/cloud-index.html">Cloud</a>
+      <a href="source/big-data/big-data-index.html">Big Data</a>
+      <a href="source/python/python-hub.html">Python</a>
       <a href="source/libraries/libraries-hub.html">Libraries</a>
       <a href="source/sql/index.html">SQL</a>
-      <a href="source/cheatsheets/cheatsheet.html">Cheatsheet</a>
-      <a href="source/roadmaps/roadmap.html">Roadmap</a>
+      <a href="source/cheatsheets/cheatsheet-index.html">Cheatsheet</a>
+      <a href="source/roadmaps/roadmaps-data-engineer.html">Roadmap</a>
       <a href="source/portfolios/portfolio.html">Profile</a>
     </nav>
   </div>
@@ -1117,7 +1117,7 @@
           <div class="section-label">Data Engineering // Resources // V2</div>
 
           <div class="topics">
-            <a href="source/python/index.html" class="topic-item">
+            <a href="source/python/python-hub.html" class="topic-item">
               <div class="topic-icon">
                 <svg viewBox="0 0 24 24">
                   <path d="M12 2L2 7l10 5 10-5-10-5z" />
@@ -1132,7 +1132,7 @@
                 </svg>
               </div>
             </a>
-            <a href="source/spark/index.html" class="topic-item">
+            <a href="source/libraries/spark/spark-hub.html" class="topic-item">
               <div class="topic-icon">
                 <svg viewBox="0 0 24 24">
                   <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
@@ -1159,7 +1159,7 @@
                 </svg>
               </div>
             </a>
-            <a href="source/numpy/index.html" class="topic-item">
+            <a href="source/libraries/numpy/numpy-hub.html" class="topic-item">
               <div class="topic-icon">
                 <svg viewBox="0 0 24 24">
                   <rect x="3" y="3" width="18" height="18" rx="2" />
@@ -1191,7 +1191,7 @@
                 </svg>
               </div>
             </a>
-            <a href="source/cloud/index.html" class="topic-item">
+            <a href="source/cloud/cloud-index.html" class="topic-item">
               <div class="topic-icon">
                 <svg viewBox="0 0 24 24">
                   <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
@@ -1204,7 +1204,7 @@
                 </svg>
               </div>
             </a>
-            <a href="source/data/index.html" class="topic-item">
+            <a href="source/big-data/big-data-index.html" class="topic-item">
               <div class="topic-icon">
                 <svg viewBox="0 0 24 24">
                   <ellipse cx="12" cy="5" rx="9" ry="3" />
@@ -1343,7 +1343,7 @@
       item.addEventListener('mouseenter', () => updatePanel(idx));
     });
   </script>
-  <script src="source/app.js"></script>
+  <script src="source/scripts/app.js"></script>
 
   <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -1351,24 +1351,6 @@
       <path d="M12 19V5M5 12l7-7 7 7" />
     </svg>
   </button>
-  <script>
-    const scrollToTopBtn = document.getElementById('scrollToTop');
-
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        scrollToTopBtn.classList.add('visible');
-      } else {
-        scrollToTopBtn.classList.remove('visible');
-      }
-    });
-
-    scrollToTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-  </script>
 </body>
 
 </html>

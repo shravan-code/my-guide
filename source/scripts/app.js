@@ -19,6 +19,13 @@ function applyTheme(mode) {
   if (toggleIcon) {
     toggleIcon.textContent = isDark ? "☀" : "☾";
   }
+
+  if (toggleButton) {
+    toggleButton.setAttribute(
+      "aria-label",
+      isDark ? "Switch to light mode" : "Switch to dark mode"
+    );
+  }
 }
 
 const storedTheme = localStorage.getItem(storageKey);
@@ -216,6 +223,8 @@ function initializeMobileDropdowns() {
 }
 
 function attachMobileHandlers(mobileMenuToggle, mobileMenu, mobileMenuOverlay) {
+  mobileMenuToggle.setAttribute("aria-expanded", "false");
+
   const closeMobileMenu = () => {
     mobileMenu.classList.remove("open");
     mobileMenuOverlay.classList.remove("active");
@@ -249,11 +258,11 @@ function attachMobileHandlers(mobileMenuToggle, mobileMenu, mobileMenuOverlay) {
 }
 
 function initializeMobileMenu() {
-  // Skip if new hamburger exists (index.html handles it)
+  /* Portfolio project pages use #hamburger-btn + portfolio.js for a separate drawer. */
   if (document.getElementById("hamburger-btn")) {
     return;
   }
-  
+
   const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
   const mobileMenu = document.getElementById("mobile-menu");
   const mobileMenuOverlay = document.getElementById("mobile-menu-overlay");
@@ -352,3 +361,38 @@ function initializeSidebarToggle() {
 }
 
 initializeSidebarToggle();
+
+/** Shared scroll-to-top (threshold px, respects prefers-reduced-motion). */
+function initScrollToTop(options = {}) {
+  const bind = () => {
+    const btn = document.getElementById("scrollToTop");
+    if (!btn) {
+      return;
+    }
+
+    const threshold = typeof options.threshold === "number" ? options.threshold : 300;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const onScroll = () => {
+      btn.classList.toggle("visible", window.scrollY > threshold);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    btn.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: reduceMotion ? "auto" : "smooth",
+      });
+    });
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bind, { once: true });
+  } else {
+    bind();
+  }
+}
+
+initScrollToTop();

@@ -219,18 +219,13 @@
     </div>
   </main>
 
-  <script src="../../app.js"></script>
+  <script src="../../../../scripts/app.js"></script>
   <script src="aws.js"></script>
   <button id="scrollToTop" class="scroll-to-top">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <path d="M12 19V5M5 12l7-7 7 7" />
     </svg>
   </button>
-  <script>
-    const scrollToTopBtn = document.getElementById('scrollToTop');
-    window.addEventListener('scroll', () => scrollToTopBtn.classList.toggle('visible', window.pageYOffset > 300));
-    scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-  </script>
 </body>
 
 </html>

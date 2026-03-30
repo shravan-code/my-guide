@@ -22,7 +22,7 @@
   border-right: 1px solid var(--glass-border);
   box-shadow: var(--shadow-md);
   overflow-y: auto;
-  z-index: 1000;
+  z-index: 1;
   transition: all var(--transition);
   align-self: start;
 }
@@ -163,7 +163,7 @@ body:not(.with-sidebar) .main-content>.page-wrap {
   flex-shrink: 0;
   width: 44px;
   height: 44px;
-  z-index: 2001;
+  z-index: var(--z-sidebar-fab);
 }
 
 .sidebar-toggle:hover {
@@ -263,7 +263,7 @@ body:not(.with-sidebar) .main-content>.page-wrap {
     height: calc(100vh - var(--topbar-height) - var(--layout-breadcrumb-height));
     transform: translateX(-100%);
     transition: transform var(--transition);
-    z-index: 1500;
+    z-index: var(--z-sidebar-drawer);
   }
 
   .sidebar.open {

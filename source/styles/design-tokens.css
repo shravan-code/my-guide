@@ -23,6 +23,24 @@
   --layout-breadcrumb-height: 48px;
   --layout-sidebar-width: 300px;
 
+  /* Stacking (shell: topbar < mobile panel < scroll CTA) */
+  --z-sidebar-overlay: 1400;
+  --z-sidebar-drawer: 1500;
+  --z-sidebar-fab: 2001;
+  --z-mobile-backdrop: 1998;
+  --z-mobile-panel: 1999;
+  --z-topbar: 2000;
+  --z-scroll-top: 2500;
+
+  /* Spacing scale (rem) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+
   --color-bg-light: #ffffff;
   --color-bg-alt-light: #f8f9fa;
   --color-bg-elevated-light: #fafafa;
