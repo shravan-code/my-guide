@@ -597,6 +597,20 @@ main {
   outline-offset: 3px;
 }
 
+/* Consistent keyboard focus ring for common shell controls. */
+.menu a:focus-visible,
+.menu-trigger:focus-visible,
+.mobile-menu-toggle:focus-visible,
+.theme-toggle:focus-visible,
+.portfolio-link:focus-visible,
+.sidebar-toggle:focus-visible,
+.mobile-dropdown-trigger:focus-visible,
+.mobile-nav a:focus-visible,
+.sidebar .nav-item:focus-visible {
+  outline: 2px solid var(--glow-color);
+  outline-offset: 3px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .track {
     transition: border-color var(--transition), box-shadow var(--transition);

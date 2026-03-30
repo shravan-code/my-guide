@@ -1778,6 +1778,11 @@ body.dark .mobile-menu {
     box-shadow: var(--shadow);
   }
 
+  .toc a:focus-visible {
+    outline: 2px solid var(--glow-color);
+    outline-offset: 3px;
+  }
+
   /* Reveal Animation */
   .reveal {
     opacity: 0;
@@ -1788,6 +1793,24 @@ body.dark .mobile-menu {
   .reveal.in {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  /* Respect reduced motion: show content immediately. */
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    .toc a:hover {
+      transform: none;
+      box-shadow: none;
+    }
+
+    .concept:hover {
+      box-shadow: none;
+    }
   }
 
   /* Scroll to top button */

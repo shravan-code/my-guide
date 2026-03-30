@@ -23,6 +23,9 @@
   --layout-breadcrumb-height: 48px;
   --layout-sidebar-width: 300px;
 
+  /* Common alias used by older page-specific stylesheets (e.g. styles.css). */
+  --breadcrumb-height: var(--layout-breadcrumb-height);
+
   /* Stacking (shell: topbar < mobile panel < scroll CTA) */
   --z-sidebar-overlay: 1400;
   --z-sidebar-drawer: 1500;

@@ -104,6 +104,9 @@ This document tracks phased work to stabilize layout, navigation, theming, motio
 |------|-------|-------|
 | 2026-03-31 | Plan | Initial `implementation.md` created. |
 | 2026-03-31 | 1–3 | Centralized scroll + theme aria; tokens; breadcrumb + media utilities; hub/base tracks; fixed SQL + library + `index.html` links; corrected all `app.js` paths; cheatsheets use `app.js` + slim `cheatsheets.js`; portfolio.js deduped. |
+| 2026-03-31 | 4 | UI asset stabilization: fixed Cloud/Python/Library/Spark/Roadmaps/Big-Data/Cheatsheets CSS+JS paths; removed missing AWS `aws.css/aws.js` refs; centralized scroll-to-top by removing remaining inline handlers in `cloud-architecture.html` + AWS `interview.html`. |
+| 2026-03-31 | 4 | Breadcrumb spacing fix: added `--breadcrumb-height` alias in `design-tokens.css` to remove overlap on cloud pages. |
+| 2026-03-31 | 2 | Visual polish: reduced-motion handling for `.reveal` (styles.css) + consistent focus ring for `.toc a` plus hover de-motion. |
 
 ---
 
