@@ -39,6 +39,7 @@
 }
 
 .track {
+  display: block;
   text-decoration: none;
   color: var(--text);
   border: 1px solid var(--glass-border);
@@ -46,13 +47,34 @@
   padding: 1.25rem 1rem;
   background: var(--bg-alt);
   text-align: center;
-  transition: all var(--transition);
+  transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+  min-height: 5.5rem;
+  box-sizing: border-box;
 }
 
 .track:hover {
   border-color: var(--glow-border);
-  box-shadow: var(--shadow-md), var(--shadow-glow);
+  box-shadow: var(--shadow-md-light), var(--shadow-glow-light);
   transform: translateY(-2px);
+}
+
+body.dark .track:hover {
+  box-shadow: var(--shadow-md-dark), var(--shadow-glow-dark);
+}
+
+.track:focus-visible {
+  outline: 2px solid var(--glow-color);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    transition: border-color var(--transition), box-shadow var(--transition);
+  }
+
+  .track:hover {
+    transform: none;
+  }
 }
 
 .track h3 {

@@ -10,8 +10,8 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
-  <link rel="stylesheet" href="../hub.css" />
+  <link rel="stylesheet" href="../styles/styles.css" />
+  <link rel="stylesheet" href="../styles/hub.css" />
 </head>
 
 <body>
@@ -25,11 +25,11 @@
       Data Guide
     </a>
     <nav class="menu" aria-label="Data menu">
-      <a href="index.html" class="active" aria-current="page">Hub</a>
-      <a href="data-types.html">Data Types</a>
-      <a href="data-formats.html">Data Formats</a>
-      <a href="data-quality.html">Data Quality</a>
-      <a href="data-pipeline.html">Data Pipelines</a>
+      <a href="big-data-index.html" class="active" aria-current="page">Hub</a>
+      <a href="big-data-types.html">Data Types</a>
+      <a href="big-data-formats.html">Data Formats</a>
+      <a href="big-data-quality.html">Data Quality</a>
+      <a href="big-data-pipelines.html">Data Pipelines</a>
     </nav>
     <div class="header-actions">
       <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle mobile menu">
@@ -48,11 +48,11 @@
 
   <div id="mobile-menu" class="mobile-menu">
     <nav class="mobile-nav" aria-label="Data mobile menu">
-      <a href="index.html" class="active" aria-current="page">Hub</a>
-      <a href="data-types.html">Data Types</a>
-      <a href="data-formats.html">Data Formats</a>
-      <a href="data-quality.html">Data Quality</a>
-      <a href="data-pipeline.html">Data Pipelines</a>
+      <a href="big-data-index.html" class="active" aria-current="page">Hub</a>
+      <a href="big-data-types.html">Data Types</a>
+      <a href="big-data-formats.html">Data Formats</a>
+      <a href="big-data-quality.html">Data Quality</a>
+      <a href="big-data-pipelines.html">Data Pipelines</a>
     </nav>
   </div>
   <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
@@ -85,19 +85,19 @@
       <section class="tracks">
         <h2>Explore Big Data</h2>
         <div class="track-grid">
-          <a href="data-types.html" class="track">
+          <a href="big-data-types.html" class="track">
             <h3>Data Types</h3>
             <p>Structured, semi-structured, and unstructured data</p>
           </a>
-          <a href="data-formats.html" class="track">
+          <a href="big-data-formats.html" class="track">
             <h3>Data Formats</h3>
             <p>CSV, JSON, Parquet, Avro, and more</p>
           </a>
-          <a href="data-quality.html" class="track">
+          <a href="big-data-quality.html" class="track">
             <h3>Data Quality</h3>
             <p>Validation, cleansing, and governance</p>
           </a>
-          <a href="data-pipeline.html" class="track">
+          <a href="big-data-pipelines.html" class="track">
             <h3>Data Pipelines</h3>
             <p>ETL, ELT, and data flow patterns</p>
           </a>
@@ -123,11 +123,11 @@
             <h3>2. Storage</h3>
             <p>Persisting data reliably</p>
           </a>
-          <a href="data-quality.html" class="track">
+          <a href="big-data-quality.html" class="track">
             <h3>3. Processing</h3>
             <p>Transforming and cleaning</p>
           </a>
-          <a href="data-pipeline.html" class="track">
+          <a href="big-data-pipelines.html" class="track">
             <h3>4. Analysis</h3>
             <p>Extracting insights</p>
           </a>
@@ -135,7 +135,7 @@
             <h3>5. Visualization</h3>
             <p>Presenting findings</p>
           </a>
-          <a href="data-quality.html" class="track">
+          <a href="big-data-quality.html" class="track">
             <h3>6. Governance</h3>
             <p>Ensuring compliance</p>
           </a>
@@ -143,32 +143,13 @@
       </section>
     </div>
   </main>
-  <script src="../app.js"></script>
+  <script src="../scripts/app.js"></script>
   <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
       stroke-linejoin="round">
       <path d="M12 19V5M5 12l7-7 7 7" />
     </svg>
   </button>
-  <script>
-    // Scroll to top functionality
-    const scrollToTopBtn = document.getElementById('scrollToTop');
-
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        scrollToTopBtn.classList.add('visible');
-      } else {
-        scrollToTopBtn.classList.remove('visible');
-      }
-    });
-
-    scrollToTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-  </script>
 </body>
 
 </html>

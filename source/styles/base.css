@@ -1,5 +1,5 @@
 /* Base styles for all devices */
-@import url("../design-tokens.css");
+@import url("./design-tokens.css");
 
 :root {
   --bg: var(--color-bg-light);
@@ -70,6 +70,25 @@ html, body {
   line-height: 1.6;
 }
 
+img,
+video,
+iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+iframe {
+  border: 0;
+}
+
+.table-wrap {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: var(--space-4) 0;
+}
+
 a { color: var(--glow-color); text-decoration: none; }
 a:hover { color: var(--glow-pink); }
 
@@ -137,7 +156,7 @@ pre.code code, .code code, .code-block code {
 .topbar {
   position: sticky;
   top: 0;
-  z-index: 2000;
+  z-index: var(--z-topbar);
   height: var(--topbar-height);
   padding: 0 1.5rem;
   background: var(--glass);
@@ -324,7 +343,7 @@ pre.code code, .code code, .code-block code {
 .theme-toggle svg { width: 18px; height: 18px; }
 .toggle-text { display: none; }
 
-/* Mobile menu - hidden by default */
+/* Mobile menu */
 .mobile-menu-toggle {
   display: none;
   width: 38px;
@@ -336,6 +355,12 @@ pre.code code, .code code, .code-block code {
   border-radius: 999px;
   color: var(--text);
   cursor: pointer;
+}
+
+@media (max-width: 920px) {
+  .mobile-menu-toggle {
+    display: flex;
+  }
 }
 
 .mobile-menu-toggle svg { width: 20px; height: 20px; }
@@ -353,7 +378,7 @@ pre.code code, .code code, .code-block code {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--glass-border);
-  z-index: 1999;
+  z-index: var(--z-mobile-panel);
   padding: 1rem;
   transform: translateY(-10px);
   opacity: 0;
@@ -444,10 +469,54 @@ pre.code code, .code code, .code-block code {
   width: 100%;
   height: calc(100% - var(--topbar-height));
   background: rgba(0, 0, 0, 0.15);
-  z-index: 1998;
+  z-index: var(--z-mobile-backdrop);
 }
 
 .mobile-menu-overlay.active { display: block; }
+
+/* Breadcrumb row (hub + sidebar layouts) */
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+  min-height: var(--layout-breadcrumb-height);
+  padding: var(--space-3) var(--space-6);
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--bg-alt);
+  border-bottom: 1px solid var(--glass-border);
+  box-sizing: border-box;
+}
+
+.breadcrumb a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  padding: 0.15rem 0.35rem;
+  margin: -0.15rem -0.35rem;
+  transition: color var(--transition), background var(--transition);
+}
+
+.breadcrumb a:hover {
+  color: var(--glow-color);
+  background: var(--glass);
+}
+
+.breadcrumb .current {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.breadcrumb svg {
+  flex-shrink: 0;
+  width: 0.95rem;
+  height: 0.95rem;
+  opacity: 0.45;
+  stroke: currentColor;
+}
 
 /* Main content */
 main {
@@ -523,6 +592,39 @@ main {
   transform: translateY(-3px);
 }
 
+.track:focus-visible {
+  outline: 2px solid var(--glow-color);
+  outline-offset: 3px;
+}
+
+/* Consistent keyboard focus ring for common shell controls. */
+.menu a:focus-visible,
+.menu-trigger:focus-visible,
+.mobile-menu-toggle:focus-visible,
+.theme-toggle:focus-visible,
+.portfolio-link:focus-visible,
+.sidebar-toggle:focus-visible,
+.mobile-dropdown-trigger:focus-visible,
+.mobile-nav a:focus-visible,
+.sidebar .nav-item:focus-visible {
+  outline: 2px solid var(--glow-color);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    transition: border-color var(--transition), box-shadow var(--transition);
+  }
+
+  .track:hover {
+    transform: none;
+  }
+
+  .scroll-to-top:hover {
+    transform: none;
+  }
+}
+
 .track-icon {
   width: 42px;
   height: 42px;
@@ -557,8 +659,9 @@ main {
   box-shadow: 0 0 18px rgba(99, 102, 241, 0.28), 0 0 34px rgba(236, 72, 153, 0.16);
   opacity: 0;
   visibility: hidden;
-  transition: all var(--transition);
-  z-index: 1000;
+  transition: opacity var(--transition), visibility var(--transition), transform var(--transition),
+    border-color var(--transition), box-shadow var(--transition);
+  z-index: var(--z-scroll-top);
 }
 
 .scroll-to-top.visible { opacity: 1; visibility: visible; }
