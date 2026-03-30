@@ -69,8 +69,8 @@
     .brand-icon {
       width: 20px;
       height: 20px;
-      stroke: var(--text);
       fill: none;
+      stroke: var(--glow-color);
       stroke-width: 1.5;
     }
 
@@ -890,54 +890,6 @@
       background: var(--bg-alt);
     }
 
-    .mobile-dropdown {
-      margin: 0.25rem 0;
-    }
-
-    .mobile-dropdown-trigger {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.75rem 1rem;
-      background: transparent;
-      border: 1px solid transparent;
-      border-radius: var(--radius-sm);
-      color: var(--text);
-      cursor: pointer;
-      font-size: 1rem;
-      text-align: left;
-      transition: all var(--transition);
-    }
-
-    .mobile-dropdown-trigger:hover {
-      background: var(--bg-alt);
-    }
-
-    .mobile-dropdown-trigger::after {
-      content: '+';
-      font-size: 1.2rem;
-      font-weight: 300;
-    }
-
-    .mobile-dropdown.open .mobile-dropdown-trigger::after {
-      content: '−';
-    }
-
-    .mobile-dropdown-content {
-      display: none;
-      padding-left: 1.5rem;
-    }
-
-    .mobile-dropdown.open .mobile-dropdown-content {
-      display: block;
-    }
-
-    .mobile-dropdown-content a {
-      padding: 0.5rem 1rem;
-      font-size: 0.95rem;
-    }
-
     .mobile-menu-overlay {
       position: fixed;
       top: var(--topbar-height);
@@ -1064,20 +1016,16 @@
 
   <header class="topbar glass reveal in">
     <a class="brand" href="index.html">
+      <svg class="brand-icon" viewBox="0 0 24 24">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+      </svg>
       Data Guide
     </a>
     <nav class="menu" aria-label="Main menu">
       <a href="source/cloud/index.html">Cloud</a>
       <a href="source/data/index.html">Big Data</a>
       <a href="source/python/index.html">Python</a>
-      <div class="menu-dropdown">
-        <button class="menu-trigger">Libraries</button>
-        <div class="dropdown-panel">
-          <a href="source/pandas/index.html"><strong>Pandas</strong><span>DataFrames and analysis</span></a>
-          <a href="source/numpy/index.html"><strong>NumPy</strong><span>Numerical computing</span></a>
-          <a href="source/spark/index.html"><strong>Spark</strong><span>Distributed processing</span></a>
-        </div>
-      </div>
+      <a href="source/libraries/libraries-hub.html">Libraries</a>
       <a href="source/sql/index.html">SQL</a>
       <a href="source/cheatsheets/cheatsheet.html">Cheatsheet</a>
       <a href="source/roadmaps/roadmap.html">Roadmap</a>
@@ -1109,14 +1057,7 @@
       <a href="source/cloud/index.html">Cloud</a>
       <a href="source/data/index.html">Big Data</a>
       <a href="source/python/index.html">Python</a>
-      <div class="mobile-dropdown">
-        <button class="mobile-dropdown-trigger">Libraries</button>
-        <div class="mobile-dropdown-content">
-          <a href="source/pandas/index.html">Pandas</a>
-          <a href="source/numpy/index.html">NumPy</a>
-          <a href="source/spark/index.html">Spark</a>
-        </div>
-      </div>
+      <a href="source/libraries/libraries-hub.html">Libraries</a>
       <a href="source/sql/index.html">SQL</a>
       <a href="source/cheatsheets/cheatsheet.html">Cheatsheet</a>
       <a href="source/roadmaps/roadmap.html">Roadmap</a>

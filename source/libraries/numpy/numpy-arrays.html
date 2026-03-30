@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Guide | NumPy Arrays</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../../styles/styles.css" />
+  <link rel="stylesheet" href="../python/python.css" />
+</head>
+
+<body class="with-sidebar">
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <header class="topbar glass reveal in">
+    <a class="brand" href="../../../index.html">
+      <svg class="brand-icon" viewBox="0 0 24 24">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+      </svg>
+      Data Guide
+    </a>
+    <nav class="menu" aria-label="NumPy menu">
+      <a href="index.html">Hub</a>
+      <a href="numpy-arrays.html" class="active" aria-current="page">Arrays</a>
+      <a href="numpy-operations.html">Operations</a>
+      <a href="methods.html">Methods</a>
+    </nav>
+    <div class="header-actions">
+      <a href="../../../source/portfolios/portfolio.html" class="portfolio-link" title="View Portfolio">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z" />
+          <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16" />
+        </svg>
+      </a>
+      <button id="theme-toggle" class="theme-toggle"><span class="toggle-icon">☾</span></button>
+    </div>
+  </header>
+
+  <div id="mobile-menu" class="mobile-menu">
+    <nav class="mobile-nav" aria-label="NumPy mobile menu">
+      <a href="index.html">Hub</a>
+      <a href="numpy-arrays.html" class="active" aria-current="page">Arrays</a>
+      <a href="numpy-operations.html">Operations</a>
+      <a href="methods.html">Methods</a>
+    </nav>
+  </div>
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
+
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+  <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+      <line x1="9" y1="3" x2="9" y2="21"></line>
+    </svg>
+  </button>
+
+  <main class="main-content">
+    <nav class="breadcrumb">
+      <a href="../../index.html">Home</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+      <a href="index.html">NumPy</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+      <span class="current">Arrays</span>
+    </nav>
+    <nav class="sidebar" id="sidebar">
+      <div class="logo">
+        <span class="logo-text">NumPy Arrays</span>
+      </div>
+
+      <div class="nav-title">Fundamentals</div>
+      <a href="#what-is-array" class="nav-item active"><span>1</span> What is Array?</a>
+      <a href="#creating-arrays" class="nav-item"><span>2</span> Creating Arrays</a>
+      <a href="#special-arrays" class="nav-item"><span>3</span> Special Arrays</a>
+      <a href="#array-attributes" class="nav-item"><span>4</span> Array Attributes</a>
+
+      <div class="nav-title">Indexing</div>
+      <a href="#indexing-basics" class="nav-item"><span>5</span> Indexing Basics</a>
+      <a href="#slicing" class="nav-item"><span>6</span> Slicing</a>
+      <a href="#fancy-indexing" class="nav-item"><span>7</span> Fancy Indexing</a>
+      <a href="#boolean-indexing" class="nav-item"><span>8</span> Boolean Indexing</a>
+
+      <div class="nav-title">Manipulation</div>
+      <a href="#reshaping" class="nav-item"><span>9</span> Reshaping</a>
+      <a href="#concatenation" class="nav-item"><span>10</span> Concatenation</a>
+      <a href="#splitting" class="nav-item"><span>11</span> Splitting</a>
+
+      <div class="nav-title">Data Types</div>
+      <a href="#data-types" class="nav-item"><span>12</span> Data Types</a>
+      <a href="#type-conversion" class="nav-item"><span>13</span> Type Conversion</a>
+
+      <div class="nav-title">Reference</div>
+      <a href="#memory-layout" class="nav-item"><span>14</span> Memory Layout</a>
+      <a href="#tips-best" class="nav-item"><span>15</span> Tips & Best Practices</a>
+    </nav>
+
+    <div class="page-wrap">
+      <section class="hero">
+        <p class="eyebrow">NumPy Guide</p>
+        <h1>NumPy Arrays</h1>
+        <p class="hero-copy">A focused guide to NumPy Arrays.</p>
+      </section>
+
+      <!-- Section 1: What is Array -->
+      <section class="topic-section" id="what-is-array">
+        <h2> What is a NumPy Array? <span class="level-badge basic">Basic</span> </h2>
+        <p>A NumPy array (ndarray) is a homogeneous, multi-dimensional container for elements of the same type. Unlike
+          Python lists, NumPy arrays are stored in contiguous memory blocks, enabling fast vectorized operations.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Key Characteristics</h4>
+            <ul>
+              <li><strong>Homogeneous:</strong> All elements share the same dtype</li>
+              <li><strong>Fixed size:</strong> Created with predetermined dimensions</li>
+              <li><strong>Contiguous memory:</strong> Elements stored sequentially</li>
+              <li><strong>Vectorized ops:</strong> Fast element-wise operations</li>
+              <li><strong>Multi-dimensional:</strong> 1D, 2D, 3D, or n-D arrays</li>
+            </ul>
+          </div>
+          <div class="split-item">
+            <h4>Array vs List</h4>
+            <div class="code-block">
+              <code><span class="comment"># Python List</span>
+lst = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]    <span class="comment"># Mixed types OK</span>
+lst.append(<span class="number">4</span>)    <span class="comment"># Dynamic sizing</span>
+
+<span class="comment"># NumPy Array</span>
+arr = np.<span class="function">array</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])  <span class="comment"># Same type enforced</span>
+<span class="comment"># arr.append(4)  # Use concatenate instead</span>
+            </code>
+            </div>
+          </div>
+        </div>
+
+        <div class="tip-box">
+          <p><strong>When to use arrays:</strong> Use NumPy arrays for numerical computations, mathematical operations,
+            and when performance matters. Use Python lists for heterogeneous data or when you need dynamic resizing.</p>
+        </div>
+      </section>
+
+      <!-- Section 2: Creating Arrays -->
+      <section class="topic-section" id="creating-arrays">
+        <h2> Creating Arrays <span class="level-badge basic">Basic</span> </h2>
+        <p>NumPy provides multiple ways to create arrays from different data sources.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>From Lists & Tuples</h4>
+            <div class="code-block">
+              <code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="comment"># 1D array from list</span>
+arr1 = np.<span class="function">array</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])
+
+<span class="comment"># 2D array (matrix)</span>
+arr2 = np.<span class="function">array</span>([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],
+                [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]])
+
+<span class="comment"># 3D array (cube)</span>
+arr3 = np.<span class="function">array</span>([[[<span class="number">1</span>, <span class="number">2</span>],
+                [<span class="number">3</span>, <span class="number">4</span>]],
+               [[<span class="number">5</span>, <span class="number">6</span>],
+                [<span class="number">7</span>, <span class="number">8</span>]]])
+
+<span class="comment"># From tuple</span>
+arr4 = np.<span class="function">array</span>((<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>))
+            </code>
+            </div>
+          </div>
+          <div class="split-item">
+            <h4>Ranges & Sequences</h4>
+            <div class="code-block">
+              <code><span class="comment"># np.arange() - Like Python range()</span>
+arr1 = np.<span class="function">arange</span>(<span class="number">10</span>)          <span class="comment"># [0, 1, ..., 9]</span>
+arr2 = np.<span class="function">arange</span>(<span class="number">1</span>, <span class="number">10</span>, <span class="number">2</span>)    <span class="comment"># [1, 3, 5, 7, 9]</span>
+arr3 = np.<span class="function">arange</span>(<span class="number">0</span>, <span class="number">1</span>, <span class="number">0.1</span>)   <span class="comment"># Float step</span>
+
+<span class="comment"># np.linspace() - N evenly spaced values</span>
+arr4 = np.<span class="function">linspace</span>(<span class="number">0</span>, <span class="number">1</span>, <span class="number">5</span>)   <span class="comment"># [0, 0.25, 0.5, 0.75, 1]</span>
+arr5 = np.<span class="function">linspace</span>(<span class="number">0</span>, <span class="number">10</span>, <span class="number">11</span>) <span class="comment"># 11 values from 0 to 10</span>
+
+<span class="comment"># np.logspace() - Logarithmic spacing</span>
+arr6 = np.<span class="function">logspace</span>(<span class="number">0</span>, <span class="number">3</span>, <span class="number">4</span>)   <span class="comment"># [1, 10, 100, 1000]</span>
+            </code>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <code><span class="comment"># Creating with specific dtype</span>
+arr_int = np.<span class="function">array</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], dtype=<span class="string">'int32'</span>)      <span class="comment"># 32-bit integers</span>
+arr_float = np.<span class="function">array</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], dtype=<span class="string">'float64'</span>)    <span class="comment"># 64-bit floats</span>
+arr_complex = np.<span class="function">array</span>([<span class="number">1</span>+<span class="number">2j</span>, <span class="number">3</span>+<span class="number">4j</span>])             <span class="comment"># Complex numbers</span>
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 3: Special Arrays -->
+      <section class="topic-section" id="special-arrays">
+        <h2> Special Array Constructors <span class="level-badge basic">Basic</span> </h2>
+        <p>NumPy provides convenient functions for creating common array patterns.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Zeros, Ones, Empty</h4>
+            <div class="code-block">
+              <code><span class="comment"># All zeros</span>
+zeros_1d = np.<span class="function">zeros</span>(<span class="number">5</span>)              <span class="comment"># [0, 0, 0, 0, 0]</span>
+zeros_2d = np.<span class="function">zeros</span>((<span class="number">3</span>, <span class="number">4</span>))          <span class="comment"># 3x4 matrix of zeros</span>
+
+<span class="comment"># All ones</span>
+ones_1d = np.<span class="function">ones</span>(<span class="number">5</span>)               <span class="comment"># [1, 1, 1, 1, 1]</span>
+ones_2d = np.<span class="function">ones</span>((<span class="number">2</span>, <span class="number">3</span>))           <span class="comment"># 2x3 matrix of ones</span>
+
+<span class="comment"># Empty (uninitialized - faster)</span>
+empty = np.<span class="function">empty</span>((<span class="number">2</span>, <span class="number">3</span>))           <span class="comment"># Fast but random values</span>
+
+<span class="comment"># Full (custom fill value)</span>
+full = np.<span class="function">full</span>((<span class="number">2</span>, <span class="number">3</span>), <span class="number">7</span>)          <span class="comment"># All 7s</span>
+full = np.<span class="function">full</span>((<span class="number">2</span>, <span class="number">3</span>), np.nan)      <span class="comment"># All NaN</span>
+            </code>
+            </div>
+          </div>
+          <div class="split-item">
+            <h4>Identity & Diagonal</h4>
+            <div class="code-block">
+              <code><span class="comment"># Identity matrix</span>
+eye = np.<span class="function">eye</span>(<span class="number">3</span>)
+<span class="comment"># [[1, 0, 0],</span>
+<span class="comment">#  [0, 1, 0],</span>
+<span class="comment">#  [0, 0, 1]]</span>
+
+<span class="comment"># Identity (alternative)</span>
+identity = np.<span class="function">identity</span>(<span class="number">3</span>)          <span class="comment"># Same as eye(3)</span>
+
+<span class="comment"># Diagonal matrix from list</span>
+diag = np.<span class="function">diag</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])
+<span class="comment"># [[1, 0, 0],</span>
+<span class="comment">#  [0, 2, 0],</span>
+<span class="comment">#  [0, 0, 3]]</span>
+
+<span class="comment"># Extract diagonal from matrix</span>
+matrix = np.<span class="function">array</span>([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],
+                    [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>],
+                    [<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]])
+diagonal = np.<span class="function">diag</span>(matrix)          <span class="comment"># [1, 5, 9]</span>
+            </code>
+            </div>
+          </div>
+        </div>
+
+        <div class="tip-box">
+          <p><strong>Performance tip:</strong> Use <code>np.empty()</code> when you plan to fill all values anyway. It's
+            faster than <code>np.zeros()</code> because it skips initialization.</p>
+        </div>
+      </section>
+
+      <!-- Section 4: Array Attributes -->
+      <section class="topic-section" id="array-attributes">
+        <h2> Array Attributes <span class="level-badge basic">Basic</span> </h2>
+        <p>Every NumPy array has attributes that describe its shape, size, and data type.</p>
+
+        <div class="code-block">
+          <code>arr = np.<span class="function">array</span>([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],
+               [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>],
+               [<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]])
+
+<span class="comment"># Shape & Dimensions</span>
+arr.<span class="function">shape</span>       <span class="comment"># (3, 3) - Tuple of dimensions</span>
+arr.<span class="function">ndim</span>        <span class="comment"># 2 - Number of dimensions</span>
+arr.<span class="function">size</span>        <span class="comment"># 9 - Total number of elements</span>
+
+<span class="comment"># Data Type Info</span>
+arr.<span class="function">dtype</span>       <span class="comment"># dtype('int64') - Element type</span>
+arr.<span class="function">itemsize</span>    <span class="comment"># 8 - Bytes per element</span>
+arr.<span class="function">nbytes</span>      <span class="comment"># 72 - Total bytes (size * itemsize)</span>
+
+<span class="comment"># Other attributes</span>
+arr.<span class="function">T</span>           <span class="comment"># Transpose</span>
+arr.<span class="function">flat</span>        <span class="comment"># Flat iterator</span>
+arr.<span class="function">strides</span>     <span class="comment"># (24, 8) - Byte steps for each axis</span>
+        </code>
+        </div>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Understanding Shape</h4>
+            <div class="code-block">
+              <code><span class="comment"># 1D array shape</span>
+arr1 = np.<span class="function">array</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])
+arr1.<span class="function">shape</span>          <span class="comment"># (3,)</span>
+
+<span class="comment"># 2D array shape (rows, cols)</span>
+arr2 = np.<span class="function">array</span>([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>]])
+arr2.<span class="function">shape</span>          <span class="comment"># (2, 2)</span>
+
+<span class="comment"># 3D array shape (depth, rows, cols)</span>
+arr3 = np.<span class="function">zeros</span>((<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>))
+arr3.<span class="function">shape</span>          <span class="comment"># (2, 3, 4)</span>
+            </code>
+            </div>
+          </div>
+          <div class="split-item">
+            <h4>Useful Methods</h4>
+            <div class="code-block">
+              <code><span class="comment"># Check array properties</span>
+arr.<span class="function">any</span>()             <span class="comment"># True if any element is True</span>
+arr.<span class="function">all</span>()             <span class="comment"># True if all elements are True</span>
+arr.<span class="function">sum</span>()             <span class="comment"># Sum of all elements</span>
+arr.<span class="function">prod</span>()            <span class="comment"># Product of all elements</span>
+
+<span class="comment"># Min/Max with index</span>
+arr.<span class="function">min</span>()             <span class="comment"># Minimum value</span>
+arr.<span class="function">max</span>()             <span class="comment"># Maximum value</span>
+arr.<span class="function">argmin</span>()          <span class="comment"># Index of minimum</span>
+arr.<span class="function">argmax</span>()          <span class="comment"># Index of maximum</span>
+            </code>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 5: Indexing Basics -->
+      <section class="topic-section" id="indexing-basics">
+        <h2> Indexing Basics <span class="level-badge basic">Basic</span> </h2>
+        <p>Access individual elements using zero-based indexing, similar to Python lists.</p>
+
+        <div class="code-block">
+          <code><span class="comment"># 1D array indexing</span>
+arr = np.<span class="function">array</span>([<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>])
+
+arr[<span class="number">0</span>]              <span class="comment"># 10 - First element</span>
+arr[<span class="number">4</span>]              <span class="comment"># 50 - Last element</span>
+arr[-<span class="number">1</span>]             <span class="comment"># 50 - Negative indexing</span>
+arr[-<span class="number">2</span>]             <span class="comment"># 40 - Second from last</span>
+
+<span class="comment"># 2D array indexing (row, col)</span>
+matrix = np.<span class="function">array</span>([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],
+                    [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>],
+                    [<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]])
+
+matrix[<span class="number">0</span>, <span class="number">0</span>]         <span class="comment"># 1 - First row, first col</span>
+matrix[<span class="number">1</span>, <span class="number">2</span>]         <span class="comment"># 6 - Second row, third col</span>
+matrix[<span class="number">2</span>, <span class="number">1</span>]         <span class="comment"># 8 - Third row, second col</span>
+
+<span class="comment"># Chained indexing (same result)</span>
+matrix[<span class="number">1</span>][<span class="number">2</span>]        <span class="comment"># 6</span>
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 6: Slicing -->
+      <section class="topic-section" id="slicing">
+        <h2> Slicing Arrays <span class="level-badge basic">Basic</span> </h2>
+        <p>Extract sub-arrays using slice notation <code>[start:stop:step]</code>.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>1D Slicing</h4>
+            <div class="code-block">
+              <code>arr = np.<span class="function">array</span>([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>])
+
+<span class="comment"># Basic slicing</span>
+arr[<span class="number">2</span>:<span class="number">5</span>]           <span class="comment"># [2, 3, 4]</span>
+arr[:<span class="number">3</span>]            <span class="comment"># [0, 1, 2] - From start</span>
+arr[<span class="number">7</span>:]            <span class="comment"># [7, 8, 9] - To end</span>
+arr[:]             <span class="comment"># [0, 1, ..., 9] - All</span>
+
+<span class="comment"># With step</span>
+arr[::<span class="number">2</span>]           <span class="comment"># [0, 2, 4, 6, 8]</span>
+arr[<span class="number">1</span>:<span class="number">8</span>:<span class="number">2</span>]         <span class="comment"># [1, 3, 5, 7]</span>
+arr[::<span class="number">-1</span>]          <span class="comment"># [9, 8, 7, ..., 0] - Reverse</span>
+arr[::<span class="number">-2</span>]          <span class="comment"># [9, 7, 5, 3, 1]</span>
+            </code>
+            </div>
+          </div>
+          <div class="split-item">
+            <h4>2D Slicing</h4>
+            <div class="code-block">
+              <code>matrix = np.<span class="function">arange</span>(<span class="number">12</span>).reshape(<span class="number">3</span>, <span class="number">4</span>)
+<span class="comment"># [[ 0,  1,  2,  3],</span>
+<span class="comment">#  [ 4,  5,  6,  7],</span>
+<span class="comment">#  [ 8,  9, 10, 11]]</span>
+
+<span class="comment"># Row slicing</span>
+matrix[<span class="number">0</span>, :]        <span class="comment"># [0, 1, 2, 3] - First row</span>
+matrix[:, <span class="number">0</span>]        <span class="comment"># [0, 4, 8] - First column</span>
+matrix[:, <span class="number">-1</span>]       <span class="comment"># [3, 7, 11] - Last column</span>
+
+<span class="comment"># Sub-matrix</span>
+matrix[<span class="number">0</span>:<span class="number">2</span>, <span class="number">1</span>:<span class="number">3</span>]    <span class="comment"># [[1, 2], [5, 6]]</span>
+matrix[<span class="number">1</span>:, :<span class="number">2</span>]      <span class="comment"># [[4, 5], [8, 9]]</span>
+
+<span class="comment"># Every other row/col</span>
+matrix[::<span class="number">2</span>, ::<span class="number">2</span>]    <span class="comment"># [[0, 2], [8, 10]]</span>
+            </code>
+            </div>
+          </div>
+        </div>
+
+        <div class="warning-box">
+          <p><strong>Important:</strong> Slices are <strong>views</strong>, not copies! Modifying a slice modifies the
+            original array. Use <code>.copy()</code> to create an independent copy.</p>
+        </div>
+      </section>
+
+      <!-- Section 7: Fancy Indexing -->
+      <section class="topic-section" id="fancy-indexing">
+        <h2> Fancy Indexing <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>Use integer arrays as indices to select multiple elements at once.</p>
+
+        <div class="code-block">
+          <code>arr = np.<span class="function">array</span>([<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>, <span class="number">60</span>, <span class="number">70</span>, <span class="number">80</span>, <span class="number">90</span>])
+
+<span class="comment"># Select multiple elements by index</span>
+indices = np.<span class="function">array</span>([<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>])
+arr[indices]         <span class="comment"># [20, 40, 60, 80]</span>
+
+<span class="comment"># Using lists directly</span>
+arr[[<span class="number">0</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>]]     <span class="comment"># [10, 30, 50, 70]</span>
+
+<span class="comment"># Negative indices work too</span>
+arr[[-<span class="number">1</span>, -<span class="number">2</span>, -<span class="number">3</span>]]   <span class="comment"># [90, 80, 70]</span>
+
+<span class="comment"># Fancy indexing on 2D arrays</span>
+matrix = np.<span class="function">arange</span>(<span class="number">20</span>).reshape(<span class="number">4</span>, <span class="number">5</span>)
+
+<span class="comment"># Select specific rows</span>
+matrix[[<span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>]]    <span class="comment"># Rows 0, 2, 3</span>
+
+<span class="comment"># Select specific elements (row, col pairs)</span>
+matrix[[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>], [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>]]  <span class="comment"># [0, 6, 12] - Diagonal</span>
+        </code>
+        </div>
+
+        <div class="tip-box">
+          <p><strong>Note:</strong> Fancy indexing always returns a <strong>copy</strong>, not a view. Changes to the
+            result won't affect the original array.</p>
+        </div>
+      </section>
+
+      <!-- Section 8: Boolean Indexing -->
+      <section class="topic-section" id="boolean-indexing">
+        <h2> Boolean Indexing <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>Filter arrays using boolean masks to select elements that match conditions.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Creating Boolean Masks</h4>
+            <div class="code-block">
+              <code>arr = np.<span class="function">array</span>([<span class="number">1</span>, <span class="number">5</span>, <span class="number">10</span>, <span class="number">15</span>, <span class="number">20</span>, <span class="number">25</span>, <span class="number">30</span>])
+
+<span class="comment"># Comparison operators create masks</span>
+mask = arr > <span class="number">15</span>     <span class="comment"># [F, F, F, T, T, T, T]</span>
+mask = arr % <span class="number">2</span> == <span class="number">0</span>  <span class="comment"># [F, F, T, F, T, F, T]</span>
+
+<span class="comment"># Combine masks with & and |</span>
+mask = (arr > <span class="number">5</span>) & (arr < <span class="number">25</span>)   <span class="comment"># Between 5 and 25</span>
+mask = (arr < <span class="number">10</span>) | (arr > <span class="number">20</span>)  <span class="comment"># Less than 10 OR greater than 20</span>
+            </code>
+            </div>
+          </div>
+          <div class="split-item">
+            <h4>Applying Boolean Masks</h4>
+            <div class="code-block">
+              <code><span class="comment"># Filter array with mask</span>
+arr[arr > <span class="number">15</span>]       <span class="comment"># [20, 25, 30]</span>
+arr[arr % <span class="number">2</span> == <span class="number">0</span>]    <span class="comment"># [10, 20, 30]</span>
+
+<span class="comment"># np.where() - Conditional selection</span>
+result = np.<span class="function">where</span>(arr > <span class="number">15</span>, arr, <span class="number">0</span>)
+<span class="comment"># [0, 0, 0, 0, 20, 25, 30]</span>
+
+<span class="comment"># np.extract() - Extract elements</span>
+np.<span class="function">extract</span>(arr > <span class="number">15</span>, arr)  <span class="comment"># [20, 25, 30]</span>
+
+<span class="comment"># np.any() / np.all()</span>
+np.<span class="function">any</span>(arr > <span class="number">25</span>)      <span class="comment"># True (30 > 25)</span>
+np.<span class="function">all</span>(arr > <span class="number">0</span>)       <span class="comment"># True (all positive)</span>
+            </code>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 9: Reshaping -->
+      <section class="topic-section" id="reshaping">
+        <h2> Reshaping Arrays <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>Change the shape of arrays without modifying their data.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Reshape Methods</h4>
+            <div class="code-block">
+              <code>arr = np.<span class="function">arange</span>(<span class="number">12</span>)  <span class="comment"># [0, 1, 2, ..., 11]</span>
+
+<span class="comment"># .reshape() - New shape</span>
+arr.<span class="function">reshape</span>(<span class="number">3</span>, <span class="number">4</span>)     <span class="comment"># 3 rows x 4 cols</span>
+arr.<span class="function">reshape</span>(<span class="number">4</span>, <span class="number">3</span>)     <span class="comment"># 4 rows x 3 cols</span>
+arr.<span class="function">reshape</span>(<span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>)   <span class="comment"># 2x2x3 cube</span>
+arr.<span class="function">reshape</span>(<span class="number">3</span>, <span class="number">-1</span>)    <span class="comment"># Auto-calculate cols</span>
+
+<span class="comment"># .flatten() - Always returns copy</span>
+arr.<span class="function">flatten</span>()         <span class="comment"># [0, 1, 2, ..., 11]</span>
+
+<span class="comment"># .ravel() - Returns view if possible</span>
+arr.<span class="function">ravel</span>()           <span class="comment"># [0, 1, 2, ..., 11]</span>
+            </code>
+            </div>
+          </div>
+          <div class="split-item">
+            <h4>Dimension Manipulation</h4>
+            <div class="code-block">
+              <code>arr = np.<span class="function">array</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])
+
+<span class="comment"># np.expand_dims() - Add axis</span>
+exp = np.<span class="function">expand_dims</span>(arr, axis=<span class="number">0</span>)  <span class="comment"># Shape (1, 4)</span>
+exp = np.<span class="function">expand_dims</span>(arr, axis=<span class="number">1</span>)  <span class="comment"># Shape (4, 1)</span>
+
+<span class="comment"># np.squeeze() - Remove size-1 dims</span>
+arr3d = np.<span class="function">array</span>([[[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]]])  <span class="comment"># Shape (1, 1, 3)</span>
+arr3d.<span class="function">squeeze</span>()       <span class="comment"># Shape (3,)</span>
+
+<span class="comment"># .resize() - In-place reshape</span>
+arr.<span class="function">resize</span>(<span class="number">2</span>, <span class="number">2</span>)      <span class="comment"># Modifies original</span>
+
+<span class="comment"># Transpose</span>
+matrix = np.<span class="function">arange</span>(<span class="number">6</span>).reshape(<span class="number">2</span>, <span class="number">3</span>)
+matrix.<span class="function">T</span>             <span class="comment"># 3x2 transposed</span>
+np.<span class="function">transpose</span>(matrix)  <span class="comment"># Same result</span>
+            </code>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 10: Concatenation -->
+      <section class="topic-section" id="concatenation">
+        <h2> Concatenating Arrays <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>Join multiple arrays together along specified axes.</p>
+
+        <div class="code-block">
+          <code>a = np.<span class="function">array</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])
+b = np.<span class="function">array</span>([<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>])
+
+<span class="comment"># np.concatenate() - General purpose</span>
+np.<span class="function">concatenate</span>([a, b])       <span class="comment"># [1, 2, 3, 4, 5, 6]</span>
+
+<span class="comment"># 2D concatenation</span>
+mat1 = np.<span class="function">array</span>([[<span class="number">1</span>, <span class="number">2</span>],
+                [<span class="number">3</span>, <span class="number">4</span>]])
+mat2 = np.<span class="function">array</span>([[<span class="number">5</span>, <span class="number">6</span>],
+                [<span class="number">7</span>, <span class="number">8</span>]])
+
+<span class="comment"># Stack vertically (along axis 0)</span>
+np.<span class="function">vstack</span>([mat1, mat2])
+<span class="comment"># [[1, 2],</span>
+<span class="comment">#  [3, 4],</span>
+<span class="comment">#  [5, 6],</span>
+<span class="comment">#  [7, 8]]</span>
+
+<span class="comment"># Stack horizontally (along axis 1)</span>
+np.<span class="function">hstack</span>([mat1, mat2])
+<span class="comment"># [[1, 2, 5, 6],</span>
+<span class="comment">#  [3, 4, 7, 8]]</span>
+
+<span class="comment"># Stack along new axis</span>
+np.<span class="function">stack</span>([a, b])              <span class="comment"># Shape (2, 3)</span>
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 11: Splitting -->
+      <section class="topic-section" id="splitting">
+        <h2> Splitting Arrays <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>Divide arrays into multiple sub-arrays along a given axis.</p>
+
+        <div class="code-block">
+          <code>arr = np.<span class="function">arange</span>(<span class="number">12</span>)
+
+<span class="comment"># np.split() - Split into equal parts</span>
+parts = np.<span class="function">split</span>(arr, <span class="number">3</span>)
+<span class="comment"># [array([0, 1, 2, 3]),</span>
+<span class="comment">#  array([4, 5, 6, 7]),</span>
+<span class="comment">#  array([8, 9, 10, 11])]</span>
+
+<span class="comment"># Split at specific indices</span>
+parts = np.<span class="function">split</span>(arr, [<span class="number">2</span>, <span class="number">5</span>, <span class="number">9</span>])
+<span class="comment"># [array([0, 1]),</span>
+<span class="comment">#  array([2, 3, 4]),</span>
+<span class="comment">#  array([5, 6, 7, 8]),</span>
+<span class="comment">#  array([9, 10, 11])]</span>
+
+<span class="comment"># 2D array splitting</span>
+matrix = np.<span class="function">arange</span>(<span class="number">16</span>).reshape(<span class="number">4</span>, <span class="number">4</span>)
+
+np.<span class="function">vsplit</span>(matrix, <span class="number">2</span>)    <span class="comment"># Split into 2 row blocks</span>
+np.<span class="function">hsplit</span>(matrix, <span class="number">2</span>)    <span class="comment"># Split into 2 col blocks</span>
+        </code>
+        </div>
+      </section>
+
+      <!-- Section 12: Data Types -->
+      <section class="topic-section" id="data-types">
+        <h2> NumPy Data Types <span class="level-badge intermediate">Intermediate</span> </h2>
+        <p>NumPy supports more data types than Python, optimized for numerical computing.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Integer Types</h4>
+            <div class="code-block">
+              <code><span class="comment"># Signed integers</span>
+np.<span class="function">int8</span>    <span class="comment"># -128 to 127</span>
+np.<span class="function">int16</span>   <span class="comment"># -32768 to 32767</span>
+np.<span class="function">int32</span>   <span class="comment"># -2^31 to 2^31-1</span>
+np.<span class="function">int64</span>   <span class="comment"># -2^63 to 2^63-1</span>
+
+<span class="comment"># Unsigned integers</span>
+np.<span class="function">uint8</span>   <span class="comment"># 0 to 255</span>
+np.<span class="function">uint16</span>  <span class="comment"># 0 to 65535</span>
+np.<span class="function">uint32</span>  <span class="comment"># 0 to 2^32-1</span>
+np.<span class="function">uint64</span>  <span class="comment"># 0 to 2^64-1</span>
+            </code>
+            </div>
+          </div>
+          <div class="split-item">
+            <h4>Floating Point Types</h4>
+            <div class="code-block">
+              <code><span class="comment"># Standard floats</span>
+np.<span class="function">float16</span>  <span class="comment"># Half precision (16-bit)</span>
+np.<span class="function">float32</span>  <span class="comment"># Single precision (32-bit)</span>
+np.<span class="function">float64</span>  <span class="comment"># Double precision (64-bit)</span>
+
+<span class="comment"># Complex numbers</span>
+np.<span class="function">complex64</span>   <span class="comment"># 32-bit real + 32-bit imag</span>
+np.<span class="function">complex128</span>  <span class="comment"># 64-bit real + 64-bit imag</span>
+
+<span class="comment"># Boolean</span>
+np.<span class="function">bool</span>  <span class="comment"># True/False</span>
+
+<span class="comment"># String</span>
+np.<span class="function">str_</span>  <span class="comment"># Unicode string</span>
+np.<span class="function">bytes_</span> <span class="comment"># Byte string</span>
+            </code>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 13: Type Conversion -->
+      <section class="topic-section" id="type-conversion">
+        <h2> Type Conversion <span class="level-badge basic">Basic</span> </h2>
+        <p>Convert arrays between different data types safely and efficiently.</p>
+
+        <div class="code-block">
+          <code>arr = np.<span class="function">array</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])
+
+<span class="comment"># .astype() - Convert to new dtype</span>
+float_arr = arr.<span class="function">astype</span>(<span class="string">'float64'</span>)  <span class="comment"># [1., 2., 3., 4., 5.]</span>
+int_arr = float_arr.<span class="function">astype</span>(<span class="string">'int32'</span>)   <span class="comment"># [1, 2, 3, 4, 5]</span>
+
+<span class="comment"># Using dtype objects</span>
+arr2 = arr.<span class="function">astype</span>(np.<span class="function">float32</span>)      <span class="comment"># 32-bit float</span>
+arr3 = arr.<span class="function">astype</span>(np.<span class="function">complex128</span>)   <span class="comment"># Complex numbers</span>
+
+<span class="comment"># Type casting with view (no copy)</span>
+int_arr = np.<span class="function">array</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], dtype=<span class="string">'int32'</span>)
+float_view = int_arr.<span class="function">view</span>(<span class="string">'float32'</span>)  <span class="comment"># Reinterpret bits</span>
+
+<span class="comment"># Safe conversion with info</span>
+np.<span class="function">can_cast</span>(np.<span class="function">int32</span>, np.<span class="function">float64</span>)  <span class="comment"># True</span>
+np.<span class="function">can_cast</span>(np.<span class="function">float64</span>, np.<span class="function">int32</span>)  <span class="comment"># False (precision loss)</span>
+        </code>
+        </div>
+
+        <div class="warning-box">
+          <p><strong>Warning:</strong> Converting float to int truncates (doesn't round). Use
+            <code>np.round().astype(int)</code> for rounding.
+          </p>
+        </div>
+      </section>
+
+      <!-- Section 14: Memory Layout -->
+      <section class="topic-section" id="memory-layout">
+        <h2> Memory Layout <span class="level-badge advanced">Advanced</span> </h2>
+        <p>Understanding how NumPy stores data in memory helps optimize performance.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Row-major vs Column-major</h4>
+            <div class="code-block">
+              <code><span class="comment"># C-contiguous (row-major, default)</span>
+arr_c = np.<span class="function">array</span>([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],
+                [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]], order=<span class="string">'C'</span>)
+
+<span class="comment"># F-contiguous (column-major)</span>
+arr_f = np.<span class="function">array</span>([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],
+                [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]], order=<span class="string">'F'</span>)
+
+<span class="comment"># Memory layout</span>
+arr_c.<span class="function">strides</span>   <span class="comment"># (12, 4) - bytes to next row, col</span>
+arr_f.<span class="function">strides</span>   <span class="comment"># (4, 8) - different stride</span>
+            </code>
+            </div>
+          </div>
+          <div class="split-item">
+            <h4>Memory Efficiency</h4>
+            <div class="code-block">
+              <code><span class="comment"># Check memory usage</span>
+arr = np.<span class="function">zeros</span>((<span class="number">1000</span>, <span class="number">1000</span>))
+arr.<span class="function">nbytes</span>         <span class="comment"># 8,000,000 bytes (8 MB)</span>
+
+<span class="comment"># Use smaller dtype for less memory</span>
+arr_32 = np.<span class="function">zeros</span>((<span class="number">1000</span>, <span class="number">1000</span>), dtype=<span class="string">'float32'</span>)
+arr_32.<span class="function">nbytes</span>     <span class="comment"># 4,000,000 bytes (4 MB)</span>
+
+<span class="comment"># Views don't copy memory</span>
+view = arr[::<span class="number">2</span>, ::<span class="number">2</span>]     <span class="comment"># Same memory, different view</span>
+copy = arr[::<span class="number">2</span>, ::<span class="number">2</span>].<span class="function">copy</span>()  <span class="comment"># New memory allocation</span>
+            </code>
+            </div>
+          </div>
+        </div>
+
+        <div class="tip-box">
+          <p><strong>Performance tip:</strong> Operations on C-contiguous arrays are faster when iterating row-wise.
+            Fortran-contiguous is better for column operations.</p>
+        </div>
+      </section>
+
+      <!-- Section 15: Tips & Best Practices -->
+      <section class="topic-section" id="tips-best">
+        <h2> Tips & Best Practices <span class="level-badge basic">Basic</span> </h2>
+        <p>Follow these guidelines to write efficient and correct NumPy code.</p>
+
+        <div class="split-grid">
+          <div class="split-item">
+            <h4>Do's</h4>
+            <ul>
+              <li>Use vectorized operations instead of loops</li>
+              <li>Specify dtype to control memory usage</li>
+              <li>Use <code>np.empty()</code> when filling all values</li>
+              <li>Use views (<code>ravel</code>, slicing) when possible</li>
+              <li>Pre-allocate arrays with known size</li>
+              <li>Use <code>np.where()</code> for conditionals</li>
+            </ul>
+          </div>
+          <div class="split-item">
+            <h4>Don'ts</h4>
+            <ul>
+              <li>Don't use Python loops for element-wise ops</li>
+              <li>Don't assume slices are copies</li>
+              <li>Don't mix dtypes unnecessarily</li>
+              <li>Don't use <code>np.append()</code> in loops</li>
+              <li>Don't forget about broadcasting rules</li>
+              <li>Don't ignore memory layout</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <code><span class="comment"># Bad: Using Python loop</span>
+result = []
+<span class="keyword">for</span> x <span class="keyword">in</span> arr:
+    result.<span class="function">append</span>(x * <span class="number">2</span>)
+
+<span class="comment"># Good: Vectorized operation</span>
+result = arr * <span class="number">2</span>
+
+<span class="comment"># Bad: Appending in loop (creates new arrays)</span>
+arr = np.<span class="function">array</span>([])
+<span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000</span>):
+    arr = np.<span class="function">append</span>(arr, [i])
+
+<span class="comment"># Good: Pre-allocate</span>
+arr = np.<span class="function">empty</span>(<span class="number">1000</span>)
+<span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000</span>):
+    arr[i] = i
+        </code>
+        </div>
+
+        <div class="tip-box">
+          <p><strong>Pro tip:</strong> Use <code>%timeit</code> in Jupyter or <code>timeit</code> module to benchmark
+            your code and find performance bottlenecks.</p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+  <script src="../python/python.js"></script>
+  <script src="../../scripts/app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+</body>
+
+</html>
