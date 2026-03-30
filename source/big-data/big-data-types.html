@@ -7,8 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
-  <link rel="stylesheet" href="../python/python.css" />
+  <link rel="stylesheet" href="../styles/styles.css" />
+  <link rel="stylesheet" href="../python/styles/python.css" />
 </head>
 
 <body class="with-sidebar">
@@ -19,11 +19,11 @@
   <header class="topbar glass reveal in">
     <a class="brand" href="../../index.html">Data Guide</a>
     <nav class="menu" aria-label="Data menu">
-      <a href="index.html">Hub</a>
-      <a href="data-types.html" class="active" aria-current="page">Data Types</a>
-      <a href="data-formats.html">Data Formats</a>
-      <a href="data-quality.html">Data Quality</a>
-      <a href="data-pipeline.html">Data Pipelines</a>
+      <a href="big-data-index.html">Hub</a>
+      <a href="big-data-types.html" class="active" aria-current="page">Data Types</a>
+      <a href="big-data-formats.html">Data Formats</a>
+      <a href="big-data-quality.html">Data Quality</a>
+      <a href="big-data-pipelines.html">Data Pipelines</a>
     </nav>
     <div class="header-actions">
       <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle mobile menu">
@@ -42,11 +42,11 @@
 
   <div id="mobile-menu" class="mobile-menu">
     <nav class="mobile-nav" aria-label="Data mobile menu">
-      <a href="index.html">Hub</a>
-      <a href="data-types.html" class="active" aria-current="page">Data Types</a>
-      <a href="data-formats.html">Data Formats</a>
-      <a href="data-quality.html">Data Quality</a>
-      <a href="data-pipeline.html">Data Pipelines</a>
+      <a href="big-data-index.html">Hub</a>
+      <a href="big-data-types.html" class="active" aria-current="page">Data Types</a>
+      <a href="big-data-formats.html">Data Formats</a>
+      <a href="big-data-quality.html">Data Quality</a>
+      <a href="big-data-pipelines.html">Data Pipelines</a>
     </nav>
   </div>
   <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
@@ -63,7 +63,7 @@
     <nav class="breadcrumb">
       <a href="../../index.html">Home</a>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-      <a href="index.html">Data</a>
+      <a href="big-data-index.html">Data</a>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
       <span class="current">Types</span>
     </nav>
@@ -597,30 +597,11 @@ users(id, name, age)
     </div>
   </main>
 
-  <script src="../app.js"></script>
+  <script src="../scripts/app.js"></script>
   <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M12 19V5M5 12l7-7 7 7"/>
     </svg>
   </button>
-  <script>
-    // Scroll to top functionality
-    const scrollToTopBtn = document.getElementById('scrollToTop');
-    
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        scrollToTopBtn.classList.add('visible');
-      } else {
-        scrollToTopBtn.classList.remove('visible');
-      }
-    });
-    
-    scrollToTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-  </script>
 </body>
 </html>

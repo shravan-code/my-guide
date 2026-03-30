@@ -9,8 +9,8 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
-  <link rel="stylesheet" href="python.css" />
+  <link rel="stylesheet" href="../styles/styles.css" />
+  <link rel="stylesheet" href="styles/python.css" />
 </head>
 <body class="with-sidebar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
@@ -20,11 +20,11 @@
   <header class="topbar glass reveal in">
     <a class="brand" href="../../index.html">Data Guide</a>
     <nav class="menu" aria-label="Python menu">
-      <a href="index.html">Hub</a>
-      <a href="python-fundamentals.html">Fundamentals</a>
+      <a href="python-hub.html">Hub</a>
+      <a href="python-methods.html">Fundamentals</a>
       <a href="python-oops.html" class="active" aria-current="page">OOPs</a>
-      <a href="methods.html">Methods</a>
-      <a href="memory-performance.html">Memory</a>
+      <a href="python-methods.html">Methods</a>
+      <a href="python-memory.html">Memory</a>
     </nav>
     <div class="header-actions">
       <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle mobile menu">
@@ -43,11 +43,11 @@
   
   <div id="mobile-menu" class="mobile-menu">
     <nav class="mobile-nav" aria-label="Python mobile menu">
-      <a href="index.html">Hub</a>
-      <a href="python-fundamentals.html">Fundamentals</a>
+      <a href="python-hub.html">Hub</a>
+      <a href="python-methods.html">Fundamentals</a>
       <a href="python-oops.html" class="active" aria-current="page">OOPs</a>
-      <a href="methods.html">Methods</a>
-      <a href="memory-performance.html">Memory</a>
+      <a href="python-methods.html">Methods</a>
+      <a href="python-memory.html">Memory</a>
     </nav>
   </div>
   <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
@@ -55,7 +55,7 @@
   <nav class="breadcrumb">
     <a href="../../index.html">Home</a>
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-    <a href="index.html">Python</a>
+    <a href="python-hub.html">Python</a>
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
     <span class="current">OOPs</span>
   </nav>
@@ -947,8 +947,8 @@ ctx = <span class="class-name">Context</span>(<span class="class-name">QuickSort
     </div>
   </main>
 
-  <script src="../app.js"></script>
-  <script src="python.js"></script>
+  <script src="../scripts/app.js"></script>
+  <script src="scripts/python.js"></script>
   <script>
     const navItems = Array.from(document.querySelectorAll(".nav-item"));
 
@@ -1019,24 +1019,5 @@ ctx = <span class="class-name">Context</span>(<span class="class-name">QuickSort
       <path d="M12 19V5M5 12l7-7 7 7"/>
     </svg>
   </button>
-  <script>
-    // Scroll to top functionality
-    const scrollToTopBtn = document.getElementById('scrollToTop');
-    
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        scrollToTopBtn.classList.add('visible');
-      } else {
-        scrollToTopBtn.classList.remove('visible');
-      }
-    });
-    
-    scrollToTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-  </script>
 </body>
 </html>

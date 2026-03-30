@@ -11,7 +11,7 @@
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="../../styles/styles.css" />
-  <link rel="stylesheet" href="../python/python.css" />
+  <link rel="stylesheet" href="../../python/styles/python.css" />
 </head>
 
 <body class="with-sidebar">
@@ -27,7 +27,7 @@
       Data Guide
     </a>
     <nav class="menu" aria-label="NumPy menu">
-      <a href="index.html">Hub</a>
+      <a href="numpy-hub.html">Hub</a>
       <a href="numpy-arrays.html">Arrays</a>
       <a href="numpy-operations.html">Operations</a>
       <a href="methods.html" class="active" aria-current="page">Methods</a>
@@ -45,7 +45,7 @@
 
   <div id="mobile-menu" class="mobile-menu">
     <nav class="mobile-nav" aria-label="NumPy mobile menu">
-      <a href="index.html">Hub</a>
+      <a href="numpy-hub.html">Hub</a>
       <a href="numpy-arrays.html">Arrays</a>
       <a href="numpy-operations.html">Operations</a>
       <a href="methods.html" class="active" aria-current="page">Methods</a>
@@ -98,7 +98,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <polyline points="9 18 15 12 9 6" />
       </svg>
-      <a href="index.html">NumPy</a>
+      <a href="numpy-hub.html">NumPy</a>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <polyline points="9 18 15 12 9 6" />
       </svg>
@@ -836,7 +836,7 @@ rng.<span class="function">integers</span>(<span class="number">0</span>, <span 
 
     </div>
   </main>
-  <script src="../python/python.js"></script>
+  <script src="../../python/scripts/python.js"></script>
   <script src="../../scripts/app.js"></script>
   <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -844,25 +844,6 @@ rng.<span class="function">integers</span>(<span class="number">0</span>, <span 
       <path d="M12 19V5M5 12l7-7 7 7" />
     </svg>
   </button>
-  <script>
-    // Scroll to top functionality
-    const scrollToTopBtn = document.getElementById('scrollToTop');
-
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        scrollToTopBtn.classList.add('visible');
-      } else {
-        scrollToTopBtn.classList.remove('visible');
-      }
-    });
-
-    scrollToTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-  </script>
 </body>
 
 </html>

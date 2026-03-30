@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a00870de-f3ab-4942-95ec-40318430a117" name="Changes" comment="home page stable">
+      <change afterPath="$PROJECT_DIR$/implementation.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.opencode/agent/Data-Guide-Agent.agent.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lock-unlock.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/big-data/big-data-formats.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/big-data/big-data-formats.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/big-data/big-data-index.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/big-data/big-data-index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/big-data/big-data-pipelines.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/big-data/big-data-pipelines.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/big-data/big-data-quality.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/big-data/big-data-quality.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/big-data/big-data-types.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/big-data/big-data-types.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/cloud/cloud-architecture.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/cloud/cloud-architecture.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/cloud/cloud-index.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/cloud/cloud-index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/cloud/providers/aws/aws-index.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/cloud/providers/aws/aws-index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/cloud/providers/aws/domains/bigdata.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/cloud/providers/aws/domains/bigdata.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/cloud/providers/aws/domains/databases.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/cloud/providers/aws/domains/databases.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/cloud/providers/aws/domains/pipelines.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/cloud/providers/aws/domains/pipelines.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/cloud/providers/aws/domains/serverless.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/cloud/providers/aws/domains/serverless.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/cloud/providers/aws/domains/storage.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/cloud/providers/aws/domains/storage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/cloud/providers/aws/domains/streaming.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/cloud/providers/aws/domains/streaming.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/cloud/providers/aws/domains/warehouse.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/cloud/providers/aws/domains/warehouse.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/cloud/providers/aws/services/services.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/cloud/providers/aws/services/services.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/cloud/providers/providers-azure.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/cloud/providers/providers-azure.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/cloud/providers/providers-gcp.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/cloud/providers/providers-gcp.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/cloud/topics/topics-basics.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/cloud/topics/topics-basics.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/cloud/topics/topics-compute.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/cloud/topics/topics-compute.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/cloud/topics/topics-serverless.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/cloud/topics/topics-serverless.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/cloud/topics/topics-services.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/cloud/topics/topics-services.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/cloud/topics/topics-storage.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/cloud/topics/topics-storage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/cloud/topics/topics.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/cloud/topics/topics.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/libraries/numpy/numpy-arrays.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/libraries/numpy/numpy-arrays.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/libraries/numpy/numpy-basics.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/libraries/numpy/numpy-basics.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/libraries/numpy/numpy-hub.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/libraries/numpy/numpy-hub.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/libraries/numpy/numpy-methods.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/libraries/numpy/numpy-methods.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/libraries/numpy/numpy-operations.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/libraries/numpy/numpy-operations.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/libraries/pandas/pandas-dataframes.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/libraries/pandas/pandas-dataframes.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/libraries/pandas/pandas-hub.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/libraries/pandas/pandas-hub.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/libraries/pandas/pandas-methods.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/libraries/pandas/pandas-methods.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/libraries/pandas/pandas-series.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/libraries/pandas/pandas-series.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/libraries/spark/spark-architecture.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/libraries/spark/spark-architecture.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/libraries/spark/spark-code.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/libraries/spark/spark-code.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/libraries/spark/spark-hub.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/libraries/spark/spark-hub.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/libraries/spark/spark-theory.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/libraries/spark/spark-theory.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/python/python-hub.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/python/python-hub.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/python/python-memory.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/python/python-memory.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/python/python-methods.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/python/python-methods.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/python/python-oops.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/python/python-oops.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/roadmaps/roadmap-ai-engineer.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/roadmaps/roadmap-ai-engineer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/roadmaps/roadmap-ml-engineer.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/roadmaps/roadmap-ml-engineer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/roadmaps/roadmap-python.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/roadmaps/roadmap-python.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/roadmaps/roadmap-spark.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/roadmaps/roadmap-spark.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/roadmaps/roadmap-sql.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/roadmaps/roadmap-sql.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/roadmaps/roadmaps-data-engineer.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/roadmaps/roadmaps-data-engineer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/scripts/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/source/scripts/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/sql/sql-concepts.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/sql/sql-concepts.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/sql/sql-hub.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/sql/sql-hub.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/sql/sql-methods.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/sql/sql-methods.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/sql/sql-modelling.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/sql/sql-modelling.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/sql/sql-practice.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/sql/sql-practice.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/sql/sql-queries-joins.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/sql/sql-queries-joins.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/sql/sql-queries-subqueries.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/sql/sql-queries-subqueries.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/sql/sql-queries-windows.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/sql/sql-queries-windows.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/sql/sql-queries.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/sql/sql-queries.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/styles/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/source/styles/base.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/styles/design-tokens.css" beforeDir="false" afterPath="$PROJECT_DIR$/source/styles/design-tokens.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/styles/hub.css" beforeDir="false" afterPath="$PROJECT_DIR$/source/styles/hub.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/styles/mobile.css" beforeDir="false" afterPath="$PROJECT_DIR$/source/styles/mobile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/styles/sidebar.css" beforeDir="false" afterPath="$PROJECT_DIR$/source/styles/sidebar.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/styles/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/source/styles/styles.css" afterDir="false" />
+    </list>
+    <list id="e9700fe8-bab2-4761-b145-3510e8464c91" name="ide changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_D:/shra1/github/my-guide" value="3Bg2qQmw5DnD7PlaKaOdjP87k0O" />
+    </persistenceIdMap>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="dev" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;shravan-code&quot;
+  }
+}</component>
+  <component name="GitHubPullRequestState"><![CDATA[{
+  "prStates": [
+    {
+      "id": {
+        "id": "PR_kwDORq49T87Ouug9",
+        "number": 3
+      },
+      "lastSeen": 1774899096378
+    }
+  ]
+}]]></component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/shravan-code/my-guide.git&quot;,
+    &quot;accountId&quot;: &quot;d8d565b2-ec39-44f4-b041-d6e5039f42f9&quot;
+  }
+}</component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="3Bg2qQmw5DnD7PlaKaOdjP87k0O" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "#3 on dev",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "to.speed.mode.migration.done": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-1cd77e80b48f-6d6dccd035ac-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-253.32098.74" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a00870de-f3ab-4942-95ec-40318430a117" name="Changes" comment="" />
+      <changelist id="e9700fe8-bab2-4761-b145-3510e8464c91" name="ide changes" comment="" />
+      <created>1774896585891</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1774896585891</updated>
+    </task>
+    <task id="LOCAL-00001" summary="reverted back to stable update">
+      <option name="closed" value="true" />
+      <created>1774897395204</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1774897395206</updated>
+    </task>
+    <task id="LOCAL-00002" summary="home page stable">
+      <option name="closed" value="true" />
+      <created>1774898752207</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1774898752207</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="reverted back to stable update" />
+    <MESSAGE value="home page stable" />
+    <option name="LAST_COMMIT_MESSAGE" value="home page stable" />
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
+  </component>
+</project>

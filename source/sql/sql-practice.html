@@ -9,8 +9,8 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
-  <link rel="stylesheet" href="../python/python.css" />
+  <link rel="stylesheet" href="../styles/styles.css" />
+  <link rel="stylesheet" href="../python/styles/python.css" />
   <style>
     .practice-grid {
       display: grid;
@@ -317,13 +317,13 @@
   <header class="topbar glass reveal in">
     <a class="brand" href="../../index.html">Data Guide</a>
     <nav class="menu" aria-label="SQL menu">
-      <a href="index.html">Hub</a>
+      <a href="sql-hub.html">Hub</a>
       <a href="sql-concepts.html">Concepts</a>
       <a href="sql-modelling.html">Modelling</a>
       <a href="sql-queries.html">Queries</a>
-      <a href="sql-joins.html">Joins</a>
-      <a href="sql-subqueries.html">Subqueries</a>
-      <a href="sql-windows.html">Windows</a>
+      <a href="sql-queries-joins.html">Joins</a>
+      <a href="sql-queries-subqueries.html">Subqueries</a>
+      <a href="sql-queries-windows.html">Windows</a>
       <a href="sql-methods.html">Methods</a>
       <a href="sql-practice.html" class="active" aria-current="page">Practice</a>
     </nav>
@@ -344,13 +344,13 @@
 
   <div id="mobile-menu" class="mobile-menu">
     <nav class="mobile-nav" aria-label="SQL mobile menu">
-      <a href="index.html">Hub</a>
+      <a href="sql-hub.html">Hub</a>
       <a href="sql-concepts.html">Concepts</a>
       <a href="sql-modelling.html">Modelling</a>
       <a href="sql-queries.html">Queries</a>
-      <a href="sql-joins.html">Joins</a>
-      <a href="sql-subqueries.html">Subqueries</a>
-      <a href="sql-windows.html">Windows</a>
+      <a href="sql-queries-joins.html">Joins</a>
+      <a href="sql-queries-subqueries.html">Subqueries</a>
+      <a href="sql-queries-windows.html">Windows</a>
       <a href="sql-methods.html">Methods</a>
       <a href="sql-practice.html" class="active" aria-current="page">Practice</a>
     </nav>
@@ -384,7 +384,7 @@
     <nav class="breadcrumb">
       <a href="../../index.html">Home</a>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-      <a href="index.html">SQL</a>
+      <a href="sql-hub.html">SQL</a>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
       <span class="current">Practice</span>
     </nav>
@@ -406,7 +406,7 @@
     </svg>
   </button>
 
-  <script src="../app.js"></script>
+  <script src="../scripts/app.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
@@ -956,23 +956,6 @@
       
       window.addEventListener('hashchange', handleHash);
       handleHash();
-      
-      const scrollToTopBtn = document.getElementById('scrollToTop');
-      
-      window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 300) {
-          scrollToTopBtn.classList.add('visible');
-        } else {
-          scrollToTopBtn.classList.remove('visible');
-        }
-      });
-      
-      scrollToTopBtn.addEventListener('click', () => {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
-      });
     }
 
     main();

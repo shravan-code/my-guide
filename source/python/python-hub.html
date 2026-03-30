@@ -10,11 +10,11 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
-  <link rel="stylesheet" href="../hub.css" />
-  <link rel="stylesheet" href="python.css" />
-  <link rel="stylesheet" href="python-mobile.css" media="(max-width: 920px)" />
-  <link rel="stylesheet" href="python-desktop.css" media="(min-width: 921px)" />
+  <link rel="stylesheet" href="../styles/styles.css" />
+  <link rel="stylesheet" href="../styles/hub.css" />
+  <link rel="stylesheet" href="styles/python.css" />
+  <link rel="stylesheet" href="styles/mobile.css" media="(max-width: 920px)" />
+  <link rel="stylesheet" href="styles/desktop.css" media="(min-width: 921px)" />
 </head>
 
 <body>
@@ -28,11 +28,11 @@
       Data Guide
     </a>
     <nav class="menu" aria-label="Python menu">
-      <a href="index.html" class="active" aria-current="page">Hub</a>
-      <a href="python-fundamentals.html">Fundamentals</a>
+      <a href="python-hub.html" class="active" aria-current="page">Hub</a>
+      <a href="python-methods.html">Fundamentals</a>
       <a href="python-oops.html">OOPs</a>
-      <a href="methods.html">Methods</a>
-      <a href="memory-performance.html">Memory</a>
+      <a href="python-methods.html">Methods</a>
+      <a href="python-memory.html">Memory</a>
       <a href="python-practice.html">Practice</a>
     </nav>
     <div class="header-actions">
@@ -52,11 +52,11 @@
 
   <div id="mobile-menu" class="mobile-menu">
     <nav class="mobile-nav" aria-label="Python mobile menu">
-      <a href="index.html" class="active" aria-current="page">Hub</a>
-      <a href="python-fundamentals.html">Fundamentals</a>
+      <a href="python-hub.html" class="active" aria-current="page">Hub</a>
+      <a href="python-methods.html">Fundamentals</a>
       <a href="python-oops.html">OOPs</a>
-      <a href="methods.html">Methods</a>
-      <a href="memory-performance.html">Memory</a>
+      <a href="python-methods.html">Methods</a>
+      <a href="python-memory.html">Memory</a>
       <a href="python-practice.html">Practice</a>
     </nav>
   </div>
@@ -91,7 +91,7 @@
       <section class="tracks">
         <h2>Explore Python</h2>
         <div class="track-grid">
-          <a href="python-fundamentals.html" class="track">
+          <a href="python-methods.html" class="track">
             <h3>Fundamentals</h3>
             <p>Variables, data types, control flow</p>
           </a>
@@ -99,11 +99,11 @@
             <h3>OOPs</h3>
             <p>Classes, inheritance, polymorphism</p>
           </a>
-          <a href="methods.html" class="track">
+          <a href="python-methods.html" class="track">
             <h3>Methods</h3>
             <p>All types of methods in Python</p>
           </a>
-          <a href="memory-performance.html" class="track">
+          <a href="python-memory.html" class="track">
             <h3>Memory & Performance</h3>
             <p>Optimization techniques</p>
           </a>
@@ -115,34 +115,15 @@
       </section>
     </div>
   </main>
-  <script src="../app.js"></script>
-  <script src="python-mobile.js" defer></script>
-  <script src="python-desktop.js" defer></script>
+  <script src="../scripts/app.js"></script>
+  <script src="scripts/mobile.js" defer></script>
+  <script src="scripts/desktop.js" defer></script>
   <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
       stroke-linejoin="round">
       <path d="M12 19V5M5 12l7-7 7 7" />
     </svg>
   </button>
-  <script>
-    // Scroll to top functionality
-    const scrollToTopBtn = document.getElementById('scrollToTop');
-
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        scrollToTopBtn.classList.add('visible');
-      } else {
-        scrollToTopBtn.classList.remove('visible');
-      }
-    });
-
-    scrollToTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-  </script>
 </body>
 
 </html>
