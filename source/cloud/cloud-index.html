@@ -10,10 +10,10 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
-  <link rel="stylesheet" href="../hub.css" />
-  <link rel="stylesheet" href="cloud-mobile.css" media="(max-width: 920px)" />
-  <link rel="stylesheet" href="cloud-desktop.css" media="(min-width: 921px)" />
+  <link rel="stylesheet" href="../styles/styles.css" />
+  <link rel="stylesheet" href="../styles/hub.css" />
+  <link rel="stylesheet" href="styles/mobile.css" media="(max-width: 920px)" />
+  <link rel="stylesheet" href="styles/desktop.css" media="(min-width: 921px)" />
 </head>
 
 <body>
@@ -21,71 +21,32 @@
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
-  <header class="topbar glass reveal in">
+  <header class="topbar reveal">
     <a class="brand" href="../../index.html">
-
+      <svg class="brand-icon" viewBox="0 0 24 24">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+      </svg>
       Data Guide
     </a>
-    <nav class="menu" aria-label="Cloud menu">
-      <a href="index.html" class="active" aria-current="page">Hub</a>
-      <div class="menu-dropdown">
-        <button class="menu-trigger">Topics</button>
-        <div class="dropdown-panel">
-          <a href="cloud-topics.html"><strong>Overview</strong><span>All cloud topics</span></a>
-          <a href="cloud-basics.html"><strong>Basics</strong><span>IaaS, PaaS, SaaS, deployment models</span></a>
-          <a href="cloud-services.html"><strong>Services</strong><span>Service comparison across providers</span></a>
-          <a href="cloud-storage.html"><strong>Storage</strong><span>Object, block, file, data lakes</span></a>
-          <a href="cloud-compute.html"><strong>Compute</strong><span>VMs, containers, Kubernetes</span></a>
-          <a href="cloud-serverless.html"><strong>Serverless</strong><span>Functions and managed services</span></a>
-        </div>
-      </div>
-      <a href="architecture.html">Architecture</a>
-      <div class="menu-dropdown">
-        <button class="menu-trigger">Providers</button>
-        <div class="dropdown-panel">
-          <a href="cloud-aws.html"><strong>AWS</strong><span>Amazon Web Services</span></a>
-          <a href="cloud-azure.html"><strong>Azure</strong><span>Microsoft Azure</span></a>
-          <a href="cloud-gcp.html"><strong>GCP</strong><span>Google Cloud Platform</span></a>
-        </div>
-      </div>
+    <nav class="menu" aria-label="cloud menu">
+      <a href="cloud-index.html" class="active" aria-current="page">Hub</a>
+      <a href="topics/topics-basics.html">Basics</a>
+      <a href="providers/aws/aws-index.html">AWS</a>
     </nav>
     <div class="header-actions">
-      <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle mobile menu">
-        <span class="hamburger-icon" aria-hidden="true">
-          <span></span>
-          <span></span>
-          <span></span>
-        </span>
-      </button>
-      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
-        <span class="toggle-icon" aria-hidden="true">☾</span>
-        <span class="toggle-text">Dark</span>
-      </button>
+      <a href="../../source/portfolios/portfolio.html" class="portfolio-link" title="View Portfolio">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z" />
+          <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16" />
+        </svg>
+      </a>
+      <button id="theme-toggle" class="theme-toggle"><span class="toggle-icon">☾</span></button>
     </div>
   </header>
 
-  <div id="mobile-menu" class="mobile-menu">
-    <nav class="mobile-nav" aria-label="Cloud mobile menu">
-      <a href="index.html" class="active" aria-current="page">Hub</a>
-      <a href="cloud-topics.html">Topics: Overview</a>
-      <a href="cloud-basics.html">Topics: Basics</a>
-      <a href="cloud-services.html">Topics: Services</a>
-      <a href="cloud-storage.html">Topics: Storage</a>
-      <a href="cloud-compute.html">Topics: Compute</a>
-      <a href="cloud-serverless.html">Topics: Serverless</a>
-      <a href="architecture.html">Architecture</a>
-      <a href="cloud-aws.html">Providers: AWS</a>
-      <a href="cloud-azure.html">Providers: Azure</a>
-      <a href="cloud-gcp.html">Providers: GCP</a>
-    </nav>
-  </div>
-  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
-
-  <nav class="breadcrumb">
+    <nav class="breadcrumb">
     <a href="../../index.html">Home</a>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <polyline points="9 18 15 12 9 6" />
-    </svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
     <span class="current">Cloud</span>
   </nav>
 
@@ -111,31 +72,31 @@
       <section class="tracks">
         <h2>Explore Cloud</h2>
         <div class="track-grid">
-          <a href="cloud-basics.html" class="track">
+          <a href="topics/topics-basics.html" class="track">
             <h3>Cloud Basics</h3>
             <p>IaaS, PaaS, SaaS, and deployment models</p>
           </a>
-          <a href="cloud-services.html" class="track">
+          <a href="topics/topics-services.html" class="track">
             <h3>Services</h3>
             <p>AWS, Azure, and GCP service comparison</p>
           </a>
-          <a href="cloud-storage.html" class="track">
+          <a href="topics/topics-storage.html" class="track">
             <h3>Storage</h3>
             <p>Object, block, file, and data lake storage</p>
           </a>
-          <a href="cloud-compute.html" class="track">
+          <a href="topics/topics-compute.html" class="track">
             <h3>Compute</h3>
             <p>VMs, containers, and Kubernetes</p>
           </a>
-          <a href="cloud-serverless.html" class="track">
+          <a href="topics/topics-serverless.html" class="track">
             <h3>Serverless</h3>
             <p>Functions, events, and managed services</p>
           </a>
-          <a href="architecture.html" class="track">
+          <a href="cloud-architecture.html" class="track">
             <h3>Architecture</h3>
             <p>9-Layer data engineering model</p>
           </a>
-          <a href="../data/index.html" class="track">
+          <a href="../big-data/big-data-pipelines.html" class="track">
             <h3>Big Data</h3>
             <p>Data platforms and pipelines</p>
           </a>
@@ -145,15 +106,15 @@
       <section class="tracks">
         <h2>Cloud Providers</h2>
         <div class="track-grid">
-          <a href="cloud-aws.html" class="track">
+          <a href="providers/providers-aws.html" class="track">
             <h3>AWS</h3>
             <p>Amazon Web Services - market leader</p>
           </a>
-          <a href="cloud-azure.html" class="track">
+          <a href="providers/providers-azure.html" class="track">
             <h3>Azure</h3>
             <p>Microsoft Azure - enterprise integration</p>
           </a>
-          <a href="cloud-gcp.html" class="track">
+          <a href="providers/providers-gcp.html" class="track">
             <h3>GCP</h3>
             <p>Google Cloud Platform - data & AI focus</p>
           </a>
@@ -162,14 +123,6 @@
     </div>
   </main>
   <script src="../scripts/app.js"></script>
-  <script src="cloud-mobile.js" defer></script>
-  <script src="cloud-desktop.js" defer></script>
-  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-      stroke-linejoin="round">
-      <path d="M12 19V5M5 12l7-7 7 7" />
-    </svg>
-  </button>
 </body>
 
 </html>
