@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Guide | Pandas Cheatsheet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="cheatsheet-base.css" />
+</head>
+
+<body>
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <header class="topbar glass reveal in">
+    <a class="brand" href="../../index.html">
+      
+      Data Guide
+    </a>
+    <nav class="menu" aria-label="Cheatsheet menu">
+      <a href="cheatsheet.html">Overview</a>
+      <a href="python-cheatsheet.html">Python</a>
+      <a href="numpy-cheatsheet.html">NumPy</a>
+      <a href="pandas-cheatsheet.html" class="active" aria-current="page">Pandas</a>
+      <a href="spark-cheatsheet.html">PySpark</a>
+      <a href="postgresql-cheatsheet.html">PostgreSQL</a>
+      <a href="compare.html">Comparison</a>
+    </nav>
+    <div class="header-actions">
+      <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle mobile menu">
+        <span class="hamburger-icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+        <span class="toggle-icon" aria-hidden="true">☾</span>
+        <span class="toggle-text">Dark</span>
+      </button>
+    </div>
+  </header>
+
+  <div id="mobile-menu" class="mobile-menu">
+    <nav class="mobile-nav" aria-label="Cheatsheet mobile menu">
+      <a href="cheatsheet.html">Overview</a>
+      <a href="python-cheatsheet.html">Python</a>
+      <a href="numpy-cheatsheet.html">NumPy</a>
+      <a href="pandas-cheatsheet.html" class="active" aria-current="page">Pandas</a>
+      <a href="spark-cheatsheet.html">PySpark</a>
+      <a href="postgresql-cheatsheet.html">PostgreSQL</a>
+      <a href="compare.html">Comparison</a>
+    </nav>
+  </div>
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+  <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+      <line x1="9" y1="3" x2="9" y2="21"></line>
+    </svg>
+  </button>
+
+  <main class="main-content">
+    <nav class="sidebar" id="sidebar">
+      <div class="logo">
+        <span class="logo-text">Pandas Cheatsheet</span>
+      </div>
+      <div class="nav-title basics">Basics</div>
+      <a href="#data-structures" class="nav-item active"><span>1</span> Data Structures</a>
+      <a href="#reading-writing" class="nav-item"><span>2</span> Reading & Writing</a>
+      <div class="nav-title intermediate">Intermediate</div>
+      <a href="#selection-filtering" class="nav-item"><span>3</span> Selection & Filtering</a>
+      <a href="#groupby-aggregation" class="nav-item"><span>4</span> GroupBy & Aggregation</a>
+      <a href="#merge-join" class="nav-item"><span>5</span> Merge & Join</a>
+      <a href="#data-cleaning" class="nav-item"><span>6</span> Data Cleaning</a>
+      <div class="nav-title advanced">Advanced</div>
+      <a href="#datetime-operations" class="nav-item"><span>7</span> Datetime Operations</a>
+      <a href="#tips-tricks" class="nav-item"><span>8</span> Tips & Tricks</a>
+      <a href="#best-practices" class="nav-item"><span>9</span> Best Practices</a>
+    </nav>
+
+    <div class="page-wrap">
+        <section class="hero">
+          <h1>Pandas Cheatsheet</h1>
+          <p class="hero-copy">A focused guide to Pandas Cheatsheet.</p>
+          <p>Quick reference for Pandas DataFrames, data manipulation, cleaning, and analysis.</p>
+        </section>
+
+        <section class="cheat-section" id="data-structures">
+        <h2 class="section-title">Data Structures <span class="section-difficulty difficulty-basic">Basic</span></h2>
+        <div class="code-grid">
+          <div class="code-card">
+            <span class="code-label">Series</span>
+            <h3>Series</h3>
+            <p>One-dimensional labeled array.</p>
+<pre class="code-block"><code class="language-python">
+import pandas as pd
+
+s = pd.Series([1, 3, 5, 7, 9])
+print(s.index)  # RangeIndex(start=0, stop=5, step=1)
+print(s.values)  # [1 3 5 7 9]
+
+# With custom index
+s = pd.Series([10, 20, 30], index=['a', 'b', 'c'])
+print(s['a'])  # 10
+</code></pre>
+          </div>
+          <div class="code-card">
+            <span class="code-label">DataFrame</span>
+            <h3>DataFrame</h3>
+            <p>Two-dimensional labeled data structure with columns of potentially different types.</p>
+<pre class="code-block"><code class="language-python">
+import pandas as pd
+
+data = {
+'Name': ['Alice', 'Bob', 'Charlie'],
+'Age': [25, 30, 35],
+'City': ['New York', 'London', 'Paris']
+}
+
+df = pd.DataFrame(data)
+print(df.shape)  # (3, 3)
+print(df.columns)  # Index(['Name', 'Age', 'City'], dtype='object')
+</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="cheat-section" id="reading-writing">
+      <h2 class="section-title">Reading & Writing <span class="section-difficulty difficulty-basic">Basic</span></h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">CSV</span>
+          <h3>Read & Write CSV</h3>
+          <p>Handle CSV files.</p>
+<pre class="code-block"><code class="language-python">
+import pandas as pd
+
+# Read CSV
+df = pd.read_csv('data.csv')
+df = pd.read_csv('data.csv',
+dtype={'id': 'int64', 'name': 'str'},
+parse_dates=['created_at'],
+na_values=['NA', 'N/A', ''])
+
+# Write CSV
+df.to_csv('output.csv', index=False)
+df.to_csv('output.csv',
+columns=['id', 'name'],
+encoding='utf-8')
+</code></pre>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Excel</span>
+          <h3>Read & Write Excel</h3>
+          <p>Handle Excel files.</p>
+<pre class="code-block"><code class="language-python">
+# Read Excel
+df = pd.read_excel('file.xlsx')
+df = pd.read_excel('file.xlsx',
+sheet_name='Sheet1',
+skiprows=2,
+usecols='A:C')
+
+# Multiple sheets
+dfs = pd.read_excel('file.xlsx', sheet_name=None)
+
+# Write Excel
+df.to_excel('output.xlsx', index=False)
+df.to_excel('output.xlsx', sheet_name='Data')
+</code></pre>
+        </div>
+        <div class="code-card">
+          <span class="code-label">JSON</span>
+          <h3>Read & Write JSON</h3>
+          <p>Handle JSON files.</p>
+<pre class="code-block"><code class="language-python">
+# Read JSON
+df = pd.read_json('data.json')
+df = pd.read_json('data.json', orient='records')
+
+# JSON lines (one object per line)
+df = pd.read_json('data.jsonl', lines=True)
+
+# Write JSON
+df.to_json('output.json', orient='records')
+df.to_json('output.jsonl', orient='records', lines=True)
+</code></pre>
+        </div>
+        <div class="code-card">
+          <span class="code-label">SQL</span>
+          <h3>Read & Write SQL</h3>
+          <p>Database operations.</p>
+<pre class="code-block"><code class="language-python">
+from sqlalchemy import create_engine
+
+engine = create_engine('postgresql://user:pass@host/db')
+
+# Read SQL
+df = pd.read_sql('SELECT * FROM users', engine)
+df = pd.read_sql_table('users', engine)
+df = pd.read_sql_query('SELECT * FROM users WHERE age > 18', engine)
+
+# Write SQL
+df.to_sql('users', engine, if_exists='append', index=False)
+df.to_sql('users', engine, if_exists='replace', index=False)
+</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="cheat-section" id="selection-filtering">
+      <h2 class="section-title">Selection & Filtering <span class="section-difficulty difficulty-medium">Medium</span>
+      </h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Columns</span>
+          <h3>Select Columns</h3>
+          <p>Select and access columns.</p>
+<pre class="code-block"><code class="language-python">
+# Single column (returns Series)
+df['name']
+df.name
+
+# Multiple columns (returns DataFrame)
+df[['name', 'age', 'city']]
+
+# By dtype
+df.select_dtypes(include=['int64', 'float64'])
+df.select_dtypes(exclude=['object'])
+
+# Columns attribute
+df.columns.tolist()
+df.filter(items=['name', 'age'])
+df.filter(like='date') # Columns containing 'date'
+df.filter(regex='^id') # Columns starting with 'id'
+</code></pre>
+        </div>
+        <div class="code-card">
+          <span class="code-label">LOC</span>
+          <h3>LOC & ILOC</h3>
+          <p>Label and position-based selection.</p>
+<pre class="code-block"><code class="language-python">
+# LOC (label-based)
+df.loc[0] # Row with index 0
+df.loc[0:5] # Rows 0 to 5 (inclusive)
+df.loc[0:5, 'name'] # Column 'name', rows 0-5
+df.loc[0:5, ['name', 'age']]
+df.loc[df['age'] > 18] # Filter by condition
+
+# ILOC (integer position-based)
+df.iloc[0] # First row
+df.iloc[0:5] # First 5 rows (exclusive)
+df.iloc[0:5, 0:3] # First 5 rows, first 3 cols
+df.iloc[[0, 2, 4]] # Specific rows
+df.iloc[:, 1] # Second column
+</code></pre>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Filter</span>
+          <h3>Filter Rows</h3>
+          <p>Filter DataFrames by conditions.</p>
+<pre class="code-block"><code class="language-python">
+# Single condition
+df[df['age'] > 18]
+df.query('age > 18')
+
+# Multiple conditions (AND)
+df[(df['age'] > 18) & (df['city'] == 'NYC')]
+
+# Multiple conditions (OR)
+df[(df['status'] == 'active') | (df['premium'] == True)]
+
+# String contains
+df[df['name'].str.contains('John', case=False)]
+
+# Is in list
+df[df['city'].isin(['NYC', 'LA', 'SF'])]
+
+# Between
+df[df['age'].between(18, 30)]
+
+# Not null
+df[df['name'].notna()]
+df.dropna(subset=['name', 'email'])
+</code></pre>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Query</span>
+          <h3>Query Method</h3>
+          <p>Use string expressions for filtering.</p>
+<pre class="code-block"><code class="language-python">
+# Basic query
+df.query('age > 18 and city == "NYC"')
+
+# Using variables
+min_age = 21
+df.query('age > @min_age')
+
+# Multiple conditions
+df.query('age > 18 and status == ["active", "pending"]')
+
+# Date query
+df.query('created_at > "2024-01-01"')
+
+# Inverse (not)
+df.query('not (age < 18)') # Between shorthand df.query('18 <=age <=30')
+</code></pre>
+          </div>
+        </div>
+    </section>
+
+    <section class="cheat-section" id="groupby-aggregation">
+      <h2 class="section-title">GroupBy & Aggregation <span class="section-difficulty difficulty-medium">Medium</span>
+      </h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">GroupBy</span>
+          <h3>Basic GroupBy</h3>
+          <p>Group and aggregate data.</p>
+<pre class="code-block"><code class="language-python">
+# Single column groupby
+df.groupby('category')
+df.groupby('category')['amount'].sum()
+df.groupby('category')['amount'].agg('sum')
+
+# Multiple columns
+df.groupby(['category', 'status'])
+
+# Aggregation functions
+df.groupby('category').agg({
+'amount': ['sum', 'mean', 'count'],
+'user_id': 'nunique',
+'created_at': 'max'
+}).reset_index()
+
+# Size (counts)
+df.groupby('category').size()
+df.groupby('category').value_counts()
+</code></pre>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Agg</span>
+          <h3>Aggregation Methods</h3>
+          <p>Common aggregation functions.</p>
+<pre class="code-block"><code class="language-python">
+# Single aggregation
+df['amount'].sum()
+df['amount'].mean()
+df['amount'].median()
+df['amount'].std()
+df['amount'].var()
+df['amount'].min()
+df['amount'].max()
+df['amount'].count()
+
+# Multiple aggregations
+df.agg({
+'amount': ['sum', 'mean', 'std'],
+'age': ['mean', 'min', 'max']
+})
+
+# Custom aggregation
+df.groupby('category')['amount'].agg(lambda x: x.quantile(0.75))
+</code></pre>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Transform</span>
+          <h3>Transform & Apply</h3>
+          <p>Apply functions to groups.</p>
+<pre class="code-block"><code class="language-python">
+# Transform (returns same shape)
+df['category_total'] = df.groupby('category')['amount'].transform('sum')
+df['category_mean'] = df.groupby('category')['amount'].transform('mean')
+df['pct_of_group'] = df['amount'] / df.groupby('category')['amount'].transform('sum')
+
+# Apply
+df.groupby('category').apply(lambda x: x.nlargest(3, 'amount'))
+
+# Map/Apply on rows
+df['name_upper'] = df['name'].apply(str.upper)
+df['full_name'] = df.apply(lambda row: f"{row['first']} {row['last']}", axis=1)
+</code></pre>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Pivot</span>
+          <h3>Pivot Tables</h3>
+          <p>Reshape data with pivots.</p>
+<pre class="code-block"><code class="language-python">
+# Pivot table
+pd.pivot_table(df,
+values='amount',
+index='category',
+columns='status',
+aggfunc='sum',
+fill_value=0,
+margins=True) # Add totals
+
+# Cross tabulation
+pd.crosstab(df['category'], df['status'])
+pd.crosstab(df['category'], df['status'], normalize='index') # Row %
+
+# Melt (wide to long)
+pd.melt(df,
+id_vars=['id', 'name'],
+value_vars=['jan', 'feb', 'mar'],
+var_name='month',
+value_name='revenue')
+</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="cheat-section" id="merge-join">
+      <h2 class="section-title">Merge & Join <span class="section-difficulty difficulty-medium">Medium</span></h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Merge</span>
+          <h3>Merge DataFrames</h3>
+          <p>Combine DataFrames.</p>
+<pre class="code-block"><code class="language-python">
+# Inner join (default)
+pd.merge(df1, df2, on='id', how='inner')
+
+# Left join
+pd.merge(df1, df2, on='id', how='left')
+
+# Right join
+pd.merge(df1, df2, on='id', how='right')
+
+# Outer join
+pd.merge(df1, df2, on='id', how='outer')
+
+# Different column names
+pd.merge(df1, df2, left_on='user_id', right_on='id', how='left')
+
+# Multiple keys
+pd.merge(df1, df2, on=['id', 'date'], how='inner')
+
+# Suffix for overlapping column names
+pd.merge(df1, df2, on='id', suffixes=('_left', '_right'))
+</code></pre>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Join</span>
+          <h3>Join on Index</h3>
+          <p>Join using index.</p>
+<pre class="code-block"><code class="language-python">
+# Join on index
+df1.join(df2)
+
+# Join on specific column
+df1.join(df2, lsuffix='_l', rsuffix='_r')
+
+# Concat (stack DataFrames)
+pd.concat([df1, df2]) # Vertical stack
+pd.concat([df1, df2], axis=1) # Horizontal stack
+pd.concat([df1, df2], ignore_index=True) # Reset index
+
+# Append (deprecated, use concat)
+# df1.append(df2) # Use pd.concat instead
+</code></pre>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Merge AsOf</span>
+          <h3>Merge AsOf</h3>
+          <p>Time-based or ordered merges.</p>
+<pre class="code-block"><code class="language-python">
+# Merge asof (nearest match)
+pd.merge_asof(
+trades, # Left DataFrame
+quotes, # Right DataFrame
+on='timestamp', # Merge key
+by='symbol', # Group by
+direction='nearest', # 'forward', 'backward', 'nearest'
+tolerance=pd.Timedelta('1min')
+)
+
+# Example use case: match trades to nearest quote
+# trades: timestamps of trades
+# quotes: timestamps of quotes
+# Result: each trade matched to nearest quote
+</code></pre>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Concat</span>
+          <h3>Concatenate DataFrames</h3>
+          <p>Stack multiple DataFrames.</p>
+<pre class="code-block"><code class="language-python">
+# Vertical concat
+pd.concat([df1, df2, df3], ignore_index=True)
+
+# Horizontal concat
+pd.concat([df1, df2], axis=1)
+
+# With keys (hierarchical index)
+pd.concat([df1, df2], keys=['source1', 'source2'])
+
+# Only common columns
+pd.concat([df1, df2], join='inner')
+
+# Dictionary of DataFrames
+pd.concat({'file1': df1, 'file2': df2})
+
+# Along specific axis with keys
+result = pd.concat([df1, df2],
+axis=0,
+keys=['Q1', 'Q2'],
+names=['quarter'])
+</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="cheat-section" id="data-cleaning">
+      <h2 class="section-title">Data Cleaning <span class="section-difficulty difficulty-medium">Medium</span></h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Missing</span>
+          <h3>Handle Missing Values</h3>
+          <p>Detect and handle nulls.</p>
+<pre class="code-block"><code class="language-python">
+# Detect
+df.isnull().sum()
+df.isna().sum()
+df.info() # Shows non-null counts
+
+# Drop
+df.dropna() # Drop rows with any null
+df.dropna(subset=['name']) # Drop if name is null
+df.dropna(how='all') # Drop only if all null
+df.dropna(thresh=2) # Keep rows with at least 2 non-null
+
+# Fill
+df.fillna(0) # Fill with 0
+df.fillna({'age': 0, 'city': 'Unknown'}) # Different fills
+df.fillna(method='ffill') # Forward fill
+df.fillna(method='bfill') # Backward fill
+df.fillna(df.mean()) # Fill with column means
+
+# Interpolate
+df.interpolate() # Linear interpolation
+</code></pre>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Duplicates</span>
+          <h3>Handle Duplicates</h3>
+          <p>Find and remove duplicates.</p>
+<pre class="code-block"><code class="language-python">
+# Detect duplicates
+df.duplicated().sum()
+df.duplicated(subset=['email']).sum()
+df.duplicated(keep='last') # Mark all but last as dup
+
+# Remove duplicates
+df.drop_duplicates()
+df.drop_duplicates(subset=['email'])
+df.drop_duplicates(subset=['name', 'email'], keep='last')
+
+# Get duplicates
+dups = df[df.duplicated(subset=['email'], keep=False)]
+
+# Count by column
+df['email'].value_counts()
+df['email'].value_counts().head(10)
+</code></pre>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Types</span>
+          <h3>Data Type Conversion</h3>
+          <p>Convert column data types.</p>
+<pre class="code-block"><code class="language-python">
+# Check types
+df.dtypes
+df.info()
+
+# Convert types
+df['age'] = df['age'].astype(int)
+df['price'] = df['price'].astype(float)
+df['is_active'] = df['is_active'].astype(bool)
+
+# To datetime
+df['date'] = pd.to_datetime(df['date'])
+df['date'] = pd.to_datetime(df['date'], format='%Y-%m-%d')
+df['date'] = pd.to_datetime(df['date'], errors='coerce') # Invalid -> NaT
+
+# Extract datetime components
+df['year'] = df['date'].dt.year
+df['month'] = df['date'].dt.month
+df['day_of_week'] = df['date'].dt.dayofweek
+</code></pre>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Strings</span>
+          <h3>String Operations</h3>
+          <p>Text manipulation with .str accessor.</p>
+<pre class="code-block"><code class="language-python">
+# Case conversion
+df['name'] = df['name'].str.lower()
+df['name'] = df['name'].str.upper()
+df['name'] = df['name'].str.title()
+df['name'] = df['name'].str.strip()
+
+# Search and replace
+df['name'].str.contains('John')
+df['name'].str.startswith('Mr')
+df['name'].str.replace('Mr.', '')
+df['name'].str.replace(r'\d+', '', regex=True)
+
+# Split and extract
+df['name'].str.split()
+df['email'].str.split('@').str[1] # Domain
+df['address'].str.extract(r'(\d{5})') # Extract zip
+
+# Length and slice
+df['name'].str.len()
+df['name'].str[:10]
+</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="cheat-section" id="datetime-operations">
+      <h2 class="section-title">Datetime Operations <span class="section-difficulty difficulty-medium">Medium</span>
+      </h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Parsing</span>
+          <h3>Datetime Parsing</h3>
+          <p>Convert strings to datetime.</p>
+<pre class="code-block"><code class="language-python">
+# Parse dates
+df['date'] = pd.to_datetime(df['date'])
+df['date'] = pd.to_datetime(df['date'], format='%Y-%m-%d')
+
+# Multiple formats
+df['date'] = pd.to_datetime(df['date'],
+format='mixed',
+dayfirst=True)
+
+# Create date range
+dates = pd.date_range('2024-01-01', periods=365, freq='D')
+dates = pd.date_range('2024-01-01', '2024-12-31', freq='M')
+
+# Extract components
+df['year'] = df['date'].dt.year
+df['month'] = df['date'].dt.month
+df['day'] = df['date'].dt.day
+df['dayofweek'] = df['date'].dt.dayofweek # Monday=0
+df['quarter'] = df['date'].dt.quarter
+</code></pre>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Arithmetic</span>
+          <h3>Datetime Arithmetic</h3>
+          <p>Perform date calculations.</p>
+<pre class="code-block"><code class="language-python">
+# Time differences
+df['days_since'] = (pd.Timestamp.now() - df['date']).dt.days
+df['diff'] = df['end_date'] - df['start_date']
+
+# Add/subtract
+df['next_week'] = df['date'] + pd.Timedelta(days=7)
+df['prev_month'] = df['date'] - pd.DateOffset(months=1)
+
+# Date offset
+from pandas.tseries.offsets import BusinessDay, MonthEnd
+df['next_biz'] = df['date'] + BusinessDay()
+df['month_end'] = df['date'] + MonthEnd()
+
+# Floor/ceil/round
+df['date'].dt.floor('D') # Floor to day
+df['date'].dt.ceil('H') # Ceil to hour
+df['date'].dt.round('min') # Round to minute
+</code></pre>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Resample</span>
+          <h3>Time Series Resampling</h3>
+          <p>Aggregate time series data.</p>
+<pre class="code-block"><code class="language-python">
+# Set date as index for resampling
+df = df.set_index('date')
+
+# Resample and aggregate
+df.resample('D').sum() # Daily sum
+df.resample('W').mean() # Weekly mean
+df.resample('M').agg({
+'amount': 'sum',
+'quantity': 'mean'
+})
+
+# Resample options
+# 'D' - daily, 'W' - weekly, 'M' - month end
+# 'ME' - month end (new), 'MS' - month start
+# 'Q' - quarter, 'Y' - year, 'h' - hour
+# 'min' - minute, 's' - second
+
+# Rolling window
+df['rolling_7d'] = df['amount'].rolling('7D').sum()
+df['rolling_avg'] = df['amount'].rolling(window=7).mean()
+</code></pre>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Period</span>
+          <h3>Period & Interval</h3>
+          <p>Work with time periods.</p>
+<pre class="code-block"><code class="language-python">
+# Create periods
+periods = pd.period_range('2024-01', periods=12, freq='M')
+df['period'] = pd.PeriodIndex(df['date'], freq='M')
+
+# Convert period to timestamp
+df['period'].dt.to_timestamp()
+
+# Date intervals
+interval = pd.Interval(left='2024-01-01', right='2024-12-31')
+df['in_period'] = df['date'].apply(
+lambda x: x in interval if pd.notna(x) else False
+)
+</code></pre>
+        </div>
+      </div>
+    </section>
+    <section class="cheat-section" id="tips-tricks">
+      <h2 class="section-title">Tips & Tricks</h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Tip</span>
+          <h3>Use vectorized operations</h3>
+          <p>Avoid loops; leverage pandas built‑in vectorization for speed.</p>
+<pre class="code-block"><code class="language-python">
+# Slow
+for i in range(len(df)):
+df.at[i, 'new'] = df.at[i, 'value'] * 2
+
+# Fast
+df['new'] = df['value'] * 2
+</code></pre>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Trick</span>
+          <h3>Chaining method calls</h3>
+          <p>Use `.pipe()` to chain custom functions.</p>
+<pre class="code-block"><code class="language-python">
+def add_column(df, col_name, value):
+df[col_name] = value
+return df
+
+result = (df
+.pipe(add_column, 'flag', True)
+.query('flag == True')
+.drop('flag', axis=1))
+</code></pre>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Tip</span>
+          <h3>Use `inplace=True` sparingly</h3>
+          <p>Prefer assignment over inplace operations for clarity.</p>
+<pre class="code-block"><code class="language-python">
+# Avoid
+df.dropna(inplace=True)
+
+# Prefer
+df = df.dropna()
+</code></pre>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Trick</span>
+          <h3>Method chaining with `assign`</h3>
+          <p>Create multiple columns in one chain.</p>
+<pre class="code-block"><code class="language-python">
+df = (df
+.assign(
+log_price=lambda x: np.log(x['price']),
+price_sq=lambda x: x['price'] ** 2,
+high_price=lambda x: x['price'] > x['price'].median()
+))
+</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="cheat-section" id="best-practices">
+      <h2 class="section-title">Best Practices <span class="section-difficulty difficulty-medium">Medium</span></h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Memory</span>
+          <h3>Use categorical types</h3>
+          <p>Convert low-cardinality columns to category for memory savings.</p>
+<pre class="code-block"><code class="language-python">
+df['category'] = df['category'].astype('category')
+print(df.memory_usage(deep=True))
+</code></pre>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Lazy</span>
+          <h3>Chain transformations</h3>
+          <p>Use chained operations with assign/apply to avoid intermediate copies.</p>
+<pre class="code-block"><code class="language-python">
+df = (df
+.assign(total=lambda x: x['price'] * x['quantity'])
+.query('total > 100')
+.dropna(subset=['customer']))
+</code></pre>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Integrity</span>
+          <h3>Use `.copy()` carefully</h3>
+          <p>Avoid SettingWithCopy warnings and explicit copy for clarity.</p>
+<pre class="code-block"><code class="language-python">
+subset = df.loc[df['active'], ['name', 'email']].copy()
+subset['name'] = subset['name'].str.strip()
+</code></pre>
+        </div>
+      </div>
+    </section>
+    </div>
+  </main>
+    <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  </button>
+  <script src="cheatsheets.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+  <script>Prism.highlightAll();</script>
+</body>
+</html>

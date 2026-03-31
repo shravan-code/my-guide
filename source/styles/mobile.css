@@ -32,18 +32,15 @@
   }
 
   .mobile-menu-toggle {
+    display: flex;
     grid-column: 1;
     justify-self: start;
-    min-width: 44px;
-    min-height: 44px;
   }
 
   .theme-toggle,
   .portfolio-link {
     grid-column: 3;
     justify-self: end;
-    min-width: 44px;
-    min-height: 44px;
   }
 
   .menu {

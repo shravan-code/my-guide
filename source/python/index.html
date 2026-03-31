@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Guide | Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../hub.css" />
+  <link rel="stylesheet" href="python.css" />
+</head>
+<body>
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <header class="topbar glass reveal in">
+    <a class="brand" href="../../index.html">
+      
+      Data Guide
+    </a>
+    <nav class="menu" aria-label="Python menu">
+      <a href="index.html" class="active" aria-current="page">Hub</a>
+      <a href="python-fundamentals.html">Fundamentals</a>
+      <a href="python-oops.html">OOPs</a>
+      <a href="methods.html">Methods</a>
+      <a href="memory-performance.html">Memory</a>
+    </nav>
+    <div class="header-actions">
+      <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle mobile menu">
+        <span class="hamburger-icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+        <span class="toggle-icon" aria-hidden="true">☾</span>
+        <span class="toggle-text">Dark</span>
+      </button>
+    </div>
+  </header>
+  
+  <div id="mobile-menu" class="mobile-menu">
+    <nav class="mobile-nav" aria-label="Python mobile menu">
+      <a href="index.html" class="active" aria-current="page">Hub</a>
+      <a href="python-fundamentals.html">Fundamentals</a>
+      <a href="python-oops.html">OOPs</a>
+      <a href="methods.html">Methods</a>
+      <a href="memory-performance.html">Memory</a>
+    </nav>
+  </div>
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
+
+  <main>
+    <div class="page-wrap">
+      <section class="hero">
+        <p class="eyebrow">Python Guide</p>
+        <h1>Python</h1>
+        <p class="hero-copy">A focused guide to Python.</p>
+      </section>
+
+      <section class="inspire">
+        <p>
+          The language of possibilities. Python empowers you to transform data into insights, automate the mundane, and build the extraordinary. From scripting to science, from web to AI, <strong>elegant syntax</strong> meets boundless versatility. Whether you're counting to ten or building neural networks, Python grows with your ambition.
+          <strong>Simple is better than complex. Now get coding.</strong>
+        </p>
+      </section>
+
+      <section class="tracks">
+        <h2>Explore Python</h2>
+        <div class="track-grid">
+          <a href="python-fundamentals.html" class="track">
+            <h3>Fundamentals</h3>
+            <p>Variables, data types, control flow</p>
+          </a>
+          <a href="python-oops.html" class="track">
+            <h3>OOPs</h3>
+            <p>Classes, inheritance, polymorphism</p>
+          </a>
+          <a href="methods.html" class="track">
+            <h3>Methods</h3>
+            <p>All types of methods in Python</p>
+          </a>
+          <a href="memory-performance.html" class="track">
+            <h3>Memory & Performance</h3>
+            <p>Optimization techniques</p>
+          </a>
+          <a href="https://docs.python.org/3/" target="_blank" rel="noopener" class="track">
+            <h3>Docs ↗</h3>
+            <p>Official Python documentation</p>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+</body>
+</html>

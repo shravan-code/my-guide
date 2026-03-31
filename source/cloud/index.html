@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Guide | Cloud</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../hub.css" />
+</head>
+
+<body>
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <header class="topbar glass reveal in">
+    <a class="brand" href="../../index.html">
+      
+      Data Guide
+    </a>
+    <nav class="menu" aria-label="Cloud menu">
+      <a href="index.html" class="active" aria-current="page">Hub</a>
+      <div class="menu-dropdown">
+        <button class="menu-trigger">Topics</button>
+        <div class="dropdown-panel">
+          <a href="cloud-topics.html"><strong>Overview</strong><span>All cloud topics</span></a>
+          <a href="cloud-basics.html"><strong>Basics</strong><span>IaaS, PaaS, SaaS, deployment models</span></a>
+          <a href="cloud-services.html"><strong>Services</strong><span>Service comparison across providers</span></a>
+          <a href="cloud-storage.html"><strong>Storage</strong><span>Object, block, file, data lakes</span></a>
+          <a href="cloud-compute.html"><strong>Compute</strong><span>VMs, containers, Kubernetes</span></a>
+          <a href="cloud-serverless.html"><strong>Serverless</strong><span>Functions and managed services</span></a>
+        </div>
+      </div>
+      <div class="menu-dropdown">
+        <button class="menu-trigger">Providers</button>
+        <div class="dropdown-panel">
+          <a href="cloud-aws.html"><strong>AWS</strong><span>Amazon Web Services</span></a>
+          <a href="cloud-azure.html"><strong>Azure</strong><span>Microsoft Azure</span></a>
+          <a href="cloud-gcp.html"><strong>GCP</strong><span>Google Cloud Platform</span></a>
+        </div>
+      </div>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+      <span class="toggle-icon" aria-hidden="true">☾</span>
+      <span class="toggle-text">Dark</span>
+    </button>
+  </header>
+
+  <main>
+    <div class="page-wrap">
+      <section class="hero">
+        <p class="eyebrow">Cloud Guide</p>
+        <h1>Cloud</h1>
+        <p class="hero-copy">A focused guide to Cloud.</p>
+      </section>
+
+      <section class="inspire">
+        <p>
+          The <strong>foundation of modern infrastructure</strong>. Cloud computing delivers compute, storage,
+          and services on-demand over the internet. From <strong>virtual machines to serverless functions</strong>,
+          from object storage to managed databases—cloud platforms power everything from startups to enterprises.
+          <strong>AWS, Azure, and GCP</strong> offer hundreds of services. Learn the patterns that work across all of them.
+          <strong>Cloud is not a place. It's a way of doing IT.</strong>
+        </p>
+      </section>
+
+      <section class="tracks">
+        <h2>Explore Cloud</h2>
+        <div class="track-grid">
+          <a href="cloud-basics.html" class="track">
+            <h3>Cloud Basics</h3>
+            <p>IaaS, PaaS, SaaS, and deployment models</p>
+          </a>
+          <a href="cloud-services.html" class="track">
+            <h3>Services</h3>
+            <p>AWS, Azure, and GCP service comparison</p>
+          </a>
+          <a href="cloud-storage.html" class="track">
+            <h3>Storage</h3>
+            <p>Object, block, file, and data lake storage</p>
+          </a>
+          <a href="cloud-compute.html" class="track">
+            <h3>Compute</h3>
+            <p>VMs, containers, and Kubernetes</p>
+          </a>
+          <a href="cloud-serverless.html" class="track">
+            <h3>Serverless</h3>
+            <p>Functions, events, and managed services</p>
+          </a>
+          <a href="../data/index.html" class="track">
+            <h3>Big Data</h3>
+            <p>Data platforms and pipelines</p>
+          </a>
+        </div>
+      </section>
+
+      <section class="tracks">
+        <h2>Cloud Providers</h2>
+        <div class="track-grid">
+          <a href="cloud-aws.html" class="track">
+            <h3>AWS</h3>
+            <p>Amazon Web Services - market leader</p>
+          </a>
+          <a href="cloud-azure.html" class="track">
+            <h3>Azure</h3>
+            <p>Microsoft Azure - enterprise integration</p>
+          </a>
+          <a href="cloud-gcp.html" class="track">
+            <h3>GCP</h3>
+            <p>Google Cloud Platform - data & AI focus</p>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+</body>
+
+</html>
