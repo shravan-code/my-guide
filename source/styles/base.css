@@ -2,17 +2,17 @@
 @import url("./design-tokens.css");
 
 :root {
-  --bg: var(--color-bg-light);
-  --bg-alt: var(--color-bg-alt-light);
-  --bg-elevated: var(--color-bg-elevated-light);
-  --text: var(--color-text-light);
-  --text-primary: var(--color-text-light);
-  --text-secondary: var(--color-text-secondary-light);
-  --muted: var(--color-text-muted-light);
-  --glass: var(--color-glass-light);
-  --glass-border: var(--color-glass-border-light);
+  --bg: var(--color-bg);
+  --bg-alt: var(--color-bg-alt);
+  --bg-elevated: var(--color-bg-elevated);
+  --text: var(--color-text);
+  --text-primary: var(--color-text);
+  --text-secondary: var(--color-text-secondary);
+  --muted: var(--color-text-muted);
+  --glass: var(--color-glass);
+  --glass-border: var(--color-glass-border);
   --glass-blur: var(--glass-blur-default);
-  --glow-border: var(--color-accent-border-light);
+  --glow-border: var(--color-accent-border);
   --glow-color: var(--color-accent);
   --glow-pink: var(--color-accent-pink);
   --glow-cyan: var(--color-accent-cyan);
@@ -21,42 +21,42 @@
   --radius-sm: 8px;
   --radius: 12px;
   --radius-lg: 20px;
-  --code-bg: #f8f9fa;
-  --code-text: #24292e;
-  --code-comment: #708090;
-  --code-punctuation: #586069;
-  --code-number: #005cc5;
-  --code-string: #032f62;
+  --code-bg: #f0ece6;
+  --code-text: #04151f;
+  --code-comment: #8a9a8a;
+  --code-punctuation: #5a6b69;
+  --code-number: #c44900;
+  --code-string: #183a37;
   --code-operator: inherit;
-  --code-keyword: #d73a49;
-  --code-function: #6f42c1;
-  --code-variable: #e36209;
+  --code-keyword: #432534;
+  --code-function: #c44900;
+  --code-variable: #c44900;
 }
 
 body.dark {
-  --bg: var(--color-bg-dark);
-  --bg-alt: var(--color-bg-alt-dark);
-  --bg-elevated: var(--color-bg-elevated-dark);
-  --text: var(--color-text-dark);
-  --text-primary: var(--color-text-dark);
-  --text-secondary: var(--color-text-secondary-dark);
-  --muted: var(--color-text-muted-dark);
-  --glass: var(--color-glass-dark);
-  --glass-border: var(--color-glass-border-dark);
+  --bg: var(--color-bg);
+  --bg-alt: var(--color-bg-alt);
+  --bg-elevated: var(--color-bg-elevated);
+  --text: var(--color-text);
+  --text-primary: var(--color-text);
+  --text-secondary: var(--color-text-secondary);
+  --muted: var(--color-text-muted);
+  --glass: var(--color-glass);
+  --glass-border: var(--color-glass-border);
   --glow-border: var(--color-accent-border-dark);
   --glow-color: var(--color-accent-strong);
   --glow-pink: var(--color-accent-pink-dark);
   --glow-cyan: var(--color-accent-cyan-dark);
-  --code-bg: #1a1f2e;
-  --code-text: #c9d1d9;
-  --code-comment: #6a737d;
-  --code-punctuation: #e1e4e8;
-  --code-number: #79b8ff;
-  --code-string: #9ecbff;
+  --code-bg: #0a1a20;
+  --code-text: #efd6ac;
+  --code-comment: #5a7a7a;
+  --code-punctuation: #8a9a8a;
+  --code-number: #efd6ac;
+  --code-string: #b8a882;
   --code-operator: inherit;
-  --code-keyword: #f97583;
-  --code-function: #b392f0;
-  --code-variable: #ffab70;
+  --code-keyword: #8a5a6a;
+  --code-function: #efd6ac;
+  --code-variable: #efd6ac;
 }
 
 * { box-sizing: border-box; }
@@ -181,13 +181,20 @@ pre.code code, .code code, .code-block code {
   font-size: 1.15rem;
   letter-spacing: -0.02em;
   text-decoration: none;
-  background: linear-gradient(135deg, var(--glow-color), var(--glow-pink));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--burnt-orange);
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background-origin: border-box;
+}
+
+.brand-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
 }
 
 /* Menu - visible by default */
@@ -215,8 +222,8 @@ pre.code code, .code code, .code-block code {
 
 .menu a:hover {
   color: var(--text);
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.1));
-  border-color: var(--glow-border);
+  background: var(--bg-alt);
+  border-color: var(--glass-border);
 }
 
 /* Menu dropdown */
@@ -250,8 +257,8 @@ pre.code code, .code code, .code-block code {
 
 .menu-trigger:hover {
   color: var(--text);
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.1));
-  border-color: var(--glow-border);
+  background: var(--bg-alt);
+  border-color: var(--glass-border);
 }
 
 .dropdown-panel {
@@ -541,24 +548,15 @@ main {
   font-weight: 700;
   margin: 0 0 0.5rem;
   font-family: "Sora", sans-serif;
-  background: linear-gradient(135deg, var(--glow-color), var(--glow-pink), var(--glow-cyan));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.4)) drop-shadow(0 0 40px rgba(236, 72, 153, 0.3));
-  animation: glow-pulse 3s ease-in-out infinite;
+  color: var(--ink-black);
 }
 
-@keyframes glow-pulse {
-  0%, 100% { filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.4)) drop-shadow(0 0 40px rgba(236, 72, 153, 0.3)); }
-  50% { filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.6)) drop-shadow(0 0 60px rgba(236, 72, 153, 0.5)); }
+body.dark .hero h1 {
+  color: var(--wheat);
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, var(--glow-color), var(--glow-pink));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--burnt-orange);
 }
 
 .hero-copy {
@@ -655,12 +653,12 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.16), rgba(236, 72, 153, 0.16));
-  border: 1px solid var(--glow-border);
+  background: rgba(196, 73, 0, 0.1);
+  border: 1px solid var(--burnt-orange);
   border-radius: 999px;
-  color: var(--text);
+  color: var(--burnt-orange);
   cursor: pointer;
-  box-shadow: 0 0 18px rgba(99, 102, 241, 0.28), 0 0 34px rgba(236, 72, 153, 0.16);
+  box-shadow: 0 0 18px rgba(196, 73, 0, 0.15);
   opacity: 0;
   visibility: hidden;
   transition: opacity var(--transition), visibility var(--transition), transform var(--transition),
@@ -670,9 +668,9 @@ main {
 
 .scroll-to-top.visible { opacity: 1; visibility: visible; }
 .scroll-to-top:hover {
-  border-color: var(--glow-color);
-  color: var(--glow-color);
-  box-shadow: 0 0 24px rgba(99, 102, 241, 0.4), 0 0 48px rgba(236, 72, 153, 0.24);
+  border-color: var(--burnt-orange);
+  color: var(--burnt-orange);
+  box-shadow: 0 0 24px rgba(196, 73, 0, 0.3);
   transform: translateY(-4px);
 }
 .scroll-to-top svg { width: 20px; height: 20px; }

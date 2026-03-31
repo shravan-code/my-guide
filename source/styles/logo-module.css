@@ -1,0 +1,110 @@
+/* Logo Module Styles
+ * Reusable logo component with hover animation
+ * Include this stylesheet on any page that uses the logo module
+ */
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0rem;
+  white-space: nowrap;
+  font-family: "Sora", sans-serif;
+  font-weight: 700;
+  font-size: var(--font-size-brand, 1.15rem);
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  color: var(--burnt-orange);
+  transition: color var(--transition);
+  position: relative;
+  padding: 0.25rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background-origin: border-box;
+  background: none !important;
+  -webkit-text-fill-color: var(--burnt-orange) !important;
+}
+
+.brand:hover {
+  background: none !important;
+  -webkit-text-fill-color: var(--burnt-orange) !important;
+  color: var(--burnt-orange) !important;
+}
+
+.brand-default {
+  color: var(--burnt-orange);
+  -webkit-text-fill-color: var(--burnt-orange) !important;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.brand-hover {
+  position: absolute;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateX(10px);
+  color: var(--burnt-orange);
+  -webkit-text-fill-color: var(--burnt-orange) !important;
+}
+
+body.dark .brand {
+  color: var(--wheat) !important;
+  background: none !important;
+  -webkit-text-fill-color: var(--wheat) !important;
+}
+
+body.dark .brand:hover {
+  color: var(--wheat) !important;
+  background: none !important;
+  -webkit-text-fill-color: var(--wheat) !important;
+}
+
+body.dark .brand-hover {
+  color: var(--wheat) !important;
+  -webkit-text-fill-color: var(--wheat) !important;
+}
+
+body.dark .brand:hover .brand-hover {
+  color: var(--wheat) !important;
+  -webkit-text-fill-color: var(--wheat) !important;
+}
+
+.brand:hover .brand-default {
+  opacity: 0;
+  transform: translateX(-10px);
+}
+
+.brand:hover .brand-hover {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.brand-icon {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: var(--glow-color);
+  stroke-width: 1.5;
+  transition: stroke 0.3s ease;
+}
+
+.brand:hover .brand-icon {
+  stroke: var(--burnt-orange);
+}
+
+/* Mobile positioning */
+@media (max-width: 920px) {
+  .brand {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+    z-index: 10;
+    pointer-events: auto;
+  }
+}
+
+/* Desktop positioning */
+@media (min-width: 921px) {
+  .brand {
+    flex-shrink: 0;
+  }
+}

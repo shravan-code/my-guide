@@ -19,7 +19,7 @@
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
   <header class="topbar glass reveal in">
-    <a class="brand" href="../../index.html">Data Guide</a>
+    <div class="brand-container" data-logo></div>
     <nav class="menu" aria-label="Python menu">
     </nav>
     <div class="header-actions">
@@ -1145,5 +1145,7 @@ arr.<span class="function">put</span>([<span class="number">0</span>, <span clas
       <path d="M12 19V5M5 12l7-7 7 7"/>
     </svg>
   </button>
+  <script src="source/scripts/logo-module.js"></script>
+  <script>LogoModule.init('[data-logo]');</script>
 </body>
 </html>

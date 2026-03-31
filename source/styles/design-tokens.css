@@ -44,62 +44,76 @@
   --space-6: 1.5rem;
   --space-8: 2rem;
 
-  --color-bg-light: #ffffff;
-  --color-bg-alt-light: #f8f9fa;
-  --color-bg-elevated-light: #fafafa;
-  --color-text-light: #0a0a0a;
-  --color-text-secondary-light: #525252;
-  --color-text-muted-light: #737373;
-  --color-glass-light: rgba(255, 255, 255, 0.7);
-  --color-glass-border-light: rgba(0, 0, 0, 0.1);
+  /* New color palette */
+  --ink-black: #04151f;
+  --dark-slate-grey: #183a37;
+  --wheat: #efd6ac;
+  --burnt-orange: #c44900;
+  --midnight-violet: #432534;
 
-  --color-bg-dark: #0a0a0a;
-  --color-bg-alt-dark: #141414;
-  --color-bg-elevated-dark: #1a1a1a;
-  --color-text-dark: #fafafa;
-  --color-text-secondary-dark: #a3a3a3;
-  --color-text-muted-dark: #737373;
-  --color-glass-dark: rgba(10, 10, 10, 0.75);
-  --color-glass-border-dark: rgba(255, 255, 255, 0.1);
+  /* Light theme (default) */
+  --color-bg: #ffffff;
+  --color-bg-alt: var(--wheat);
+  --color-bg-elevated: #faf8f5;
+  --color-text: var(--ink-black);
+  --color-text-secondary: var(--dark-slate-grey);
+  --color-text-muted: #7a8b89;
+  --color-glass: rgba(255, 255, 255, 0.85);
+  --color-glass-border: rgba(4, 21, 31, 0.1);
 
-  --color-accent: #6366f1;
-  --color-accent-strong: #818cf8;
-  --color-accent-pink: #ec4899;
-  --color-accent-pink-dark: #f472b6;
-  --color-accent-cyan: #06b6d4;
-  --color-accent-cyan-dark: #22d3ee;
-  --color-accent-border-light: rgba(99, 102, 241, 0.2);
-  --color-accent-border-dark: rgba(99, 102, 241, 0.3);
+  --color-accent: var(--burnt-orange);
+  --color-accent-strong: var(--burnt-orange);
+  --color-accent-pink: var(--midnight-violet);
+  --color-accent-pink-dark: var(--midnight-violet);
+  --color-accent-cyan: var(--dark-slate-grey);
+  --color-accent-cyan-dark: var(--dark-slate-grey);
+  --color-accent-border: rgba(196, 73, 0, 0.2);
+  --color-accent-border-dark: rgba(196, 73, 0, 0.3);
 
-  --shadow-sm-light: 0 1px 3px rgba(15, 23, 42, 0.05), 0 3px 8px rgba(15, 23, 42, 0.03);
-  --shadow-light: 0 6px 18px rgba(15, 23, 42, 0.07), 0 2px 6px rgba(15, 23, 42, 0.04);
-  --shadow-md-light: 0 12px 30px rgba(15, 23, 42, 0.1), 0 4px 12px rgba(15, 23, 42, 0.06);
-  --shadow-lg-light: 0 18px 44px rgba(15, 23, 42, 0.14), 0 8px 20px rgba(15, 23, 42, 0.08);
-  --shadow-glow-light: 0 0 24px rgba(99, 102, 241, 0.07);
-
-  --shadow-sm-dark: 0 1px 3px rgba(0, 0, 0, 0.28), 0 3px 8px rgba(0, 0, 0, 0.16);
-  --shadow-dark: 0 8px 22px rgba(0, 0, 0, 0.3), 0 3px 8px rgba(0, 0, 0, 0.2);
-  --shadow-md-dark: 0 14px 34px rgba(0, 0, 0, 0.38), 0 6px 16px rgba(0, 0, 0, 0.24);
-  --shadow-lg-dark: 0 22px 54px rgba(0, 0, 0, 0.45), 0 10px 24px rgba(0, 0, 0, 0.28);
-  --shadow-glow-dark: 0 0 28px rgba(129, 140, 248, 0.12);
+  --shadow-sm: 0 1px 3px rgba(4, 21, 31, 0.05), 0 3px 8px rgba(4, 21, 31, 0.03);
+  --shadow: 0 6px 18px rgba(4, 21, 31, 0.07), 0 2px 6px rgba(4, 21, 31, 0.04);
+  --shadow-md: 0 12px 30px rgba(4, 21, 31, 0.1), 0 4px 12px rgba(4, 21, 31, 0.06);
+  --shadow-lg: 0 18px 44px rgba(4, 21, 31, 0.14), 0 8px 20px rgba(4, 21, 31, 0.08);
+  --shadow-glow: 0 0 24px rgba(196, 73, 0, 0.1);
 
   --glass-blur-default: 16px;
+
+  /* Aliases for compatibility */
+  --glow-color: var(--burnt-orange);
+  --glow-pink: var(--midnight-violet);
+  --glow-border: var(--color-accent-border);
+}
+
+body.dark {
+  --color-bg: var(--ink-black);
+  --color-bg-alt: var(--dark-slate-grey);
+  --color-bg-elevated: #062025;
+  --color-text: var(--wheat);
+  --color-text-secondary: #b8a882;
+  --color-text-muted: #8a9a8a;
+  --color-glass: rgba(4, 21, 31, 0.9);
+  --color-glass-border: rgba(239, 214, 172, 0.15);
+
+  --color-accent-border: rgba(196, 73, 0, 0.4);
+  --color-accent-border-dark: rgba(196, 73, 0, 0.5);
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 8px rgba(0, 0, 0, 0.2);
+  --shadow: 0 8px 22px rgba(0, 0, 0, 0.35), 0 3px 8px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 14px 34px rgba(0, 0, 0, 0.4), 0 6px 16px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 22px 54px rgba(0, 0, 0, 0.5), 0 10px 24px rgba(0, 0, 0, 0.35);
+  --shadow-glow: 0 0 28px rgba(196, 73, 0, 0.15);
 }
 
 body.theme-warm {
-  --color-accent: #d97706;
-  --color-accent-strong: #f59e0b;
-  --color-accent-pink: #ea580c;
-  --color-accent-pink-dark: #fb923c;
-  --color-accent-cyan: #0891b2;
-  --color-accent-cyan-dark: #06b6d4;
+  --color-accent: var(--burnt-orange);
+  --color-accent-strong: var(--burnt-orange);
+  --color-accent-pink: var(--midnight-violet);
+  --color-accent-pink-dark: var(--midnight-violet);
 }
 
 body.theme-forest {
-  --color-accent: #0f766e;
-  --color-accent-strong: #14b8a6;
-  --color-accent-pink: #65a30d;
-  --color-accent-pink-dark: #84cc16;
-  --color-accent-cyan: #0ea5e9;
-  --color-accent-cyan-dark: #38bdf8;
+  --color-accent: var(--dark-slate-grey);
+  --color-accent-strong: #246b65;
+  --color-accent-pink: var(--midnight-violet);
+  --color-accent-pink-dark: #5a3a48;
 }

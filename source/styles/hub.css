@@ -1,4 +1,5 @@
 @import url("./design-tokens.css");
+@import url("./logo-module.css");
 
 .inspire {
   max-width: min(900px, 90vw);

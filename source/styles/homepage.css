@@ -42,15 +42,51 @@ main {
 .brand {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0rem;
   white-space: nowrap;
   font-family: "Sora", sans-serif;
   font-weight: 700;
   font-size: 1.15rem;
   letter-spacing: -0.02em;
   text-decoration: none;
-  color: var(--text);
+  color: var(--burnt-orange);
   transition: color var(--transition);
+  position: relative;
+}
+
+body.dark .brand {
+  color: var(--wheat);
+}
+
+body.dark .brand:hover {
+  color: var(--wheat);
+}
+
+.brand-default {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.brand-hover {
+  position: absolute;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateX(10px);
+  color: inherit;
+}
+
+body.dark .brand-hover {
+  color: var(--wheat);
+}
+
+.brand:hover .brand-default {
+  opacity: 0;
+  transform: translateX(-10px);
+}
+
+.brand:hover .brand-hover {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .brand-icon {
@@ -61,15 +97,8 @@ main {
   stroke-width: 1.5;
 }
 
-.brand:hover {
-  background: linear-gradient(135deg, #6366f1, #ec4899);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
 .brand:hover .brand-icon {
-  stroke: #6366f1;
+  stroke: var(--burnt-orange);
 }
 
 /* Menu */
@@ -104,9 +133,9 @@ main {
 }
 
 .menu a:hover {
-  color: var(--text);
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.1));
-  border-color: var(--glow-border);
+  color: var(--burnt-orange);
+  background: rgba(196, 73, 0, 0.1);
+  border-color: rgba(196, 73, 0, 0.3);
   box-shadow: none;
 }
 
@@ -117,19 +146,9 @@ main {
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--glow-color), var(--glow-pink));
+  background: var(--burnt-orange);
   border-radius: 1px;
   box-shadow: none;
-  animation: pulse-glow 2s ease-in-out infinite;
-}
-
-@keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: none;
-  }
-  50% {
-    box-shadow: none;
-  }
 }
 
 /* Header actions */
@@ -161,8 +180,8 @@ main {
 }
 
 .portfolio-link:hover {
-  color: var(--glow-color);
-  border-color: var(--glow-color);
+  color: var(--burnt-orange);
+  border-color: var(--burnt-orange);
   box-shadow: none;
 }
 
@@ -268,8 +287,8 @@ main {
 }
 
 .tool-tag:hover {
-  color: var(--text);
-  border-color: var(--glow-border);
+  color: var(--burnt-orange);
+  border-color: rgba(196, 73, 0, 0.3);
   box-shadow: none;
 }
 
@@ -332,13 +351,13 @@ main {
 
 .track:hover {
   background: var(--bg-alt);
-  border-color: rgba(99, 102, 241, 0.25);
+  border-color: var(--burnt-orange);
   box-shadow: none;
   transform: translateY(-2px);
 }
 
 body.dark .track:hover {
-  border-color: rgba(129, 140, 248, 0.3);
+  border-color: var(--burnt-orange);
   box-shadow: none;
 }
 
@@ -438,12 +457,13 @@ body.dark .track:hover {
 
 .topic-item:hover {
   background: var(--bg-alt);
-  border-color: var(--glow-color);
+  border-color: var(--burnt-orange);
   transform: translateX(4px);
   box-shadow: none;
 }
 
 body.dark .topic-item:hover {
+  border-color: var(--burnt-orange);
   box-shadow: none;
 }
 
@@ -542,7 +562,7 @@ body.dark .topic-item:hover {
 
 .glass-panel:hover {
   box-shadow: none;
-  border-color: var(--glow-border);
+  border-color: rgba(196, 73, 0, 0.3);
 }
 
 .panel-header {
@@ -723,24 +743,7 @@ body.dark .topic-item:hover {
 
 /* Gradient Text */
 .gradient-text {
-  background: linear-gradient(135deg, var(--glow-color), var(--glow-pink), var(--glow-cyan));
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradient-shift 4s ease infinite;
-}
-
-@keyframes gradient-shift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  color: var(--burnt-orange);
 }
 
 /* Mobile Menu Styles */
@@ -759,7 +762,7 @@ body.dark .topic-item:hover {
 }
 
 .mobile-menu-toggle:hover {
-  border-color: var(--glow-border);
+  border-color: var(--burnt-orange);
   transform: scale(1.05);
 }
 
@@ -838,7 +841,7 @@ body.dark .topic-item:hover {
   left: 0;
   width: 100%;
   height: calc(100% - var(--topbar-height));
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(4, 21, 31, 0.3);
   z-index: 1998;
 }
 

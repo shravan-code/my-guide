@@ -20,10 +20,7 @@
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
   <header class="topbar glass reveal in">
-    <a class="brand" href="../../index.html">
-
-      Data Guide
-    </a>
+    <div class="brand-container" data-logo></div>
     <nav class="menu" aria-label="Cheatsheet menu">
     </nav>
     <div class="header-actions">
@@ -887,6 +884,8 @@ df = df.repartition(200) # only if needed for parallelism
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
   <script>Prism.highlightAll();</script>
+  <script src="source/scripts/logo-module.js"></script>
+  <script>LogoModule.init('[data-logo]');</script>
 </body>
 
 </html>
