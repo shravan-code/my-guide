@@ -222,7 +222,7 @@ body:not(.with-sidebar) .main-content>.page-wrap {
   width: 100%;
   height: calc(100% - var(--topbar-height) - var(--layout-breadcrumb-height));
   background: rgba(0, 0, 0, 0.15);
-  z-index: 1400;
+  z-index: var(--z-sidebar-overlay);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
 }

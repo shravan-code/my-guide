@@ -334,8 +334,8 @@ body.dark .orb-c {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
+  gap: 0.35rem;
+  flex-wrap: nowrap;
 }
 
 /* consistent topbar and sidebar colors regardless of dark/light theme toggles */
@@ -434,13 +434,14 @@ nav.sidebar {
   align-items: center;
   text-decoration: none;
   color: var(--text-secondary);
-  padding: 0.5rem 0.9rem;
+  padding: 0.4rem 0.65rem;
   border-radius: var(--radius-sm);
   border: 1px solid transparent;
   background: transparent;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 500;
   transition: all var(--transition);
+  white-space: nowrap;
 }
 
 .menu a:hover {
@@ -453,7 +454,7 @@ nav.sidebar {
 .menu a.active {
   color: var(--text);
   background: var(--bg-alt);
-  padding: 0.5rem 0.9rem;
+  padding: 0.4rem 0.65rem;
   border-color: rgba(99, 102, 241, 0.2);
   box-shadow: var(--shadow-sm), inset 0 0 0 1px rgba(99, 102, 241, 0.15);
 }
@@ -481,13 +482,14 @@ body.dark .menu a.active {
   align-items: center;
   cursor: pointer;
   color: var(--text-secondary);
-  padding: 0.5rem 0.9rem;
+  padding: 0.4rem 0.65rem;
   border-radius: var(--radius-sm);
   border: 1px solid transparent;
   background: transparent;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 500;
   transition: all var(--transition);
+  white-space: nowrap;
 }
 
 .menu-trigger:hover {
@@ -500,10 +502,10 @@ body.dark .menu a.active {
 
 .dropdown-panel {
   position: absolute;
-  top: calc(100% + 12px);
+  top: calc(100% + 8px);
   left: 0;
-  min-width: 280px;
-  padding: 0.5rem;
+  min-width: 200px;
+  padding: 0.4rem;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.95);
   border: 1px solid var(--glass-border);
@@ -539,11 +541,12 @@ body.dark .dropdown-panel {
 
 .dropdown-panel a {
   display: block;
-  padding: 0.5rem 0.9rem;
+  padding: 0.4rem 0.7rem;
   border-radius: var(--radius-sm);
   text-decoration: none;
   color: var(--text);
   transition: background var(--transition);
+  font-size: 0.85rem;
 }
 
 .dropdown-panel a:hover {
@@ -555,6 +558,13 @@ body.dark .dropdown-panel {
   font-family: "Sora", sans-serif;
   font-size: 0.88rem;
   margin-bottom: 0.1rem;
+}
+
+.dropdown-panel .menu-dropdown > .dropdown-panel {
+  position: absolute;
+  top: -0.5rem;
+  left: calc(100% + 8px);
+  transform: translateY(0);
 }
 
 .dropdown-panel a span {

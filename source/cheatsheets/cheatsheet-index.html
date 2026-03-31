@@ -25,13 +25,18 @@
       Data Guide
     </a>
     <nav class="menu" aria-label="Cheatsheet menu">
-      <a href="cheatsheet-index.html" class="active" aria-current="page">Overview</a>
-      <a href="cheatsheet-python.html">Python</a>
-      <a href="cheatsheet-numpy.html">NumPy</a>
-      <a href="cheatsheet-pandas.html">Pandas</a>
-      <a href="cheatsheet-spark.html">PySpark</a>
-      <a href="cheatsheet-postgresql.html">PostgreSQL</a>
-      <a href="cheatsheet-compare.html">Comparison</a>
+      <a href="cheatsheet-index.html">Hub</a>
+      <div class="menu-dropdown">
+        <span class="menu-trigger" tabindex="0">Topics</span>
+        <div class="dropdown-panel">
+          <a href="cheatsheet-python.html">Python</a>
+          <a href="cheatsheet-pandas.html">Pandas</a>
+          <a href="cheatsheet-numpy.html">NumPy</a>
+          <a href="cheatsheet-spark.html">Spark</a>
+          <a href="cheatsheet-postgresql.html">PostgreSQL</a>
+        </div>
+      </div>
+      <a href="cheatsheet-compare.html">Compare</a>
     </nav>
     <div class="header-actions">
       <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle mobile menu">
@@ -59,17 +64,7 @@
       <a href="cheatsheet-compare.html">Comparison</a>
     </nav>
   </div>
-  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
-
-  <nav class="breadcrumb">
-    <a href="../../index.html">Home</a>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <polyline points="9 18 15 12 9 6" />
-    </svg>
-    <span class="current">Cheatsheets</span>
-  </nav>
-
-  <main>
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div><main>
     <div class="page-wrap">
       <section class="hero">
         <h1>Cheatsheets</h1>
