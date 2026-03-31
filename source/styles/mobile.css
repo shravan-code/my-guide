@@ -32,7 +32,6 @@
   }
 
   .mobile-menu-toggle {
-    display: flex;
     grid-column: 1;
     justify-self: start;
     min-width: 44px;

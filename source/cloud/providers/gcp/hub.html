@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="GCP Data Engineering complete guide with services, pipelines, and best practices." />
+  <title>Data Guide | GCP Data Engineering</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../../../styles/styles.css" />
+  <link rel="stylesheet" href="../../../python/styles/python.css" />
+</head>
+
+<body class="with-sidebar">
+  <div class="bg-orb orb-a"></div>
+  <div class="bg-orb orb-b"></div>
+  <div class="bg-orb orb-c"></div>
+
+  <header class="topbar reveal">
+    <a class="brand" href="../../../../index.html">
+      <svg class="brand-icon" viewBox="0 0 24 24">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+      </svg>
+      Data Guide
+    </a>
+    <nav class="menu" aria-label="GCP menu">
+      <a href="hub.html">Hub</a>
+      <a href="services.html">Domains</a>
+      <a href="services.html">Services</a>
+    </nav>
+    <div class="header-actions">
+      <a href="../../../../portfolios/portfolio.html" class="portfolio-link" title="View Portfolio">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z" />
+          <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16" />
+        </svg>
+      </a>
+      <button id="theme-toggle" class="theme-toggle"><span class="toggle-icon">☾</span></button>
+    </div>
+  </header>
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+  <button id="sidebar-toggle" class="sidebar-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+
+  <main class="main-content">
+    <nav class="sidebar" id="sidebar">
+      <div class="logo"><span class="logo-text">GCP Data Engineering</span></div>
+      <div class="nav-section">
+        <div class="nav-section-title">Overview</div>
+        <a href="providers-gcp.html" class="nav-item"><span>1</span> Getting Started</a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Services</div>
+        <a href="providers-gcp.html" class="nav-item"><span>2</span> All Services</a>
+        <a href="providers-gcp.html" class="nav-item sub"><span>2.1</span> Storage</a>
+        <a href="providers-gcp.html" class="nav-item sub"><span>2.2</span> Streaming</a>
+        <a href="providers-gcp.html" class="nav-item sub"><span>2.3</span> Warehouse</a>
+        <a href="providers-gcp.html" class="nav-item sub"><span>2.4</span> Serverless</a>
+        <a href="providers-gcp.html" class="nav-item sub"><span>2.5</span> Databases</a>
+        <a href="providers-gcp.html" class="nav-item sub"><span>2.6</span> Big Data</a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Practice</div>
+        <a href="providers-gcp.html" class="nav-item"><span>3</span> Pipelines</a>
+        <a href="providers-gcp.html" class="nav-item"><span>4</span> Interview Q&A</a>
+      </div>
+    </nav>
+
+    <div class="page-wrap">
+      <section class="hero">
+        <p class="eyebrow">Cloud Data Engineering</p>
+        <h1>GCP Data Engineering</h1>
+        <p class="hero-copy">Complete guide to building data pipelines with Google Cloud services. Learn storage, streaming,
+          processing, and analytics with practical examples.</p>
+      </section>
+
+      <section class="topic-section">
+        <h2>What You'll Learn</h2>
+        <div class="grid-cards">
+          <a href="providers-gcp.html" class="card-link">
+            <div class="grid-card">
+              <div class="card-icon">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Services">
+              </div>
+              <h3>Services</h3>
+              <p>Deep dive into BigQuery, Cloud Storage, Dataflow, Pub/Sub, and more. Understand what each service does and
+                when to use it.</p>
+            </div>
+          </a>
+          <a href="providers-gcp.html" class="card-link">
+            <div class="grid-card">
+              <div class="card-icon">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Pipelines">
+              </div>
+              <h3>Pipelines</h3>
+              <p>Real-world pipeline examples: batch ETL, streaming analytics, CDC replication, and data lake
+                architectures.</p>
+            </div>
+          </a>
+          <a href="providers-gcp.html" class="card-link">
+            <div class="grid-card">
+              <div class="card-icon">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Interview">
+              </div>
+              <h3>Interview Prep</h3>
+              <p>Real interview questions with detailed answers covering architecture, optimization, and best
+                practices.</p>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section class="topic-section">
+        <h2>Key GCP Services</h2>
+        <p>Google Cloud provides a comprehensive set of data services:</p>
+        <div class="layer-summary">
+          <div class="layer-row">
+            <span class="layer-num">1</span>
+            <span class="layer-name">Storage</span>
+            <span class="layer-services">Cloud Storage, BigLake</span>
+          </div>
+          <div class="layer-row">
+            <span class="layer-num">2</span>
+            <span class="layer-name">Ingestion</span>
+            <span class="layer-services">Pub/Sub, Dataflow, Transfer Service</span>
+          </div>
+          <div class="layer-row">
+            <span class="layer-num">3</span>
+            <span class="layer-name">Processing</span>
+            <span class="layer-services">Dataflow, Dataproc, Cloud Functions</span>
+          </div>
+          <div class="layer-row">
+            <span class="layer-num">4</span>
+            <span class="layer-name">Warehouse</span>
+            <span class="layer-services">BigQuery, Cloud SQL</span>
+          </div>
+          <div class="layer-row">
+            <span class="layer-num">5</span>
+            <span class="layer-name">Orchestration</span>
+            <span class="layer-services">Cloud Composer, Workflows</span>
+          </div>
+          <div class="layer-row">
+            <span class="layer-num">6</span>
+            <span class="layer-name">Analytics</span>
+            <span class="layer-services">BigQuery, Looker, Data Studio</span>
+          </div>
+        </div>
+        <p class="text-center mt-2"><a href="../../cloud-architecture.html" class="btn-link">View Full Architecture Guide →</a>
+        </p>
+      </section>
+
+      <section class="topic-section">
+        <h2>Quick Start</h2>
+        <div class="quick-start">
+          <div class="qs-step">
+            <span class="qs-num">1</span>
+            <div>
+              <h4>Understand Services</h4>
+              <p>Learn about BigQuery, Cloud Storage, and Dataflow.</p>
+              <a href="providers-gcp.html" class="btn-sm">Explore Services →</a>
+            </div>
+          </div>
+          <div class="qs-step">
+            <span class="qs-num">2</span>
+            <div>
+              <h4>Build Pipelines</h4>
+              <p>See real examples of how GCP services connect together.</p>
+              <a href="providers-gcp.html" class="btn-sm">View Pipelines →</a>
+            </div>
+          </div>
+          <div class="qs-step">
+            <span class="qs-num">3</span>
+            <div>
+              <h4>Practice Interview Questions</h4>
+              <p>Test your knowledge with real interview questions.</p>
+              <a href="providers-gcp.html" class="btn-sm">Start Interview Prep →</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="../../../scripts/app.js"></script>
+
+</body>
+
+</html>

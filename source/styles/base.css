@@ -194,20 +194,23 @@ pre.code code, .code code, .code-block code {
 .menu {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  font-size: 0.9rem;
+  gap: 0.35rem;
+  font-size: 0.85rem;
   font-weight: 500;
   margin-left: 2rem;
+  flex-wrap: nowrap;
+  white-space: nowrap;
 }
 
 .menu a {
   color: var(--text-secondary);
   text-decoration: none;
-  padding: 0.5rem 0.9rem;
+  padding: 0.4rem 0.65rem;
   border-radius: var(--radius-sm);
   border: 1px solid transparent;
   background: transparent;
   transition: all var(--transition);
+  white-space: nowrap;
 }
 
 .menu a:hover {
@@ -235,13 +238,14 @@ pre.code code, .code code, .code-block code {
   align-items: center;
   cursor: pointer;
   color: var(--text-secondary);
-  padding: 0.5rem 0.9rem;
+  padding: 0.4rem 0.65rem;
   border-radius: var(--radius-sm);
   border: 1px solid transparent;
   background: transparent;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 500;
   transition: all var(--transition);
+  white-space: nowrap;
 }
 
 .menu-trigger:hover {
