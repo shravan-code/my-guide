@@ -1870,3 +1870,57 @@ body.dark .mobile-menu {
       height: 44px;
     }
   }
+
+/* Logo Module Overrides
+ * Ensures logo uses burnt-orange (light) and wheat (dark)
+ * Must come after .brand definition to override gradient text effect
+ */
+.brand {
+  background: none !important;
+  -webkit-text-fill-color: var(--burnt-orange) !important;
+  color: var(--burnt-orange) !important;
+}
+
+.brand:hover {
+  background: none !important;
+  -webkit-text-fill-color: var(--burnt-orange) !important;
+  color: var(--burnt-orange) !important;
+  filter: none !important;
+  transform: none !important;
+  text-shadow: none !important;
+}
+
+.brand-default {
+  color: var(--burnt-orange);
+  -webkit-text-fill-color: var(--burnt-orange) !important;
+}
+
+.brand-hover {
+  color: var(--burnt-orange);
+  -webkit-text-fill-color: var(--burnt-orange) !important;
+}
+
+body.dark .brand {
+  background: none !important;
+  -webkit-text-fill-color: var(--wheat) !important;
+  color: var(--wheat) !important;
+}
+
+body.dark .brand:hover {
+  background: none !important;
+  -webkit-text-fill-color: var(--wheat) !important;
+  color: var(--wheat) !important;
+  filter: none !important;
+  transform: none !important;
+  text-shadow: none !important;
+}
+
+body.dark .brand-hover {
+  color: var(--wheat) !important;
+  -webkit-text-fill-color: var(--wheat) !important;
+}
+
+body.dark .brand:hover .brand-hover {
+  color: var(--wheat) !important;
+  -webkit-text-fill-color: var(--wheat) !important;
+}

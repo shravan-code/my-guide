@@ -554,12 +554,7 @@
   <div class="bg-orb orb-c"></div>
 
   <header class="topbar glass reveal in">
-    <a class="brand" href="../../index.html">
-      <svg class="brand-icon" viewBox="0 0 24 24">
-        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-      </svg>
-      Data Guide
-    </a>
+    <div class="brand-container" data-logo></div>
     <nav class="menu" aria-label="cloud menu">
       <a href="cloud-index.html">Hub</a>
       <a href="topics/topics-basics.html">Basics</a>
@@ -2089,6 +2084,8 @@ EventBridge:
       <path d="M12 19V5M5 12l7-7 7 7" />
     </svg>
   </button>
+  <script src="source/scripts/logo-module.js"></script>
+  <script>LogoModule.init('[data-logo]');</script>
 </body>
 
 </html>

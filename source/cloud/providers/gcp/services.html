@@ -17,12 +17,7 @@
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
   <header class="topbar reveal">
-    <a class="brand" href="../../../index.html">
-      <svg class="brand-icon" viewBox="0 0 24 24">
-        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-      </svg>
-      Data Guide
-    </a>
+    <div class="brand-container" data-logo></div>
     <nav class="menu" aria-label="GCP menu">
       <a href="../cloud-index.html">Hub</a>
     </nav>
@@ -1025,6 +1020,8 @@ Cloud Debugger       <span class="comment"># Live debugging (deprecated)</span>
   </main>
 
   <script src="../../scripts/app.js"></script>
+  <script src="source/scripts/logo-module.js"></script>
+  <script>LogoModule.init('[data-logo]');</script>
 
 </body>
 </html>
