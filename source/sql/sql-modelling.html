@@ -7,8 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles/styles.css" />
-  <link rel="stylesheet" href="../python/styles/python.css" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../python/python.css" />
 </head>
 
 <body class="with-sidebar">
@@ -17,41 +17,22 @@
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
   <header class="topbar glass reveal in">
-    <a class="brand" href="../../index.html">
-      <span class="brand-default">*d@ta#</span>
-      <span class="brand-hover">Data.id.name</span>
-    </a>
+    <a class="brand" href="../../index.html">Data Guide</a>
     <nav class="menu" aria-label="SQL menu">
-    </nav>
-    <div class="header-actions">
-      <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle mobile menu">
-        <span class="hamburger-icon" aria-hidden="true">
-          <span></span>
-          <span></span>
-          <span></span>
-        </span>
-      </button>
-      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
-        <span class="toggle-icon" aria-hidden="true">☾</span>
-        <span class="toggle-text">Dark</span>
-      </button>
-    </div>
-  </header>
-
-  <div id="mobile-menu" class="mobile-menu">
-    <nav class="mobile-nav" aria-label="SQL mobile menu">
-      <a href="sql-hub.html">Hub</a>
+      <a href="index.html">Hub</a>
       <a href="sql-concepts.html">Concepts</a>
       <a href="sql-modelling.html" class="active" aria-current="page">Modelling</a>
       <a href="sql-queries.html">Queries</a>
-      <a href="sql-queries-joins.html">Joins</a>
-      <a href="sql-queries-subqueries.html">Subqueries</a>
-      <a href="sql-queries-windows.html">Windows</a>
+      <a href="sql-joins.html">Joins</a>
+      <a href="sql-subqueries.html">Subqueries</a>
+      <a href="sql-windows.html">Windows</a>
       <a href="sql-methods.html">Methods</a>
-      <a href="sql-practice.html">Practice</a>
     </nav>
-  </div>
-  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+      <span class="toggle-icon" aria-hidden="true">☾</span>
+      <span class="toggle-text">Dark</span>
+    </button>
+  </header>
 
   <div id="sidebar-overlay" class="sidebar-overlay"></div>
   <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
@@ -61,7 +42,8 @@
     </svg>
   </button>
 
-  <main class="main-content"><nav class="sidebar" id="sidebar">
+  <main class="main-content">
+    <nav class="sidebar" id="sidebar">
       <div class="logo">
         <span class="logo-text">Data Modelling</span>
       </div>
@@ -1897,11 +1879,30 @@ $$ <span class="keyword">LANGUAGE</span> plpgsql;
     </div>
   </main>
 
-  <script src="../scripts/app.js"></script>
+  <script src="../app.js"></script>
   <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M12 19V5M5 12l7-7 7 7"/>
     </svg>
   </button>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
 </body>
 </html>

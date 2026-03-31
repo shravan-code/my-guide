@@ -13,11 +13,7 @@
   }
 
   .brand {
-    flex-shrink: 0;
-  }
-
-  .menu {
-    flex-shrink: 0;
+    margin-right: auto;
   }
 
   .mobile-menu-toggle,

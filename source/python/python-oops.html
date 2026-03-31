@@ -9,8 +9,8 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="../styles/styles.css" />
-  <link rel="stylesheet" href="styles/python.css" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="python.css" />
 </head>
 <body class="with-sidebar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
@@ -18,8 +18,13 @@
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
   <header class="topbar glass reveal in">
-    <div class="brand-container" data-logo></div>
+    <a class="brand" href="../../index.html">Data Guide</a>
     <nav class="menu" aria-label="Python menu">
+      <a href="index.html">Hub</a>
+      <a href="python-fundamentals.html">Fundamentals</a>
+      <a href="python-oops.html" class="active" aria-current="page">OOPs</a>
+      <a href="methods.html">Methods</a>
+      <a href="memory-performance.html">Memory</a>
     </nav>
     <div class="header-actions">
       <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle mobile menu">
@@ -38,14 +43,15 @@
   
   <div id="mobile-menu" class="mobile-menu">
     <nav class="mobile-nav" aria-label="Python mobile menu">
-      <a href="python-hub.html">Hub</a>
-      <a href="python-methods.html">Fundamentals</a>
+      <a href="index.html">Hub</a>
+      <a href="python-fundamentals.html">Fundamentals</a>
       <a href="python-oops.html" class="active" aria-current="page">OOPs</a>
-      <a href="python-methods.html">Methods</a>
-      <a href="python-memory.html">Memory</a>
+      <a href="methods.html">Methods</a>
+      <a href="memory-performance.html">Memory</a>
     </nav>
   </div>
-  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div><div id="sidebar-overlay" class="sidebar-overlay"></div>
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
   <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
@@ -932,8 +938,8 @@ ctx = <span class="class-name">Context</span>(<span class="class-name">QuickSort
     </div>
   </main>
 
-  <script src="../scripts/app.js"></script>
-  <script src="scripts/python.js"></script>
+  <script src="../app.js"></script>
+  <script src="python.js"></script>
   <script>
     const navItems = Array.from(document.querySelectorAll(".nav-item"));
 
@@ -949,18 +955,19 @@ ctx = <span class="class-name">Context</span>(<span class="class-name">QuickSort
       });
     };
 
-     navItems.forEach((item) => {
-       item.addEventListener("click", function (e) {
-         e.preventDefault();
-         const targetId = this.getAttribute("href").substring(1);
-         const target = document.getElementById(targetId);
-         if (!target) return;
-         const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
-         window.scrollTo({ top: targetPosition - 100, behavior: "smooth" });
-         history.replaceState(null, "", "#" + targetId);
-         setActiveNav(targetId);
-       });
-     });
+    navItems.forEach((item) => {
+      item.addEventListener("click", function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute("href").substring(1);
+        const target = document.getElementById(targetId);
+        if (!target) return;
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({ top: targetPosition - 100, behavior: "smooth" });
+        history.replaceState(null, "", "#" + targetId);
+        setActiveNav(targetId);
+        closeSidebar();
+      });
+    });
 
     const sectionObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -1004,7 +1011,24 @@ ctx = <span class="class-name">Context</span>(<span class="class-name">QuickSort
       <path d="M12 19V5M5 12l7-7 7 7"/>
     </svg>
   </button>
-  <script src="source/scripts/logo-module.js"></script>
-  <script>LogoModule.init('[data-logo]');</script>
+  <script>
+    // Scroll to top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
 </body>
 </html>
