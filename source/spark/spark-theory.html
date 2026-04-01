@@ -9,6 +9,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
   <link rel="stylesheet" href="spark.css" />
+  <style>
+    .bottom-bar {
+      position: sticky;
+      bottom: 0;
+      padding: 0.75rem 1.5rem;
+      background: var(--bg);
+      border-top: 1px solid var(--glass-border);
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      z-index: 100;
+    }
+    .experience-years strong {
+      color: var(--glow-color);
+      font-weight: 600;
+    }
+  </style>
 </head>
 <body class="with-sidebar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
@@ -535,6 +554,9 @@ spark.conf.set("spark.dynamicAllocation.schedulerBacklogTimeout", "1s")
       </section>
 
     </div>
+    <footer class="bottom-bar">
+      <span class="experience-years">Experience: <strong id="career-timer"></strong></span>
+    </footer>
   </main>
 
   <script src="../app.js"></script>
@@ -562,6 +584,30 @@ spark.conf.set("spark.dynamicAllocation.schedulerBacklogTimeout", "1s")
         behavior: 'smooth'
       });
     });
+
+    // Career timer
+    const careerTimer = document.getElementById('career-timer');
+    if (careerTimer) {
+      const startDate = new Date(2021, 10, 2);
+      function updateCareerTimer() {
+        const now = new Date();
+        let years = now.getFullYear() - startDate.getFullYear();
+        let months = now.getMonth() - startDate.getMonth();
+        let days = now.getDate() - startDate.getDate();
+        if (days < 0) {
+          months--;
+          const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+          days += prevMonth.getDate();
+        }
+        if (months < 0) {
+          years--;
+          months += 12;
+        }
+        careerTimer.textContent = years + ' years ' + months + ' months ' + days + ' days';
+      }
+      updateCareerTimer();
+      setInterval(updateCareerTimer, 86400000);
+    }
   </script>
 </body>
 </html>
