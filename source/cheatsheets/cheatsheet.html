@@ -4,64 +4,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Data Guide | Cheatsheet</title>
+  <title>*d@ta# | Cheatsheet</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../hub.css" />
   <link rel="stylesheet" href="cheatsheet-base.css" />
+  <link rel="stylesheet" href="../sidebar-nav.css" />
 </head>
 
-<body>
+<body class="home-with-sidebar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
-  <header class="topbar glass reveal in">
-    <a class="brand" href="../../index.html">
-      
-      Data Guide
-    </a>
-    <nav class="menu" aria-label="Cheatsheet menu">
-      <a href="cheatsheet.html" class="active" aria-current="page">Hub</a>
-      <a href="python-cheatsheet.html">Python</a>
-      <a href="numpy-cheatsheet.html">NumPy</a>
-      <a href="pandas-cheatsheet.html">Pandas</a>
-      <a href="spark-cheatsheet.html">PySpark</a>
-      <a href="postgresql-cheatsheet.html">PostgreSQL</a>
-      <a href="compare.html">Comparison</a>
-    </nav>
-    <div class="header-actions">
-      <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle mobile menu">
-        <span class="hamburger-icon" aria-hidden="true">
-          <span></span>
-          <span></span>
-          <span></span>
-        </span>
-      </button>
-      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
-        <span class="toggle-icon" aria-hidden="true">☾</span>
-        <span class="toggle-text">Dark</span>
-      </button>
-    </div>
-  </header>
 
-  <div id="mobile-menu" class="mobile-menu">
-    <nav class="mobile-nav" aria-label="Cheatsheet mobile menu">
-      <a href="cheatsheet.html" class="active" aria-current="page">Hub</a>
-      <a href="python-cheatsheet.html">Python</a>
-      <a href="numpy-cheatsheet.html">NumPy</a>
-      <a href="pandas-cheatsheet.html">Pandas</a>
-      <a href="spark-cheatsheet.html">PySpark</a>
-      <a href="postgresql-cheatsheet.html">PostgreSQL</a>
-      <a href="compare.html">Comparison</a>
-    </nav>
-  </div>
-  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
 
   <main>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../../index.html">Home</a>
+      <span class="separator">›</span>
+      <span class="current">Cheatsheet</span>
+    </nav>
     <div class="page-wrap">
       <section class="hero">
         <h1>Cheatsheets</h1>
@@ -148,5 +115,7 @@
     </svg>
   </button>
   <script src="cheatsheets.js"></script>
+<script src="../hierarchy.js"></script><script src="../sidebar-nav.js"></script>
 </body>
 </html>
+

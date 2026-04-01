@@ -1,0 +1,169 @@
+# Sidebar Navigation Hierarchy
+# This file defines the complete sidebar menu structure
+# Paths are relative to source/ directory
+
+sidebar:
+  - section: bigdata
+    label: Big Data
+    href: data/data-formats.html
+    icon: database
+    children:
+      - label: Architecture
+        href: data/data-formats.html
+      - section: data
+        label: Data
+        children:
+          - label: Formats
+            href: data/data-formats.html
+          - label: Pipelines
+            href: data/data-pipeline.html
+          - label: Quality
+            href: data/data-quality.html
+          - label: Types
+            href: data/data-types.html
+
+  - section: cloud
+    label: Cloud
+    href: cloud/cloud-basics.html
+    icon: cloud
+    children:
+      - label: Architecture
+        href: cloud/cloud-services.html
+      - section: providers
+        label: Providers
+        children:
+          - section: aws
+            label: AWS
+            children:
+              - label: Domains
+                href: cloud/cloud-aws.html
+              - label: Services
+                href: cloud/cloud-aws.html
+          - label: Azure
+            href: cloud/cloud-azure.html
+          - label: GCP
+            href: cloud/cloud-gcp.html
+      - section: fundamentals
+        label: Fundamentals
+        children:
+          - label: Basics
+            href: cloud/cloud-basics.html
+          - label: Compute
+            href: cloud/cloud-compute.html
+          - label: Serverless
+            href: cloud/cloud-serverless.html
+          - label: Services
+            href: cloud/cloud-services.html
+          - label: Storage
+            href: cloud/cloud-storage.html
+
+  - section: languages
+    label: Languages
+    href: python/python-oops.html
+    icon: code
+    children:
+      - section: python
+        label: Python
+        children:
+          - label: OOPs
+            href: python/python-oops.html
+          - label: Methods
+            href: python/python-methods.html
+          - label: Memory
+            href: python/memory-performance.html
+          - label: Practice
+            href: python/python-fundamentals.html
+      - section: libraries
+        label: Libraries
+        children:
+          - label: Pandas
+            href: pandas/pandas-series.html
+          - label: NumPy
+            href: numpy/numpy-basics.html
+          - label: Spark
+            href: spark/spark-theory.html
+      - section: frameworks
+        label: Framework
+        children:
+          - label: dbt
+            href: tools/dbt.html
+          - label: Airflow
+            href: tools/airflow.html
+          - label: Kafka
+            href: tools/kafka.html
+
+  - section: database
+    label: Database
+    href: sql/sql-modelling.html
+    icon: database
+    children:
+      - label: Modelling
+        href: sql/sql-modelling.html
+      - label: Concepts
+        href: sql/sql-concepts.html
+      - section: postgresql
+        label: PostgreSQL
+        children:
+          - label: Queries
+            href: sql/sql-queries.html
+          - label: Methods
+            href: sql/sql-methods.html
+          - label: Joins
+            href: sql/sql-joins.html
+          - label: Subqueries
+            href: sql/sql-subqueries.html
+          - label: Windows
+            href: sql/sql-windows.html
+      - label: Practice
+        href: sql/sql-queries.html
+
+  - section: cheatsheets
+    label: Cheatsheet
+    href: cheatsheets/python-cheatsheet.html
+    icon: docs
+    children:
+      - label: Python
+        href: cheatsheets/python-cheatsheet.html
+      - label: Pandas
+        href: cheatsheets/pandas-cheatsheet.html
+      - label: NumPy
+        href: cheatsheets/numpy-cheatsheet.html
+      - label: Spark
+        href: cheatsheets/spark-cheatsheet.html
+      - label: PostgreSQL
+        href: cheatsheets/postgresql-cheatsheet.html
+      - label: Compare
+        href: cheatsheets/compare.html
+
+  - section: roadmaps
+    label: Roadmap
+    href: roadmaps/sql-roadmap.html
+    icon: roadmap
+    children:
+      - label: SQL
+        href: roadmaps/sql-roadmap.html
+      - label: Python
+        href: roadmaps/python-roadmap.html
+      - label: Spark
+        href: roadmaps/spark-roadmap.html
+      - label: Data Engineer
+        href: roadmaps/data-engineer-roadmap.html
+      - label: ML Engineer
+        href: roadmaps/ml-engineer-roadmap.html
+      - label: AI Engineer
+        href: roadmaps/ai-engineer-roadmap.html
+
+  - section: portfolio
+    label: Portfolio
+    href: portfolios/portfolio.html
+    icon: profile
+    children:
+      - label: Overview
+        href: portfolios/portfolio.html
+      - section: projects
+        label: Projects
+        children:
+          - label: Self
+            href: portfolios/projects-self.html
+          - label: Experienced
+            href: portfolios/projects-experienced.html

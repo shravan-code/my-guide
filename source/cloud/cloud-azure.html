@@ -3,48 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Data Guide | Azure Services</title>
+  <title>*d@ta# | Azure Services</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../hub.css" />
   <link rel="stylesheet" href="../python/python.css" />
+  <link rel="stylesheet" href="../sidebar-nav.css" />
 </head>
 
-<body class="with-sidebar">
+<body class="home-with-sidebar with-sidebar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
-  <header class="topbar glass reveal in">
-    <a class="brand" href="../../index.html">Data Guide</a>
-    <nav class="menu" aria-label="Cloud menu">
-      <a href="index.html">Hub</a>
-      <div class="menu-dropdown">
-        <button class="menu-trigger">Topics</button>
-        <div class="dropdown-panel">
-          <a href="cloud-topics.html"><strong>Overview</strong><span>All cloud topics</span></a>
-          <a href="cloud-basics.html"><strong>Basics</strong><span>IaaS, PaaS, SaaS, deployment models</span></a>
-          <a href="cloud-services.html"><strong>Services</strong><span>Service comparison across providers</span></a>
-          <a href="cloud-storage.html"><strong>Storage</strong><span>Object, block, file, data lakes</span></a>
-          <a href="cloud-compute.html"><strong>Compute</strong><span>VMs, containers, Kubernetes</span></a>
-          <a href="cloud-serverless.html"><strong>Serverless</strong><span>Functions and managed services</span></a>
-        </div>
-      </div>
-      <div class="menu-dropdown">
-        <button class="menu-trigger">Providers</button>
-        <div class="dropdown-panel">
-          <a href="cloud-aws.html"><strong>AWS</strong><span>Amazon Web Services</span></a>
-          <a href="cloud-azure.html" class="active"><strong>Azure</strong><span>Microsoft Azure</span></a>
-          <a href="cloud-gcp.html"><strong>GCP</strong><span>Google Cloud Platform</span></a>
-        </div>
-      </div>
-    </nav>
-    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
-      <span class="toggle-icon" aria-hidden="true">☾</span>
-      <span class="toggle-text">Dark</span>
-    </button>
-  </header>
+
 
   <div id="sidebar-overlay" class="sidebar-overlay"></div>
   <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
@@ -55,6 +29,13 @@
   </button>
 
   <main class="main-content">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../../index.html">Home</a>
+      <span class="separator">›</span>
+      <a href="index.html">Cloud</a>
+      <span class="separator">›</span>
+      <span class="current">Azure</span>
+    </nav>
     <nav class="sidebar" id="sidebar">
       <div class="logo">
         <span class="logo-text">Azure Services</span>
@@ -1119,5 +1100,6 @@ Cost Management      <span class="comment"># Spending analysis</span>
       });
     });
   </script>
+<script src="../hierarchy.js"></script><script src="../sidebar-nav.js"></script>
 </body>
 </html>

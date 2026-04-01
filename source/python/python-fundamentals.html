@@ -3,54 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Data Guide | Python Fundamentals</title>
+  <title>*d@ta# | Python Fundamentals</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../hub.css" />
   <link rel="stylesheet" href="python.css" />
+  <link rel="stylesheet" href="../sidebar-nav.css" />
 </head>
-<body class="with-sidebar">
+<body class="home-with-sidebar with-sidebar no-topbar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
-  <header class="topbar glass reveal in">
-    <a class="brand" href="../../index.html">Data Guide</a>
-    <nav class="menu" aria-label="Python menu">
-      <a href="index.html">Hub</a>
-      <a href="python-fundamentals.html" class="active" aria-current="page">Fundamentals</a>
-      <a href="python-oops.html">OOPs</a>
-      <a href="methods.html">Methods</a>
-      <a href="memory-performance.html">Memory</a>
-    </nav>
-    <div class="header-actions">
-      <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle mobile menu">
-        <span class="hamburger-icon" aria-hidden="true">
-          <span></span>
-          <span></span>
-          <span></span>
-        </span>
-      </button>
-      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
-        <span class="toggle-icon" aria-hidden="true">☾</span>
-        <span class="toggle-text">Dark</span>
-      </button>
-    </div>
-  </header>
-  
-  <div id="mobile-menu" class="mobile-menu">
-    <nav class="mobile-nav" aria-label="Python mobile menu">
-      <a href="index.html">Hub</a>
-      <a href="python-fundamentals.html" class="active" aria-current="page">Fundamentals</a>
-      <a href="python-oops.html">OOPs</a>
-      <a href="methods.html">Methods</a>
-      <a href="memory-performance.html">Memory</a>
-    </nav>
-  </div>
-  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
   <div id="sidebar-overlay" class="sidebar-overlay"></div>
   <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -60,6 +28,15 @@
   </button>
 
   <main class="main-content">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../../../index.html">Home</a>
+      <span class="separator">›</span>
+      <a href="../../languages/index.html">Languages</a>
+      <span class="separator">›</span>
+      <a href="../index.html">Python</a>
+      <span class="separator">›</span>
+      <span class="current">Fundamentals</span>
+    </nav>
     <nav class="sidebar" id="sidebar">
       <div class="logo">
         <span class="logo-text">Python Fundamentals</span>
@@ -584,5 +561,7 @@ df.<span class="function">to_csv</span>(<span class="string">"output.csv"</span>
       });
     });
   </script>
+<script src="../hierarchy.js"></script><script src="../sidebar-nav.js"></script>
 </body>
 </html>
+

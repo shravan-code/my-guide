@@ -25,14 +25,14 @@
 
 .pill-nav a:hover {
   border-color: var(--glow-border);
-  box-shadow: var(--shadow-sm), var(--shadow-glow);
+  box-shadow: none;
 }
 
 .pill-nav a.active {
   color: var(--text);
   background: var(--bg-alt);
   border-color: var(--glow-border);
-  box-shadow: var(--shadow-sm), inset 0 0 0 1px rgba(99, 102, 241, 0.15);
+  box-shadow: none;
 }
 
 /* ---- Hover color by category (pill nav links) ---- */

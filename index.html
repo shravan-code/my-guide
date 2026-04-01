@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Data Guide</title>
+  <title>*d@ta#</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -14,6 +14,8 @@
   <link rel="stylesheet" href="source/styles/mobile.css" media="screen and (max-width: 920px)" />
   <link rel="stylesheet" href="source/styles/desktop.css" media="screen and (min-width: 921px)" />
   <link rel="stylesheet" href="source/hub.css" />
+  <link rel="stylesheet" href="source/sidebar-nav.css" />
+  <script src="source/hierarchy.js"></script>
   <style>
     /* Spark-style overrides for main page */
     body {
@@ -25,9 +27,54 @@
     main {
       width: min(1300px, calc(100% - 4rem));
       margin: 0 auto;
-      padding: 1.5rem 0 3rem;
+      padding: 1.5rem 0 5rem;
       display: block;
       min-height: auto;
+    }
+
+    /* Home page layout */
+    body.home-with-sidebar {
+      display: flex;
+    }
+
+    body.home-with-sidebar main {
+      margin-left: 60px;
+      width: calc(100% - 60px);
+      transition: margin-left 0.3s ease, width 0.3s ease;
+    }
+
+    body.home-with-sidebar.sidebar-expanded main {
+      margin-left: 280px;
+      width: calc(100% - 280px);
+    }
+
+    .breadcrumb {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      background: var(--glass);
+      backdrop-filter: blur(var(--glass-blur));
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin: 0 auto 1rem;
+      width: fit-content;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .breadcrumb .breadcrumb-home {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .breadcrumb .separator {
+      color: var(--text-muted);
+      font-size: 0.85rem;
     }
 
     .page-wrap {
@@ -64,21 +111,16 @@
       text-decoration: none;
       color: var(--text);
       transition: color var(--transition);
+      position: relative;
     }
 
-    .brand-icon {
+    .brand-default,
+    .brand:hover.brand:hover.brand-icon {
       width: 20px;
       height: 20px;
       stroke: var(--text);
       fill: none;
       stroke-width: 1.5;
-    }
-
-    .brand:hover {
-      background: linear-gradient(135deg, #6366f1, #ec4899);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
     }
 
     .brand:hover .brand-icon {
@@ -236,10 +278,19 @@
 
     /* Tools Marquee */
     .tools-marquee {
-      margin-top: 1.5rem;
+      position: fixed;
+      bottom: 0;
+      left: 60px;
+      right: 0;
+      padding: 0.75rem 1.5rem;
       overflow: hidden;
-      mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
-      -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+      mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent);
+      z-index: 100;
+    }
+
+    body.home-with-sidebar.sidebar-expanded .tools-marquee {
+      left: 200px;
     }
 
     .marquee-track {
@@ -866,7 +917,7 @@
     }
 
     .mobile-menu.open {
-      transform: translateY(0);
+
       opacity: 1;
     }
 
@@ -1054,70 +1105,203 @@
         gap: 0.25rem;
       }
     }
+
+    /* Home Page - Colorful & Animated */
+    body {
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    .bg-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.5;
+      animation: float 20s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .orb-a {
+      width: 400px;
+      height: 400px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      top: -100px;
+      left: -100px;
+      animation-delay: 0s;
+    }
+
+    .orb-b {
+      width: 350px;
+      height: 350px;
+      background: linear-gradient(135deg, #ec4899, #f43f5e);
+      bottom: -80px;
+      right: -80px;
+      animation-delay: -5s;
+    }
+
+    .orb-c {
+      width: 300px;
+      height: 300px;
+      background: linear-gradient(135deg, #06b6d4, #3b82f6);
+      top: 50%;
+      right: 10%;
+      transform: translateY(-50%);
+      animation-delay: -10s;
+    }
+
+    body.dark .orb-a { background: linear-gradient(135deg, #4338ca, #6366f1); }
+    body.dark .orb-b { background: linear-gradient(135deg, #be185d, #db2777); }
+    body.dark .orb-c { background: linear-gradient(135deg, #0891b2, #2563eb); }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(30px, -30px) scale(1.05); }
+      50% { transform: translate(-20px, 20px) scale(0.95); }
+      75% { transform: translate(20px, 10px) scale(1.02); }
+    }
+
+    .home-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 100vh;
+      position: relative;
+      z-index: 1;
+    }
+
+    .home-hero {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #fff;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      padding: 0.5rem 1.2rem;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+      50% { box-shadow: 0 0 20px 5px rgba(99, 102, 241, 0.2); }
+    }
+
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: 5rem;
+      font-weight: 700;
+      color: var(--color-text);
+      margin: 0 0 0.75rem;
+      line-height: 1.05;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-highlight {
+      background: linear-gradient(135deg, #6366f1, #ec4899, #f43f5e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      background-size: 200% 200%;
+      animation: gradientMove 3s ease infinite;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .hero-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.5;
+      animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+
+    .home-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      animation: fadeInUp 0.8s ease-out 0.4s both;
+    }
+
+    .home-link {
+      padding: 1rem 2rem;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      color: var(--color-text);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .home-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .home-link:hover::before {
+      left: 100%;
+    }
+
+    .home-link:hover {
+      border-color: #6366f1;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+    }
+
+    .home-link:nth-child(1):hover { border-color: #f59e0b; box-shadow: 0 10px 30px rgba(245, 158, 11, 0.2); }
+    .home-link:nth-child(2):hover { border-color: #ec4899; box-shadow: 0 10px 30px rgba(236, 72, 153, 0.2); }
+    .home-link:nth-child(3):hover { border-color: #06b6d4; box-shadow: 0 10px 30px rgba(6, 182, 212, 0.2); }
+    .home-link:nth-child(4):hover { border-color: #3b82f6; box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2); }
+    .home-link:nth-child(5):hover { border-color: #10b981; box-shadow: 0 10px 30px rgba(16, 185, 129, 0.2); }
+    .home-link:nth-child(6):hover { border-color: #8b5cf6; box-shadow: 0 10px 30px rgba(139, 92, 246, 0.2); }
   </style>
 </head>
 
-<body>
+<body class="home-with-sidebar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
-  <header class="topbar glass reveal in">
-    <a class="brand" href="index.html">
-      Data Guide
-    </a>
-    <nav class="menu" aria-label="Main menu">
-      <a href="source/cloud/index.html">Cloud</a>
-      <a href="source/data/index.html">Big Data</a>
-      <a href="source/python/index.html">Python</a>
-      <div class="menu-dropdown">
-        <button class="menu-trigger">Libraries</button>
-        <div class="dropdown-panel">
-          <a href="source/pandas/index.html"><strong>Pandas</strong><span>DataFrames and analysis</span></a>
-          <a href="source/numpy/index.html"><strong>NumPy</strong><span>Numerical computing</span></a>
-          <a href="source/spark/index.html"><strong>Spark</strong><span>Distributed processing</span></a>
-        </div>
-      </div>
-      <a href="source/sql/index.html">SQL</a>
-      <a href="source/cheatsheets/cheatsheet.html">Cheatsheet</a>
-      <a href="source/roadmaps/roadmap.html">Roadmap</a>
-    </nav>
-    <div class="header-actions">
-      <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Open menu">
-        <span class="hamburger-icon" aria-hidden="true">
-          <span></span>
-          <span></span>
-          <span></span>
-        </span>
-      </button>
-      <a href="source/portfolios/portfolio.html" class="portfolio-link" aria-label="Profile">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-          <circle cx="12" cy="7" r="4"/>
-        </svg>
-      </a>
-      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
-        <span class="toggle-icon" aria-hidden="true">☾</span>
-        <span class="toggle-text">Dark</span>
-      </button>
-    </div>
-  </header>
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar-nav" id="sidebar-nav"></aside>
 
   <!-- Mobile Menu -->
   <div id="mobile-menu" class="mobile-menu">
     <nav class="mobile-nav" aria-label="Main menu">
       <a href="source/cloud/index.html">Cloud</a>
       <a href="source/data/index.html">Big Data</a>
-      <a href="source/python/index.html">Python</a>
-      <div class="mobile-dropdown">
-        <button class="mobile-dropdown-trigger">Libraries</button>
-        <div class="mobile-dropdown-content">
-          <a href="source/pandas/index.html">Pandas</a>
-          <a href="source/numpy/index.html">NumPy</a>
-          <a href="source/spark/index.html">Spark</a>
-        </div>
-      </div>
-      <a href="source/sql/index.html">SQL</a>
+      <a href="source/languages/index.html">Languages</a>
       <a href="source/cheatsheets/cheatsheet.html">Cheatsheet</a>
       <a href="source/roadmaps/roadmap.html">Roadmap</a>
       <a href="source/portfolios/portfolio.html">Profile</a>
@@ -1126,244 +1310,20 @@
   <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
 
   <main>
-    <div class="page-wrap">
-      <section class="hero">
-        <p class="eyebrow">Your Data Engineering Guide</p>
-        <h1>Build <span class="gradient-text">Pipelines</span></h1>
-        <p class="hero-copy">Comprehensive resources for Python, Spark, SQL, Cloud, and modern data tooling.</p>
-
-        <div class="tools-marquee">
-          <div class="marquee-track">
-            <span class="tool-tag">Python</span>
-            <span class="tool-tag">PySpark</span>
-            <span class="tool-tag">SQL</span>
-            <span class="tool-tag">AWS</span>
-            <span class="tool-tag">Databricks</span>
-            <span class="tool-tag">Pandas</span>
-            <span class="tool-tag">NumPy</span>
-            <span class="tool-tag">Docker</span>
-            <span class="tool-tag">Airflow</span>
-            <span class="tool-tag">Kafka</span>
-            <span class="tool-tag">Spark</span>
-            <span class="tool-tag">Glue</span>
-            <span class="tool-tag">Redshift</span>
-            <span class="tool-tag">S3</span>
-            <span class="tool-tag">Lambda</span>
-            <span class="tool-tag">Terraform</span>
-            <!-- Duplicate for seamless loop -->
-            <span class="tool-tag">Python</span>
-            <span class="tool-tag">PySpark</span>
-            <span class="tool-tag">SQL</span>
-            <span class="tool-tag">AWS</span>
-            <span class="tool-tag">Databricks</span>
-            <span class="tool-tag">Pandas</span>
-            <span class="tool-tag">NumPy</span>
-            <span class="tool-tag">Docker</span>
-            <span class="tool-tag">Airflow</span>
-            <span class="tool-tag">Kafka</span>
-            <span class="tool-tag">Spark</span>
-            <span class="tool-tag">Glue</span>
-            <span class="tool-tag">Redshift</span>
-            <span class="tool-tag">S3</span>
-            <span class="tool-tag">Lambda</span>
-            <span class="tool-tag">Terraform</span>
-          </div>
-        </div>
+    <div class="home-container">
+      <section class="home-hero">
+        <div class="hero-badge">Data Engineering Guide</div>
+        <h1 class="hero-title"><span class="hero-highlight">Build</span>Better<span class="hero-highlight">Data</span></h1>
+        <p class="hero-subtitle">Curated resources for modern data workflows</p>
       </section>
 
-      <section class="content-split">
-        <div class="left-content">
-          <div class="section-label">Data Engineering // Resources // V2</div>
-
-          <div class="topics">
-            <a href="source/python/index.html" class="topic-item">
-              <div class="topic-icon">
-                <svg viewBox="0 0 24 24">
-                  <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                  <path d="M2 17l10 5 10-5" />
-                  <path d="M2 12l10 5 10-5" />
-                </svg>
-              </div>
-              <span class="topic-title">Python</span>
-              <div class="topic-arrow">
-                <svg viewBox="0 0 24 24">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </div>
-            </a>
-            <a href="source/spark/index.html" class="topic-item">
-              <div class="topic-icon">
-                <svg viewBox="0 0 24 24">
-                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                </svg>
-              </div>
-              <span class="topic-title">Spark & PySpark</span>
-              <div class="topic-arrow">
-                <svg viewBox="0 0 24 24">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </div>
-            </a>
-            <a href="source/pandas/index.html" class="topic-item">
-              <div class="topic-icon">
-                <svg viewBox="0 0 24 24">
-                  <path d="M3 3v18h18" />
-                  <path d="M7 12l4-4 4 4 4-6" />
-                </svg>
-              </div>
-              <span class="topic-title">Pandas</span>
-              <div class="topic-arrow">
-                <svg viewBox="0 0 24 24">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </div>
-            </a>
-            <a href="source/numpy/index.html" class="topic-item">
-              <div class="topic-icon">
-                <svg viewBox="0 0 24 24">
-                  <rect x="3" y="3" width="18" height="18" rx="2" />
-                  <path d="M3 9h18" />
-                  <path d="M3 15h18" />
-                  <path d="M9 3v18" />
-                  <path d="M15 3v18" />
-                </svg>
-              </div>
-              <span class="topic-title">NumPy</span>
-              <div class="topic-arrow">
-                <svg viewBox="0 0 24 24">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </div>
-            </a>
-            <a href="source/sql/index.html" class="topic-item">
-              <div class="topic-icon">
-                <svg viewBox="0 0 24 24">
-                  <ellipse cx="12" cy="5" rx="9" ry="3" />
-                  <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
-                  <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
-                </svg>
-              </div>
-              <span class="topic-title">SQL</span>
-              <div class="topic-arrow">
-                <svg viewBox="0 0 24 24">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </div>
-            </a>
-            <a href="source/cloud/index.html" class="topic-item">
-              <div class="topic-icon">
-                <svg viewBox="0 0 24 24">
-                  <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
-                </svg>
-              </div>
-              <span class="topic-title">Cloud & AWS</span>
-              <div class="topic-arrow">
-                <svg viewBox="0 0 24 24">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </div>
-            </a>
-            <a href="source/data/index.html" class="topic-item">
-              <div class="topic-icon">
-                <svg viewBox="0 0 24 24">
-                  <ellipse cx="12" cy="5" rx="9" ry="3" />
-                  <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
-                  <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
-                </svg>
-              </div>
-              <span class="topic-title">Big Data</span>
-              <div class="topic-arrow">
-                <svg viewBox="0 0 24 24">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </div>
-            </a>
-          </div>
-
-          <a href="source/roadmaps/roadmap.html" class="cta-link">
-            <span class="cta-line"></span>
-            <span>View Roadmap</span>
-          </a>
-        </div>
-
-        <div class="right-content">
-          <div class="glass-panel">
-            <div class="panel-header">
-              <div class="panel-header-left">
-                <svg viewBox="0 0 24 24">
-                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-                </svg>
-                <span class="panel-header-text">Featured // <span id="panel-label">PYTHON</span></span>
-              </div>
-              <div class="panel-dots">
-                <div class="panel-dot"></div>
-                <div class="panel-dot"></div>
-                <div class="panel-dot"></div>
-              </div>
-            </div>
-
-            <div class="panel-content">
-              <div class="panel-grid">
-                <div class="panel-info">
-                  <div>
-                    <div class="block-label">Overview</div>
-                    <p class="block-text" id="panel-desc">Learn Python fundamentals, data structures, OOP, and memory
-                      optimization for data engineering workflows.</p>
-                  </div>
-                  <div>
-                    <div class="block-label">Key Metric</div>
-                    <div class="block-metric" id="panel-metric">12+</div>
-                    <div class="block-sublabel" id="panel-sublabel">Topics Covered</div>
-                  </div>
-                </div>
-                <div class="code-block">
-                  <div class="code-icon">
-                    <svg viewBox="0 0 24 24">
-                      <polyline points="16 18 22 12 16 6" />
-                      <polyline points="8 6 2 12 8 18" />
-                    </svg>
-                  </div>
-                  <div id="panel-code">
-                    <div class="code-line"><span class="code-num">1</span><span>import pandas as pd</span></div>
-                    <div class="code-line"><span class="code-num">2</span><span>from pyspark.sql import
-                        SparkSession</span></div>
-                    <div class="code-line"><span class="code-num">3</span><span></span></div>
-                    <div class="code-line"><span class="code-num">4</span><span>df = spark.read.parquet("data/")</span>
-                    </div>
-                    <div class="code-line"><span class="code-num">5</span><span>df.write.mode("append").save()</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="decorative">
-                <div class="decorative-shapes">
-                  <div class="shape-item">
-                    <div class="shape-diamond"></div>
-                    <div class="shape-line"></div>
-                  </div>
-                  <div class="shape-item">
-                    <div class="shape-diamond"></div>
-                    <div class="shape-line"></div>
-                  </div>
-                  <div class="shape-item">
-                    <div class="shape-diamond"></div>
-                    <div class="shape-line"></div>
-                  </div>
-                  <div class="shape-item">
-                    <div class="shape-diamond"></div>
-                    <div class="shape-line"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="panel-footer">
-              <span>PIPELINE: BATCH-ETL-01</span>
-              <span>FRAMEWORK: PYSPARK/PANDAS</span>
-            </div>
-          </div>
-        </div>
+      <section class="home-links">
+        <a href="source/python/index.html" class="home-link">Python</a>
+        <a href="source/spark/index.html" class="home-link">Spark</a>
+        <a href="source/sql/index.html" class="home-link">SQL</a>
+        <a href="source/cloud/index.html" class="home-link">Cloud</a>
+        <a href="source/data/index.html" class="home-link">Big Data</a>
+        <a href="source/cheatsheets/cheatsheet.html" class="home-link">Cheatsheets</a>
       </section>
     </div>
   </main>
@@ -1428,6 +1388,44 @@
       });
     });
   </script>
+  <script src="source/sidebar-nav.js"></script>
+
+  <div class="tools-marquee">
+    <div class="marquee-track">
+      <span class="tool-tag">Python</span>
+      <span class="tool-tag">PySpark</span>
+      <span class="tool-tag">SQL</span>
+      <span class="tool-tag">AWS</span>
+      <span class="tool-tag">Databricks</span>
+      <span class="tool-tag">Pandas</span>
+      <span class="tool-tag">NumPy</span>
+      <span class="tool-tag">Docker</span>
+      <span class="tool-tag">Airflow</span>
+      <span class="tool-tag">Kafka</span>
+      <span class="tool-tag">Spark</span>
+      <span class="tool-tag">Glue</span>
+      <span class="tool-tag">Redshift</span>
+      <span class="tool-tag">S3</span>
+      <span class="tool-tag">Lambda</span>
+      <span class="tool-tag">Terraform</span>
+      <span class="tool-tag">Python</span>
+      <span class="tool-tag">PySpark</span>
+      <span class="tool-tag">SQL</span>
+      <span class="tool-tag">AWS</span>
+      <span class="tool-tag">Databricks</span>
+      <span class="tool-tag">Pandas</span>
+      <span class="tool-tag">NumPy</span>
+      <span class="tool-tag">Docker</span>
+      <span class="tool-tag">Airflow</span>
+      <span class="tool-tag">Kafka</span>
+      <span class="tool-tag">Spark</span>
+      <span class="tool-tag">Glue</span>
+      <span class="tool-tag">Redshift</span>
+      <span class="tool-tag">S3</span>
+      <span class="tool-tag">Lambda</span>
+      <span class="tool-tag">Terraform</span>
+    </div>
+  </div>
 </body>
 
 </html>

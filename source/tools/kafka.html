@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>*d@ta# | Kafka</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../hub.css" />
+  <link rel="stylesheet" href="kafka.css" />
+  <link rel="stylesheet" href="../sidebar-nav.css" />
+</head>
+<body class="home-with-sidebar with-sidebar">
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+  <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+      <line x1="9" y1="3" x2="9" y2="21"></line>
+    </svg>
+  </button>
+
+  <main class="main-content">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../../../index.html">Home</a>
+      <span class="separator">›</span>
+      <a href="../../languages/index.html">Languages</a>
+      <span class="separator">›</span>
+      <a href="index.html">Tools</a>
+      <span class="separator">›</span>
+      <span class="current">Kafka</span>
+    </nav>
+    <nav class="sidebar" id="sidebar">
+      <div class="logo">
+        <span class="logo-text">Apache Kafka</span>
+      </div>
+      <a href="#introduction" class="nav-item active"><span>1</span> Introduction</a>
+      <a href="#concepts" class="nav-item"><span>2</span> Core Concepts</a>
+      <a href="#producers-consumers" class="nav-item"><span>3</span> Producers & Consumers</a>
+    </nav>
+    <div class="page-wrap">
+      <section class="hero">
+        <p class="eyebrow">Framework Guide</p>
+        <h1>Apache Kafka</h1>
+        <p class="hero-copy">Real-time event streaming platform.</p>
+      </section>
+      <section class="topic-section">
+        <h2 id="introduction">Introduction</h2>
+        <p>Apache Kafka is a distributed event streaming platform that enables you to publish, subscribe to, store, and process streams of records in real-time.</p>
+      </section>
+    </div>
+  </main>
+  <script src="../app.js"></script>
+<script src="../hierarchy.js"></script><script src="../sidebar-nav.js"></script>
+</body>
+</html>

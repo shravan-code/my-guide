@@ -20,7 +20,7 @@
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
   border-right: 1px solid var(--glass-border);
-  box-shadow: var(--shadow-md);
+  box-shadow: none;
   overflow-y: auto;
   z-index: 1000;
   transition: all var(--transition);
@@ -94,7 +94,7 @@
   color: var(--text);
   background: var(--bg-alt);
   border-color: var(--glow-border);
-  box-shadow: var(--shadow-sm), inset 0 0 0 1px var(--glow-border);
+  box-shadow: none;
 }
 
 /* ---- Grid layout: sidebar beside content ---- */
@@ -130,13 +130,13 @@
   border-radius: var(--radius-sm);
   padding: 0.4rem;
   cursor: pointer;
-  box-shadow: var(--shadow-sm);
+  box-shadow: none;
   transition: all var(--transition);
   flex-shrink: 0;
 }
 
 .sidebar-toggle:hover {
-  box-shadow: var(--shadow);
+  box-shadow: none;
   transform: translateY(-1px);
 }
 

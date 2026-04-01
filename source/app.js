@@ -1,3 +1,4 @@
+// ---- Theme Toggle ----
 const body = document.body;
 const toggleButton = document.getElementById("theme-toggle");
 const toggleText = toggleButton?.querySelector(".toggle-text");
@@ -234,3 +235,6 @@ function initializeSidebarToggle() {
 }
 
 initializeSidebarToggle();
+
+// Smooth scroll behavior
+document.documentElement.style.scrollBehavior = 'smooth';

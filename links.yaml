@@ -1,0 +1,297 @@
+# Site Configuration - All links, logos, titles, and navigation
+# This file is the single source of truth for site navigation
+
+site:
+  name: "*d@ta#"
+  brand_hover: "Data.id.name"
+  url: "index.html"
+
+topbar:
+  brand:
+    text: "*d@ta#"
+    hover_text: "Data.id.name"
+    url: "index.html"
+  theme_toggle: true
+  portfolio_link:
+    text: "Portfolio"
+    url: "source/portfolios/portfolio.html"
+
+# ---- Home Page ----
+home:
+  title: "*d@ta#"
+  url: "index.html"
+  logo_url: "index.html"
+
+# ---- Cloud Pages ----
+cloud:
+  hub:
+    title: "Cloud"
+    url: "source/cloud/index.html"
+    logo_url: "source/cloud/index.html"
+  pages:
+    - name: "cloud-basics"
+      title: "Cloud Basics"
+      url: "source/cloud/cloud-basics.html"
+      logo_url: "source/cloud/index.html"
+    - name: "cloud-aws"
+      title: "AWS"
+      url: "source/cloud/cloud-aws.html"
+      logo_url: "source/cloud/index.html"
+    - name: "cloud-azure"
+      title: "Azure"
+      url: "source/cloud/cloud-azure.html"
+      logo_url: "source/cloud/index.html"
+    - name: "cloud-gcp"
+      title: "GCP"
+      url: "source/cloud/cloud-gcp.html"
+      logo_url: "source/cloud/index.html"
+    - name: "cloud-compute"
+      title: "Compute"
+      url: "source/cloud/cloud-compute.html"
+      logo_url: "source/cloud/index.html"
+    - name: "cloud-services"
+      title: "Services"
+      url: "source/cloud/cloud-services.html"
+      logo_url: "source/cloud/index.html"
+    - name: "cloud-serverless"
+      title: "Serverless"
+      url: "source/cloud/cloud-serverless.html"
+      logo_url: "source/cloud/index.html"
+    - name: "cloud-storage"
+      title: "Storage"
+      url: "source/cloud/cloud-storage.html"
+      logo_url: "source/cloud/index.html"
+    - name: "cloud-topics"
+      title: "Topics"
+      url: "source/cloud/cloud-topics.html"
+      logo_url: "source/cloud/index.html"
+
+# ---- Big Data Pages ----
+data:
+  hub:
+    title: "Big Data"
+    url: "source/data/index.html"
+    logo_url: "source/data/index.html"
+  pages:
+    - name: "data-formats"
+      title: "Data Formats"
+      url: "source/data/data-formats.html"
+      logo_url: "source/data/index.html"
+    - name: "data-pipeline"
+      title: "Data Pipeline"
+      url: "source/data/data-pipeline.html"
+      logo_url: "source/data/index.html"
+    - name: "data-quality"
+      title: "Data Quality"
+      url: "source/data/data-quality.html"
+      logo_url: "source/data/index.html"
+    - name: "data-types"
+      title: "Data Types"
+      url: "source/data/data-types.html"
+      logo_url: "source/data/index.html"
+
+# ---- Python Pages ----
+python:
+  hub:
+    title: "Python"
+    url: "source/python/index.html"
+    logo_url: "source/python/index.html"
+  pages:
+    - name: "python-fundamentals"
+      title: "Python Fundamentals"
+      url: "source/python/python-fundamentals.html"
+      logo_url: "source/python/index.html"
+    - name: "python-oops"
+      title: "Python OOP"
+      url: "source/python/python-oops.html"
+      logo_url: "source/python/index.html"
+    - name: "python-methods"
+      title: "Python Methods"
+      url: "source/python/methods.html"
+      logo_url: "source/python/index.html"
+    - name: "python-memory-performance"
+      title: "Memory & Performance"
+      url: "source/python/memory-performance.html"
+      logo_url: "source/python/index.html"
+
+# ---- SQL Pages ----
+sql:
+  hub:
+    title: "SQL"
+    url: "source/sql/index.html"
+    logo_url: "source/sql/index.html"
+  pages:
+    - name: "sql-concepts"
+      title: "SQL Concepts"
+      url: "source/sql/sql-concepts.html"
+      logo_url: "source/sql/index.html"
+    - name: "sql-joins"
+      title: "SQL Joins"
+      url: "source/sql/sql-joins.html"
+      logo_url: "source/sql/index.html"
+    - name: "sql-queries"
+      title: "SQL Queries"
+      url: "source/sql/sql-queries.html"
+      logo_url: "source/sql/index.html"
+    - name: "sql-methods"
+      title: "SQL Methods"
+      url: "source/sql/sql-methods.html"
+      logo_url: "source/sql/index.html"
+    - name: "sql-modelling"
+      title: "SQL Modelling"
+      url: "source/sql/sql-modelling.html"
+      logo_url: "source/sql/index.html"
+    - name: "sql-subqueries"
+      title: "SQL Subqueries"
+      url: "source/sql/sql-subqueries.html"
+      logo_url: "source/sql/index.html"
+    - name: "sql-windows"
+      title: "SQL Windows"
+      url: "source/sql/sql-windows.html"
+      logo_url: "source/sql/index.html"
+
+# ---- Spark Pages ----
+spark:
+  hub:
+    title: "Spark"
+    url: "source/spark/index.html"
+    logo_url: "source/spark/index.html"
+  pages:
+    - name: "spark-architecture"
+      title: "Spark Architecture"
+      url: "source/spark/spark-architecture.html"
+      logo_url: "source/spark/index.html"
+    - name: "spark-theory"
+      title: "Spark Theory"
+      url: "source/spark/spark-theory.html"
+      logo_url: "source/spark/index.html"
+    - name: "spark-code"
+      title: "Spark Code"
+      url: "source/spark/spark-code.html"
+      logo_url: "source/spark/index.html"
+
+# ---- Pandas Pages ----
+pandas:
+  hub:
+    title: "Pandas"
+    url: "source/pandas/index.html"
+    logo_url: "source/pandas/index.html"
+  pages:
+    - name: "pandas-series"
+      title: "Pandas Series"
+      url: "source/pandas/pandas-series.html"
+      logo_url: "source/pandas/index.html"
+    - name: "pandas-dataframes"
+      title: "Pandas DataFrames"
+      url: "source/pandas/pandas-dataframes.html"
+      logo_url: "source/pandas/index.html"
+    - name: "pandas-methods"
+      title: "Pandas Methods"
+      url: "source/pandas/methods.html"
+      logo_url: "source/pandas/index.html"
+
+# ---- NumPy Pages ----
+numpy:
+  hub:
+    title: "NumPy"
+    url: "source/numpy/index.html"
+    logo_url: "source/numpy/index.html"
+  pages:
+    - name: "numpy-arrays"
+      title: "NumPy Arrays"
+      url: "source/numpy/numpy-arrays.html"
+      logo_url: "source/numpy/index.html"
+    - name: "numpy-basics"
+      title: "NumPy Basics"
+      url: "source/numpy/numpy-basics.html"
+      logo_url: "source/numpy/index.html"
+    - name: "numpy-operations"
+      title: "NumPy Operations"
+      url: "source/numpy/numpy-operations.html"
+      logo_url: "source/numpy/index.html"
+    - name: "numpy-methods"
+      title: "NumPy Methods"
+      url: "source/numpy/methods.html"
+      logo_url: "source/numpy/index.html"
+
+# ---- Roadmaps ----
+roadmaps:
+  hub:
+    title: "Hub"
+    url: "source/roadmaps/roadmap.html"
+    logo_url: "source/roadmaps/roadmap.html"
+  items:
+    - name: "data-engineer"
+      title: "Data Engineering"
+      url: "source/roadmaps/data-engineer-roadmap.html"
+      logo_url: "source/roadmaps/roadmap.html"
+    - name: "python"
+      title: "Python"
+      url: "source/roadmaps/python-roadmap.html"
+      logo_url: "source/roadmaps/roadmap.html"
+    - name: "sql"
+      title: "SQL"
+      url: "source/roadmaps/sql-roadmap.html"
+      logo_url: "source/roadmaps/roadmap.html"
+    - name: "spark"
+      title: "Spark"
+      url: "source/roadmaps/spark-roadmap.html"
+      logo_url: "source/roadmaps/roadmap.html"
+    - name: "ml-engineer"
+      title: "ML Engineer"
+      url: "source/roadmaps/ml-engineer-roadmap.html"
+      logo_url: "source/roadmaps/roadmap.html"
+    - name: "ai-engineer"
+      title: "AI Engineer"
+      url: "source/roadmaps/ai-engineer-roadmap.html"
+      logo_url: "source/roadmaps/roadmap.html"
+
+# ---- Cheatsheets ----
+cheatsheets:
+  hub:
+    title: "Hub"
+    url: "source/cheatsheets/cheatsheet.html"
+    logo_url: "source/cheatsheets/cheatsheet.html"
+  items:
+    - name: "python"
+      title: "Python"
+      url: "source/cheatsheets/python-cheatsheet.html"
+      logo_url: "source/cheatsheets/cheatsheet.html"
+    - name: "numpy"
+      title: "NumPy"
+      url: "source/cheatsheets/numpy-cheatsheet.html"
+      logo_url: "source/cheatsheets/cheatsheet.html"
+    - name: "pandas"
+      title: "Pandas"
+      url: "source/cheatsheets/pandas-cheatsheet.html"
+      logo_url: "source/cheatsheets/cheatsheet.html"
+    - name: "spark"
+      title: "PySpark"
+      url: "source/cheatsheets/spark-cheatsheet.html"
+      logo_url: "source/cheatsheets/cheatsheet.html"
+    - name: "postgresql"
+      title: "PostgreSQL"
+      url: "source/cheatsheets/postgresql-cheatsheet.html"
+      logo_url: "source/cheatsheets/cheatsheet.html"
+    - name: "compare"
+      title: "Comparison"
+      url: "source/cheatsheets/compare.html"
+      logo_url: "source/cheatsheets/cheatsheet.html"
+
+# ---- Portfolio ----
+portfolio:
+  url: "source/portfolios/portfolio.html"
+  logo_url: "source/portfolios/portfolio.html"
+  projects:
+    experienced:
+      title: "Experienced"
+      url: "source/portfolios/projects/projects-experienced.html"
+      logo_url: "source/portfolios/portfolio.html"
+    self:
+      title: "Self"
+      url: "source/portfolios/projects/projects-self.html"
+      logo_url: "source/portfolios/portfolio.html"
+
+# ---- Career ----
+career:
+  start_date: "2021-11-02"
