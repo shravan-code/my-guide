@@ -9,6 +9,14 @@
   var rootPath = sourcePath + '../';
 
   function init() {
+    // Load saved theme
+    var storageKey = 'data-guide-theme';
+    var savedTheme = localStorage.getItem(storageKey);
+    if (savedTheme === 'dark') {
+      document.body.classList.add('dark');
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+
     // Check if sidebar already has content (e.g., homepage with hardcoded sidebar)
     var sidebar = document.querySelector('.sidebar-nav');
     if (sidebar) {

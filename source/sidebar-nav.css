@@ -52,6 +52,15 @@ body.home-with-sidebar .sidebar-logo {
   flex-shrink: 0;
 }
 
+body.dark .sidebar-logo {
+  filter: brightness(0) invert(1);
+}
+
+body.dark body.home-with-sidebar .sidebar-logo,
+body.dark .sidebar-logo {
+  filter: brightness(0) invert(1);
+}
+
 body.home-with-sidebar .sidebar-brand-text {
   font-family: var(--font-heading);
   font-size: var(--text-base);

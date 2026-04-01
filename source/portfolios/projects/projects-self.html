@@ -13,7 +13,10 @@
   <link rel="stylesheet" href="../../styles.css" />
   <link rel="stylesheet" href="../../hub.css" />
   <link rel="stylesheet" href="../../styles/mobile.css" />
+  <link rel="stylesheet" href="../../sidebar-nav.css" />
   <style>
+    @import url("../../design-tokens.css");
+
     main {
       width: min(1300px, calc(100% - 4rem));
       margin: 0 auto;
@@ -322,7 +325,7 @@
       flex-shrink: 0;
     }
 
-    /* Yet to implement placeholder */
+    /* Placeholder content */
     .placeholder-content {
       display: flex;
       flex-direction: column;
@@ -338,7 +341,7 @@
       font-weight: 700;
       margin: 0 0 1rem;
       font-family: "Sora", sans-serif;
-      background: linear-gradient(135deg, var(--glow-color), var(--glow-pink));
+      background: linear-gradient(135deg, var(--color-accent), #ec4899);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -346,7 +349,7 @@
 
     .placeholder-content p {
       font-size: 1.1rem;
-      color: var(--text-secondary);
+      color: var(--color-text-secondary);
       max-width: 500px;
       line-height: 1.6;
     }
@@ -759,7 +762,8 @@
       setInterval(updateCareerTimer, 86400000);
     }
   </script>
-<script src="../../sidebar-nav.js"></script>
+<script src="../../hierarchy.js"></script>
+  <script src="../../sidebar-nav.js"></script>
 </body>
 
 </html>

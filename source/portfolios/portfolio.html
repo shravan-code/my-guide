@@ -9,7 +9,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
   <link rel="stylesheet" href="../hub.css" />
+  <link rel="stylesheet" href="../sidebar-nav.css" />
   <style>
+    @import url("../design-tokens.css");
+
     main {
       width: min(1300px, calc(100% - 4rem));
       margin: 0 auto;
@@ -336,16 +339,16 @@
     .skill-tag {
       font-size: 0.78rem;
       padding: 0.25rem 0.6rem;
-      background: var(--bg-alt);
-      border: 1px solid var(--glass-border);
+      background: var(--color-bg-alt);
+      border: 1px solid var(--color-border);
       border-radius: 6px;
-      color: var(--text-secondary);
-      transition: all var(--transition);
+      color: var(--color-text-secondary);
+      transition: all var(--transition-base);
     }
 
     .skill-tag:hover {
-      border-color: var(--glow-border);
-      color: var(--text);
+      border-color: var(--color-accent);
+      color: var(--color-text);
     }
 
     /* Certifications */
@@ -356,17 +359,16 @@
     }
 
     .cert-card {
-      background: var(--glass);
-      backdrop-filter: blur(var(--glass-blur));
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
       padding: 1.5rem;
-      transition: all var(--transition);
+      transition: all var(--transition-base);
     }
 
     .cert-card:hover {
-      border-color: var(--glow-pink);
-      box-shadow: var(--shadow), 0 0 25px rgba(236, 72, 153, 0.1);
+      border-color: var(--color-accent);
+      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.15);
       transform: translateY(-2px);
     }
 
@@ -374,29 +376,28 @@
       font-size: 0.95rem;
       font-weight: 600;
       margin: 0 0 0.25rem;
-      color: var(--text);
+      color: var(--color-text);
     }
 
     .cert-card .cert-year {
       font-size: 0.85rem;
-      color: var(--glow-pink);
+      color: var(--color-accent);
       font-weight: 500;
     }
 
     /* Experience */
     .experience-item {
-      background: var(--glass);
-      backdrop-filter: blur(var(--glass-blur));
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
       padding: 1.5rem;
       margin-bottom: 1.25rem;
-      transition: all var(--transition);
+      transition: all var(--transition-base);
     }
 
     .experience-item:hover {
-      border-color: var(--glow-cyan);
-      box-shadow: var(--shadow), 0 0 25px rgba(6, 182, 212, 0.1);
+      border-color: var(--color-accent);
+      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.15);
     }
 
     .experience-header {
@@ -472,22 +473,22 @@
       align-items: center;
       justify-content: space-between;
       padding: 1.25rem 0;
-      border-top: 1px solid var(--glass-border);
+      border-top: 1px solid var(--color-border);
       font-size: 0.75rem;
-      color: var(--muted);
-      background: var(--bg);
+      color: var(--color-text-muted);
+      background: var(--color-bg);
       z-index: 100;
     }
 
     footer a {
-      color: var(--glow-color);
+      color: var(--color-accent);
       text-decoration: none;
       font-weight: 600;
-      transition: color var(--transition);
+      transition: color var(--transition-base);
     }
 
     footer a:hover {
-      color: var(--glow-pink);
+      color: var(--color-accent-hover);
     }
 
     /* Responsive */
@@ -560,11 +561,10 @@
     }
 
     .experience-years strong {
-      color: var(--glow-color);
+      color: var(--color-accent);
       font-weight: 600;
     }
   </style>
-  <link rel="stylesheet" href="../sidebar-nav.css" />
 </head>
 <body class="home-with-sidebar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
