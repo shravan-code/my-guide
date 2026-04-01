@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>*d@ta# | Tools</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../hub.css" />
+  <link rel="stylesheet" href="../sidebar-nav.css" />
+</head>
+
+<body class="home-with-sidebar">
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+
+
+  <main>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../../index.html">Home</a>
+      <span class="separator">›</span>
+      <a href="../languages/index.html">Languages</a>
+      <span class="separator">›</span>
+      <span class="current">Tools</span>
+    </nav>
+    <div class="page-wrap">
+      <section class="hero">
+        <p class="eyebrow">Data Tools</p>
+        <h1>Tools</h1>
+        <p class="hero-copy">Essential tools for data engineering.</p>
+      </section>
+
+      <section class="inspire">
+        <p>
+          <strong>The tools of the trade</strong>. From data manipulation libraries to 
+          workflow orchestration frameworks, these are the building blocks of modern 
+          data systems. Master them to build robust, scalable data pipelines.
+        </p>
+      </section>
+
+      <section class="tracks">
+        <h2>Libraries</h2>
+        <div class="track-grid">
+          <a href="../pandas/index.html" class="track">
+            <h3>Pandas</h3>
+            <p>DataFrames and data analysis</p>
+          </a>
+          <a href="../numpy/index.html" class="track">
+            <h3>NumPy</h3>
+            <p>Numerical computing with arrays</p>
+          </a>
+          <a href="../spark/index.html" class="track">
+            <h3>Spark</h3>
+            <p>Distributed data processing</p>
+          </a>
+        </div>
+      </section>
+
+      <section class="tracks">
+        <h2>Frameworks</h2>
+        <div class="track-grid">
+          <a href="airflow.html" class="track">
+            <h3>Airflow</h3>
+            <p>Workflow orchestration</p>
+          </a>
+          <a href="dbt.html" class="track">
+            <h3>dbt</h3>
+            <p>Data transformation</p>
+          </a>
+          <a href="kafka.html" class="track">
+            <h3>Kafka</h3>
+            <p>Event streaming</p>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+<script src="../hierarchy.js"></script><script src="../sidebar-nav.js"></script>
+</body>
+
+</html>

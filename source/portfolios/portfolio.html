@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../hub.css" />
   <style>
     main {
       width: min(1300px, calc(100% - 4rem));
@@ -43,16 +44,7 @@
       stroke: var(--text);
       fill: none;
       stroke-width: 1.5;
-    }
-
-    .brand:hover {
-      background: linear-gradient(135deg, var(--glow-color), var(--glow-pink));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .brand:hover .brand-icon {
+    }.brand:hover .brand-icon {
       stroke: var(--glow-color);
     }
 
@@ -553,7 +545,6 @@
       .experience-header { flex-direction: column; }
     }
 
-    /* Bottom bar */
     .bottom-bar {
       position: sticky;
       bottom: 0;
@@ -563,7 +554,7 @@
       font-size: 0.85rem;
       color: var(--text-secondary);
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
       z-index: 100;
     }
@@ -572,50 +563,20 @@
       color: var(--glow-color);
       font-weight: 600;
     }
-
-    .current-page-path {
-      display: flex;
-      gap: 0.4rem;
-      flex-wrap: wrap;
-    }
-
-    .path-pill {
-      padding: 0.2rem 0.6rem;
-      background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(236, 72, 153, 0.1));
-      border: 1px solid var(--glow-border);
-      border-radius: 20px;
-      font-size: 0.75rem;
-      color: var(--glow-color);
-      font-weight: 500;
-      text-transform: capitalize;
-    }
   </style>
+  <link rel="stylesheet" href="../sidebar-nav.css" />
 </head>
-<body>
+<body class="home-with-sidebar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
-  <header class="topbar glass reveal in">
-    <a class="brand" href="../../index.html">
-      
-      Data Guide
-    </a>
-    <nav class="menu" aria-label="Portfolio menu">
-      <a href="#skills">Skills</a>
-      <a href="projects/projects-experienced.html">Projects</a>
-      <a href="#experience">Experience</a>
-      <a href="#certifications">Certifications</a>
-    </nav>
-    <div class="header-actions">
-      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
-        <span class="toggle-icon" aria-hidden="true">☾</span>
-        <span class="toggle-text">Dark</span>
-      </button>
-    </div>
-  </header>
-
   <main>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../../index.html">Home</a>
+      <span class="separator">›</span>
+      <span class="current">Portfolio</span>
+    </nav>
     <section class="hero">
       <div class="profile-image">
         <img src="../../assets/images/profile-pic.jpeg" alt="Shravan Kumar Tela" />
@@ -792,7 +753,6 @@
   </main>
 
   <footer class="bottom-bar">
-    <span class="current-page-path" id="current-path"></span>
     <span class="experience-years">Experience: <strong id="career-timer"></strong></span>
   </footer>
 
@@ -823,38 +783,22 @@
 
     // Career timer
     const careerTimer = document.getElementById('career-timer');
-    const startDate = new Date(2021, 10, 2);
-
-    function updateCareerTimer() {
-      const now = new Date();
-      let years = now.getFullYear() - startDate.getFullYear();
-      let months = now.getMonth() - startDate.getMonth();
-      let days = now.getDate() - startDate.getDate();
-
-      if (days < 0) {
-        months--;
-        const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
-        days += prevMonth.getDate();
+    if (careerTimer) {
+      const startDate = new Date(2021, 10, 2);
+      function updateCareerTimer() {
+        const now = new Date();
+        let years = now.getFullYear() - startDate.getFullYear();
+        let months = now.getMonth() - startDate.getMonth();
+        let days = now.getDate() - startDate.getDate();
+        if (days < 0) { months--; const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0); days += prevMonth.getDate(); }
+        if (months < 0) { years--; months += 12; }
+        careerTimer.textContent = years + ' years ' + months + ' months ' + days + ' days';
       }
-
-      if (months < 0) {
-        years--;
-        months += 12;
-      }
-
-      careerTimer.textContent = years + ' years ' + months + ' months ' + days + ' days';
-    }
-
-    updateCareerTimer();
-    setInterval(updateCareerTimer, 86400000);
-
-    // Current page path
-    const currentPath = document.getElementById('current-path');
-    if (currentPath) {
-      const filename = window.location.pathname.split('/').pop().replace('.html', '') || 'home';
-      const words = ['home', ...filename.split(/[-_]/)];
-      currentPath.innerHTML = words.map(w => `<span class="path-pill">${w}</span>`).join('');
+      updateCareerTimer();
+      setInterval(updateCareerTimer, 86400000);
     }
   </script>
+<script src="../hierarchy.js"></script><script src="../sidebar-nav.js"></script>
 </body>
 </html>
+

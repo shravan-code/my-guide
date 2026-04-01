@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Data Guide | Libraries</title>
+  <title>*d@ta# | Libraries</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -57,7 +57,7 @@
     }
     .library-card:hover {
       border-color: var(--glow-border);
-      transform: translateY(-4px);
+      
     }
     .library-card h2 {
       font-family: "Sora", sans-serif;
@@ -91,43 +91,20 @@
       stroke-width: 1.5;
     }
   </style>
+  <link rel="stylesheet" href="../sidebar-nav.css" />
 </head>
 
-<body>
+<body class="home-with-sidebar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
-  <header class="topbar glass reveal in">
-    <div class="brand-container" data-logo></div>
-    <nav class="menu" aria-label="Libraries menu">
-      <a href="libraries-hub.html" class="active" aria-current="page">Hub</a>
-      <a href="pandas/pandas-hub.html">Pandas</a>
-      <a href="numpy/numpy-hub.html">NumPy</a>
-      <a href="spark/spark-hub.html">Spark</a>
-    </nav>
-    <div class="header-actions">
-      <a href="../../portfolios/portfolio.html" class="portfolio-link" title="View Portfolio">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z" />
-          <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16" />
-        </svg>
-      </a>
-      <button id="theme-toggle" class="theme-toggle"><span class="toggle-icon">☾</span></button>
-    </div>
-  </header>
-
-  <div id="mobile-menu" class="mobile-menu">
-    <nav class="mobile-nav" aria-label="Libraries mobile menu">
-      <a href="libraries-hub.html" class="active" aria-current="page">Hub</a>
-      <a href="pandas/pandas-hub.html">Pandas</a>
-      <a href="numpy/numpy-hub.html">NumPy</a>
-      <a href="spark/spark-hub.html">Spark</a>
-    </nav>
-  </div>
-  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
-
   <main>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../../index.html">Home</a>
+      <span class="separator">›</span>
+      <span class="current">Libraries</span>
+    </nav>
     <section class="hero">
       <h1>Libraries</h1>
       <p>Essential Python libraries for data engineering, analysis, and distributed processing.</p>
@@ -174,6 +151,8 @@
   <script src="../scripts/app.js"></script>
   <script src="source/scripts/logo-module.js"></script>
   <script>LogoModule.init('[data-logo]');</script>
+<script src="../hierarchy.js"></script><script src="../sidebar-nav.js"></script>
 </body>
 
 </html>
+

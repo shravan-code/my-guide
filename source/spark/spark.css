@@ -139,7 +139,7 @@ body.with-sidebar .main-content {
   color: var(--text);
   background: var(--bg-alt);
   border-color: var(--glow-border);
-  box-shadow: var(--shadow-sm), inset 0 0 0 1px var(--glow-border);
+  box-shadow: none;
 }
 
 /* ---- Main content area ---- */
@@ -175,13 +175,13 @@ main:not(.main-content) .page-wrap,
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
   border: 1px solid var(--glass-border);
-  box-shadow: var(--shadow);
+  box-shadow: none;
   scroll-margin-top: calc(var(--topbar-height) + 1rem);
   transition: all var(--transition);
 }
 
 .topic:hover {
-  box-shadow: var(--shadow-md), var(--shadow-glow);
+  box-shadow: none;
 }
 
 .topic h2 {
@@ -215,7 +215,7 @@ main:not(.main-content) .page-wrap,
   justify-content: center;
   font-weight: 700;
   font-size: 0.85rem;
-  box-shadow: var(--shadow-sm);
+  box-shadow: none;
   flex-shrink: 0;
 }
 
@@ -307,7 +307,7 @@ main:not(.main-content) .page-wrap,
   padding: 0.35rem 0.65rem;
   font-weight: 500;
   color: var(--text);
-  box-shadow: var(--shadow-sm);
+  box-shadow: none;
 }
 
 .flow-arrow {
@@ -361,13 +361,13 @@ body:not(.with-sidebar) .hero h1 {
   border-radius: var(--radius-sm);
   padding: 0.4rem;
   cursor: pointer;
-  box-shadow: var(--shadow-sm);
+  box-shadow: none;
   transition: all var(--transition);
   flex-shrink: 0;
 }
 
 .sidebar-toggle:hover {
-  box-shadow: var(--shadow);
+  box-shadow: none;
   transform: translateY(-1px);
 }
 
@@ -478,7 +478,7 @@ body:not(.with-sidebar) .hero h1 {
     color: var(--text);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-sm);
-    box-shadow: var(--shadow-sm);
+    box-shadow: none;
     cursor: pointer;
     z-index: 2001;
     transition: all var(--transition);
@@ -486,7 +486,7 @@ body:not(.with-sidebar) .hero h1 {
 
   .sidebar-toggle:hover {
     transform: scale(1.05);
-    box-shadow: var(--shadow);
+    box-shadow: none;
   }
 
   .sidebar-toggle.active {
@@ -570,7 +570,7 @@ body:not(.with-sidebar) .hero h1 {
   font-weight: 500;
   color: var(--text);
   text-align: center;
-  box-shadow: var(--shadow-sm);
+  box-shadow: none;
   cursor: default;
   transition: all var(--transition);
   width: 100%;
@@ -579,7 +579,7 @@ body:not(.with-sidebar) .hero h1 {
 
 .flow-node-interactive:hover {
   border-color: var(--glow-border);
-  box-shadow: var(--shadow), 0 0 20px var(--glow-border);
+  box-shadow: none;
   transform: scale(1.02);
 }
 
@@ -595,7 +595,7 @@ body:not(.with-sidebar) .hero h1 {
   padding: 0.75rem;
   width: max-content;
   max-width: 320px;
-  box-shadow: var(--shadow-lg);
+  box-shadow: none;
   z-index: 100;
   font-size: 0.8rem;
   font-weight: 400;
@@ -691,13 +691,13 @@ body:not(.with-sidebar) .hero h1 {
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
   border: 1px solid var(--glass-border);
-  box-shadow: var(--shadow);
+  box-shadow: none;
   scroll-margin-top: calc(var(--topbar-height) + 1rem);
   transition: all var(--transition);
 }
 
 .concept:hover {
-  box-shadow: var(--shadow-md), var(--shadow-glow);
+  box-shadow: none;
 }
 
 .concept h2 {

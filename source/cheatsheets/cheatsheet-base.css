@@ -68,7 +68,7 @@ body {
   border-radius: var(--radius-sm);
   padding: 0.4rem;
   cursor: pointer;
-  box-shadow: var(--shadow-sm);
+  box-shadow: none;
   transition: all var(--transition);
   width: 36px;
   height: 36px;
@@ -149,7 +149,7 @@ body {
   color: var(--text);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-sm);
+  box-shadow: none;
   cursor: pointer;
   z-index: 2001;
   transition: all var(--transition);
@@ -157,7 +157,7 @@ body {
 
 .sidebar-toggle:hover {
   transform: scale(1.1);
-  box-shadow: var(--shadow-lg);
+  box-shadow: none;
 }
 
 .sidebar-toggle svg {
@@ -169,16 +169,6 @@ body {
   left: 0.75rem;
 }
 
-.sidebar.collapsed {
-  transform: translateX(-100%);
-  opacity: 0;
-  pointer-events: none;
-}
-
-.main-content.sidebar-collapsed {
-  grid-template-columns: 1fr;
-}
-
 .main-content {
   display: grid;
   grid-template-columns: var(--sidebar-width) 1fr;
@@ -188,11 +178,21 @@ body {
   padding: 0;
   margin: 0;
   width: 100%;
-  transition: grid-template-columns var(--transition);
+  transition: grid-template-columns 0.3s ease;
 }
 
 .main-content.sidebar-collapsed {
   grid-template-columns: 0 1fr;
+}
+
+.main-content.sidebar-collapsed .sidebar {
+  width: 0;
+  min-width: 0;
+  padding: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  border: none;
 }
 
 .page-wrap {
@@ -210,21 +210,9 @@ body {
   background: transparent;
   overflow-y: auto;
   z-index: 1000;
-  transition: all var(--transition);
+  transition: all 0.3s ease;
   align-self: start;
   min-width: 0;
-}
-
-.main-content.sidebar-collapsed .sidebar {
-  width: 0;
-  padding: 0;
-  overflow: hidden;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.sidebar::-webkit-scrollbar {
-  width: 6px;
 }
 
 .sidebar::-webkit-scrollbar-track {
@@ -288,7 +276,7 @@ body {
   color: var(--text);
   background: var(--bg-alt);
   border-color: var(--glow-border);
-  box-shadow: var(--shadow-sm), inset 0 0 0 1px var(--glow-border);
+  box-shadow: none;
 }
 
 .sidebar .nav-item span {
@@ -356,14 +344,14 @@ body {
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
   border: 1px solid var(--glass-border);
-  box-shadow: var(--shadow);
+  box-shadow: none;
   transition: all var(--transition);
   scroll-margin-top: calc(var(--topbar-height) + 1rem);
 }
 
 .cheat-section:hover {
   border-color: var(--glow-border);
-  box-shadow: var(--shadow-md);
+  box-shadow: none;
 }
 
 .section-title {
@@ -458,7 +446,7 @@ pre[class*="language-"],
   border-right: 1px solid var(--glass-border) !important;
   border-bottom: 1px solid var(--glass-border) !important;
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0 !important;
-  box-shadow: none !important;
+  box-shadow: none;
 }
 
 pre[class*="language-"] {

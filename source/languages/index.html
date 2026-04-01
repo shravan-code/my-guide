@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>*d@ta# | Languages</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../hub.css" />
+  <link rel="stylesheet" href="../sidebar-nav.css" />
+</head>
+
+<body class="home-with-sidebar no-topbar">
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <main>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../../index.html" class="breadcrumb-link">Home</a>
+      <span class="separator">›</span>
+      <span class="current">Languages</span>
+    </nav>
+    <div class="page-wrap">
+      <section class="hero">
+        <p class="eyebrow">Programming Languages</p>
+        <h1>Languages</h1>
+        <p class="hero-copy">Core languages for data engineering.</p>
+      </section>
+
+      <section class="inspire">
+        <p>
+          <strong>Languages that power data</strong>. From Python's versatility to SQL's data querying 
+          capabilities and Spark's distributed processing, these are the tools that transform raw data 
+          into actionable insights. Master these, and you hold the keys to the data kingdom.
+        </p>
+      </section>
+
+      <section class="tracks">
+        <h2>Python</h2>
+        <div class="track-grid">
+          <a href="../python/python-fundamentals.html" class="track">
+            <h3>Fundamentals</h3>
+            <p>Variables, data types, control flow</p>
+          </a>
+          <a href="../python/python-oops.html" class="track">
+            <h3>OOPs</h3>
+            <p>Classes, inheritance, polymorphism</p>
+          </a>
+          <a href="../python/methods.html" class="track">
+            <h3>Methods</h3>
+            <p>All types of methods in Python</p>
+          </a>
+          <a href="../python/memory-performance.html" class="track">
+            <h3>Memory & Performance</h3>
+            <p>Optimization techniques</p>
+          </a>
+        </div>
+      </section>
+
+      <section class="tracks">
+        <h2>SQL</h2>
+        <div class="track-grid">
+          <a href="../sql/sql-concepts.html" class="track">
+            <h3>Concepts</h3>
+            <p>SQL fundamentals, data types, RDBMS</p>
+          </a>
+          <a href="../sql/sql-modelling.html" class="track">
+            <h3>Modelling</h3>
+            <p>Data modeling, normalization, schemas</p>
+          </a>
+          <a href="../sql/sql-queries.html" class="track">
+            <h3>Queries</h3>
+            <p>SELECT, WHERE, GROUP BY, ORDER BY</p>
+          </a>
+          <a href="../sql/sql-joins.html" class="track">
+            <h3>Joins</h3>
+            <p>INNER, LEFT, RIGHT, FULL joins</p>
+          </a>
+        </div>
+      </section>
+
+      <section class="tracks">
+        <h2>Tools</h2>
+        <div class="track-grid">
+          <a href="../pandas/index.html" class="track">
+            <h3>Pandas</h3>
+            <p>DataFrames and data analysis</p>
+          </a>
+          <a href="../numpy/index.html" class="track">
+            <h3>NumPy</h3>
+            <p>Numerical computing with arrays</p>
+          </a>
+          <a href="../spark/index.html" class="track">
+            <h3>Spark</h3>
+            <p>Distributed data processing</p>
+          </a>
+          <a href="../tools/airflow.html" class="track">
+            <h3>Airflow</h3>
+            <p>Workflow orchestration</p>
+          </a>
+          <a href="../tools/dbt.html" class="track">
+            <h3>dbt</h3>
+            <p>Data transformation</p>
+          </a>
+          <a href="../tools/kafka.html" class="track">
+            <h3>Kafka</h3>
+            <p>Event streaming</p>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+<script src="../hierarchy.js"></script><script src="../sidebar-nav.js"></script>
+</body>
+
+</html>

@@ -11,6 +11,7 @@
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="../../hub.css" />
   <link rel="stylesheet" href="../../styles/mobile.css" />
   <style>
     main {
@@ -50,29 +51,8 @@
       text-decoration: none;
       color: var(--text);
       transition: color var(--transition);
-    }
-
-    .brand-default {
-      display: inline;
-    }
-
-    .brand-hover {
-      display: none;
-    }
-
-    .brand:hover .brand-default {
-      display: none;
-    }
-
-    .brand:hover .brand-hover {
-      display: inline;
-      background: linear-gradient(135deg, var(--glow-color), var(--glow-pink));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .header-actions {
+      position: relative;
+    }.brand-default,.brand:hover.brand:hover.header-actions {
       z-index: 5;
       display: flex;
       align-items: center;
@@ -303,29 +283,7 @@
       color: var(--text);
       transition: color var(--transition);
       flex-shrink: 0;
-    }
-
-    .brand-default {
-      display: inline;
-    }
-
-    .brand-hover {
-      display: none;
-    }
-
-    .brand:hover .brand-default {
-      display: none;
-    }
-
-    .brand:hover .brand-hover {
-      display: inline;
-      background: linear-gradient(135deg, var(--glow-color), var(--glow-pink));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .menu {
+    }.brand:hover.brand:hover.menu {
       display: flex;
       gap: 0.75rem;
       font-size: 0.9rem;
@@ -420,7 +378,7 @@
     .scroll-to-top.visible {
       opacity: 1;
       visibility: visible;
-      transform: translateY(0);
+      
     }
 
     .scroll-to-top:hover {
@@ -699,17 +657,20 @@
     }
 
     .bottom-bar {
-      position: sticky;
+      position: fixed;
       bottom: 0;
-      padding: 0.75rem 1.5rem;
+      left: 0;
+      right: 0;
+      padding: 0.5rem 1.5rem;
       background: var(--bg);
       border-top: 1px solid var(--glass-border);
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: var(--text-secondary);
       display: flex;
       justify-content: flex-end;
       align-items: center;
       z-index: 100;
+      height: 40px;
     }
 
     .experience-years strong {
@@ -717,9 +678,10 @@
       font-weight: 600;
     }
   </style>
+  <link rel="stylesheet" href="../../sidebar-nav.css" />
 </head>
 
-<body>
+<body class="home-with-sidebar">
   <!-- Theme transition overlay -->
   <div id="theme-overlay" class="theme-transition-overlay"></div>
   
@@ -727,48 +689,29 @@
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
-  <header class="topbar glass reveal in">
-    <a class="brand" href="../../../index.html">
-      <span class="brand-default">*d@ta#</span>
-      <span class="brand-hover">Data.id.name</span>
-    </a>
-    <nav class="menu" aria-label="Portfolio menu">
-      <a href="projects-self.html" class="active" aria-current="page">Self</a>
-      <a href="projects-experienced.html">Experienced</a>
-    </nav>
-    <div class="header-actions">
-      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
-        <span class="theme-icon-wrapper">
-          <svg class="theme-sun" viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="12" r="4"/>
-            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
-          </svg>
-          <svg class="theme-moon" viewBox="0 0 24 24" fill="none">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-          </svg>
-        </span>
-      </button>
-    </div>
-  </header>
-
-  <!-- NEW Mobile Menu -->
-  <div id="new-mobile-menu" class="new-mobile-menu">
-    <nav class="new-mobile-nav">
-      <a href="projects-self.html">Self</a>
+  <main class="main-content">
       <a href="projects-experienced.html">Experienced</a>
       <a href="../../../index.html">Home</a>
     </nav>
   </div>
 
   <main>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../../../index.html">Home</a>
+      <span class="separator">›</span>
+      <a href="../../portfolio.html">Portfolio</a>
+      <span class="separator">›</span>
+      <span class="current">Self Projects</span>
+    </nav>
     <div class="placeholder-content">
       <h1>Self-Taught Projects</h1>
       <p>Yet to implement</p>
     </div>
-    <footer class="bottom-bar">
-      <span class="experience-years">Experience: <strong id="career-timer"></strong></span>
-    </footer>
   </main>
+
+  <footer class="bottom-bar">
+    <span class="experience-years">Experience: <strong id="career-timer"></strong></span>
+  </footer>
 
   <script src="../../app.js"></script>
   <script>
@@ -816,6 +759,7 @@
       setInterval(updateCareerTimer, 86400000);
     }
   </script>
+<script src="../../sidebar-nav.js"></script>
 </body>
 
 </html>

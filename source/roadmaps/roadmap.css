@@ -55,12 +55,12 @@
   font-size: 1.2rem;
   color: #fff;
   flex-shrink: 0;
-  box-shadow: var(--shadow-md);
+  box-shadow: none;
 }
 
 body.dark .phase-number {
   background: linear-gradient(135deg, var(--roadmap-phase-start-dark), var(--roadmap-phase-end-dark));
-  box-shadow: var(--shadow-md);
+  box-shadow: none;
 }
 
 .phase-title {
@@ -106,13 +106,13 @@ body.dark .phase-connector {
 
 .topic-card:hover {
   border-color: var(--roadmap-required-border);
-  box-shadow: var(--shadow-md), inset 0 0 0 1px color-mix(in srgb, var(--roadmap-required-text) 25%, transparent);
+  box-shadow: none;
   transform: translateY(-2px);
 }
 
 body.dark .topic-card:hover {
   border-color: var(--roadmap-required-border-dark);
-  box-shadow: var(--shadow-md), inset 0 0 0 1px color-mix(in srgb, var(--roadmap-required-text-dark) 25%, transparent);
+  box-shadow: none;
 }
 
 .topic-card h4 {
@@ -209,7 +209,7 @@ body.dark .skill-badge.nice-to-have {
   border-radius: var(--radius-sm);
   padding: 0.4rem;
   cursor: pointer;
-  box-shadow: var(--shadow-sm);
+  box-shadow: none;
   transition: all var(--transition);
   flex-shrink: 0;
   width: 36px;
@@ -217,7 +217,7 @@ body.dark .skill-badge.nice-to-have {
 }
 
 .mobile-menu-toggle:hover {
-  box-shadow: var(--shadow);
+  box-shadow: none;
   transform: translateY(-1px);
 }
 
@@ -251,7 +251,7 @@ body.dark .skill-badge.nice-to-have {
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
   border-bottom: 1px solid var(--glass-border);
-  box-shadow: var(--shadow-md);
+  box-shadow: none;
   z-index: 1999;
   padding: 1rem;
   transform: translateY(-10px);
@@ -292,12 +292,12 @@ body.dark .skill-badge.nice-to-have {
 
 .mobile-nav a.active {
   border-color: rgba(99, 102, 241, 0.2);
-  box-shadow: var(--shadow-sm), inset 0 0 0 1px rgba(99, 102, 241, 0.15);
+  box-shadow: none;
 }
 
 body.dark .mobile-nav a.active {
   border-color: rgba(129, 140, 248, 0.3);
-  box-shadow: var(--shadow-sm), inset 0 0 0 1px rgba(129, 140, 248, 0.2);
+  box-shadow: none;
 }
 
 .mobile-menu-overlay {
