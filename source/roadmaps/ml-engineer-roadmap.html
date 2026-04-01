@@ -30,6 +30,42 @@
       --roadmap-required-border-dark: rgba(74, 222, 128, 0.3);
       --roadmap-required-text-dark: #4ade80;
     }
+
+    .bottom-bar {
+      position: sticky;
+      bottom: 0;
+      padding: 0.75rem 1.5rem;
+      background: var(--bg);
+      border-top: 1px solid var(--glass-border);
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .experience-years strong {
+      color: var(--glow-color);
+      font-weight: 600;
+    }
+
+    .current-page-path {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .path-pill {
+      padding: 0.2rem 0.6rem;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(236, 72, 153, 0.1));
+      border: 1px solid var(--glow-border);
+      border-radius: 20px;
+      font-size: 0.75rem;
+      color: var(--glow-color);
+      font-weight: 500;
+      text-transform: capitalize;
+    }
   </style>
 </head>
 
@@ -44,7 +80,8 @@
       Data Guide
     </a>
     <nav class="menu" aria-label="Main menu">
-      <a href="roadmap.html">Data Engineering</a>
+      <a href="roadmap.html">Hub</a>
+      <a href="data-engineer-roadmap.html">Data Engineering</a>
       <a href="python-roadmap.html">Python</a>
       <a href="sql-roadmap.html">SQL</a>
       <a href="spark-roadmap.html">Spark</a>
@@ -67,7 +104,8 @@
   </header>
   <div id="mobile-menu" class="mobile-menu">
     <nav class="mobile-nav" aria-label="Roadmap mobile menu">
-      <a href="roadmap.html">Data Engineering</a>
+      <a href="roadmap.html">Hub</a>
+      <a href="data-engineer-roadmap.html">Data Engineering</a>
       <a href="python-roadmap.html">Python</a>
       <a href="sql-roadmap.html">SQL</a>
       <a href="spark-roadmap.html">Spark</a>
@@ -567,7 +605,7 @@
       <section class="tracks">
         <h2 id="quick-reference">Quick Reference</h2>
         <div class="track-grid">
-          <a href="roadmap.html" class="track">
+          <a href="data-engineer-roadmap.html" class="track">
             <h3>Data Engineering</h3>
             <p>DE roadmap</p>
           </a>
@@ -597,6 +635,11 @@
     </div>
   </main>
 
+  <footer class="bottom-bar">
+    <span class="current-page-path" id="current-path"></span>
+    
+  </footer>
+
 
 
   <script src="../app.js"></script>
@@ -624,6 +667,30 @@
         behavior: 'smooth'
       });
     });
+
+    const careerTimer = document.getElementById('career-timer');
+    if (careerTimer) {
+      const startDate = new Date(2021, 10, 2);
+      function updateCareerTimer() {
+        const now = new Date();
+        let years = now.getFullYear() - startDate.getFullYear();
+        let months = now.getMonth() - startDate.getMonth();
+        let days = now.getDate() - startDate.getDate();
+        if (days < 0) { months--; const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0); days += prevMonth.getDate(); }
+        if (months < 0) { years--; months += 12; }
+        careerTimer.textContent = years + ' years ' + months + ' months ' + days + ' days';
+      }
+      updateCareerTimer();
+      setInterval(updateCareerTimer, 86400000);
+    }
+
+    const currentPath = document.getElementById('current-path');
+    if (currentPath) {
+      const filename = window.location.pathname.split('/').pop().replace('.html', '');
+      const label = filename.replace('-roadmap', '').replace(/[-_]/g, ' ');
+      const words = ['home', 'roadmaps', label];
+      currentPath.innerHTML = words.map(w => `<span class="path-pill">${w}</span>`).join('');
+    }
 
   </script>
 </body>
