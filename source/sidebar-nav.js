@@ -358,14 +358,21 @@
     html += '<a href="' + rootPath + 'index.html" class="breadcrumb-home">Home</a>';
 
     var currentPath = rootPath + 'source/';
+    var isMobile = window.innerWidth <= 920;
     for (var i = 0; i < segments.length; i++) {
         var seg = segments[i];
+        var isFirstLevel = (i === 0 && !segments[i].endsWith('.html'));
+        
         if (seg.endsWith('.html') || seg === '') {
             if (seg !== 'index.html' && seg !== '') {
                var name = titleCase(seg);
                html += '<span class="separator">/</span><span class="current">' + name + '</span>';
             }
         } else {
+            if (isMobile && isFirstLevel) {
+                currentPath += seg + '/';
+                continue;
+            }
             currentPath += seg + '/';
             var niceName = titleCase(seg);
             if (seg.toLowerCase() === 'data') niceName = 'Big Data';
