@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>*d@ta# | APIs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../hub.css" />
+  <link rel="stylesheet" href="../sidebar-nav.css" />
+</head>
+
+<body class="home-with-sidebar">
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+
+  <main>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../../index.html">Home</a>
+      <span class="separator">›</span>
+      <span class="current">APIs</span>
+    </nav>
+    <div class="page-wrap">
+      <section class="hero">
+        <p class="eyebrow">APIs Guide</p>
+        <h1>APIs</h1>
+        <p class="hero-copy">A complete guide to Application Programming Interfaces.</p>
+      </section>
+
+      <section class="inspire">
+        <p>
+          <strong>APIs are the invisible backbone of modern software</strong>. Every time you log in with Google,
+          check the weather on your phone, or pay online — an API is working behind the scenes.
+          From <strong>REST and GraphQL</strong> to <strong>gRPC and WebSockets</strong>,
+          understanding APIs is essential for building modern, connected applications.
+          Whether you're building public APIs, integrating third-party services, or designing microservices,
+          <strong>mastering API concepts will level up your development skills</strong>.
+        </p>
+      </section>
+
+      <section class="tracks">
+        <h2>Explore APIs</h2>
+        <div class="track-grid">
+          <a href="concepts.html" class="track">
+            <h3>API Concepts</h3>
+            <p>Core concepts, how APIs work, and introduction to different types</p>
+          </a>
+          <a href="types.html" class="track">
+            <h3>API Types</h3>
+            <p>Deep dive into REST, GraphQL, SOAP, gRPC, WebSocket, Webhooks, and more</p>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  <script>
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+<script src="../hierarchy.js"></script><script src="../sidebar-nav.js"></script>
+</body>
+
+</html>
