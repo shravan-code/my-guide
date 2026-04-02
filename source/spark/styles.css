@@ -905,6 +905,29 @@ table {
   font-size: 0.85rem;
 }
 
+body.non-home-shell .sidebar,
+body.non-home-shell .sidebar-toggle,
+body.non-home-shell .sidebar-overlay,
+body.non-home-shell .theme-toggle,
+body.non-home-shell .header-actions,
+body.non-home-shell .mobile-menu-toggle {
+  display: none !important;
+}
+
+body.non-home-shell .main-content,
+body.non-home-shell main.main-content {
+  margin-left: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+}
+
+body.non-home-shell .page-wrap,
+body.non-home-shell main > .page-wrap {
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+}
+
 th, td {
   padding: 0.6rem 0.75rem;
   text-align: left;

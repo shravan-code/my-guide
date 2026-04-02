@@ -685,11 +685,34 @@
       color: var(--color-accent);
       font-weight: 600;
     }
+
+    body.non-home-shell .theme-transition-overlay,
+    body.non-home-shell .topbar,
+    body.non-home-shell .brand-menu-wrapper,
+    body.non-home-shell .brand,
+    body.non-home-shell .theme-toggle,
+    body.non-home-shell .hamburger-btn,
+    body.non-home-shell .header-actions,
+    body.non-home-shell .bottom-bar {
+      display: none !important;
+    }
+
+    body.non-home-shell main.main-content {
+      width: auto !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    body.non-home-shell .page-wrap {
+      width: 100% !important;
+      max-width: none !important;
+      margin: 0 auto !important;
+      padding: 0 !important;
+    }
   </style>
-  <link rel="stylesheet" href="../../sidebar-nav.css" />
 </head>
 
-<body class="home-with-sidebar with-sidebar">
+<body class="home-with-sidebar">
   <!-- Theme transition overlay -->
   <div id="theme-overlay" class="theme-transition-overlay"></div>
 
@@ -698,8 +721,6 @@
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
   <main class="main-content">
-    <div id="sidebar-overlay" class="sidebar-overlay"></div>
-
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="../../../index.html">Home</a>
       <span class="separator">›</span>
@@ -719,12 +740,6 @@
       <a href="#p2-batch" class="nav-item section-link" data-section="p2-batch">→ BATCH Pipelines</a>
       <a href="#" class="nav-item" data-project="project-3">CIP-Madras</a>
     </nav>
-
-    <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M3 12h18M3 6h18M3 18h18" />
-      </svg>
-    </button>
 
     <div class="page-wrap">
       <!-- PROJECT 1 -->
@@ -1118,10 +1133,6 @@
     </div>
   </main>
 
-  <footer class="bottom-bar">
-    <span class="experience-years">Experience: <strong id="career-timer"></strong></span>
-  </footer>
-
   <script src="../../app.js"></script>
   <script src="../scripts/portfolio.js"></script>
   <script>
@@ -1191,34 +1202,6 @@
           }
         });
       });
-
-      // Career timer
-      const careerTimer = document.getElementById('career-timer');
-      const startDate = new Date(2021, 10, 2); // Nov 2, 2021
-
-      function updateCareerTimer() {
-        const now = new Date();
-        let years = now.getFullYear() - startDate.getFullYear();
-        let months = now.getMonth() - startDate.getMonth();
-        let days = now.getDate() - startDate.getDate();
-
-        if (days < 0) {
-          months--;
-          const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
-          days += prevMonth.getDate();
-        }
-
-        if (months < 0) {
-          years--;
-          months += 12;
-        }
-
-        careerTimer.textContent = years + ' years ' + months + ' months ' + days + ' days';
-      }
-
-      updateCareerTimer();
-      setInterval(updateCareerTimer, 86400000); // Update daily
-
       // Scroll to top
       const scrollToTopBtn = document.createElement('button');
       scrollToTopBtn.id = 'scrollToTop';
@@ -1238,12 +1221,6 @@
       scrollToTopBtn.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
-
-      // Current page path
-      const currentPath = document.getElementById('current-path');
-      if (currentPath) {
-        currentPath.textContent = window.location.pathname.split('/').pop() || 'home';
-      }
     });
   </script>
 <script src="../../hierarchy.js"></script>

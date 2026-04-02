@@ -13,20 +13,12 @@
   <link rel="stylesheet" href="../sidebar-nav.css" />
 </head>
 
-<body class="home-with-sidebar with-sidebar">
+<body class="home-with-sidebar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
 
-
-  <div id="sidebar-overlay" class="sidebar-overlay"></div>
-  <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-      <line x1="9" y1="3" x2="9" y2="21"></line>
-    </svg>
-  </button>
 
   <main class="main-content">
     <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -40,42 +32,6 @@
       <span class="separator">›</span>
       <span class="current">Basics</span>
     </nav>
-    <nav class="sidebar" id="sidebar">
-      <div class="logo">
-        <span class="logo-text">NumPy Basics</span>
-      </div>
-
-      <div class="nav-title">Core Concepts</div>
-      <a href="#broadcasting" class="nav-item active"><span>1</span> Broadcasting</a>
-      <a href="#vectorization" class="nav-item"><span>2</span> Vectorization</a>
-      <a href="#ufuncs" class="nav-item"><span>3</span> Universal Functions</a>
-
-      <div class="nav-title">Memory & Performance</div>
-      <a href="#copies-views" class="nav-item"><span>4</span> Copies vs Views</a>
-      <a href="#memory-layout" class="nav-item"><span>5</span> Memory Layout</a>
-      <a href="#strides" class="nav-item"><span>6</span> Strides</a>
-      <a href="#performance" class="nav-item"><span>7</span> Performance Tips</a>
-
-      <div class="nav-title">Iteration</div>
-      <a href="#iteration" class="nav-item"><span>8</span> Iteration</a>
-      <a href="#apply-along" class="nav-item"><span>9</span> Apply Along Axis</a>
-      <a href="#vectorize" class="nav-item"><span>10</span> Vectorize Function</a>
-
-      <div class="nav-title">I/O Operations</div>
-      <a href="#text-files" class="nav-item"><span>11</span> Text Files</a>
-      <a href="#binary-files" class="nav-item"><span>12</span> Binary Files</a>
-      <a href="#numpy-savez" class="nav-item"><span>13</span> NPZ Format</a>
-
-      <div class="nav-title">Special Arrays</div>
-      <a href="#structured-arrays" class="nav-item"><span>14</span> Structured Arrays</a>
-      <a href="#masked-arrays" class="nav-item"><span>15</span> Masked Arrays</a>
-
-      <div class="nav-title">Linear Algebra</div>
-      <a href="#dot-product" class="nav-item"><span>16</span> Dot Product</a>
-      <a href="#matrix-operations" class="nav-item"><span>17</span> Matrix Operations</a>
-      <a href="#decompositions" class="nav-item"><span>18</span> Decompositions</a>
-    </nav>
-
     <div class="page-wrap">
       <section class="hero">
         <p class="eyebrow">NumPy Guide</p>

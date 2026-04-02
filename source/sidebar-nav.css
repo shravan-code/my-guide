@@ -1,8 +1,31 @@
+@import url("./components/page-shell.css");
+@import url("./components/content-nav.css");
+
 /* ============================================
    SIDEBAR NAVIGATION - Vibrant Styles
    ============================================ */
 
 /* ---- Sidebar Container ---- */
+body.home-with-sidebar main.main-content {
+  display: block;
+  grid-template-columns: none;
+  min-height: 100vh;
+}
+
+body.home-with-sidebar main.main-content > .page-wrap {
+  width: 100%;
+  max-width: none;
+}
+
+/* Hide legacy page-level controls when shared sidebar-nav is active */
+body.home-with-sidebar #sidebar-toggle,
+body.home-with-sidebar #sidebar-overlay,
+body.home-with-sidebar #theme-toggle,
+body.home-with-sidebar .sidebar-toggle,
+body.home-with-sidebar .sidebar-overlay {
+  display: none !important;
+}
+
 body.home-with-sidebar .sidebar-nav {
   position: fixed;
   left: 0;
@@ -870,11 +893,84 @@ body.dark .sidebar-mobile-theme-toggle:hover {
   }
 }
 
+/* ---- Shared non-home shell overrides ---- */
+body.non-home-shell .sidebar-nav,
+body.non-home-shell .sidebar-nav:hover {
+  width: var(--sidebar-width);
+  align-items: flex-start;
+  padding-left: var(--space-3);
+}
+
+body.non-home-shell .sidebar-brand,
+body.non-home-shell .sidebar-nav:hover .sidebar-brand {
+  justify-content: flex-start;
+}
+
+body.non-home-shell .sidebar-brand-text,
+body.non-home-shell .sidebar-link-text,
+body.non-home-shell .sidebar-nav .sidebar-link .submenu-arrow,
+body.non-home-shell .sidebar-theme-toggle .toggle-label,
+body.non-home-shell .sidebar-nav:hover .sidebar-theme-toggle .toggle-label {
+  opacity: 1;
+  width: auto;
+  transform: none;
+}
+
+body.non-home-shell .sidebar-bottom {
+  width: 100%;
+}
+
+body.non-home-shell .sidebar-theme-toggle {
+  justify-content: flex-start;
+  width: 100%;
+}
+
+body.non-home-shell .sidebar-mobile-theme-toggle,
+body.non-home-shell #theme-toggle,
+body.non-home-shell .theme-toggle,
+body.non-home-shell .mobile-menu-toggle,
+body.non-home-shell .header-actions {
+  display: none !important;
+}
+
+/* Hide any remaining legacy page-local sidebars and controls */
+body.non-home-shell nav.sidebar,
+body.non-home-shell #sidebar,
+body.non-home-shell .sidebar-toggle,
+body.non-home-shell .sidebar-overlay {
+  display: none !important;
+}
+
+@media (max-width: 1024px) {
+  body.non-home-shell .sidebar-nav,
+  body.non-home-shell .sidebar-nav:hover {
+    width: min(320px, 88vw);
+    max-width: 320px;
+    transform: translateX(-100%);
+    padding-left: var(--space-4);
+  }
+
+  body.non-home-shell .sidebar-nav.open {
+    transform: translateX(0);
+  }
+
+  body.non-home-shell .sidebar-mobile-toggle {
+    display: flex;
+    position: fixed;
+    top: 0.75rem;
+    right: 0.75rem;
+    left: auto;
+    z-index: 2002;
+  }
+}
+
 @media (max-width: 768px) {
   body.home-with-sidebar .sidebar-nav {
     width: min(280px, 85vw);
     max-width: 280px;
     padding-top: calc(var(--topbar-height) + var(--space-4));
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
   }
 
   /* Always show logo and text in mobile sidebar */

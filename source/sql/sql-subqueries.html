@@ -15,18 +15,10 @@
   <link rel="stylesheet" href="../sidebar-nav.css" />
 </head>
 
-<body class="home-with-sidebar with-sidebar">
+<body class="home-with-sidebar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
-
-  <div id="sidebar-overlay" class="sidebar-overlay"></div>
-  <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-      <line x1="9" y1="3" x2="9" y2="21"></line>
-    </svg>
-  </button>
 
   <main class="main-content">
     <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -38,35 +30,6 @@
       <span class="separator">›</span>
       <span class="current">Subqueries</span>
     </nav>
-    <nav class="sidebar" id="sidebar">
-      <div class="logo">
-        <span class="logo-text">SQL Subqueries</span>
-      </div>
-
-      <div class="nav-title">Subquery Basics</div>
-      <a href="#subquery-concepts" class="nav-item active"><span>1</span> Subquery Concepts</a>
-      <a href="#scalar-subquery" class="nav-item"><span>2</span> Scalar Subqueries</a>
-      <a href="#row-subquery" class="nav-item"><span>3</span> Row Subqueries</a>
-
-      <div class="nav-title">WHERE Subqueries</div>
-      <a href="#in-subquery" class="nav-item"><span>4</span> IN Subqueries</a>
-      <a href="#exists-subquery" class="nav-item"><span>5</span> EXISTS Subqueries</a>
-      <a href="#comparison-subquery" class="nav-item"><span>6</span> Comparison Operators</a>
-
-      <div class="nav-title">Derived Tables</div>
-      <a href="#from-subquery" class="nav-item"><span>7</span> FROM Subqueries</a>
-      <a href="#lateral-subquery" class="nav-item"><span>8</span> LATERAL Subqueries</a>
-
-      <div class="nav-title">CTEs</div>
-      <a href="#basic-cte" class="nav-item"><span>9</span> Basic CTEs</a>
-      <a href="#recursive-cte" class="nav-item"><span>10</span> Recursive CTEs</a>
-      <a href="#cte-advanced" class="nav-item"><span>11</span> Advanced CTEs</a>
-
-      <div class="nav-title">Advanced</div>
-      <a href="#correlated" class="nav-item"><span>12</span> Correlated Subqueries</a>
-      <a href="#optimization" class="nav-item"><span>13</span> Optimization Tips</a>
-    </nav>
-
     <div class="page-wrap">
       <section class="hero">
         <p class="eyebrow">SQL Guide</p>

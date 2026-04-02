@@ -1,0 +1,66 @@
+:root {
+  --content-nav-width: 260px;
+  --content-nav-gap: 1.5rem;
+  --page-shell-padding-x: 1.5rem;
+  --page-shell-padding-top: calc(var(--topbar-height) + var(--space-4));
+}
+
+body.non-home-shell {
+  min-height: 100vh;
+}
+
+body.non-home-shell main,
+body.non-home-shell main.main-content {
+  margin-left: var(--sidebar-width) !important;
+  width: calc(100% - var(--sidebar-width)) !important;
+  min-height: 100vh;
+  padding: var(--page-shell-padding-top) var(--page-shell-padding-x) var(--space-8) !important;
+  transition: margin-left 0.3s ease, width 0.3s ease, padding-right 0.3s ease;
+}
+
+body.non-home-shell .page-wrap {
+  width: 100%;
+  max-width: min(var(--content-max), calc(100vw - var(--sidebar-width) - (var(--page-shell-padding-x) * 2)));
+  margin: 0 auto;
+  padding: 0 !important;
+}
+
+body.non-home-shell.has-content-nav .page-wrap {
+  max-width: min(var(--content-max), calc(100vw - var(--sidebar-width) - var(--content-nav-width) - var(--content-nav-gap) - (var(--page-shell-padding-x) * 2)));
+}
+
+body.non-home-shell .hero {
+  margin-bottom: var(--space-6);
+}
+
+body.non-home-shell .page-wrap > * + * {
+  margin-top: 0;
+}
+
+@media (max-width: 1024px) {
+  body.non-home-shell main,
+  body.non-home-shell main.main-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding: var(--page-shell-padding-top) var(--space-4) var(--space-8) !important;
+  }
+
+  body.non-home-shell .page-wrap,
+  body.non-home-shell.has-content-nav .page-wrap {
+    max-width: min(var(--content-max), calc(100vw - (var(--space-4) * 2)));
+    padding: 0 !important;
+  }
+}
+
+@media (max-width: 640px) {
+  body.non-home-shell main,
+  body.non-home-shell main.main-content {
+    padding: calc(var(--topbar-height) + var(--space-3)) var(--space-3) var(--space-8) !important;
+  }
+
+  body.non-home-shell .page-wrap,
+  body.non-home-shell.has-content-nav .page-wrap {
+    max-width: 100%;
+    padding: 0 !important;
+  }
+}

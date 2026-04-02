@@ -65,10 +65,6 @@
     </div>
   </main>
 
-  <footer class="bottom-bar">
-    <span class="current-page-path" id="current-path"></span>
-  </footer>
-
   <script src="../app.js"></script>
   <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -88,10 +84,6 @@
     scrollToTopBtn.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-
-      updateCareerTimer();
-      setInterval(updateCareerTimer, 86400000);
-    }
 
   </script>
 <script src="../hierarchy.js"></script><script src="../sidebar-nav.js"></script>
