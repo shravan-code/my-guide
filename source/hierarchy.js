@@ -62,6 +62,16 @@ var sidebarHierarchy = [
           { label: 'Services', href: 'cloud/cloud-services.html' },
           { label: 'Storage', href: 'cloud/cloud-storage.html' }
         ]
+      },
+      {
+        section: 'apis',
+        label: 'APIs',
+        href: 'apis/index.html',
+        children: [
+          { label: 'Overview', href: 'apis/index.html' },
+          { label: 'Concepts', href: 'apis/concepts.html' },
+          { label: 'Types', href: 'apis/types.html' }
+        ]
       }
     ]
   },
