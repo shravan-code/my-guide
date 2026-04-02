@@ -4,7 +4,7 @@
 @media (max-width: 920px) {
   .topbar {
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
     padding: 0.75rem 1rem;
   }
@@ -14,33 +14,31 @@
   }
 
   .brand {
-    grid-column: 2;
+    grid-column: 1;
     grid-row: 1;
-    justify-self: center;
+    justify-self: start;
     z-index: 10;
     pointer-events: auto;
   }
 
   .header-actions {
-    grid-column: 1 / -1;
+    grid-column: 3;
     grid-row: 1;
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    width: auto;
+    display: flex;
     align-items: center;
+    justify-content: flex-end;
+    gap: 0.4rem;
     z-index: 5;
   }
 
   .mobile-menu-toggle {
-    display: flex;
-    grid-column: 1;
-    justify-self: start;
+    display: none;
   }
 
   .theme-toggle,
   .portfolio-link {
-    grid-column: 3;
-    justify-self: end;
+    display: none;
   }
 
   .menu {
