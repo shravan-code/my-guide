@@ -165,6 +165,7 @@
 
     document.body.insertAdjacentHTML('afterbegin', buildSidebarHTML());
     injectMobileControls();
+    injectBottomBar();
     setupThemeToggle();
     highlightActiveLink();
     setupSubmenu();
@@ -219,21 +220,17 @@
     var linksHTML = sidebarHierarchy.slice(0, -1).map(function (item) {
       return buildMenuItem(item, false);
     }).join('\n');
-    var portfolioHTML = buildMenuItem(sidebarHierarchy[sidebarHierarchy.length - 1], false);
+
+    // Add portfolio as a regular menu item after Roadmaps (with children)
+    var portfolioItem = sidebarHierarchy[sidebarHierarchy.length - 1];
+    var portfolioHTML = buildMenuItem(portfolioItem, false);
 
     return '<aside class="sidebar-nav">' +
       '<a class="sidebar-brand" href="' + rootPath + 'index.html" title="Home">' +
       '<img src="' + rootPath + 'assets/images/logo.png" alt="Data Sheets" class="sidebar-logo" />' +
       '<span class="sidebar-brand-text">Data Sheets</span>' +
       '</a>' +
-      '<nav class="sidebar-menu" aria-label="Main navigation">' + linksHTML + '</nav>' +
-      '<div class="sidebar-bottom">' +
-      portfolioHTML +
-      '<button class="sidebar-theme-toggle" type="button" aria-label="Toggle light and dark mode" title="Toggle Theme">' +
-      '<span class="toggle-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor">' + toggleIconChar + '</svg></span>' +
-      '<span class="toggle-label">' + toggleLabelTxt + '</span>' +
-      '</button>' +
-      '</div>' +
+      '<nav class="sidebar-menu" aria-label="Main navigation">' + linksHTML + '\n' + portfolioHTML + '</nav>' +
       '</aside>';
   }
 
@@ -245,29 +242,59 @@
     document.body.insertAdjacentHTML('beforeend', hamburgerBtn + overlay);
   }
 
+  function injectBottomBar() {
+    var isDark = document.body.classList.contains('dark');
+    // Sunrise for light mode, crescent moon for dark mode
+    var toggleIconChar = isDark
+      ? '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>'
+      : '<path d="M17 18a5 5 0 0 0-10 0"/><line x1="12" y1="2" x2="12" y2="9"/><line x1="4.22" y1="10.22" x2="5.64" y2="11.64"/><line x1="1" y1="18" x2="3" y2="18"/><line x1="21" y1="18" x2="23" y2="18"/><line x1="18.36" y1="11.64" x2="19.78" y2="10.22"/><line x1="23" y1="22" x2="1" y2="22"/><polyline points="8 6 12 2 16 6"/>';
+
+    var bar = '<footer class="bottom-bar">' +
+      '<span class="bottom-bar-right">' +
+      '<a class="bottom-bar-home" href="' + rootPath + 'index.html" title="Home">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>' +
+      '</a>' +
+      '<a class="bottom-bar-portfolio" href="' + rootPath + 'source/portfolios/portfolio.html" title="Portfolio">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>' +
+      '</a>' +
+      '<button class="bottom-bar-theme-toggle" type="button" aria-label="Toggle theme" title="Toggle Theme">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + toggleIconChar + '</svg>' +
+      '</button>' +
+      '</span>' +
+      '</footer>';
+    document.body.insertAdjacentHTML('beforeend', bar);
+  }
+
   function setupThemeToggle() {
     var storageKey = 'data-guide-theme';
-    var sidebarToggle = document.querySelector('.sidebar-theme-toggle');
-    if (!sidebarToggle) return;
-
-    sidebarToggle.addEventListener('click', toggleTheme);
+    var sunriseIcon = '<path d="M17 18a5 5 0 0 0-10 0"/><line x1="12" y1="2" x2="12" y2="9"/><line x1="4.22" y1="10.22" x2="5.64" y2="11.64"/><line x1="1" y1="18" x2="3" y2="18"/><line x1="21" y1="18" x2="23" y2="18"/><line x1="18.36" y1="11.64" x2="19.78" y2="10.22"/><line x1="23" y1="22" x2="1" y2="22"/><polyline points="8 6 12 2 16 6"/>';
+    var moonIcon = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
 
     function toggleTheme() {
       var isDark = document.body.classList.contains('dark');
       var nextTheme = isDark ? 'light' : 'dark';
-      var newIconHTML = isDark
-        ? '<path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z" />'
-        : '<path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41.39.39 1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41.39.39 1.03.39 1.41 0l1.06-1.06z"/>';
+      var newIcon = isDark ? sunriseIcon : moonIcon;
 
       document.body.classList.toggle('dark', !isDark);
       document.documentElement.setAttribute('data-theme', nextTheme);
       localStorage.setItem(storageKey, nextTheme);
-      document.querySelectorAll('.sidebar-theme-toggle .toggle-icon svg').forEach(function (el) {
-        el.innerHTML = newIconHTML;
+
+      // Update bottom bar theme toggle icon
+      document.querySelectorAll('.bottom-bar-theme-toggle svg').forEach(function (el) {
+        el.innerHTML = newIcon;
       });
-      document.querySelectorAll('.sidebar-theme-toggle .toggle-label').forEach(function (el) {
-        el.textContent = isDark ? 'Dark' : 'Light';
-      });
+    }
+
+    // Attach sidebar theme toggle (if exists)
+    var sidebarToggle = document.querySelector('.sidebar-theme-toggle');
+    if (sidebarToggle) {
+      sidebarToggle.addEventListener('click', toggleTheme);
+    }
+
+    // Attach bottom bar theme toggle (always)
+    var bottomBarThemeToggle = document.querySelector('.bottom-bar-theme-toggle');
+    if (bottomBarThemeToggle) {
+      bottomBarThemeToggle.addEventListener('click', toggleTheme);
     }
   }
 
@@ -281,6 +308,11 @@
 
     sidebarMenu.addEventListener('mouseleave', function () {
       document.body.classList.remove('sidebar-expanded');
+      // Close all open submenus when sidebar collapses
+      sidebarMenu.querySelectorAll('.sidebar-item.has-submenu.open').forEach(function (item) {
+        item.classList.remove('open');
+        syncExpandedState(item);
+      });
     });
 
     function syncExpandedState(item) {

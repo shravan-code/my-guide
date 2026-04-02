@@ -5,36 +5,145 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Python Interview Prep — VS Comparisons</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Sora:wght@300;400;600;700&display=swap"
-    rel="stylesheet">
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../hub.css" />
+  <link rel="stylesheet" href="../sidebar-nav.css" />
+  <link rel="stylesheet" href="../python/python.css" />
+  <style>
+    body.home-with-sidebar .content-sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      width: 280px;
+      min-width: 280px;
+      overflow-y: auto;
+      scrollbar-width: none;
+      padding: var(--space-4);
+    }
+    body.home-with-sidebar .content-sidebar::-webkit-scrollbar { display: none; }
+    body.home-with-sidebar .content-main {
+      flex: 1;
+      min-width: 0;
+      padding: var(--space-6) var(--space-4);
+      max-width: 900px;
+    }
+    .section-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-accent);
+      font-weight: 600;
+      padding: var(--space-2) var(--space-3);
+      margin-top: var(--space-3);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      border-radius: var(--radius-sm);
+      transition: background 0.2s ease;
+    }
+    .section-title:hover { background: rgba(15, 139, 139, 0.08); }
+    .section-title .arrow { transition: transform 0.2s ease; font-size: 0.6rem; }
+    .section-title.collapsed .arrow { transform: rotate(-90deg); }
+    .section-items { display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 0 var(--space-2) var(--space-2); }
+    .section-items.hidden { display: none; }
+    .topic-tag {
+      padding: 0.35rem 0.75rem;
+      background: var(--color-bg);
+      border: 1px solid rgba(15, 139, 139, 0.15);
+      border-radius: var(--radius-sm);
+      font-size: 0.78rem;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .topic-tag:hover {
+      border-color: var(--color-accent);
+      color: var(--color-text);
+      background: rgba(15, 139, 139, 0.08);
+    }
+    .topic-tag.active {
+      background: linear-gradient(135deg, rgba(15, 139, 139, 0.15), rgba(8, 178, 177, 0.1));
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+    }
+    .welcome-state {
+      text-align: center;
+      padding: var(--space-10) var(--space-4);
+      color: var(--color-text-muted);
+    }
+    .welcome-state h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.3rem;
+      color: var(--color-text);
+      margin: var(--space-4) 0 var(--space-2);
+    }
+    .welcome-state p { font-size: 0.9rem; }
+    .explanation-card {
+      background: var(--color-bg-alt);
+      border: 1px solid rgba(15, 139, 139, 0.12);
+      border-radius: var(--radius-md);
+      padding: var(--space-5);
+      margin-bottom: var(--space-4);
+    }
+    .explanation-card h3 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-accent);
+      margin: 0 0 var(--space-3);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    .explanation-card p, .explanation-card ul {
+      color: var(--color-text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+    .explanation-card ul { padding-left: 1.25rem; }
+    .explanation-card li { margin-bottom: 0.5rem; }
+    .explanation-card li::marker { color: var(--color-accent); }
+    .explanation-card code {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.82rem;
+      background: rgba(15, 139, 139, 0.08);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      color: var(--color-accent);
+    }
+  </style>
 </head>
 
-<body>
-  <div class="header">
-    <h1>Python Interview <span>Prep</span></h1>
-    <p>Click any comparison topic to get a complete, interview-ready explanation</p>
-    <div class="badge">⚡ 100 Topics · 10 Sections · Fully Offline</div>
-  </div>
-  <div class="container">
-    <div class="sidebar">
-      <div class="search-wrap">
-        <input class="search-input" id="searchInput" type="text" placeholder="Search topics..."
-          oninput="filterItems(this.value)">
-      </div>
-      <div id="sidebarSections"></div>
-    </div>
-    <div class="main" id="mainPanel">
-      <div class="welcome" id="welcomeState">
-        <div class="welcome-icon">🐍</div>
-        <h2>Select a topic to begin</h2>
-        <p>Pick any comparison from the sidebar. All explanations are pre-loaded — no internet needed.</p>
-      </div>
-      <div class="explanation" id="explanationPanel">
-        <div id="contentArea"></div>
+<body class="home-with-sidebar with-sidebar no-topbar">
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <main class="main-content">
+    <div class="page-wrap" style="display: flex; gap: 0; max-width: 100%; padding: 0;">
+      <aside class="content-sidebar" id="topicSidebar">
+        <div id="sidebarSections"></div>
+      </aside>
+      <div class="content-main" id="mainPanel">
+        <div class="welcome-state" id="welcomeState">
+          <div style="font-size: 2.5rem;">🐍</div>
+          <h2>Select a topic to begin</h2>
+          <p>Pick any comparison from the sidebar. All explanations are pre-loaded — no internet needed.</p>
+        </div>
+        <div id="explanationPanel" style="display: none;">
+          <div id="contentArea"></div>
+        </div>
       </div>
     </div>
-  </div>
+  </main>
   <script>
     const DATA = {
       "Shallow Copy vs Deep Copy": {
@@ -758,40 +867,43 @@
     function buildSidebar() {
       const container = document.getElementById('sidebarSections');
       SECTIONS.forEach((sec, si) => {
-        const group = document.createElement('div');
-        group.className = 'section-group open';
-        const header = document.createElement('div');
-        header.className = 'section-header';
-        header.innerHTML = `<span class="section-icon" style="background:${SECTION_COLORS[si]}"></span>${sec.name}<span class="toggle-arrow">▶</span>`;
-        header.addEventListener('click', () => {
-          group.classList.toggle('open');
-          itemsDiv.classList.toggle('collapsed');
+        const section = document.createElement('div');
+        section.className = 'section-group';
+
+        const title = document.createElement('div');
+        title.className = 'section-title collapsed';
+        title.innerHTML = `<span class="arrow">▶</span> ${sec.name}`;
+        title.addEventListener('click', () => {
+          title.classList.toggle('collapsed');
+          items.classList.toggle('hidden');
         });
-        const itemsDiv = document.createElement('div');
-        itemsDiv.className = 'section-items';
+
+        const items = document.createElement('div');
+        items.className = 'section-items hidden';
         sec.items.forEach((item, ii) => {
-          const btn = document.createElement('button');
-          btn.className = 'item-btn';
-          btn.dataset.item = item;
-          btn.textContent = `${ii + 1}. ${item.replace(/`/g, '')}`;
-          btn.addEventListener('click', () => showExplanation(item, btn));
-          itemsDiv.appendChild(btn);
+          const tag = document.createElement('button');
+          tag.className = 'topic-tag';
+          tag.dataset.item = item;
+          tag.textContent = `${ii + 1}. ${item.replace(/`/g, '')}`;
+          tag.addEventListener('click', () => showExplanation(item, tag));
+          items.appendChild(tag);
         });
-        group.appendChild(header);
-        group.appendChild(itemsDiv);
-        container.appendChild(group);
+
+        section.appendChild(title);
+        section.appendChild(items);
+        container.appendChild(section);
       });
     }
 
     function filterItems(q) {
       q = q.toLowerCase();
-      document.querySelectorAll('.item-btn').forEach(btn => {
-        btn.style.display = btn.dataset.item.toLowerCase().includes(q) ? '' : 'none';
+      document.querySelectorAll('.topic-tag').forEach(tag => {
+        tag.style.display = tag.dataset.item.toLowerCase().includes(q) ? '' : 'none';
       });
       document.querySelectorAll('.section-group').forEach(group => {
-        const anyVisible = [...group.querySelectorAll('.item-btn')].some(b => b.style.display !== 'none');
+        const anyVisible = [...group.querySelectorAll('.topic-tag')].some(t => t.style.display !== 'none');
         group.style.display = anyVisible ? '' : 'none';
-        if (q) { group.classList.add('open'); group.querySelector('.section-items').classList.remove('collapsed'); }
+        if (q) { group.querySelector('.section-title').classList.remove('collapsed'); group.querySelector('.section-items').classList.remove('hidden'); }
       });
     }
 
@@ -800,38 +912,46 @@
       activeBtn = btn;
       btn.classList.add('active');
       document.getElementById('welcomeState').style.display = 'none';
-      document.getElementById('explanationPanel').classList.add('visible');
+      document.getElementById('explanationPanel').style.display = 'block';
       const d = DATA[item];
-      if (!d) { document.getElementById('contentArea').innerHTML = '<p style="color:var(--text2)">No data found.</p>'; return; }
+      if (!d) { document.getElementById('contentArea').innerHTML = '<p>No data found.</p>'; return; }
       const cleanItem = item.replace(/`/g, '');
       document.getElementById('contentArea').innerHTML = `
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;flex-wrap:wrap;">
-      <h2 style="font-size:1.35rem;font-weight:700;color:#fff;letter-spacing:-0.02em;">${cleanItem}</h2>
-      <span style="font-size:0.68rem;font-family:'JetBrains Mono',monospace;background:rgba(94,234,212,0.1);border:1px solid rgba(94,234,212,0.25);color:#5eead4;padding:3px 10px;border-radius:20px;">${d.section}</span>
-    </div>
-    <div class="cards-grid">
-      <div class="card">
-        <div class="card-label"><span class="dot dot-def"></span><span class="lbl-def">Definition</span></div>
-        <div class="card-content">${d.definition}</div>
-      </div>
-      <div class="card">
-        <div class="card-label"><span class="dot dot-int"></span><span class="lbl-int">Internal Working</span></div>
-        <div class="card-content">${d.internal_working}</div>
-      </div>
-      <div class="card">
-        <div class="card-label"><span class="dot dot-use"></span><span class="lbl-use">Use Case</span></div>
-        <div class="card-content">${d.use_case}</div>
-      </div>
-      <div class="card">
-        <div class="card-label"><span class="dot dot-pts"></span><span class="lbl-pts">Key Points for Interviewer</span></div>
-        <div class="card-content"><ul>${d.key_points.map(p => `<li>${p}</li>`).join('')}</ul></div>
-      </div>
-    </div>`;
+        <h2 style="font-size:1.4rem;font-weight:700;color:var(--color-text);margin:0 0 0.5rem;font-family:'Sora',sans-serif;">${cleanItem}</h2>
+        <span style="font-size:0.75rem;font-family:'JetBrains Mono',monospace;background:rgba(15,139,139,0.1);border:1px solid rgba(15,139,139,0.25);color:var(--color-accent);padding:3px 10px;border-radius:20px;">${d.section}</span>
+        <div class="explanation-card" style="margin-top:1.5rem;">
+          <h3>📘 Definition</h3>
+          <p>${d.definition}</p>
+        </div>
+        <div class="explanation-card">
+          <h3>⚙️ Internal Working</h3>
+          <p>${d.internal_working}</p>
+        </div>
+        <div class="explanation-card">
+          <h3>🎯 Use Case</h3>
+          <p>${d.use_case}</p>
+        </div>
+        <div class="explanation-card">
+          <h3>📋 Key Points for Interviewer</h3>
+          <ul>${d.key_points.map(p => `<li>${p}</li>`).join('')}</ul>
+        </div>`;
       document.getElementById('mainPanel').scrollTop = 0;
     }
 
     buildSidebar();
+
+    // Auto-select first item from first section
+    const firstSection = document.querySelector('.section-group');
+    if (firstSection) {
+      firstSection.querySelector('.section-title').classList.remove('collapsed');
+      firstSection.querySelector('.section-items').classList.remove('hidden');
+      const firstTag = firstSection.querySelector('.topic-tag');
+      if (firstTag) firstTag.click();
+    }
   </script>
+  <script src="../app.js"></script>
+  <script src="../hierarchy.js"></script>
+  <script src="../sidebar-nav.js"></script>
 </body>
 
 </html>
