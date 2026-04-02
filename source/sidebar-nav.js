@@ -10,7 +10,24 @@
 
   function normalizeHref(href) {
     if (!href) return '';
-    return href.replace(/\\/g, '/').replace(/^\.?\/?source\//, '').replace(/^\//, '');
+
+    var normalized = href
+      .replace(/\\/g, '/')
+      .replace(/[?#].*$/, '')
+      .replace(/^\.?\/?source\//, '')
+      .replace(/^\//, '');
+
+    if (normalized.slice(-1) === '/') {
+      normalized += 'index.html';
+    }
+
+    if (normalized.slice(-11) === '/index.html') {
+      normalized = normalized.slice(0, -11);
+    } else if (normalized === 'index.html') {
+      normalized = '';
+    }
+
+    return normalized;
   }
 
   function getCurrentSourcePath() {
@@ -18,7 +35,7 @@
     var marker = '/source/';
     var index = path.indexOf(marker);
     if (index === -1) return '';
-    return path.substring(index + marker.length);
+    return normalizeHref(path.substring(index + marker.length));
   }
 
   function titleCase(str) {
