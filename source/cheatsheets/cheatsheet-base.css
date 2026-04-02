@@ -137,6 +137,23 @@ body {
   display: block;
 }
 
+body.non-home-shell .sidebar,
+body.non-home-shell .sidebar-toggle,
+body.non-home-shell .sidebar-overlay,
+body.non-home-shell .main-content.sidebar-collapsed .sidebar {
+  display: none !important;
+}
+
+body.non-home-shell .main-content,
+body.non-home-shell main.main-content {
+  display: block !important;
+  grid-template-columns: none !important;
+}
+
+body.non-home-shell .page-wrap {
+  padding: 0 !important;
+}
+
 .sidebar-toggle {
   display: flex;
   position: fixed;

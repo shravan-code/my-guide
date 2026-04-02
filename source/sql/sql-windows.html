@@ -15,18 +15,10 @@
   <link rel="stylesheet" href="../sidebar-nav.css" />
 </head>
 
-<body class="home-with-sidebar with-sidebar">
+<body class="home-with-sidebar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
-
-  <div id="sidebar-overlay" class="sidebar-overlay"></div>
-  <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-      <line x1="9" y1="3" x2="9" y2="21"></line>
-    </svg>
-  </button>
 
   <main class="main-content">
     <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -38,44 +30,6 @@
       <span class="separator">›</span>
       <span class="current">Window Functions</span>
     </nav>
-    <nav class="sidebar" id="sidebar">
-      <div class="logo">
-        <span class="logo-text">Window Functions</span>
-      </div>
-
-      <div class="nav-title">Fundamentals</div>
-      <a href="#window-concepts" class="nav-item active"><span>1</span> Window Concepts</a>
-      <a href="#syntax" class="nav-item"><span>2</span> OVER Syntax</a>
-      <a href="#partition-by" class="nav-item"><span>3</span> PARTITION BY</a>
-      <a href="#order-by-window" class="nav-item"><span>4</span> ORDER BY in Windows</a>
-
-      <div class="nav-title">Ranking Functions</div>
-      <a href="#row-number" class="nav-item"><span>5</span> ROW_NUMBER</a>
-      <a href="#rank-functions" class="nav-item"><span>6</span> RANK & DENSE_RANK</a>
-      <a href="#ntile" class="nav-item"><span>7</span> NTILE</a>
-
-      <div class="nav-title">Value Functions</div>
-      <a href="#lag-lead" class="nav-item"><span>8</span> LAG & LEAD</a>
-      <a href="#first-last" class="nav-item"><span>9</span> FIRST_VALUE & LAST_VALUE</a>
-      <a href="#nth-value" class="nav-item"><span>10</span> NTH_VALUE</a>
-
-      <div class="nav-title">Aggregate Windows</div>
-      <a href="#aggregate-windows" class="nav-item"><span>11</span> Aggregate Functions</a>
-      <a href="#running-totals" class="nav-item"><span>12</span> Running Totals</a>
-      <a href="#moving-averages" class="nav-item"><span>13</span> Moving Averages</a>
-
-      <div class="nav-title">Frame Clauses</div>
-      <a href="#frame-basics" class="nav-item"><span>14</span> Frame Basics</a>
-      <a href="#rows-vs-range" class="nav-item"><span>15</span> ROWS vs RANGE</a>
-      <a href="#group-bound" class="nav-item"><span>16</span> GROUP & EXCLUDE</a>
-
-      <div class="nav-title">Advanced</div>
-      <a href="#percent-rank" class="nav-item"><span>17</span> PERCENT_RANK & CUME_DIST</a>
-      <a href="#distribution" class="nav-item"><span>18</span> Distribution Functions</a>
-      <a href="#window-aliases" class="nav-item"><span>19</span> Window Aliases</a>
-      <a href="#optimization" class="nav-item"><span>20</span> Optimization Tips</a>
-    </nav>
-
     <div class="page-wrap">
       <section class="hero">
         <p class="eyebrow">SQL Guide</p>

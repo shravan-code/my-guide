@@ -6,7 +6,8 @@
 .breadcrumb {
   position: fixed;
   top: var(--space-3);
-  left: var(--breadcrumb-left);
+  left: 50%;
+  transform: translateX(-50%);
   z-index: var(--z-breadcrumb);
   display: inline-flex;
   align-items: center;
