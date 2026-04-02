@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Python Interview Prep — VS Comparisons</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../hub.css" />
+  <link rel="stylesheet" href="../sidebar-nav.css" />
+  <link rel="stylesheet" href="../python/python.css" />
+  <style>
+    body.home-with-sidebar .content-sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      width: 280px;
+      min-width: 280px;
+      overflow-y: auto;
+      scrollbar-width: none;
+      padding: var(--space-4);
+    }
+    body.home-with-sidebar .content-sidebar::-webkit-scrollbar { display: none; }
+    body.home-with-sidebar .content-main {
+      flex: 1;
+      min-width: 0;
+      padding: var(--space-6) var(--space-4);
+      max-width: 900px;
+    }
+    .section-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-accent);
+      font-weight: 600;
+      padding: var(--space-2) var(--space-3);
+      margin-top: var(--space-3);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      border-radius: var(--radius-sm);
+      transition: background 0.2s ease;
+    }
+    .section-title:hover { background: rgba(15, 139, 139, 0.08); }
+    .section-title .arrow { transition: transform 0.2s ease; font-size: 0.6rem; }
+    .section-title.collapsed .arrow { transform: rotate(-90deg); }
+    .section-items { display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 0 var(--space-2) var(--space-2); }
+    .section-items.hidden { display: none; }
+    .topic-tag {
+      padding: 0.35rem 0.75rem;
+      background: var(--color-bg);
+      border: 1px solid rgba(15, 139, 139, 0.15);
+      border-radius: var(--radius-sm);
+      font-size: 0.78rem;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .topic-tag:hover {
+      border-color: var(--color-accent);
+      color: var(--color-text);
+      background: rgba(15, 139, 139, 0.08);
+    }
+    .topic-tag.active {
+      background: linear-gradient(135deg, rgba(15, 139, 139, 0.15), rgba(8, 178, 177, 0.1));
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+    }
+    .welcome-state {
+      text-align: center;
+      padding: var(--space-10) var(--space-4);
+      color: var(--color-text-muted);
+    }
+    .welcome-state h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.3rem;
+      color: var(--color-text);
+      margin: var(--space-4) 0 var(--space-2);
+    }
+    .welcome-state p { font-size: 0.9rem; }
+    .explanation-card {
+      background: var(--color-bg-alt);
+      border: 1px solid rgba(15, 139, 139, 0.12);
+      border-radius: var(--radius-md);
+      padding: var(--space-5);
+      margin-bottom: var(--space-4);
+    }
+    .explanation-card h3 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-accent);
+      margin: 0 0 var(--space-3);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    .explanation-card p, .explanation-card ul {
+      color: var(--color-text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+    .explanation-card ul { padding-left: 1.25rem; }
+    .explanation-card li { margin-bottom: 0.5rem; }
+    .explanation-card li::marker { color: var(--color-accent); }
+    .explanation-card code {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.82rem;
+      background: rgba(15, 139, 139, 0.08);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      color: var(--color-accent);
+    }
+  </style>
+</head>
+
+<body class="home-with-sidebar with-sidebar no-topbar">
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <main class="main-content">
+    <div class="page-wrap" style="display: flex; gap: 0; max-width: 100%; padding: 0;">
+      <aside class="content-sidebar" id="topicSidebar">
+        <div id="sidebarSections"></div>
+      </aside>
+      <div class="content-main" id="mainPanel">
+        <div class="welcome-state" id="welcomeState">
+          <div style="font-size: 2.5rem;">🐍</div>
+          <h2>Select a topic to begin</h2>
+          <p>Pick any comparison from the sidebar. All explanations are pre-loaded — no internet needed.</p>
+        </div>
+        <div id="explanationPanel" style="display: none;">
+          <div id="contentArea"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script>
+    const DATA = {
+      "Shallow Copy vs Deep Copy": {
+        section: "Core Python Basics",
+        definition: "A <strong>shallow copy</strong> creates a new object but inserts references to the objects found in the original. A <strong>deep copy</strong> creates a new object and recursively copies all nested objects inside it. In Python, <code>copy.copy()</code> gives a shallow copy while <code>copy.deepcopy()</code> gives a deep copy.",
+        internal_working: "Shallow copy uses <code>PyObject_Copy</code> internally which duplicates the top-level container but leaves inner object pointers unchanged — both copies share the same inner objects. Deep copy uses a memo dictionary to track already-copied objects (avoiding infinite loops on circular references) and recursively allocates new memory for every nested object in the hierarchy.",
+        use_case: "Use <strong>shallow copy</strong> when you want a new list/dict container but are fine sharing inner immutable values — e.g., copying a list of strings: <code>b = a.copy()</code>. Use <strong>deep copy</strong> when your object contains nested mutable structures like a list of lists and you don't want changes in one copy to affect the other — e.g., copying a game board: <code>new_board = copy.deepcopy(board)</code>.",
+        key_points: ["Shallow copy only duplicates the outermost container; nested mutables are still shared between original and copy.", "Modifying a nested list in a shallow copy will affect the original — this is the classic interview gotcha.", "Deep copy is slower and uses more memory because it recursively duplicates every nested object.", "For built-in collections, <code>list.copy()</code>, <code>dict.copy()</code>, and slice <code>[:]</code> all produce shallow copies.", "The <code>copy</code> module's <code>deepcopy</code> handles circular references using a memo dict to avoid infinite recursion."]
+      },
+      "List vs Tuple": {
+        section: "Core Python Basics",
+        definition: "A <strong>list</strong> is a mutable, ordered collection of items that can be changed after creation. A <strong>tuple</strong> is an immutable, ordered collection whose elements cannot be modified after creation. Both support indexing, slicing, and heterogeneous types.",
+        internal_working: "Lists are backed by a dynamic array (<code>PyListObject</code>) that over-allocates memory on growth — CPython typically doubles capacity. Tuples (<code>PyTupleObject</code>) are fixed-size arrays allocated once at creation time; CPython also maintains a free-list cache for small tuples (length 0–20) making their creation faster. Tuple immutability allows CPython to intern/reuse them and enables them to be hashable when they contain only hashable elements.",
+        use_case: "Use <strong>list</strong> for collections that will grow or change — e.g., appending user inputs: <code>items.append(x)</code>. Use <strong>tuple</strong> for fixed records or heterogeneous data that should not change — e.g., a geographic coordinate <code>location = (lat, lon)</code>, or as dictionary keys since tuples are hashable: <code>d[(1, 2)] = 'point'</code>.",
+        key_points: ["Tuples are hashable (if all elements are hashable) so they can be used as dictionary keys; lists cannot.", "Tuples consume less memory than equivalent lists because there's no over-allocation headroom.", "Tuple creation and iteration is slightly faster than list due to fixed-size allocation and CPython's free-list optimization.", "<code>list</code> has many mutation methods (<code>append</code>, <code>remove</code>, <code>sort</code>); tuple only has <code>count</code> and <code>index</code>.", "A tuple with one element needs a trailing comma: <code>(1,)</code> — without it, <code>(1)</code> is just an integer."]
+      },
+      "List vs Set": {
+        section: "Core Python Basics",
+        definition: "A <strong>list</strong> is an ordered, indexed collection that allows duplicate elements. A <strong>set</strong> is an unordered, unindexed collection that stores only unique elements. Lists maintain insertion order; sets do not guarantee any order.",
+        internal_working: "Lists are contiguous dynamic arrays. Sets are implemented as hash tables (<code>PySetObject</code>) where each element's hash determines its bucket. On insertion, Python computes <code>hash(element)</code> and finds the correct slot; collisions are resolved via open addressing. This gives O(1) average-case membership testing vs O(n) for lists.",
+        use_case: "Use <strong>list</strong> when order matters or duplicates are needed — e.g., storing a sequence of log messages. Use <strong>set</strong> when you need fast membership testing or deduplication — e.g., <code>unique_ids = set(all_ids)</code> removes duplicates instantly, or <code>if user_id in active_set</code> is O(1) vs O(n) for a list.",
+        key_points: ["Set membership test <code>in</code> is O(1) on average; list <code>in</code> is O(n) — critical for large-scale lookups.", "Sets require elements to be hashable — you cannot store lists or dicts in a set.", "Sets support mathematical operations: <code>union(|)</code>, <code>intersection(&)</code>, <code>difference(-)</code>, <code>symmetric_difference(^)</code>.", "Converting a list to a set removes duplicates but loses order; converting back gives unpredictable ordering.", "Sets use more memory per element than lists due to the hash table overhead and load-factor (~66%) constraint."]
+      },
+      "List vs Dictionary": {
+        section: "Core Python Basics",
+        definition: "A <strong>list</strong> stores elements accessed by integer index (0-based, sequential). A <strong>dictionary</strong> stores key-value pairs accessed by arbitrary hashable keys. Lists are ordered sequences; dictionaries (since Python 3.7+) maintain insertion order but are fundamentally key-value mappings.",
+        internal_working: "Lists use contiguous memory arrays; indexing is O(1) via pointer arithmetic. Dicts use a compact hash table (redesigned in CPython 3.6): keys are stored in an array in insertion order, with a separate sparse indices array. Lookup computes <code>hash(key)</code>, probes the indices array, then retrieves the value — average O(1) but worst-case O(n) with many hash collisions.",
+        use_case: "Use <strong>list</strong> for ordered sequences accessed by position — e.g., a queue of tasks. Use <strong>dict</strong> for named attributes or lookups by meaningful keys — e.g., a config object <code>{'host': 'localhost', 'port': 5432}</code>, or counting word frequencies: <code>freq[word] = freq.get(word, 0) + 1</code>.",
+        key_points: ["Dict lookup by key is O(1); list lookup by value is O(n) — always use a dict when you'll frequently look up by a non-positional identifier.", "Dictionary keys must be hashable; values can be any type including mutable ones.", "Python 3.7+ guarantees dict insertion order as part of the language spec (not just CPython implementation).", "Dicts use roughly 3× more memory than a list of the same number of items due to hash table overhead.", "<code>dict.get(key, default)</code> is safer than <code>dict[key]</code> which raises <code>KeyError</code> on missing keys."]
+      },
+      "Set vs Dictionary": {
+        section: "Core Python Basics",
+        definition: "A <strong>set</strong> is an unordered collection of unique hashable elements with no associated values. A <strong>dictionary</strong> is an unordered collection of unique hashable keys, each mapped to a value. A set is essentially a dict with only keys and no values.",
+        internal_working: "Internally, CPython's set and dict are both hash tables. A set's implementation (<code>PySetObject</code>) is modeled after dict but omits the values array — it only stores element hashes and pointers. Both resolve collisions with open addressing. Because sets don't need to store values, they are slightly more memory-efficient than a dict with dummy values.",
+        use_case: "Use <strong>set</strong> for membership testing and set-algebra operations — e.g., finding common users between two datasets: <code>common = set_a & set_b</code>. Use <strong>dict</strong> when each unique key maps to associated data — e.g., caching computed results: <code>cache[input] = result</code>.",
+        key_points: ["Both offer O(1) average-case add, remove, and membership test.", "A <code>set</code> can be thought of as a <code>dict</code> with all values set to <code>None</code> or a dummy sentinel.", "Sets support <code>union</code>, <code>intersection</code>, <code>difference</code> — dicts have no such algebraic operations natively.", "<code>frozenset</code> is the immutable, hashable version of set; there's no equivalent for dict (though <code>types.MappingProxyType</code> provides a read-only view).", "Dict comprehensions <code>{k: v ...}</code> and set comprehensions <code>{x ...}</code> look similar but are different — an empty <code>{}</code> is always a dict, never a set."]
+      },
+      "Mutable vs Immutable": {
+        section: "Core Python Basics",
+        definition: "A <strong>mutable</strong> object can be changed in-place after creation (its state/content can be modified without creating a new object). An <strong>immutable</strong> object cannot be changed after creation — any 'modification' produces a new object. Mutability is a property of the object type, not the variable.",
+        internal_working: "In CPython, all objects have a type that defines whether in-place modification is allowed. Immutable objects like <code>int</code>, <code>str</code>, <code>tuple</code>, and <code>frozenset</code> have no methods that alter their internal state. Because their value never changes, CPython can safely intern and share them (e.g., small integers -5 to 256 are singletons). Mutable objects like <code>list</code>, <code>dict</code>, and <code>set</code> expose methods (<code>append</code>, <code>__setitem__</code>, <code>add</code>) that modify the underlying C struct in-place.",
+        use_case: "Use <strong>immutable</strong> types for dict keys, set elements, or data you want to protect from accidental modification — e.g., a coordinate <code>(lat, lon)</code> as a dict key. Use <strong>mutable</strong> types when data needs to evolve — e.g., building a result list by appending items in a loop.",
+        key_points: ["Only hashable (typically immutable) objects can be used as dict keys or set elements.", "Variables in Python hold references — reassigning a variable doesn't mutate the object, it rebinds the reference.", "String 'concatenation' <code>s += 'x'</code> actually creates a new string object each time — O(n²) in a loop; use <code>''.join()</code> instead.", "Passing a mutable object to a function allows the function to modify it in-place, affecting the caller — a common source of bugs.", "Custom classes are mutable by default; use <code>__slots__</code> or <code>dataclasses(frozen=True)</code> to create immutable-like objects."]
+      },
+      "`is` vs `==`": {
+        section: "Core Python Basics",
+        definition: "<code>==</code> is the <strong>equality operator</strong> — it checks whether two objects have the same value by calling <code>__eq__</code>. <code>is</code> is the <strong>identity operator</strong> — it checks whether two variables point to the exact same object in memory (same <code>id()</code>).",
+        internal_working: "<code>is</code> compiles to a single pointer comparison in CPython: <code>obj1 == obj2</code> at the C pointer level. <code>==</code> triggers the object's <code>__eq__</code> method, which for built-in types can involve element-by-element comparison. Due to CPython's interning of small integers (-5 to 256) and short strings, <code>is</code> can return <code>True</code> for these even when you might not expect it — this is an implementation detail, not a language guarantee.",
+        use_case: "Use <code>is</code> to check against singletons: <code>if x is None</code>, <code>if x is True</code>, <code>if x is False</code> — PEP 8 mandates this. Use <code>==</code> for value comparison: <code>if result == expected</code>, comparing two lists, strings, or custom objects by value.",
+        key_points: ["Always use <code>is None</code> / <code>is not None</code> — never <code>== None</code>; a custom object could override <code>__eq__</code> to return <code>True</code> when compared with <code>None</code>.", "Small integers (-5 to 256) are interned by CPython, so <code>a is b</code> may be <code>True</code> — this is an implementation quirk, never rely on it.", "<code>is</code> is faster than <code>==</code> because it skips method dispatch entirely.", "Two separate empty lists have the same value (<code>[] == []</code> is <code>True</code>) but are different objects (<code>[] is []</code> is <code>False</code>).", "Using <code>is</code> to compare strings or numbers (other than singletons) is a code smell and may cause subtle bugs."]
+      },
+      "`append()` vs `extend()`": {
+        section: "Core Python Basics",
+        definition: "<code>list.append(x)</code> adds a <strong>single element</strong> <code>x</code> to the end of the list — if <code>x</code> is itself an iterable (like a list), it is added as a single nested element. <code>list.extend(iterable)</code> iterates over its argument and adds each element individually to the end of the list.",
+        internal_working: "<code>append</code> calls CPython's <code>list_append</code> which checks capacity, potentially reallocates (with over-allocation), then sets <code>list[n] = item</code> — O(1) amortized. <code>extend</code> calls <code>list_extend</code> which pre-computes the total new size using <code>__len__</code> hint, reallocates once, then copies elements — also O(k) where k is the length of the iterable, but avoids repeated reallocations.",
+        use_case: "Use <code>append</code> to add one item: <code>my_list.append(42)</code> or <code>my_list.append([1,2])</code> (adds the list as a nested element). Use <code>extend</code> to merge another iterable: <code>my_list.extend([1, 2, 3])</code> — equivalent to <code>my_list += [1, 2, 3]</code>.",
+        key_points: ["<code>append([1,2,3])</code> adds one element (a nested list); <code>extend([1,2,3])</code> adds three elements — the most common interview mistake.", "<code>extend</code> can accept any iterable (generator, tuple, set), not just lists.", "<code>extend</code> is generally faster than calling <code>append</code> in a loop because it pre-allocates memory in one shot.", "Both modify the list in-place and return <code>None</code> — don't do <code>result = mylist.append(x)</code>.", "<code>list += [x]</code> uses <code>__iadd__</code> which calls <code>extend</code> internally, not <code>append</code>."]
+      },
+      "`remove()` vs `pop()`": {
+        section: "Core Python Basics",
+        definition: "<code>list.remove(value)</code> finds the <strong>first occurrence</strong> of a specified value and removes it — it operates by value. <code>list.pop(index)</code> removes and <strong>returns</strong> the element at a specified index (defaults to the last element if no index given) — it operates by position.",
+        internal_working: "<code>remove</code> performs a linear scan O(n) to find the first matching element, then shifts all subsequent elements left — overall O(n). <code>pop()</code> (from end) is O(1) since no shifting is needed. <code>pop(i)</code> for arbitrary index is O(n) because elements after index <code>i</code> must be shifted left to fill the gap.",
+        use_case: "Use <code>remove</code> when you know the value but not its position: <code>fruits.remove('apple')</code>. Use <code>pop</code> when you need the stack/queue pattern — <code>stack.pop()</code> for LIFO, or when you need the removed element returned: <code>last = items.pop()</code>.",
+        key_points: ["<code>remove</code> raises <code>ValueError</code> if the value is not found; always guard with <code>if x in list</code> or use a try/except.", "<code>pop</code> raises <code>IndexError</code> if the index is out of range or the list is empty.", "<code>pop()</code> without arguments removes the last element — this is the standard stack (LIFO) operation.", "<code>remove</code> only removes the first occurrence — to remove all occurrences use a list comprehension: <code>[x for x in lst if x != val]</code>.", "Both modify the list in-place; <code>pop</code> returns the removed element, <code>remove</code> returns <code>None</code>."]
+      },
+      "`del` vs `remove()`": {
+        section: "Core Python Basics",
+        definition: "<code>del list[i]</code> is a Python statement that deletes an element by <strong>index</strong> (or a slice) and does not return anything. <code>list.remove(value)</code> is a method that deletes the first occurrence of a <strong>value</strong> and also returns <code>None</code>. <code>del</code> can also delete entire variables or dictionary keys.",
+        internal_working: "<code>del list[i]</code> triggers <code>__delitem__</code> on the list which shifts elements left — O(n). <code>del var</code> removes the name binding from the current namespace's <code>__dict__</code>. <code>remove()</code> first does a linear search then shifts elements — also O(n). <code>del list[i:j]</code> (slice deletion) can remove a range in one operation, more efficient than multiple <code>remove</code> calls.",
+        use_case: "Use <code>del</code> when you know the index or want to delete a slice: <code>del mylist[2:5]</code>, or free a variable: <code>del large_object</code>. Use <code>remove()</code> when you know the value and want to remove its first occurrence: <code>queue.remove(task)</code>.",
+        key_points: ["<code>del</code> is a statement (keyword), not a method — it can operate on variables, dict keys, object attributes, and list slices.", "<code>del list[i]</code> and <code>list.pop(i)</code> both remove by index but <code>pop</code> returns the element; <code>del</code> does not.", "<code>del var</code> decrements the object's reference count; if it reaches 0, the garbage collector frees the memory.", "<code>remove()</code> searches linearly and removes only the first match; <code>del</code> goes directly to the position — no search.", "Using <code>del</code> in a loop while iterating is dangerous; always iterate over a copy or use a list comprehension."]
+      },
+      "`*args` vs `**kwargs`": {
+        section: "Functions & Arguments",
+        definition: "<code>*args</code> allows a function to accept any number of <strong>positional arguments</strong>, collecting them into a tuple. <code>**kwargs</code> allows a function to accept any number of <strong>keyword arguments</strong>, collecting them into a dictionary. Both are conventions — the names <code>args</code>/<code>kwargs</code> are just the standard, the <code>*</code> and <code>**</code> operators are what matter.",
+        internal_working: "When Python's bytecode calls a function with <code>CALL_FUNCTION_EX</code>, the interpreter unpacks the extra positional arguments into a <code>tuple</code> bound to the <code>*args</code> parameter, and extra keyword arguments into a <code>dict</code> bound to <code>**kwargs</code>. At the call site, <code>*iterable</code> unpacks any iterable as positional args, and <code>**mapping</code> unpacks a mapping as keyword args.",
+        use_case: "Use <code>*args</code> for variadic positional functions like <code>def total(*nums): return sum(nums)</code>. Use <code>**kwargs</code> for flexible keyword APIs like <code>def create_user(**info): db.insert(info)</code>. Both are common in decorators: <code>def wrapper(*args, **kwargs): return fn(*args, **kwargs)</code>.",
+        key_points: ["Order matters: <code>def f(a, b, *args, **kwargs)</code> — regular params first, then <code>*args</code>, then keyword-only params, then <code>**kwargs</code>.", "<code>*args</code> is always a tuple (immutable); <code>**kwargs</code> is always a dict.", "You can use <code>*</code> in a function signature to force all following parameters to be keyword-only: <code>def f(a, *, b)</code>.", "At the call site, <code>*list</code> unpacks a list as positional args and <code>**dict</code> unpacks a dict as keyword args — the inverse operation.", "Avoid mutable default arguments — <code>def f(x, data=[])</code> is a trap; the list is created once at definition time."]
+      },
+      "Positional vs Keyword Arguments": {
+        section: "Functions & Arguments",
+        definition: "<strong>Positional arguments</strong> are passed in the order they are defined — the value is matched to the parameter by position. <strong>Keyword arguments</strong> are passed as <code>name=value</code> pairs, explicitly naming which parameter receives the value, making order irrelevant.",
+        internal_working: "Python's function call mechanism (in <code>ceval.c</code>) maps positional args first by index, then processes keyword args by name lookup against the function's <code>co_varnames</code>. Positional-only parameters (marked with <code>/</code> in the signature since Python 3.8) cannot be passed by keyword. Keyword-only parameters (after <code>*</code> in the signature) cannot be passed positionally.",
+        use_case: "Use positional args for simple, short functions: <code>range(0, 10, 2)</code>. Use keyword args for clarity when calling functions with many parameters: <code>pd.read_csv('file.csv', sep=';', header=0, encoding='utf-8')</code> — much more readable and less error-prone.",
+        key_points: ["Keyword arguments improve readability and reduce bugs when a function has many parameters or boolean flags.", "Python 3.8 introduced positional-only params using <code>/</code>: <code>def f(a, b, /, c)</code> — <code>a</code> and <code>b</code> cannot be passed by keyword.", "Parameters after <code>*</code> in a signature are keyword-only: <code>def f(a, *, b)</code> — <code>b</code> must be passed as <code>f(1, b=2)</code>.", "You can mix: <code>f(1, 2, c=3)</code> is valid; but once a keyword arg is used, all subsequent args must also be keyword args.", "Keyword arguments are resolved at call time, not at definition time — defaults are evaluated at definition time (default argument trap)."]
+      },
+      "Default vs Non-default Arguments": {
+        section: "Functions & Arguments",
+        definition: "<strong>Default arguments</strong> have a predefined value specified in the function signature (<code>def f(x, n=10)</code>) and are optional when calling the function. <strong>Non-default (required) arguments</strong> have no default value and must always be provided by the caller.",
+        internal_working: "Default values are stored in the function object's <code>__defaults__</code> tuple (for positional defaults) and <code>__kwdefaults__</code> dict (for keyword-only defaults) at function definition time — once. This means mutable defaults like <code>[]</code> or <code>{}</code> are created once and shared across all calls, which is a classic Python gotcha.",
+        use_case: "Use default args for optional configuration: <code>def connect(host, port=5432, timeout=30)</code>. Use non-default args for required inputs that have no sensible default: <code>def send_email(to, subject, body)</code>.",
+        key_points: ["The mutable default argument trap: <code>def f(lst=[])</code> — the same list object is reused across calls. Fix with <code>def f(lst=None): lst = lst or []</code>.", "Default arguments must come after non-default ones in the signature, or you'll get a <code>SyntaxError</code>.", "Default values are evaluated once at function definition time, not each time the function is called.", "Use <code>None</code> as a sentinel default and initialise inside the function body to avoid the mutable default trap.", "You can inspect defaults with <code>fn.__defaults__</code> and <code>fn.__kwdefaults__</code>."]
+      },
+      "Lambda vs Normal Function": {
+        section: "Functions & Arguments",
+        definition: "A <strong>lambda</strong> is an anonymous, single-expression function defined with the <code>lambda</code> keyword. A <strong>normal function</strong> is defined with <code>def</code>, can span multiple lines, have a docstring, multiple statements, and complex logic.",
+        internal_working: "Both <code>lambda</code> and <code>def</code> create function objects (<code>PyFunctionObject</code>) at runtime and both support closures. Lambdas are syntactically restricted to a single expression whose result is implicitly returned. They are compiled to the same bytecode type as regular functions — the difference is purely syntactic. Both support default arguments: <code>lambda x, y=10: x + y</code>.",
+        use_case: "Use lambda for short, throwaway functions passed inline: <code>sorted(data, key=lambda x: x['age'])</code>, <code>map(lambda x: x*2, nums)</code>. Use <code>def</code> for anything that needs a name for reuse, documentation, error tracebacks, or multiple statements.",
+        key_points: ["Lambdas cannot contain statements (<code>if/else</code> as expressions are ok: <code>lambda x: x if x > 0 else -x</code>), assignments, or loops.", "For simple callbacks, lambda is fine; PEP 8 recommends against assigning a lambda to a variable (<code>f = lambda x: x+1</code>) — just use <code>def</code> instead.", "Lambda functions show as <code>&lt;lambda&gt;</code> in tracebacks which makes debugging harder.", "Both support closures — capturing variables from the enclosing scope.", "Prefer <code>operator</code> module functions over lambdas for common ops: <code>operator.itemgetter('age')</code> is faster than <code>lambda x: x['age']</code>."]
+      },
+      "Recursive vs Iterative Function": {
+        section: "Functions & Arguments",
+        definition: "A <strong>recursive function</strong> calls itself to solve a smaller sub-problem, using the call stack to maintain state. An <strong>iterative function</strong> uses explicit loops (<code>for</code>/<code>while</code>) to repeat operations, maintaining state through variables.",
+        internal_working: "Each recursive call pushes a new frame onto CPython's call stack. Python has a default recursion limit of 1000 frames (<code>sys.getrecursionlimit()</code>) to prevent stack overflow. CPython does not perform tail-call optimisation. Iterative functions reuse a single stack frame, so they handle arbitrary input sizes without stack overflow risk and are generally faster due to no frame allocation overhead.",
+        use_case: "Use recursion for naturally recursive structures: tree traversal, DFS on graphs, Fibonacci with memoisation. Use iteration for sequential operations: summing a list, processing a file line by line. When in doubt, prefer iteration in Python for performance and safety.",
+        key_points: ["Python does not support tail-call optimisation — even a tail-recursive function grows the stack.", "Python's default recursion limit is 1000; increase with <code>sys.setrecursionlimit(n)</code> but do so carefully.", "Recursion has overhead: frame creation, function call dispatch. Iteration is generally faster in Python.", "Any recursive algorithm can be converted to iterative using an explicit stack (list simulating the call stack).", "Deep recursion on large inputs (e.g., linked list of 10,000 nodes) will raise <code>RecursionError</code>."]
+      },
+      "Generator vs Function": {
+        section: "Functions & Arguments",
+        definition: "A <strong>regular function</strong> runs to completion and returns a single value. A <strong>generator function</strong> uses <code>yield</code> to produce a sequence of values lazily, suspending and resuming its state between calls. Generator functions return a generator object when called.",
+        internal_working: "When a generator function is called, Python creates a <code>PyGenObject</code> containing the code object and frame state but does not execute any code. Each call to <code>next()</code> resumes execution from the last <code>yield</code> point. The frame's local variables and instruction pointer are preserved between <code>next()</code> calls. When the function returns or exhausts, a <code>StopIteration</code> is raised.",
+        use_case: "Use generators for large or infinite sequences where you don't want to hold everything in memory: reading large files line-by-line, infinite counters, pipelines. E.g., <code>def read_chunks(file, size=1024): while chunk := file.read(size): yield chunk</code>.",
+        key_points: ["Calling a generator function does not execute it — it returns a generator object; execution begins on the first <code>next()</code> call.", "Generators are memory-efficient: they produce one item at a time rather than building the entire collection.", "Generator state (local variables, instruction pointer) is preserved between <code>next()</code> calls.", "A generator can only be iterated once — after exhaustion it raises <code>StopIteration</code> permanently; create a new one to re-iterate.", "<code>yield from iterable</code> delegates to a sub-generator, enabling generator composition."]
+      },
+      "Yield vs Return": {
+        section: "Functions & Arguments",
+        definition: "<code>return</code> terminates a function and sends back a single value to the caller, after which the function's state is destroyed. <code>yield</code> suspends the function, sends a value to the caller, and preserves the function's state so it can be resumed from where it left off.",
+        internal_working: "<code>return</code> executes the <code>RETURN_VALUE</code> bytecode instruction, pops the current frame off the call stack, and transfers control back to the caller. <code>yield</code> executes <code>YIELD_VALUE</code>, suspends the frame (without popping it) and returns the value; the frame remains on the heap inside the generator object. The next <code>next()</code> call re-activates the frame from the suspended instruction.",
+        use_case: "Use <code>return</code> when the function computes a single result: <code>def square(n): return n * n</code>. Use <code>yield</code> when the function produces a stream of values: <code>def countdown(n): while n > 0: yield n; n -= 1</code>.",
+        key_points: ["A function containing at least one <code>yield</code> statement is automatically a generator function, even if <code>yield</code> is never actually reached at runtime.", "<code>return value</code> inside a generator sets the value of the <code>StopIteration</code> exception, not a yielded value.", "<code>yield</code> can also receive values: <code>val = yield item</code> — used with <code>gen.send(value)</code> for coroutines.", "A regular function that <code>return</code>s without a value returns <code>None</code>; a generator that finishes raises <code>StopIteration</code>.", "You cannot use <code>yield</code> and <code>return value</code> in the same function in Python 2; in Python 3 it is allowed (the return value becomes the StopIteration value)."]
+      },
+      "Higher-order Function vs Normal Function": {
+        section: "Functions & Arguments",
+        definition: "A <strong>higher-order function</strong> either accepts other functions as arguments, returns a function, or both. A <strong>normal function</strong> only operates on data values. Higher-order functions are a core concept of functional programming.",
+        internal_working: "In Python, functions are first-class objects (<code>PyFunctionObject</code>) — they can be stored in variables, passed as arguments, and returned like any other value. Higher-order functions receive function objects and call them via the standard <code>CALL_FUNCTION</code> bytecode. There is no runtime difference in how function calls work regardless of whether a function is passed as data or called normally.",
+        use_case: "Built-in HOFs: <code>map(func, iterable)</code>, <code>filter(func, iterable)</code>, <code>sorted(data, key=func)</code>. Custom: decorators (<code>def decorator(fn): ...</code>), callbacks, and factory functions that return closures: <code>def multiplier(n): return lambda x: x * n</code>.",
+        key_points: ["Decorators in Python are syntactic sugar for higher-order functions: <code>@decorator</code> is equivalent to <code>fn = decorator(fn)</code>.", "<code>functools.partial</code> returns a new function with some arguments pre-filled — a higher-order function for currying.", "<code>map</code>, <code>filter</code>, and <code>sorted</code> are the classic HOFs — prefer list comprehensions/generator expressions for clarity in most cases.", "Returning a closure (inner function) from a factory function is a common HOF pattern for creating configurable behaviour.", "HOFs enable the Strategy and Decorator design patterns without subclassing."]
+      },
+      "Pure Function vs Impure Function": {
+        section: "Functions & Arguments",
+        definition: "A <strong>pure function</strong> always produces the same output for the same input and has no side effects (does not modify any external state). An <strong>impure function</strong> may return different results for the same input or has side effects such as modifying global state, writing to a file, or mutating arguments.",
+        internal_working: "Python does not enforce purity at the language level — it is a design concept. Pure functions only use their parameters and local variables. They are referentially transparent — you can replace a function call with its result without changing program behaviour. Impure functions interact with mutable state: global variables, file I/O, network calls, random number generators, or modify passed-in mutable objects.",
+        use_case: "Pure: <code>def add(a, b): return a + b</code> — safe to cache, parallelise, and test. Impure: <code>def save_user(user): db.insert(user)</code> — necessary for real applications. Use pure functions wherever possible for business logic; isolate impure functions at the boundaries (I/O layer).",
+        key_points: ["Pure functions are trivially unit-testable — no mocking needed, just call with inputs and check outputs.", "Pure functions are safe to cache with <code>functools.lru_cache</code> — same input always yields same output.", "Impure functions are necessary for anything real (I/O, state), but should be isolated and kept at application boundaries.", "Modifying a mutable argument makes a function impure — it creates a hidden side effect visible to the caller.", "Functional programming encourages maximising pure functions and pushing impure operations to the edges of the system."]
+      },
+      "Function vs Method": {
+        section: "Functions & Arguments",
+        definition: "A <strong>function</strong> is a standalone callable defined with <code>def</code> at module level or inside another function. A <strong>method</strong> is a function defined inside a class body — it is associated with an object and receives a reference to that object as its first argument (<code>self</code> for instance methods, <code>cls</code> for class methods).",
+        internal_working: "When you access a method via an instance (<code>obj.method</code>), Python's descriptor protocol creates a <strong>bound method object</strong> that wraps the underlying function and binds <code>self</code> to <code>obj</code>. This is why <code>type(obj.method)</code> is <code>method</code> while <code>type(MyClass.method)</code> is <code>function</code>. The binding happens via <code>__get__</code> on the function descriptor.",
+        use_case: "Use a function for utility operations not tied to a class: <code>def parse_date(s): ...</code>. Use a method for behaviour tied to an object's state: <code>class BankAccount: def deposit(self, amount): self.balance += amount</code>.",
+        key_points: ["Instance methods implicitly receive <code>self</code>; you must pass <code>self</code> explicitly only when calling via the class: <code>MyClass.method(obj)</code>.", "Static methods (<code>@staticmethod</code>) are functions inside a class that don't receive <code>self</code> or <code>cls</code> — essentially namespaced functions.", "Class methods (<code>@classmethod</code>) receive <code>cls</code> (the class) instead of the instance — useful for factory methods and alternative constructors.", "Unbound methods no longer exist in Python 3 — <code>MyClass.method</code> is just a plain function.", "The descriptor protocol (<code>__get__</code>, <code>__set__</code>, <code>__delete__</code>) is the mechanism behind method binding and properties."]
+      },
+      "List vs NumPy Array": {
+        section: "Data Structures & Internals",
+        definition: "A Python <strong>list</strong> is a general-purpose, dynamically-typed ordered collection that can hold any mix of Python objects. A <strong>NumPy array</strong> is a fixed-type, homogeneous, n-dimensional array stored in a contiguous block of C memory, designed for high-performance numerical computation.",
+        internal_working: "A Python list stores an array of pointers to PyObjects — each element can be a different type. NumPy arrays store raw numeric data (e.g., 64-bit floats) in a single contiguous memory block (a C array), described by a dtype, shape, and strides. Operations on NumPy arrays are dispatched to optimised C or Fortran routines, and many operations support SIMD vectorisation. This avoids Python object overhead and interpreter loops entirely.",
+        use_case: "Use <strong>list</strong> for heterogeneous data, small datasets, or non-numeric objects. Use <strong>NumPy array</strong> for large numerical datasets where you need vectorised operations: <code>arr * 2</code> applies to all elements without a Python loop — critical for data science, ML, image processing.",
+        key_points: ["NumPy element-wise operations can be 10–100× faster than equivalent Python loops due to C-level execution and SIMD.", "NumPy arrays are fixed-size at creation (shape is immutable though you can reshape); lists are dynamic.", "NumPy arrays have a single dtype; mixing types forces up-casting (e.g., int and float becomes float).", "Broadcasting rules allow operations between arrays of different (but compatible) shapes — no equivalent in lists.", "Memory: NumPy array of 1M float64 ≈ 8 MB; equivalent Python list ≈ 8–35 MB due to PyObject overhead."]
+      },
+      "Array vs Linked List": {
+        section: "Data Structures & Internals",
+        definition: "An <strong>array</strong> stores elements in a contiguous block of memory, enabling O(1) index-based access. A <strong>linked list</strong> stores elements as nodes where each node holds data and a pointer to the next node, enabling O(1) insertion/deletion at known positions but O(n) access by index.",
+        internal_working: "Arrays compute the address of element <code>i</code> as <code>base_addr + i * element_size</code> — pure arithmetic, O(1), cache-friendly. Linked list nodes are scattered in heap memory; traversal follows pointers one by one — poor cache locality (pointer chasing). Python's <code>list</code> is implemented as a dynamic array. <code>collections.deque</code> is a doubly-linked list of fixed-size blocks.",
+        use_case: "Use array/list for random access, sorting, and when you know the size upfront. Use linked list (deque) when you need frequent O(1) insertions/deletions at both ends — e.g., implementing a queue: <code>from collections import deque; q = deque(); q.appendleft(x); q.pop()</code>.",
+        key_points: ["Python's <code>list</code> is actually a dynamic array, not a linked list — <code>list[i]</code> is O(1).", "<code>collections.deque</code> is Python's linked-list-backed structure — O(1) append/pop from both ends.", "Inserting at the middle of a list is O(n) (shifting elements); inserting into a linked list at a known position is O(1).", "Arrays have better cache performance due to memory locality; linked lists suffer from pointer chasing.", "In Python you rarely implement a raw linked list; use <code>deque</code> for O(1) double-ended operations."]
+      },
+      "Stack vs Queue": {
+        section: "Data Structures & Internals",
+        definition: "A <strong>stack</strong> is a LIFO (Last-In, First-Out) data structure — the last element added is the first one removed. A <strong>queue</strong> is a FIFO (First-In, First-Out) data structure — the first element added is the first one removed.",
+        internal_working: "In Python, a <code>list</code> can simulate a stack using <code>append</code> (push) and <code>pop()</code> (pop from end) — both O(1) amortized. For a queue, using <code>list.pop(0)</code> is O(n) due to element shifting — always use <code>collections.deque</code> which is a doubly-linked list structure offering O(1) <code>append</code> and <code>popleft</code>. <code>queue.Queue</code> is thread-safe.",
+        use_case: "Stack: function call management, undo/redo history, DFS traversal, balanced parentheses checking. Queue: BFS traversal, task scheduling, message passing, print spooler.",
+        key_points: ["Use <code>list</code> as a stack (append/pop from the end); use <code>collections.deque</code> as a queue (append/popleft).", "Never use <code>list.pop(0)</code> as a queue — it's O(n); <code>deque.popleft()</code> is O(1).", "<code>queue.Queue</code> is thread-safe and supports <code>put()</code>/<code>get()</code> with optional blocking — use for producer-consumer in threading.", "<code>collections.deque</code> can function as both stack and queue (double-ended).", "Python's recursion stack is literally a call stack (LIFO) — each recursive call pushes a frame."]
+      },
+      "Queue vs Deque": {
+        section: "Data Structures & Internals",
+        definition: "A <strong>queue</strong> is an abstract FIFO data structure. Python's <code>queue.Queue</code> is a thread-safe implementation. A <strong>deque</strong> (<code>collections.deque</code>) is a double-ended queue that supports O(1) append and pop from both ends — it is more general and more performant for single-threaded use.",
+        internal_working: "<code>collections.deque</code> is implemented as a doubly-linked list of fixed-size blocks (64 elements per block) in CPython — this gives O(1) operations at both ends with good memory locality within blocks. <code>queue.Queue</code> wraps a <code>deque</code> internally but adds mutex locks and condition variables (<code>threading.Condition</code>) for thread safety, adding overhead.",
+        use_case: "Use <code>deque</code> for single-threaded BFS, sliding-window problems, or any double-ended operations: <code>window = deque(maxlen=k)</code> automatically drops oldest element. Use <code>queue.Queue</code> in multi-threaded producers-consumers where thread safety is needed.",
+        key_points: ["<code>deque</code> has O(1) append/pop from both ends; <code>list</code> is O(n) for operations at the front.", "<code>deque(maxlen=n)</code> is a circular buffer — appending when full automatically discards from the opposite end.", "<code>queue.Queue</code> provides blocking <code>get()</code> — a thread will wait until an item is available, useful for worker threads.", "<code>deque</code> index access <code>d[i]</code> is O(n); it is not designed for random access.", "For single-threaded code, always prefer <code>deque</code> over <code>queue.Queue</code> for performance."]
+      },
+      "Heap vs Stack Memory": {
+        section: "Data Structures & Internals",
+        definition: "<strong>Stack memory</strong> is a LIFO region allocated automatically for function call frames — it stores local variables and return addresses, is fast, and is automatically freed when a function returns. <strong>Heap memory</strong> is a larger region for dynamic allocation; objects live here as long as references to them exist.",
+        internal_working: "In CPython, all Python objects (ints, lists, dicts, class instances) are allocated on the heap via Python's memory allocator (built on <code>malloc</code>). The C call stack holds the CPython interpreter's own frame pointers, not Python objects themselves. CPython uses reference counting plus a cyclic garbage collector to free heap objects. Stack frames for Python functions are also heap-allocated as <code>PyFrameObject</code>.",
+        use_case: "Understanding this is essential for diagnosing memory leaks (objects not freed due to circular references), deciding when to use <code>__slots__</code> to reduce heap fragmentation, and understanding why Python is memory-heavy compared to C for the same data structures.",
+        key_points: ["Unlike C/C++, Python programmers don't directly manage stack vs heap — CPython allocates everything on the heap.", "Stack overflow in Python is called <code>RecursionError</code> — it's the C stack for interpreter frames, not Python objects.", "Python's reference counting frees most objects immediately when they go out of scope — no GC pause for non-circular references.", "The cyclic garbage collector handles circular references that reference counting alone cannot break.", "<code>sys.getsizeof(obj)</code> returns the size of an object's heap allocation in bytes."]
+      },
+      "OrderedDict vs Dict": {
+        section: "Data Structures & Internals",
+        definition: "<code>collections.OrderedDict</code> is a dict subclass that explicitly tracks insertion order and provides order-specific methods. A regular <code>dict</code> in Python 3.7+ also maintains insertion order as a language guarantee, making <code>OrderedDict</code> mostly redundant for basic use — but <code>OrderedDict</code> provides extra features.",
+        internal_working: "<code>OrderedDict</code> maintains a doubly-linked list of keys in addition to the hash table, enabling O(1) <code>move_to_end()</code> operations. Regular <code>dict</code>'s insertion-order preservation (since 3.7) is implemented via a compact array of indices — it preserves order but cannot efficiently reorder. <code>OrderedDict</code> equality also considers order; <code>dict</code> equality ignores order.",
+        use_case: "Use <code>OrderedDict</code> when order-aware operations are needed: LRU cache implementation (<code>move_to_end</code>), or when equality must be order-sensitive. Use regular <code>dict</code> for everything else — it's faster and uses less memory.",
+        key_points: ["Since Python 3.7, regular <code>dict</code> is insertion-ordered — you rarely need <code>OrderedDict</code> just for ordering.", "<code>OrderedDict</code> has <code>move_to_end(key, last=True)</code> — critical for LRU cache; regular dict lacks this.", "<code>OrderedDict({'a':1,'b':2}) != OrderedDict({'b':2,'a':1})</code>; but <code>{'a':1,'b':2} == {'b':2,'a':1}</code> is <code>True</code>.", "<code>OrderedDict</code> uses more memory and is slightly slower than <code>dict</code> due to the linked list overhead.", "<code>functools.lru_cache</code> internally uses an <code>OrderedDict</code>-like structure for O(1) eviction."]
+      },
+      "FrozenSet vs Set": {
+        section: "Data Structures & Internals",
+        definition: "A <strong>set</strong> is a mutable, unordered collection of unique hashable elements. A <strong>frozenset</strong> is an immutable version of a set — once created, elements cannot be added or removed. Because it is immutable, a frozenset is hashable and can be used as a dict key or set element.",
+        internal_working: "Both are implemented as hash tables in CPython (<code>PySetObject</code>). The key difference is that <code>frozenset</code> has no methods that modify the internal hash table (<code>add</code>, <code>remove</code>, <code>discard</code> are absent). Because its hash value is computed once and cached in the object header, frozenset lookup as a dict key is O(1).",
+        use_case: "Use <code>frozenset</code> when you need an immutable set as a dict key or inside another set: <code>graph = {frozenset({1,2}): 'edge_data'}</code>. Use <code>set</code> when you need to add/remove elements dynamically.",
+        key_points: ["<code>frozenset</code> is hashable — it can be a dict key or a set element; regular <code>set</code> cannot.", "Both support set operations (<code>union</code>, <code>intersection</code>, etc.) and both can be mixed: <code>frozenset({1,2}) | {3,4}</code> returns a <code>frozenset</code>.", "<code>frozenset()</code> (empty) is falsy; so is <code>set()</code>.", "Use <code>frozenset</code> as a safe cache key for sets: <code>cache[frozenset(inputs)] = result</code>.", "<code>frozenset</code> is the set equivalent of <code>tuple</code> — immutable sibling of a mutable collection."]
+      },
+      "Bytearray vs Bytes": {
+        section: "Data Structures & Internals",
+        definition: "<code>bytes</code> is an immutable sequence of integers in the range 0–255, used to represent binary data. <code>bytearray</code> is a mutable sequence of the same integers — it supports in-place modification of individual bytes.",
+        internal_working: "<code>bytes</code> objects are immutable like strings — operations that appear to modify them (like <code>b + b'x'</code>) create new objects. <code>bytearray</code> is backed by a resizable C array, allowing in-place assignment (<code>buf[0] = 0xFF</code>) and methods like <code>append</code>, <code>extend</code>. <code>bytes</code> are hashable and can be dict keys; <code>bytearray</code> cannot.",
+        use_case: "Use <code>bytes</code> for fixed binary data: file contents, network packets, hash digests. Use <code>bytearray</code> when you need to build or modify binary data incrementally: constructing binary protocol frames, modifying image pixel data without creating many intermediate copies.",
+        key_points: ["<code>bytes</code> is hashable (can be a dict key); <code>bytearray</code> is not.", "<code>bytearray</code> is more memory-efficient when building binary data incrementally — avoids O(n²) behaviour of bytes concatenation in a loop.", "Both can be decoded to strings: <code>b'hello'.decode('utf-8')</code>; strings encode to bytes: <code>'hello'.encode('utf-8')</code>.", "<code>memoryview</code> provides a zero-copy view over <code>bytes</code>, <code>bytearray</code>, or any buffer protocol object.", "Converting: <code>bytearray(b'hello')</code> makes a mutable copy; <code>bytes(bytearray_obj)</code> makes an immutable copy."]
+      },
+      "Range vs List": {
+        section: "Data Structures & Internals",
+        definition: "<code>range</code> is an immutable, lazy sequence representing an arithmetic progression — it stores only start, stop, and step values and computes elements on demand. A <code>list</code> stores all its elements explicitly in memory.",
+        internal_working: "A <code>range</code> object in Python 3 is O(1) in memory regardless of its size — it only stores 3 integers. Membership testing (<code>n in range(...))</code> is also O(1) — computed arithmetically. A <code>list(range(n))</code> creates all <code>n</code> integers in memory as Python objects — O(n) space. In Python 2, <code>range()</code> returned a list; <code>xrange()</code> was the lazy version (now default in Python 3).",
+        use_case: "Use <code>range</code> in <code>for</code> loops: <code>for i in range(1_000_000)</code> — no memory overhead. Use <code>list(range(n))</code> only when you need the actual list (e.g., to index, shuffle, or modify it).",
+        key_points: ["<code>range(1_000_000)</code> uses ~48 bytes; <code>list(range(1_000_000))</code> uses ~8 MB.", "<code>range</code> supports slicing: <code>range(10)[2:7]</code> returns another <code>range</code> object.", "<code>range</code> membership test is O(1): <code>999_999 in range(1_000_000)</code> does arithmetic, not iteration.", "<code>range</code> is reversible: <code>range(10, 0, -1)</code> counts down without creating a list.", "In Python 2, always use <code>xrange</code> in loops; in Python 3, <code>range</code> already is lazy."]
+      },
+      "MemoryView vs Bytes": {
+        section: "Data Structures & Internals",
+        definition: "<code>bytes</code> is an immutable binary sequence. <code>memoryview</code> is a zero-copy view into the memory of another buffer-protocol object (<code>bytes</code>, <code>bytearray</code>, NumPy arrays) — it allows slicing and access without copying the underlying data.",
+        internal_working: "<code>memoryview</code> uses Python's buffer protocol (<code>Py_buffer</code>) to expose a shared pointer to the underlying memory with metadata (shape, strides, format). Slicing a <code>bytes</code> object copies data; slicing a <code>memoryview</code> creates a new view sharing the same memory. This is critical for performance when processing large binary buffers.",
+        use_case: "Use <code>memoryview</code> for efficient binary processing: parsing network packets by slicing without copying (<code>mv[4:8]</code>), passing sub-buffers to C extensions, or implementing zero-copy I/O with <code>socket.recv_into(mv)</code>.",
+        key_points: ["<code>memoryview</code> slicing is O(1) and zero-copy; <code>bytes</code> slicing is O(k) where k is the slice length.", "Use <code>memoryview(large_bytes)[start:end]</code> instead of <code>large_bytes[start:end]</code> to avoid copying in tight loops.", "<code>memoryview</code> works on any object implementing the buffer protocol: <code>bytes</code>, <code>bytearray</code>, <code>array.array</code>, NumPy arrays.", "Writeable memoryviews can be created from <code>bytearray</code>: <code>mv = memoryview(bytearray(...))</code>.", "<code>memoryview</code> objects must be released after use in some scenarios to avoid keeping large buffers alive."]
+      },
+      "Class vs Object": {
+        section: "Object-Oriented Programming",
+        definition: "A <strong>class</strong> is a blueprint or template that defines attributes and behaviours common to a category of objects. An <strong>object</strong> (instance) is a concrete realisation of a class — it is created by calling the class and has its own state stored in instance attributes.",
+        internal_working: "A class is itself an object in Python (instance of <code>type</code> or a metaclass). When you call <code>MyClass()</code>, Python invokes <code>MyClass.__call__</code> which calls <code>__new__</code> to allocate memory (creating the instance), then <code>__init__</code> to initialise it. The instance's <code>__dict__</code> holds its attributes; the class's <code>__dict__</code> holds methods and class-level attributes. Attribute lookup follows the MRO.",
+        use_case: "Define a class once: <code>class Car: def __init__(self, brand): self.brand = brand</code>. Create many instances: <code>car1 = Car('Toyota'); car2 = Car('BMW')</code>. Each instance has its own <code>brand</code> attribute.",
+        key_points: ["Everything in Python is an object — even classes, functions, and modules.", "<code>type(obj)</code> returns the class that created the object; <code>isinstance(obj, cls)</code> checks inheritance too.", "<code>obj.__class__</code> references its class; <code>cls.__bases__</code> references its parent classes.", "Instance attributes are stored in <code>obj.__dict__</code>; class attributes are in <code>MyClass.__dict__</code>.", "You can add attributes to an instance dynamically: <code>obj.new_attr = value</code> — this modifies <code>obj.__dict__</code>."]
+      },
+      "Instance Variable vs Class Variable": {
+        section: "Object-Oriented Programming",
+        definition: "An <strong>instance variable</strong> is defined per-object (typically in <code>__init__</code> with <code>self.var = ...</code>) and holds data unique to each instance. A <strong>class variable</strong> is defined in the class body (outside any method) and is shared across all instances of the class.",
+        internal_working: "Instance variables are stored in the instance's <code>__dict__</code>. Class variables are stored in the class's <code>__dict__</code>. Attribute lookup first checks <code>instance.__dict__</code>, then the class's <code>__dict__</code>, then base classes (MRO). If you assign to <code>self.class_var = value</code>, Python creates a new instance variable that shadows the class variable for that instance — it does not modify the class variable.",
+        use_case: "Class variable: <code>class Employee: company = 'Acme'</code> — shared by all employees. Instance variable: <code>self.name = name</code> — unique per employee. Class variables are good for constants or counters: <code>Employee.count += 1</code>.",
+        key_points: ["If a class variable is mutable (e.g., a list), modifying it via one instance affects all instances — a common bug.", "Assigning <code>self.class_var = new_value</code> creates a shadow instance variable — the class variable is unchanged.", "Access class variables via the class (<code>MyClass.var</code>), not via instances, to avoid shadowing confusion.", "Use class variables for constants, counters, or registry dicts shared across all instances.", "<code>__slots__</code> replaces per-instance <code>__dict__</code> with a fixed tuple of descriptors, reducing memory by ~30–50%."]
+      },
+      "Static Method vs Class Method": {
+        section: "Object-Oriented Programming",
+        definition: "A <strong>static method</strong> (<code>@staticmethod</code>) is a method that belongs to the class namespace but does not receive any implicit first argument — it's essentially a plain function inside a class. A <strong>class method</strong> (<code>@classmethod</code>) receives the class (<code>cls</code>) as its implicit first argument, not the instance.",
+        internal_working: "Both are implemented using descriptors. <code>staticmethod</code> descriptor's <code>__get__</code> simply returns the wrapped function unbound. <code>classmethod</code> descriptor's <code>__get__</code> creates a bound method with the class passed as the first argument. When called via a subclass, <code>cls</code> is the subclass — enabling polymorphism at the class level.",
+        use_case: "Static method: utility functions logically grouped with the class but needing no class/instance data: <code>@staticmethod def validate_age(age): return age > 0</code>. Class method: alternative constructors: <code>@classmethod def from_dict(cls, data): return cls(**data)</code>.",
+        key_points: ["Use <code>@staticmethod</code> when the method doesn't need <code>self</code> or <code>cls</code> — it's just namespaced in the class.", "Use <code>@classmethod</code> for factory methods and alternative constructors, and when subclasses need polymorphic behaviour.", "<code>@classmethod</code> is inheritance-aware — calling it on a subclass passes the subclass as <code>cls</code>, not the base class.", "Both can be called on the class or an instance: <code>MyClass.method()</code> and <code>obj.method()</code> both work.", "Neither has access to instance state; classmethod has access to class state via <code>cls</code>."]
+      },
+      "Method Overloading vs Method Overriding": {
+        section: "Object-Oriented Programming",
+        definition: "<strong>Method overriding</strong> occurs when a subclass provides a new implementation for a method already defined in its parent class — same name, same (or compatible) signature, different behaviour. <strong>Method overloading</strong> means having multiple methods with the same name but different signatures — Python does not support this natively.",
+        internal_working: "Python handles method calls via the MRO. When a method is called on an instance, Python searches the MRO in order — the first match wins. Overriding is natural: the subclass's method shadows the parent's. Since Python is dynamically typed, traditional overloading is unnecessary — a single method can handle different argument types/counts using <code>*args</code>, <code>isinstance</code>, or <code>functools.singledispatch</code>.",
+        use_case: "Overriding: <code>class Animal: def speak(self): ...</code> → <code>class Dog(Animal): def speak(self): return 'Woof'</code>. Overloading simulation: <code>@singledispatch def process(arg): ...</code> with type-specific implementations registered.",
+        key_points: ["Python does not support method overloading — defining two methods with the same name just replaces the first with the second.", "Use <code>functools.singledispatch</code> for type-based dispatch (closest Python equivalent to overloading).", "Call the parent method in an override with <code>super().method()</code> to extend rather than replace behaviour.", "<code>super()</code> in Python 3 uses the MRO to determine which parent method to call — crucial in multiple inheritance.", "Overriding is a key mechanism for polymorphism (runtime) — the same interface, different behaviour depending on the object type."]
+      },
+      "Inheritance vs Composition": {
+        section: "Object-Oriented Programming",
+        definition: "<strong>Inheritance</strong> models an 'is-a' relationship — a subclass inherits and extends a parent class's interface and implementation. <strong>Composition</strong> models a 'has-a' relationship — a class contains instances of other classes as attributes, delegating behaviour to them.",
+        internal_working: "Inheritance creates a class hierarchy. Python resolves method calls via the C3 linearisation MRO. Composition simply stores object references in instance attributes — no MRO involved. Composition is implemented at runtime; inheritance is baked in at class definition time. Python supports multiple inheritance natively, which can create diamond problems handled by MRO.",
+        use_case: "Inheritance: <code>class Dog(Animal)</code> — Dog is-an Animal. Composition: <code>class Car: def __init__(self): self.engine = Engine()</code> — Car has-an Engine. Prefer composition when you need flexibility to swap implementations at runtime.",
+        key_points: ["Favour composition over inheritance (GoF principle) — composition is more flexible and avoids fragile base class problems.", "Deep inheritance hierarchies are hard to understand and maintain — keep hierarchies shallow.", "Composition allows swapping behaviour at runtime (strategy pattern); inheritance is fixed at class definition.", "Python supports multiple inheritance — use <code>super()</code> correctly and understand MRO (C3 linearisation).", "Mixins are a pragmatic middle ground — small classes providing specific functionality mixed into other classes via multiple inheritance."]
+      },
+      "Encapsulation vs Abstraction": {
+        section: "Object-Oriented Programming",
+        definition: "<strong>Encapsulation</strong> is the bundling of data (attributes) and methods that operate on that data within a class, and restricting direct access to internal state. <strong>Abstraction</strong> is hiding complex implementation details and exposing only a clean, simple interface.",
+        internal_working: "Python enforces encapsulation by convention using name mangling: attributes prefixed with <code>__</code> (double underscore) are renamed to <code>_ClassName__attr</code> by the interpreter, making them harder (but not impossible) to access. Abstraction in Python is typically achieved through abstract base classes (<code>abc.ABC</code>) which define interface contracts without implementing them.",
+        use_case: "Encapsulation: a <code>BankAccount</code> class hides <code>__balance</code> and exposes <code>deposit()</code>/<code>withdraw()</code> methods. Abstraction: a <code>Shape</code> ABC defines <code>area()</code> without implementing it; concrete subclasses (<code>Circle</code>, <code>Square</code>) provide implementations.",
+        key_points: ["Python's 'encapsulation' is by convention: single underscore <code>_attr</code> means 'protected' (internal use), double underscore <code>__attr</code> triggers name mangling.", "Name mangling is not true private — you can still access <code>obj._ClassName__attr</code> — it's a deterrent, not a lock.", "Abstraction reduces coupling — callers depend on the interface, not the implementation.", "Use <code>@property</code> to expose controlled access to private attributes with getter/setter logic.", "Abstract classes (<code>abc.ABC</code> with <code>@abstractmethod</code>) enforce that subclasses implement required methods."]
+      },
+      "Public vs Private vs Protected": {
+        section: "Object-Oriented Programming",
+        definition: "Python uses naming conventions (not keywords) for access control. <strong>Public</strong> attributes/methods (<code>name</code>) are accessible from anywhere. <strong>Protected</strong> (<code>_name</code>) signals internal use — accessible but by convention not to be used outside the class or subclasses. <strong>Private</strong> (<code>__name</code>) triggers name mangling to make external access harder.",
+        internal_working: "Public: no modification. Protected: a naming convention only — no runtime enforcement. Private: the interpreter renames <code>__name</code> to <code>_ClassName__name</code> during class creation. This means <code>obj.__name</code> raises <code>AttributeError</code>, but <code>obj._ClassName__name</code> still works. Unlike Java/C++, there is no true access enforcement at the language level.",
+        use_case: "Public: <code>user.name</code>. Protected: <code>self._cache = {}</code> — a hint to subclasses that they can use it. Private: <code>self.__secret_key = key</code> — a strong hint that this is truly internal, and name mangling prevents accidental overriding in subclasses.",
+        key_points: ["Python's access control is 'we're all adults here' — conventions over enforcement; no <code>private</code> keyword.", "Single underscore <code>_x</code> is a convention meaning 'internal use' — widely respected in the Python community.", "Double underscore <code>__x</code> triggers name mangling: useful to avoid attribute name clashes in subclasses, not for security.", "Properties (<code>@property</code>, <code>@setter</code>) provide controlled public API over private backing attributes.", "<code>from module import *</code> skips names starting with <code>_</code> unless listed in <code>__all__</code>."]
+      },
+      "Abstract Class vs Interface": {
+        section: "Object-Oriented Programming",
+        definition: "An <strong>abstract class</strong> is a class that cannot be instantiated directly and may contain both abstract (unimplemented) methods and concrete (implemented) methods and state. An <strong>interface</strong> (in languages like Java) is a purely abstract contract with no implementation. Python does not have a built-in <code>interface</code> keyword — abstract classes via <code>abc.ABC</code> serve both purposes.",
+        internal_working: "Python's <code>abc.ABC</code> uses a metaclass <code>ABCMeta</code>. Methods decorated with <code>@abstractmethod</code> are registered; the metaclass's <code>__call__</code> raises <code>TypeError</code> if any abstract method is unimplemented when trying to instantiate. Python also supports virtual subclasses via <code>ABC.register(cls)</code> — letting a class pass isinstance checks without inheritance.",
+        use_case: "Define a plugin interface: <code>class Notifier(ABC): @abstractmethod def send(self, msg): pass</code>. Subclasses <code>EmailNotifier</code>, <code>SMSNotifier</code> implement <code>send</code>. Forces all implementations to honour the contract.",
+        key_points: ["Attempting to instantiate an ABC with unimplemented abstract methods raises <code>TypeError</code>.", "ABCs can have concrete methods (with implementation), unlike a pure interface.", "Python uses duck typing so formal interfaces via ABC are optional — but they improve clarity and catch errors early.", "<code>@abstractmethod</code> can be combined with <code>@property</code>, <code>@staticmethod</code>, or <code>@classmethod</code>.", "<code>isinstance(obj, ABC)</code> returns <code>True</code> for registered virtual subclasses too — useful for third-party class integration."]
+      },
+      "`__str__` vs `__repr__`": {
+        section: "Object-Oriented Programming",
+        definition: "<code>__repr__</code> returns an unambiguous, developer-facing string representation of an object — ideally one that could recreate the object. <code>__str__</code> returns a human-readable, user-facing string. If <code>__str__</code> is not defined, Python falls back to <code>__repr__</code>.",
+        internal_working: "<code>str(obj)</code> calls <code>obj.__str__()</code>; <code>repr(obj)</code> calls <code>obj.__repr__()</code>. In an interactive REPL, Python displays <code>repr()</code>. <code>print(obj)</code> uses <code>str()</code>. Inside f-strings, <code>f'{obj}'</code> uses <code>__str__</code>; <code>f'{obj!r}'</code> uses <code>__repr__</code>. Collections (<code>list</code>, <code>dict</code>) always use <code>repr()</code> for their elements even in <code>str()</code> context.",
+        use_case: "<code>__repr__</code>: <code>def __repr__(self): return f\"Point(x={self.x}, y={self.y})\"</code> — evaluatable. <code>__str__</code>: <code>def __str__(self): return f\"({self.x}, {self.y})\"</code> — friendly display.",
+        key_points: ["Always implement <code>__repr__</code> — it's the fallback when <code>__str__</code> is missing.", "<code>__repr__</code> should ideally return a string that <code>eval()</code>s back to an equal object.", "REPL output and list displays use <code>repr()</code>; <code>print()</code> and <code>str()</code> use <code>__str__</code>.", "Use <code>!r</code> in f-strings to force <code>repr</code>: <code>f'{obj!r}'</code> — useful for debugging.", "<code>dataclasses</code> auto-generates <code>__repr__</code> by default."]
+      },
+      "`__new__` vs `__init__`": {
+        section: "Object-Oriented Programming",
+        definition: "<code>__new__</code> is the static method that actually creates and returns a new instance of the class — it controls object creation (allocation). <code>__init__</code> is called after <code>__new__</code> to initialise the newly created instance — it controls object initialisation.",
+        internal_working: "When you call <code>MyClass(args)</code>, Python first calls <code>MyClass.__new__(MyClass, args)</code> which allocates memory and returns an instance. If the returned object is an instance of <code>MyClass</code>, Python then calls <code>instance.__init__(args)</code>. <code>__new__</code> must return the instance; <code>__init__</code> must return <code>None</code>. For immutable types (<code>int</code>, <code>str</code>, <code>tuple</code>), value must be set in <code>__new__</code> since they can't be modified after allocation.",
+        use_case: "Override <code>__new__</code> for singletons: <code>def __new__(cls): if not cls._instance: cls._instance = super().__new__(cls); return cls._instance</code>. Override it for custom metaclasses or to return different types. Use <code>__init__</code> for standard object setup.",
+        key_points: ["<code>__new__</code> must return an instance; if it returns a non-instance, <code>__init__</code> is not called.", "For immutable types like <code>int</code>, customise via <code>__new__</code>: <code>class PositiveInt(int): def __new__(cls, v): if v <= 0: raise ValueError; return super().__new__(cls, v)</code>.", "Most classes only need <code>__init__</code>; override <code>__new__</code> only for singleton, metaclass, or immutable type patterns.", "<code>__init__</code> returns <code>None</code> by convention — returning anything else raises a <code>TypeError</code>.", "Metaclasses use <code>__new__</code> to customise class creation itself."]
+      },
+      "Iterable vs Iterator": {
+        section: "Iteration & Comprehensions",
+        definition: "An <strong>iterable</strong> is any object that implements <code>__iter__()</code> and returns an iterator. An <strong>iterator</strong> is an object that implements both <code>__iter__()</code> (returning itself) and <code>__next__()</code> (returning the next value or raising <code>StopIteration</code>). All iterators are iterables, but not all iterables are iterators.",
+        internal_working: "When a <code>for</code> loop starts, Python calls <code>iter(obj)</code> to get an iterator, then repeatedly calls <code>next(iterator)</code>. A list is an iterable: <code>iter([1,2,3])</code> returns a <code>list_iterator</code> object which tracks a current index. The list itself is not an iterator — it cannot be advanced with <code>next()</code>. Generators are both iterables and iterators.",
+        use_case: "Iterable: a list, string, dict, file — you can loop over them. Iterator: the result of <code>iter(list)</code>, <code>open('file')</code>, <code>map(fn, seq)</code> — stateful, consumed once. Implement the iterator protocol for custom lazy sequences.",
+        key_points: ["<code>iter(obj)</code> calls <code>obj.__iter__()</code>; <code>next(it)</code> calls <code>it.__next__()</code>.", "Iterables can be looped multiple times (list, tuple); iterators are exhausted after one pass and raise <code>StopIteration</code> thereafter.", "A generator function/expression returns an object that is both an iterable and an iterator.", "File objects returned by <code>open()</code> are iterators — you can call <code>next(f)</code> to get the next line.", "Implement the iterator protocol in custom classes with <code>__iter__(self)</code> and <code>__next__(self)</code>."]
+      },
+      "Iterator vs Generator": {
+        section: "Iteration & Comprehensions",
+        definition: "An <strong>iterator</strong> is any object implementing <code>__iter__</code> and <code>__next__</code>. A <strong>generator</strong> is a special kind of iterator created automatically by a generator function (using <code>yield</code>) or a generator expression — it implements the iterator protocol implicitly and its state is maintained in the suspended function frame.",
+        internal_working: "A custom iterator class must manually maintain state in instance attributes and implement <code>__next__</code>. A generator function's frame is automatically suspended at each <code>yield</code> with all local variables intact, and resumed on the next <code>next()</code> call. Generators are more concise and automatic — CPython creates a <code>PyGenObject</code> that wraps the code frame.",
+        use_case: "Custom iterator for complex stateful iteration: class with <code>__iter__</code>/<code>__next__</code>. Generator for simpler lazy sequences: <code>def evens(n): for i in range(0, n, 2): yield i</code>. Generators are idiomatic Python for lazy evaluation.",
+        key_points: ["All generators are iterators; not all iterators are generators.", "Generators are far more concise than equivalent iterator classes — prefer generators for most use cases.", "Generator expressions (<code>(x*2 for x in range(10))</code>) are memory-efficient one-liners.", "Calling <code>next()</code> on an exhausted generator raises <code>StopIteration</code>; for a custom iterator, you implement this yourself.", "<code>yield from iterable</code> delegates iteration to a sub-generator, flattening nested generators."]
+      },
+      "List Comprehension vs Generator Expression": {
+        section: "Iteration & Comprehensions",
+        definition: "A <strong>list comprehension</strong> (<code>[expr for x in iterable]</code>) immediately evaluates and stores all results in a list in memory. A <strong>generator expression</strong> (<code>(expr for x in iterable)</code>) returns a lazy generator that computes each value on demand, using O(1) memory.",
+        internal_working: "List comprehensions are executed eagerly — every element is computed and the result is a fully populated <code>list</code> object. Generator expressions produce a generator object; each call to <code>next()</code> executes the expression for the next element. Syntactically they differ only in delimiter: <code>[]</code> vs <code>()</code>.",
+        use_case: "List comprehension when you need the full result multiple times or need random access: <code>squares = [x**2 for x in range(100)]</code>. Generator expression for one-time iteration or passing to aggregating functions: <code>total = sum(x**2 for x in range(1_000_000))</code> — no list created.",
+        key_points: ["Generator expressions use O(1) memory; list comprehensions use O(n) memory.", "When passing to <code>sum()</code>, <code>max()</code>, <code>any()</code>, <code>all()</code> — prefer generator expression; the extra <code>()</code> is not needed inside these calls.", "List comprehensions can be indexed (<code>result[i]</code>); generator expressions cannot.", "Generator expressions are slightly slower per element due to frame suspension overhead; list comprehensions may be faster when you need all elements.", "Nested generators are evaluated lazily, which can save significant memory for large cartesian products."]
+      },
+      "`map()` vs List Comprehension": {
+        section: "Iteration & Comprehensions",
+        definition: "<code>map(func, iterable)</code> applies a function to every element of an iterable and returns a lazy map object (iterator). A list comprehension (<code>[expr for x in iterable]</code>) applies an expression to every element and returns a list. Both transform collections.",
+        internal_working: "In Python 3, <code>map()</code> returns a <code>map</code> iterator object — lazy, not computed until iterated. It avoids Python-level looping by calling the function (which may be a C function) for each element. List comprehensions are compiled to optimised bytecode using <code>LIST_APPEND</code>. For Python functions, list comprehension performance is similar or better; for built-in C functions, <code>map</code> can be faster.",
+        use_case: "<code>map(str, numbers)</code> — clean when using a named function. <code>[str(n) for n in numbers]</code> — more readable with expressions: <code>[n * 2 + 1 for n in numbers]</code>. Prefer list comprehension for readability in most cases.",
+        key_points: ["<code>map()</code> in Python 3 is lazy (returns an iterator); wrap with <code>list()</code> if you need a list.", "List comprehensions are generally preferred in Python for readability (PEP 8).", "<code>map()</code> with a built-in C function (<code>map(int, strings)</code>) can be faster than a list comprehension calling the same function.", "List comprehensions support filtering inline: <code>[x for x in data if x > 0]</code>; <code>map</code> needs <code>filter</code> for this.", "Avoid <code>map(lambda x: ..., seq)</code> — a list comprehension is always cleaner in that case."]
+      },
+      "`filter()` vs List Comprehension": {
+        section: "Iteration & Comprehensions",
+        definition: "<code>filter(func, iterable)</code> returns an iterator of elements for which <code>func</code> returns <code>True</code>. A list comprehension with a condition (<code>[x for x in iterable if condition(x)]</code>) achieves the same but returns a list directly and is generally preferred for readability.",
+        internal_working: "<code>filter()</code> in Python 3 is a lazy iterator — elements are evaluated one-by-one as requested. If <code>func</code> is <code>None</code>, it filters out falsy values. List comprehension with a condition is compiled to bytecode using <code>JUMP_IF_FALSE</code> to skip non-matching elements. Both are O(n) time.",
+        use_case: "<code>filter(None, values)</code> is a concise way to remove falsy values (None, 0, '', []). <code>evens = [x for x in nums if x % 2 == 0]</code> is cleaner with a condition expression. Prefer list comprehension for most filtering tasks.",
+        key_points: ["<code>filter(None, iterable)</code> removes all falsy values — a handy idiom.", "<code>filter()</code> returns a lazy iterator in Python 3; use <code>list(filter(...))</code> to get a list.", "List comprehension with a condition is more Pythonic and readable for most filtering.", "<code>filter</code> cannot transform elements; for transform+filter, a list comprehension or <code>map(f, filter(...))</code> is needed.", "For large datasets and one-time iteration, <code>filter()</code>'s laziness saves memory vs a list comprehension."]
+      },
+      "`zip()` vs `enumerate()`": {
+        section: "Iteration & Comprehensions",
+        definition: "<code>zip(*iterables)</code> combines multiple iterables element-wise, yielding tuples of corresponding elements. <code>enumerate(iterable, start=0)</code> wraps an iterable and yields <code>(index, element)</code> tuples. Both return lazy iterators.",
+        internal_working: "<code>zip</code> internally holds iterators for each input and calls <code>next()</code> on all of them per iteration step — it stops at the shortest input. <code>enumerate</code> maintains a counter and pairs it with each element. Both are implemented in C and are lazy (Python 3). <code>zip_longest</code> in <code>itertools</code> pads shorter iterables.",
+        use_case: "<code>zip</code>: pairing two lists — <code>for name, score in zip(names, scores)</code>. <code>enumerate</code>: getting index in a loop — <code>for i, item in enumerate(items)</code> instead of <code>for i in range(len(items))</code>.",
+        key_points: ["Always use <code>enumerate()</code> instead of <code>range(len(iterable))</code> — it's more Pythonic and avoids index-off-by-one errors.", "<code>zip</code> silently stops at the shortest iterable — use <code>itertools.zip_longest</code> to pad.", "<code>dict(zip(keys, values))</code> is a clean one-liner to create a dict from two lists.", "<code>enumerate(seq, start=1)</code> starts counting from 1 — useful for 1-indexed display.", "Unzipping: <code>cols = list(zip(*rows))</code> transposes a matrix."]
+      },
+      "`range()` vs `xrange()` (Py2)": {
+        section: "Iteration & Comprehensions",
+        definition: "In Python 2, <code>range()</code> returned a fully populated list, while <code>xrange()</code> returned a lazy iterator-like object computing values on demand. In Python 3, <code>range()</code> is the lazy version (equivalent to Python 2's <code>xrange</code>) and <code>xrange</code> no longer exists.",
+        internal_working: "Python 3's <code>range</code> object stores only start, stop, and step — three integers. Membership testing (<code>n in range()</code>) is O(1) arithmetic. Slicing a <code>range</code> returns another <code>range</code>. Python 2's <code>range()</code> allocated a full list — using it with large numbers (e.g., <code>range(10**7)</code>) in loops was a memory trap.",
+        use_case: "Python 3: just use <code>range()</code> everywhere. Python 2 legacy code: always prefer <code>xrange()</code> in loops — <code>for i in xrange(10**6)</code> is O(1) memory vs <code>range()</code>'s O(n). In Python 2 codebases being ported, this is a common migration point.",
+        key_points: ["Python 3's <code>range</code> is already lazy — no <code>xrange</code> needed.", "Python 2's <code>range(n)</code> creates a list of n integers — never use for large n in loops.", "<code>range</code> objects are not generators — they can be iterated multiple times unlike generators.", "<code>six.moves.range</code> is a compatibility shim that maps to <code>xrange</code> in Py2 and <code>range</code> in Py3.", "Memory: <code>range(10**8)</code> in Python 3 uses ~48 bytes; in Python 2 it would need ~800 MB."]
+      },
+      "For loop vs While loop": {
+        section: "Iteration & Comprehensions",
+        definition: "A <strong>for loop</strong> iterates over an iterable a definite number of times, delegating iteration control to the iterator protocol. A <strong>while loop</strong> executes a block repeatedly as long as a boolean condition remains <code>True</code>, giving full control over loop progression.",
+        internal_working: "A <code>for</code> loop internally calls <code>iter()</code> on the iterable then calls <code>next()</code> in a bytecode loop (<code>FOR_ITER</code>) until <code>StopIteration</code>. A <code>while</code> loop evaluates the condition expression each iteration and jumps back to the start if <code>True</code>. Both compile to bytecode jump instructions.",
+        use_case: "For loop: iterating collections, fixed ranges, unpacking: <code>for user in users</code>. While loop: unknown iteration count, polling, game loops, reading until EOF: <code>while line := f.readline()</code>.",
+        key_points: ["Prefer <code>for</code> over <code>while</code> whenever you're iterating over a sequence — it's safer and more Pythonic.", "While loops are prone to infinite loops if the condition is never updated — always ensure the terminating condition is reachable.", "For loops in Python cannot skip elements mid-iteration; use <code>continue</code> to skip or restructure with an iterator.", "<code>for...else</code> and <code>while...else</code>: the <code>else</code> block runs if the loop completes without a <code>break</code> — useful for search patterns.", "Walrus operator in while: <code>while chunk := file.read(4096)</code> is an idiomatic Python 3.8+ pattern."]
+      },
+      "Nested Loop vs Comprehension": {
+        section: "Iteration & Comprehensions",
+        definition: "A <strong>nested loop</strong> is two or more <code>for</code>/<code>while</code> loops where the inner loop runs completely for each iteration of the outer loop. A <strong>nested comprehension</strong> is a list/generator comprehension with multiple <code>for</code> clauses, which is syntactic sugar for nested loops.",
+        internal_working: "A nested list comprehension <code>[x+y for x in a for y in b]</code> compiles to bytecode equivalent to nested <code>for</code> loops with <code>LIST_APPEND</code>. Comprehensions run in their own scope (a nested function in CPython). For most use cases their performance is similar, but comprehensions avoid building intermediate lists and are generally faster for simple transformations.",
+        use_case: "Cartesian product: <code>pairs = [(x,y) for x in A for y in B]</code>. Flattening: <code>flat = [x for row in matrix for x in row]</code>. For complex logic with multiple statements, use explicit nested loops for clarity.",
+        key_points: ["The order of <code>for</code> clauses in a comprehension mirrors the order of nested loops (outermost to innermost).", "Deeply nested comprehensions hurt readability — if you need 3+ levels, use explicit loops.", "Use <code>itertools.product(A, B)</code> for Cartesian products — more readable than nested comprehensions.", "Comprehensions create a new scope in Python 3 (variables don't leak); explicit loops do not create a new scope.", "For flattening, <code>itertools.chain.from_iterable(matrix)</code> is the most memory-efficient option."]
+      },
+      "Lazy Evaluation vs Eager Evaluation": {
+        section: "Iteration & Comprehensions",
+        definition: "<strong>Eager evaluation</strong> computes results immediately when an expression is encountered. <strong>Lazy evaluation</strong> defers computation until the result is actually needed, often processing one element at a time.",
+        internal_working: "Python's default is eager — expressions are evaluated immediately. Lazy evaluation is achieved explicitly through generators, iterators, and <code>functools.lazy_*</code> patterns. Generators suspend at <code>yield</code> and resume only when <code>next()</code> is called. Python doesn't implement lazy evaluation at the language level (unlike Haskell) — you opt in via the iterator protocol.",
+        use_case: "Lazy: <code>gen = (x**2 for x in range(10**9))</code> — no computation until iterated. Eager: <code>lst = [x**2 for x in range(1000)]</code>. Use lazy evaluation when data is large or potentially infinite, or when not all elements may be needed.",
+        key_points: ["Generators, map, filter, zip, and range are lazy in Python 3 — they produce values on demand.", "Lazy evaluation enables working with infinite sequences: <code>itertools.count()</code>, <code>itertools.cycle()</code>.", "Short-circuit operators (<code>and</code>, <code>or</code>) are lazy — they don't evaluate the second operand if unnecessary.", "Chaining lazy operations forms a pipeline that processes one element through all steps before moving to the next — memory efficient.", "Eager evaluation can be more predictable and simpler to debug; lazy evaluation can mask errors until values are consumed."]
+      },
+      "Exception vs Error": {
+        section: "Error Handling & Debugging",
+        definition: "In Python, all exceptions are errors, but the terms are often used interchangeably. Technically, <strong>errors</strong> are typically unrecoverable conditions (like <code>SyntaxError</code>, <code>MemoryError</code>) while <strong>exceptions</strong> are generally expected, recoverable events that can be caught with try/except. All exceptions inherit from <code>BaseException</code>.",
+        internal_working: "Python's exception hierarchy: <code>BaseException</code> → <code>Exception</code> (recoverable) and <code>SystemExit</code>, <code>KeyboardInterrupt</code>, <code>GeneratorExit</code> (not typically caught). All user-defined exceptions should inherit from <code>Exception</code>. When an exception is raised, Python unwinds the call stack searching for a matching <code>except</code> clause.",
+        use_case: "Catch recoverable exceptions (<code>ValueError</code>, <code>IOError</code>) to handle gracefully. Let <code>SystemExit</code> and <code>KeyboardInterrupt</code> propagate by not catching <code>BaseException</code>. Create custom exceptions for domain-specific errors: <code>class InsufficientFundsError(Exception): pass</code>.",
+        key_points: ["<code>SyntaxError</code> is raised at parse time; most exceptions are raised at runtime.", "Always catch specific exceptions, not bare <code>except:</code> which catches even <code>KeyboardInterrupt</code>.", "Custom exceptions should inherit from <code>Exception</code>, not <code>BaseException</code>.", "<code>except (TypeError, ValueError) as e</code> catches multiple types in one clause.", "Exception objects carry a traceback (<code>.__traceback__</code>) and can be chained using <code>raise NewExc from original_exc</code>."]
+      },
+      "Try vs Finally": {
+        section: "Error Handling & Debugging",
+        definition: "The <code>try</code> block contains code that might raise an exception. The <code>finally</code> block contains cleanup code that is <strong>always executed</strong> regardless of whether an exception occurred, was caught, or the function returned early.",
+        internal_working: "When a <code>try</code> block exits (normally, via exception, via <code>return</code>, or via <code>break</code>/<code>continue</code>), Python's exception handling machinery always executes the <code>finally</code> block before propagating the exit. If both the <code>try</code> and <code>finally</code> blocks raise exceptions, the <code>finally</code> exception replaces the original. Context managers (<code>with</code>) implement this pattern internally using <code>__exit__</code>.",
+        use_case: "<code>finally</code> for resource cleanup: closing files, database connections, releasing locks — even if the code fails. However, prefer <code>with</code> statements (context managers) over manual try/finally for resource management.",
+        key_points: ["<code>finally</code> always runs — even if there's a <code>return</code>, <code>break</code>, or uncaught exception in the <code>try</code> block.", "A <code>return</code> in <code>finally</code> overrides any <code>return</code> in the <code>try</code> or <code>except</code> block — a subtle bug source.", "Prefer <code>with open(...) as f</code> over try/finally for file handling — context managers are cleaner.", "<code>try/except/else/finally</code>: <code>else</code> runs if no exception was raised; <code>finally</code> always runs.", "Use <code>finally</code> for cleanup that must happen: closing sockets, releasing locks, removing temp files."]
+      },
+      "Raise vs Assert": {
+        section: "Error Handling & Debugging",
+        definition: "<code>raise</code> explicitly raises an exception at any point in code — used for intentional error signalling in production code. <code>assert</code> raises <code>AssertionError</code> if a condition is False — intended for debugging and internal invariant checking, and can be disabled with <code>python -O</code>.",
+        internal_working: "<code>raise ExceptionType(msg)</code> compiles to the <code>RAISE_VARARGS</code> bytecode. <code>assert condition, msg</code> compiles to a conditional <code>RAISE_VARARGS</code> with <code>AssertionError</code>, but this is omitted entirely when Python runs with the <code>-O</code> (optimise) flag — assertions do not exist in optimised bytecode.",
+        use_case: "<code>raise ValueError('age must be positive')</code> — production validation that should always run. <code>assert len(data) == expected, 'size mismatch'</code> — sanity check during development/testing that may be stripped in production.",
+        key_points: ["Never use <code>assert</code> for input validation in production code — it can be silently disabled with <code>-O</code> flag.", "<code>raise</code> with no argument inside an <code>except</code> block re-raises the current exception, preserving the original traceback.", "Use <code>raise NewException from original</code> to chain exceptions and preserve context.", "<code>assert</code> is for invariants that should never fail in correct code; <code>raise</code> is for expected error conditions.", "<code>assert False, 'msg'</code> in tests is fine; use <code>pytest.raises()</code> or <code>unittest.assertRaises()</code> for testing exceptions."]
+      },
+      "Compile-time vs Runtime Error": {
+        section: "Error Handling & Debugging",
+        definition: "A <strong>compile-time error</strong> (syntax error) is detected by the Python parser/compiler before the code runs — the program fails to execute at all. A <strong>runtime error</strong> (exception) occurs during execution when an operation fails on actual data.",
+        internal_working: "Python's compilation phase (parsing + bytecode generation) catches <code>SyntaxError</code> and <code>IndentationError</code>. The bytecode is then executed by the interpreter where runtime errors like <code>NameError</code>, <code>TypeError</code>, <code>ZeroDivisionError</code> can occur. Python doesn't have a separate compilation step in the traditional sense but does compile to <code>.pyc</code> bytecode.",
+        use_case: "Compile-time: <code>if x =</code> (missing right side) — caught before running. Runtime: <code>int('abc')</code> — only fails when that line executes with that data. Static analysis tools (mypy, pylint) can catch some runtime errors (type mismatches) before execution.",
+        key_points: ["<code>SyntaxError</code> and <code>IndentationError</code> are compile-time — the entire script fails to load.", "<code>NameError</code> (<code>undefined variable</code>) is a runtime error — occurs only when that line is reached.", "Python's dynamic typing means many type errors only surface at runtime, unlike statically typed languages.", "Use mypy for static type checking to catch type errors before runtime.", "<code>compile(source, '', 'exec')</code> can be used to detect syntax errors without running code."]
+      },
+      "Logging vs Print": {
+        section: "Error Handling & Debugging",
+        definition: "<code>print()</code> writes to stdout and is intended for simple script output or debugging. The <code>logging</code> module provides a structured, configurable system for recording messages with levels (DEBUG, INFO, WARNING, ERROR, CRITICAL), timestamps, source location, and output routing to files/streams.",
+        internal_working: "<code>print()</code> calls <code>sys.stdout.write()</code> — simple, immediate, no metadata. Python's <code>logging</code> module uses a hierarchy of Logger objects, Handlers (console, file, network), Formatters, and Filters. Log records include timestamp, logger name, level, module, line number, and message. All configuration can be done without code changes via config files.",
+        use_case: "Use <code>logging</code> for any production code, libraries, or applications. Use <code>print</code> for quick one-off debugging or simple scripts. Library authors should always use <code>logging</code> (never <code>print</code>) so users can configure output.",
+        key_points: ["Never use <code>print()</code> in production code or libraries — use <code>logging.debug/info/warning/error()</code>.", "Logging supports levels: DEBUG < INFO < WARNING < ERROR < CRITICAL — you can filter by level at runtime without code changes.", "<code>logging.basicConfig(level=logging.DEBUG)</code> sets up a simple configuration.", "Use <code>%s</code>-style formatting in logging: <code>logging.debug('Value: %s', val)</code> — message not formatted until needed.", "Structured logging (JSON output) is better for log aggregation systems like ELK, Datadog."]
+      },
+      "Debugging vs Testing": {
+        section: "Error Handling & Debugging",
+        definition: "<strong>Debugging</strong> is the process of finding and fixing defects in existing code — it's reactive, done after a problem is observed. <strong>Testing</strong> is the process of proactively verifying code behaves correctly for defined inputs and conditions — it's preventive, done to catch bugs before or catch regressions.",
+        internal_working: "Python's debugger is <code>pdb</code> (or <code>breakpoint()</code> in Python 3.7+) — it pauses execution and provides an interactive REPL to inspect state, step through code, and evaluate expressions. Testing is done with <code>unittest</code> or <code>pytest</code> — test runner discovers and executes test functions, asserting expected outcomes.",
+        use_case: "Debugging: <code>breakpoint()</code> in code, then use <code>n</code> (next), <code>s</code> (step), <code>p var</code> (print) in pdb. Testing: <code>def test_add(): assert add(2, 3) == 5</code> in a pytest file.",
+        key_points: ["Use <code>breakpoint()</code> (Python 3.7+) instead of <code>import pdb; pdb.set_trace()</code> — it respects the PYTHONBREAKPOINT env var.", "TDD (Test-Driven Development): write tests before code — tests define expected behaviour.", "pytest autodiscovers tests in files named <code>test_*.py</code> and functions named <code>test_*</code>.", "Debugging is not a substitute for tests — bugs found manually are often not caught by automated tests later.", "Use <code>-v</code> flag in pytest for verbose output; <code>--pdb</code> drops into debugger on failure."]
+      },
+      "Unit Test vs Integration Test": {
+        section: "Error Handling & Debugging",
+        definition: "A <strong>unit test</strong> tests a single, isolated unit of code (a function or class) with all dependencies mocked/stubbed. An <strong>integration test</strong> tests how multiple components work together — including real dependencies like databases, APIs, or file systems.",
+        internal_working: "Unit tests run in complete isolation using mocking (<code>unittest.mock</code>) to replace external dependencies with controlled fakes. Integration tests set up real (or test) infrastructure, run the components in combination, and verify end-to-end behaviour. Unit tests run in milliseconds; integration tests may take seconds or minutes.",
+        use_case: "Unit test: <code>def test_calculate_tax(): assert calculate_tax(100, 0.2) == 20</code> — no DB, no network. Integration test: <code>def test_user_registration(db): user = register_user(db, 'alice'); assert db.find_user('alice')</code>.",
+        key_points: ["Unit tests should be fast (<1ms each), deterministic, and isolated — no file I/O, network, or DB.", "Integration tests catch interface mismatches between components that unit tests miss.", "Test pyramid: many unit tests, fewer integration tests, even fewer end-to-end tests.", "Mocking too much in unit tests can lead to tests that pass but the integrated system fails.", "Use <code>pytest</code> fixtures for setup/teardown and dependency injection in integration tests."]
+      },
+      "Mock vs Stub": {
+        section: "Error Handling & Debugging",
+        definition: "A <strong>stub</strong> is a test double that returns hardcoded/predefined responses to calls — it replaces a dependency with minimal behaviour to control test inputs. A <strong>mock</strong> is a test double that also records how it was called, allowing verification of interactions (which methods were called, with what arguments, how many times).",
+        internal_working: "Python's <code>unittest.mock.MagicMock</code> is both a stub and a mock — it auto-creates attributes and methods, records all calls, and allows assertion of interactions via <code>mock.assert_called_once_with()</code>. <code>Mock(return_value=42)</code> stubs the return. <code>mock.assert_called_with('arg')</code> verifies interaction.",
+        use_case: "Stub: <code>mock_db.get_user.return_value = User('alice')</code> — controls what the function returns. Mock verification: <code>mock_email.send.assert_called_once_with(to='alice@example.com')</code> — verifies the email was sent.",
+        key_points: ["Use <code>@patch('module.ClassName')</code> decorator to automatically replace a dependency with a Mock for the duration of a test.", "<code>MagicMock</code> supports magic methods (<code>__len__</code>, <code>__iter__</code>); use it by default.", "Mocks verify behaviour (interactions); stubs provide state — both are needed in different scenarios.", "<code>side_effect</code>: <code>mock.fn.side_effect = [val1, val2, Exception()]</code> returns different values on each call.", "Over-mocking creates brittle tests — mock only what you own or what crosses architectural boundaries."]
+      },
+      "Assertion vs Exception Handling": {
+        section: "Error Handling & Debugging",
+        definition: "<strong>Assertions</strong> (<code>assert</code>) are for verifying internal programmer assumptions and invariants during development — they signal a bug in the code itself. <strong>Exception handling</strong> (<code>try/except</code>) is for managing expected, recoverable error conditions that can occur in production due to external inputs or environment.",
+        internal_working: "Assertions compile to conditional <code>AssertionError</code> raises and are stripped by <code>python -O</code>. Exception handling is always active and uses the exception machinery — unwinding the stack to find a matching handler. The runtime overhead of a <code>try</code> block that doesn't raise is minimal in CPython.",
+        use_case: "Assert: <code>assert result is not None, 'BUG: process() should never return None'</code>. Exception: <code>try: user = db.get(id) except DatabaseError: return 404</code>.",
+        key_points: ["Assert = 'this should never happen'; except = 'this might happen and we can handle it'.", "Assertions can be disabled — never use them for input validation or security checks.", "<code>try/except</code> is the right mechanism for all expected error conditions in production code.", "EAFP (Easier to Ask Forgiveness than Permission): Python style favours try/except over pre-checks (<code>if key in dict</code> vs <code>try: d[key] except KeyError</code>).", "Catching and silently swallowing exceptions (<code>except: pass</code>) is an anti-pattern — always log or handle meaningfully."]
+      },
+      "Stack Trace vs Error Message": {
+        section: "Error Handling & Debugging",
+        definition: "A <strong>stack trace</strong> (traceback) is the sequence of function calls active at the time an exception was raised — it shows the path through the code that led to the error. An <strong>error message</strong> is the human-readable string describing what went wrong, typically attached to the exception.",
+        internal_working: "When an exception propagates uncaught, CPython's <code>traceback</code> module formats the exception's <code>__traceback__</code> attribute — a chain of frame objects. Each frame records the filename, line number, and function name. The traceback is printed innermost call last by default. Error messages are the string argument to the exception constructor: <code>ValueError('age must be > 0')</code>.",
+        use_case: "Debugging: read the stack trace from the bottom up — the last frame is the actual error location. Logging: <code>logging.exception('Failed')</code> logs both message and full traceback. Use <code>traceback.format_exc()</code> to capture the traceback as a string.",
+        key_points: ["Read tracebacks bottom-up — the last line is the actual error; lines above show how you got there.", "<code>logging.exception('msg')</code> automatically includes the full traceback in the log entry.", "Exception chaining (<code>raise B from A</code>) shows both the original and the new exception in the traceback.", "<code>traceback.print_exc()</code> and <code>traceback.format_exc()</code> programmatically access traceback info.", "In production, capture tracebacks in error monitoring tools (Sentry, Rollbar) rather than printing to stdout."]
+      },
+      "Stack vs Heap Memory": {
+        section: "Memory Management & Performance",
+        definition: "<strong>Stack memory</strong> is the region used for function call frames — fast, automatically managed, LIFO, limited size. <strong>Heap memory</strong> is the region for dynamic object allocation — larger, managed by the garbage collector, persists as long as there are references.",
+        internal_working: "In CPython, all Python objects are heap-allocated via <code>pymalloc</code> (a custom allocator for small objects ≤512 bytes, built on <code>malloc</code>). The C-level call stack holds CPython's interpreter frames (frame pointers, return addresses) — not Python objects themselves. Python frame objects (<code>PyFrameObject</code>) are themselves heap-allocated.",
+        use_case: "Understanding stack vs heap helps explain: why deep recursion causes stack overflow (C stack exhaustion), why large data structures work (heap), why <code>del large_obj</code> may reclaim memory (heap deallocation via reference counting).",
+        key_points: ["In CPython, Python objects always live on the heap — there's no stack allocation of Python objects.", "Stack overflow in Python = <code>RecursionError</code> — it's the C interpreter stack that overflows.", "Python's memory manager has a free-list for small objects to reduce <code>malloc</code> overhead.", "<code>sys.getsizeof(obj)</code> reports heap size of an object; actual memory may be higher due to referenced objects.", "Memory fragmentation is managed by Python's allocator — long-running processes may hold fragmented memory pools."]
+      },
+      "Reference vs Value": {
+        section: "Memory Management & Performance",
+        definition: "Python uses <strong>pass-by-object-reference</strong> (sometimes called 'pass-by-assignment'). Variables hold references to objects, not the objects themselves. When a variable is assigned, the reference is copied — not the object. Whether mutation is visible depends on whether the object is mutable.",
+        internal_working: "Every Python variable is a name in a namespace dict pointing to a <code>PyObject</code>. Assignment (<code>a = b</code>) copies the pointer, not the data. Passing an object to a function copies the pointer — the function receives a reference to the same object. For mutable objects, in-place mutations via this reference are visible to the caller. For immutable objects, any 'modification' creates a new object.",
+        use_case: "<code>def append_one(lst): lst.append(1)</code> — caller sees the change (mutable, same reference). <code>def increment(n): n += 1</code> — caller's integer is unchanged (immutable, rebinding creates new int).",
+        key_points: ["Python is neither purely 'pass by value' nor 'pass by reference' — it's 'pass by assignment' (reference to the object).", "Mutable argument mutations are visible to the caller; rebinding a parameter (<code>x = new_val</code>) is not.", "<code>id(obj)</code> returns the memory address — compare before/after assignment to understand reference semantics.", "To avoid mutating the caller's list, pass a copy: <code>fn(lst[:])</code> or <code>fn(list(lst))</code>.", "Augmented assignment on immutables (<code>x += 1</code>) creates a new object and rebinds <code>x</code>; on mutables like lists, <code>lst += [1]</code> modifies in place via <code>__iadd__</code>."]
+      },
+      "Garbage Collection vs Manual Memory": {
+        section: "Memory Management & Performance",
+        definition: "<strong>Garbage collection</strong> automatically reclaims memory occupied by objects no longer reachable, without programmer intervention. <strong>Manual memory management</strong> (as in C/C++) requires the programmer to explicitly allocate and free memory.",
+        internal_working: "CPython uses two mechanisms: <strong>reference counting</strong> (primary) — every object has a <code>ob_refcnt</code> field; when it reaches 0, the object is immediately deallocated. The <strong>cyclic garbage collector</strong> (<code>gc</code> module) supplements this to break reference cycles that reference counting alone cannot resolve. It runs periodically (or on demand via <code>gc.collect()</code>) using a generational algorithm.",
+        use_case: "Python developers rarely worry about memory manually. Key scenarios: <code>del obj</code> to hint GC, <code>gc.disable()</code> for performance-critical sections, <code>weakref</code> to avoid cycles, and <code>__del__</code> for cleanup (use context managers instead).",
+        key_points: ["Reference counting ensures most objects are freed immediately when their last reference is dropped — no GC pause.", "The cyclic GC handles cycles: <code>a.ref = b; b.ref = a</code> — these are collected in generations.", "Use <code>weakref.ref(obj)</code> to reference an object without incrementing its reference count — prevents cycles.", "<code>gc.collect()</code> forces a garbage collection cycle — useful in tests or before memory-intensive operations.", "CPython does not compact memory — deleted objects leave holes; this can cause fragmentation in long-running processes."]
+      },
+      "Shallow vs Deep Comparison": {
+        section: "Memory Management & Performance",
+        definition: "<strong>Shallow comparison</strong> compares only the top-level identity or values of objects, without recursively comparing nested contents. <strong>Deep comparison</strong> recursively compares all nested structures to determine equality.",
+        internal_working: "Python's <code>==</code> operator triggers <code>__eq__</code> — for built-in containers (list, dict), this performs a deep recursive element-by-element comparison. The <code>is</code> operator performs a pointer comparison (shallowest possible check). <code>copy.deepcopy</code> vs <code>copy.copy</code> mirrors this for copying. For custom objects, <code>__eq__</code> is shallow by default (identity) unless overridden.",
+        use_case: "<code>list1 == list2</code> — deep value comparison of all elements. <code>list1 is list2</code> — identity check (same object). For performance in caches: compare hashes (shallow) before falling back to deep equality.",
+        key_points: ["Python's <code>==</code> on lists/dicts/tuples is deep — it recursively compares nested elements.", "Custom classes default to identity comparison (<code>is</code>) for <code>==</code> unless <code>__eq__</code> is overridden.", "Deep comparison is O(n) where n is the total number of nested elements — can be slow for large structures.", "For testing, <code>assert result == expected</code> does deep comparison; for object identity, use <code>assert result is expected</code>.", "<code>dataclasses(eq=True)</code> auto-generates <code>__eq__</code> based on all fields."]
+      },
+      "Copy vs Assignment": {
+        section: "Memory Management & Performance",
+        definition: "<strong>Assignment</strong> (<code>b = a</code>) creates a new reference pointing to the same object — both variables refer to the same data. <strong>Copy</strong> creates a new object with the same contents — changes to the copy do not affect the original (depending on shallow vs deep).",
+        internal_working: "Assignment: increments reference count of the object, creates a new binding in the namespace — O(1), no data copied. Shallow copy: creates a new container but shares inner object references — O(n) for n top-level elements. Deep copy: recursively creates new objects for all levels — O(n) total objects copied.",
+        use_case: "Assignment: <code>b = a</code> — both point to same list; modifying <code>b</code> changes <code>a</code>. Shallow copy: <code>b = a.copy()</code> — safe for flat lists. Deep copy: <code>b = copy.deepcopy(a)</code> — safe for nested mutable structures.",
+        key_points: ["<code>b = a</code> does not copy data — both names point to the same object.", "<code>a = [1,2,3]; b = a; b.append(4)</code> — <code>a</code> is now <code>[1,2,3,4]</code>. This surprises many beginners.", "Shallow copy methods: <code>list.copy()</code>, <code>dict.copy()</code>, <code>list[:]</code>, <code>list()</code>, <code>copy.copy()</code>.", "For immutables (int, str, tuple), assignment and copy behave the same — no mutation possible.", "Function arguments are passed by assignment — mutable default args persist across calls (the classic Python gotcha)."]
+      },
+      "Interning vs Normal Objects": {
+        section: "Memory Management & Performance",
+        definition: "<strong>Interning</strong> is an optimisation where Python reuses existing objects for certain values rather than creating new ones — multiple variables pointing to the same object for common values. This saves memory and makes identity comparison O(1).",
+        internal_working: "CPython interns: small integers (-5 to 256), string literals that look like identifiers (ASCII letters/digits/underscores), and some short strings at compile time. The intern table is a dict mapping value to the canonical object. <code>sys.intern(s)</code> forces string interning. Interned objects' <code>is</code> comparison is True even for separately created instances.",
+        use_case: "Interning is mostly an implementation detail. Relevant for: understanding why <code>a = 256; b = 256; a is b</code> is <code>True</code> but <code>a = 257; b = 257; a is b</code> may be <code>False</code>. Use <code>sys.intern()</code> for dictionaries with many repeated string keys to save memory.",
+        key_points: ["Small integers (-5 to 256) are singletons — <code>a = 100; b = 100; a is b</code> is always <code>True</code>.", "String interning applies to compile-time string literals that look like identifiers; dynamically created strings are not interned by default.", "Never rely on <code>is</code> for string/integer equality — use <code>==</code> instead; interning is an implementation detail.", "<code>sys.intern('string')</code> forces a string into the intern table — useful for high-frequency dict keys.", "Interning saves memory in applications with many repeated string values (e.g., HTTP headers, JSON keys)."]
+      },
+      "Pass by Value vs Pass by Reference": {
+        section: "Memory Management & Performance",
+        definition: "Python is neither pass-by-value nor pass-by-reference in the traditional sense — it uses <strong>pass-by-object-reference</strong>. The reference (pointer) to the object is passed by value. Mutable objects can be modified through this reference; rebinding the parameter has no effect on the caller.",
+        internal_working: "Each function call creates a new local namespace where parameter names are bound to the passed objects. The binding itself (reference) is passed by value — a copy of the pointer. For mutable objects, calling methods that modify in-place (<code>list.append</code>) affects the original. For immutable objects (<code>int</code>, <code>str</code>), any modification creates a new object.",
+        use_case: "<code>def double(lst): lst *= 2</code> — modifies caller's list (mutable, in-place). <code>def double(n): n *= 2</code> — does NOT affect caller's integer (immutable, creates new object and rebinds <code>n</code>).",
+        key_points: ["Python's model: the reference is passed by value — neither purely pass-by-value nor pass-by-reference.", "Mutable objects (list, dict, set) can be modified in-place through the received reference — visible to caller.", "Rebinding a parameter (<code>param = new_value</code>) never affects the caller — it just rebinds the local name.", "To truly prevent mutation, pass immutable types or explicit copies: <code>fn(list(original))</code>.", "This is sometimes called 'call by sharing' or 'call by object reference' in the literature."]
+      },
+      "CPU-bound vs IO-bound": {
+        section: "Memory Management & Performance",
+        definition: "A <strong>CPU-bound</strong> task is limited by processor speed — it spends most of its time performing computations. An <strong>IO-bound</strong> task is limited by input/output operations — it spends most of its time waiting for disk, network, or database operations.",
+        internal_working: "CPython's GIL (Global Interpreter Lock) prevents true parallel execution of Python threads. For IO-bound tasks, threads release the GIL during IO waits — so threading and asyncio provide real concurrency. For CPU-bound tasks, the GIL is held during computation — only multiprocessing achieves true parallelism by using separate processes (each with its own GIL).",
+        use_case: "CPU-bound: data crunching, encryption, image processing — use <code>multiprocessing</code> or NumPy/C extensions. IO-bound: web requests, database queries, file reads — use <code>threading</code>, <code>asyncio</code>, or <code>concurrent.futures.ThreadPoolExecutor</code>.",
+        key_points: ["GIL means Python threads don't parallelize CPU-bound work — use <code>multiprocessing</code> for CPU-bound tasks.", "For IO-bound work, <code>asyncio</code> (single thread, event loop) is the most efficient; threading is also fine.", "Profile first with <code>cProfile</code> to determine if a bottleneck is CPU-bound or IO-bound before choosing concurrency model.", "NumPy/SciPy release the GIL for numerical operations — making threading viable for some CPU tasks.", "<code>concurrent.futures</code> provides a unified API: <code>ThreadPoolExecutor</code> (IO) and <code>ProcessPoolExecutor</code> (CPU)."]
+      },
+      "Time Complexity vs Space Complexity": {
+        section: "Memory Management & Performance",
+        definition: "<strong>Time complexity</strong> measures how execution time grows as input size increases — expressed in Big O notation (e.g., O(n), O(log n)). <strong>Space complexity</strong> measures how memory usage grows with input size.",
+        internal_working: "Time complexity is analysed by counting the dominant operations as input grows. Space complexity counts auxiliary memory allocations. Common Python operations: list indexing O(1), list append O(1) amortized, list search O(n), dict/set lookup O(1) average, sort O(n log n). Space: recursion depth O(n) stack frames, generator O(1) vs list comprehension O(n).",
+        use_case: "Choosing between a list and a set for membership testing: O(n) vs O(1) — when checking a million lookups, O(1) wins decisively. Choosing between recursion (O(n) space) and iteration (O(1) space) for deep structures.",
+        key_points: ["O(1) < O(log n) < O(n) < O(n log n) < O(n²) < O(2^n) — know this order for interviews.", "Amortized O(1): <code>list.append()</code> is occasionally O(n) (reallocation) but O(1) on average.", "Space-time tradeoffs: memoisation uses O(n) space to reduce time from O(2^n) to O(n) for Fibonacci.", "Python dict/set lookup is O(1) average but O(n) worst-case with many hash collisions.", "Generator expressions use O(1) space; list comprehensions O(n) — critical for large datasets."]
+      },
+      "Caching vs Memoization": {
+        section: "Memory Management & Performance",
+        definition: "<strong>Memoization</strong> is a specific caching technique where the results of a function call are cached keyed by the function's arguments — so repeated calls with the same inputs return the cached result without recomputing. <strong>Caching</strong> is the broader concept of storing computed/fetched results to avoid redundant work.",
+        internal_working: "Python's <code>functools.lru_cache(maxsize=n)</code> implements memoization using an <code>OrderedDict</code>-like structure with LRU eviction. The cache key is a tuple of arguments (must be hashable). <code>functools.cache</code> (Python 3.9+) is an unbounded cache. Caching in general can use <code>functools.cached_property</code>, Redis, Memcached, or application-level dicts.",
+        use_case: "Memoize recursive Fibonacci: <code>@lru_cache(maxsize=None)</code> transforms O(2^n) into O(n). Cache expensive DB queries: store results in a dict/Redis keyed by query parameters. Cache property values: <code>@cached_property</code> computes once per instance.",
+        key_points: ["<code>@lru_cache</code> requires all arguments to be hashable — cannot cache calls with list/dict args.", "<code>@lru_cache(maxsize=None)</code> (or <code>@cache</code>) is an unbounded cache — can cause memory leaks if used on functions with many unique inputs.", "<code>lru_cache</code> provides <code>.cache_info()</code> to inspect hits/misses and <code>.cache_clear()</code> to reset.", "Memoization is only safe for pure functions — side-effectful functions should not be memoized.", "<code>@functools.cached_property</code> computes a property value once per instance and stores it in the instance's <code>__dict__</code>."]
+      },
+      "Multithreading vs Multiprocessing": {
+        section: "Concurrency & Parallelism",
+        definition: "<strong>Multithreading</strong> runs multiple threads within a single process, sharing the same memory space. <strong>Multiprocessing</strong> spawns separate processes, each with its own memory space and Python interpreter. In CPython, only multiprocessing achieves true parallel execution for CPU-bound tasks due to the GIL.",
+        internal_working: "CPython's GIL (Global Interpreter Lock) is a mutex that only allows one thread to execute Python bytecode at a time. IO-bound threads release the GIL during IO waits, enabling concurrent progress. Multiprocessing uses <code>fork()</code>/<code>spawn()</code> system calls to create independent processes — no GIL contention. Inter-process communication via <code>Queue</code>, <code>Pipe</code>, or shared memory.",
+        use_case: "Multithreading: concurrent web requests (<code>ThreadPoolExecutor</code>), GUI responsiveness. Multiprocessing: CPU-intensive tasks — data processing, ML training, image rendering (<code>ProcessPoolExecutor</code>).",
+        key_points: ["GIL prevents threads from running Python bytecode in parallel — multithreading in CPython is for concurrency (IO-bound), not parallelism.", "Multiprocessing bypasses the GIL by using separate processes — each has its own GIL and memory.", "Data sharing: threads share memory (use locks); processes need IPC (Queue, Pipe, shared memory).", "Multiprocessing has higher startup cost (process creation) and serialisation overhead for inter-process data.", "<code>concurrent.futures</code> provides <code>ThreadPoolExecutor</code> and <code>ProcessPoolExecutor</code> with the same API."]
+      },
+      "Concurrency vs Parallelism": {
+        section: "Concurrency & Parallelism",
+        definition: "<strong>Concurrency</strong> is the ability to deal with multiple tasks at once by interleaving their execution — tasks make progress by switching context (not necessarily simultaneously). <strong>Parallelism</strong> is doing multiple tasks at literally the same time on multiple CPU cores.",
+        internal_working: "Concurrency in Python: achieved via threads (OS scheduler switches between them) or asyncio (cooperative switching at <code>await</code> points) — one core can handle many tasks concurrently. Parallelism: multiprocessing runs tasks on separate cores simultaneously. Python's GIL limits thread-based parallelism for Python code.",
+        use_case: "Concurrency: handling 1000 simultaneous HTTP connections with asyncio — one thread, many tasks interleaved. Parallelism: processing a 1GB CSV by splitting it across 8 CPU cores with multiprocessing.",
+        key_points: ["Concurrency is about structure (dealing with many things at once); parallelism is about execution (doing many things simultaneously).", "You can have concurrency without parallelism (single-core threading) and parallelism without concurrency (MapReduce batch jobs).", "Asyncio provides concurrency via cooperative multitasking — functions yield control at <code>await</code> points.", "Python's GIL allows IO-bound concurrent threading but blocks CPU-bound parallel threading.", "Quote (Rob Pike): 'Concurrency is about dealing with lots of things at once. Parallelism is about doing lots of things at once.'"]
+      },
+      "Thread vs Process": {
+        section: "Concurrency & Parallelism",
+        definition: "A <strong>thread</strong> is a lightweight unit of execution within a process, sharing the process's memory and resources. A <strong>process</strong> is an independent program instance with its own memory space, file handles, and resources.",
+        internal_working: "Threads share the same heap, global variables, and file descriptors — communication is via shared memory (use locks for safety). Processes have isolated memory spaces — communication requires IPC (pipes, queues, shared memory). Thread creation is cheap (microseconds); process creation is expensive (milliseconds, involves copying memory tables). Python threads are OS threads mapped 1:1 to kernel threads.",
+        use_case: "Thread: background tasks within an app, handling client connections. Process: running computationally intensive jobs that need separate CPU cores, or isolating unstable third-party code.",
+        key_points: ["Threads share memory — faster communication, but require synchronisation (locks) to avoid race conditions.", "Processes are isolated — no data races, but IPC overhead and higher memory usage.", "A process crash doesn't affect other processes; a thread crash or corruption can crash the whole process.", "CPython's GIL makes threads unsuitable for CPU-bound parallelism — use processes instead.", "<code>os.fork()</code> creates a copy-on-write child process on Unix; <code>multiprocessing.Process</code> is cross-platform."]
+      },
+      "GIL vs No-GIL": {
+        section: "Concurrency & Parallelism",
+        definition: "The <strong>GIL</strong> (Global Interpreter Lock) is a mutex in CPython that ensures only one thread executes Python bytecode at a time, simplifying memory management but limiting CPU-bound parallelism in threads. <strong>No-GIL</strong> refers to Python running without this lock — an experimental feature (PEP 703, Python 3.13 opt-in) allowing true thread-level parallelism.",
+        internal_working: "CPython uses reference counting for memory management — this requires atomic operations on <code>ob_refcnt</code>. The GIL serialises all object access, making reference counting thread-safe without per-object locks. Without the GIL (Python 3.13 free-threaded build), each object needs fine-grained locking. The GIL is released during IO operations, C extension calls that declare thread safety, and every 100 bytecode instructions (sys.getswitchinterval).",
+        use_case: "GIL impact: <code>threading</code> won't speed up CPU-bound Python code — multiple threads on CPU-heavy work can be slower than single-threaded. No-GIL opens the door to true Python thread parallelism for CPU-bound tasks — still experimental in 3.13.",
+        key_points: ["The GIL only affects CPython — Jython and IronPython have no GIL.", "IO-bound threads release the GIL during waits — threading is still useful for IO-bound concurrency.", "Python 3.2 improved the GIL with a new implementation that's fairer to IO-bound threads.", "Python 3.13 (2024) introduced an experimental free-threaded mode (<code>--disable-gil</code>) — a major milestone.", "Extensions built for GIL-enabled Python may not be thread-safe in a GIL-free world."]
+      },
+      "Sync vs Async": {
+        section: "Concurrency & Parallelism",
+        definition: "<strong>Synchronous</strong> code executes sequentially — each operation must complete before the next one begins, blocking the caller. <strong>Asynchronous</strong> code allows a task to initiate an operation and yield control while waiting, enabling other tasks to run — non-blocking.",
+        internal_working: "Sync code runs in the normal call stack. Async in Python uses <code>asyncio</code>'s event loop — coroutines are defined with <code>async def</code> and use <code>await</code> to suspend at IO points. When a coroutine awaits, the event loop schedules another ready coroutine. The event loop runs in a single thread using <code>select()/epoll()/kqueue()</code> for IO multiplexing.",
+        use_case: "Sync: sequential scripts, CPU work. Async: high-concurrency web servers (FastAPI, aiohttp), async DB queries, concurrent API calls: <code>results = await asyncio.gather(fetch(url1), fetch(url2))</code>.",
+        key_points: ["Async doesn't make code faster — it makes better use of wait time by running other tasks during IO.", "Use <code>async def</code> and <code>await</code>; running sync blocking code in async context blocks the event loop.", "<code>asyncio.gather(*coros)</code> runs multiple coroutines concurrently on the same event loop.", "Mixing sync and async code: use <code>asyncio.run_in_executor()</code> to offload blocking calls to a thread pool.", "FastAPI, HTTPX, aiohttp, asyncpg are async-first libraries — much higher throughput than sync equivalents."]
+      },
+      "Blocking vs Non-blocking": {
+        section: "Concurrency & Parallelism",
+        definition: "A <strong>blocking</strong> call suspends the calling thread/coroutine until the operation completes — the thread cannot do other work during the wait. A <strong>non-blocking</strong> call returns immediately (with partial data or a status indicator) allowing the caller to do other work and check back later.",
+        internal_working: "Blocking IO: <code>socket.recv(1024)</code> halts the thread until data arrives. Non-blocking IO: <code>socket.setblocking(False)</code> returns immediately with <code>BlockingIOError</code> if no data — requires polling or an event loop. <code>asyncio</code> wraps non-blocking syscalls with coroutines: <code>await reader.read(1024)</code> suspends the coroutine (not the thread) until data is available.",
+        use_case: "Blocking: simple scripts where sequential execution is fine. Non-blocking: high-performance servers handling thousands of connections — use asyncio or select/epoll to multiplex IO on a single thread.",
+        key_points: ["Blocking calls hold the thread; in asyncio, always use <code>await</code> with async IO to avoid blocking the event loop.", "Calling a blocking function inside <code>async def</code> blocks the entire event loop — wrap with <code>run_in_executor</code>.", "<code>socket.settimeout(n)</code> makes blocking calls time out after n seconds.", "Most Python standard library IO is blocking by default — async libraries (aiohttp, asyncpg) provide non-blocking alternatives.", "Event-driven servers (nginx, Node.js) are built on non-blocking IO — Python's asyncio enables the same pattern."]
+      },
+      "Thread Pool vs Process Pool": {
+        section: "Concurrency & Parallelism",
+        definition: "A <strong>thread pool</strong> maintains a fixed set of reusable threads to execute submitted tasks — avoids thread creation overhead per task, good for IO-bound work. A <strong>process pool</strong> maintains a fixed set of worker processes — good for CPU-bound work that needs to bypass the GIL.",
+        internal_working: "<code>concurrent.futures.ThreadPoolExecutor(max_workers=n)</code> maintains a pool of n threads; submitted tasks are placed in a queue and picked up by idle threads. <code>ProcessPoolExecutor(max_workers=n)</code> spawns n worker processes; tasks and results are serialised with pickle for inter-process transfer. Both return <code>Future</code> objects.",
+        use_case: "Thread pool: <code>with ThreadPoolExecutor(10) as ex: futures = [ex.submit(fetch_url, u) for u in urls]</code>. Process pool: <code>with ProcessPoolExecutor(8) as ex: results = list(ex.map(process_chunk, data_chunks))</code>.",
+        key_points: ["<code>concurrent.futures</code> provides a unified API for both — easy to switch between thread and process pool.", "Thread pool is lighter (threads share memory); process pool handles CPU-bound work truly in parallel.", "Tasks submitted to ProcessPoolExecutor must be picklable — lambdas and closures may not be.", "Pool size: IO-bound thread pools can have many threads (10–100+); CPU-bound process pools should match CPU count.", "<code>executor.map(fn, iterable)</code> is a convenient parallel map; <code>executor.submit(fn, arg)</code> for individual tasks."]
+      },
+      "Asyncio vs Threading": {
+        section: "Concurrency & Parallelism",
+        definition: "<code>asyncio</code> provides cooperative, single-threaded concurrency using an event loop — coroutines explicitly yield control at <code>await</code> points. <code>threading</code> provides preemptive concurrency — the OS scheduler switches threads at any point. Both handle IO-bound concurrency; asyncio scales better; threading is simpler to integrate with existing code.",
+        internal_working: "asyncio's event loop uses non-blocking IO multiplexing (epoll/kqueue) to monitor file descriptors and run coroutines when their IO is ready — all in one thread. Threading uses OS threads which the kernel schedules preemptively — context switches happen at OS-level. asyncio coroutines can run 10,000+ concurrently; threading typically maxes at 100–500 threads due to memory overhead.",
+        use_case: "asyncio: high-concurrency web servers, async API clients, real-time data pipelines. threading: legacy codebases, integrating blocking libraries, simple background tasks.",
+        key_points: ["asyncio scales better — thousands of coroutines vs hundreds of threads.", "Threading works with existing blocking code; asyncio requires the entire call stack to be async-aware.", "asyncio has no GIL issues (single thread); threading is still limited by the GIL for CPU work.", "asyncio bugs are harder to debug — missing <code>await</code> causes subtle non-execution bugs.", "<code>asyncio.run_in_executor()</code> bridges sync and async worlds by running blocking code in a thread pool."]
+      },
+      "Future vs Promise": {
+        section: "Concurrency & Parallelism",
+        definition: "A <strong>Future</strong> (in Python's <code>concurrent.futures</code> and <code>asyncio</code>) is an object representing the eventual result of an asynchronous operation — a placeholder for a value not yet computed. A <strong>Promise</strong> is the same concept from JavaScript — Python adopted the term 'Future' instead.",
+        internal_working: "<code>concurrent.futures.Future</code> is thread-safe and set by the executor when the task completes. <code>asyncio.Future</code> is an awaitable object; its result is set by async infrastructure. Both have <code>.result()</code> (blocking/awaiting), <code>.done()</code>, <code>.add_done_callback(fn)</code>, and <code>.cancel()</code>. <code>asyncio.Task</code> is a <code>Future</code> subclass that wraps a coroutine.",
+        use_case: "<code>future = executor.submit(fn, arg)</code> — submit task, later call <code>future.result()</code>. In asyncio: <code>task = asyncio.create_task(coro())</code> — runs concurrently, await later.",
+        key_points: ["<code>concurrent.futures.Future</code> is for thread/process pools; <code>asyncio.Future</code> is for the event loop — don't mix them.", "<code>asyncio.ensure_future(coro)</code> or <code>asyncio.create_task(coro)</code> schedules a coroutine as a background task.", "<code>future.result()</code> blocks until the result is available (in concurrent.futures); in asyncio, use <code>await future</code>.", "<code>asyncio.gather(*coroutines)</code> returns a future that completes when all given coroutines complete.", "Cancelled futures raise <code>CancelledError</code>; failed futures store the exception, raised on <code>.result()</code>."]
+      },
+      "Event Loop vs Thread Loop": {
+        section: "Concurrency & Parallelism",
+        definition: "An <strong>event loop</strong> is a single-threaded loop that monitors IO events and dispatches callbacks/coroutines when IO is ready — the heart of async programming in Python (<code>asyncio</code>). A <strong>thread loop</strong> (like a <code>while True</code> in a thread) runs work continuously in a dedicated thread, blocking on tasks.",
+        internal_working: "asyncio's event loop wraps OS IO multiplexing (<code>select</code>/<code>epoll</code>/<code>kqueue</code>): it registers file descriptors, sleeps until one is ready, then runs the associated coroutine until the next <code>await</code>. A thread loop blocks on a queue (<code>queue.Queue.get()</code>) or sleep. Event loops handle thousands of coroutines in one thread; thread loops need one thread per concurrent task.",
+        use_case: "Event loop: <code>asyncio.run(main())</code> for async web servers, client connections, real-time streams. Thread loop: background worker thread consuming from a queue — simpler for legacy/blocking code.",
+        key_points: ["Never block the event loop — a blocking call in a coroutine stalls all other coroutines.", "asyncio's event loop is single-threaded — no GIL issues, no synchronisation needed for coroutine-local state.", "<code>loop.run_in_executor(None, blocking_fn)</code> offloads blocking work to the default thread pool.", "GUI frameworks (Tkinter, Qt) have their own event loops — integrating asyncio requires bridging.", "<code>asyncio.get_event_loop()</code> is deprecated in Python 3.10+; use <code>asyncio.run()</code> instead."]
+      },
+      "Pickle vs JSON": {
+        section: "File Handling & Serialization",
+        definition: "<strong>Pickle</strong> is a Python-specific binary serialisation format that can serialise nearly any Python object (including custom classes, functions, lambdas). <strong>JSON</strong> (JavaScript Object Notation) is a language-agnostic text format supporting only basic types: strings, numbers, lists, dicts, booleans, null.",
+        internal_working: "Pickle serialises Python object graphs by recording the type and state needed to reconstruct them — using <code>__reduce__</code>, <code>__getstate__</code>/<code>__setstate__</code> protocols. JSON serialises to UTF-8 text using a strict grammar. JSON parsing is faster and interoperable; Pickle is faster for complex Python objects and handles more types.",
+        use_case: "Use JSON for APIs, configs, data interchange between languages/systems. Use Pickle for Python-to-Python persistence: caching ML models, saving scikit-learn pipelines, persisting complex objects.",
+        key_points: ["Never unpickle data from untrusted sources — Pickle can execute arbitrary code during deserialisation.", "JSON is human-readable, language-agnostic, and safe; Pickle is binary, Python-only, and potentially dangerous.", "JSON supports: str, int, float, list, dict, bool, None — that's it. Pickle handles custom classes, datetimes, numpy arrays, etc.", "Use <code>protocol=pickle.HIGHEST_PROTOCOL</code> for the most efficient format.", "For scientific objects, consider <code>joblib</code> (numpy-aware) or <code>cloudpickle</code> (serialises lambdas/closures)."]
+      },
+      "Read vs Write Mode": {
+        section: "File Handling & Serialization",
+        definition: "<strong>Read mode</strong> (<code>'r'</code>) opens a file for reading — the file must exist; writing raises an error. <strong>Write mode</strong> (<code>'w'</code>) opens a file for writing, truncating (emptying) it if it exists or creating it if it doesn't. Python also has <code>'a'</code> (append), <code>'r+'</code> (read+write), and <code>'x'</code> (exclusive create).",
+        internal_working: "File modes map to OS flags: <code>'r'</code> → <code>O_RDONLY</code>, <code>'w'</code> → <code>O_WRONLY | O_CREAT | O_TRUNC</code>, <code>'a'</code> → <code>O_WRONLY | O_CREAT | O_APPEND</code>. Python's <code>open()</code> wraps these syscalls, adding buffering and encoding handling. The <code>with</code> statement ensures <code>close()</code> is called.",
+        use_case: "<code>with open('file.txt', 'r') as f: data = f.read()</code>. <code>with open('output.txt', 'w') as f: f.write(result)</code>. Use <code>'a'</code> to append to logs without overwriting.",
+        key_points: ["<code>'w'</code> mode silently destroys existing file content — use <code>'x'</code> to fail if file exists (safe creation).", "Always use <code>with open(...)</code> — it guarantees file closure even if an exception occurs.", "<code>'r+'</code> mode: opens for both reading and writing without truncating — file must exist.", "Default text mode uses the platform's newline convention; use <code>'rb'</code>/<code>'wb'</code> for binary files.", "<code>encoding='utf-8'</code> should be specified explicitly for text files to avoid platform-dependent behaviour."]
+      },
+      "Binary vs Text Mode": {
+        section: "File Handling & Serialization",
+        definition: "<strong>Text mode</strong> (<code>'r'</code>, <code>'w'</code>) decodes/encodes bytes to strings using a specified encoding, and translates platform-specific newlines. <strong>Binary mode</strong> (<code>'rb'</code>, <code>'wb'</code>) reads/writes raw bytes with no encoding or newline translation.",
+        internal_working: "In text mode, Python wraps the raw file with <code>TextIOWrapper</code> which calls the codec (e.g., UTF-8) to decode bytes to <code>str</code> on read and encode <code>str</code> to bytes on write. Newline translation: on Windows, <code>\\r\\n</code> is read as <code>\\n</code> (normalised). Binary mode bypasses all this — data is returned/written as <code>bytes</code> objects exactly.",
+        use_case: "Binary mode: images, audio files, pickled data, any non-text file. Text mode: CSV, JSON, log files, any human-readable file. Mixing modes on the same file causes corruption.",
+        key_points: ["Binary mode is mandatory for non-text files — opening an image in text mode corrupts it on Windows.", "Always specify <code>encoding='utf-8'</code> in text mode — default encoding is platform-dependent.", "<code>newline=''</code> in text mode disables newline translation — needed for the <code>csv</code> module.", "Binary files read returns <code>bytes</code>; text files return <code>str</code>.", "HTTP responses are bytes; decode with <code>response.content.decode('utf-8')</code> or use <code>response.text</code>."]
+      },
+      "CSV vs JSON": {
+        section: "File Handling & Serialization",
+        definition: "<strong>CSV</strong> (Comma-Separated Values) is a plain-text tabular format — rows of values separated by delimiters, best for flat, homogeneous data. <strong>JSON</strong> is a hierarchical key-value format supporting nested structures, arrays, and mixed types — better for semi-structured data.",
+        internal_working: "CSV has no schema — all values are strings by default (type inference needed). Python's <code>csv</code> module parses/writes it row by row. JSON has a strict grammar with types (number, string, boolean, null, array, object) parsed by <code>json</code> module using a recursive descent parser. JSON is self-describing; CSV requires a header row for column names.",
+        use_case: "CSV: spreadsheet data, database exports, simple logs, data science datasets (pandas <code>read_csv</code>). JSON: API responses, configuration files, document stores, nested objects.",
+        key_points: ["CSV lacks a standard for data types — booleans, datetimes, nulls need convention or schema.", "JSON supports nesting; CSV is flat — representing nested data in CSV requires flattening or multiple files.", "CSV is faster to parse for large tabular data; JSON parsing has more overhead due to recursive structure.", "Use <code>csv.DictReader</code> to read CSV into dicts keyed by column headers.", "For large JSON files, use <code>ijson</code> for streaming/lazy parsing instead of loading the whole file."]
+      },
+      "Serialization vs Deserialization": {
+        section: "File Handling & Serialization",
+        definition: "<strong>Serialization</strong> (marshalling) is the process of converting an in-memory object into a format (bytes, string) that can be stored or transmitted. <strong>Deserialization</strong> (unmarshalling) is the reverse — reconstructing the in-memory object from the serialised form.",
+        internal_working: "Serialization: Python object → <code>pickle.dumps(obj)</code> → bytes; or <code>json.dumps(obj)</code> → JSON string. Deserialization: bytes → <code>pickle.loads(data)</code> → Python object; JSON string → <code>json.loads(s)</code> → dict/list. The process must be symmetric and handle versioning if schemas evolve.",
+        use_case: "Serialization: saving a trained ML model to disk, sending objects over a network socket, caching results in Redis. Deserialization: loading model back, receiving network messages, cache hits.",
+        key_points: ["Always validate/sanitise deserialised data from untrusted sources — especially Pickle (arbitrary code execution risk).", "Schema evolution: add new fields with defaults to maintain forward/backward compatibility.", "Protocol Buffers and MessagePack are faster and more compact than JSON for high-throughput scenarios.", "Python's <code>dataclasses</code> + <code>dacite</code> or Pydantic provide type-safe deserialization with validation.", "JSON serialization is not lossless for all Python types — datetime, Decimal, custom objects need custom encoders."]
+      },
+      "File vs Stream": {
+        section: "File Handling & Serialization",
+        definition: "A <strong>file</strong> is a persistent, addressable storage entity — it has a name, fixed size, and can be accessed at arbitrary positions (seekable). A <strong>stream</strong> is a sequential, potentially unbounded flow of data — it may not be seekable and you can only read/write sequentially.",
+        internal_working: "Python's file objects are streams in code — they have <code>read()</code>, <code>write()</code>, and often <code>seek()</code>/<code>tell()</code> methods. True streams (network sockets, pipes, <code>io.BytesIO</code>) are not seekable. The <code>io</code> module defines the base classes: <code>RawIOBase</code>, <code>BufferedIOBase</code>, <code>TextIOBase</code>.",
+        use_case: "Seekable file: reading a binary file at specific offsets. Stream: processing network data as it arrives, piping output from one process to another. Use streaming for large data to avoid loading everything into memory.",
+        key_points: ["Not all file-like objects support <code>seek()</code> — check <code>stream.seekable()</code> before calling <code>seek()</code>.", "Streaming is memory-efficient for large data — process a 10GB file line by line without loading it all.", "<code>io.StringIO</code> and <code>io.BytesIO</code> create in-memory file-like stream objects — useful for testing.", "Generators naturally model streams — produce one element at a time, consumed once.", "HTTP response bodies are streams — <code>requests.get(url, stream=True)</code> streams large downloads."]
+      },
+      "Buffered vs Unbuffered IO": {
+        section: "File Handling & Serialization",
+        definition: "<strong>Buffered IO</strong> accumulates data in a memory buffer before performing a system call — reducing the number of expensive OS transitions. <strong>Unbuffered IO</strong> performs a system call for every read/write operation — immediate but slower for many small operations.",
+        internal_working: "Python's default <code>open()</code> uses buffered IO via <code>BufferedReader</code>/<code>BufferedWriter</code>. The buffer size is typically 8KB. When the buffer is full (or on flush/close), the data is written in one system call. Unbuffered: <code>open('file', 'rb', buffering=0)</code> — each read/write is a syscall. Line-buffered: <code>buffering=1</code> in text mode — flushes on newline.",
+        use_case: "Buffered (default): nearly always — reduces syscalls, improves throughput. Unbuffered: real-time logging where data must appear immediately, hardware/serial IO. Use <code>flush()</code> to force a buffer dump without closing.",
+        key_points: ["Default Python IO is buffered — <code>print()</code> output may not appear immediately if redirected to a file; use <code>flush=True</code>.", "Unbuffered IO is critical for subprocess communication — <code>subprocess.Popen(stdout=PIPE, bufsize=0)</code>.", "<code>sys.stdout.reconfigure(line_buffering=True)</code> for line-buffered output.", "Forgetting to <code>flush()</code> or close a file can result in incomplete output — <code>with</code> statement handles this.", "Binary mode with <code>buffering=0</code> is the only unbuffered option — text mode requires at least line buffering."]
+      },
+      "Local Storage vs Cloud Storage": {
+        section: "File Handling & Serialization",
+        definition: "<strong>Local storage</strong> refers to data stored on the local filesystem (SSD/HDD) — fast access, directly accessible via file paths, limited by hardware capacity. <strong>Cloud storage</strong> (S3, GCS, Azure Blob) stores data on remote distributed systems — highly scalable, durable, accessible over HTTP, with latency.",
+        internal_working: "Local: Python's <code>open()</code>, <code>os</code>, <code>pathlib</code> directly call OS filesystem syscalls — microsecond access. Cloud: AWS S3 via <code>boto3</code> — operations involve HTTP requests over the network (milliseconds to seconds). Cloud storage has eventual consistency models and object-level (not byte-range) access, though S3 supports byte-range GET.",
+        use_case: "Local: temp files, dev environments, single-machine applications. Cloud: data pipelines on distributed clusters (Spark, Dask reading from S3), static website assets, ML training datasets shared across teams.",
+        key_points: ["Cloud storage is object storage — not a traditional filesystem; no true directories, just key prefixes.", "Use <code>boto3</code> for S3, <code>google-cloud-storage</code> for GCS — both support streaming uploads/downloads.", "<code>s3fs</code> and <code>gcsfs</code> provide filesystem-like interfaces over cloud storage for pandas, Dask.", "Cloud storage adds latency (~5–200ms per request) — batch operations and multipart uploads are critical for performance.", "Data locality: running computation (EC2/GCE) in the same region as your S3/GCS bucket avoids egress costs and reduces latency."]
+      },
+      "File System vs Database": {
+        section: "File Handling & Serialization",
+        definition: "A <strong>file system</strong> stores data as files/directories, accessed by paths. A <strong>database</strong> stores structured data in tables or documents, accessed via queries — providing indexing, transactions, concurrency control, and data integrity guarantees.",
+        internal_working: "File systems: OS-managed, hierarchical, file-level locking only. Databases: DBMS handles ACID transactions (Atomicity, Consistency, Isolation, Durability), B-tree/hash indexes for fast queries, write-ahead logging for crash recovery. SQLite stores everything in a single file but provides full ACID and SQL. PostgreSQL/MySQL are client-server with complex storage engines.",
+        use_case: "File system: storing blobs (images, videos), simple configuration, logs. Database: structured data with relationships, concurrent access, complex queries, reporting — user accounts, orders, product catalogue.",
+        key_points: ["Databases provide ACID guarantees; file systems only guarantee atomic rename on most OSes.", "File system is not suitable for concurrent writes to the same file — databases handle this with transactions.", "SQLite is a great embedded database — no server needed, ACID-compliant, perfect for local apps.", "Use a database when you need queries, filtering, sorting, or joins — not when storing blobs.", "Object-relational impedance mismatch: ORMs abstract SQL but add overhead; raw SQL is faster for complex queries."]
+      },
+      "Structured vs Unstructured Data": {
+        section: "File Handling & Serialization",
+        definition: "<strong>Structured data</strong> has a predefined schema — each field has a name, type, and constraints (SQL tables, CSV with headers). <strong>Unstructured data</strong> has no predefined schema — text, images, audio, video. <strong>Semi-structured</strong> data (JSON, XML) has flexible schema without strict types.",
+        internal_working: "Structured: stored in relational databases with schemas enforced by the engine. Queried with SQL — indexes make lookups O(log n). Unstructured: stored as files (BLOB in DB or file system). Queried with full-text search, ML models, or regex. Semi-structured: NoSQL document stores (MongoDB, Elasticsearch) store schema-flexible JSON documents.",
+        use_case: "Structured: customer records, financial transactions, inventory. Unstructured: email bodies, social media posts, images, PDFs. Semi-structured: API responses, event logs, config files.",
+        key_points: ["~80% of enterprise data is unstructured — hence the rise of NLP and computer vision.", "ELT patterns load raw unstructured data to a data lake (S3), then transform into structured form.", "pandas DataFrames are structured; MongoDB collections are semi-structured.", "Full-text search on unstructured data uses inverted indexes (Elasticsearch, PostgreSQL <code>tsvector</code>).", "Schema-on-write (SQL) vs schema-on-read (data lake) — trade flexibility for query performance."]
+      },
+      "Pandas DataFrame vs PySpark DataFrame": {
+        section: "Advanced Python & Ecosystem",
+        definition: "A <strong>Pandas DataFrame</strong> is an in-memory, single-machine tabular data structure for data manipulation — optimised for datasets that fit in RAM. A <strong>PySpark DataFrame</strong> is a distributed, immutable data structure backed by a cluster — designed for datasets too large for a single machine.",
+        internal_working: "Pandas: data stored in NumPy arrays in the driver's RAM. Operations are eager and sequential. PySpark: data is logically partitioned across a cluster's nodes; operations build a DAG (Directed Acyclic Graph) of transformations that are lazily evaluated and only executed on <code>action</code> calls (<code>collect()</code>, <code>count()</code>). PySpark uses the Catalyst optimiser to generate efficient execution plans.",
+        use_case: "Pandas: data exploration, EDA, preprocessing pipelines for &lt;10GB data, ML feature engineering. PySpark: ETL at petabyte scale on Databricks/EMR, processing log files from hundreds of servers.",
+        key_points: ["Pandas is eager (immediate execution); PySpark is lazy (builds a plan, executes on action).", "Pandas runs on one machine; PySpark distributes across a cluster — fundamentally different architecture.", "<code>pyspark.pandas</code> (formerly Koalas) provides a Pandas-like API on top of PySpark.", "Avoid <code>spark_df.toPandas()</code> on large datasets — it collects all data to the driver, causing OOM.", "PySpark DataFrames are immutable — transformations return new DataFrames; Pandas can be modified in-place."]
+      },
+      "SQL vs NoSQL": {
+        section: "Advanced Python & Ecosystem",
+        definition: "<strong>SQL</strong> (relational) databases store data in structured tables with a fixed schema and support ACID transactions and complex joins (PostgreSQL, MySQL, SQLite). <strong>NoSQL</strong> databases use flexible schema models (document, key-value, column-family, graph) and often trade ACID for horizontal scalability and schema flexibility.",
+        internal_working: "SQL: data normalised into tables, relationships via foreign keys, B-tree indexes, WAL for ACID. Queries use the SQL language with declarative execution plans. NoSQL (e.g., MongoDB): documents stored as BSON (binary JSON), no joins — related data embedded or referenced by ID. Horizontal sharding is native. Cassandra uses a wide-column model with distributed hash-based partitioning.",
+        use_case: "SQL: e-commerce orders, financial records, any relational data with integrity requirements. NoSQL: user profiles (MongoDB), session data (Redis), IoT time-series (InfluxDB), social graphs (Neo4j), product catalogues with varying attributes.",
+        key_points: ["SQL offers strong ACID guarantees; most NoSQL systems offer eventual consistency (BASE).", "NoSQL doesn't mean 'no SQL' — it means 'not only SQL'; many support query languages.", "Horizontal scaling is native to NoSQL (MongoDB sharding, Cassandra); SQL horizontal scaling (Citus, Vitess) is more complex.", "JOIN operations in SQL are powerful but expensive; NoSQL avoids joins by denormalising/embedding data.", "For Python: use SQLAlchemy for SQL, PyMongo for MongoDB, redis-py for Redis."]
+      },
+      "ORM vs Raw SQL": {
+        section: "Advanced Python & Ecosystem",
+        definition: "An <strong>ORM</strong> (Object-Relational Mapper) translates between Python objects and database tables, providing a Pythonic API without writing SQL directly (SQLAlchemy, Django ORM). <strong>Raw SQL</strong> executes SQL strings directly against the database using a DB driver (psycopg2, sqlite3).",
+        internal_working: "ORM: maps class ↔ table, instance ↔ row. Queries are built as Python expressions that are compiled to SQL. Lazy loading, eager loading (<code>joinedload</code>), and session management are handled automatically. Raw SQL: <code>cursor.execute('SELECT ...')</code> sends the query directly; no abstraction layer.",
+        use_case: "ORM: CRUD-heavy applications, migrations (<code>alembic</code>), rapid development. Raw SQL: complex queries (CTEs, window functions, lateral joins), performance-critical bulk operations, stored procedures.",
+        key_points: ["ORMs prevent SQL injection by parameterising queries automatically — raw SQL must use parameters: <code>cursor.execute('...WHERE id=%s', (id,))</code>.", "ORM N+1 query problem: fetching related records in a loop without eager loading causes N+1 queries — fix with <code>joinedload</code>.", "Raw SQL is faster for bulk operations — <code>cursor.executemany()</code> vs ORM's row-by-row insert.", "SQLAlchemy Core gives SQL-expressiveness with Pythonic syntax; ORM layer adds object mapping on top.", "Know both — ORM for productivity; drop to raw SQL when the ORM-generated query is inefficient."]
+      },
+      "API vs Microservice": {
+        section: "Advanced Python & Ecosystem",
+        definition: "An <strong>API</strong> (Application Programming Interface) is a defined interface through which software components communicate — it's a contract, not an architecture. A <strong>microservice</strong> is an architectural pattern where an application is composed of small, independently deployable services, each typically exposing an API.",
+        internal_working: "An API can be a function call, REST endpoint, GraphQL schema, or gRPC method — it defines the contract. A microservice is a deployable unit (typically a container) that owns its own data, runs independently, and communicates with other services via APIs (REST, gRPC, message queues). Microservices are discovered via service registry or DNS.",
+        use_case: "API: any interface — a Python library's public functions are an API, so is a REST endpoint. Microservice: splitting a monolith — user-service, order-service, payment-service each deployed independently and communicating via APIs.",
+        key_points: ["Every microservice has an API; not every API belongs to a microservice.", "Microservices trade operational simplicity for scalability and team autonomy.", "In Python, FastAPI/Flask/Django REST Framework are popular for building HTTP APIs.", "Service mesh (Istio, Linkerd) handles cross-cutting concerns (auth, observability, retries) for microservices.", "Start as a monolith, extract microservices when you have clear team boundaries and scaling needs (Martin Fowler's advice)."]
+      },
+      "Monolith vs Microservices": {
+        section: "Advanced Python & Ecosystem",
+        definition: "A <strong>monolith</strong> is a single deployable unit containing all application functionality — all components are tightly coupled and deployed together. <strong>Microservices</strong> decompose the application into small, independent services — each deployed, scaled, and maintained separately.",
+        internal_working: "Monolith: all modules in one process — function calls for internal communication, shared database, single deployment. Microservices: inter-service communication via HTTP/gRPC/message queues — each service has its own database. Data consistency requires saga patterns or distributed transactions. Service discovery, load balancing, and circuit breaking add complexity.",
+        use_case: "Monolith: early-stage startups, small teams, simple domains. Microservices: large organisations with many teams, independent scaling needs, polyglot environments (different services in different languages).",
+        key_points: ["Monolith is simpler to develop, test, and deploy — start here unless you have clear reasons not to.", "Microservices introduce network latency, distributed failures, data consistency challenges, and operational overhead.", "Microservices shine for team autonomy (Conway's Law) and independent scaling (scale only the high-traffic service).", "A 'modular monolith' is a good intermediate — well-separated modules in one deployable unit.", "Distributed tracing (Jaeger, Zipkin) and centralised logging are essential for debugging microservices."]
+      },
+      "Batch Processing vs Stream Processing": {
+        section: "Advanced Python & Ecosystem",
+        definition: "<strong>Batch processing</strong> collects data over time and processes it all at once on a schedule (e.g., nightly ETL). <strong>Stream processing</strong> processes data continuously in real-time as it arrives — event-by-event or in micro-batches.",
+        internal_working: "Batch: data accumulated in storage (S3, DB), then processed by Spark/pandas in a scheduled job. High throughput, higher latency (minutes to hours). Stream: data flows through Kafka/Kinesis, processed by Flink/Spark Streaming/Kafka Streams in real-time. Low latency (milliseconds to seconds), lower throughput per unit time.",
+        use_case: "Batch: monthly invoices, nightly data warehouse loads, weekly ML model retraining. Stream: fraud detection on transactions as they happen, real-time dashboards, personalised recommendations during user sessions.",
+        key_points: ["Lambda architecture combines batch (accurate, historical) and stream (fast, real-time) layers.", "Kappa architecture simplifies this — use stream processing for both real-time and historical data reprocessing.", "Batch jobs are easier to develop, test, and debug; stream processing requires handling late/out-of-order data.", "Watermarking in stream processing defines how long to wait for late-arriving events.", "Apache Spark supports both batch and micro-batch streaming (Structured Streaming); Flink is a true stream-first engine."]
+      },
+      "ETL vs ELT": {
+        section: "Advanced Python & Ecosystem",
+        definition: "<strong>ETL</strong> (Extract, Transform, Load) extracts data from sources, transforms it in an intermediate layer, then loads clean data into the target warehouse. <strong>ELT</strong> (Extract, Load, Transform) loads raw data directly into the warehouse first, then transforms it using the warehouse's own compute power.",
+        internal_working: "ETL: transformation happens in a separate ETL engine (Spark, pandas, dbt outside the warehouse) — requires ETL server compute. ELT: data lands in the warehouse (Snowflake, BigQuery, Redshift) as-is; SQL-based transformation runs inside the warehouse using its massive parallel processing. Cloud data warehouses made ELT viable — cheap storage + powerful SQL compute.",
+        use_case: "ETL: sensitive data that must be cleansed/masked before entering the warehouse, resource-constrained environments, legacy systems. ELT: modern cloud warehouses — load all raw data to S3/Snowflake, transform with dbt. ELT is the dominant modern pattern.",
+        key_points: ["ELT is the modern standard for cloud data warehouses — cheaper storage makes raw-first loading viable.", "dbt (data build tool) is the dominant ELT transformation layer — SQL models with testing and documentation.", "ETL is better when transformation is complex, stateful, or data must not land in raw form (PII).", "ELT allows re-running transformations on historical raw data — impossible if ETL discards intermediate data.", "Airflow/Prefect/Dagster are orchestration tools for both ETL and ELT pipeline scheduling."]
+      },
+      "Docker vs Virtual Machine": {
+        section: "Advanced Python & Ecosystem",
+        definition: "A <strong>Docker container</strong> packages an application with its dependencies into a portable, isolated unit that shares the host OS kernel — lightweight and fast. A <strong>Virtual Machine</strong> emulates a complete physical machine with its own OS kernel — fully isolated but heavier.",
+        internal_working: "Docker uses Linux kernel features: <strong>namespaces</strong> (isolate PID, network, filesystem) and <strong>cgroups</strong> (limit CPU, memory). Containers share the host kernel — no OS boot required. VMs use a hypervisor (VMware, VirtualBox, KVM) to emulate hardware and run a full OS — much more overhead (gigabytes of RAM, seconds to boot).",
+        use_case: "Docker: microservice deployment, CI/CD pipelines, reproducible development environments (<code>docker-compose</code>). VM: running a different OS on the same hardware (Windows on Mac), complete isolation for security-sensitive workloads.",
+        key_points: ["Container startup: milliseconds; VM startup: seconds to minutes.", "Containers share the host OS kernel — not suitable for running a different OS kernel (e.g., Windows container on Linux host).", "<code>Dockerfile</code> defines the image; <code>docker-compose.yml</code> orchestrates multi-container apps.", "Kubernetes orchestrates containers at scale — scheduling, scaling, self-healing.", "Security: VMs provide stronger isolation (separate kernel); containers can escape via kernel vulnerabilities."]
+      },
+      "REST vs GraphQL": {
+        section: "Advanced Python & Ecosystem",
+        definition: "<strong>REST</strong> (Representational State Transfer) is an architectural style using fixed URL endpoints for resources, with HTTP verbs (GET, POST, PUT, DELETE). <strong>GraphQL</strong> is a query language and runtime for APIs where clients specify exactly what data they need in a single request, sent to a single endpoint.",
+        internal_working: "REST: each resource has a URL; server defines response shape. Clients may need multiple round-trips for related data. GraphQL: a single <code>/graphql</code> endpoint accepts queries; the schema defines types and resolvers. The server returns exactly the requested fields — no over/under-fetching. The schema is introspectable at runtime.",
+        use_case: "REST: simple CRUD APIs, public APIs with stable contracts, caching (GET requests are cacheable by default). GraphQL: mobile apps needing bandwidth efficiency, complex data graphs (social networks), APIs consumed by multiple frontend clients with different data needs.",
+        key_points: ["REST over-fetches (returns unused fields) or under-fetches (requires multiple calls); GraphQL solves both.", "GraphQL has a strong type system and is self-documenting via introspection.", "REST is simpler to cache (HTTP caching for GET); GraphQL POST requests are harder to cache.", "N+1 problem in GraphQL resolvers — use DataLoader (batching) to avoid N database calls per query.", "For Python: FastAPI or Flask for REST; Strawberry or Ariadne for GraphQL."]
+      },
+      "Kafka vs RabbitMQ": {
+        section: "Advanced Python & Ecosystem",
+        definition: "<strong>Apache Kafka</strong> is a distributed event streaming platform — a persistent, replayable, high-throughput log of messages. <strong>RabbitMQ</strong> is a traditional message broker using AMQP — messages are routed through exchanges to queues and deleted once consumed.",
+        internal_working: "Kafka: messages written to append-only partitioned logs stored on disk. Consumers track their own offset — they can replay, reprocess, or join late. Retention is time-based (not consumer acknowledgment). Very high throughput (millions/sec). RabbitMQ: messages pushed to consumers, acknowledged, then deleted. Supports complex routing (fanout, topic, direct exchanges). Push model with acknowledgments.",
+        use_case: "Kafka: event sourcing, audit logs, real-time analytics, microservice event bus where replay is needed. RabbitMQ: task queues, job dispatching, RPC patterns, any scenario where message delivery guarantees and routing flexibility matter.",
+        key_points: ["Kafka is a log, not a queue — messages persist and can be replayed; RabbitMQ messages are deleted after consumption.", "Kafka consumer groups allow multiple consumers to share work across partitions (like competing consumers).", "RabbitMQ is easier to set up and reason about for simple task queues; Kafka has higher operational complexity.", "For Python: <code>confluent-kafka</code> or <code>kafka-python</code> for Kafka; <code>pika</code> or <code>aio-pika</code> for RabbitMQ.", "Kafka enables the event-sourcing pattern — the log is the source of truth; RabbitMQ is more suited to traditional messaging workflows."]
+      }
+    };
+
+    const SECTIONS = [
+      { name: "Core Python Basics", items: ["Shallow Copy vs Deep Copy", "List vs Tuple", "List vs Set", "List vs Dictionary", "Set vs Dictionary", "Mutable vs Immutable", "`is` vs `==`", "`append()` vs `extend()`", "`remove()` vs `pop()`", "`del` vs `remove()`"] },
+      { name: "Functions & Arguments", items: ["`*args` vs `**kwargs`", "Positional vs Keyword Arguments", "Default vs Non-default Arguments", "Lambda vs Normal Function", "Recursive vs Iterative Function", "Generator vs Function", "Yield vs Return", "Higher-order Function vs Normal Function", "Pure Function vs Impure Function", "Function vs Method"] },
+      { name: "Data Structures & Internals", items: ["List vs NumPy Array", "Array vs Linked List", "Stack vs Queue", "Queue vs Deque", "Heap vs Stack Memory", "OrderedDict vs Dict", "FrozenSet vs Set", "Bytearray vs Bytes", "Range vs List", "MemoryView vs Bytes"] },
+      { name: "Object-Oriented Programming", items: ["Class vs Object", "Instance Variable vs Class Variable", "Static Method vs Class Method", "Method Overloading vs Method Overriding", "Inheritance vs Composition", "Encapsulation vs Abstraction", "Public vs Private vs Protected", "Abstract Class vs Interface", "`__str__` vs `__repr__`", "`__new__` vs `__init__`"] },
+      { name: "Iteration & Comprehensions", items: ["Iterable vs Iterator", "Iterator vs Generator", "List Comprehension vs Generator Expression", "`map()` vs List Comprehension", "`filter()` vs List Comprehension", "`zip()` vs `enumerate()`", "`range()` vs `xrange()` (Py2)", "For loop vs While loop", "Nested Loop vs Comprehension", "Lazy Evaluation vs Eager Evaluation"] },
+      { name: "Error Handling & Debugging", items: ["Exception vs Error", "Try vs Finally", "Raise vs Assert", "Compile-time vs Runtime Error", "Logging vs Print", "Debugging vs Testing", "Unit Test vs Integration Test", "Mock vs Stub", "Assertion vs Exception Handling", "Stack Trace vs Error Message"] },
+      { name: "Memory Management & Performance", items: ["Stack vs Heap Memory", "Reference vs Value", "Garbage Collection vs Manual Memory", "Shallow vs Deep Comparison", "Copy vs Assignment", "Interning vs Normal Objects", "Pass by Value vs Pass by Reference", "CPU-bound vs IO-bound", "Time Complexity vs Space Complexity", "Caching vs Memoization"] },
+      { name: "Concurrency & Parallelism", items: ["Multithreading vs Multiprocessing", "Concurrency vs Parallelism", "Thread vs Process", "GIL vs No-GIL", "Sync vs Async", "Blocking vs Non-blocking", "Thread Pool vs Process Pool", "Asyncio vs Threading", "Future vs Promise", "Event Loop vs Thread Loop"] },
+      { name: "File Handling & Serialization", items: ["Pickle vs JSON", "Read vs Write Mode", "Binary vs Text Mode", "CSV vs JSON", "Serialization vs Deserialization", "File vs Stream", "Buffered vs Unbuffered IO", "Local Storage vs Cloud Storage", "File System vs Database", "Structured vs Unstructured Data"] },
+      { name: "Advanced Python & Ecosystem", items: ["Pandas DataFrame vs PySpark DataFrame", "SQL vs NoSQL", "ORM vs Raw SQL", "API vs Microservice", "Monolith vs Microservices", "Batch Processing vs Stream Processing", "ETL vs ELT", "Docker vs Virtual Machine", "REST vs GraphQL", "Kafka vs RabbitMQ"] }
+    ];
+
+    const SECTION_COLORS = ['#7c6af7', '#5eead4', '#f472b6', '#60a5fa', '#4ade80', '#fbbf24', '#f87171', '#a78bfa', '#34d399', '#fb923c'];
+    let activeBtn = null;
+
+    function buildSidebar() {
+      const container = document.getElementById('sidebarSections');
+      SECTIONS.forEach((sec, si) => {
+        const section = document.createElement('div');
+        section.className = 'section-group';
+
+        const title = document.createElement('div');
+        title.className = 'section-title collapsed';
+        title.innerHTML = `<span class="arrow">▶</span> ${sec.name}`;
+        title.addEventListener('click', () => {
+          title.classList.toggle('collapsed');
+          items.classList.toggle('hidden');
+        });
+
+        const items = document.createElement('div');
+        items.className = 'section-items hidden';
+        sec.items.forEach((item, ii) => {
+          const tag = document.createElement('button');
+          tag.className = 'topic-tag';
+          tag.dataset.item = item;
+          tag.textContent = `${ii + 1}. ${item.replace(/`/g, '')}`;
+          tag.addEventListener('click', () => showExplanation(item, tag));
+          items.appendChild(tag);
+        });
+
+        section.appendChild(title);
+        section.appendChild(items);
+        container.appendChild(section);
+      });
+    }
+
+    function filterItems(q) {
+      q = q.toLowerCase();
+      document.querySelectorAll('.topic-tag').forEach(tag => {
+        tag.style.display = tag.dataset.item.toLowerCase().includes(q) ? '' : 'none';
+      });
+      document.querySelectorAll('.section-group').forEach(group => {
+        const anyVisible = [...group.querySelectorAll('.topic-tag')].some(t => t.style.display !== 'none');
+        group.style.display = anyVisible ? '' : 'none';
+        if (q) { group.querySelector('.section-title').classList.remove('collapsed'); group.querySelector('.section-items').classList.remove('hidden'); }
+      });
+    }
+
+    function showExplanation(item, btn) {
+      if (activeBtn) activeBtn.classList.remove('active');
+      activeBtn = btn;
+      btn.classList.add('active');
+      document.getElementById('welcomeState').style.display = 'none';
+      document.getElementById('explanationPanel').style.display = 'block';
+      const d = DATA[item];
+      if (!d) { document.getElementById('contentArea').innerHTML = '<p>No data found.</p>'; return; }
+      const cleanItem = item.replace(/`/g, '');
+      document.getElementById('contentArea').innerHTML = `
+        <h2 style="font-size:1.4rem;font-weight:700;color:var(--color-text);margin:0 0 0.5rem;font-family:'Sora',sans-serif;">${cleanItem}</h2>
+        <span style="font-size:0.75rem;font-family:'JetBrains Mono',monospace;background:rgba(15,139,139,0.1);border:1px solid rgba(15,139,139,0.25);color:var(--color-accent);padding:3px 10px;border-radius:20px;">${d.section}</span>
+        <div class="explanation-card" style="margin-top:1.5rem;">
+          <h3>📘 Definition</h3>
+          <p>${d.definition}</p>
+        </div>
+        <div class="explanation-card">
+          <h3>⚙️ Internal Working</h3>
+          <p>${d.internal_working}</p>
+        </div>
+        <div class="explanation-card">
+          <h3>🎯 Use Case</h3>
+          <p>${d.use_case}</p>
+        </div>
+        <div class="explanation-card">
+          <h3>📋 Key Points for Interviewer</h3>
+          <ul>${d.key_points.map(p => `<li>${p}</li>`).join('')}</ul>
+        </div>`;
+      document.getElementById('mainPanel').scrollTop = 0;
+    }
+
+    buildSidebar();
+
+    // Auto-select first item from first section
+    const firstSection = document.querySelector('.section-group');
+    if (firstSection) {
+      firstSection.querySelector('.section-title').classList.remove('collapsed');
+      firstSection.querySelector('.section-items').classList.remove('hidden');
+      const firstTag = firstSection.querySelector('.topic-tag');
+      if (firstTag) firstTag.click();
+    }
+  </script>
+  <script src="../app.js"></script>
+  <script src="../hierarchy.js"></script>
+  <script src="../sidebar-nav.js"></script>
+</body>
+
+</html>

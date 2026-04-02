@@ -7,6 +7,14 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  background: transparent;
 }
 
 html {
@@ -93,16 +101,17 @@ body.dark .orb-c { background: rgba(14, 165, 233, 0.05); }
 /* ============================================
    MAIN CONTENT - Vibrant Styles
    ============================================ */
-main {
-  width: min(1100px, calc(100% - 2rem));
-  margin: 0 auto;
-  padding: var(--space-6) var(--space-4) var(--space-8);
+/* STRICT: only main shifts beside sidebar — avoid 100vw (scrollbar gutter) and avoid offsetting .page-wrap */
+html body.home-with-sidebar main,
+html body.home-with-sidebar main.main-content {
+  margin-left: var(--sidebar-collapsed) !important;
+  width: calc(100% - var(--sidebar-collapsed)) !important;
+  max-width: calc(100% - var(--sidebar-collapsed)) !important;
+  box-sizing: border-box !important;
 }
 
 body.home-with-sidebar main {
-  margin-left: var(--sidebar-collapsed);
-  width: calc(100% - var(--sidebar-collapsed));
-  padding: var(--space-6) var(--space-6) var(--space-8);
+  padding: var(--space-6) var(--space-4) var(--space-8);
 }
 
 /* ============================================
@@ -880,8 +889,9 @@ body.dark .hero-tags span:hover {
    ============================================ */
 @media (max-width: 1024px) {
   body.home-with-sidebar main {
-    margin-left: 0;
-    width: 100%;
+    margin-left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
     padding: var(--space-4);
     padding-top: calc(var(--topbar-height) + var(--space-4));
   }

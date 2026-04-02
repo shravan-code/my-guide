@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>*d@ta# | Differences Overview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../hub.css" />
+  <link rel="stylesheet" href="../sidebar-nav.css" />
+</head>
+<body class="home-with-sidebar">
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <main>
+
+    <div class="page-wrap">
+      <section class="hero">
+        <p class="eyebrow">Differences Overview</p>
+        <h1>Overview</h1>
+        <p class="hero-copy">This page outlines the intent of the Differences hub and how it relates to Roadmaps and other paths.</p>
+      </section>
+      <section class="content">
+        <p>This hub is intended to host comparative guides and paths analysis. Content will be expanded over time.</p>
+      </section>
+    </div>
+  </main>
+
+  <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  </button>
+  <script>
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    window.addEventListener('scroll', function () {
+      scrollToTopBtn.classList.toggle('visible', window.pageYOffset > 300);
+    });
+    scrollToTopBtn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+  <script src="../hierarchy.js"></script>
+  <script src="../sidebar-nav.js"></script>
+</body>
+</html>
