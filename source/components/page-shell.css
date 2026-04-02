@@ -11,11 +11,9 @@ body.non-home-shell {
 
 body.non-home-shell main,
 body.non-home-shell main.main-content {
-  margin-left: var(--sidebar-width) !important;
-  width: calc(100% - var(--sidebar-width)) !important;
+  width: 100% !important;
   min-height: 100vh;
   padding: var(--page-shell-padding-top) var(--page-shell-padding-x) var(--space-8) !important;
-  transition: margin-left 0.3s ease, width 0.3s ease, padding-right 0.3s ease;
 }
 
 body.non-home-shell .page-wrap {

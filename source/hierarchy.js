@@ -188,6 +188,27 @@ var sidebarHierarchy = [
     ]
   },
   {
+    section: 'differences',
+    label: 'Differences',
+    href: 'differences/differences-hub.html',
+    icon: '<path d="M12 3L4 9v6l8 6 8-6v-6l-8-6z"/>',
+    children: [
+      { label: 'Overview', href: 'differences/differences-overview.html' },
+      { label: 'Python', href: 'differences/differences-python.html' },
+      { label: 'Pandas', href: 'differences/differences-pandas.html' },
+      { label: 'Numpy', href: 'differences/differences-numpy.html' },
+      { label: 'Spark', href: 'differences/differences-spark.html' },
+      { label: 'SQL', href: 'differences/differences-sql.html' },
+      { label: 'Airflow', href: 'differences/differences-airflow.html' },
+      { label: 'DBT', href: 'differences/differences-dbt.html' },
+      { label: 'Kafka', href: 'differences/differences-kafka.html' },
+      { label: 'AWS', href: 'differences/differences-aws.html' },
+      { label: 'Cloud', href: 'differences/differences-cloud.html' },
+      { label: 'Databricks', href: 'differences/differences-databricks.html' },
+      { label: 'Data Modelling', href: 'differences/differences-data-modelling.html' }
+    ]
+  },
+  {
     section: 'roadmaps',
     label: 'Roadmap',
     href: 'roadmaps/roadmap.html',

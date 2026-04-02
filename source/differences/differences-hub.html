@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>*d@ta# | Differences</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../hub.css" />
+  <link rel="stylesheet" href="../sidebar-nav.css" />
+</head>
+<body class="home-with-sidebar">
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <main>
+
+    <div class="page-wrap">
+      <section class="hero">
+        <p class="eyebrow">Differences Hub</p>
+        <h1>Differences</h1>
+        <p class="hero-copy">Explore and compare different learning paths, scaffolding, and content relationships.</p>
+      </section>
+
+      <section class="tracks">
+        <h2>Explore Differences</h2>
+        <div class="track-grid">
+          <a href="differences-overview.html" class="track">
+            <h3>Overview</h3>
+            <p>High-level differences and comparisons between paths</p>
+          </a>
+          <a href="differences-python.html" class="track">
+            <h3>Python</h3>
+            <p>Python path differences and language patterns</p>
+          </a>
+          <a href="differences-pandas.html" class="track">
+            <h3>Pandas</h3>
+            <p>DataFrame-centric differences across tracks</p>
+          </a>
+          <a href="differences-numpy.html" class="track">
+            <h3>Numpy</h3>
+            <p>Numerical computing differences and patterns</p>
+          </a>
+          <a href="differences-spark.html" class="track">
+            <h3>Spark</h3>
+            <p>Big data processing differences</p>
+          </a>
+          <a href="differences-sql.html" class="track">
+            <h3>SQL</h3>
+            <p>Database querying differences</p>
+          </a>
+          <a href="differences-airflow.html" class="track">
+            <h3>Airflow</h3>
+            <p>Orchestration differences</p>
+          </a>
+          <a href="differences-dbt.html" class="track">
+            <h3>DBT</h3>
+            <p>Data tooling and modeling differences</p>
+          </a>
+          <a href="differences-kafka.html" class="track">
+            <h3>Kafka</h3>
+            <p>Streaming differences</p>
+          </a>
+          <a href="differences-aws.html" class="track">
+            <h3>AWS</h3>
+            <p>AWS-specific differences</p>
+          </a>
+          <a href="differences-cloud.html" class="track">
+            <h3>Cloud</h3>
+            <p>Cloud platform differences</p>
+          </a>
+          <a href="differences-databricks.html" class="track">
+            <h3>Databricks</h3>
+            <p>Databricks differences</p>
+          </a>
+          <a href="differences-data-modelling.html" class="track">
+            <h3>Data Modelling</h3>
+            <p>Models and schemes difference</p>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="../app.js"></script>
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  </button>
+  <script>
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    window.addEventListener('scroll', function () {
+      scrollToTopBtn.classList.toggle('visible', window.pageYOffset > 300);
+    });
+    scrollToTopBtn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+  <script src="../hierarchy.js"></script>
+  <script src="../sidebar-nav.js"></script>
+</body>
+</html>

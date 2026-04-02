@@ -22,6 +22,8 @@
   }
 
   .header-actions {
+     margin-bottom: 1rem;
+   }
     grid-column: 3;
     grid-row: 1;
     width: auto;
@@ -36,10 +38,12 @@
     display: none;
   }
 
-  .theme-toggle,
-  .portfolio-link {
-    display: none;
-  }
+.theme-toggle,
+   .portfolio-link {
+     display: block;
+     margin-top: 1rem;
+     position: relative;
+   }
 
   .menu {
     display: none;

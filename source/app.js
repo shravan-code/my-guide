@@ -238,3 +238,37 @@ initializeSidebarToggle();
 
 // Smooth scroll behavior
 document.documentElement.style.scrollBehavior = 'smooth';
+
+// Breadcrumbs should be removed at runtime across all pages.
+document.addEventListener('DOMContentLoaded', function() {
+  // Remove any existing breadcrumb elements on load
+  try {
+    var crumbs = document.querySelectorAll('nav.breadcrumb, [aria-label="Breadcrumb"]');
+    crumbs.forEach(function(el) {
+      if (el && el.parentNode) el.parentNode.removeChild(el);
+    });
+  } catch (e) {
+    // ignore if elements not present
+  }
+
+  // Also remove breadcrumbs injected later by scripts (MutationObserver)
+  try {
+    var observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mut) {
+        mut.addedNodes.forEach(function(node) {
+          if (!node || node.nodeType !== 1) return;
+          if (node.matches && (node.classList.contains('breadcrumb') || node.hasAttribute('aria-label') && node.getAttribute('aria-label') === 'Breadcrumb')) {
+            if (node.parentNode) node.parentNode.removeChild(node);
+          }
+          if (node.querySelectorAll) {
+            var nested = node.querySelectorAll('nav.breadcrumb, [aria-label="Breadcrumb"]');
+            nested.forEach(function(n) { if (n.parentNode) n.parentNode.removeChild(n); });
+          }
+        });
+      });
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+  } catch (e) {
+    // ignore if MutationObserver unsupported
+  }
+});
