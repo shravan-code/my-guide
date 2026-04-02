@@ -180,18 +180,18 @@
 }
 
 .level-badge.basic { background: #22c55e; color: #fff; }
-.level-badge.intermediate { background: #f59e0b; color: #fff; }
+.level-badge.intermediate { background: #F39F1F; color: #fff; }
 .level-badge.advanced { background: #ef4444; color: #fff; }
 
 .section-badge.getting-started { background: #22c55e; color: #fff; }
-.section-badge.data-structures { background: #3b82f6; color: #fff; }
+.section-badge.data-structures { background: #0F8B8B; color: #fff; }
 .section-badge.control-flow { background: #a855f7; color: #fff; }
-.section-badge.memory-management { background: #ec4899; color: #fff; }
+.section-badge.memory-management { background: #E62B7C; color: #fff; }
 .section-badge.performance { background: #f97316; color: #fff; }
 .section-badge.storage { background: #14b8a6; color: #fff; }
 .section-badge.next-steps { background: #6b7280; color: #fff; }
-.section-badge.concurrency { background: #06b6d4; color: #fff; }
-.section-badge.memory { background: #8b5cf6; color: #fff; }
+.section-badge.concurrency { background: #08B2B1; color: #fff; }
+.section-badge.memory { background: #E62B7C; color: #fff; }
 .section-badge.summary { background: #64748b; color: #fff; }
 
 /* ---- Code Blocks ---- */

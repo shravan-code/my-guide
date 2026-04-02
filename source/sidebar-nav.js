@@ -45,8 +45,8 @@
     setupThemeToggle();
     setupSidebarHover();
     highlightActiveLink();
-    setupMobileMenu();
     setupSubmenu();
+    setupMobileMenu();
     implementBreadcrumb();
   }
 
@@ -300,7 +300,15 @@
     overlay.addEventListener('click', closeMenu);
 
     sidebar.querySelectorAll('.sidebar-link').forEach(function (link) {
-      link.addEventListener('click', closeMenu);
+      link.addEventListener('click', function(e) {
+        // If this link has a submenu, let submenu toggle handle it
+        var parentItem = link.closest('.sidebar-item.has-submenu');
+        if (parentItem && link.querySelector('.submenu-arrow')) {
+          // This is a parent link with submenu; don't close menu
+          return;
+        }
+        closeMenu();
+      });
     });
 
     window.addEventListener('resize', function () {

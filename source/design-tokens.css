@@ -1,5 +1,5 @@
 /* ============================================
-   DESIGN TOKENS - Unified Design System
+   DESIGN TOKENS - Custom Color Palette
    ============================================ */
 :root {
   /* Typography */
@@ -49,10 +49,17 @@
   --z-overlay: 1999;
   --z-mobile-btn: 2001;
 
+  /* Custom Color Palette */
+  --golden-orange: #F39F1F;
+  --porcelain: #FCFEFC;
+  --fuchsia-flame: #E62B7C;
+  --dark-cyan: #0F8B8B;
+  --light-sea-green: #08B2B1;
+
   /* Glass Effects */
-  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-border: rgba(15, 139, 139, 0.15);
   --glass-blur: 12px;
-  --glass: rgba(255, 255, 255, 0.8);
+  --glass: rgba(252, 254, 252, 0.85);
 
   /* Legacy aliases */
   --bg: var(--color-bg);
@@ -61,56 +68,56 @@
   --bg-alt: var(--color-bg-alt);
   --glow-border: var(--color-accent);
   --glow-color: var(--color-accent);
-  --glow-pink: #ec4899;
-  --glow-cyan: #06b6d4;
-  --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.12);
+  --glow-pink: var(--fuchsia-flame);
+  --glow-cyan: var(--light-sea-green);
+  --shadow: 0 4px 20px rgba(15, 139, 139, 0.1);
+  --shadow-md: 0 8px 30px rgba(15, 139, 139, 0.15);
 
   /* Light Mode Colors */
-  --color-bg: #ffffff;
-  --color-bg-alt: #f8f9fa;
+  --color-bg: var(--porcelain);
+  --color-bg-alt: rgba(15, 139, 139, 0.05);
   --color-bg-elevated: #ffffff;
   --color-text: #1a1a1a;
-  --color-text-secondary: #525252;
-  --color-text-muted: #9ca3af;
-  --color-border: #e5e7eb;
-  --color-border-hover: #d1d5db;
-  --color-accent: #6366f1;
-  --color-accent-hover: #4f46e5;
-  --color-surface: rgba(255, 255, 255, 0.95);
-  --color-accent-light: rgba(99, 102, 241, 0.1);
+  --color-text-secondary: #4a5568;
+  --color-text-muted: #718096;
+  --color-border: rgba(15, 139, 139, 0.2);
+  --color-border-hover: rgba(15, 139, 139, 0.35);
+  --color-accent: var(--dark-cyan);
+  --color-accent-hover: var(--light-sea-green);
+  --color-surface: rgba(252, 254, 252, 0.95);
+  --color-accent-light: rgba(15, 139, 139, 0.1);
 
   /* Code colors - Light */
-  --code-bg: #f8f9fa;
-  --code-text: #24292e;
-  --code-comment: #6b7280;
-  --code-keyword: #cf222e;
-  --code-function: #8250df;
-  --code-string: #0a3069;
-  --code-number: #0550ae;
-  --code-variable: #953800;
-  --code-operator: #24292e;
-  --code-punctuation: #57606a;
+  --code-bg: rgba(15, 139, 139, 0.05);
+  --code-text: #2d3748;
+  --code-comment: #718096;
+  --code-keyword: var(--fuchsia-flame);
+  --code-function: var(--dark-cyan);
+  --code-string: var(--light-sea-green);
+  --code-number: var(--golden-orange);
+  --code-variable: var(--fuchsia-flame);
+  --code-operator: #4a5568;
+  --code-punctuation: #718096;
 }
 
 /* Dark Mode */
 body.dark {
-  --color-bg: #0f0f0f;
-  --color-bg-alt: #171717;
-  --color-bg-elevated: #1f1f1f;
-  --color-text: #f5f5f5;
-  --color-text-secondary: #a1a1aa;
-  --color-text-muted: #71717a;
-  --color-border: #27272a;
-  --color-border-hover: #3f3f46;
-  --color-accent: #818cf8;
-  --color-accent-hover: #a5b4fc;
-  --color-surface: rgba(20, 20, 20, 0.95);
-  --color-accent-light: rgba(129, 140, 248, 0.15);
+  --color-bg: #0a1a1a;
+  --color-bg-alt: rgba(8, 178, 177, 0.08);
+  --color-bg-elevated: #0f2525;
+  --color-text: var(--porcelain);
+  --color-text-secondary: rgba(252, 254, 252, 0.7);
+  --color-text-muted: rgba(252, 254, 252, 0.5);
+  --color-border: rgba(8, 178, 177, 0.25);
+  --color-border-hover: rgba(8, 178, 177, 0.4);
+  --color-accent: var(--light-sea-green);
+  --color-accent-hover: var(--golden-orange);
+  --color-surface: rgba(10, 26, 26, 0.95);
+  --color-accent-light: rgba(8, 178, 177, 0.15);
 
   /* Glass Effects - Dark */
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass: rgba(20, 20, 20, 0.8);
+  --glass-border: rgba(8, 178, 177, 0.2);
+  --glass: rgba(10, 26, 26, 0.85);
 
   /* Legacy aliases - Dark */
   --bg: var(--color-bg);
@@ -119,20 +126,20 @@ body.dark {
   --bg-alt: var(--color-bg-alt);
   --glow-border: var(--color-accent);
   --glow-color: var(--color-accent);
-  --glow-pink: #f472b6;
-  --glow-cyan: #22d3ee;
+  --glow-pink: var(--fuchsia-flame);
+  --glow-cyan: var(--light-sea-green);
   --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.4);
 
   /* Code colors - Dark */
-  --code-bg: #161b22;
-  --code-text: #c9d1d9;
-  --code-comment: #8b949e;
-  --code-keyword: #ff7b72;
-  --code-function: #d2a8ff;
-  --code-string: #a5d6ff;
-  --code-number: #79c0ff;
-  --code-variable: #ffa657;
-  --code-operator: #c9d1d9;
-  --code-punctuation: #8b949e;
+  --code-bg: rgba(8, 178, 177, 0.08);
+  --code-text: var(--porcelain);
+  --code-comment: rgba(252, 254, 252, 0.5);
+  --code-keyword: var(--fuchsia-flame);
+  --code-function: var(--light-sea-green);
+  --code-string: var(--golden-orange);
+  --code-number: var(--dark-cyan);
+  --code-variable: var(--fuchsia-flame);
+  --code-operator: var(--porcelain);
+  --code-punctuation: rgba(252, 254, 252, 0.5);
 }

@@ -37,15 +37,15 @@
 
 /* ---- Hover color by category (pill nav links) ---- */
 .pill-nav a[data-category="concurrency"]:hover {
-  color: #06b6d4;
-  border-color: #06b6d4;
-  background: rgba(6, 182, 212, 0.08);
+  color: #08B2B1;
+  border-color: #08B2B1;
+  background: rgba(8, 178, 177, 0.08);
 }
 
 .pill-nav a[data-category="memory"]:hover {
-  color: #8b5cf6;
-  border-color: #8b5cf6;
-  background: rgba(139, 92, 246, 0.08);
+  color: #E62B7C;
+  border-color: #E62B7C;
+  background: rgba(230, 43, 124, 0.08);
 }
 
 .pill-nav a[data-category="performance"]:hover {
@@ -67,9 +67,9 @@
 }
 
 .pill-nav a[data-category="data-structures"]:hover {
-  color: #3b82f6;
-  border-color: #3b82f6;
-  background: rgba(59, 130, 246, 0.08);
+  color: #0F8B8B;
+  border-color: #0F8B8B;
+  background: rgba(15, 139, 139, 0.08);
 }
 
 .pill-nav a[data-category="control-flow"]:hover {
@@ -79,9 +79,9 @@
 }
 
 .pill-nav a[data-category="memory-management"]:hover {
-  color: #ec4899;
-  border-color: #ec4899;
-  background: rgba(236, 72, 153, 0.08);
+  color: #E62B7C;
+  border-color: #E62B7C;
+  background: rgba(230, 43, 124, 0.08);
 }
 
 .pill-nav a[data-category="storage"]:hover {
@@ -127,9 +127,9 @@
 }
 
 .pill-nav a[data-category="data-science"]:hover {
-  color: #3b82f6;
-  border-color: #3b82f6;
-  background: rgba(59, 130, 246, 0.08);
+  color: #0F8B8B;
+  border-color: #0F8B8B;
+  background: rgba(15, 139, 139, 0.08);
 }
 
 .pill-nav a[data-category="basics"]:hover {
@@ -140,13 +140,13 @@
 
 /* ---- Active state color by category ---- */
 .pill-nav a[data-category="concurrency"].active {
-  color: #06b6d4;
-  border-color: #06b6d4;
+  color: #08B2B1;
+  border-color: #08B2B1;
 }
 
 .pill-nav a[data-category="memory"].active {
-  color: #8b5cf6;
-  border-color: #8b5cf6;
+  color: #E62B7C;
+  border-color: #E62B7C;
 }
 
 .pill-nav a[data-category="performance"].active {
@@ -165,8 +165,8 @@
 }
 
 .pill-nav a[data-category="data-structures"].active {
-  color: #3b82f6;
-  border-color: #3b82f6;
+  color: #0F8B8B;
+  border-color: #0F8B8B;
 }
 
 .pill-nav a[data-category="control-flow"].active {
@@ -175,8 +175,8 @@
 }
 
 .pill-nav a[data-category="memory-management"].active {
-  color: #ec4899;
-  border-color: #ec4899;
+  color: #E62B7C;
+  border-color: #E62B7C;
 }
 
 .pill-nav a[data-category="storage"].active {
@@ -215,8 +215,8 @@
 }
 
 .pill-nav a[data-category="data-science"].active {
-  color: #3b82f6;
-  border-color: #3b82f6;
+  color: #0F8B8B;
+  border-color: #0F8B8B;
 }
 
 .pill-nav a[data-category="basics"].active {
@@ -225,14 +225,14 @@
 }
 
 /* ---- Navbar section headings: text color by category (no pills) ---- */
-.nav-title.concurrency { color: #06b6d4; }
-.nav-title.memory { color: #8b5cf6; }
+.nav-title.concurrency { color: #08B2B1; }
+.nav-title.memory { color: #E62B7C; }
 .nav-title.performance { color: #f97316; }
 .nav-title.summary { color: #64748b; }
 .nav-title.getting-started { color: #22c55e; }
-.nav-title.data-structures { color: #3b82f6; }
+.nav-title.data-structures { color: #0F8B8B; }
 .nav-title.control-flow { color: #a855f7; }
-.nav-title.memory-management { color: #ec4899; }
+.nav-title.memory-management { color: #E62B7C; }
 .nav-title.storage { color: #14b8a6; }
 .nav-title.next-steps { color: #6b7280; }
 .nav-title.basic-concepts { color: #22c55e; }
@@ -240,5 +240,5 @@
 .nav-title.advanced { color: #f97316; }
 .nav-title.built-in { color: #22c55e; }
 .nav-title.magic-methods { color: #f97316; }
-.nav-title.data-science { color: #3b82f6; }
+.nav-title.data-science { color: #0F8B8B; }
 .nav-title.basics { color: #22c55e; }
