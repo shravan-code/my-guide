@@ -865,10 +865,6 @@ body.dark .sidebar-mobile-theme-toggle:hover {
 }
 
 @media (max-width: 920px) {
-  .sidebar-mobile-theme-toggle {
-    display: none;
-  }
-
   .sidebar-mobile-toggle::before {
     display: none;
   }

@@ -1059,8 +1059,9 @@ body.dark .hero-tags span:hover {
 
 @media (max-width: 1023px) {
   .breadcrumb {
-    left: var(--space-4);
+    left: 50%;
     top: var(--space-2);
+    transform: translateX(-50%);
   }
   
   .track-grid, .card-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1070,10 +1071,11 @@ body.dark .hero-tags span:hover {
 
 @media (max-width: 767px) {
   .breadcrumb {
-    left: calc(var(--topbar-height) + var(--space-2));
+    left: 50%;
     top: var(--space-2);
     padding: var(--space-1) var(--space-3);
     font-size: var(--text-xs);
+    transform: translateX(-50%);
   }
   
   .track-grid, .card-grid, .spark-track-grid { grid-template-columns: 1fr; }
@@ -1083,8 +1085,9 @@ body.dark .hero-tags span:hover {
 
 @media (max-width: 480px) {
   .breadcrumb {
-    left: calc(var(--topbar-height) - var(--space-2));
-    max-width: calc(100vw - 5rem);
+    left: 50%;
+    max-width: calc(100vw - 2rem);
+    transform: translateX(-50%);
   }
   
   .logo-stage { grid-template-columns: 1fr 1fr; gap: var(--space-2); }
