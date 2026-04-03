@@ -1,0 +1,181 @@
+/* ---- Global Collapsible Sections ---- */
+
+/* The header itself (H1, H2) */
+.collapsible-header {
+  cursor: pointer !important;
+  position: relative !important;
+  padding: 0.75rem 0.5rem !important;
+  margin: 0.5rem 0 !important;
+  border-radius: var(--radius-md, 8px) !important;
+  transition: background 0.2s ease, transform 0.2s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 1rem !important;
+  user-select: none !important;
+}
+
+.collapsible-header:hover {
+  background: var(--color-bg-alt, rgba(15, 139, 139, 0.05)) !important;
+  transform: translateX(4px) !important;
+}
+
+/* Header indicator (Chevron) */
+.collapsible-header::before {
+  content: '';
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-right: 2px solid var(--color-accent);
+  border-bottom: 2px solid var(--color-accent);
+  transform: rotate(-45deg);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  margin-right: 0.5rem;
+}
+
+.collapsible-section.is-expanded > .collapsible-header::before {
+  transform: rotate(45deg);
+}
+
+/* H1 specific styling */
+h1.collapsible-header {
+  border-bottom: 2px solid var(--color-border);
+  margin-bottom: 1.5rem !important;
+}
+
+/* Content Wrapper */
+.collapsible-wrapper {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+              opacity 0.3s ease, 
+              transform 0.3s ease !important;
+  padding: 0 0.55rem !important;
+}
+
+.collapsible-section.is-expanded > .collapsible-wrapper {
+  max-height: 8000px; /* Increased for deeper nesting */
+  opacity: 1;
+  transform: translateY(0);
+  padding-bottom: 2rem !important;
+}
+
+/* Support for smooth appearance of images/grids within */
+.collapsible-wrapper > * {
+  margin-bottom: 1.5rem;
+}
+
+/* Cleanup for Roadmap specifically */
+body.roadmap-page .collapsible-wrapper {
+  padding-left: 2rem !important;
+}
+
+/* ---- Section Controls (Floating) ---- */
+.section-controls {
+  position: fixed !important;
+  top: 1.5rem !important;
+  right: 2rem !important;
+  z-index: 1000 !important;
+  display: flex !important;
+  gap: 0.75rem !important;
+  pointer-events: none !important; /* Let clicks pass through to content underneath if not on button */
+}
+
+.toggle-all-pill {
+  pointer-events: auto !important;
+  background: var(--glass, rgba(255, 255, 255, 0.7)) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid var(--glass-border, rgba(15, 139, 139, 0.2)) !important;
+  color: var(--color-text, #333) !important;
+  padding: 0.6rem 1.2rem !important;
+  border-radius: 9999px !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+  user-select: none !important;
+}
+
+.toggle-all-pill:hover {
+  background: var(--color-surface, #fff) !important;
+  border-color: var(--dark-cyan, #0F8B8B) !important;
+  color: var(--dark-cyan, #0F8B8B) !important;
+  transform: translateY(-2px) scale(1.02) !important;
+  box-shadow: 0 12px 40px rgba(15, 139, 139, 0.2) !important;
+}
+
+/* Scroll to Top Button */
+.scroll-to-top {
+  position: fixed !important;
+  bottom: 2rem !important;
+  right: 2rem !important;
+  width: 45px !important;
+  height: 45px !important;
+  border-radius: 50% !important;
+  background: var(--glass, rgba(255, 255, 255, 0.7)) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid var(--glass-border, rgba(15, 139, 139, 0.2)) !important;
+  color: var(--dark-cyan, #0F8B8B) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  z-index: 1000 !important;
+  transition: all 0.3s ease !important;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+}
+
+.scroll-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.scroll-to-top:hover {
+  background: var(--dark-cyan, #0F8B8B) !important;
+  color: white !important;
+  transform: scale(1.1) translateY(-5px) !important;
+  box-shadow: 0 12px 40px rgba(15, 139, 139, 0.3) !important;
+}
+
+.scroll-to-top svg {
+  width: 20px;
+  height: 20px;
+}
+
+body.dark .toggle-all-pill,
+body.dark .scroll-to-top {
+  background: rgba(30, 41, 59, 0.7) !important;
+  color: var(--color-text, #f8fafc) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+body.dark .scroll-to-top:hover {
+  background: var(--light-sea-green, #08B2B1) !important;
+  color: #0f172a !important;
+}
+
+@media (max-width: 1024px) {
+  .section-controls {
+    top: auto !important;
+    bottom: 1.5rem !important;
+    right: 50% !important;
+    transform: translateX(50%) !important;
+  }
+  
+  .scroll-to-top {
+    right: 1.5rem !important;
+    bottom: 6rem !important;
+  }
+}

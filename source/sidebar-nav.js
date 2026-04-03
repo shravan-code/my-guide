@@ -76,48 +76,154 @@
     return matches.length ? registry[matches[0]] : null;
   }
 
-  function extractLegacyContentNav(sidebar) {
-    var items = [];
-    if (sidebar) {
-      var currentGroup = '';
-      Array.prototype.forEach.call(sidebar.children, function (node) {
-        if (node.classList && node.classList.contains('nav-title')) {
-          currentGroup = node.textContent.trim();
-          return;
-        }
+  function initializeCollapsibleSections(customContainer, customSelector) {
+    var path = window.location.pathname.replace(/\\/g, '/');
+    var isExcluded = 
+      path.indexOf('/roadmaps/') !== -1 || 
+      path.indexOf('portfolio.html') !== -1 || 
+      path.indexOf('hub.html') !== -1 ||
+      path.indexOf('index.html') !== -1 ||
+      path.indexOf('projects-experienced.html') !== -1 ||
+      path === '/source/';
 
-        if (node.classList && node.classList.contains('nav-item')) {
-          var href = node.getAttribute('href') || '';
-          if (!href || href.charAt(0) !== '#') return;
+    if (isExcluded) return;
 
-          var clone = node.cloneNode(true);
-          Array.prototype.forEach.call(clone.querySelectorAll('span'), function (span) {
-            span.remove();
-          });
-
-          items.push({
-            href: href,
-            label: clone.textContent.replace(/\s+/g, ' ').trim(),
-            group: currentGroup,
-            depth: 0
-          });
-        }
-      });
+    var containers;
+    if (typeof customContainer === 'string') {
+      containers = document.querySelectorAll(customContainer);
+    } else if (customContainer) {
+      containers = [customContainer];
+    } else {
+      var found = document.querySelector('main') || document.body.querySelector('.page-wrap') || document.body.querySelector('.main-content');
+      containers = found ? [found] : [];
     }
 
-    if (items.length) return items;
+    if (!containers.length) return;
 
-    var headings = document.querySelectorAll('main .page-wrap h2[id], main .page-wrap h3[id]');
-    Array.prototype.forEach.call(headings, function (heading) {
-      items.push({
-        href: '#' + heading.id,
-        label: heading.textContent.replace(/\s+/g, ' ').trim(),
-        group: '',
-        depth: heading.tagName === 'H3' ? 1 : 0
+    Array.prototype.forEach.call(containers, function (container) {
+      var selector = customSelector || 'h1, h2';
+      var headings = container.querySelectorAll(selector);
+      if (!headings.length) return;
+
+      Array.prototype.forEach.call(headings, function (heading) {
+      // Skip if already processed or if it's a page title in a hero section
+      if (heading.classList.contains('collapsible-header') || heading.closest('.hero')) return;
+
+      // 1. Prepare Header
+      heading.classList.add('collapsible-header');
+      
+      // 2. Wrap Content
+      var wrapper = document.createElement('div');
+      wrapper.className = 'collapsible-wrapper';
+      
+      var sibling = heading.nextElementSibling;
+      // Stop logic: for H1/H2, stop at next H1/H2. For Others (e.g. H3), stop at next of same level.
+      var stopTags = (selector === 'h1, h2') ? ['H1', 'H2'] : [heading.tagName];
+      
+      while (sibling && stopTags.indexOf(sibling.tagName) === -1) {
+        var next = sibling.nextElementSibling;
+        wrapper.appendChild(sibling);
+        sibling = next;
+      }
+      
+      heading.parentNode.insertBefore(wrapper, heading.nextSibling);
+
+      // 3. Toggle Logic
+      heading.addEventListener('click', function () {
+        var section = heading.parentElement;
+        var isExpanded = section.classList.contains('is-expanded');
+        section.classList.toggle('is-expanded', !isExpanded);
+        
+        if (!isExpanded) {
+           setTimeout(function() {
+             heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+           }, 100);
+        }
+        updateToggleAllPill(container);
       });
+
+      // Wrap both in a section container
+      // Expand Level 1 by default, Level 2+ collapsed
+      var isLevel1 = (heading.tagName === 'H1' || heading.tagName === 'H2');
+      var sectionWrap = document.createElement('section');
+      sectionWrap.className = 'collapsible-section' + (isLevel1 ? ' is-expanded' : ''); 
+      heading.parentNode.insertBefore(sectionWrap, heading);
+      sectionWrap.appendChild(heading);
+      sectionWrap.appendChild(wrapper);
     });
 
-    return items;
+      if (container.querySelector('.collapsible-section')) {
+        injectToggleAllPill(container);
+      }
+    });
+  }
+
+  function injectToggleAllPill(container) {
+    if (document.body.querySelector('.section-controls')) return;
+
+    var controls = document.createElement('div');
+    controls.className = 'section-controls';
+    
+    var pill = document.createElement('button');
+    pill.className = 'toggle-all-pill';
+    pill.type = 'button';
+    pill.innerHTML = '<span>Collapse All</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>';
+    
+    pill.addEventListener('click', function() {
+      var sections = container.querySelectorAll('.collapsible-section');
+      var anyCollapsed = Array.prototype.some.call(sections, function(s) { return !s.classList.contains('is-expanded'); });
+      
+      Array.prototype.forEach.call(sections, function(s) {
+        s.classList.toggle('is-expanded', anyCollapsed);
+      });
+      
+      updateToggleAllPill(container);
+    });
+
+    controls.appendChild(pill);
+    document.body.appendChild(controls);
+  }
+
+  function setupScrollToTop() {
+    if (document.querySelector('.scroll-to-top')) return;
+
+    var btn = document.createElement('button');
+    btn.className = 'scroll-to-top';
+    btn.setAttribute('aria-label', 'Scroll to Top');
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>';
+    
+    document.body.appendChild(btn);
+
+    window.addEventListener('scroll', function() {
+      if (window.pageYOffset > 300) {
+        btn.classList.add('visible');
+      } else {
+        btn.classList.remove('visible');
+      }
+    });
+
+    btn.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  function updateToggleAllPill(container) {
+    var pill = container.querySelector('.toggle-all-pill');
+    if (!pill) return;
+    
+    var sections = container.querySelectorAll('.collapsible-section');
+    var allExpanded = Array.prototype.every.call(sections, function(s) { return s.classList.contains('is-expanded'); });
+    
+    var label = pill.querySelector('span');
+    var svg = pill.querySelector('svg');
+    
+    if (allExpanded) {
+      label.textContent = 'Collapse All';
+      pill.setAttribute('data-state', 'expanded');
+    } else {
+      label.textContent = 'Expand All';
+      pill.setAttribute('data-state', 'collapsed');
+    }
   }
 
   function init() {
@@ -129,10 +235,6 @@
     }
 
     var relativePath = getCurrentSourcePath();
-    var isSubPage = relativePath !== '';
-
-    var legacySidebar = document.getElementById('sidebar');
-    var contentNavData = extractLegacyContentNav(legacySidebar);
 
     var sidebar = document.querySelector('.sidebar-nav');
     if (sidebar) {
@@ -141,7 +243,12 @@
         setupSubmenu();
         highlightActiveLink();
         setupMobileMenu();
-        setupContentNav(contentNavData);
+        initializeCollapsibleSections();
+        
+        // Special initialization for cheatsheets to make cards collapsible
+        if (window.location.pathname.indexOf('cheatsheet.html') !== -1) {
+          initializeCollapsibleSections('.code-grid', 'h3');
+        }
         return;
       }
       sidebar.remove();
@@ -161,7 +268,7 @@
       if (node) node.remove();
     });
 
-    document.body.classList.add('home-with-sidebar');
+    document.body.classList.add('home-with-sidebar', 'non-home-shell');
 
     document.body.insertAdjacentHTML('afterbegin', buildSidebarHTML());
     injectMobileControls();
@@ -171,7 +278,8 @@
     setupSubmenu();
     setupMobileMenu();
     implementBreadcrumb();
-    setupContentNav(contentNavData);
+    initializeCollapsibleSections();
+    setupScrollToTop();
   }
 
   function buildSidebarHTML() {
@@ -184,7 +292,6 @@
     var toggleIconChar = isDark
       ? '<path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41.39.39 1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41.39.39 1.03.39 1.41 0l1.06-1.06z"/>'
       : '<path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z" />';
-    var toggleLabelTxt = isDark ? 'Light' : 'Dark';
     var arrowIcon = '<svg class="submenu-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>';
 
     function buildMenuItem(item, isChild) {
@@ -221,7 +328,6 @@
       return buildMenuItem(item, false);
     }).join('\n');
 
-    // Add portfolio as a regular menu item after Roadmaps (with children)
     var portfolioItem = sidebarHierarchy[sidebarHierarchy.length - 1];
     var portfolioHTML = buildMenuItem(portfolioItem, false);
 
@@ -244,7 +350,6 @@
 
   function injectBottomBar() {
     var isDark = document.body.classList.contains('dark');
-    // Sunrise for light mode, crescent moon for dark mode
     var toggleIconChar = isDark
       ? '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>'
       : '<path d="M17 18a5 5 0 0 0-10 0"/><line x1="12" y1="2" x2="12" y2="9"/><line x1="4.22" y1="10.22" x2="5.64" y2="11.64"/><line x1="1" y1="18" x2="3" y2="18"/><line x1="21" y1="18" x2="23" y2="18"/><line x1="18.36" y1="11.64" x2="19.78" y2="10.22"/><line x1="23" y1="22" x2="1" y2="22"/><polyline points="8 6 12 2 16 6"/>';
@@ -279,19 +384,16 @@
       document.documentElement.setAttribute('data-theme', nextTheme);
       localStorage.setItem(storageKey, nextTheme);
 
-      // Update bottom bar theme toggle icon
       document.querySelectorAll('.bottom-bar-theme-toggle svg').forEach(function (el) {
         el.innerHTML = newIcon;
       });
     }
 
-    // Attach sidebar theme toggle (if exists)
     var sidebarToggle = document.querySelector('.sidebar-theme-toggle');
     if (sidebarToggle) {
       sidebarToggle.addEventListener('click', toggleTheme);
     }
 
-    // Attach bottom bar theme toggle (always)
     var bottomBarThemeToggle = document.querySelector('.bottom-bar-theme-toggle');
     if (bottomBarThemeToggle) {
       bottomBarThemeToggle.addEventListener('click', toggleTheme);
@@ -308,7 +410,6 @@
 
     sidebarMenu.addEventListener('mouseleave', function () {
       document.body.classList.remove('sidebar-expanded');
-      // Close all open submenus when sidebar collapses
       sidebarMenu.querySelectorAll('.sidebar-item.has-submenu.open').forEach(function (item) {
         item.classList.remove('open');
         syncExpandedState(item);
@@ -385,9 +486,7 @@
     function closeMenu() {
       sidebar.classList.remove('open');
       overlay.classList.remove('active');
-      if (!document.body.classList.contains('content-nav-open')) {
-        document.body.style.overflow = '';
-      }
+      document.body.style.overflow = '';
     }
 
     toggleBtn.addEventListener('click', function () {
@@ -418,13 +517,12 @@
   function implementBreadcrumb() {
     var relativePath = getCurrentSourcePath();
     if (!relativePath || typeof sidebarHierarchy === 'undefined') return;
-
     if (relativePath.indexOf('cheatsheet') !== -1) return;
 
     var main = document.querySelector('main');
     if (!main) return;
 
-    var existing = main.querySelector('.breadcrumb, .breadcrumb-pill');
+    var existing = main.querySelector('.breadcrumb');
     if (existing) existing.remove();
 
     var registry = buildPageRegistry(sidebarHierarchy, [], {});
@@ -452,99 +550,13 @@
     main.insertAdjacentHTML('afterbegin', html);
   }
 
-  function setupContentNav(items) {
-    if (!document.body.classList.contains('home-with-sidebar')) return;
-    if (!items || !items.length) return;
-
-    document.body.classList.add('has-content-nav');
-
-    var linksHTML = items.map(function (item) {
-      return '<a class="content-nav-link" data-depth="' + item.depth + '" href="' + item.href + '">' + item.label + '</a>';
-    }).join('');
-
-    var html = '<aside class="content-nav" aria-label="On this page">' +
-      '<div class="content-nav-header">' +
-      '<span class="content-nav-title">On This Page</span>' +
-      '<button class="content-nav-collapse" type="button" aria-label="Collapse section navigation">' +
-      '<svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>' +
-      '</button>' +
-      '</div>' +
-      '<nav class="content-nav-list">' + linksHTML + '</nav>' +
-      '</aside>' +
-      '<button class="content-nav-toggle" type="button" aria-label="Open section navigation">' +
-      '<svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>' +
-      '</button>' +
-      '<div class="content-nav-overlay"></div>';
-
-    document.body.insertAdjacentHTML('beforeend', html);
-
-    var collapseBtn = document.querySelector('.content-nav-collapse');
-    var toggleBtn = document.querySelector('.content-nav-toggle');
-    var overlay = document.querySelector('.content-nav-overlay');
-    var links = document.querySelectorAll('.content-nav-link');
-
-    collapseBtn.addEventListener('click', function () {
-      document.body.classList.toggle('content-nav-collapsed');
-    });
-
-    toggleBtn.addEventListener('click', function () {
-      document.body.classList.toggle('content-nav-open');
-      document.body.style.overflow = document.body.classList.contains('content-nav-open') ? 'hidden' : '';
-    });
-
-    overlay.addEventListener('click', function () {
-      document.body.classList.remove('content-nav-open');
-      document.body.style.overflow = '';
-    });
-
-    links.forEach(function (link) {
-      link.addEventListener('click', function () {
-        if (window.innerWidth <= 1024) {
-          document.body.classList.remove('content-nav-open');
-          document.body.style.overflow = '';
-        }
-      });
-    });
-
-    var targets = Array.prototype.map.call(links, function (link) {
-      var id = link.getAttribute('href').replace('#', '');
-      return document.getElementById(id);
-    }).filter(Boolean);
-
-    function setActiveByHash(hash) {
-      if (!hash) return;
-      links.forEach(function (link) {
-        link.classList.toggle('active', link.getAttribute('href') === hash);
-      });
-    }
-
-    if (targets.length && 'IntersectionObserver' in window) {
-      var observer = new IntersectionObserver(function (entries) {
-        var visible = entries.filter(function (entry) {
-          return entry.isIntersecting;
-        }).sort(function (a, b) {
-          return a.boundingClientRect.top - b.boundingClientRect.top;
-        });
-
-        if (visible.length) {
-          setActiveByHash('#' + visible[0].target.id);
-        }
-      }, {
-        rootMargin: '-20% 0px -60% 0px',
-        threshold: [0, 0.1, 0.25]
-      });
-
-      targets.forEach(function (target) {
-        observer.observe(target);
-      });
-    }
-
-    setActiveByHash(window.location.hash || (links[0] ? links[0].getAttribute('href') : ''));
-  }
-
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
     init();
   }
+
+  // Export functions to global scope
+  window.initializeCollapsibleSections = initializeCollapsibleSections;
+  window.updateToggleAllPill = updateToggleAllPill;
 })();

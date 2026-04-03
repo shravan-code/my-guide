@@ -409,41 +409,76 @@ body.dark .difficulty-advanced { background: #ef4444; }
 
 .code-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  gap: 1.25rem;
+}
+
+@media (max-width: 920px) {
+  .code-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .code-card {
-  padding: 1rem;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--color-border);
-  background: var(--color-bg-alt);
+  padding: 1.25rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  transition: all var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+
+.code-card:hover {
+  border-color: var(--glow-border);
+  transform: translateY(-2px);
 }
 
 .code-label {
   display: inline-flex;
   align-items: center;
   border-radius: 999px;
-  padding: 0.2rem 0.6rem;
+  padding: 0.25rem 0.75rem;
   font-size: 0.65rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   color: var(--glow-color);
   background: rgba(15, 139, 139, 0.08);
-  margin-bottom: 0.45rem;
+  margin-bottom: 0.6rem;
+  width: fit-content;
 }
 
 .code-card h3 {
-  margin: 0 0 0.35rem;
-  font-size: 1rem;
-  font-family: "Sora", sans-serif;
+  margin: 0 0 0.5rem;
+  font-size: 1.15rem;
+  font-family: var(--font-family-display);
+  font-weight: 700;
   color: var(--text);
+  letter-spacing: -0.02em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.code-card h3::after {
+  content: "→";
+  font-size: 1.1rem;
+  opacity: 0.5;
+  transition: transform 0.3s ease;
+}
+
+.code-card.is-expanded h3::after {
+  transform: rotate(90deg);
 }
 
 .code-card p {
-  margin: 0 0 0.75rem;
+  margin: 0 0 1rem;
   color: var(--text-secondary);
+  line-height: 1.6;
 }
 
 .code-block {
@@ -662,6 +697,7 @@ pre[class*="language-"] .token,
     transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     will-change: transform;
     -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
     overflow-y: auto;
     padding: 1rem 0.75rem;
   }
@@ -749,9 +785,7 @@ pre[class*="language-"] .token,
   }
 
   .code-card {
-    padding: 0.75rem;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    padding: 1rem;
   }
 
   .code-card h3 {
@@ -838,7 +872,7 @@ pre[class*="language-"] .token,
   }
 
   .code-card {
-    padding: 0.5rem;
+    padding: 0.75rem;
   }
 
   .code-block code {

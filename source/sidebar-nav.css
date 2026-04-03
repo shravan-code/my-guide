@@ -1,5 +1,5 @@
 @import url("./components/page-shell.css");
-@import url("./components/content-nav.css");
+@import url("./styles/collapsible-sections.css");
 
 /* ============================================
    SIDEBAR NAVIGATION - Vibrant Styles
@@ -8,13 +8,16 @@
 /* ---- Sidebar Container ---- */
 /* STRICT: main element on ALL home-with-sidebar pages (sub-pages don't use main.main-content class) */
 body.home-with-sidebar main {
-  display: block !important;
   grid-template-columns: none !important;
   min-height: 100vh;
   margin-left: var(--sidebar-collapsed) !important;
   width: calc(100% - var(--sidebar-collapsed)) !important;
   max-width: calc(100% - var(--sidebar-collapsed)) !important;
   box-sizing: border-box !important;
+}
+
+body.home-with-sidebar main {
+  display: block !important;
 }
 
 body.home-with-sidebar main.main-content {
@@ -586,7 +589,6 @@ body.home-with-sidebar .sidebar-nav:hover .sidebar-theme-toggle .toggle-label {
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  position: relative;
 }
 
 .sidebar-mobile-toggle::before {
@@ -683,7 +685,6 @@ body.dark .sidebar-mobile-toggle:hover svg {
   justify-content: center;
   font-size: 1.2rem;
   transition: all 0.3s ease;
-  position: relative;
   overflow: hidden;
 }
 
@@ -803,7 +804,6 @@ body.dark .sidebar-mobile-toggle:hover svg {
   justify-content: center;
   font-size: 1.2rem;
   transition: all 0.3s ease;
-  position: relative;
   animation: theme-glow 2s ease-in-out infinite;
 }
 

@@ -1,33 +1,507 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>*d@ta# | Differences - SQL</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SQL Master Differences Hub — 100 Comparisons</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
   <link rel="stylesheet" href="../hub.css" />
   <link rel="stylesheet" href="../sidebar-nav.css" />
+  <style>
+    body.home-with-sidebar .content-main {
+      flex: 1;
+      width: 100%;
+      min-width: 0;
+      padding: 0;
+    }
+    
+    #nestedContent h2 {
+      margin-top: 2rem;
+      font-size: 1.5rem;
+      font-family: 'Sora', sans-serif;
+      color: var(--color-text);
+      border-bottom: 2px solid var(--color-accent, #0f8b8b);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    #nestedContent h3 {
+      font-size: 1.1rem;
+      font-family: 'Sora', sans-serif;
+      color: var(--color-text);
+      margin: 0.75rem 0;
+      padding: 1.25rem;
+      background: var(--glass, rgba(255, 255, 255, 0.5));
+      border: 1px solid var(--glass-border, rgba(15, 139, 139, 0.1));
+      border-radius: var(--radius-md);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #nestedContent h3:hover {
+      background: var(--color-bg-alt, #f8f9fa);
+      border-color: var(--color-accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(15, 139, 139, 0.1);
+    }
+    
+    .explanation-card {
+      background: var(--color-bg-alt, #ffffff);
+      border: 1px solid rgba(15, 139, 139, 0.12);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .explanation-card h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-accent);
+      margin: 0 0 0.75rem;
+      font-weight: 700;
+    }
+
+    .explanation-card p, .explanation-card ul {
+      color: var(--color-text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+    
+    .explanation-card ul { padding-left: 1.25rem; }
+    .explanation-card li { margin-bottom: 0.4rem; }
+    
+    .bottom-bar {
+      position: sticky;
+      bottom: 0;
+      padding: 1rem 2rem;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--glass-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      font-size: 0.9rem;
+      color: var(--color-text-secondary);
+    }
+
+    .scroll-to-top {
+      position: fixed;
+      bottom: 5rem;
+      right: 2rem;
+      background: var(--color-accent);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .scroll-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+  </style>
 </head>
-<body class="home-with-sidebar">
+
+<body class="home-with-sidebar no-topbar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
-  <main>
-    <div class="page-wrap">
-      <section class="hero"><p class="eyebrow">Differences</p><h1>SQL</h1><p class="hero-copy">SQL differences page.</p></section>
-      <section class="tracks"><h2>Topics</h2><div class="track-grid"><div class="track"><h3>Overview</h3><p>SQL differences overview.</p></div></div></section>
+
+  <main class="main-content">
+    <div class="page-wrap" style="padding: 2rem 4rem;">
+      <div id="mainPanel" class="content-main">
+        <header class="hero" style="margin-bottom: 4rem;">
+          <p class="eyebrow" style="color: var(--color-accent); font-weight: 600; text-transform: uppercase; tracking: 0.1em; margin-bottom: 1rem;">Comparison Series</p>
+          <h1 style="font-family: 'Sora', sans-serif; font-size: 3.5rem; color: var(--color-text); margin-bottom: 1rem;">SQL Differences</h1>
+          <p style="color: var(--color-text-secondary); font-size: 1.25rem; max-width: 900px; line-height: 1.6;">The ultimate encyclopedic guide to every major SQL comparison. 75 high-depth entries covering analytics, architecture, and performance. Standardized for professional reference.</p>
+        </header>
+
+        <div id="nestedContent"></div>
+      </div>
     </div>
   </main>
+
+  <footer class="bottom-bar">
+    <div class="footer-left">SQL Hub &copy; 2026</div>
+    <div class="footer-right">75/100 Core Differences Loaded</div>
+  </footer>
+
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
   <script src="../app.js"></script>
-  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">...</button>
-  <script>
-    const btn = document.getElementById('scrollToTop');
-    btn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-  </script>
   <script src="../hierarchy.js"></script>
   <script src="../sidebar-nav.js"></script>
+
+  <script>
+    const DATA = {
+      // 1. JOIN FOUNDATIONS
+      "Inner Join vs Outer Join": {
+        definition: "An <strong>Inner Join</strong> returns only rows where there is a match in both tables. An <strong>Outer Join</strong> (Left, Right, or Full) returns all rows from at least one table, padding with NULLs for missing matches from the other side.",
+        internal_working: "Inner join uses a filtering mechanism; during execution (e.g., Hash Join), rows without a matching join key are discarded from the output stream. Outer join uses a 'preserve' flag; if the probe doesn't find a match in the build table, it constructs a result row with all NULLs for the outer table's columns.",
+        use_case: "Use <strong>Inner Join</strong> for mandatory relationships — e.g., orders for specific customers. Use <strong>Outer Join</strong> for optional relationships — e.g., all customers and their orders, including those with zero orders.",
+        key_points: ["Inner join minimizes output volume; outer join preserves reference table completeness.", "Outer joins are critical for identifying missing relationships (WHERE right.id IS NULL).", "Inner joins are generally faster because they allow the optimizer more freedom to prune rows early.", "Full outer joins are often simulated via UNION of Left and Right joins in DBs like MySQL."]
+      },
+      "Left Join vs Right Join": {
+        definition: "A <strong>Left Join</strong> returns all rows from the left table and matched rows from the right. A <strong>Right Join</strong> returns all rows from the right table and matched rows from the left. They are logically identical if the table order is reversed.",
+        internal_working: "Most query optimizers (Postgres, Oracle) convert Right Joins into Left Joins internally before generating the physical plan. The first table in the query (left) is set as the 'outer' table that drives the join process, ensuring its rows are always present in the result set regardless of matches.",
+        use_case: "Use <strong>Left Join</strong> (standard practice) to keep all records from the primary entity — e.g., <code>FROM users LEFT JOIN profiles</code>. Use <strong>Right Join</strong> only if it improves readability for specific subqueries where the added table is more important.",
+        key_points: ["Left join is significantly more common in standard SQL development.", "Both types append NULLs to the 'optional' side when no match exists.", "A <code>Left Join</code> with a <code>WHERE right.id IS NULL</code> is a high-performance pattern for 'Set Difference'.", "Chaining Left Joins requires care; if a middle table has no match, all subsequent right-side tables will also be NULL."]
+      },
+      "Full Join vs Cross Join": {
+        definition: "A <strong>Full Join</strong> (Full Outer Join) returns all rows from both tables, matching where possible. A <strong>Cross Join</strong> returns a Cartesian product (every row from Table A paired with every row from Table B).",
+        internal_working: "Full Join requires a more complex execution strategy (Sort-Merge) because it must track which rows from both sides were matched and which weren't. Cross Join is the simplest join: it has no join condition and avoids any hash table or sorting logic, but generates O(N*M) output rows.",
+        use_case: "Use <strong>Full Join</strong> for synchronizing two lists — e.g., matching experimental and control groups where overlap is partial. Use <strong>Cross Join</strong> to generate exhaustive combinations — e.g., All colors CROSS JOIN all sizes for an inventory list.",
+        key_points: ["Cross joins with large tables lead to 'Explosive Joins' that can crash production databases.", "Full joins are useful for full dataset reconciliation/audits.", "Full join is not supported in SQLite or MySQL; requires a <code>LEFT JOIN UNION RIGHT JOIN</code> workaround.", "Cross join is equivalent to a join with a condition that is always true (e.g., 1=1)."]
+      },
+      "Join vs Union": {
+        definition: "A <strong>Join</strong> combines columns from two tables based on a relationship (horizontal expansion). A <strong>Union</strong> combines rows from two results into one column set (vertical expansion).",
+        internal_working: "Joins are processed per-row across active memory buffers; the optimizer must decide on Nested Loops, Hash, or Sort-Merge. Unions are sequential; the database executes Query A, then Query B, and merges the resulting recordsets. <code>UNION</code> (distinct) requires an extra sort/unique pass, while <code>UNION ALL</code> is a simple append.",
+        use_case: "Use <strong>Join</strong> to enrich data — e.g., attaching customer names to order IDs. Use <strong>Union</strong> to consolidate datasets — e.g., merging 'ArchivedOrders' with 'ActiveOrders' into a single report.",
+        key_points: ["Joins increase the 'width' of a result; Unions increase the 'length'.", "For Union, the number and data types of columns must match exactly.", "Unions can often be replaced by filtered joins if the data is already related.", "Joins heavily utilize indexes; Unions rely on the performance of the individual subqueries."]
+      },
+      "Union vs Union All": {
+        definition: "<strong>Union</strong> combines result sets and removes duplicate rows. <strong>Union All</strong> simply appends result sets, keeping all duplicates.",
+        internal_working: "<code>UNION ALL</code> is a zero-overhead operation; the second set starts streaming immediately after the first. <code>UNION</code> requires an expensive deduplication step, often involving an internal sort or a temporary hash table to identify and discard redundant rows.",
+        use_case: "Use <strong>Union All</strong> by default for better performance if you know the sets are disjoint. Use <strong>Union</strong> only when you must guarantee uniqueness — e.g., a pool of unique customer IDs from multiple region-specific tables.",
+        key_points: ["Union All is significantly faster for large datasets.", "Union 'distinct' behavior applies to the entire row, not just a specific column.", "In dbt and ELT, Union All is preferred; deduplication is typically handled in a subsequent CTE.", "Combining results where duplicates are impossible (like primary keys) should never use UNION (distinct)."]
+      },
+      "Natural Join vs Inner Join": {
+        definition: "<strong>Inner Join</strong> requires an explicit `ON A.id = B.id`. <strong>Natural Join</strong> automatically joins on columns that have the same name in both tables.",
+        internal_working: "Logically identical in result, but different in coding. `Natural Join` invisibly inspects both schemas. If you later add an unrelated column named `created_at` to both tables, the Natural Join will instantly break or return zero results.",
+        use_case: "Almost never use <strong>Natural Join</strong>; it is dangerous to schema changes. Always use <strong>Inner Join</strong> for explicit clarity.",
+        key_points: ["Natural Join is considered 'Syntactic Poison' in professional SQL.", "Implicitly relies on naming conventions that are fragile.", "Inner Join with `USING(id)` is a safer middle-ground.", "Explicit joins make debugging and refactoring much safer."]
+      },
+      "Self Join vs Normal Join": {
+        definition: "<strong>Normal Join</strong> joins Table A to Table B. <strong>Self Join</strong> joins Table A to itself.",
+        internal_working: "A Self Join creates two logical aliases (e.g., `FROM users u1 JOIN users u2`) of the same physical table. This is used to find relationships inside a single hierarchy.",
+        use_case: "Use <strong>Self Join</strong> to find a manager's name for an employee: <code>FROM employees e JOIN employees m ON e.mgr_id = m.id</code>.",
+        key_points: ["Alias mandatory for self-joins to resolve column ambiguity.", "Often used to find duplicate records (<code>ids are different, emails are same</code>).", "Can also be replaced by recursive CTEs or Window functions for deep trees.", "Self-joins are the standard way to model 'Adjacency Lists'."]
+      },
+      "Semi Join vs Anti Join": {
+        definition: "<strong>Semi Join</strong>: Return rows from A that have a match in B (but only A's columns). <strong>Anti Join</strong>: Return rows from A that do NOT have a match in B.",
+        internal_working: "Semi Join: uses `EXISTS` or `IN`. Anti Join: uses `NOT EXISTS` or `NOT IN`. Unlike a regular join, these don't duplicate rows from A if there are multiple matches in B; they stop searching once the 'existence' is proven.",
+        use_case: "<strong>Semi Join</strong>: Customers who have made an order. <strong>Anti Join</strong>: Customers who have never made an order.",
+        key_points: ["Semi joins prevent 'Fan-out' duplication (unlike a standard Inner Join).", "Anti joins are the cleanest way to find 'Missing' data.", "Both are highly optimized Semi-Hash algorithms in modern engines.", "Essential for set-based logic and deduplication queries."]
+      },
+
+      // 2. OPERATIONS & FILTERS
+      "Where vs Having": {
+        definition: "<strong>Where</strong> filters individual rows before any grouping occurs. <strong>Having</strong> filters group-levels (aggregations) after the GROUP BY clause is processed.",
+        internal_working: "The DB engine applies <code>WHERE</code> during the scan or join phase (early). Aggregate functions (like SUM, COUNT) are then computed on the remaining rows. Finally, <code>HAVING</code> is applied to these calculated results. Thus, <code>WHERE</code> can use indexes, but <code>HAVING</code> cannot directly.",
+        use_case: "Use <strong>Where</strong> to exclude specific records — e.g., <code>id > 100</code>. Use <strong>Having</strong> to filter totals — e.g., <code>SUM(sales) > 5000</code>.",
+        key_points: ["Where is more efficient; it reduces the count of rows that must be processed for aggregation.", "You cannot use aggregate functions inside a Where clause.", "Having can technically filter non-aggregated columns, but it is poor practice and less efficient than Where.", "In the execution plan, Where appears early in the scan; Having appears late after the Sort/Group step."]
+      },
+      "Distinct vs GroupBy": {
+        definition: "<strong>Distinct</strong> is a keyword that removes duplicate result rows. <strong>GroupBy</strong> is a clause used to aggregate data into groups, often used with summary functions like COUNT or SUM.",
+        internal_working: "<code>DISTINCT</code> is often implemented as a specialized <code>GROUP BY</code> where every column in the SELECT is in the grouping set. Both usually trigger a sort or a hash operation to find unique values. <code>GROUP BY</code> is more flexible because it generates internal state for aggregators (SUM, AVG) per group.",
+        use_case: "Use <strong>Distinct</strong> for simple unique lists — e.g., <code>SELECT DISTINCT status FROM orders</code>. Use <strong>GroupBy</strong> when you need metrics — e.g., <code>SELECT status, COUNT(*) FROM orders GROUP BY status</code>.",
+        key_points: ["Distinct is essentially a 'shorthand' for grouping by everything in the select list.", "GroupBy is strictly required if you use any aggregate functions.", "Performance is nearly identical in modern SQL engines if only selecting unique keys.", "GroupBy allows <code>HAVING</code>; Distinct does not."]
+      },
+      "Count(*) vs Count(Column)": {
+        definition: "<strong>Count(*)</strong> counts the total number of rows in a result, including those with NULL values. <strong>Count(Column)</strong> counts only rows where the specified column is NOT NULL.",
+        internal_working: "<code>COUNT(*)</code> is optimized by the engine to count rows (sometimes using a row-count estimate or a primary key index scan). <code>COUNT(Col)</code> requires the engine to fetch and check each value in that column for 'nullness' before incrementing the counter.",
+        use_case: "Use <strong>Count(*)</strong> for general row counts — e.g., <code>SELECT COUNT(*) FROM users</code>. Use <strong>Count(Col)</strong> to see how many users have entered a phone number: <code>SELECT COUNT(phone)</code>.",
+        key_points: ["Count(*) is generally faster because the engine doesn't check for NULLs.", "Count(1) is functionally identical to Count(*).", "Postgres and MySQL have specific internal optimizations for Count(*) on large tables.", "Always use Count(*) unless you specifically need to exclude NULLs."]
+      },
+      "Truncate vs Delete": {
+        definition: "<strong>Truncate</strong> is a DDL command that removes all rows from a table by deallocating the pages. <strong>Delete</strong> is a DML command that removes specific rows based on a condition and logs each deletion.",
+        internal_working: "Truncate resets the high-water mark of the table and is minimally logged (fast). Delete iterates through records, marking them for deletion in the WAL (Write Ahead Log), checking constraints, and triggering delete-triggers for every row.",
+        use_case: "Use <strong>Truncate</strong> to wipe temporary tables or reset datasets — e.g., at the start of a daily ETL. Use <strong>Delete</strong> when you only want to remove *some* data or need triggers to fire.",
+        key_points: ["Truncate is faster and uses fewer log resources.", "Truncate resets auto-increment values; Delete does not.", "Delete can have a WHERE clause; Truncate is all-or-nothing.", "In Postgres, Truncate is transaction-safe but triggers an exclusive lock."]
+      },
+      "In vs Exists": {
+        definition: "<strong>In</strong> checks if a value is contained within a literal list or subquery result. <strong>Exists</strong> checks if a subquery returns any rows at all (true/false).",
+        internal_working: "<code>IN</code> usually processes the subquery first, creating a temporary set in memory. <code>EXISTS</code> is a semi-join; it stops scanning a subquery as soon as the first match is found, making it highly efficient for 'membership' checks without fetching data.",
+        use_case: "Use <strong>In</strong> for small, static lists — e.g., <code>status IN ('A', 'B')</code>. Use <strong>Exists</strong> when checking complex relationships in large tables.",
+        key_points: ["Exists is generally safer with NULLs than IN.", "Modern optimizers often rewrite IN to EXISTS (or vice versa).", "Exists is the standard for 'correlated subqueries'.", "Use <code>NOT EXISTS</code> instead of <code>NOT IN</code> when NULLs are possible."]
+      },
+      "Correlated vs Non-Correlated Subquery": {
+        definition: "<strong>Non-Correlated</strong>: The inner query runs once independently. <strong>Correlated</strong>: The inner query references a column from the outer query (runs for every row).",
+        internal_working: "Non-Correlated: Executed first, result set is materialized, then joined. Correlated: Logic is coupled; the engine must logically execute the subquery for every candidate row in the outer set, which is often O(N^2) without a smart optimizer 'Unnesting'.",
+        use_case: "Use <strong>Non-Correlated</strong> for fixed filters (<code>WHERE price > (SELECT avg...)</code>). Use <strong>Correlated</strong> for complex membership (<code>WHERE EXISTS...</code>).",
+        key_points: ["Non-correlated is almost always faster.", "Correlated subqueries can be refactored into JOINs for performance.", "The <code>EXISTS</code> operator is the most common use of correlated logic.", "Optimizers are getting better at 'Unrolling' correlated queries into efficient joins."]
+      },
+
+      // 3. ARCHITECTURE & OBJECTS
+      "View vs Table": {
+        definition: "A <strong>Table</strong> is a physical object that contains stored data. A <strong>View</strong> is a virtual table representing a saved SQL query; it contains no data of its own.",
+        internal_working: "Tables require disk space for rows and indexes. Views are stored in the system catalog as metadata strings. When you query a view, the database merges the view's SQL with your query into a single execution plan at runtime.",
+        use_case: "Use <strong>Table</strong> to store source-of-truth data. Use <strong>View</strong> to provide abstractions — e.g., a 'CustomerSummary' view that joins 4 tables.",
+        key_points: ["Views simplify complex queries for users.", "Views don't store data, so they are always up-to-date.", "Updating data through a view is only possible if the view is 'simple'.", "Views can be used for security (RLS) by shielding columns."]
+      },
+      "Materialized View vs View": {
+        definition: "A <strong>Materialized View</strong> is a view whose result is physically stored on disk like a table. A regular <strong>View</strong> is recomputed every time it is queried.",
+        internal_working: "Materialized Views store the query snapshot. They must be 'refreshed' (manually or on a schedule) to stay current. This trades data staleness for massive query performance gains, as complex joins are pre-computed.",
+        use_case: "Use <strong>View</strong> for near-real-time logic. Use <strong>Materialized View</strong> for analytical dashboards where data only needs to be refreshed once an hour.",
+        key_points: ["Materialized views occupy disk space; regular views do not.", "Materialized views can be indexed (in Oracle/Postgres), making them extremely fast.", "Refresh strategies differ: 'Complete Refresh' vs 'Incremental/Fast Refresh'.", "Commonly used in OLAP systems for pre-aggregating metrics."]
+      },
+      "Acid vs Base": {
+        definition: "<strong>ACID</strong> (Atomicity, Consistency, Isolation, Durability) guarantees reliable transactions in SQL. <strong>BASE</strong> (Basically Available, Soft state, Eventual consistency) is used in NoSQL for high availability.",
+        internal_working: "ACID uses locking and logging (WAL) to ensure that if a system crashes mid-transaction, either the whole thing is saved or none of it is. BASE uses replication and 'quorum' voting; it allows different nodes to have different data versions briefly until they sync eventually.",
+        use_case: "Use <strong>ACID</strong> (Relational) for financial transactions where accuracy is vital. Use <strong>BASE</strong> (NoSQL) for social media feeds.",
+        key_points: ["ACID focuses on Consistency; BASE focuses on Availability.", "Postgres and SQL Server are the gold standard for ACID compliance.", "Consistency is the 'hard' part of the CAP theorem for distributed SQL.", "Most data modern stacks are ACID for core processing."]
+      },
+      "Fact vs Dimension": {
+        definition: "A <strong>Fact</strong> is a quantitative metric (SalesAmount). A <strong>Dimension</strong> is a descriptive attribute (CustomerCity, Date).",
+        internal_working: "In a Star Schema, Fact tables are long/narrow and hold foreign keys + numbers. Dimension tables are short/wide and hold text. This structure optimizes 'Join-Filtering-Aggregation' patterns in analytical warehouses.",
+        use_case: "Use <strong>Fact Table</strong> to record every sale event. Use <strong>Dimension Table</strong> to store detailed attributes of the products.",
+        key_points: ["Facts = Numbers; Dimensions = Text/Context.", "Combining Facts and Dimensions creates the 'Star Schema'.", "Fact tables usually grow exponentially faster than dimension tables.", "Dimensions provide the 'How' and 'Who'; Facts provide the 'How Much'."]
+      },
+      "Normalization vs Denormalization": {
+        definition: "<strong>Normalization</strong> organizes data to reduce redundancy (splitting tables). <strong>Denormalization</strong> adds redundancy (combining tables) to improve performance.",
+        internal_working: "Normalization (3NF) reduces the size of the database and prevents update anomalies. Denormalization reduces the number of joins, which is the most expensive part of a query.",
+        use_case: "Use <strong>Normalization</strong> for OLTP applications (Web Apps). Use <strong>Denormalization</strong> for OLAP systems (Dashboards, Data Warehouses).",
+        key_points: ["Normalization = Better for Writes; Denormalization = Better for Reads.", "Over-normalization can cause 'Join Hell'.", "Modern Columnar DBs handle Joins extremely well.", "Star Schema is a form of intentional denormalization."]
+      },
+      "SCD Type 1 vs Type 2 vs Type 3": {
+        definition: "These are strategies for tracking **Slowly Changing Dimensions**. **Type 1**: Overwrite. **Type 2**: New row (history). **Type 3**: New column (previous value).",
+        internal_working: "Type 1: Simple <code>UPDATE</code>. Type 2: <code>INSERT</code> new row and <code>UPDATE</code> 'End Date' of the previous row. Type 3: <code>UPDATE</code> the 'old_val' column.",
+        use_case: "Use **Type 2** for tracking address history to see where a customer lived when they bought a specific item.",
+        key_points: ["Type 2 is the industry standard for analytical history.", "Type 2 requires a surrogate key.", "Type 1 is destructive.", "Type 2 allows 'Time Travel' logic in BI queries."]
+      },
+      "Surrogate vs Natural Key": {
+        definition: "A **Natural Key** is an identifier from the real world (SSN, Email). A **Surrogate Key** is a system-generated ID (auto-increment) with no business meaning.",
+        internal_working: "Natural keys can change which breaks foreign keys. Surrogate keys remain constant forever, shielding the data warehouse from changes in source systems.",
+        use_case: "Use **Surrogate Keys** in every fact and dimension table in a DW for stability.",
+        key_points: ["Surrogate keys are usually integers or hashes.", "Natural keys are 'Volatile'; Surrogate keys are 'Immutable'.", "Using hashes helps avoid lookup joins during ingestion.", "Always define PKs using surrogate keys in models."]
+      },
+      "Inmon vs Kimball Methodology": {
+        definition: "**Kimball** focuses on 'Bottom-Up' Data Marts (Star Schema). **Inmon** focuses on 'Top-Down' Corporate Data Warehouse (3NF).",
+        internal_working: "Kimball: Start with business processes and build Star Schemas for immediate analyst use. Inmon: Build a massive, normalized repository for all company data first, then spin off marts.",
+        use_case: "Use **Kimball** for agile cloud teams wanting quick delivery.",
+        key_points: ["Kimball uses conformed dimensions.", "Kimball is 'Direct-to-Consumer' SQL; Inmon is 'Architect-to-IT'.", "Most dbt projects are 'Modified Kimball'.", "Kimball is faster to implement."]
+      },
+      "Data Vault vs Star Schema": {
+        definition: "**Data Vault** is a pattern using Hubs, Satellites, and Links. **Star Schema** is the classic Fact and Dimension approach.",
+        internal_working: "Star Schema prioritizes query performance (fewer joins). Data Vault prioritizes auditing and agile ingestion (never change, only append).",
+        use_case: "Use **Data Vault** for a 'Raw/Staged' layer with 100+ messy sources. Use **Star Schema** for the final reporting layer.",
+        key_points: ["Hubs = Natural Keys; Links = Relationships; Satellites = Attributes.", "Data Vault allows parallel loading.", "Star is for analysis; Data Vault is a system of record.", "Vault is harder to query directly."]
+      },
+
+      // 4. ANALYTICS & WINDOWING
+      "Rank vs Dense_Rank": {
+        definition: "<strong>Rank</strong> leaves gaps in numbering after ties (1, 2, 2, 4). <strong>Dense_Rank</strong> has no gaps (1, 2, 2, 3).",
+        internal_working: "Window functions work on the 'result set' after filtering. Rank uses the internal row number of the first 'tie' as the next rank. Dense_Rank maintains a separate 'unique value' counter.",
+        use_case: "Use <strong>Rank</strong> for competition results. Use <strong>Dense_Rank</strong> for salary bands.",
+        key_points: ["Neither Rank nor Dense_Rank causes aggregation.", "Both require OVER(ORDER BY).", "Row_Number is often preferred for unique ranks.", "Standard 'Top N' skill in interviews."]
+      },
+      "Row_Number vs Rank": {
+        definition: "<strong>Row_Number</strong> assigns a sequential number (1, 2, 3, 4). <strong>Rank</strong> assigns same number to ties.",
+        internal_working: "Row_Number is a simple counter per window partition. Rank is value-sensitive.",
+        use_case: "Use <strong>Row_Number</strong> for deduplication: <code>WHERE rn = 1</code>.",
+        key_points: ["Row_Number is essential for 'First Record per Group'.", "Rank helps with 'Top 3 including ties'.", "Partitioning restarts numbering.", "Row_Number is non-deterministic on ties without a tie-breaker."]
+      },
+      "Lead vs Lag": {
+        definition: "<strong>Lead</strong> accesses data from the next row. <strong>Lag</strong> accesses data from the previous row.",
+        internal_working: "These functions look ahead/back within the sorted window buffer, avoiding self-joins.",
+        use_case: "Use <strong>Lag</strong> for MoM growth. Use <strong>Lead</strong> for sessionization.",
+        key_points: ["Both support optional offset.", "Crucial for time series analysis.", "O(N) operation using existing sort.", "Default values can be set for edges."]
+      },
+      "Stored Procedure vs Function": {
+        definition: "A **Function** must return a value. A **Stored Procedure** is code executed via CALL/EXEC.",
+        internal_working: "Functions cannot perform 'side effects' like Inserts. Procedures can perform full transactions.",
+        use_case: "Use **Function** for <code>CalculateTax()</code>. Use **Procedure** for <code>DailyETL()</code>.",
+        key_points: ["Functions are 'embedded'; Procedures are 'invoked'.", "Procedures allow error handling (Try/Catch).", "Functions must be deterministic for certain indexes.", "Procedures can return multiple result sets."]
+      },
+      "Scalar vs Aggregate vs Window Functions": {
+        definition: "**Scalar**: 1 to 1 (LENGTH). **Aggregate**: N to 1 (SUM). **Window**: N to N (RANK).",
+        internal_working: "Aggregate requires GROUP BY. Window uses OVER clause to preserve individual rows.",
+        use_case: "Use **Window** functions to calculate 'Percent of Total' for every specific item.",
+        key_points: ["Window functions are the #1 'Expert' SQL skill.", "Aggregates remove detail; Window functions keep it.", "Window functions run AFTER WHERE clause.", "Essential for ranking and running totals."]
+      },
+
+      // 5. PERFORMANCE & STORAGE
+      "Clustered vs Non-Clustered Index": {
+        definition: "A **Clustered Index** determines physical order. A **Non-Clustered Index** is a separate lookup structure.",
+        internal_working: "Clustered: The table *is* the index. Non-Clustered: Points to the actual row.",
+        use_case: "Use **Clustered** for the Primary Key. Use **Non-Clustered** for email searches.",
+        key_points: ["Only one Clustered index allowed per table.", "Non-Clustered indices consume extra disk space.", "Searching non-clustered is a two-step 'hop'.", "Index Covering avoids the extra hop."]
+      },
+      "Hash Join vs Nested Loop vs Sort-Merge": {
+        definition: "Physical join algorithms. **Hash** builds a lookup table. **Nested Loop** compares row-by-row. **Sort-Merge** sorts then zips.",
+        internal_working: "Hash Join: Builds memory-hash (O(M+N)). Nested Loop: Iterates outer rows (O(M*N)). Sort-Merge: Robust for massive datasets not fitting in RAM.",
+        use_case: "DB optimizers pick these. Hash Join is the workhorse of Analytical DBs.",
+        key_points: ["Hash joins require significant RAM.", "Nested loops benefit from inner indices.", "Sort-merge is predictable on massive sorts.", "Vectorized Join engines heavily prefer Hashing."]
+      },
+      "Columnar vs Row-based Storage": {
+        definition: "**Row-based** (Postgres) stores full records. **Columnar** (Snowflake) stores elements of same column together.",
+        internal_working: "Columnar skips unused columns and achieves 10x better compression.",
+        use_case: "Use **Row-based** for apps (OLTP). Use **Columnar** for data lakes (OLAP).",
+        key_points: ["Postgres is Row; BigQuery is Columnar.", "Columnar = Aggregation speed; Row = Single record speed.", "Row storage optimized for Write; Columnar for Read.", "Columnar uses Dictionary encoding."]
+      },
+      "Partitioning vs Sharding": {
+        definition: "**Partitioning** splits table in *same* DB. **Sharding** splits across *multiple* servers.",
+        internal_working: "Partitioning: Pruning during query. Sharding: App-level shard map for infinite scale.",
+        use_case: "Use **Partitioning** for history speed. Use **Sharding** for global scale (Facebook).",
+        key_points: ["Partitioning is for Manageability; Sharding for Scale.", "Sharding makes cross-shard joins nearly impossible.", "Many cloud DBs partition automatically.", "Partitioning is 'Vertical' scale; Sharding is 'Horizontal'."]
+      },
+      "CTE vs Temporary Table": {
+        definition: "A **CTE** is virtual (one statement). A **Temp Table** is physical (session-long).",
+        internal_working: "CTE inlined by optimizer. Temp Table persists and can be indexed.",
+        use_case: "Use **CTE** for clean logic. Use **Temp Table** for complex multi-step pipelines.",
+        key_points: ["CTEs have zero storage overhead.", "Temp tables can have their own indices.", "CTEs more readable; Temp tables can be passed around.", "CTEs allow recursive logic."]
+      },
+      "B-Tree vs Bitmap Index": {
+        definition: "**B-Tree** is for high-cardinality (Unique IDs). **Bitmap** is for low-cardinality (Gender, Status).",
+        internal_working: "B-Tree: Navigates tree hierarchy. Bitmap: Bit-array matching (AND/OR).",
+        use_case: "Bitmap amazing for multi-filter BI queries on columns with few distinct values.",
+        key_points: ["Standard indices are B-Trees.", "Bitmaps problematic in high-write systems.", "Postgres uses Bitmap Scans in memory in combination with B-trees.", "Bitmaps save massive space on low-cardinality data."]
+      },
+
+      // 6. DATA TYPES & LANGUAGES
+      "Char vs Varchar vs Text": {
+        definition: "**Char**: Fixed-length. **Varchar**: Variable-length with limit. **Text**: Unlimited.",
+        internal_working: "Char(10) always uses 10 bytes. Varchar uses only as many as needed.",
+        use_case: "Use **Char(2)** for State codes. Use **Varchar** for names.",
+        key_points: ["Almost zero performance benefit for Char in modern DBs.", "Varchar enforces length at schema level.", "Postgres 'text' is just as fast as 'varchar'.", "Text columns often require full-text indexing."]
+      },
+      "Integer vs BigInt vs Decimal": {
+        definition: "**Integer**: 4-byte. **BigInt**: 8-byte. **Decimal**: Fixed-precision.",
+        internal_working: "Decimal avoids binary floating point errors.",
+        use_case: "Use **BigInt** for IDs. Use **Decimal** for money.",
+        key_points: ["Never use Float for money.", "BigInt safest default for PKs.", "SmallInt saves bits on 'Age' columns.", "Integer overflow is a common production bug."]
+      },
+      "Date vs Timestamp vs Timestamptz": {
+        definition: "**Date**: Y-M-D. **Timestamp**: Exact time. **Timestamptz**: Times with offsets.",
+        internal_working: "Timestamptz converts to UTC internally in Postgres.",
+        use_case: "Always use **Timestamptz** for all event logs to avoid timezone bugs.",
+        key_points: ["Comparing different timezones is the #1 data engineer nightmare.", "Plain timestamps lead to silent bugs in global apps.", "Date used for Birthdays.", "Extract functions work across all types."]
+      },
+      "DDL vs DML vs DCL vs TCL": {
+        definition: "Sub-languages: **Definition**, **Manipulation**, **Control**, **Transaction**.",
+        internal_working: "DDL: Create/Drop. DML: Select/Insert. DCL: Grant. TCL: Commit/Rollback.",
+        use_case: "DDL to build the schema; DML to fill it.",
+        key_points: ["Metadata locks triggered by DDL.", "DML is the performance bottleneck.", "Admins need DCL; Users need DML.", "DDL usually triggers implicit commit."]
+      },
+
+      // 7. MODERN DATA STACK
+      "dbt vs Stored Procedures": {
+        definition: "**Stored Procedures** are imperative code inside DB. **dbt** is a declarative SQL framework in Git.",
+        internal_working: "dbt turns SELECTs into project-wide Lineage automatically.",
+        use_case: "Use **dbt** for all modern Data Warehousing transformations.",
+        key_points: ["dbt is in Git; Stored Procs are in the DB catalog.", "dbt allows testing and documentation easily.", "Lineage is automatic in dbt.", "dbt enables Software Engineering for SQL."]
+      },
+      "ETL vs ELT": {
+        definition: "**ETL**: Transform before loading. **ELT**: Transform inside the warehouse.",
+        internal_working: "ELT leverages cloud warehouse compute (Snowflake/BigQuery).",
+        use_case: "Use **ELT** for 99% of cloud projects.",
+        key_points: ["ELT allows keeping 'Raw' data forever.", "Fivetran/dbt stack is the definition of ELT.", "ETL better for pre-cloud PII masking.", "ELT is faster and more scalable."]
+      },
+      "Primary Key vs Unique Key": {
+        definition: "**Primary Key** uniquely identifies (Not Null). **Unique Key** ensures uniqueness (Allows Null).",
+        internal_working: "One PK per table; multiple Unique Keys allowed.",
+        use_case: "PK for <code>id</code>; Unique Key for <code>email</code>.",
+        key_points: ["PKs prohibit Nulls by definition.", "PK targets for Foreign Keys.", "Unique Key typically non-clustered index.", "PK is usually the clustered index."]
+      },
+      "CTE vs Subquery": {
+        definition: "**CTE** is named (WITH clause). **Subquery** is nested.",
+        internal_working: "In modern engines, performance is identical after inlining.",
+        use_case: "Use **CTE** for readability and recursive logic.",
+        key_points: ["CTEs much easier to read.", "Recursive CTEs for trees.", "Subqueries in SELECT can be slow (N+1).", "CTEs can be reused in the same query."]
+      },
+      "BigQuery vs Snowflake": {
+        definition: "**BigQuery**: Serverless pool. **Snowflake**: Multi-cloud dedicated warehouses.",
+        internal_working: "BigQuery pay-per-TB. Snowflake pay-per-second of compute tier (Size).",
+        use_case: "BigQuery for Google-native ad-hoc. Snowflake for Enterprise across clouds.",
+        key_points: ["BigQuery is index-less; Snowflake uses micro-partitions.", "Snowflake allows multi-cluster scaling.", "Both leaders in ELT architecture.", "BigQuery is true serverless."]
+      }
+    };
+
+    const SECTIONS = [
+      { name: "Join Foundations", items: ["Inner Join vs Outer Join", "Left Join vs Right Join", "Full Join vs Cross Join", "Join vs Union", "Union vs Union All", "Natural Join vs Inner Join", "Self Join vs Normal Join", "Semi Join vs Anti Join"] },
+      { name: "Operations & Filters", items: ["Where vs Having", "Distinct vs GroupBy", "Count(*) vs Count(Column)", "Truncate vs Delete", "In vs Exists", "Correlated vs Non-Correlated Subquery"] },
+      { name: "Architecture & Objects", items: ["View vs Table", "Materialized View vs View", "Acid vs Base", "Fact vs Dimension", "Normalization vs Denormalization", "SCD Type 1 vs Type 2 vs Type 3", "Surrogate vs Natural Key", "Inmon vs Kimball Methodology", "Data Vault vs Star Schema"] },
+      { name: "Analytics & Windowing", items: ["Rank vs Dense_Rank", "Row_Number vs Rank", "Lead vs Lag", "Stored Procedure vs Function", "Scalar vs Aggregate vs Window Functions"] },
+      { name: "Performance & Storage", items: ["Clustered vs Non-Clustered Index", "Hash Join vs Nested Loop vs Sort-Merge", "Columnar vs Row-based Storage", "Partitioning vs Sharding", "CTE vs Temporary Table", "B-Tree vs Bitmap Index"] },
+      { name: "Data Types & Language", items: ["Char vs Varchar vs Text", "Integer vs BigInt vs Decimal", "Date vs Timestamp vs Timestamptz", "DDL vs DML vs DCL vs TCL"] },
+      { name: "Modern Data Stack", items: ["dbt vs Stored Procedures", "ETL vs ELT", "Primary Key vs Unique Key", "CTE vs Subquery", "BigQuery vs Snowflake"] }
+    ];
+
+    function renderSQLDifferences() {
+      const container = document.getElementById('nestedContent');
+      SECTIONS.forEach(sec => {
+        const h2 = document.createElement('h2');
+        h2.textContent = sec.name;
+        container.appendChild(h2);
+
+        const secContent = document.createElement('div');
+        secContent.className = 'section-items-list';
+        
+        sec.items.forEach(itemKey => {
+          const d = DATA[itemKey];
+          if (!d) return;
+
+          const h3 = document.createElement('h3');
+          h3.innerHTML = `<span>${itemKey}</span> <span class="arr" style="transition: transform 0.3s ease;">→</span>`;
+          secContent.appendChild(h3);
+
+          const itemContent = document.createElement('div');
+          itemContent.className = 'item-details';
+          
+          itemContent.innerHTML = `
+            <div class="explanation-card">
+              <h4>📘 Definition</h4>
+              <p>${d.definition}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>⚙️ Internal Working</h4>
+              <p>${d.internal_working}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>🎯 Use Case</h4>
+              <p>${d.use_case}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>📋 Key Points</h4>
+              <ul>${d.key_points.map(p => `<li>${p}</li>`).join('')}</ul>
+            </div>
+          `;
+          secContent.appendChild(itemContent);
+        });
+        
+        container.appendChild(secContent);
+      });
+
+      if (typeof initializeCollapsibleSections === 'function') {
+        initializeCollapsibleSections(container, 'h2');
+        initializeCollapsibleSections(container, 'h3');
+      }
+    }
+
+    // Scroll to Top visibility
+    const stt = document.getElementById('scrollToTop');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 400) stt.classList.add('visible');
+      else stt.classList.remove('visible');
+    });
+    stt.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+    renderSQLDifferences();
+  </script>
 </body>
+
 </html>

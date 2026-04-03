@@ -1,33 +1,300 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>*d@ta# | Differences - Databricks</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Databricks Differences Hub — 100 Comparisons</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
   <link rel="stylesheet" href="../hub.css" />
   <link rel="stylesheet" href="../sidebar-nav.css" />
+  <style>
+    body.home-with-sidebar .content-main {
+      flex: 1;
+      width: 100%;
+      min-width: 0;
+      padding: 0;
+    }
+    
+    #nestedContent h2 {
+      margin-top: 2rem;
+      font-size: 1.5rem;
+      font-family: 'Sora', sans-serif;
+      color: var(--color-text);
+      border-bottom: 2px solid var(--color-accent, #0f8b8b);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    #nestedContent h3 {
+      font-size: 1.1rem;
+      font-family: 'Sora', sans-serif;
+      color: var(--color-text);
+      margin: 0.75rem 0;
+      padding: 1.25rem;
+      background: var(--glass, rgba(255, 255, 255, 0.5));
+      border: 1px solid var(--glass-border, rgba(15, 139, 139, 0.1));
+      border-radius: var(--radius-md);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #nestedContent h3:hover {
+      background: var(--color-bg-alt, #f8f9fa);
+      border-color: var(--color-accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(15, 139, 139, 0.1);
+    }
+    
+    .explanation-card {
+      background: var(--color-bg-alt, #ffffff);
+      border: 1px solid rgba(15, 139, 139, 0.12);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .explanation-card h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-accent);
+      margin: 0 0 0.75rem;
+      font-weight: 700;
+    }
+
+    .explanation-card p, .explanation-card ul {
+      color: var(--color-text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+    
+    .explanation-card ul { padding-left: 1.25rem; }
+    .explanation-card li { margin-bottom: 0.4rem; }
+    
+    .bottom-bar {
+      position: sticky;
+      bottom: 0;
+      padding: 1rem 2rem;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--glass-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      font-size: 0.9rem;
+      color: var(--color-text-secondary);
+    }
+
+    .scroll-to-top {
+      position: fixed;
+      bottom: 5rem;
+      right: 2rem;
+      background: var(--color-accent);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .scroll-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+  </style>
 </head>
-<body class="home-with-sidebar">
+
+<body class="home-with-sidebar no-topbar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
-  <main>
-    <div class="page-wrap">
-      <section class="hero"><p class="eyebrow">Differences</p><h1>Databricks</h1><p class="hero-copy">Databricks differences page.</p></section>
-      <section class="tracks"><h2>Topics</h2><div class="track-grid"><div class="track"><h3>Overview</h3><p>Databricks differences overview.</p></div></div></section>
+
+  <main class="main-content">
+    <div class="page-wrap" style="padding: 2rem 4rem;">
+      <div id="mainPanel" class="content-main">
+        <header class="hero" style="margin-bottom: 4rem;">
+          <p class="eyebrow" style="color: var(--color-accent); font-weight: 600; text-transform: uppercase; tracking: 0.1em; margin-bottom: 1rem;">Comparison Series</p>
+          <h1 style="font-family: 'Sora', sans-serif; font-size: 3.5rem; color: var(--color-text); margin-bottom: 1rem;">Databricks Hub</h1>
+          <p style="color: var(--color-text-secondary); font-size: 1.25rem; max-width: 900px; line-height: 1.6;">The Data Lakehouse ecosystem. Delta Lake vs Parquet, Unity Catalog vs Hive Metastore, and Photon Engine optimizations. Professional insights into the future of unified data platforms.</p>
+        </header>
+
+        <div id="nestedContent"></div>
+      </div>
     </div>
   </main>
+
+  <footer class="bottom-bar">
+    <div class="footer-left">Databricks Hub &copy; 2026</div>
+    <div class="footer-right">40/100 Core Lakehouse Comparisons Loaded</div>
+  </footer>
+
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
   <script src="../app.js"></script>
-  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">...</button>
-  <script>
-    const btn = document.getElementById('scrollToTop');
-    btn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-  </script>
   <script src="../hierarchy.js"></script>
   <script src="../sidebar-nav.js"></script>
+
+  <script>
+    const DATA = {
+      // 1. DATA STORAGE
+      "Delta vs Parquet": {
+        definition: "<strong>Parquet</strong> is an open source columnar file format. <strong>Delta</strong> is a management layer built *on top* of Parquet.",
+        internal_working: "Parquet: Simple files on S3/ADLS; no ACID or history. Delta: Group of Parquet files plus a Transaction Log (<code>_delta_log</code>). It provides ACID transactions, Time Travel, and efficient UPSERTs by tracking file additions and deletions in the metadata log.",
+        use_case: "Use <strong>Standard Parquet</strong> for raw landing zones. Use <strong>Delta</strong> for all curated tables used in production pipelines.",
+        key_points: ["Delta = Parquet + Transaction Log.", "Delta allows <code>MERGE INTO</code> (Upsert) logic.", "Time Travel: You can query data as it was 3 days ago.", "Delta maintains higher write performance via 'Change-Data-Feed'."]
+      },
+      "DBFS vs S3/ADLS": {
+        definition: "<strong>DBFS</strong> (Databricks File System) is a virtual mount layer. <strong>S3/ADLS</strong> are the physical cloud object storage buckets.",
+        internal_working: "DBFS: A Fuse mount that allows you to address cloud storage using local-file-like paths (<code>/dbfs/...</code>). It uses a 'Metadata Layer' to map these to real cloud URIs. S3/ADLS: The source of truth; data is physically stored there as objects.",
+        use_case: "Use **DBFS** for temporary library storage or small configs. Always use **Direct S3/ADLS** paths for production massive data access (for performance and security).",
+        key_points: ["DBFS simplifies file pathing for legacy code.", "DBFS 'Root' is managed by Databricks; 'Mounts' are managed by you.", "Direct access is generally faster and more 'Cloud Native'.", "Unity Catalog removes much of the need for manual DBFS mounting."]
+      },
+
+      // 2. COMPUTE MODELS
+      "All-Purpose vs Job vs SQL Warehouse Clusters": {
+        definition: "**All-Purpose**: Used for interactive notebooks (expensive). **Job**: Used for scheduled workflows (cheap). **SQL Warehouse**: Serverless/Managed pool for dashboards.",
+        internal_working: "All-Purpose: Pay for the management fee + EC2 constantly; shared between users. Job: Auto-terminates after completion; costs ~2x less per DBU. SQL Warehouse: Optimized for low-latency SQL; includes disk-caching and serverless auto-scaling khusus for BI tools.",
+        use_case: "Use **All-Purpose** for exploring data. Use **Job** clusters for your daily production ETL. Use **SQL Warehouse** to power your Power BI dashboards.",
+        key_points: ["Job clusters are significantly more cost-effective.", "SQL Warehouses isolate BI traffic from Data Engineering traffic.", "Serverless SQL Warehouses start up in < 10 seconds.", "Static clusters can be shared via 'High Concurrency' mode."]
+      },
+      "Photon vs Standard Spark Engine": {
+        definition: "**Photon** is a vectorized query engine written in C++. **Standard Spark** is the JVM-based execution engine.",
+        internal_working: "Standard Spark: JIT compiles Java code; has overhead for garbage collection. Photon: Directly executes vectorized code on high-performance C++; bypasses the JVM for the most expensive part of a query like Joins and Aggregations.",
+        use_case: "Enable **Photon** for massive, complex SQL joins and aggregations on Delta tables to get 2x-5x better performance.",
+        key_points: ["Photon is transparently integrated into Databricks Runtime.", "Photon excels at CPU-bound tasks.", "Costs slightly more per DBU but is often faster (net cheaper).", "It thrives with 'Wide' tables and heavy math."]
+      },
+
+      // 3. GOVERNANCE
+      "Unity Catalog vs Hive Metastore": {
+        definition: "**Unity Catalog** is a centralized, multi-workspace governance layer. **Hive Metastore** (HMS) is a legacy, per-workspace metadata server.",
+        internal_working: "HMS: Stores table schemas locally in one workspace; difficult to share or permission. Unity Catalog: Global governance across all regions/workspaces; provides Lineage, Table-level permissions, and row/column security using a standard 'account-level' identity.",
+        use_case: "Always use **Unity Catalog** for modern enterprise deployments to unify security across the whole company.",
+        key_points: ["Unity = Global; HMS = Local Workspace.", "Unity supports 'Delta Sharing' for external data sharing.", "Unity provides automated data lineage.", "Unity allows for 'Fine-grained' ACLs on views and columns."]
+      },
+      "Shared vs Single-User Isolation": {
+        definition: "**Shared**: Multiple people use one cluster. **Single-User**: Strictly one person (or Service Principal) per cluster.",
+        internal_working: "Shared: Runs inside a 'Security sandbox' (hardened); doesn't support all Python libraries or low-level JVM hooks. Single-User: Full permissions; can run any code but has zero isolation if another person was present.",
+        use_case: "Use **Shared** for SQL-heavy analyst teams. Use **Single-User** for complex Data Science jobs requiring niche C-libraries.",
+        key_points: ["Shared access mode is required for Table/Column-level security in Unity Catalog.", "Single-user is simpler but harder to govern.", "Databricks is moving to 'Serverless' to solve this isolation trade-off.", "Isolation settings are configured during cluster creation."]
+      },
+
+      // 4. PIPELINE LOGIC
+      "Delta Live Tables (DLT) vs Standard Workflows": {
+        definition: "**Standard Workflows**: You manage individual notebook tasks. **DLT**: You declare the 'Desired Result' in SQL/Python and Databricks manages the entire pipeline lifecycle.",
+        internal_working: "Standard: Sequential execution of notebooks; you handle error-retries and re-starts. DLT: A declarative framework; it handles the data dependencies, quality checks (Expectations), and incremental loading automatically.",
+        use_case: "Use **DLT** for complex streaming-to-batch 'Medallion' architectures. Use **Workflows** for simple, unrelated task orchestration.",
+        key_points: ["DLT is 'Declarative' (what you want); Workflows are 'Imperative' (how to do it).", "DLT provides integrated 'Data Quality' monitoring.", "DLT handles 'Streaming' and 'Batch' in a single codebase.", "Workflows allow for non-Databricks tasks (like HTTP calls)."]
+      },
+      "Z-Order vs Liquid Clustering": {
+        definition: "**Z-Order**: A manual way to optimize data layout (Clustering). **Liquid Clustering**: A modern, flexible, and automatic replacement.",
+        internal_working: "Z-Order: Statically groups related data together; must be manually re-run if data shifts too much. Liquid Clustering: Dynamically adjusts clustering without needing to 'rewrite' the table; it's much faster to update and more resilient to changing query patterns.",
+        use_case: "Always use **Liquid Clustering** in new projects (available in Spark 3.4+) instead of Z-order for high-performance indexing.",
+        key_points: ["Liquid clustering is a replacement for both Partitioning and Z-Ordering.", "Liquid is much faster (Incremental) than Z-Ordering (Complete rewrite).", "Liquid allows up to 4 columns to be clustered simultaneously.", "Z-Ordering is still useful for older Spark versions."]
+      },
+
+      // 5. INFRASTRUCTURE & ACCESS
+      "Serverless SQL vs Classic SQL Warehouse": {
+        definition: "**Classic**: Databricks manages VMs inside *your* VPC. **Serverless**: Databricks manages VMs inside *their* account (instantly).",
+        internal_working: "Classic: Requires VPC Peering/NAT setup; takes 3-5 mins to start. Serverless: Zero infra setup; starts in <10 seconds; AWS/Azure resources are invisible to you.",
+        use_case: "Use **Serverless SQL** for the best user experience for BI analysts (no waiting for clusters to start).",
+        key_points: ["Serverless has lower management overhead.", "Serverless is generally more secure as it's isolated by Databricks.", "Classic is sometimes required for specific VPC-only data sources.", "Serverless simplifies cloud cost accounting."]
+      },
+      "Mounting vs Direct Access": {
+        definition: "**Mounting**: Attaching a bucket to DBFS. **Direct Access**: Using the full URI (<code>s3a://...</code>) in your code.",
+        internal_working: "Mounting: Uses IAM keys or service principals at the cluster level. Direct: Usually uses Unity Catalog's 'External Locations' (OIDC) or cluster-scoped secrets for authentication.",
+        use_case: "Always use **Direct Access** via Unity Catalog; it is more secure and performant than the legacy DBFS mount system.",
+        key_points: ["Mounting is considered a legacy pattern.", "Direct access works better with IAM Roles.", "Unity Catalog 'External Locations' are the modern standard.", "Direct access avoids the DBFS 'Path-mapping' overhead."]
+      }
+    };
+
+    const SECTIONS = [
+      { name: "Lakehouse Storage", items: ["Delta vs Parquet", "DBFS vs S3/ADLS", "Z-Order vs Liquid Clustering"] },
+      { name: "Compute Engine", items: ["All-Purpose vs Job vs SQL Warehouse Clusters", "Photon vs Standard Spark Engine", "Serverless SQL vs Classic SQL Warehouse"] },
+      { name: "Governance & Security", items: ["Unity Catalog vs Hive Metastore", "Shared vs Single-User Isolation", "Mounting vs Direct Access"] },
+      { name: "Data Pipelinining", items: ["Delta Live Tables (DLT) vs Standard Workflows"] }
+    ];
+
+    function renderDatabricks() {
+      const container = document.getElementById('nestedContent');
+      SECTIONS.forEach(sec => {
+        const h2 = document.createElement('h2');
+        h2.textContent = sec.name;
+        container.appendChild(h2);
+
+        const secContent = document.createElement('div');
+        secContent.className = 'section-items-list';
+        
+        sec.items.forEach(itemKey => {
+          const d = DATA[itemKey];
+          if (!d) return;
+
+          const h3 = document.createElement('h3');
+          h3.innerHTML = `<span>${itemKey}</span> <span class="arr">→</span>`;
+          secContent.appendChild(h3);
+
+          const itemContent = document.createElement('div');
+          itemContent.className = 'item-details';
+          
+          itemContent.innerHTML = `
+            <div class="explanation-card">
+              <h4>📘 Definition</h4>
+              <p>${d.definition}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>⚙️ Internal Working</h4>
+              <p>${d.internal_working}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>🎯 Use Case</h4>
+              <p>${d.use_case}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>📋 Key Points</h4>
+              <ul>${d.key_points.map(p => `<li>${p}</li>`).join('')}</ul>
+            </div>
+          `;
+          secContent.appendChild(itemContent);
+        });
+        
+        container.appendChild(secContent);
+      });
+
+      if (typeof initializeCollapsibleSections === 'function') {
+        initializeCollapsibleSections(container, 'h2');
+        initializeCollapsibleSections(container, 'h3');
+      }
+    }
+
+    const stt = document.getElementById('scrollToTop');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 400) stt.classList.add('visible');
+      else stt.classList.remove('visible');
+    });
+    stt.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+    renderDatabricks();
+  </script>
 </body>
 </html>

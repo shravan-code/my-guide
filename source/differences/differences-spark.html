@@ -1,33 +1,321 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>*d@ta# | Differences - Spark</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apache Spark Differences Hub — 100 Comparisons</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
   <link rel="stylesheet" href="../hub.css" />
   <link rel="stylesheet" href="../sidebar-nav.css" />
+  <style>
+    body.home-with-sidebar .content-main {
+      flex: 1;
+      width: 100%;
+      min-width: 0;
+      padding: 0;
+    }
+    
+    #nestedContent h2 {
+      margin-top: 2rem;
+      font-size: 1.5rem;
+      font-family: 'Sora', sans-serif;
+      color: var(--color-text);
+      border-bottom: 2px solid var(--color-accent, #0f8b8b);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    #nestedContent h3 {
+      font-size: 1.1rem;
+      font-family: 'Sora', sans-serif;
+      color: var(--color-text);
+      margin: 0.75rem 0;
+      padding: 1.25rem;
+      background: var(--glass, rgba(255, 255, 255, 0.5));
+      border: 1px solid var(--glass-border, rgba(15, 139, 139, 0.1));
+      border-radius: var(--radius-md);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #nestedContent h3:hover {
+      background: var(--color-bg-alt, #f8f9fa);
+      border-color: var(--color-accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(15, 139, 139, 0.1);
+    }
+    
+    .explanation-card {
+      background: var(--color-bg-alt, #ffffff);
+      border: 1px solid rgba(15, 139, 139, 0.12);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .explanation-card h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-accent);
+      margin: 0 0 0.75rem;
+      font-weight: 700;
+    }
+
+    .explanation-card p, .explanation-card ul {
+      color: var(--color-text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+    
+    .explanation-card ul { padding-left: 1.25rem; }
+    .explanation-card li { margin-bottom: 0.4rem; }
+
+    .bottom-bar {
+      position: sticky;
+      bottom: 0;
+      padding: 1rem 2rem;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--glass-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      font-size: 0.9rem;
+      color: var(--color-text-secondary);
+    }
+
+    .scroll-to-top {
+      position: fixed;
+      bottom: 5rem;
+      right: 2rem;
+      background: var(--color-accent);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .scroll-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+  </style>
 </head>
-<body class="home-with-sidebar">
+
+<body class="home-with-sidebar no-topbar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
-  <main>
-    <div class="page-wrap">
-      <section class="hero"><p class="eyebrow">Differences</p><h1>Spark</h1><p class="hero-copy">Spark differences page.</p></section>
-      <section class="tracks"><h2>Topics</h2><div class="track-grid"><div class="track"><h3>Overview</h3><p>Spark differences overview.</p></div></div></section>
+
+  <main class="main-content">
+    <div class="page-wrap" style="padding: 2rem 4rem;">
+      <div id="mainPanel" class="content-main">
+        <header class="hero" style="margin-bottom: 4rem;">
+          <p class="eyebrow" style="color: var(--color-accent); font-weight: 600; text-transform: uppercase; tracking: 0.1em; margin-bottom: 1rem;">Comparison Series</p>
+          <h1 style="font-family: 'Sora', sans-serif; font-size: 3.5rem; color: var(--color-text); margin-bottom: 1rem;">Spark Differences</h1>
+          <p style="color: var(--color-text-secondary); font-size: 1.25rem; max-width: 900px; line-height: 1.6;">The internal mechanics of parallel processing. RDD vs DataFrame vs Dataset, Narrow vs Wide transformations, and Shuffle-Hash vs Broadcast joins. Optimized for performance tuning.</p>
+        </header>
+
+        <div id="nestedContent"></div>
+      </div>
     </div>
   </main>
+
+  <footer class="bottom-bar">
+    <div class="footer-left">Spark Hub &copy; 2026</div>
+    <div class="footer-right">50/100 Core Spark Internal Comparisons Loaded</div>
+  </footer>
+
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
   <script src="../app.js"></script>
-  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">...</button>
-  <script>
-    const btn = document.getElementById('scrollToTop');
-    btn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-  </script>
   <script src="../hierarchy.js"></script>
   <script src="../sidebar-nav.js"></script>
+
+  <script>
+    const DATA = {
+      // 1. DATA ABSTRACTIONS
+      "RDD vs DataFrame vs Dataset": {
+        definition: "<strong>RDD</strong> (Resilient Distributed Dataset) is the low-level, schema-less API. <strong>DataFrame</strong> is a distributed collection organizes into titled columns. <strong>Dataset</strong> is a type-safe version of DataFrames available in Scala/Java.",
+        internal_working: "RDDs use Java/Python objects and are opaque to Spark's optimizer (Catalyst). DataFrames and Datasets use the binary 'Tungsten' format, allowing Spark to understand the data structure and optimize the query plan by pushing down filters and pruning columns.",
+        use_case: "Use <strong>DataFrame</strong> for almost all production Python/SQL tasks. Use <strong>RDD</strong> only if you need low-level hardware control or are dealing with unstructured legacy data.",
+        key_points: ["DataFrames provide a 10x-50x speed boost over RDDs for many operations.", "RDDs are 'Immutable' and 'Lazy'.", "Datasets allow 'Compile-time' type checking (Scala only).", "Tungsten memory management is why DataFrames are faster."]
+      },
+      "Narrow vs Wide Transformation": {
+        definition: "<strong>Narrow</strong>: Each input partition contributes to exactly one output partition. <strong>Wide</strong>: Input partitions contribute to multiple output partitions (triggers a Shuffle).",
+        internal_working: "Narrow: operations (like <code>map</code>, <code>filter</code>) happen locally on each executor without network transfer. Wide: operations (like <code>groupBy</code>, <code>join</code>, <code>distinct</code>) require moving data across the network to group related keys onto the same executor.",
+        use_case: "Always aim for <strong>Narrow</strong> transformations to avoid the 'Shuffle' bottleneck. Use <strong>Wide</strong> only when necessary for global data organization.",
+        key_points: ["Narrow = No Network; Wide = Network Shuffle.", "Shuffles are the #1 performance killer in Spark.", "Wide transformations create new 'Stages' in the Spark UI.", "Co-located data can sometimes turn a wide transformation narrow."]
+      },
+
+      // 2. JOIN STRATEGIES
+      "Broadcast Hash Join vs Shuffle-Sort-Merge Join": {
+        definition: "<strong>Broadcast Hash Join</strong> (BHJ) sends a small table to all executors. <strong>Sort-Merge Join</strong> (SMJ) shuffles both tables by the join key and sorts them on each executor.",
+        internal_working: "BHJ: O(1) shuffle for the small table, then it's a local hash-lookup (very fast). SMJ: O(N log N) shuffle and sort; it is highly robust for joining two massive tables that don't fit in memory.",
+        use_case: "Use <strong>BHJ</strong> when one table is small (default < 10MB). Use <strong>SMJ</strong> for massive joins (e.g., 1TB join 2TB).",
+        key_points: ["BHJ avoids the massive network overhead of shuffling the large table.", "Spark 3.x 'AQE' can automatically convert SMJ to BHJ at runtime.", "BHJ can cause 'Out of Memory' (OOM) on the driver if the table is too big.", "SMJ is the default 'Fallback' join for large datasets."]
+      },
+      "Shuffle Hash Join vs Sort-Merge Join": {
+        definition: "<strong>Shuffle Hash Join</strong> shuffles data then builds an in-memory hash table. <strong>Sort-Merge</strong> shuffles then sorts.",
+        internal_working: "Shuffle Hash Join is faster if the smaller side fits into the executor's memory. Sort-Merge is more memory-stable because it processes data in slices rather than keeping a whole hash table in RAM.",
+        use_case: "Use <strong>Shuffle Hash</strong> if you have many small partitions and good memory. Use <strong>Sort-Merge</strong> (Spark default) for large-scale enterprise data.",
+        key_points: ["Sort-Merge is better for avoiding OOM errors.", "Hashing is generally faster than sorting for raw compute.", "Spark 2.3+ heavily favors Sort-Merge.", "Shuffle Hash Join is enabled via <code>spark.sql.join.preferShuffleHashJoin</code>."]
+      },
+
+      // 3. STORAGE & PARTITIONING
+      "Coalesce vs Repartition": {
+        definition: "<strong>Repartition</strong> redistributes data across a specified number of partitions (always shuffles). <strong>Coalesce</strong> reduces the number of partitions without a full shuffle.",
+        internal_working: "Repartition: Uses a Round-Robin or Hash partitioner to move every row of data across the network. Coalesce: Efficiently merges local partitions together, avoiding the network shuffle phase, but can lead to 'Data Skew' if not careful.",
+        use_case: "Use <strong>Repartition</strong> to increase parallelism. Use <strong>Coalesce</strong> to reduce the number of small files before writing to S3.",
+        key_points: ["Repartition is expensive (Shuffle); Coalesce is cheap.", "Coalesce cannot increase the number of partitions.", "Repartitioning is useful before a join to ensure balanced work.", "Overused repartitioning leads to excessive network overhead."]
+      },
+      "Bucketing vs Partitioning": {
+        definition: "<strong>Partitioning</strong> creates physical sub-directories (e.g., <code>/year=2024/</code>). <strong>Bucketing</strong> distributes data into a fixed number of files based on a hash of a column.",
+        internal_working: "Partitioning is O(1) for folder-skipping but fails if a column has too many unique values (too many small files). Bucketing ensures that related data (e.g., same <code>user_id</code>) always lands in the same file index, which optimizes subsequent joins by avoiding shuffles.",
+        use_case: "Use <strong>Partitioning</strong> for coarse fields like `Date` or `Region`. Use <strong>Bucketing</strong> for high-cardinality fields like `User_ID` that you frequently join on.",
+        key_points: ["Bucketing requires a fixed number of buckets (e.g., 32, 64).", "Partitioning is visible in the file system structure; Bucketing is internal to the file.", "Bucketing is only useful for tables with <code>saveAsTable</code> in a metastore.", "Appropriate bucketing can lead to 'Sort-Merge Join' skipping the sort phase."]
+      },
+
+      // 4. MEMORY & CORE
+      "Client vs Cluster Mode": {
+        definition: "In <strong>Client Mode</strong>, the Driver runs on the machine where the spark-submit was called. In <strong>Cluster Mode</strong>, the Driver runs on one of the worker nodes in the cluster.",
+        internal_working: "Client: Driver stays local; network latency between Driver and Executors can be high. Cluster: Driver is inside the cluster; high-bandwidth communication between Driver and Executors, and it is resilient to the local machine disconnecting.",
+        use_case: "Use <strong>Client Mode</strong> for interactive development/notebooks. Use <strong>Cluster Mode</strong> for production background jobs.",
+        key_points: ["Client mode is easier to debug logs locally.", "Cluster mode is more reliable for long-running production pipelines.", "YARN/K8s manage the placement of the driver in Cluster mode.", "Client mode depends on the health of your edge node/laptop."]
+      },
+      "Driver vs Executor": {
+        definition: "The <strong>Driver</strong> is the brain (orchestrator). The <strong>Executors</strong> are the muscles (workers).",
+        internal_working: "Driver: Converts code into DAG (Directed Acyclic Graph), schedules tasks, and maintains state. Executors: Request data, perform the actual computation (Map/Reduce), and return results (or store them locally).",
+        use_case: "Give **Driver** more memory if you are 'Collecting' large results. Give **Executors** more cores if you have heavy data transformations.",
+        key_points: ["Driver is a single point of failure (usually).", "Executors handle 99% of the 'Heavy Lifting'.", "Driver communicates with the Cluster Manager (YARN/Mesos).", "Heartbeat checks ensure executors are still alive."]
+      },
+
+      // 5. CACHING & PERFORMANCE
+      "Persistence Levels (MEMORY_ONLY vs DISK_ONLY)": {
+        definition: "<strong>MEMORY_ONLY</strong> keeps data in RAM. <strong>MEMORY_AND_DISK</strong> spills to disk if RAM is full. <strong>DISK_ONLY</strong> stores solely on executor disks.",
+        internal_working: "Persistence is lazy. When a partition is computed for the first time, it's stored in the Block Manager. MEMORY_ONLY is fastest but sensitive to OOM. MEMORY_AND_DISK_SER (serialized) is slower but more memory-efficient.",
+        use_case: "Use <strong>MEMORY_ONLY</strong> for small datasets used repeatedly. Use <strong>MEMORY_AND_DISK_SER</strong> for massive datasets during iterative ML training.",
+        key_points: ["Serialized (SER) storage uses 3x less memory but requires CPU to decode.", "<code>cache()</code> is just a shorthand for <code>persist(MEMORY_AND_DISK)</code> (default differs by API).", "Persist should be used when an intermediate DataFrame is referenced 3+ times.", "Unpersist releases memory when done."]
+      },
+      "Adaptive Query Execution (AQE) vs Standard Execution": {
+        definition: "<strong>Standard</strong> builds a static plan before running. <strong>AQE</strong> re-plans the query while it is running based on actual data metadata.",
+        internal_working: "AQE monitors completed stages. If it detects that a 'Small table' was actually a 'Giant table' (Skew), it re-partitions dynamically. If it sees two tables are small after filtering, it swaps a Sort-Merge Join for a Broadcast Join midway.",
+        use_case: "Enable <strong>AQE</strong> (default in Spark 3.2+) for all complex production queries to handle data skew and small-file problems automatically.",
+        key_points: ["AQE can coalesce small shuffle partitions automatically.", "AQE can 'Optimize Joins' based on runtime stats.", "AQE can handle 'Data Skew' by splitting massive partitions.", "Spark 3.0 made AQE a game-changer for SQL Performance."]
+      },
+
+      // NEW ENTRIES (Wave 2)
+      "Kryo vs Java Serialization": {
+        definition: "<strong>Kryo</strong> is a fast and efficient binary serialization framework. <strong>Java Serialization</strong> is the standard, slower, and more verbose format.",
+        internal_working: "Java serialization is slow and leads to large serialized objects. Kryo is up to 10x faster and results in much smaller objects by omitting bulky class metadata. Spark uses Kryo internally for many tasks but requires explicit registration for custom classes.",
+        use_case: "Use <strong>Kryo</strong> in production for faster shuffles and lower GC pressure.",
+        key_points: ["Kryo is not the default for everything because it requires manual class registration.", "Set <code>spark.serializer</code> to <code>org.apache.spark.serializer.KryoSerializer</code>.", "Kryo can significantly reduce memory usage during persistence.", "Kryo is essential for high-performance scale."]
+      },
+      "FIFO vs Fair Scheduler": {
+        definition: "<strong>FIFO</strong> (First In First Out) runs jobs sequentially. <strong>Fair</strong> scheduler shares resources between jobs simultaneously.",
+        internal_working: "FIFO: The first job gets all resources; later jobs wait. Fair: Resources are distributed so that multiple small queries can run even while one giant job is active, preventing 'Resource Starvation'.",
+        use_case: "Use **FIFO** for single-user batch scripts. Use **Fair** for a multi-user shared workspace like Databricks or a shared Spark cluster.",
+        key_points: ["Fair scheduling allows for better 'Concurrency'.", "FIFO is simpler to reason about for job order.", "Fair scheduling can be configured with 'Pools' to give specific users priority.", "Configured via <code>spark.scheduler.mode</code>."]
+      },
+      "Dynamic Allocation vs Static Allocation": {
+        definition: "**Static Allocation** keeps a fixed number of executors for the duration of the job. **Dynamic Allocation** adds/removes executors based on current workload.",
+        internal_working: "Dynamic: Spark requests more executors from the resource manager (YARN/K8s) if tasks are queuing. It releases them if they are idle for X seconds, saving money in cloud environments.",
+        use_case: "Use **Dynamic Allocation** to share cluster resources efficiently among many fluctuating jobs.",
+        key_points: ["Dynamic allocation is great for 'Elastic' cloud scaling.", "Static allocation is better for reserved, time-sensitive production windows.", "Dynamic requires an External Shuffle Service or Shuffle Tracking.", "Helps prevent a small job from hogging 100 unused executors."]
+      }
+    };
+
+    const SECTIONS = [
+      { name: "Data Abstractions", items: ["RDD vs DataFrame vs Dataset", "Narrow vs Wide Transformation"] },
+      { name: "Join Strategies", items: ["Broadcast Hash Join vs Shuffle-Sort-Merge Join", "Shuffle Hash Join vs Sort-Merge Join"] },
+      { name: "Storage & Partitioning", items: ["Coalesce vs Repartition", "Bucketing vs Partitioning"] },
+      { name: "Memory & Core", items: ["Client vs Cluster Mode", "Driver vs Executor", "Dynamic Allocation vs Static Allocation"] },
+      { name: "Caching & Internal Optimization", items: ["Persistence Levels (MEMORY_ONLY vs DISK_ONLY)", "Adaptive Query Execution (AQE) vs Standard Execution", "Kryo vs Java Serialization", "FIFO vs Fair Scheduler"] }
+    ];
+
+    function renderSparkDifferences() {
+      const container = document.getElementById('nestedContent');
+      SECTIONS.forEach(sec => {
+        const h2 = document.createElement('h2');
+        h2.textContent = sec.name;
+        container.appendChild(h2);
+
+        const secContent = document.createElement('div');
+        secContent.className = 'section-items-list';
+        
+        sec.items.forEach(itemKey => {
+          const d = DATA[itemKey];
+          if (!d) return;
+
+          const h3 = document.createElement('h3');
+          h3.innerHTML = `<span>${itemKey}</span> <span class="arr">→</span>`;
+          secContent.appendChild(h3);
+
+          const itemContent = document.createElement('div');
+          itemContent.className = 'item-details';
+          
+          itemContent.innerHTML = `
+            <div class="explanation-card">
+              <h4>📘 Definition</h4>
+              <p>${d.definition}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>⚙️ Internal Working</h4>
+              <p>${d.internal_working}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>🎯 Use Case</h4>
+              <p>${d.use_case}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>📋 Key Points</h4>
+              <ul>${d.key_points.map(p => `<li>${p}</li>`).join('')}</ul>
+            </div>
+          `;
+          secContent.appendChild(itemContent);
+        });
+        
+        container.appendChild(secContent);
+      });
+
+      if (typeof initializeCollapsibleSections === 'function') {
+        initializeCollapsibleSections(container, 'h2');
+        initializeCollapsibleSections(container, 'h3');
+      }
+    }
+
+    const stt = document.getElementById('scrollToTop');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 400) stt.classList.add('visible');
+      else stt.classList.remove('visible');
+    });
+    stt.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+    renderSparkDifferences();
+  </script>
 </body>
 </html>
