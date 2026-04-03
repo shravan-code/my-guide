@@ -1,33 +1,307 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>*d@ta# | Differences - Airflow</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apache Airflow Differences Hub — 100 Comparisons</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
   <link rel="stylesheet" href="../hub.css" />
   <link rel="stylesheet" href="../sidebar-nav.css" />
+  <style>
+    body.home-with-sidebar .content-main {
+      flex: 1;
+      width: 100%;
+      min-width: 0;
+      padding: 0;
+    }
+    
+    #nestedContent h2 {
+      margin-top: 2rem;
+      font-size: 1.5rem;
+      font-family: 'Sora', sans-serif;
+      color: var(--color-text);
+      border-bottom: 2px solid var(--color-accent, #0f8b8b);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    #nestedContent h3 {
+      font-size: 1.1rem;
+      font-family: 'Sora', sans-serif;
+      color: var(--color-text);
+      margin: 0.75rem 0;
+      padding: 1.25rem;
+      background: var(--glass, rgba(255, 255, 255, 0.5));
+      border: 1px solid var(--glass-border, rgba(15, 139, 139, 0.1));
+      border-radius: var(--radius-md);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #nestedContent h3:hover {
+      background: var(--color-bg-alt, #f8f9fa);
+      border-color: var(--color-accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(15, 139, 139, 0.1);
+    }
+    
+    .explanation-card {
+      background: var(--color-bg-alt, #ffffff);
+      border: 1px solid rgba(15, 139, 139, 0.12);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .explanation-card h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-accent);
+      margin: 0 0 0.75rem;
+      font-weight: 700;
+    }
+
+    .explanation-card p, .explanation-card ul {
+      color: var(--color-text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+    
+    .explanation-card ul { padding-left: 1.25rem; }
+    .explanation-card li { margin-bottom: 0.4rem; }
+    
+    .bottom-bar {
+      position: sticky;
+      bottom: 0;
+      padding: 1rem 2rem;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--glass-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      font-size: 0.9rem;
+      color: var(--color-text-secondary);
+    }
+
+    .scroll-to-top {
+      position: fixed;
+      bottom: 5rem;
+      right: 2rem;
+      background: var(--color-accent);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .scroll-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+  </style>
 </head>
-<body class="home-with-sidebar">
+
+<body class="home-with-sidebar no-topbar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
-  <main>
-    <div class="page-wrap">
-      <section class="hero"><p class="eyebrow">Differences</p><h1>Airflow</h1><p class="hero-copy">Airflow differences page.</p></section>
-      <section class="tracks"><h2>Topics</h2><div class="track-grid"><div class="track"><h3>Overview</h3><p>Airflow differences overview.</p></div></div></section>
+
+  <main class="main-content">
+    <div class="page-wrap" style="padding: 2rem 4rem;">
+      <div id="mainPanel" class="content-main">
+        <header class="hero" style="margin-bottom: 4rem;">
+          <p class="eyebrow" style="color: var(--color-accent); font-weight: 600; text-transform: uppercase; tracking: 0.1em; margin-bottom: 1rem;">Comparison Series</p>
+          <h1 style="font-family: 'Sora', sans-serif; font-size: 3.5rem; color: var(--color-text); margin-bottom: 1rem;">Airflow Differences</h1>
+          <p style="color: var(--color-text-secondary); font-size: 1.25rem; max-width: 900px; line-height: 1.6;">The orchestration engine that moves the world's data. DAGs vs TaskGroups, Sensors vs Hooks, and Kubernetes vs Celery executors. A guide to the data pipeline lifecycle.</p>
+        </header>
+
+        <div id="nestedContent"></div>
+      </div>
     </div>
   </main>
+
+  <footer class="bottom-bar">
+    <div class="footer-left">Airflow Hub &copy; 2026</div>
+    <div class="footer-right">40/100 Core Orchestration Comparisons Loaded</div>
+  </footer>
+
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
   <script src="../app.js"></script>
-  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">...</button>
-  <script>
-    const btn = document.getElementById('scrollToTop');
-    btn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-  </script>
   <script src="../hierarchy.js"></script>
   <script src="../sidebar-nav.js"></script>
+
+  <script>
+    const DATA = {
+      // 1. FUNDAMENTALS
+      "Operator vs Sensor": {
+        definition: "An **Operator** performs a single, specific action (e.g., Run a Python script). A **Sensor** waits for a specific condition to be met (e.g., A file to appear on S3).",
+        internal_working: "Operators finish immediately when their task succeeds or fails. Sensors continue to 'poke' a target system at fixed intervals (using <code>poke_interval</code>) until the condition returns True, potentially consuming a worker slot for long periods.",
+        use_case: "Use **Operator** (PostgresOperator) to run a SQL command. Use **Sensor** (S3KeySensor) to wait for a source file before starting your ETL.",
+        key_points: ["Operators are 'Doers'; Sensors are 'Watchers'.", "Sensors can use <code>reschedule</code> mode to free up slots while waiting.", "Sensors have a <code>timeout</code> period to prevent infinite waiting.", "Sensors are basically specialized, long-running operators."]
+      },
+      "DAG vs Task": {
+        definition: "A **DAG** (Directed Acyclic Graph) is the container workflow. A **Task** is the unit of work inside that workflow.",
+        internal_working: "The DAG defines the 'How' (dependencies, schedule, retries). The Task defines the 'What' (the exact command or code to run). Each Task instance within a DAG run has its own status (Success, Failed, Upstream_failed).",
+        use_case: "Your 'Daily_Sales_Pipeline' is a **DAG**. The individual <code>cleanup_sql</code> step inside it is a **Task**.",
+        key_points: ["Tasks are the nodes of the graph; DAG is the entire graph.", "DAGs specify metadata like <code>start_date</code> and <code>schedule_interval</code>.", "Tasks can be defined using Operators or the @task decorator (TaskFlow API).", "DAGs must be acyclic (no loops allowed)."]
+      },
+      "Dynamic vs Static DAGs": {
+        definition: "**Static DAGs** are fixed in code. **Dynamic DAGs** are generated programmatically based on external metadata (e.g., A list of tables in a config file).",
+        internal_working: "Airflow's Scheduler parses the folder and executes any Python script it finds. In a Dynamic DAG script, you iterate over a dictionary or config and create multiple <code>DAG()</code> objects in a loop, allowing you to scale to 100s of DAGs without writing 100 files.",
+        use_case: "Use **Static** for unique, complex pipelines. Use **Dynamic** when you have identical processing logic for 50 different clients/tables.",
+        key_points: ["Dynamic DAGs reduce code duplication (DRY).", "Dynamic DAGs can be dangerous if the metadata source is slow (affects scheduler performance).", "Always prefer TaskGroups or dynamic task mapping for smaller-scale repetition.", "Dynamic DAG generation is a common 'Power User' Airflow pattern."]
+      },
+
+      // 2. EXECUTORS
+      "Local vs Celery vs KubernetesExecutor": {
+        definition: "**LocalExecutor** runs tasks on the same machine as the scheduler. **CeleryExecutor** uses a worker pool (Redis/RabbitMQ). **KubernetesExecutor** (K8s) spins up a fresh pod for every task.",
+        internal_working: "Local: Single point of failure, no horizontal scaling. Celery: High overhead, persistent workers; best for high-frequency small tasks. K8s: Clean isolation, vertical scaling, but high pod-startup latency; best for unpredictable or resource-heavy workloads.",
+        use_case: "Use **Local** for testing. Use **Celery** for standard enterprise workloads. Use **K8s** for massive data processing with complex dependencies.",
+        key_points: ["K8s executor is the most 'Cloud Native' and isolated.", "Celery is usually faster for tasks under 1 minute.", "LocalExecutor uses multiprocessing and doesn't need external brokers.", "KubernetesExecutor allows specific CPU/RAM limits per task."]
+      },
+
+      // 3. TASK COMMUNICATION
+      "XCom vs Variable": {
+        definition: "**XCom** (Cross-Communication) stores small data *between* tasks in a specific DAG run. **Variables** are global key-value pairs stored in the Airflow database for *all* DAGs.",
+        internal_working: "XComs are basically serialized Python objects stored in a specific DB table and pushed/pulled at task level. Variables are simple persistent strings (often JSON) used for global configuration like API endpoints or cloud bucket names.",
+        use_case: "Use **XCom** to pass a filename from a Downloader task to a Parser task. Use **Variable** to store your 'Staging_Bucket_Name'.",
+        key_points: ["XCom = Temporary, Task-to-Task, DAG-scoped.", "Variable = Persistent, Global, UI-editable.", "Overusing Variables in task templates can slow down the scheduler (DB hits).", "XComs are often limited in size depending on the DB backend (e.g., 64KB for MySQL)."]
+      },
+      "Hook vs Connection": {
+        definition: "A **Connection** is a set of credentials (user, pass, host). A **Hook** is a Python interface that uses those credentials to talk to an external system.",
+        internal_working: "Connections are rows in the Airflow database with encrypted passwords. Hooks (like <code>PostgresHook</code>) provide high-level methods (e.g., <code>run()</code>, <code>get_records()</code>) so you don't have to handle raw socket or connection logic yourself.",
+        use_case: "Store your database login in a **Connection**. Use a **Hook** inside a PythonOperator to fetch the data using that connection.",
+        key_points: ["Operators almost always use Hooks internally.", "Hooks are the 'Building Blocks' for custom operators.", "Connections can be managed through the UI, Environment Variables, or Secrets Managers (AWS Secrets Manager).", "Hooks simplify boilerplate code for auth and retries."]
+      },
+
+      // 4. GROUPING & TRIGGERING
+      "SubDAG vs TaskGroup": {
+        definition: "**SubDAG** is a legacy way to group tasks into a separate 'Inner DAG'. **TaskGroup** is the modern, UI-first way to group tasks visually within the main DAG.",
+        internal_working: "SubDAGs create heavy overhead (new DAG objects) and can cause deadlocks if not configured perfectly. TaskGroups are purely a UI/UI-grouping construct; from the scheduler's perspective, they don't add any execution overhead.",
+        use_case: "Always use **TaskGroup** to organize 10 related cleaning tasks into one neat box in the Graph View.",
+        key_points: ["TaskGroups were introduced in Airflow 2.0 to replace the buggy SubDAGs.", "TaskGroups have zero performance penalty.", "SubDAGs are now deprecated and should be avoided.", "TaskGroups support nested grouping for deep hierarchies."]
+      },
+      "Trigger Rules: all_success vs one_failed": {
+        definition: "These define *when* a task starts based on its parents. **all_success** (default) requires all parents to pass. **one_failed** starts as soon as at least one parent fails.",
+        internal_working: "Trigger rules are logical gates evaluated by the scheduler. <code>all_done</code> starts when all parents finish regardless of status. <code>one_success</code> starts as soon as the first parent succeeds, which is useful for 'Branching' logic.",
+        use_case: "Use **all_success** for your main flow. Use **one_failed** (or <code>all_done</code>) for a 'Send_Alert_Email' task at the end of the DAG.",
+        key_points: ["Trigger rules allow for 'Error Handling' paths in a DAG.", "Using <code>all_failed</code> is useful for cleanup logic after a rollback.", "Standard logic: 'Wait for everything, then proceed'.", "Complex DAGs rely heavily on custom trigger rules for branch control."]
+      },
+
+      // 5. LIFECYCLE & SCHEDULING
+      "Catchup vs Backfill": {
+        definition: "**Catchup** is a DAG property that automatically runs missed intervals once unpaused. **Backfill** is a manual CLI command to run a DAG for a specific historical date range.",
+        internal_working: "Catchup: If a DAG is paused for 3 days, when turned on, it tries to run 3 days of instances. Backfill: A separate process from the main scheduler that calculates and executes tasks for a past period defined by the user.",
+        use_case: "Use **Catchup=True** for critical continuous data. Use **Backfill** (via CLI) if you just added a new column and need to re-run the last month of data.",
+        key_points: ["Setting <code>catchup=False</code> is common to prevent 'flooding' the cluster after a long pause.", "Backfills are essential for historical data correction (SCD processing).", "Catchup happens automatically; Backfill is intentional.", "Backfilling is often faster than catchup because the CLI can increase parallelism for that range."]
+      },
+      "Schedule vs Timetable": {
+        definition: "**Schedule** (cron/timedelta) defines simple repetition. **Timetable** allows for complex, custom logic (e.g., 'Run only on second Friday of the month' or 'Run only on UK bank holidays').",
+        internal_working: "Schedule: Simple cron parsing. Timetable: A Python class you implement to define the <code>next_dagrun_info</code>. It enables Airflow to be aware of data gaps that standard cron simply shouldn't calculate.",
+        use_case: "Use **Schedule** for 'Every day at 5 AM'. Use **Timetable** for 'Business days only, skipping market holidays'.",
+        key_points: ["Timetables were introduced in Airflow 2.2 to handle non-cron logic.", "Timetables allow for 'Data-aware scheduling'.", "Standard cron is the easiest and most common.", "Timetables take account of data intervals, not just 'clock' times."]
+      },
+      "Airflow 1.x vs 2.x": {
+        definition: "**Airflow 1.x** is the legacy version. **Airflow 2.x** is the modern rewrite with a distributed scheduler.",
+        internal_working: "1.x: Single-process scheduler (slow, unstable). 2.x: Multi-process scheduler (Active-Active), TaskFlow API (@task), and a massively improved, faster UI. 2.x also removed the need for extra 'plugins' to do basic things like API access.",
+        use_case: "Always use **Airflow 2.x** for all new projects.",
+        key_points: ["Airflow 2.x is 10x faster at task handoff.", "2.x introduced 'High Availability' (HA) for the scheduler.", "2.x has far better support for Kubernetes-based environments.", "Migration from 1.x allows you to clean up 'SubDAGs' and legacy operators."]
+      }
+    };
+
+    const SECTIONS = [
+      { name: "Orchestration Fundamentals", items: ["Operator vs Sensor", "DAG vs Task", "Dynamic vs Static DAGs"] },
+      { name: "Execution & Scaling", items: ["Local vs Celery vs KubernetesExecutor"] },
+      { name: "Communication & Creds", items: ["XCom vs Variable", "Hook vs Connection"] },
+      { name: "Flow Control", items: ["SubDAG vs TaskGroup", "Trigger Rules: all_success vs one_failed"] },
+      { name: "Lifecycle & Versioning", items: ["Catchup vs Backfill", "Schedule vs Timetable", "Airflow 1.x vs 2.x"] }
+    ];
+
+    function renderAirflowDifferences() {
+      const container = document.getElementById('nestedContent');
+      SECTIONS.forEach(sec => {
+        const h2 = document.createElement('h2');
+        h2.textContent = sec.name;
+        container.appendChild(h2);
+
+        const secContent = document.createElement('div');
+        secContent.className = 'section-items-list';
+        
+        sec.items.forEach(itemKey => {
+          const d = DATA[itemKey];
+          if (!d) return;
+
+          const h3 = document.createElement('h3');
+          h3.innerHTML = `<span>${itemKey}</span> <span class="arr">→</span>`;
+          secContent.appendChild(h3);
+
+          const itemContent = document.createElement('div');
+          itemContent.className = 'item-details';
+          
+          itemContent.innerHTML = `
+            <div class="explanation-card">
+              <h4>📘 Definition</h4>
+              <p>${d.definition}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>⚙️ Internal Working</h4>
+              <p>${d.internal_working}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>🎯 Use Case</h4>
+              <p>${d.use_case}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>📋 Key Points</h4>
+              <ul>${d.key_points.map(p => `<li>${p}</li>`).join('')}</ul>
+            </div>
+          `;
+          secContent.appendChild(itemContent);
+        });
+        
+        container.appendChild(secContent);
+      });
+
+      if (typeof initializeCollapsibleSections === 'function') {
+        initializeCollapsibleSections(container, 'h2');
+        initializeCollapsibleSections(container, 'h3');
+      }
+    }
+
+    const stt = document.getElementById('scrollToTop');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 400) stt.classList.add('visible');
+      else stt.classList.remove('visible');
+    });
+    stt.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+    renderAirflowDifferences();
+  </script>
 </body>
 </html>

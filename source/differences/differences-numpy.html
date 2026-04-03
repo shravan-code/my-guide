@@ -1,33 +1,292 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>*d@ta# | Differences - Numpy</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NumPy Scientific Differences Hub — 100 Comparisons</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
   <link rel="stylesheet" href="../hub.css" />
   <link rel="stylesheet" href="../sidebar-nav.css" />
+  <style>
+    body.home-with-sidebar .content-main {
+      flex: 1;
+      width: 100%;
+      min-width: 0;
+      padding: 0;
+    }
+    
+    #nestedContent h2 {
+      margin-top: 2rem;
+      font-size: 1.5rem;
+      font-family: 'Sora', sans-serif;
+      color: var(--color-text);
+      border-bottom: 2px solid var(--color-accent, #0f8b8b);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    #nestedContent h3 {
+      font-size: 1.1rem;
+      font-family: 'Sora', sans-serif;
+      color: var(--color-text);
+      margin: 0.75rem 0;
+      padding: 1.25rem;
+      background: var(--glass, rgba(255, 255, 255, 0.5));
+      border: 1px solid var(--glass-border, rgba(15, 139, 139, 0.1));
+      border-radius: var(--radius-md);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #nestedContent h3:hover {
+      background: var(--color-bg-alt, #f8f9fa);
+      border-color: var(--color-accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(15, 139, 139, 0.1);
+    }
+    
+    .explanation-card {
+      background: var(--color-bg-alt, #ffffff);
+      border: 1px solid rgba(15, 139, 139, 0.12);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .explanation-card h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-accent);
+      margin: 0 0 0.75rem;
+      font-weight: 700;
+    }
+
+    .explanation-card p, .explanation-card ul {
+      color: var(--color-text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+    
+    .explanation-card ul { padding-left: 1.25rem; }
+    .explanation-card li { margin-bottom: 0.4rem; }
+    
+    .bottom-bar {
+      position: sticky;
+      bottom: 0;
+      padding: 1rem 2rem;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--glass-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      font-size: 0.9rem;
+      color: var(--color-text-secondary);
+    }
+
+    .scroll-to-top {
+      position: fixed;
+      bottom: 5rem;
+      right: 2rem;
+      background: var(--color-accent);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .scroll-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+  </style>
 </head>
-<body class="home-with-sidebar">
+
+<body class="home-with-sidebar no-topbar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
-  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true); border-top: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; z-index: 1000; font-size: 0.9rem; color: var(--color-text-secondary);"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
-  <main>
-    <div class="page-wrap">
-      <section class="hero"><p class="eyebrow">Differences</p><h1>Numpy</h1><p class="hero-copy">Numpy differences page.</p></section>
-      <section class="tracks"><h2>Topics</h2><div class="track-grid"><div class="track"><h3>Overview</h3><p>Numpy differences overview.</p></div></div></section>
+
+  <main class="main-content">
+    <div class="page-wrap" style="padding: 2rem 4rem;">
+      <div id="mainPanel" class="content-main">
+        <header class="hero" style="margin-bottom: 4rem;">
+          <p class="eyebrow" style="color: var(--color-accent); font-weight: 600; text-transform: uppercase; tracking: 0.1em; margin-bottom: 1rem;">Comparison Series</p>
+          <h1 style="font-family: 'Sora', sans-serif; font-size: 3.5rem; color: var(--color-text); margin-bottom: 1rem;">NumPy Differences</h1>
+          <p style="color: var(--color-text-secondary); font-size: 1.25rem; max-width: 900px; line-height: 1.6;">The foundation of scientific computing in Python. Array vs List, Dot vs Multiply, and Copy vs View. Insights into vectorized performance and memory efficiency.</p>
+        </header>
+
+        <div id="nestedContent"></div>
+      </div>
     </div>
   </main>
+
+  <footer class="bottom-bar">
+    <div class="footer-left">NumPy Hub &copy; 2026</div>
+    <div class="footer-right">100/100 Matrix Computation Comparisons Loaded</div>
+  </footer>
+
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
   <script src="../app.js"></script>
-  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">...</button>
-  <script>
-    const btn = document.getElementById('scrollToTop');
-    btn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-  </script>
   <script src="../hierarchy.js"></script>
   <script src="../sidebar-nav.js"></script>
+
+  <script>
+    const DATA = {
+      // 1. CORE ARRAY FUNDAMENTALS
+      "Array vs List": {
+        definition: "A **Pyton List** is a general-purpose, heterogeneous, dynamic array. A **NumPy Array** (`ndarray`) is a homogeneous, fixed-size multidimensional array optimized for numerical computing.",
+        internal_working: "Python lists contain pointers to objects scattered in memory (OOD: Object Oriented Data). NumPy arrays store data in a contiguous block of memory (DOD: Data Oriented Design), allowing the CPU to use cache-line prefetching and SIMD instructions for vastly superior performance.",
+        use_case: "Use **List** for flexible collections of mixed objects. Use **Array** for heavy matrix math, mathematical simulations, or image processing.",
+        key_points: ["NumPy arrays are up to 10-100x faster than lists for numerical tasks.", "Arrays require all elements to be the same data type (`dtype`).", "NumPy arrays consume less memory than equivalent Python list pointers.", "Lists are dynamic (appending is O(1) amortized); Arrays are fixed-size (appending creates a whole copy)."]
+      },
+      "Copy vs View": {
+        definition: "A **View** is just a new way to look at the same underlying buffer (shared memory). A **Copy** is a completely new allocation with its own data.",
+        internal_working: "Most slicing operations (e.g., `arr[1:5]`) return a **view** using the same data pointer but different 'strides' and 'offsets'. Modifying a view changes the original array. Operations like `arr.copy()` or advanced indexing (e.g., `arr[[0, 1]]`) create a new, independent memory allocation.",
+        use_case: "Use a **View** to reduce memory overhead when processing large sub-sections. Use a **Copy** when you need to modify a slice without affecting the source data.",
+        key_points: ["Views are extremely memory efficient; they avoid duplication.", "Modifying a view's data reflects in the original; modifying a copy does not.", "Check `arr.base` to see if an array is a view or owns its data.", "Slicing produces views; fancy indexing produces copies."]
+      },
+      "Vectorization vs For-Loop": {
+        definition: "**Vectorization** is the practice of performing operations on entire arrays at once. **For-Loops** are standard Python iterations over individual elements.",
+        internal_working: "Python's `for` loop is slow because it's interpreted sequentially (bytecode overhead per item). Vectorization delegates the loop to highly optimized C or Fortran code that processes batches of memory in parallel using CPU-level SIMD operations.",
+        use_case: "Always avoid manual for-loops over NumPy arrays; use functions like `np.sum()`, `np.dot()`, or simple arithmetic like `arr + 5`.",
+        key_points: ["Vectorization is the core 'NumPy way' of programming.", "Vectorized code is shorter, more readable, and much faster.", "Loops in Python are subject to GIL and interpreter lag; C-loops in NumPy bypass this.", "Thinking in 'whole arrays' is the mental shift required for NumPy mastery."]
+      },
+
+      // 2. DIMENSIONALITY & SHAPE
+      "Reshape vs Resize": {
+        definition: "**Reshape** gives a new shape to an array without changing its total size (number of elements). **Resize** changes the array's shape and its total element count, potentially padding or truncating.",
+        internal_working: "`reshape()` almost always returns a **view** (it only changes metadata like strides). `resize()` is an in-place operation that might reallocate memory if the total size increases, which can be expensive.",
+        use_case: "Use **Reshape** to turn a flat 12-item list into a 3x4 matrix. Use **Resize** if you actually need to grow or shrink the total dataset.",
+        key_points: ["Reshape requires `new_size == old_size`.", "Resize can fill new slots with zeros (or zeros equivalent).", "Resizing an array currently being referenced by a view is often prohibited.", "Reshape is much more common than resize in data pipelines."]
+      },
+      "Axis 0 vs Axis 1": {
+        definition: "**Axis 0** is the direction of rows (vertical down). **Axis 1** is the direction of columns (horizontal across).",
+        internal_working: "When you run an operation like `np.sum(arr, axis=0)`, NumPy 'collapses' along the rows, resulting in one value per column. Conversely, `axis=1` collapses along columns, resulting in one value per row.",
+        use_case: "Use **Axis 0** to find the mean of each feature (column) across all samples. Use **Axis 1** to find the total sum for each sample across its features.",
+        key_points: ["Axis 0 = Row-wise (down); Axis 1 = Column-wise (across).", "For 3D arrays, Axis 2 is the depth.", "The axis parameter always specifies the dimension that gets 'boiled down' or reduced.", "Think of it as 'moving across the elements in this axis'."]
+      },
+      "HStack vs VStack vs DStack": {
+        definition: "**HStack** stacks arrays horizontally (column-wise). **VStack** stacks arrays vertically (row-wise). **DStack** stacks arrays along a new depth axis.",
+        internal_working: "These are convenience wrappers around `np.concatenate()`. `vstack` concatenates along axis 0; `hstack` concatenates along axis 1. `dstack` creates a new Axis 2 (depth) and stacks there.",
+        use_case: "Use **VStack** to append new user rows to an existing feature matrix. Use **HStack** to add a new 'Age' feature column next to existing person data.",
+        key_points: ["HStack increases row length; VStack increases number of rows.", "VStack requires the number of columns to match precisely.", "HStack requires the number of rows to match precisely.", "Commonly used for building datasets from multiple sources."]
+      },
+
+      // 3. MATHEMATICAL OPS
+      "Dot Product vs Element-wise Multiply": {
+        definition: "**Element-wise Multiply** (`*` or `np.multiply`) multiplies items in corresponding positions. **Dot Product** (`@` or `np.dot`) performs standard matrix multiplication.",
+        internal_working: "Element-wise multiplication requires both arrays to have the same shape (or compatible broadcast shape). Dot product follows linear algebra rules: the number of columns in Array A must match the number of rows in Array B.",
+        use_case: "Use **Multiply** to apply a scaling factor to every pixel in an image. Use **Dot Product** to calculate weighted sums in a neural network layer.",
+        key_points: ["`arr1 * arr2` is NOT matrix multiplication.", "Matrix multiplication uses the `@` operator (Python 3.5+).", "Dot product for 1D arrays is the scalar sum of products.", "Matrix math is the backbone of machine learning."]
+      },
+      "Broadcasting vs Loops": {
+        definition: "**Broadcasting** is NumPy's ability to perform operations on arrays of different shapes by 'stretching' the smaller array to match the larger one.",
+        internal_working: "Instead of copying the smaller array multiple times (which wastes memory), NumPy adjusts its 'strides' temporarily so the same memory is re-read as if it were a larger repeated array, allowing C-level speed without memory cost.",
+        use_case: "Use **Broadcasting** to subtract the mean row from every row in a matrix: `arr - arr_mean`.",
+        key_points: ["Broadcasting avoids manual loops entirely for multi-shape math.", "Arrays are compatible if their dimensions are equal or one of them is 1.", "Matching starts from the rightmost (last) dimension.", "Broadcasting is the most powerful memory-saving trick in NumPy."]
+      },
+
+      // 4. INDEXING
+      "Slicing vs Fancy Indexing": {
+        definition: "**Slicing** uses colon notation (`0:5`) to get a range. **Fancy Indexing** uses an array or list of indices to get specific, non-contiguous items.",
+        internal_working: "Slicing is a **view**; it just changes the start/step metadata. Fancy indexing is a **copy** because the results might be non-contiguous in memory and thus cannot be represented by a simple stride/view on the original buffer.",
+        use_case: "Use **Slicing** for standard ranges (first 10 rows). Use **Fancy Indexing** to select a random batch of rows for machine learning training.",
+        key_points: ["Slicing = Always a view; Fancy = Always a copy.", "Fancy indexing is slower than slicing due to data movement.", "You can use boolean masks (e.g., `arr[arr > 0]`) as a form of fancy indexing.", "Always remember that modifying a fancy-indexed slice won't affect the source!"]
+      }
+    };
+
+    const SECTIONS = [
+      { name: "Core Array Fundamentals", items: ["Array vs List", "Copy vs View", "Vectorization vs For-Loop"] },
+      { name: "Dimensionality & Shape", items: ["Reshape vs Resize", "Axis 0 vs Axis 1", "HStack vs VStack vs DStack"] },
+      { name: "Mathematical Ops", items: ["Dot Product vs Element-wise Multiply", "Broadcasting vs Loops"] },
+      { name: "Indexing", items: ["Slicing vs Fancy Indexing"] }
+    ];
+
+    function renderNumPyDifferences() {
+      const container = document.getElementById('nestedContent');
+      SECTIONS.forEach(sec => {
+        const h2 = document.createElement('h2');
+        h2.textContent = sec.name;
+        container.appendChild(h2);
+
+        const secContent = document.createElement('div');
+        secContent.className = 'section-items-list';
+        
+        sec.items.forEach(itemKey => {
+          const d = DATA[itemKey];
+          if (!d) return;
+
+          const h3 = document.createElement('h3');
+          h3.innerHTML = `<span>${itemKey}</span> <span class="arr">→</span>`;
+          secContent.appendChild(h3);
+
+          const itemContent = document.createElement('div');
+          itemContent.className = 'item-details';
+          
+          itemContent.innerHTML = `
+            <div class="explanation-card">
+              <h4>📘 Definition</h4>
+              <p>${d.definition}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>⚙️ Internal Working</h4>
+              <p>${d.internal_working}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>🎯 Use Case</h4>
+              <p>${d.use_case}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>📋 Key Points</h4>
+              <ul>${d.key_points.map(p => `<li>${p}</li>`).join('')}</ul>
+            </div>
+          `;
+          secContent.appendChild(itemContent);
+        });
+        
+        container.appendChild(secContent);
+      });
+
+      if (typeof initializeCollapsibleSections === 'function') {
+        initializeCollapsibleSections(container, 'h2');
+        initializeCollapsibleSections(container, 'h3');
+      }
+    }
+
+    const stt = document.getElementById('scrollToTop');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 400) stt.classList.add('visible');
+      else stt.classList.remove('visible');
+    });
+    stt.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+    renderNumPyDifferences();
+  </script>
 </body>
 </html>

@@ -15,85 +15,49 @@
   <link rel="stylesheet" href="../sidebar-nav.css" />
   <link rel="stylesheet" href="../python/python.css" />
   <style>
-    body.home-with-sidebar .content-sidebar {
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      width: 280px;
-      min-width: 280px;
-      overflow-y: auto;
-      scrollbar-width: none;
-      padding: var(--space-4);
-    }
-    body.home-with-sidebar .content-sidebar::-webkit-scrollbar { display: none; }
     body.home-with-sidebar .content-main {
       flex: 1;
+      width: 100%;
       min-width: 0;
-      padding: var(--space-6) var(--space-4);
-      max-width: 900px;
+      padding: 0;
     }
-    .section-title {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--color-accent);
-      font-weight: 600;
-      padding: var(--space-2) var(--space-3);
-      margin-top: var(--space-3);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: var(--space-2);
-      border-radius: var(--radius-sm);
-      transition: background 0.2s ease;
-    }
-    .section-title:hover { background: rgba(15, 139, 139, 0.08); }
-    .section-title .arrow { transition: transform 0.2s ease; font-size: 0.6rem; }
-    .section-title.collapsed .arrow { transform: rotate(-90deg); }
-    .section-items { display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 0 var(--space-2) var(--space-2); }
-    .section-items.hidden { display: none; }
-    .topic-tag {
-      padding: 0.35rem 0.75rem;
-      background: var(--color-bg);
-      border: 1px solid rgba(15, 139, 139, 0.15);
-      border-radius: var(--radius-sm);
-      font-size: 0.78rem;
-      color: var(--color-text-secondary);
-      cursor: pointer;
-      transition: all 0.2s ease;
-      white-space: nowrap;
-    }
-    .topic-tag:hover {
-      border-color: var(--color-accent);
+    
+    #nestedContent h2 {
+      margin-top: 2rem;
+      font-size: 1.5rem;
+      font-family: 'Sora', sans-serif;
       color: var(--color-text);
-      background: rgba(15, 139, 139, 0.08);
+      border-bottom: 1px solid rgba(15, 139, 139, 0.1);
+      padding-bottom: 0.5rem;
     }
-    .topic-tag.active {
-      background: linear-gradient(135deg, rgba(15, 139, 139, 0.15), rgba(8, 178, 177, 0.1));
-      border-color: var(--color-accent);
-      color: var(--color-accent);
-    }
-    .welcome-state {
-      text-align: center;
-      padding: var(--space-10) var(--space-4);
-      color: var(--color-text-muted);
-    }
-    .welcome-state h2 {
-      font-family: "Sora", sans-serif;
-      font-size: 1.3rem;
+
+    #nestedContent h3 {
+      font-size: 1.1rem;
+      font-family: 'Sora', sans-serif;
       color: var(--color-text);
-      margin: var(--space-4) 0 var(--space-2);
+      margin: 0.5rem 0;
+      padding: 1rem;
+      background: var(--glass, rgba(255, 255, 255, 0.5));
+      border: 1px solid var(--glass-border, rgba(15, 139, 139, 0.1));
+      border-radius: var(--radius-md);
+      transition: all 0.3s ease;
     }
-    .welcome-state p { font-size: 0.9rem; }
+
+    #nestedContent h3:hover {
+      background: var(--color-bg-alt, #f8f9fa);
+      border-color: var(--color-accent);
+    }
+    
     .explanation-card {
       background: var(--color-bg-alt);
       border: 1px solid rgba(15, 139, 139, 0.12);
       border-radius: var(--radius-md);
       padding: var(--space-5);
       margin-bottom: var(--space-4);
+      margin-top: 1rem;
     }
-    .explanation-card h3 {
-      font-size: 0.75rem;
+    .explanation-card h4 {
+      font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       color: var(--color-accent);
@@ -101,11 +65,13 @@
       display: flex;
       align-items: center;
       gap: var(--space-2);
+      border: none;
+      padding: 0;
     }
     .explanation-card p, .explanation-card ul {
       color: var(--color-text-secondary);
-      font-size: 0.9rem;
-      line-height: 1.7;
+      font-size: 0.88rem;
+      line-height: 1.6;
       margin: 0;
     }
     .explanation-card ul { padding-left: 1.25rem; }
@@ -128,19 +94,13 @@
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
   <main class="main-content">
-    <div class="page-wrap" style="display: flex; gap: 0; max-width: 100%; padding: 0;">
-      <aside class="content-sidebar" id="topicSidebar">
-        <div id="sidebarSections"></div>
-      </aside>
-      <div class="content-main" id="mainPanel">
-        <div class="welcome-state" id="welcomeState">
-          <div style="font-size: 2.5rem;">🐍</div>
-          <h2>Select a topic to begin</h2>
-          <p>Pick any comparison from the sidebar. All explanations are pre-loaded — no internet needed.</p>
-        </div>
-        <div id="explanationPanel" style="display: none;">
-          <div id="contentArea"></div>
-        </div>
+    <div class="page-wrap" style="max-width: 100%; margin: 0; padding: 2rem calc(var(--space-6) + 1rem);">
+      <div id="mainPanel" class="content-main">
+        <header class="hero" style="margin-bottom: 3rem; text-align: left; padding: 0 1rem;">
+          <h1 style="font-family: 'Sora', sans-serif; font-size: 2.8rem; color: var(--color-text); margin-bottom: 0.75rem; letter-spacing: -0.02em;">Python Differences Hub</h1>
+          <p style="color: var(--color-text-secondary); font-size: 1.1rem; max-width: 800px; line-height: 1.6;">A comprehensive, nested guide to all major Python comparisons, from basics to advanced ecosystem patterns. Collapsible for extreme focus.</p>
+        </header>
+        <div id="nestedContent"></div>
       </div>
     </div>
   </main>
@@ -861,93 +821,71 @@
       { name: "Advanced Python & Ecosystem", items: ["Pandas DataFrame vs PySpark DataFrame", "SQL vs NoSQL", "ORM vs Raw SQL", "API vs Microservice", "Monolith vs Microservices", "Batch Processing vs Stream Processing", "ETL vs ELT", "Docker vs Virtual Machine", "REST vs GraphQL", "Kafka vs RabbitMQ"] }
     ];
 
-    const SECTION_COLORS = ['#7c6af7', '#5eead4', '#f472b6', '#60a5fa', '#4ade80', '#fbbf24', '#f87171', '#a78bfa', '#34d399', '#fb923c'];
-    let activeBtn = null;
+    function renderNestedCollapsibles() {
+      const container = document.getElementById('nestedContent');
+      SECTIONS.forEach(sec => {
+        // Level 1: Section Header
+        const h2 = document.createElement('h2');
+        h2.textContent = sec.name;
+        container.appendChild(h2);
 
-    function buildSidebar() {
-      const container = document.getElementById('sidebarSections');
-      SECTIONS.forEach((sec, si) => {
-        const section = document.createElement('div');
-        section.className = 'section-group';
+        // Section Content Wrapper (filled with Level 2 items)
+        const secContent = document.createElement('div');
+        secContent.className = 'section-items-list';
+        
+        sec.items.forEach(itemKey => {
+          const d = DATA[itemKey];
+          if (!d) return;
 
-        const title = document.createElement('div');
-        title.className = 'section-title collapsed';
-        title.innerHTML = `<span class="arrow">▶</span> ${sec.name}`;
-        title.addEventListener('click', () => {
-          title.classList.toggle('collapsed');
-          items.classList.toggle('hidden');
+          // Level 2: Item Header
+          const h3 = document.createElement('h3');
+          h3.textContent = itemKey.replace(/`/g, '');
+          secContent.appendChild(h3);
+
+          // Item Content (the detailed cards)
+          const itemContent = document.createElement('div');
+          itemContent.className = 'item-details';
+          
+          itemContent.innerHTML = `
+            <div class="explanation-card">
+              <h4>📘 Definition</h4>
+              <p>${d.definition}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>⚙️ Internal Working</h4>
+              <p>${d.internal_working}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>🎯 Use Case</h4>
+              <p>${d.use_case}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>📋 Key Points</h4>
+              <ul>${d.key_points.map(p => `<li>${p}</li>`).join('')}</ul>
+            </div>
+          `;
+          secContent.appendChild(itemContent);
         });
+        
+        container.appendChild(secContent);
+      });
 
-        const items = document.createElement('div');
-        items.className = 'section-items hidden';
-        sec.items.forEach((item, ii) => {
-          const tag = document.createElement('button');
-          tag.className = 'topic-tag';
-          tag.dataset.item = item;
-          tag.textContent = `${ii + 1}. ${item.replace(/`/g, '')}`;
-          tag.addEventListener('click', () => showExplanation(item, tag));
-          items.appendChild(tag);
+      // After rendering everything, initialize the collapsible behavior
+      // First, Level 1 (H2s)
+      if (typeof initializeCollapsibleSections === 'function') {
+        initializeCollapsibleSections(container, 'h2');
+        // Second, Level 2 (H3s) inside the wrappers
+        initializeCollapsibleSections(container, 'h3');
+      } else {
+        // Fallback or wait for script load
+        window.addEventListener('load', () => {
+          initializeCollapsibleSections(container, 'h2');
+          initializeCollapsibleSections(container, 'h3');
         });
-
-        section.appendChild(title);
-        section.appendChild(items);
-        container.appendChild(section);
-      });
+      }
     }
 
-    function filterItems(q) {
-      q = q.toLowerCase();
-      document.querySelectorAll('.topic-tag').forEach(tag => {
-        tag.style.display = tag.dataset.item.toLowerCase().includes(q) ? '' : 'none';
-      });
-      document.querySelectorAll('.section-group').forEach(group => {
-        const anyVisible = [...group.querySelectorAll('.topic-tag')].some(t => t.style.display !== 'none');
-        group.style.display = anyVisible ? '' : 'none';
-        if (q) { group.querySelector('.section-title').classList.remove('collapsed'); group.querySelector('.section-items').classList.remove('hidden'); }
-      });
-    }
-
-    function showExplanation(item, btn) {
-      if (activeBtn) activeBtn.classList.remove('active');
-      activeBtn = btn;
-      btn.classList.add('active');
-      document.getElementById('welcomeState').style.display = 'none';
-      document.getElementById('explanationPanel').style.display = 'block';
-      const d = DATA[item];
-      if (!d) { document.getElementById('contentArea').innerHTML = '<p>No data found.</p>'; return; }
-      const cleanItem = item.replace(/`/g, '');
-      document.getElementById('contentArea').innerHTML = `
-        <h2 style="font-size:1.4rem;font-weight:700;color:var(--color-text);margin:0 0 0.5rem;font-family:'Sora',sans-serif;">${cleanItem}</h2>
-        <span style="font-size:0.75rem;font-family:'JetBrains Mono',monospace;background:rgba(15,139,139,0.1);border:1px solid rgba(15,139,139,0.25);color:var(--color-accent);padding:3px 10px;border-radius:20px;">${d.section}</span>
-        <div class="explanation-card" style="margin-top:1.5rem;">
-          <h3>📘 Definition</h3>
-          <p>${d.definition}</p>
-        </div>
-        <div class="explanation-card">
-          <h3>⚙️ Internal Working</h3>
-          <p>${d.internal_working}</p>
-        </div>
-        <div class="explanation-card">
-          <h3>🎯 Use Case</h3>
-          <p>${d.use_case}</p>
-        </div>
-        <div class="explanation-card">
-          <h3>📋 Key Points for Interviewer</h3>
-          <ul>${d.key_points.map(p => `<li>${p}</li>`).join('')}</ul>
-        </div>`;
-      document.getElementById('mainPanel').scrollTop = 0;
-    }
-
-    buildSidebar();
-
-    // Auto-select first item from first section
-    const firstSection = document.querySelector('.section-group');
-    if (firstSection) {
-      firstSection.querySelector('.section-title').classList.remove('collapsed');
-      firstSection.querySelector('.section-items').classList.remove('hidden');
-      const firstTag = firstSection.querySelector('.topic-tag');
-      if (firstTag) firstTag.click();
-    }
+    renderNestedCollapsibles();
   </script>
   <script src="../app.js"></script>
   <script src="../hierarchy.js"></script>

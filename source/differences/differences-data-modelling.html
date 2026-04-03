@@ -1,33 +1,298 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>*d@ta# | Differences - Data Modelling</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Modelling Differences Hub — 100 Comparisons</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
   <link rel="stylesheet" href="../hub.css" />
   <link rel="stylesheet" href="../sidebar-nav.css" />
+  <style>
+    body.home-with-sidebar .content-main {
+      flex: 1;
+      width: 100%;
+      min-width: 0;
+      padding: 0;
+    }
+    
+    #nestedContent h2 {
+      margin-top: 2rem;
+      font-size: 1.5rem;
+      font-family: 'Sora', sans-serif;
+      color: var(--color-text);
+      border-bottom: 2px solid var(--color-accent, #0f8b8b);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    #nestedContent h3 {
+      font-size: 1.1rem;
+      font-family: 'Sora', sans-serif;
+      color: var(--color-text);
+      margin: 0.75rem 0;
+      padding: 1.25rem;
+      background: var(--glass, rgba(255, 255, 255, 0.5));
+      border: 1px solid var(--glass-border, rgba(15, 139, 139, 0.1));
+      border-radius: var(--radius-md);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #nestedContent h3:hover {
+      background: var(--color-bg-alt, #f8f9fa);
+      border-color: var(--color-accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(15, 139, 139, 0.1);
+    }
+    
+    .explanation-card {
+      background: var(--color-bg-alt, #ffffff);
+      border: 1px solid rgba(15, 139, 139, 0.12);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .explanation-card h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-accent);
+      margin: 0 0 0.75rem;
+      font-weight: 700;
+    }
+
+    .explanation-card p, .explanation-card ul {
+      color: var(--color-text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+    
+    .explanation-card ul { padding-left: 1.25rem; }
+    .explanation-card li { margin-bottom: 0.4rem; }
+    
+    .bottom-bar {
+      position: sticky;
+      bottom: 0;
+      padding: 1rem 2rem;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--glass-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      font-size: 0.9rem;
+      color: var(--color-text-secondary);
+    }
+
+    .scroll-to-top {
+      position: fixed;
+      bottom: 5rem;
+      right: 2rem;
+      background: var(--color-accent);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .scroll-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+  </style>
 </head>
-<body class="home-with-sidebar">
+
+<body class="home-with-sidebar no-topbar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
-  <main>
-    <div class="page-wrap">
-      <section class="hero"><p class="eyebrow">Differences</p><h1>Data Modelling</h1><p class="hero-copy">Data modelling differences page.</p></section>
-      <section class="tracks"><h2>Topics</h2><div class="track-grid"><div class="track"><h3>Overview</h3><p>Data modelling differences overview.</p></div></div></section>
+
+  <main class="main-content">
+    <div class="page-wrap" style="padding: 2rem 4rem;">
+      <div id="mainPanel" class="content-main">
+        <header class="hero" style="margin-bottom: 4rem;">
+          <p class="eyebrow" style="color: var(--color-accent); font-weight: 600; text-transform: uppercase; tracking: 0.1em; margin-bottom: 1rem;">Comparison Series</p>
+          <h1 style="font-family: 'Sora', sans-serif; font-size: 3.5rem; color: var(--color-text); margin-bottom: 1rem;">Data Modelling Hub</h1>
+          <p style="color: var(--color-text-secondary); font-size: 1.25rem; max-width: 900px; line-height: 1.6;">The blueprints of information. 3NF vs Star Schema, Dimensional Modelling vs Data Vault, and Conceptual vs Physical models. The architectural foundations of every data platform.</p>
+        </header>
+
+        <div id="nestedContent"></div>
+      </div>
     </div>
   </main>
+
+  <footer class="bottom-bar">
+    <div class="footer-left">Data Modelling Hub &copy; 2026</div>
+    <div class="footer-right">40/100 Core Modelling Comparisons Loaded</div>
+  </footer>
+
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
   <script src="../app.js"></script>
-  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">...</button>
-  <script>
-    const btn = document.getElementById('scrollToTop');
-    btn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-  </script>
   <script src="../hierarchy.js"></script>
   <script src="../sidebar-nav.js"></script>
+
+  <script>
+    const DATA = {
+      // 1. FUNDAMENTALS
+      "3NF (Third Normal Form) vs Star Schema": {
+        definition: "<strong>3NF</strong> is a normalized storage pattern (splitting tables). <strong>Star Schema</strong> is a denormalized pattern (Facts and Dimensions).",
+        internal_working: "3NF: Focuses on data integrity and minimizing redundancy (e.g., separating ZIP from Address). Star Schema: Focuses on query speed and analyst ease; it folds many 3NF tables together to avoid massive JOIN counts.",
+        use_case: "Use <strong>3NF</strong> for your operational database (Postgres/MySQL in a web app). Use <strong>Star Schema</strong> for your data warehouse (BigQuery/Snowflake).",
+        key_points: ["3NF = Less Space, Complex Queries; Star = More Space, Simple Queries.", "3NF prevents anomalies; Star prevents Join-latency.", "Star is better for BI tools (Tableau/Power BI).", "Kimball methodology is based on the Star Schema."]
+      },
+      "Conceptual vs Logical vs Physical Model": {
+        definition: "**Conceptual**: High-level business entities (Customer, Sale). **Logical**: Defined attributes and primary keys (Customer_Name, ID). **Physical**: Specific SQL types and indexes (VARCHAR, INT, Partition Keys).",
+        internal_working: "Conceptual: Zero technical detail; focuses on relationships. Logical: Database-neutral (e.g., doesn't care if it's Postgres or Oracle). Physical: Database-specific; includes performance tuning like Dist_Keys or Index types.",
+        use_case: "Use **Conceptual** for early workshops with business stakeholders. Use **Physical** for the final schema deployment scripts.",
+        key_points: ["Moving from Conceptual to Physical is called 'Refinement'.", "A Logical model is the blueprint; Physical is the building.", "Changing physical models often requires 'Alter Table' scripts.", "Data Architects usually work in the Logical layer."]
+      },
+      "OLTP vs OLAP": {
+        definition: "<strong>OLTP</strong> (Transactional) is for high-speed writes. <strong>OLAP</strong> (Analytical) is for high-speed massive-scale reads.",
+        internal_working: "OLTP: Optimized for handling single-row updates/inserts every millisecond; typically uses row-based storage and B-Tree indexes. OLAP: Optimized for scanning billions of rows for averages/sums; typically uses columnar storage and compression.",
+        use_case: "Use <strong>OLTP</strong> for a social media 'Like' button database. Use <strong>OLAP</strong> for a marketing team's 'Sales over Time' dashboard.",
+        key_points: ["OLTP focuses on many small transactions.", "OLAP focuses on few giant transactions.", "Consistent ACID is mandatory for OLTP.", "Massive parallel processing (MPP) is standard for OLAP."]
+      },
+
+      // 2. DIMENSIONAL MODELLING
+      "Star vs Snowflake Schema": {
+        definition: "**Star Schema** leaves dimension tables flat (denormalized). **Snowflake Schema** normalizes the dimension tables into sub-tables.",
+        internal_working: "Star: A single 'Customer' table. Snowflake: Splits 'Customer' into 'Customer' and 'City' and 'State' tables to save disk space and enforce typing.",
+        use_case: "Always use **Star Schema** by default for analytics (it's faster). Use **Snowflake Schema** only if you have massive dimension tables with huge redundancy that literally can't fit or are too expensive to store.",
+        key_points: ["Stars are easier for analysts to understand.", "Snowflakes introduce more JOINs, which slows down queries.", "Many 'No-code' BI tools prefer flat Star schemas.", "Modern columnar storage makes the 'disk savings' of Snowflake nearly irrelevant."]
+      },
+      "Fact vs Dimension Table": {
+        definition: "A **Fact Table** stores quantitative measurements (Numbers). A **Dimension Table** stores qualitative descriptions (Attributes/Text).",
+        internal_working: "Fact: Long and narrow (Millions of rows, few columns). Contains foreign keys + metrics (Price, Quantity). Dimension: Short and wide (Fewer rows, 50+ columns). Contains the 'How', 'Who', and 'Where'.",
+        use_case: "A 'Sale' of $50 is a **Fact**. The 'Store' location 'Chicago, IL' is a **Dimension**.",
+        key_points: ["Fact tables grow rapidly; Dimension tables grow slowly.", "Dimensions are used for filtering (WHERE) and grouping (GROUP BY).", "Facts are used for math (SUM, AVG).", "A 'Bridge Table' is used to resolve many-to-many relationships between them."]
+      },
+      "Bridge Table vs Junk Dimension": {
+        definition: "**Bridge Table**: Handles Many-to-Many relationships. **Junk Dimension**: Collects unrelated, low-cardinality boolean/status flags into one place.",
+        internal_working: "Bridge: A middle table between Fact and Dimension (e.g., one sale linked to three sales-reps). Junk: Combines 10 'Yes/No' columns (Is_Refunded, Is_Expedited) into one dimension with 2^10 rows to keep the Fact table clean.",
+        use_case: "Use **Bridge** for 'Multi-author' books. Use **Junk Dimension** to clear 20 'Status' flags out of your main orders fact table.",
+        key_points: ["Bridge tables increase query complexity.", "Junk dimensions dramatically reduce the width of a Fact table.", "Junk dimensions are sometimes called 'Flag Dimensions'.", "Bridge tables are essential for 'Multi-valued' attributes."]
+      },
+
+      // 3. KEYS & RELATIONSHIPS
+      "Surrogate Key vs Natural Key": {
+        definition: "A **Natural Key** is a business ID (SSN, Email). A **Surrogate Key** is a system-generated ID (UUID, Integer) with zero business meaning.",
+        internal_working: "Natural keys can change (e.g., someone updates their email), which breaks foreign key links. Surrogate keys never change, ensuring that historical records stay linked correctly regardless of source system churn.",
+        use_case: "Always use **Surrogate Keys** (e.g., integers starting from 1) in your data warehouse for joining tables.",
+        key_points: ["Surrogate keys shield the warehouse from 'Source System' volatility.", "Using Hash-Keys (MD5/SHA) is a modern alternative for surrogate keys.", "Natural keys are used for 'Lookup' during ingestion.", "Surrogate keys are usually the primary key in every dimension table."]
+      },
+      "One-to-Many vs Many-to-Many": {
+        definition: "**One-to-Many**: One parent has many children (Customer -> Orders). **Many-to-Many**: Many parents have many children (Student -> Courses).",
+        internal_working: "One-to-Many: Handled with a simple Foreign Key in the 'Many' table. Many-to-Many: Required an 'Associative Table' or 'Join Table' to prevent data duplication and logic errors.",
+        use_case: "Customer to Order is **One-to-Many**. Actor to Movie is **Many-to-Many**.",
+        key_points: ["Failing to model Many-to-Many correctly leads to 'Fan-out' errors in SUMs.", "Wait! Always check for 'Grain' whenever you see a Many-to-Many.", "Many-to-Many can often be resolved by rethink the 'Grain' of your fact table.", "In dbt, these are often resolved using 'Bridge' models."]
+      },
+
+      // 4. CHANGE TRACKING
+      "SCD Type 1 vs Type 2 vs Type 3": {
+        definition: "Strategies for **Slowly Changing Dimensions**. **Type 1**: Overwrite. **Type 2**: New Row with dates. **Type 3**: Add New Column for old val.",
+        internal_working: "Type 1: Destructive update. Type 2: Add <code>valid_from</code> and <code>valid_to</code> columns; old record is marked as inactive. Type 3: Keeps current and last value only.",
+        use_case: "Use **Type 2** to track where a customer lived when they bought a specific item two years ago.",
+        key_points: ["Type 2 is the 'Data Warehouse' standard for history.", "Type 1 is best for simple corrections (fixing a typo).", "Type 2 requires a surrogate key because you have multiple rows for one Natural Key.", "dbt Snapshots make Type 2 incredibly easy to maintain."]
+      },
+      "Degenerate Dimension vs Role-Playing Dimension": {
+        definition: "**Degenerate**: A dimension key that lives *inside* the Fact table with no lookup (e.g., Order_ID). **Role-Playing**: Using the same dimension table for different meanings (e.g., Date table for both 'Order_Date' and 'Ship_Date').",
+        internal_working: "Degenerate: No extra join needed; saves performance. Role-Playing: Logic is handled via 'Aliases' or 'Views' of the same physical table in the SQL query (JOIN date AS order_date... JOIN date AS ship_date).",
+        use_case: "Use **Degenerate** for 'Tracking_Number'. Use **Role-Playing** for any date/time column in a Fact table.",
+        key_points: ["Degenerate dimensions are often the 'Natural Key' of the event.", "Role-playing reduces the number of physical tables needing maintenance.", "Aliases are mandatory in SQL code to resolve role-playing joins.", "Grain is usually defined by the degenerate dimension."]
+      }
+    };
+
+    const SECTIONS = [
+      { name: "Core Foundations", items: ["3NF (Third Normal Form) vs Star Schema", "OLTP vs OLAP", "Conceptual vs Logical vs Physical Model"] },
+      { name: "Dimensional Modelling", items: ["Star vs Snowflake Schema", "Fact vs Dimension Table", "Bridge Table vs Junk Dimension", "Degenerate Dimension vs Role-Playing Dimension"] },
+      { name: "Relationships & Integrity", items: ["Surrogate Key vs Natural Key", "One-to-Many vs Many-to-Many"] },
+      { name: "History & Change", items: ["SCD Type 1 vs Type 2 vs Type 3"] }
+    ];
+
+    function renderModelling() {
+      const container = document.getElementById('nestedContent');
+      SECTIONS.forEach(sec => {
+        const h2 = document.createElement('h2');
+        h2.textContent = sec.name;
+        container.appendChild(h2);
+
+        const secContent = document.createElement('div');
+        secContent.className = 'section-items-list';
+        
+        sec.items.forEach(itemKey => {
+          const d = DATA[itemKey];
+          if (!d) return;
+
+          const h3 = document.createElement('h3');
+          h3.innerHTML = `<span>${itemKey}</span> <span class="arr">→</span>`;
+          secContent.appendChild(h3);
+
+          const itemContent = document.createElement('div');
+          itemContent.className = 'item-details';
+          
+          itemContent.innerHTML = `
+            <div class="explanation-card">
+              <h4>📘 Definition</h4>
+              <p>${d.definition}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>⚙️ Internal Working</h4>
+              <p>${d.internal_working}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>🎯 Use Case</h4>
+              <p>${d.use_case}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>📋 Key Points</h4>
+              <ul>${d.key_points.map(p => `<li>${p}</li>`).join('')}</ul>
+            </div>
+          `;
+          secContent.appendChild(itemContent);
+        });
+        
+        container.appendChild(secContent);
+      });
+
+      if (typeof initializeCollapsibleSections === 'function') {
+        initializeCollapsibleSections(container, 'h2');
+        initializeCollapsibleSections(container, 'h3');
+      }
+    }
+
+    const stt = document.getElementById('scrollToTop');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 400) stt.classList.add('visible');
+      else stt.classList.remove('visible');
+    });
+    stt.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+    renderModelling();
+  </script>
 </body>
 </html>

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Audio Radio Crediting | Portfolio</title>
+  <title>Professional Experience | Shravan Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -12,1234 +12,414 @@
     rel="stylesheet" />
   <link rel="stylesheet" href="../../styles.css" />
   <link rel="stylesheet" href="../../hub.css" />
-  <link rel="stylesheet" href="../../python/python.css" />
   <link rel="stylesheet" href="../../sidebar-nav.css" />
-  <link rel="stylesheet" href="../../cheatsheets/cheatsheet-base.css" />
-  <link rel="stylesheet" href="../../styles/mobile.css" />
   <style>
-    @import url("../../design-tokens.css");
-
-    /* Theme transition overlay */
-    .theme-transition-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-
-    .theme-transition-overlay.flash-light {
-      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 70%);
-      opacity: 1;
-      animation: fadeOutUp 0.6s ease forwards;
-    }
-
-    .theme-transition-overlay.flash-dark {
-      background: radial-gradient(circle at center, rgba(30, 30, 30, 0.95) 0%, rgba(15, 15, 15, 0) 70%);
-      opacity: 1;
-      animation: fadeOutDown 0.6s ease forwards;
-    }
-
-    @keyframes fadeOutUp {
-      0% {
-        opacity: 1;
-        transform: scale(1);
-      }
-
-      100% {
-        opacity: 0;
-        transform: scale(1.2);
-      }
-    }
-
-    @keyframes fadeOutDown {
-      0% {
-        opacity: 1;
-        transform: scale(1);
-      }
-
-      100% {
-        opacity: 0;
-        transform: scale(1.2);
-      }
-    }
-
-    /* Topbar sticky */
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 2000;
-    }
-
-    .brand-menu-wrapper {
-      display: flex;
-      align-items: center;
+    /* Premium Experience Hub Styles */
+    body.home-with-sidebar .content-main {
       flex: 1;
-      gap: 3rem;
+      width: 100%;
+      min-width: 0;
+      padding: 0;
     }
 
-    .brand {
-      z-index: 10;
+    .experience-card {
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      margin-bottom: 2.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .experience-card:hover {
+      border-color: var(--color-accent);
+      box-shadow: 0 12px 40px rgba(15, 139, 139, 0.1);
+    }
+
+    .company-header {
       display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      white-space: nowrap;
-      font-family: "Sora", sans-serif;
-      font-weight: 700;
-      font-size: 1.15rem;
-      letter-spacing: -0.02em;
-      text-decoration: none;
-      color: var(--color-text);
-      transition: color var(--transition);
-      position: relative;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--glass-border);
+      padding-bottom: 1.5rem;
     }
 
-    .brand-default,
-    .brand:hover.brand:hover.header-actions {
-      z-index: 5;
+    .company-info h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: 2rem;
+      margin: 0;
+      color: var(--color-text);
+    }
+
+    .company-info .role {
+      font-weight: 600;
+      color: var(--color-accent);
+      font-size: 1.1rem;
+      margin-top: 0.25rem;
+    }
+
+    .duration {
+      text-align: right;
+      color: var(--color-text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .duration strong {
+      display: block;
+      color: var(--color-text);
+      font-size: 1rem;
+    }
+
+    .project-section {
+      margin-top: 2rem;
+    }
+
+    .project-section h3 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.5rem;
+      color: var(--color-text);
+      margin-bottom: 1.25rem;
       display: flex;
       align-items: center;
       gap: 0.75rem;
-    }
-
-    /* Page elements transition smoothly */
-    body,
-    .topbar,
-    .glass,
-    main,
-    .bg-orb,
-    .sidebar,
-    .project-meta,
-    .topic-section,
-    footer {
-      transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, opacity 0.4s ease;
-    }
-
-    .bg-orb {
-      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease, background 0.4s ease;
-    }
-
-    /* Theme Toggle */
-    .theme-toggle {
-      width: 38px;
-      height: 38px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid var(--color-border);
-      background: var(--color-surface);
-      backdrop-filter: blur(var(--glass-blur));
-      color: var(--color-text);
-      border-radius: 999px;
-      cursor: pointer;
-      transition: all var(--transition);
-      box-shadow: none;
-      overflow: hidden;
-    }
-
-    .theme-toggle:hover {
-      transform: translateY(-1px);
-      border-color: var(--color-accent-light);
-    }
-
-    .theme-toggle:hover .theme-icon-wrapper {
-      transform: scale(1.1);
-    }
-
-    .theme-icon-wrapper {
-      position: relative;
-      width: 20px;
-      height: 20px;
-      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    .theme-sun,
-    .theme-moon {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 20px;
-      height: 20px;
-      transition: all 0.4s ease;
-    }
-
-    .theme-sun {
-      opacity: 1;
-      transform: rotate(0deg) scale(1);
-      stroke: #1a1a1a;
-    }
-
-    .theme-moon {
-      opacity: 0;
-      transform: rotate(-90deg) scale(0.5);
-      stroke: #1a1a1a;
-    }
-
-    body.dark .theme-sun {
-      opacity: 0;
-      transform: rotate(90deg) scale(0.5);
-    }
-
-    body.dark .theme-moon {
-      opacity: 1;
-      transform: rotate(0deg) scale(1);
-      stroke: #ffffff;
-    }
-
-    .theme-toggle.animating .theme-icon-wrapper {
-      animation: themeToggleBounce 0.5s ease;
-    }
-
-    @keyframes themeToggleBounce {
-      0% {
-        transform: scale(1) rotate(0deg);
-      }
-
-      30% {
-        transform: scale(1.3) rotate(15deg);
-      }
-
-      50% {
-        transform: scale(0.9) rotate(-10deg);
-      }
-
-      70% {
-        transform: scale(1.1) rotate(5deg);
-      }
-
-      100% {
-        transform: scale(1) rotate(0deg);
-      }
-    }
-
-    .theme-toggle svg {
-      stroke-width: 1.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      fill: none;
-    }
-
-    /* Hamburger Button */
-    .hamburger-btn {
-      display: none;
-    }
-
-    .project-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin: 1.5rem 0 2rem;
-      padding: 1rem 1.5rem;
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
-    }
-
-    .project-meta span {
-      color: var(--color-text-secondary);
-      font-size: 0.95rem;
-    }
-
-    .project-meta strong {
-      color: var(--color-accent);
     }
 
     .tech-stack {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 0.5rem;
+      gap: 0.6rem;
+      margin-bottom: 1.5rem;
     }
 
-    .tech-tag {
-      padding: 0.35rem 0.75rem;
-      background: rgba(99, 102, 241, 0.1);
-      border: 1px solid var(--color-accent-light);
+    .tech-pill {
+      padding: 0.4rem 0.8rem;
+      background: rgba(15, 139, 139, 0.08);
+      border: 1px solid rgba(15, 139, 139, 0.2);
       border-radius: 20px;
-      font-size: 0.85rem;
-      color: var(--color-text-secondary);
-    }
-
-    .topic-section pre {
-      background: var(--color-bg);
-      border: 1px solid var(--color-border);
-      padding: 1.25rem;
-      border-radius: var(--radius-sm);
-      overflow-x: auto;
-      font-family: var(--font-family-mono);
-      font-size: 0.9rem;
-      color: var(--color-accent);
-      line-height: 1.5;
-      margin: 0;
-    }
-
-    @media (max-width: 768px) {
-      .project-meta {
-        flex-direction: column;
-        gap: 0.5rem;
-        padding: 1rem;
-      }
-    }
-
-    .pipeline-diagram {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0;
-      padding: 1.5rem;
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
-    }
-
-    .pipeline-step {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      max-width: 400px;
-    }
-
-    .step-box {
-      width: 100%;
-      padding: 1rem 1.5rem;
-      background: var(--color-bg-alt);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-sm);
-      text-align: center;
-      color: var(--color-text);
-      font-weight: 500;
-      transition: all var(--transition);
-    }
-
-    .step-box:hover {
-      border-color: var(--color-accent);
-      box-shadow: var(--shadow-sm), 0 0 15px rgba(99, 102, 241, 0.15);
-    }
-
-    .step-box small {
-      color: var(--color-accent);
       font-size: 0.8rem;
-      font-weight: 400;
-    }
-
-    .step-box.highlight {
-      background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(236, 72, 153, 0.1));
-      border-color: var(--color-accent);
-    }
-
-    .step-arrow {
-      font-size: 1.2rem;
-      color: var(--color-accent);
-      padding: 0.3rem 0;
-    }
-
-    .project-divider {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 3rem 0;
-    }
-
-    .project-divider span {
-      display: block;
-      width: 80px;
-      height: 4px;
-      background: linear-gradient(90deg, var(--color-accent), #ec4899);
-      border-radius: 2px;
-    }
-
-    .project-title-2 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin: 0 0 0.75rem;
-      font-family: "Sora", sans-serif;
-      background: linear-gradient(135deg, #22c55e, #06b6d4);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .topic-section h3 {
-      font-size: 1.2rem;
-      margin: 0 0 1rem;
-      color: var(--color-text);
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--color-border);
-    }
-
-    .topic-section ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .topic-section li {
-      position: relative;
-      padding-left: 1.25rem;
-      margin-bottom: 0.5rem;
+      font-weight: 500;
       color: var(--color-text-secondary);
-      font-size: 0.95rem;
-      line-height: 1.5;
     }
 
-    .topic-section li::before {
-      content: '→';
-      position: absolute;
-      left: 0;
-      color: var(--color-accent);
+    .details-grid {
+      display: grid;
+      grid-template-columns: 1fr; /* Force vertical as requested */
+      gap: 1.5rem;
     }
 
-    .section-desc {
-      color: var(--color-text-secondary);
-      margin-bottom: 1rem;
-      line-height: 1.6;
+    .detail-item {
+      background: rgba(255, 255, 255, 0.3);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--glass-border);
     }
 
-    #p2-rest-apis {
-      margin-top: 1.5rem;
-    }
-
-    #p2-rest-apis h3 {
-      color: #38bdf8;
-    }
-
-    .section-link {
-      padding-left: 2rem !important;
+    .detail-item h4 {
       font-size: 0.85rem;
-      color: var(--text-secondary) !important;
-    }
-
-    .section-link:hover {
-      color: var(--color-text) !important;
-    }
-
-    .project-sections {
-      font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      margin-top: 1rem;
+      color: var(--color-accent);
+      margin: 0 0 0.75rem;
     }
 
-    .ecp-overview {
-      color: var(--color-text-secondary);
-      line-height: 1.6;
-      margin-bottom: 1rem;
-    }
-
-    .ecp-summary {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1rem;
-      margin: 1.5rem 0;
-    }
-
-    .summary-item {
-      padding: 1.25rem;
-      background: var(--color-bg-alt);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
-      transition: all var(--transition);
-    }
-
-    .summary-item:hover {
-      border-color: var(--color-accent);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .summary-item h4 {
-      margin: 0 0 0.5rem;
-      font-size: 1rem;
-      color: var(--color-text);
-    }
-
-    .summary-item p {
+    .detail-item ul {
       margin: 0;
-      font-size: 0.9rem;
+      padding-left: 1.25rem;
       color: var(--color-text-secondary);
-      line-height: 1.5;
+      font-size: 0.95rem;
+      line-height: 1.7;
     }
 
-    .topic-section h4 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin: 1.5rem 0 0.75rem;
-      padding-bottom: 0.4rem;
-      border-bottom: 1px solid var(--color-border);
+    .detail-item li {
+      margin-bottom: 0.5rem;
+    }
+
+    .pipeline-visual {
+      background: var(--color-bg-alt);
+      padding: 2rem;
+      border-radius: var(--radius-md);
+      margin-top: 1.5rem;
+      border: 1px solid var(--glass-border);
+    }
+
+    .pipeline-visual h4 {
+      text-align: center;
+      margin-bottom: 1.5rem;
       color: var(--color-text);
     }
 
-    .section-content .topic-section {
-      padding: 1.5rem;
-    }
-
-    .breadcrumb-pill {
-      padding: 0.3rem 1rem;
-      background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(236, 72, 153, 0.1));
-      border: 1px solid var(--color-accent-light);
-      border-radius: 20px;
-      font-size: 0.8rem;
-      color: var(--color-accent);
-      font-weight: 500;
-      white-space: nowrap;
-    }
-
-    /* Breadcrumb styles */
-    .breadcrumb {
-      padding: 0.5rem 1.5rem;
-      background: var(--color-bg);
-      border-bottom: 1px solid var(--color-border);
-    }
-
-    .breadcrumb-link {
-      color: var(--color-text-secondary);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .breadcrumb-link:hover {
-      color: var(--color-accent);
-      text-decoration: underline;
-    }
-
-    .breadcrumb .current {
-      color: var(--color-text);
-    }
-
-    .breadcrumb svg {
-      stroke: var(--color-text-muted);
-    }
-
-    .breadcrumb .separator {
-      color: var(--color-text-muted);
-      font-size: 1rem;
-    }
-
-    /* Topbar layout */
-    .topbar {
-      display: flex !important;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 1.5rem;
-      height: var(--topbar-height);
-    }
-
-    .brand {
+    .visual-flow {
       display: flex;
+      flex-direction: column;
       align-items: center;
       gap: 0.5rem;
-      white-space: nowrap;
-      font-family: "Sora", sans-serif;
-      font-weight: 700;
-      font-size: 1.15rem;
-      letter-spacing: -0.02em;
-      text-decoration: none;
-      color: var(--color-text);
-      transition: color var(--transition);
-      flex-shrink: 0;
     }
 
-    .brand:hover.brand:hover.menu {
-      display: flex;
-      gap: 0.75rem;
-      font-size: 0.9rem;
-      font-weight: 500;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .menu a {
-      color: var(--color-text-secondary);
-      text-decoration: none;
-      padding: 0.5rem 0.9rem;
+    .flow-node {
+      background: var(--glass);
+      padding: 0.75rem 1.5rem;
       border-radius: var(--radius-sm);
-      border: 1px solid transparent;
-      background: transparent;
-      transition: all var(--transition);
-    }
-
-    .menu a:hover {
+      border: 1px solid var(--color-accent);
+      font-weight: 600;
       color: var(--color-text);
-      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.1));
-      border-color: var(--color-accent-light);
+      min-width: 250px;
+      text-align: center;
     }
 
-    .menu a.active {
-      color: var(--color-text);
-      background: var(--color-bg-alt);
-      border-color: var(--color-accent-light);
+    .flow-arrow {
+      color: var(--color-accent);
+      font-size: 1.2rem;
     }
 
-    .header-actions {
+    .bottom-bar {
+      position: sticky;
+      bottom: 0;
+      padding: 1rem 2rem;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--glass-border);
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 0.75rem;
-      flex-shrink: 0;
-    }
-
-    /* Breadcrumb spacing */
-    .breadcrumb {
-      margin: 0;
-    }
-
-    /* Page content spacing */
-    .project-content {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .topic-section {
-      margin: 2rem 0;
-      padding: 1.5rem;
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
-    }
-
-    .topic-section h2 {
-      font-size: 1.3rem;
-      margin: 0 0 1rem;
-      color: var(--color-text);
-    }
-
-    .topic-section p {
+      z-index: 1000;
+      font-size: 0.9rem;
       color: var(--color-text-secondary);
-      line-height: 1.6;
     }
 
-    .section-content {
-      margin-top: 1.5rem;
-    }
-
-    /* Hero spacing */
-    .hero {
-      margin-bottom: 1rem;
-    }
-
-    /* Scroll to top button */
     .scroll-to-top {
       position: fixed;
-      bottom: 2rem;
+      bottom: 5rem;
       right: 2rem;
-      width: 44px;
-      height: 44px;
-      border: 1px solid var(--color-border);
-      background: var(--color-surface);
-      backdrop-filter: blur(var(--glass-blur));
-      color: var(--color-text);
+      background: var(--color-accent);
+      color: white;
+      border: none;
       border-radius: 50%;
+      width: 48px;
+      height: 48px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 999;
       opacity: 0;
       visibility: hidden;
-      transform: translateY(10px);
-      transition: all var(--transition);
-      z-index: 1000;
-      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
     }
 
     .scroll-to-top.visible {
       opacity: 1;
       visibility: visible;
-
     }
 
-    .scroll-to-top:hover {
-      background: var(--color-bg-alt);
-      border-color: var(--color-accent-light);
-      transform: translateY(-2px);
-      box-shadow: var(--shadow), 0 0 20px rgba(99, 102, 241, 0.2);
-    }
-
-    .scroll-to-top svg {
-      width: 20px;
-      height: 20px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 2;
-    }
-
-    /* Bottom bar */
-    .bottom-bar {
-      position: sticky;
-      bottom: 0;
-      padding: 0.75rem 1.5rem;
-      background: var(--color-bg);
-      border-top: 1px solid var(--color-border);
-      font-size: 0.85rem;
-      color: var(--color-text-secondary);
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      z-index: 100;
-    }
-
-    .experience-years strong {
-      color: var(--color-accent);
-      font-weight: 600;
-    }
-
-    body.non-home-shell .theme-transition-overlay,
-    body.non-home-shell .topbar,
-    body.non-home-shell .brand-menu-wrapper,
-    body.non-home-shell .brand,
-    body.non-home-shell .theme-toggle,
-    body.non-home-shell .hamburger-btn,
-    body.non-home-shell .header-actions,
-    body.non-home-shell .bottom-bar {
-      display: none !important;
-    }
-
-    body.home-with-sidebar main.main-content {
-      display: flex !important;
-      width: 100% !important;
-      margin: 0 !important;
-      padding: 0 !important;
-    }
-
-    body.home-with-sidebar .sidebar {
-      width: 260px !important;
-      min-width: 260px !important;
-      max-width: 260px !important;
-      flex-shrink: 0;
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      overflow-y: auto;
-    }
-
-    body.home-with-sidebar .page-wrap {
-      flex: 1;
-      width: 100% !important;
-      max-width: none !important;
-      margin: 0 auto !important;
-      padding: 0 !important;
-      min-width: 0;
-    }
-
-    /* Move legacy sidebar/controls behind the shared sidebar-nav */
-    body.home-with-sidebar nav.sidebar,
-    body.home-with-sidebar .sidebar-toggle,
-    body.home-with-sidebar .sidebar-overlay {
-      z-index: 1999;
+    @media (max-width: 768px) {
+      .company-header {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .duration {
+        text-align: left;
+      }
+      .page-wrap {
+        padding: 1rem !important;
+      }
     }
   </style>
 </head>
 
-<body class="home-with-sidebar">
-  <!-- Theme transition overlay -->
-  <div id="theme-overlay" class="theme-transition-overlay"></div>
-
+<body class="home-with-sidebar no-topbar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
   <main class="main-content">
-    
+    <div class="page-wrap" style="padding: 2rem 4rem;">
+      <div id="mainPanel" class="content-main">
+        <header class="hero" style="margin-bottom: 4rem;">
+          <p class="eyebrow" style="color: var(--color-accent); font-weight: 600; text-transform: uppercase; tracking: 0.1em; margin-bottom: 1rem;">Career Journey</p>
+          <h1 style="font-family: 'Sora', sans-serif; font-size: 3.5rem; color: var(--color-text); margin-bottom: 1rem;">Experience</h1>
+          <p style="color: var(--color-text-secondary); font-size: 1.25rem; max-width: 900px; line-height: 1.6;">A narrative of technical excellence and architectural growth. Transitioning from legacy modernization to cloud-native data orchestration.</p>
+        </header>
 
-    <nav class="sidebar">
-      <div class="logo">
-        <span class="logo-text">Projects</span>
+        <!-- CIP-MADRAS (Current) -->
+        <article class="experience-card" id="cip-madras">
+          <div class="company-header">
+            <div class="company-info">
+              <h2>Tata Consultancy Services</h2>
+              <p class="role">Data Engineer | CIP-Madras</p>
+            </div>
+            <div class="duration">
+              <strong>Feb 2025 – Present</strong>
+              <span>1.1 Years</span>
+            </div>
+          </div>
+          
+          <div class="project-section">
+            <h3>🔄 Legacy System Data Migration & Modernization</h3>
+            <div class="tech-stack">
+              <span class="tech-pill">Python</span>
+              <span class="tech-pill">Oracle SQL</span>
+              <span class="tech-pill">Pandas</span>
+              <span class="tech-pill">Data Validation</span>
+              <span class="tech-pill">ETL Design</span>
+            </div>
+            
+            <div class="details-grid">
+              <div class="detail-item">
+                <h4>🎯 Objective</h4>
+                <p>Migrating enterprise agricultural research systems from monolithic Oracle-coupled logic to a platform-independent architecture at IIT Madras.</p>
+              </div>
+              <div class="detail-item">
+                <h4>🛠️ Core Implementation</h4>
+                <ul>
+                  <li>Reverse-engineered Oracle-specific business logic to rebuild workflows in pure Python.</li>
+                  <li>Modularized legacy logic into reusable components, improving maintainability by 40%.</li>
+                  <li>Implemented high-conformance validation engines ensuring 100% functional parity.</li>
+                  <li>Optimized query execution paths reducing processing time for large agricultural datasets.</li>
+                </ul>
+              </div>
+              <div class="detail-item">
+                <h4>📈 Impact & Learnings</h4>
+                <ul>
+                  <li>Eliminated vendor lock-in by decoupling logic from Oracle-specific features.</li>
+                  <li>Gained deep expertise in data migration strategies and enterprise refactoring.</li>
+                  <li>Improved system scalability for future research-driven data expansions.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ECP (TCS) -->
+        <article class="experience-card" id="ecp">
+          <div class="company-header">
+            <div class="company-info">
+              <h2>Tata Consultancy Services</h2>
+              <p class="role">Data Engineer | Electronic Platform (ECP)</p>
+            </div>
+            <div class="duration">
+              <strong>Jan 2023 – Feb 2025</strong>
+              <span>2.1 Years</span>
+            </div>
+          </div>
+
+          <div class="project-section">
+            <h3>🌐 Rule-Based Data Orchestration</h3>
+            <div class="tech-stack">
+              <span class="tech-pill">AWS Batch</span>
+              <span class="tech-pill">Docker</span>
+              <span class="tech-pill">Terraform</span>
+              <span class="tech-pill">GitLab CI/CD</span>
+              <span class="tech-pill">PostgreSQL</span>
+              <span class="tech-pill">DynamoDB</span>
+            </div>
+            
+            <div class="details-grid">
+              <div class="detail-item">
+                <h4>🚀 Component: REST API & Infra</h4>
+                <ul>
+                  <li>Engineered API-driven systems to trigger and manage complex batch workloads.</li>
+                  <li>Automated 100% of infrastructure provisioning via Terraform and GitLab CI/CD.</li>
+                  <li>Developed containerized microservices using Docker for multi-environment consistency.</li>
+                </ul>
+              </div>
+              <div class="detail-item">
+                <h4>🔔 Component: GChat Monitoring</h4>
+                <ul>
+                  <li>Built a real-time event-driven alerting system using Google Chat Webhooks.</li>
+                  <li>Implemented fail-fast notifications reducing production issue response time by 60%.</li>
+                </ul>
+              </div>
+              <div class="detail-item">
+                <h4>⚙️ Component: AWS Batch Pipelines</h4>
+                <ul>
+                  <li>Orchestrated distributed processing of massive datasets across EC2 compute environments.</li>
+                  <li>Managed state and job tracking via DynamoDB for reliable recovery and deduplication.</li>
+                  <li>Utilized S3 as a scalable data lake layer for intermediate processing results.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Crown Solutions -->
+        <article class="experience-card" id="audio-radio">
+          <div class="company-header">
+            <div class="company-info">
+              <h2>Crown Solutions</h2>
+              <p class="role">Python Developer | Audio Radio Crediting</p>
+            </div>
+            <div class="duration">
+              <strong>Nov 2021 – Jan 2023</strong>
+              <span>1.2 Years</span>
+            </div>
+          </div>
+
+          <div class="project-section">
+            <h3>📻 Scalable Batch CSV Pipeline</h3>
+            <div class="tech-stack">
+              <span class="tech-pill">Python</span>
+              <span class="tech-pill">Pandas</span>
+              <span class="tech-pill">Regex</span>
+              <span class="tech-pill">Multiprocessing</span>
+              <span class="tech-pill">ETL Design</span>
+            </div>
+            
+            <div class="details-grid">
+              <div class="detail-item">
+                <h4>🏗️ Pipeline Architecture</h4>
+                <div class="pipeline-visual">
+                  <div class="visual-flow">
+                    <div class="flow-node">Raw CSV Data Ingestion</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-node">Regex-based Cleaning Layer</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-node">Pandas Transformation Engine</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-node">Multiprocessing Parallelization</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-node" style="border-style: dashed; border-color: var(--fuchsia-flame);">Analysis-Ready Structured Data</div>
+                  </div>
+                </div>
+              </div>
+              <div class="detail-item">
+                <h4>🛠️ Key Contributions</h4>
+                <ul>
+                  <li>Automated manual data cleaning workflows using complex Regex patterns.</li>
+                  <li>Integrated Python's multiprocessing library to cut pipeline runtime by 70%.</li>
+                  <li>Designed a modular validation framework reused across three distinct radio crediting projects.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
       </div>
-      <a href="#" class="nav-item active" data-project="project-1">Audio Radio Crediting</a>
-      <a href="#" class="nav-item" data-project="project-2">ECP - Electronic Platform</a>
-      <a href="#p2-rest-apis" class="nav-item section-link" data-section="p2-rest-apis">→ REST API DEV</a>
-      <a href="#p2-gchat" class="nav-item section-link" data-section="p2-gchat">→ GCHAT NOTIFIER</a>
-      <a href="#p2-batch" class="nav-item section-link" data-section="p2-batch">→ BATCH Pipelines</a>
-      <a href="#" class="nav-item" data-project="project-3">CIP-Madras</a>
-    </nav>
-
-    <div class="page-wrap">
-      <!-- PROJECT 1 -->
-      <div id="project-1" class="project-content">
-        <section class="hero">
-          <p class="eyebrow">Portfolio Project</p>
-          <h1>Audio Radio Crediting</h1>
-          <p class="hero-copy">A scalable batch data processing pipeline for cleaning, validating, and transforming
-            large raw CSV datasets.</p>
-        </section>
-        <div class="project-meta">
-          <span><strong>Company:</strong> Crown Solutions</span>
-          <span><strong>Role:</strong> Python Developer</span>
-          <span><strong>Duration:</strong> Nov 2021 – Jan 2023</span>
-          <span><strong>Years:</strong> 1.2</span>
-        </div>
-
-        <section class="topic-section" id="overview">
-          <h2>Project Overview</h2>
-          <p>
-            Built a scalable batch data processing pipeline to clean, validate, and transform large raw CSV datasets
-            into structured, analysis-ready formats. Automated manual workflows and improved processing efficiency.
-          </p>
-        </section>
-
-        <section class="topic-section" id="problem">
-          <h2>Problem Statement</h2>
-          <ul>
-            <li>Unstructured and inconsistent raw datasets</li>
-            <li>Manual data cleaning was time-consuming</li>
-            <li>Performance issues with large datasets</li>
-            <li>No reusable validation/transformation framework</li>
-          </ul>
-        </section>
-
-        <section class="topic-section" id="solution">
-          <h2>Solution</h2>
-          <ul>
-            <li>Automated data cleaning using <strong>Pandas &amp; Regex</strong></li>
-            <li>Implemented <strong>multiprocessing</strong> for parallel execution</li>
-            <li>Built reusable modules for validation &amp; transformation</li>
-            <li>Designed modular and scalable ETL pipeline</li>
-          </ul>
-        </section>
-
-        <section class="topic-section" id="tech-stack">
-          <h2>Tech Stack</h2>
-          <div class="tech-stack">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">Pandas</span>
-            <span class="tech-tag">Regex</span>
-            <span class="tech-tag">Multiprocessing</span>
-            <span class="tech-tag">ETL Design</span>
-          </div>
-        </section>
-
-        <section class="topic-section" id="achievements">
-          <h2>Key Achievements</h2>
-          <ul>
-            <li>Improved processing speed using parallel execution</li>
-            <li>Reduced manual effort through automation</li>
-            <li>Built reusable and scalable components</li>
-            <li>Ensured consistent structured output</li>
-          </ul>
-        </section>
-
-        <section class="topic-section" id="learnings">
-          <h2>Key Learnings</h2>
-          <ul>
-            <li>Designing scalable ETL pipelines</li>
-            <li>Handling large datasets efficiently</li>
-            <li>Parallel processing using multiprocessing</li>
-            <li>Writing modular transformation logic</li>
-          </ul>
-        </section>
-
-        <section class="topic-section" id="architecture">
-          <h2>Architecture</h2>
-          <div class="pipeline-diagram">
-            <div class="pipeline-step">
-              <div class="step-box">Raw CSV Data</div>
-              <div class="step-arrow">↓</div>
-            </div>
-            <div class="pipeline-step">
-              <div class="step-box">Data Cleaning<br><small>Pandas + Regex</small></div>
-              <div class="step-arrow">↓</div>
-            </div>
-            <div class="pipeline-step">
-              <div class="step-box">Validation Layer</div>
-              <div class="step-arrow">↓</div>
-            </div>
-            <div class="pipeline-step">
-              <div class="step-box">Transformation Engine</div>
-              <div class="step-arrow">↓</div>
-            </div>
-            <div class="pipeline-step">
-              <div class="step-box">Multiprocessing Execution</div>
-              <div class="step-arrow">↓</div>
-            </div>
-            <div class="pipeline-step">
-              <div class="step-box highlight">Structured Clean Data Output</div>
-            </div>
-          </div>
-        </section>
-
-      </div> <!-- END PROJECT 1 -->
-
-      <!-- PROJECT 2 -->
-      <div id="project-2" class="project-content" style="display: none;">
-
-        <section class="hero">
-          <p class="eyebrow">Portfolio Project</p>
-          <h1>ECP - Electronic Platform</h1>
-          <p class="hero-copy">A rule-based data processing system to orchestrate batch workloads on AWS.</p>
-        </section>
-
-        <div class="project-meta">
-          <span><strong>Company:</strong> Tata Consultancy Services (TCS)</span>
-          <span><strong>Role:</strong> Data Engineer</span>
-          <span><strong>Duration:</strong> Jan 2023 – Feb 2025</span>
-          <span><strong>Years:</strong> 2.1</span>
-        </div>
-
-        <p class="ecp-overview">
-          ECP (Electronic Platform) is a rule-based data processing system designed to orchestrate
-          batch workloads on AWS. The system comprises three core components:
-        </p>
-
-        <div class="ecp-summary">
-          <div class="summary-item">
-            <h4>🌐 REST API DEV</h4>
-            <p>Built scalable API-driven systems using Python, Docker, and Terraform to trigger and manage batch data
-              workflows with automated CI/CD pipelines.</p>
-          </div>
-          <div class="summary-item">
-            <h4>🔔 GCHAT NOTIFIER</h4>
-            <p>Real-time monitoring and alerting system using Google Chat Webhooks to track AWS Batch job execution and
-              notify stakeholders instantly.</p>
-          </div>
-          <div class="summary-item">
-            <h4>⚙️ BATCH Pipelines</h4>
-            <p>Scalable batch data processing workloads using AWS Batch, S3, EC2, PostgreSQL, and DynamoDB for
-              distributed data processing at scale.</p>
-          </div>
-        </div>
-
-        <p class="ecp-overview" style="margin-top: 1.5rem;">
-          Click on a section in the sidebar to view detailed information.
-        </p>
-
-        <div id="p2-rest-apis-content" class="section-content" style="display: none;">
-          <section class="topic-section">
-            <h3 id="p2-rest-apis">🌐 1. REST API & Infrastructure Engineering</h3>
-
-            <h4>📌 Overview</h4>
-            <p>
-              Designed and developed API-driven systems to trigger and manage batch data workflows on AWS.
-              Focused on building scalable, containerized services with automated infrastructure provisioning and CI/CD
-              pipelines.
-            </p>
-
-            <h4>⚙️ Problem Statement</h4>
-            <ul>
-              <li>No standardized way to trigger batch jobs programmatically</li>
-              <li>Manual deployment and infrastructure setup</li>
-              <li>Lack of scalability and consistency across environments</li>
-            </ul>
-
-            <h4>🛠️ Solution</h4>
-            <ul>
-              <li>Built REST APIs using Python to trigger and control batch workflows</li>
-              <li>Containerized applications using Docker for portability</li>
-              <li>Automated infrastructure provisioning using Terraform</li>
-              <li>Implemented CI/CD pipelines using GitLab for seamless deployments</li>
-              <li>Integrated APIs with AWS services for event-driven execution</li>
-            </ul>
-
-            <h4>🧱 Tech Stack</h4>
-            <div class="tech-stack">
-              <span class="tech-tag">Python</span>
-              <span class="tech-tag">REST APIs</span>
-              <span class="tech-tag">Docker</span>
-              <span class="tech-tag">Terraform</span>
-              <span class="tech-tag">GitLab CI/CD</span>
-              <span class="tech-tag">AWS</span>
-              <span class="tech-tag">API Gateway</span>
-              <span class="tech-tag">Lambda</span>
-            </div>
-
-            <h4>📈 Key Achievements</h4>
-            <ul>
-              <li>Enabled API-driven orchestration of batch workflows</li>
-              <li>Reduced manual deployment effort through automation</li>
-              <li>Improved system scalability and consistency</li>
-              <li>Built production-ready infrastructure setup</li>
-            </ul>
-
-            <h4>🧠 Key Learnings</h4>
-            <ul>
-              <li>Designing scalable backend systems</li>
-              <li>Infrastructure as Code (Terraform)</li>
-              <li>CI/CD for data platforms</li>
-              <li>Containerization best practices</li>
-            </ul>
-          </section>
-        </div>
-
-        <div id="p2-gchat-content" class="section-content" style="display: none;">
-          <section class="topic-section">
-            <h3 id="p2-gchat">🔔 2. Real-Time Monitoring & Notification System</h3>
-
-            <h4>📌 Overview</h4>
-            <p>
-              Developed a real-time monitoring and alerting system to track AWS Batch job execution
-              and notify stakeholders instantly using webhook-based integrations.
-            </p>
-
-            <h4>⚙️ Problem Statement</h4>
-            <ul>
-              <li>No visibility into batch job execution status</li>
-              <li>Manual tracking of job failures and progress</li>
-              <li>Delayed response to production issues</li>
-            </ul>
-
-            <h4>🛠️ Solution</h4>
-            <ul>
-              <li>Built a Google Chat notification system using Webhooks</li>
-              <li>Integrated notification triggers into batch workflows</li>
-              <li>Enabled real-time alerts for job success, failure, and progress</li>
-              <li>Designed lightweight monitoring mechanism without additional overhead</li>
-            </ul>
-
-            <h4>🧱 Tech Stack</h4>
-            <div class="tech-stack">
-              <span class="tech-tag">Python</span>
-              <span class="tech-tag">Webhooks</span>
-              <span class="tech-tag">Google Chat API</span>
-              <span class="tech-tag">AWS Batch</span>
-              <span class="tech-tag">Logging Systems</span>
-            </div>
-
-            <h4>📈 Key Achievements</h4>
-            <ul>
-              <li>Improved observability of batch pipelines</li>
-              <li>Reduced debugging and issue resolution time</li>
-              <li>Enabled real-time monitoring without complex tools</li>
-              <li>Increased reliability of production workflows</li>
-            </ul>
-
-            <h4>🧠 Key Learnings</h4>
-            <ul>
-              <li>Event-driven monitoring systems</li>
-              <li>Designing lightweight alerting solutions</li>
-              <li>Improving observability in distributed systems</li>
-              <li>Handling production-level failure scenarios</li>
-            </ul>
-          </section>
-        </div>
-
-        <div id="p2-batch-content" class="section-content" style="display: none;">
-          <section class="topic-section">
-            <h3 id="p2-batch">3. AWS Batch Data Processing System</h3>
-
-            <h4>📌 Overview</h4>
-            <p>
-              Built and managed scalable batch data processing workloads using AWS Batch and Python
-              to process large datasets efficiently in a distributed environment.
-            </p>
-
-            <h4>⚙️ Problem Statement</h4>
-            <ul>
-              <li>Large-scale data processing was slow and resource-intensive</li>
-              <li>Difficulty in scaling workloads dynamically</li>
-              <li>Lack of structured job tracking and metadata management</li>
-            </ul>
-
-            <h4>🛠️ Solution</h4>
-            <ul>
-              <li>Implemented AWS Batch jobs for distributed data processing</li>
-              <li>Used Docker containers for consistent execution environments</li>
-              <li>Leveraged S3 for scalable data storage</li>
-              <li>Integrated PostgreSQL for structured data persistence</li>
-              <li>Used DynamoDB for job tracking and metadata management</li>
-              <li>Configured EC2-based compute environments for flexible scaling</li>
-            </ul>
-
-            <h4>🧱 Tech Stack</h4>
-            <div class="tech-stack">
-              <span class="tech-tag">Python</span>
-              <span class="tech-tag">AWS Batch</span>
-              <span class="tech-tag">S3</span>
-              <span class="tech-tag">EC2</span>
-              <span class="tech-tag">PostgreSQL</span>
-              <span class="tech-tag">DynamoDB</span>
-              <span class="tech-tag">Docker</span>
-            </div>
-
-            <h4>📈 Key Achievements</h4>
-            <ul>
-              <li>Enabled scalable and distributed data processing</li>
-              <li>Improved performance of batch workloads</li>
-              <li>Built reliable job tracking system</li>
-              <li>Optimized resource utilization using AWS infrastructure</li>
-            </ul>
-
-            <h4>🧠 Key Learnings</h4>
-            <ul>
-              <li>Distributed data processing design</li>
-              <li>AWS Batch internals and scaling strategies</li>
-              <li>Data pipeline reliability and fault tolerance</li>
-              <li>Managing compute and storage efficiently in cloud environments</li>
-            </ul>
-          </section>
-        </div>
-      </div> <!-- END PROJECT 2 -->
-
-      <!-- PROJECT 3 -->
-      <div id="project-3" class="project-content" style="display: none;">
-
-        <section class="hero">
-          <p class="eyebrow">Portfolio Project</p>
-          <h1>CIP-Madras</h1>
-          <p class="hero-copy">Data engineering solutions for agricultural research and processing at IIT Madras.</p>
-        </section>
-
-        <div class="project-meta">
-          <span><strong>Company:</strong> Tata Consultancy Services (TCS)</span>
-          <span><strong>Role:</strong> Data Engineer</span>
-          <span><strong>Duration:</strong> Feb 2025 – Present</span>
-          <span><strong>Years:</strong> 1.1</span>
-        </div>
-
-        <section class="topic-section">
-          <h3>🔄 Legacy System Data Migration & Modernization</h3>
-
-          <h4>📌 Overview</h4>
-          <p>
-            Worked on migrating legacy data processing systems built on Oracle-based logic into a
-            platform-independent architecture using Python and SQL. The goal was to replicate existing
-            business logic while improving performance, maintainability, and scalability.
-          </p>
-
-          <h4>⚙️ Problem Statement</h4>
-          <ul>
-            <li>Legacy system tightly coupled with Oracle-specific implementations</li>
-            <li>Difficult to maintain and extend legacy codebase</li>
-            <li>Limited portability across platforms</li>
-            <li>Performance inefficiencies in existing workflows</li>
-            <li>Lack of modular and reusable architecture</li>
-          </ul>
-
-          <h4>🛠️ Solution</h4>
-          <ul>
-            <li>Analyzed and reverse-engineered existing Oracle-based business logic</li>
-            <li>Rebuilt workflows using Python and Oracle SQL to ensure platform independence</li>
-            <li>Modularized legacy logic into reusable and maintainable components</li>
-            <li>Ensured functional parity between legacy and new system outputs</li>
-            <li>Introduced performance improvements in data processing and query execution</li>
-            <li>Enhanced validation and error handling mechanisms</li>
-          </ul>
-
-          <h4>🧱 Tech Stack</h4>
-          <div class="tech-stack">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">Oracle SQL</span>
-            <span class="tech-tag">Pandas</span>
-            <span class="tech-tag">Data Validation</span>
-            <span class="tech-tag">ETL Design</span>
-          </div>
-
-          <h4>📈 Key Achievements</h4>
-          <ul>
-            <li>Successfully migrated legacy system to a platform-independent solution</li>
-            <li>Maintained 100% functional consistency with legacy outputs</li>
-            <li>Improved performance through optimized SQL and processing logic</li>
-            <li>Reduced complexity by modularizing legacy code</li>
-            <li>Enhanced maintainability and scalability of the system</li>
-          </ul>
-
-          <h4>🧠 Key Learnings</h4>
-          <ul>
-            <li>Legacy system analysis and reverse engineering</li>
-            <li>Data migration strategies and validation techniques</li>
-            <li>Ensuring data consistency across systems</li>
-            <li>Refactoring monolithic logic into modular architecture</li>
-            <li>Handling edge cases in enterprise data workflows</li>
-          </ul>
-        </section>
-
-      </div> <!-- END PROJECT 3 -->
     </div>
   </main>
 
+  <footer class="bottom-bar">
+    <div class="footer-left">Experience Hub | Shravan Portfolio</div>
+    <div class="footer-right">Years of Expertise: <strong>4.4+</strong></div>
+  </footer>
+
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
   <script src="../../app.js"></script>
-  <script src="../scripts/portfolio.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const navItems = document.querySelectorAll('.nav-item[data-project]');
-      const project1 = document.getElementById('project-1');
-      const project2 = document.getElementById('project-2');
-      const project3 = document.getElementById('project-3');
-      navItems.forEach(item => {
-        item.addEventListener('click', function (e) {
-          e.preventDefault();
-          const projectId = this.getAttribute('data-project');
-
-          // Hide all projects
-          project1.style.display = 'none';
-          project2.style.display = 'none';
-          project3.style.display = 'none';
-
-          // Show selected project
-          if (projectId === 'project-1') {
-            project1.style.display = 'block';
-          } else if (projectId === 'project-2') {
-            project2.style.display = 'block';
-          } else if (projectId === 'project-3') {
-            project3.style.display = 'block';
-          }
-
-          // Update active state in sidebar
-          navItems.forEach(nav => nav.classList.remove('active'));
-          this.classList.add('active');
-        });
-      });
-
-      // Handle section link clicks - switch to ECP and show section content
-      document.querySelectorAll('.section-link').forEach(link => {
-        link.addEventListener('click', function (e) {
-          e.preventDefault();
-          const sectionId = this.getAttribute('data-section');
-
-          // Show ECP project
-          project1.style.display = 'none';
-          project2.style.display = 'block';
-
-          // Hide all section contents
-          document.querySelectorAll('.section-content').forEach(content => {
-            content.style.display = 'none';
-          });
-
-          // Show selected section content
-          const sectionContent = document.getElementById(sectionId + '-content');
-          if (sectionContent) {
-            sectionContent.style.display = 'block';
-          }
-
-          // Update active state
-          navItems.forEach(nav => nav.classList.remove('active'));
-          document.querySelector('[data-project="project-2"]').classList.add('active');
-
-          // Update section link active state
-          document.querySelectorAll('.section-link').forEach(l => l.classList.remove('active'));
-          this.classList.add('active');
-
-          // Scroll to header at center of page
-          const header = document.getElementById(sectionId);
-          if (header) {
-            header.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }
-        });
-      });
-      // Scroll to top
-      const scrollToTopBtn = document.createElement('button');
-      scrollToTopBtn.id = 'scrollToTop';
-      scrollToTopBtn.className = 'scroll-to-top';
-      scrollToTopBtn.setAttribute('aria-label', 'Scroll to top');
-      scrollToTopBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
-      document.body.appendChild(scrollToTopBtn);
-
-      window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 300) {
-          scrollToTopBtn.classList.add('visible');
-        } else {
-          scrollToTopBtn.classList.remove('visible');
-        }
-      });
-
-      scrollToTopBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    });
-  </script>
-<script src="../../hierarchy.js"></script>
+  <script src="../../hierarchy.js"></script>
   <script src="../../sidebar-nav.js"></script>
+  <script>
+    // Scroll to Top visibility logic to prevent footer overlap
+    const stt = document.getElementById('scrollToTop');
+    window.addEventListener('scroll', () => {
+      stt.classList.toggle('visible', window.pageYOffset > 400);
+    });
+    stt.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+  </script>
 </body>
 
 </html>

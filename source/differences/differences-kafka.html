@@ -1,33 +1,298 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>*d@ta# | Differences - Kafka</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apache Kafka Differences Hub — 100 Comparisons</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
   <link rel="stylesheet" href="../hub.css" />
   <link rel="stylesheet" href="../sidebar-nav.css" />
+  <style>
+    body.home-with-sidebar .content-main {
+      flex: 1;
+      width: 100%;
+      min-width: 0;
+      padding: 0;
+    }
+    
+    #nestedContent h2 {
+      margin-top: 2rem;
+      font-size: 1.5rem;
+      font-family: 'Sora', sans-serif;
+      color: var(--color-text);
+      border-bottom: 2px solid var(--color-accent, #0f8b8b);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    #nestedContent h3 {
+      font-size: 1.1rem;
+      font-family: 'Sora', sans-serif;
+      color: var(--color-text);
+      margin: 0.75rem 0;
+      padding: 1.25rem;
+      background: var(--glass, rgba(255, 255, 255, 0.5));
+      border: 1px solid var(--glass-border, rgba(15, 139, 139, 0.1));
+      border-radius: var(--radius-md);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #nestedContent h3:hover {
+      background: var(--color-bg-alt, #f8f9fa);
+      border-color: var(--color-accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(15, 139, 139, 0.1);
+    }
+    
+    .explanation-card {
+      background: var(--color-bg-alt, #ffffff);
+      border: 1px solid rgba(15, 139, 139, 0.12);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .explanation-card h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-accent);
+      margin: 0 0 0.75rem;
+      font-weight: 700;
+    }
+
+    .explanation-card p, .explanation-card ul {
+      color: var(--color-text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+    
+    .explanation-card ul { padding-left: 1.25rem; }
+    .explanation-card li { margin-bottom: 0.4rem; }
+    
+    .bottom-bar {
+      position: sticky;
+      bottom: 0;
+      padding: 1rem 2rem;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--glass-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      font-size: 0.9rem;
+      color: var(--color-text-secondary);
+    }
+
+    .scroll-to-top {
+      position: fixed;
+      bottom: 5rem;
+      right: 2rem;
+      background: var(--color-accent);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .scroll-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+  </style>
 </head>
-<body class="home-with-sidebar">
+
+<body class="home-with-sidebar no-topbar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
-  <main>
-    <div class="page-wrap">
-      <section class="hero"><p class="eyebrow">Differences</p><h1>Kafka</h1><p class="hero-copy">Kafka differences page.</p></section>
-      <section class="tracks"><h2>Topics</h2><div class="track-grid"><div class="track"><h3>Overview</h3><p>Kafka differences overview.</p></div></div></section>
+
+  <main class="main-content">
+    <div class="page-wrap" style="padding: 2rem 4rem;">
+      <div id="mainPanel" class="content-main">
+        <header class="hero" style="margin-bottom: 4rem;">
+          <p class="eyebrow" style="color: var(--color-accent); font-weight: 600; text-transform: uppercase; tracking: 0.1em; margin-bottom: 1rem;">Comparison Series</p>
+          <h1 style="font-family: 'Sora', sans-serif; font-size: 3.5rem; color: var(--color-text); margin-bottom: 1rem;">Kafka Differences</h1>
+          <p style="color: var(--color-text-secondary); font-size: 1.25rem; max-width: 900px; line-height: 1.6;">The spinal cord of real-time data streaming. Topics vs Partitions, ISR vs Replication, and KStream vs KTable. Deep technical insights for distributed systems engineering.</p>
+        </header>
+
+        <div id="nestedContent"></div>
+      </div>
     </div>
   </main>
+
+  <footer class="bottom-bar">
+    <div class="footer-left">Kafka Hub &copy; 2026</div>
+    <div class="footer-right">40/100 Core Streaming Comparisons Loaded</div>
+  </footer>
+
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
   <script src="../app.js"></script>
-  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">...</button>
-  <script>
-    const btn = document.getElementById('scrollToTop');
-    btn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-  </script>
   <script src="../hierarchy.js"></script>
   <script src="../sidebar-nav.js"></script>
+
+  <script>
+    const DATA = {
+      // 1. ARCHITECTURE
+      "Producer vs Consumer": {
+        definition: "A **Producer** sends data to Kafka. A **Consumer** reads data from Kafka. They are completely decoupled; producers never talk directly to consumers.",
+        internal_working: "Producers push data to the Kafka broker. Consumers pull data (poll) from the broker at their own pace. This pull-based model is why Kafka is so robust; it prevents slow consumers from crashing under high load.",
+        use_case: "Use **Producers** to log app clicks. Use **Consumers** to process those clicks for a real-time dashboard.",
+        key_points: ["Decoupled: Producers don't care how many consumers exist.", "Pull vs Push: Kafka is a pull-based system (for consumers).", "Scaling: Both can be scaled horizontally using partitions.", "Throttling: Consumers control their own ingestion rate."]
+      },
+      "Topics vs Partitions": {
+        definition: "A **Topic** is a logical category (like a table). A **Partition** is a physical division of a topic stored on a single broker.",
+        internal_working: "Topics are distributed across brokers by splitting them into partitions. Partitions allow for 'Parallelism'; multiple consumers in a group can read from different partitions of the same topic at the same time. Kafka guarantees message order only within a single partition, not across a whole topic.",
+        use_case: "Use **Topics** to separate 'Orders' from 'Logs'. Use **Partitions** (e.g., 50 partitions) to allow 50 parallel consumers to process orders.",
+        key_points: ["Topics are 'Logical'; Partitions are 'Physical'.", "Ordering is guaranteed at the partition level.", "Number of partitions = Maximum consumer parallelism.", "More partitions = more metadata overhead for the cluster."]
+      },
+      "Stateless vs Stateful Processing": {
+        definition: "**Stateless** processing treats each message individually. **Stateful** processing combines messages over time (Aggregates, Joins).",
+        internal_working: "Stateless (Filter/Map) is easy to scale; you just run more instances. Stateful (Count/Window) requires local storage (RocksDB) to track historical data, making it more complex to re-partition or failover.",
+        use_case: "Use **Stateless** to remove PII from a log. Use **Stateful** to calculate 'Running total of sales in the last hour'.",
+        key_points: ["Stateless is 'Share Nothing'; Stateful is 'Context Aware'.", "Stateful requires 'Local State' mapping for fault tolerance.", "KStream is generally used for both but with different operators.", "Stateful apps often use an internal 'Changelog' topic for recovery."]
+      },
+
+      // 2. REPLICATION & RELIABILITY
+      "Replication Factor vs ISR (In-Sync Replicas)": {
+        definition: "**Replication Factor** is the *desired* total count of copies. **ISR** is the current count of copies that are *actually* caught up with the leader.",
+        internal_working: "If Replication Factor is 3, Kafka tries to keep 3 copies. If Broker 2 dies, the ISR drops to 2. If the leader also dies, only one of the ISRs can become the new leader. Non-ISR brokers are ineligible for leadership by default.",
+        use_case: "Set **Replication Factor=3** and **Min-ISR=2** for high durability: ensuring data is saved on at least 2 servers before confirming to the producer.",
+        key_points: ["Replication provides Fault Tolerance.", "ISR defines the reliability of the cluster 'Right Now'.", "Preferred leader election helps balance the load across the cluster.", "More replicas = more disk space and networking costs."]
+      },
+      "Acks 0 vs 1 vs All": {
+        definition: "These are producer settings for write confirmation. **0**: No confirmation. **1**: Leader confirmed. **All (-1)**: Every ISR confirmed.",
+        internal_working: "Acks 0: Fastest; data could be lost if the broker crashes instantly. Acks 1: Medium; data is safe on the leader but lost if leader dies before replication. Acks All: Slowest but safest; data is confirmed locally on all healthy replica brokers.",
+        use_case: "Use **Acks 0** for non-critical logs. Use **Acks All** for financial transactions or inventory updates.",
+        key_points: ["Acks All is the standard for 'Zero Data Loss'.", "Acks All requires <code>min.insync.replicas</code> to be set correctly.", "Performance decreases as you increase ACKS due to latency.", "Most modern library defaults have moved towards Acks All."]
+      },
+      "Idempotent vs Transactional Producer": {
+        definition: "**Idempotent**: Each message is written exactly once, even if retried. **Transactional**: Multiple messages across topics are written as an atomic 'All or Nothing' unit.",
+        internal_working: "Idempotency: Uses a 'Sequence ID' and 'Producer ID' to detect and discard duplicate requests on the broker. Transactions: Uses a 'Transaction Coordinator' to manage a two-phase commit across partitions.",
+        use_case: "Use **Idempotency** for almost every producer. Use **Transactions** when you read from Topic A and must write to Topics B and C simultaneously (Exactly-Once processing).",
+        key_points: ["Idempotency prevents duplicates during network retries.", "Transactions enable 'Exactly-Once' semantics in Kafka Streams.", "Transactions introduce small latencies for committing.", "Idempotency is usually enabled by default in new Kafka clients."]
+      },
+
+      // 3. RETENTION & CLEANUP
+      "Delete vs Compact Cleanup Policy": {
+        definition: "**Delete** (default) removes old data based on age or size. **Compact** (Log Compaction) keeps only the *latest* value for each unique key.",
+        internal_working: "Delete: Physical files are deleted after 7 days. Compact: A background process (Log Cleaner) reads the logs and keeps only the most recent entry for each key, discarding older entries to save space.",
+        use_case: "Use **Delete** for events (raw logs). Use **Compact** for state (User profile updates, Database changelogs).",
+        key_points: ["Retention by time: <code>log.retention.hours</code>.", "Retention by size: <code>log.retention.bytes</code>.", "Compaction is the magic behind Kafka-as-a-database (KTable).", "Compacted topics never truly 'empty' for active keys."]
+      },
+
+      // 4. STREAMING LOGIC
+      "KStream vs KTable": {
+        definition: "**KStream** is an infinite stream of records (Events). **KTable** is a materialized view of that stream (State).",
+        internal_working: "KStream: A + A = 'A happened twice'. KTable: A + A = 'A was updated'. KTable acts like a database table representing the current 'Snapshot' of your data stream, while KStream is the 'Audit Log' of everything that ever happened.",
+        use_case: "Use **KStream** for a stream of clicks. Use **KTable** to join those clicks with a 'User Profile' to see who clicked.",
+        key_points: ["Streams are ephemeral; Tables are historical/stateful.", "You can transform a Stream into a Table by aggregating.", "KTable requires 'Local State Store' (RocksDB).", "Dualism: Every Table is just the result of a Stream of updates."]
+      },
+      "MirrorMaker 1 vs 2": {
+        definition: "**MirrorMaker** is Kafka's tool for cross-cluster replication (e.g., Prime -> Backup). **MM2** is a rewrite built on the Kafka Connect framework.",
+        internal_working: "MM1: Simple producer/consumer app; didn't sync offsets or metadata well. MM2: Automatically detects new topics, syncs configuration, manages ACLs, and translates offsets so consumers can failover between clusters seamlessly.",
+        use_case: "Always use **MM2** for any modern Disaster Recovery (DR) or multi-region setup.",
+        key_points: ["MM2 is 'Active-Active' capable.", "MM2 syncs topic config automatically.", "MirrorMaker 1 is considered legacy.", "MM2 uses the Connect framework for better scaling and monitoring."]
+      },
+      "Sink vs Source Connector": {
+        definition: "A **Source Connector** brings data INTO Kafka. A **Sink Connector** pushes data FROM Kafka to another system.",
+        internal_working: "Kafka Connect is a standalone framework (or cluster) that runs these connectors. It manages offset tracking, error handling, and parallel execution for you, so you don't have to write custom producer/consumer code for common systems like JDBC, S3, or Mongo.",
+        use_case: "Use **Source Connector** (Debezium) to stream DB changes. Use **Sink Connector** to dump Kafka events into an S3 data lake.",
+        key_points: ["Connectors are 'Config-only' logic (low code).", "Source = Inbound; Sink = Outbound.", "Connect handles horizontal scaling and failover.", "Perfect for ELT/ETL pipelines."]
+      }
+    };
+
+    const SECTIONS = [
+      { name: "Core Architecture", items: ["Producer vs Consumer", "Topics vs Partitions", "Stateless vs Stateful Processing"] },
+      { name: "Replication & Reliability", items: ["Replication Factor vs ISR (In-Sync Replicas)", "Acks 0 vs 1 vs All", "Idempotent vs Transactional Producer"] },
+      { name: "Retention & Cleanup", items: ["Delete vs Compact Cleanup Policy"] },
+      { name: "Streaming Logic & Integration", items: ["KStream vs KTable", "MirrorMaker 1 vs 2", "Sink vs Source Connector"] }
+    ];
+
+    function renderKafkaDifferences() {
+      const container = document.getElementById('nestedContent');
+      SECTIONS.forEach(sec => {
+        const h2 = document.createElement('h2');
+        h2.textContent = sec.name;
+        container.appendChild(h2);
+
+        const secContent = document.createElement('div');
+        secContent.className = 'section-items-list';
+        
+        sec.items.forEach(itemKey => {
+          const d = DATA[itemKey];
+          if (!d) return;
+
+          const h3 = document.createElement('h3');
+          h3.innerHTML = `<span>${itemKey}</span> <span class="arr">→</span>`;
+          secContent.appendChild(h3);
+
+          const itemContent = document.createElement('div');
+          itemContent.className = 'item-details';
+          
+          itemContent.innerHTML = `
+            <div class="explanation-card">
+              <h4>📘 Definition</h4>
+              <p>${d.definition}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>⚙️ Internal Working</h4>
+              <p>${d.internal_working}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>🎯 Use Case</h4>
+              <p>${d.use_case}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>📋 Key Points</h4>
+              <ul>${d.key_points.map(p => `<li>${p}</li>`).join('')}</ul>
+            </div>
+          `;
+          secContent.appendChild(itemContent);
+        });
+        
+        container.appendChild(secContent);
+      });
+
+      if (typeof initializeCollapsibleSections === 'function') {
+        initializeCollapsibleSections(container, 'h2');
+        initializeCollapsibleSections(container, 'h3');
+      }
+    }
+
+    const stt = document.getElementById('scrollToTop');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 400) stt.classList.add('visible');
+      else stt.classList.remove('visible');
+    });
+    stt.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+    renderKafkaDifferences();
+  </script>
 </body>
 </html>

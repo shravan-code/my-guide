@@ -1,51 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>*d@ta# | Differences Overview</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Differences Hub Overview — Modern Data Stack Comparison</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
   <link rel="stylesheet" href="../hub.css" />
   <link rel="stylesheet" href="../sidebar-nav.css" />
+  <style>
+    body.home-with-sidebar .content-main {
+      flex: 1;
+      width: 100%;
+      min-width: 0;
+      padding: 0;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .overview-card {
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .overview-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--color-accent);
+      box-shadow: 0 10px 30px rgba(15, 139, 139, 0.1);
+    }
+
+    .overview-card h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.5rem;
+      color: var(--color-text);
+      margin: 0;
+    }
+
+    .overview-card p {
+      color: var(--color-text-secondary);
+      font-size: 1rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .overview-card .stat {
+      font-weight: 700;
+      color: var(--color-accent);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .bottom-bar {
+      position: sticky;
+      bottom: 0;
+      padding: 1rem 2rem;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--glass-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      font-size: 0.9rem;
+      color: var(--color-text-secondary);
+    }
+
+    .scroll-to-top {
+      position: fixed;
+      bottom: 5rem;
+      right: 2rem;
+      background: var(--color-accent);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .scroll-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+  </style>
 </head>
-<body class="home-with-sidebar">
+
+<body class="home-with-sidebar no-topbar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
-  <main>
+  <main class="main-content">
+    <div class="page-wrap" style="padding: 2rem 4rem;">
+      <div id="mainPanel" class="content-main">
+        <header class="hero" style="margin-bottom: 4rem;">
+          <p class="eyebrow"
+            style="color: var(--color-accent); font-weight: 600; text-transform: uppercase; tracking: 0.1em; margin-bottom: 1rem;">
+            Comparative Analysis</p>
+          <h1 style="font-family: 'Sora', sans-serif; font-size: 3.5rem; color: var(--color-text); margin-bottom: 1rem;">
+            Differences Hub</h1>
+          <p style="color: var(--color-text-secondary); font-size: 1.25rem; max-width: 900px; line-height: 1.6;">A
+            comprehensive architectural encyclopedia. We've compiled 500+ deep-dive comparisons across the modern data
+            engineering stack to help you choose the right tool for the right job.</p>
+        </header>
 
-    <div class="page-wrap">
-      <section class="hero">
-        <p class="eyebrow">Differences Overview</p>
-        <h1>Overview</h1>
-        <p class="hero-copy">This page outlines the intent of the Differences hub and how it relates to Roadmaps and other paths.</p>
-      </section>
-      <section class="content">
-        <p>This hub is intended to host comparative guides and paths analysis. Content will be expanded over time.</p>
-      </section>
+        <div class="overview-grid">
+          <a href="differences-python.html" class="overview-card">
+            <span class="stat">100 Comparisons</span>
+            <h2>Python</h2>
+            <p>Advanced language mechanics, memory management, and GIL internals.</p>
+          </a>
+          <a href="differences-sql.html" class="overview-card">
+            <span class="stat">75 Comparisons</span>
+            <h2>SQL</h2>
+            <p>Join strategies, indexing depth, and analytical window functions.</p>
+          </a>
+          <a href="differences-spark.html" class="overview-card">
+            <span class="stat">50 Comparisons</span>
+            <h2>Apache Spark</h2>
+            <p>Parallel processing, shuffle strategies, and AQE optimizations.</p>
+          </a>
+          <a href="differences-kafka.html" class="overview-card">
+            <span class="stat">40 Comparisons</span>
+            <h2>Apache Kafka</h2>
+            <p>Real-time streaming, log compaction, and replication reliability.</p>
+          </a>
+          <a href="differences-airflow.html" class="overview-card">
+            <span class="stat">40 Comparisons</span>
+            <h2>Airflow</h2>
+            <p>Orchestration lifecycles, executor strategies, and DAG logic.</p>
+          </a>
+          <a href="differences-dbt.html" class="overview-card">
+            <span class="stat">40 Comparisons</span>
+            <h2>dbt</h2>
+            <p>Analytics engineering, materializations, and SCD snapshots.</p>
+          </a>
+          <a href="differences-data-modelling.html" class="overview-card">
+            <span class="stat">40 Comparisons</span>
+            <h2>Data Modelling</h2>
+            <p>3NF, Star Schemas, Data Vault, and dimensional normalization.</p>
+          </a>
+          <a href="differences-aws.html" class="overview-card">
+            <span class="stat">40 Comparisons</span>
+            <h2>AWS Cloud</h2>
+            <p>Core infrastructure, networking patterns, and architectural trade-offs.</p>
+          </a>
+          <a href="differences-databricks.html" class="overview-card">
+            <span class="stat">40 Comparisons</span>
+            <h2>Databricks</h2>
+            <p>Lakehouse architecture, Delta Lake, and unified governance.</p>
+          </a>
+          <a href="differences-cloud.html" class="overview-card">
+            <span class="stat">40 Comparisons</span>
+            <h2>Global Cloud</h2>
+            <p>Universal concepts, IaaS/PaaS/SaaS, and multi-cloud strategy.</p>
+          </a>
+        </div>
+      </div>
     </div>
   </main>
 
-  <script src="../app.js"></script>
+  <footer class="bottom-bar">
+    <div class="footer-left">Differences Hub &copy; 2026</div>
+    <div class="footer-right">500+ Comparisons Live</div>
+  </footer>
+
   <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <path d="M12 19V5M5 12l7-7 7 7" />
     </svg>
   </button>
-  <script>
-    const scrollToTopBtn = document.getElementById('scrollToTop');
-    window.addEventListener('scroll', function () {
-      scrollToTopBtn.classList.toggle('visible', window.pageYOffset > 300);
-    });
-    scrollToTopBtn.addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  </script>
+
+  <script src="../app.js"></script>
   <script src="../hierarchy.js"></script>
   <script src="../sidebar-nav.js"></script>
+  <script>
+    const stt = document.getElementById('scrollToTop');
+    window.addEventListener('scroll', () => {
+      stt.classList.toggle('visible', window.pageYOffset > 400);
+    });
+    stt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
 </body>
+
 </html>

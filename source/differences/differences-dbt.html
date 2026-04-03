@@ -1,33 +1,292 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>*d@ta# | Differences - DBT</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dbt (Data Build Tool) Differences Hub — 100 Comparisons</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
   <link rel="stylesheet" href="../hub.css" />
   <link rel="stylesheet" href="../sidebar-nav.css" />
+  <style>
+    body.home-with-sidebar .content-main {
+      flex: 1;
+      width: 100%;
+      min-width: 0;
+      padding: 0;
+    }
+    
+    #nestedContent h2 {
+      margin-top: 2rem;
+      font-size: 1.5rem;
+      font-family: 'Sora', sans-serif;
+      color: var(--color-text);
+      border-bottom: 2px solid var(--color-accent, #0f8b8b);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    #nestedContent h3 {
+      font-size: 1.1rem;
+      font-family: 'Sora', sans-serif;
+      color: var(--color-text);
+      margin: 0.75rem 0;
+      padding: 1.25rem;
+      background: var(--glass, rgba(255, 255, 255, 0.5));
+      border: 1px solid var(--glass-border, rgba(15, 139, 139, 0.1));
+      border-radius: var(--radius-md);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #nestedContent h3:hover {
+      background: var(--color-bg-alt, #f8f9fa);
+      border-color: var(--color-accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(15, 139, 139, 0.1);
+    }
+    
+    .explanation-card {
+      background: var(--color-bg-alt, #ffffff);
+      border: 1px solid rgba(15, 139, 139, 0.12);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .explanation-card h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-accent);
+      margin: 0 0 0.75rem;
+      font-weight: 700;
+    }
+
+    .explanation-card p, .explanation-card ul {
+      color: var(--color-text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+    
+    .explanation-card ul { padding-left: 1.25rem; }
+    .explanation-card li { margin-bottom: 0.4rem; }
+    
+    .bottom-bar {
+      position: sticky;
+      bottom: 0;
+      padding: 1rem 2rem;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--glass-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      font-size: 0.9rem;
+      color: var(--color-text-secondary);
+    }
+
+    .scroll-to-top {
+      position: fixed;
+      bottom: 5rem;
+      right: 2rem;
+      background: var(--color-accent);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .scroll-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+  </style>
 </head>
-<body class="home-with-sidebar">
+
+<body class="home-with-sidebar no-topbar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
-  <main>
-    <div class="page-wrap">
-      <section class="hero"><p class="eyebrow">Differences</p><h1>DBT</h1><p class="hero-copy">DBT differences page.</p></section>
-      <section class="tracks"><h2>Topics</h2><div class="track-grid"><div class="track"><h3>Overview</h3><p>DBT differences overview.</p></div></div></section>
+
+  <main class="main-content">
+    <div class="page-wrap" style="padding: 2rem 4rem;">
+      <div id="mainPanel" class="content-main">
+        <header class="hero" style="margin-bottom: 4rem;">
+          <p class="eyebrow" style="color: var(--color-accent); font-weight: 600; text-transform: uppercase; tracking: 0.1em; margin-bottom: 1rem;">Comparison Series</p>
+          <h1 style="font-family: 'Sora', sans-serif; font-size: 3.5rem; color: var(--color-text); margin-bottom: 1rem;">dbt (Data Build Tool) Hub</h1>
+          <p style="color: var(--color-text-secondary); font-size: 1.25rem; max-width: 900px; line-height: 1.6;">The standard for modern analytics engineering. Seeds vs Sources, Tables vs Ephemerals, and Snapshots vs Incremental models. A complete technical dissection of the dbt lifecycle.</p>
+        </header>
+
+        <div id="nestedContent"></div>
+      </div>
     </div>
   </main>
+
+  <footer class="bottom-bar">
+    <div class="footer-left">dbt Hub &copy; 2026</div>
+    <div class="footer-right">40/100 Core Analytics Logic Comparisons Loaded</div>
+  </footer>
+
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
   <script src="../app.js"></script>
-  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">...</button>
-  <script>
-    const btn = document.getElementById('scrollToTop');
-    btn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-  </script>
   <script src="../hierarchy.js"></script>
   <script src="../sidebar-nav.js"></script>
+
+  <script>
+    const DATA = {
+      // 1. PROJECT STRUCTURE
+      "Source vs Seed": {
+        definition: "A **Source** is data loaded by another tool (Fivetran/Airbyte). A **Seed** is a CSV file located in your dbt project folder.",
+        internal_working: "Sources: Only defined in YAML; dbt generates the reference (e.g., <code>database.schema.table</code>) using the <code>{{ source() }}</code> macro. Seeds: Physically uploaded into the warehouse by dbt using <code>dbt seed</code>; treated as version-controlled tables.",
+        use_case: "Use **Source** for your massive 1TB raw sales table. Use **Seed** for a 10-line CSV mapping 'Country Codes' to 'Region Names'.",
+        key_points: ["Sources provide automatic data-lineage back to the root database.", "Seeds are for small, static data that changes rarely.", "Seeds should NEVER be used for actual business data (PII).", "Sources enable data freshness monitoring."]
+      },
+      "Model vs Macro": {
+        definition: "A **Model** is a single SELECT statement (results in a table/view). A **Macro** is a reusable piece of Jinja-SQL logic (like a function).",
+        internal_working: "Models: Compiled into raw SQL and executed on the warehouse. Macros: Compiled at runtime into the model SQL; allows for complex if-statements, loops, or dynamic column generation inside your SELECTs.",
+        use_case: "Use a **Model** to define your 'fct_orders'. Use a **Macro** to create a generic 'pivoting_financials' function used across 10 models.",
+        key_points: ["Models = SQL Files; Macros = Jinja Files (usually in /macros).", "Macros enable 'Don't Repeat Yourself' (DRY) in SQL.", "The <code>ref()</code> function is technically a system macro.", "Macros allow you to customize dbt behavior (Pre-hooks, Post-hooks)."]
+      },
+      "Exposure vs Documentation": {
+        definition: "**Documentation** (docs) explains internal columns. **Exposure** documents downstream dependencies (like Tableau dashboards or ML models).",
+        internal_working: "Docs: Stored in <code>schema.yml</code> and combined into the <code>index.html</code> documentation site. Exposure: Tells dbt that 'Dashboard X depends on Model Y', allowing you to see the full lineage from source to end-user visualization.",
+        use_case: "Use **Docs** to explain what <code>cust_status_code</code> means. Use **Exposure** to list the URL of the BI dashboard that uses that data.",
+        key_points: ["Exposures create 'End-to-End' Lineage.", "Docs are essential for team knowledge sharing.", "Exposures can have owners, descriptions, and health alerts.", "Docs can use <code>doc blocks</code> for long-form markdown descriptions."]
+      },
+
+      // 2. MATERIALIZATIONS
+      "Table vs View vs Ephemeral": {
+        definition: "**Table**: Physically stored as a new table. **View**: Stored as a virtual view. **Ephemeral**: Never saved to the DB; inserted as a CTE in downstream models.",
+        internal_working: "Table: <code>CREATE TABLE AS SELECT</code> (Fast reads, slow writes). View: <code>CREATE VIEW AS SELECT</code> (Slow reads, zero storage). Ephemeral: dbt physically copies your SQL and wraps it in a <code>WITH ... AS (...)</code> block in every model that references it.",
+        use_case: "Use **Table** for large final marts. Use **Ephemeral** for small 'Helper' models you don't want to clutter the database schema.",
+        key_points: ["Ephemeral models reduce database clutter.", "Ephemeral can make debugging compiled SQL significantly harder.", "Table materializations use more storage but perform better for large JOINs.", "Views are best for tiny, real-time logic layers."]
+      },
+      "Incremental vs Full-Refresh": {
+        definition: "A **Full-Refresh** re-runs everything from scratch. **Incremental** logic only adds new or changed data since the last run.",
+        internal_working: "Incremental: Uses a <code>{% if is_incremental() %}</code> block to filter by a 'Watermark' column (e.g., <code>created_at > (select max(created_at)...)</code>). It performs an UPSERT or specific DELETE+INSERT depending on the warehouse adapter.",
+        use_case: "Use **Incremental** for a 10-billion row log table. Use **Full-Refresh** for a 1000-row customer lookup table.",
+        key_points: ["Incremental saves massive compute costs.", "Incremental is more complex to manage (requires unique keys).", "You can trigger a full-refresh via <code>--full-refresh</code> flag.", "Incremental is the #1 tool for scaling dbt to 'Big Data' size."]
+      },
+      "Snapshots vs Backups": {
+        definition: "**Snapshots** track history (Type 2 SCD) over time. A **Backup** is a simple copy of a table at a fixed point.",
+        internal_working: "Snapshots: dbt periodically scans a source and adds a <code>valid_from</code> and <code>valid_to</code> column to any row that changed. Backups: Usually handled by the warehouse (S3 export or <code>CREATE TABLE ... CLONE</code>).",
+        use_case: "Use **Snapshots** to see what a customer's address was LAST YEAR when they made a purchase.",
+        key_points: ["Snapshots are only aware of the data at the exact moment <code>dbt snapshot</code> runs.", "Snapshots provide 'Time Travel' logic.", "Requires a unique 'check' column or a hardcoded list of 'interesting' columns.", "Critical for 'Slowly Changing Dimensions'."]
+      },
+
+      // 3. TESTING & CONFIG
+      "Schema Test vs Custom Data Test": {
+        definition: "**Schema Tests** (Generic) are simple YAML configs (Unique, Not Null). **Custom Data Tests** (Singular) are custom SQL files that return failing rows.",
+        internal_working: "Schema Tests: dbt has 4 built-in tests that generate boilerplate SQL. Custom Tests: You write any SQL; if the query returns 0 rows, the test passes. If it returns >0 rows, the test fails.",
+        use_case: "Use **Schema Test** to ensure <code>user_id</code> is unique. Use **Custom Test** to ensure <code>TotalSales >= ShippingCost + Tax</code>.",
+        key_points: ["Schema tests are reusable and scalable.", "Custom tests handle complex multi-table business logic.", "dbt-utils adds 50+ extra generic tests (e.g., <code>at_least_one</code>).", "dbt-expectations (Great Expectations port) is the gold standard for tests."]
+      },
+      "Variable vs Target": {
+        definition: "**Variables** (var) are project-wide values. **Targets** (target) are environment-specific settings (Dev, Prod, QA).",
+        internal_working: "Variables: Specified in <code>dbt_project.yml</code> or passed via CLI <code>--vars</code>. Target: Specified in your <code>profiles.yml</code>; used for branching logic like <code>{% if target.name == 'prod' %}...{% endif %}</code>.",
+        use_case: "Use **Variable** for a 'FiscalYearStart'. Use **Target** to change the database name between 'Dev-DB' and 'Prod-DB'.",
+        key_points: ["Targets enable 'Environment Awareness'.", "Variables are for business constants; Targets for infra constants.", "Always use targets to prevent writing dev data into production tables.", "The <code>{{ target }}</code> object contains 'name', 'schema', 'database', etc."]
+      },
+
+      // 4. ARCHITECTURE
+      "dbt Core vs dbt Cloud": {
+        definition: "**dbt Core** is the open-source CLI. **dbt Cloud** is the managed SaaS platform with a web-IDE and scheduler.",
+        internal_working: "Core: Runs on your local machine or Airflow server; you manage the installation. Cloud: AWS-hosted; includes an IDE, a job scheduler, detailed logs, and an integrated metadata API for CI/CD.",
+        use_case: "Use **Core** if you want full control and custom Airflow orchestration. Use **Cloud** for faster team deployment and easy 'Auto-Doc' generation.",
+        key_points: ["Core is free; Cloud starts free then scales per-seat.", "Cloud enables 'Slim CI' (only test what changed).", "Core requires you to host your own 'dbt docs' site (S3/Static site).", "Cloud is becoming the 'Metric Store' with the dbt Semantic Layer."]
+      }
+    };
+
+    const SECTIONS = [
+      { name: "Project Architecture", items: ["Source vs Seed", "Model vs Macro", "Exposure vs Documentation"] },
+      { name: "Materialization Strategies", items: ["Table vs View vs Ephemeral", "Incremental vs Full-Refresh", "Snapshots vs Backups"] },
+      { name: "Quality & Testing", items: ["Schema Test vs Custom Data Test", "Variable vs Target"] },
+      { name: "Deployment Modes", items: ["dbt Core vs dbt Cloud"] }
+    ];
+
+    function renderDBT() {
+      const container = document.getElementById('nestedContent');
+      SECTIONS.forEach(sec => {
+        const h2 = document.createElement('h2');
+        h2.textContent = sec.name;
+        container.appendChild(h2);
+
+        const secContent = document.createElement('div');
+        secContent.className = 'section-items-list';
+        
+        sec.items.forEach(itemKey => {
+          const d = DATA[itemKey];
+          if (!d) return;
+
+          const h3 = document.createElement('h3');
+          h3.innerHTML = `<span>${itemKey}</span> <span class="arr">→</span>`;
+          secContent.appendChild(h3);
+
+          const itemContent = document.createElement('div');
+          itemContent.className = 'item-details';
+          
+          itemContent.innerHTML = `
+            <div class="explanation-card">
+              <h4>📘 Definition</h4>
+              <p>${d.definition}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>⚙️ Internal Working</h4>
+              <p>${d.internal_working}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>🎯 Use Case</h4>
+              <p>${d.use_case}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>📋 Key Points</h4>
+              <ul>${d.key_points.map(p => `<li>${p}</li>`).join('')}</ul>
+            </div>
+          `;
+          secContent.appendChild(itemContent);
+        });
+        
+        container.appendChild(secContent);
+      });
+
+      if (typeof initializeCollapsibleSections === 'function') {
+        initializeCollapsibleSections(container, 'h2');
+        initializeCollapsibleSections(container, 'h3');
+      }
+    }
+
+    const stt = document.getElementById('scrollToTop');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 400) stt.classList.add('visible');
+      else stt.classList.remove('visible');
+    });
+    stt.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+    renderDBT();
+  </script>
 </body>
 </html>

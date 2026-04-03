@@ -888,7 +888,8 @@ body.dark .hero-tags span:hover {
    RESPONSIVE
    ============================================ */
 @media (max-width: 1024px) {
-  body.home-with-sidebar main {
+  html body.home-with-sidebar main,
+  html body.home-with-sidebar main.main-content {
     margin-left: 0 !important;
     width: 100% !important;
     max-width: 100% !important;

@@ -1,45 +1,298 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>*d@ta# | Differences - Pandas</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pandas Analysis Differences Hub — 100 Comparisons</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
   <link rel="stylesheet" href="../hub.css" />
   <link rel="stylesheet" href="../sidebar-nav.css" />
+  <style>
+    body.home-with-sidebar .content-main {
+      flex: 1;
+      width: 100%;
+      min-width: 0;
+      padding: 0;
+    }
+    
+    #nestedContent h2 {
+      margin-top: 2rem;
+      font-size: 1.5rem;
+      font-family: 'Sora', sans-serif;
+      color: var(--color-text);
+      border-bottom: 2px solid var(--color-accent, #0f8b8b);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    #nestedContent h3 {
+      font-size: 1.1rem;
+      font-family: 'Sora', sans-serif;
+      color: var(--color-text);
+      margin: 0.75rem 0;
+      padding: 1.25rem;
+      background: var(--glass, rgba(255, 255, 255, 0.5));
+      border: 1px solid var(--glass-border, rgba(15, 139, 139, 0.1));
+      border-radius: var(--radius-md);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #nestedContent h3:hover {
+      background: var(--color-bg-alt, #f8f9fa);
+      border-color: var(--color-accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(15, 139, 139, 0.1);
+    }
+    
+    .explanation-card {
+      background: var(--color-bg-alt, #ffffff);
+      border: 1px solid rgba(15, 139, 139, 0.12);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .explanation-card h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-accent);
+      margin: 0 0 0.75rem;
+      font-weight: 700;
+    }
+
+    .explanation-card p, .explanation-card ul {
+      color: var(--color-text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+    
+    .explanation-card ul { padding-left: 1.25rem; }
+    .explanation-card li { margin-bottom: 0.4rem; }
+    
+    .bottom-bar {
+      position: sticky;
+      bottom: 0;
+      padding: 1rem 2rem;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--glass-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      font-size: 0.9rem;
+      color: var(--color-text-secondary);
+    }
+
+    .scroll-to-top {
+      position: fixed;
+      bottom: 5rem;
+      right: 2rem;
+      background: var(--color-accent);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .scroll-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+  </style>
 </head>
-<body class="home-with-sidebar">
+
+<body class="home-with-sidebar no-topbar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
 
-  <main>
+  <main class="main-content">
+    <div class="page-wrap" style="padding: 2rem 4rem;">
+      <div id="mainPanel" class="content-main">
+        <header class="hero" style="margin-bottom: 4rem;">
+          <p class="eyebrow" style="color: var(--color-accent); font-weight: 600; text-transform: uppercase; tracking: 0.1em; margin-bottom: 1rem;">Comparison Series</p>
+          <h1 style="font-family: 'Sora', sans-serif; font-size: 3.5rem; color: var(--color-text); margin-bottom: 1rem;">Pandas Differences</h1>
+          <p style="color: var(--color-text-secondary); font-size: 1.25rem; max-width: 900px; line-height: 1.6;">Mastering data manipulation with PyData. loc vs iloc, concat vs merge, and category types vs object strings. A technical guide to memory-efficient pandas usage.</p>
+        </header>
 
-    <div class="page-wrap">
-      <section class="hero">
-        <p class="eyebrow">Differences</p>
-        <h1>Pandas</h1>
-        <p class="hero-copy">Focus on Pandas-related differences and patterns.</p>
-      </section>
-      <section class="tracks">
-        <h2>Topics</h2>
-        <div class="track-grid">
-          <div class="track"><h3>Overview</h3><p>Overview of Pandas differences.</p></div>
-        </div>
-      </section>
+        <div id="nestedContent"></div>
+      </div>
     </div>
   </main>
+
+  <footer class="bottom-bar">
+    <div class="footer-left">Pandas Hub &copy; 2026</div>
+    <div class="footer-right">100/100 Data Wrangling Comparisons Loaded</div>
+  </footer>
+
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
   <script src="../app.js"></script>
-  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">... </button>
-  <script>
-    // Minimal placeholder wiring for demonstration
-    const btn = document.getElementById('scrollToTop');
-    btn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-  </script>
   <script src="../hierarchy.js"></script>
   <script src="../sidebar-nav.js"></script>
+
+  <script>
+    const DATA = {
+      // 1. DATA STRUCTURES
+      "Series vs DataFrame": {
+        definition: "A **Series** is a one-dimensional, labeled array. A **DataFrame** is a two-dimensional, labeled data structure (like a table) where each column is essentially a Series.",
+        internal_working: "Series are built on top of NumPy arrays but include explicit 'labels' (index). DataFrames are essentially a collection of Series that share the same indices. Columns in a DataFrame can have different data types (heterogeneous), but each individual Series (column) must be homogeneous.",
+        use_case: "Use **Series** to represent a single row or a single column of data. Use **DataFrame** to represent a spreadsheet or a SQL-like table.",
+        key_points: ["Series is 1D; DataFrame is 2D.", "Series are the 'building blocks' of DataFrames.", "Both support 'Broadcast' operations and vectorization.", "Indexing a DataFrame with `df[column]` returns a Series."]
+      },
+      "loc vs iloc": {
+        definition: "**loc** is label-based indexing (select by name). **iloc** is integer-based indexing (select by position).",
+        internal_working: "`loc` accesses the dataframe using the explicitly defined `index` and `columns` labels. `iloc` is a raw 0-based offset into the underlying memory buffer, making it slightly faster but riskier if the dataframe order changes.",
+        use_case: "Use **loc** to get `df.loc['2021-01-01', 'ClosePrice']`. Use **iloc** to get the first 5 rows: `df.iloc[0:5]`.",
+        key_points: ["loc includes the end-point in slices; iloc follows Python 0-based exclusive slicing.", "loc is generally more readable and resistant to row-order bugs.", "loc can use boolean masks (masks cannot be uses with iloc).", "Always use `loc`/`iloc` over chained indexing (`df[][]`) to avoid 'SettingWithCopyWarning'."]
+      },
+
+      // 2. COMBINING DATA
+      "Merge vs Join vs Concat": {
+        definition: "**Merge** combines data on specific keys (like SQL JOIN). **Join** combines data on their indices. **Concat** appends data either horizontally or vertically without complex key matching.",
+        internal_working: "Merge performs a 'Hash Join' or 'Sort-Merge Join' in memory depending on data size. Join is a specialized version of merge that uses the index of the right-side dataframe. Concat simply allocates a new, larger memory block and copies in the source buffers sequentially.",
+        use_case: "Use **Merge** for relational matching (many-to-one). Use **Join** when both tables have the same primary index. Use **Concat** to append today's data to a historical log.",
+        key_points: ["Concat is the simplest and fastest 'extension' operation.", "Merge supports Inner, Left, Right, and Outer joins.", "Join is more convenient when you've already set meaningful indices.", "Merging large dataframes is a heavy O(N) memory operation."]
+      },
+      "Merge vs Join": {
+        definition: "**Merge** is used for joining on common columns. **Join** is used for joining on indices.",
+        internal_working: "Technically, `df1.join(df2)` is a wrapper around `pd.merge(df1, df2, left_index=True, right_index=True)`. Both perform the same underlying hash matching, but `join` is more concise when the data is already aligned by index.",
+        use_case: "Use **Join** when you have two time-series dataframes indexed by date. Use **Merge** when you have a list of sales with a `customer_id` and a customer table with a `id` column.",
+        key_points: ["Merge is the more flexible 'Swiss Army Knife' of combining.", "Join defaults to a Left Join; Merge defaults to an Inner Join.", "Both support multiple-key matching.", "For highest performance, merge on indices using Join."]
+      },
+
+      // 3. TRANSFORMATIONS
+      "apply() vs transform()": {
+        definition: "**apply()** can return an object of any size (Aggregation or Transformation). **transform()** must return an object of the exact same size as the input.",
+        internal_working: "`apply()` is a general-purpose iteration loop (highly flexible but can be slow). `transform()` is optimized for returning a full-length series (like Z-score scaling) and is especially powerful when used with `groupby` to broadcast group-level results back to original rows.",
+        use_case: "Use **apply** to get the `max-min` value of each group. Use **transform** to subtract the group mean from every individual row.",
+        key_points: ["transform is significantly faster than apply for group-broadcasting.", "apply can return a scalar or a whole new dataframe.", "transform allows for 'Chained' operations against the original index length.", "transform results in a result with the same shape as the input."]
+      },
+      "map() vs apply() vs applymap()": {
+        definition: "**map** works only on Series (labels-to-values). **apply** works on Series/DataFrame (vectors). **applymap** work on DataFrames (element-wise).",
+        internal_working: "Map uses an internal dictionary or function to replace values in a 1D stream. applymap iterates through every single cell in a 2D matrix. apply (on a DF) passes whole 1D slices (rows or columns) to the target function.",
+        use_case: "Use **map** for translating codes: `1 -> 'Male', 2 -> 'Female'`. Use **applymap** to round every float in a massive dataframe to 2 decimals.",
+        key_points: ["Applymap is the only one that is strictly element-wise for DataFrames.", "map is the fastest for simple label-based translation.", "apply is the most powerful as it can operate on rows as whole objects.", "In Pandas 2.1+, `map` has replaced most use cases for `applymap` on DataFrames."]
+      },
+      "stack() vs unstack()": {
+        definition: "**stack** 'pivots' the columns into a new level of index (wide to long). **unstack** 'pivots' a multi-level index into columns (long to wide).",
+        internal_working: "These operations change the logical shape of the data without altering the internal cells. They move labels between the 'column headers' and the 'row index', creating a MultiIndex result.",
+        use_case: "Use **unstack** to turn a MultiIndexed series (Date, Symbol) into a matrix where Dates are rows and Symbols are columns.",
+        key_points: ["Stacking increases the number of rows.", "Unstacking increases the number of columns.", "They are the 'inverse' of each other.", "Commonly used after complex group-bys to make data 'Plot-ready'."]
+      },
+
+      // 4. PERFORMANCE & TYPES
+      "Object vs Category Type": {
+        definition: "**Object** is the generic string type (stored as pointers). **Category** is a specialized type for variables with a fixed set of values (stored as integers with a lookup table).",
+        internal_working: "Object type uses a massive amount of memory for repeated strings (e.g., 'Male', 'Female' duplicated 1 million times). Category type stores the unique strings once in a dictionary and uses 8-bit or 16-bit integers to point to them in the main column buffer.",
+        use_case: "Use **Category** for columns with low cardinality (Days of the week, Status codes, City names). Use **Object** for truly unique strings like 'Address' or 'Comment'.",
+        key_points: ["Converting to Category can reduce memory usage by 90% in large datasets.", "Operations like sorting and grouping are much faster on Category types.", "Categories can define a logical 'order' (e.g., Low < Medium < High).", "Beware: merging categorical data can sometimes trigger a conversion back to Object."]
+      },
+      "inplace=True vs Assignment": {
+        definition: "**inplace=True** modifies the existing dataframe. **Assignment** (`df = df.op()`) creates a new dataframe and overwrites the variable.",
+        internal_working: "Historically, <code>inplace=True</code> was intended to save memory. In reality, modern Pandas almost always creates a copy internally anyway. Assignment is now the preferred style as it supports method chaining (<code>df.clean().transform()</code>).",
+        use_case: "Always use **Assignment** for cleaner, more readable code blocks.",
+        key_points: ["inplace=True is being deprecated in many parts of the Pandas API.", "Chaining operations <code>df.dropna().sort().head()</code> is only possible via assignment.", "Assignment makes it easier to debug the transformation pipeline.", "Avoiding inplace prevents a common class of 'side-effect' bugs."]
+      },
+      "groupby vs pivot_table": {
+        definition: "**groupby** is a flexible operation that splits data into groups and applies functions. **pivot_table** is a higher-level convenience function specifically for cross-tabulation.",
+        internal_working: "`pivot_table` is a wrapper around `groupby`. It automates the 'split-apply-combine' logic for two dimensions (rows and columns) and adds built-in support for margins (grand totals).",
+        use_case: "Use **groupby** for complex math or if you need the GroupBy object for multiple steps. Use **pivot_table** for Excel-like reports.",
+        key_points: ["pivot_table is significantly easier to write for 2D summaries.", "groupby is more efficient for 1D summaries.", "pivot_table automatically handles missing data (NaN) with a common fill value.", "Both can handle multiple indices/columns."]
+      }
+    };
+
+    const SECTIONS = [
+      { name: "Data Structures", items: ["Series vs DataFrame", "loc vs iloc"] },
+      { name: "Combining Data", items: ["Merge vs Join vs Concat", "Merge vs Join"] },
+      { name: "Transformations", items: ["apply() vs transform()", "map() vs apply() vs applymap()", "stack() vs unstack()"] },
+      { name: "Performance & Types", items: ["Object vs Category Type", "inplace=True vs Assignment", "groupby vs pivot_table"] }
+    ];
+
+    function renderPandasDifferences() {
+      const container = document.getElementById('nestedContent');
+      SECTIONS.forEach(sec => {
+        const h2 = document.createElement('h2');
+        h2.textContent = sec.name;
+        container.appendChild(h2);
+
+        const secContent = document.createElement('div');
+        secContent.className = 'section-items-list';
+        
+        sec.items.forEach(itemKey => {
+          const d = DATA[itemKey];
+          if (!d) return;
+
+          const h3 = document.createElement('h3');
+          h3.innerHTML = `<span>${itemKey}</span> <span class="arr">→</span>`;
+          secContent.appendChild(h3);
+
+          const itemContent = document.createElement('div');
+          itemContent.className = 'item-details';
+          
+          itemContent.innerHTML = `
+            <div class="explanation-card">
+              <h4>📘 Definition</h4>
+              <p>${d.definition}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>⚙️ Internal Working</h4>
+              <p>${d.internal_working}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>🎯 Use Case</h4>
+              <p>${d.use_case}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>📋 Key Points</h4>
+              <ul>${d.key_points.map(p => `<li>${p}</li>`).join('')}</ul>
+            </div>
+          `;
+          secContent.appendChild(itemContent);
+        });
+        
+        container.appendChild(secContent);
+      });
+
+      if (typeof initializeCollapsibleSections === 'function') {
+        initializeCollapsibleSections(container, 'h2');
+        initializeCollapsibleSections(container, 'h3');
+      }
+    }
+
+    const stt = document.getElementById('scrollToTop');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 400) stt.classList.add('visible');
+      else stt.classList.remove('visible');
+    });
+    stt.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+    renderPandasDifferences();
+  </script>
 </body>
 </html>

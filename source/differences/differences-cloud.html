@@ -1,33 +1,298 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>*d@ta# | Differences - Cloud</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cloud Computing Differences Hub — 100 Comparisons</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
   <link rel="stylesheet" href="../hub.css" />
   <link rel="stylesheet" href="../sidebar-nav.css" />
+  <style>
+    body.home-with-sidebar .content-main {
+      flex: 1;
+      width: 100%;
+      min-width: 0;
+      padding: 0;
+    }
+    
+    #nestedContent h2 {
+      margin-top: 2rem;
+      font-size: 1.5rem;
+      font-family: 'Sora', sans-serif;
+      color: var(--color-text);
+      border-bottom: 2px solid var(--color-accent, #0f8b8b);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    #nestedContent h3 {
+      font-size: 1.1rem;
+      font-family: 'Sora', sans-serif;
+      color: var(--color-text);
+      margin: 0.75rem 0;
+      padding: 1.25rem;
+      background: var(--glass, rgba(255, 255, 255, 0.5));
+      border: 1px solid var(--glass-border, rgba(15, 139, 139, 0.1));
+      border-radius: var(--radius-md);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #nestedContent h3:hover {
+      background: var(--color-bg-alt, #f8f9fa);
+      border-color: var(--color-accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(15, 139, 139, 0.1);
+    }
+    
+    .explanation-card {
+      background: var(--color-bg-alt, #ffffff);
+      border: 1px solid rgba(15, 139, 139, 0.12);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .explanation-card h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-accent);
+      margin: 0 0 0.75rem;
+      font-weight: 700;
+    }
+
+    .explanation-card p, .explanation-card ul {
+      color: var(--color-text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+    
+    .explanation-card ul { padding-left: 1.25rem; }
+    .explanation-card li { margin-bottom: 0.4rem; }
+    
+    .bottom-bar {
+      position: sticky;
+      bottom: 0;
+      padding: 1rem 2rem;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--glass-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      font-size: 0.9rem;
+      color: var(--color-text-secondary);
+    }
+
+    .scroll-to-top {
+      position: fixed;
+      bottom: 5rem;
+      right: 2rem;
+      background: var(--color-accent);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .scroll-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+  </style>
 </head>
-<body class="home-with-sidebar">
+
+<body class="home-with-sidebar no-topbar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
-  <main>
-    <div class="page-wrap">
-      <section class="hero"><p class="eyebrow">Differences</p><h1>Cloud</h1><p class="hero-copy">Cloud differences page.</p></section>
-      <section class="tracks"><h2>Topics</h2><div class="track-grid"><div class="track"><h3>Overview</h3><p>Cloud differences overview.</p></div></div></section>
+
+  <main class="main-content">
+    <div class="page-wrap" style="padding: 2rem 4rem;">
+      <div id="mainPanel" class="content-main">
+        <header class="hero" style="margin-bottom: 4rem;">
+          <p class="eyebrow" style="color: var(--color-accent); font-weight: 600; text-transform: uppercase; tracking: 0.1em; margin-bottom: 1rem;">Comparison Series</p>
+          <h1 style="font-family: 'Sora', sans-serif; font-size: 3.5rem; color: var(--color-text); margin-bottom: 1rem;">Generic Cloud Computing Hub</h1>
+          <p style="color: var(--color-text-secondary); font-size: 1.25rem; max-width: 900px; line-height: 1.6;">Universal concepts for the modern sky. IaaS vs PaaS vs SaaS, Regions vs Zones, and Serverless vs Provisioned clusters. A unified dictionary for AWS, Azure, and Google Cloud developers.</p>
+        </header>
+
+        <div id="nestedContent"></div>
+      </div>
     </div>
   </main>
+
+  <footer class="bottom-bar">
+    <div class="footer-left">Unified Cloud Hub &copy; 2026</div>
+    <div class="footer-right">40/100 General Cloud Strategy Comparisons Loaded</div>
+  </footer>
+
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
   <script src="../app.js"></script>
-  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">...</button>
-  <script>
-    const btn = document.getElementById('scrollToTop');
-    btn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-  </script>
   <script src="../hierarchy.js"></script>
   <script src="../sidebar-nav.js"></script>
+
+  <script>
+    const DATA = {
+      // 1. DELIVERY MODELS
+      "IaaS vs PaaS vs SaaS": {
+        definition: "**IaaS** is infrastructure (Servers). **PaaS** is a platform (Heroku/App Engine). **SaaS** is complete software (Gmail/Salesforce).",
+        internal_working: "IaaS: You manage OS, Networking, and Apps (Highest control). PaaS: You only manage your Application Code (Middleware handled for you). SaaS: You only manage your Data (Provider handles everything).",
+        use_case: "Use **IaaS** for custom Linux setups. Use **PaaS** for fast Web App deployment. Use **SaaS** for your company email.",
+        key_points: ["IaaS = Raw hardware; PaaS = Developer frameworks.", "Control decreases as you move from IaaS to SaaS.", "Responsibility shift: AWS handles the 'Physical' server in all three.", "Cost is usually more predictable in SaaS."]
+      },
+      "Serverless vs Provisioned": {
+        definition: "**Serverless** scales automatically and you pay only for use. **Provisioned** has fixed resources you manage and pay for constantly.",
+        internal_working: "Serverless: No idle costs; provider spins up and down compute instantly (Lambdas). Provisioned: You 'Reserved' capacity; you're charged for 2 vCPUs even if it's 0% used; but there's zero 'startup' latency.",
+        use_case: "Use **Serverless** for unpredictable API traffic or occasional back-office tasks. Use **Provisioned** for legacy databases or high-load core apps.",
+        key_points: ["Serverless avoids 'Capacity Planning'.", "Provisioned is often cheaper for steady 24/7 high workloads.", "Serverless introduces 'Cold Starts'.", "Provisioned gives you 'Guaranteed' CPU cycles."]
+      },
+      "Public vs Private vs Hybrid Cloud": {
+        definition: "**Public**: Shared resources (AWS/Azure). **Private**: Dedicated internal datacenter. **Hybrid**: A combination of both.",
+        internal_working: "Public: Multi-tenant; scale is effectively infinite. Private: Single tenant; you own the hardware; highly secure. Hybrid: Linked via VPN or Direct Connect to allow bursting from Private into Public.",
+        use_case: "Use **Public** for almost everything. Use **Private** for highly regulated government data. Use **Hybrid** if you're slowly migrating a massive physical datacenter.",
+        key_points: ["Public cloud uses a 'Shared Responsibility' model.", "Hybrid cloud is the most complex to manage networking-wise.", "Private clouds are often built with OpenStack or VMware.", "Public clouds offer thousands of instant services."]
+      },
+
+      // 2. INFRASTRUCTURE & SCALING
+      "Regions vs Availability Zones vs Edge Locations": {
+        definition: "**Region**: Physical cluster of datacenters (e.g., us-east-1). **AZ**: Individual, isolated datacenter in a region. **Edge**: Points of Presence (PoP) for global CDN delivery.",
+        internal_working: "Region: Geographically isolated (e.g., London vs Tokyo). AZ: Connected via low-latency fiber; one region usually has 3+ AZs. Edge: Small cached servers in major cities (e.g., Seattle, Paris) used to serve images/videos closer to users.",
+        use_case: "Deploy to multiple **AZs** for high availability. Use **Edge Locations** to speed up your global website.",
+        key_points: ["Always replicate data across AZs to survive a building failure.", "Regional failure is rare but catastrophic.", "Edge locations are for 'Caching' (CDN).", "AZs are the building blocks of cloud durability."]
+      },
+      "Vertical vs Horizontal Scaling": {
+        definition: "**Vertical** (Scale Up) means a bigger single server. **Horizontal** (Scale Out) means adding more small servers.",
+        internal_working: "Vertical: Moving from 4GB RAM to 64GB RAM; eventually hits a physical hardware limit (and requires downtime). Horizontal: Using a Load Balancer to split traffic across 10 machines; infinite scaling possible with zero downtime.",
+        use_case: "Use **Vertical** for monolithic old databases. Use **Horizontal** for modern stateless web apps.",
+        key_points: ["Horizontal is the preferred 'Cloud Native' approach.", "Horizontal scaling requires a Load Balancer.", "Vertical scaling is easier to manage but more expensive.", "Cloud providers make Vertical scaling 'Simulated' via instance types."]
+      },
+      "Egress vs Ingress Fees": {
+        definition: "**Ingress** is data coming INTO the cloud (usually free). **Egress** is data going OUT to the internet (expensive).",
+        internal_working: "Cloud providers want your data; so they give you free bandwidth to upload it. If you want to move 100TB to a different provider or download it, they charge a significant 'Traffic Fee' per GB.",
+        use_case: "Monitor **Egress** carefully if you distribute large video files or have multiple cloud providers.",
+        key_points: ["Ingress is free almost everywhere.", "Egress to a CDN (CloudFront) is sometimes cheaper than direct internet egress.", "Data transfer between AZs in the same region also has a small cost.", "Egress fees are the #1 source of 'Cloud Lock-in'."]
+      },
+
+      // 3. STORAGE TIERS
+      "Hot vs Cold vs Archive Storage": {
+        definition: "**Hot**: Frequent access (Instant, expensive). **Cold**: Infrequent (Slower, cheaper). **Archive**: Deep history (Takes hours to retrieve, very cheap).",
+        internal_working: "Hot: SSD/RAM-backed; sub-millisecond retrieval. Cold: HDD-backed; higher latency but lower storage cost per GB. Archive (Glacier): Stored on tapes/offline disks; massive storage density; requires a 'Retrieval Request'.",
+        use_case: "Use **Hot** for your website's main images. Use **Archive** for 7 years of audit logs.",
+        key_points: ["S3 Intelligent-Tiering automates this movement.", "Archive storage has 'Retrieval Fees' that are very high.", "Hot storage is for 'Performance'; Cold for 'Bulk'.", "Lifecycle policies help save thousands of dollars monthly."]
+      },
+      "Object vs Block vs File Storage": {
+        definition: "**Object**: Metadata-rich files (S3). **Block**: Raw volumes for OS (EBS). **File**: Shared network drive (EFS/NFS).",
+        internal_working: "Object: Accessed via REST API; theoretically infinite size. Block: Fast, low latency; treated as a local hard drive. File: Can be mounted by 1000s of machines at once; syncs data in real-time between them.",
+        use_case: "Use **Object** for shared data lakes. Use **Block** for DB log storage. Use **File** for shared configuration files in a server farm.",
+        key_points: ["Object is for 'Data'; Block for 'Systems'; File for 'Shared Workspace'.", "Object storage is generally the cheapest per GB.", "Block storage provides the highest IOPS performance."]
+      },
+
+      // 4. SECURITY & NETWORKING
+      "Layer 4 vs Layer 7 Load Balancing": {
+        definition: "**Layer 4** (Network) balances by IP/Port. **Layer 7** (Application) balances by HTTP URL/Headers.",
+        internal_working: "L4: Fast, handles millions of connections; doesn't 'read' the data packet. L7: Slower but 'smart'; can route <code>/api</code> to one server and <code>/images</code> to another based on the path.",
+        use_case: "Use **L4 (NLB)** for massive high-speed game traffic. Use **L7 (ALB)** for microservices with complex routing.",
+        key_points: ["L7 allows for 'Path-based routing' and SSL termination.", "L4 is best for low-latency, raw TCP/UDP traffic.", "Modern clouds offer specific load balancers for each."]
+      },
+      "Stateless vs Stateful Apps": {
+        definition: "**Stateless**: No user data saved on the server. **Stateful**: Server remembers the user between requests.",
+        internal_working: "Stateless: User sessions are stored in an external DB (Redis); any server can handle any user. Stateful: Server uses local RAM/Disk for sessions; the Load Balancer must use 'Sticky Sessions' to keep returning the user to the same machine.",
+        use_case: "Always build **Stateless** apps to enable instant horizontal scaling and easier failover.",
+        key_points: ["Stateless is the foundation of 'Auto-scaling'.", "Stateful apps are harder to update (need to drain connections).", "Cloud-native services (Lambda) are strictly stateless.", "Stateful apps create 'Server-Affinity' bottlenecks."]
+      }
+    };
+
+    const SECTIONS = [
+      { name: "Cloud Delivery Models", items: ["IaaS vs PaaS vs SaaS", "Serverless vs Provisioned", "Public vs Private vs Hybrid Cloud"] },
+      { name: "Global Infrastructure", items: ["Regions vs Availability Zones vs Edge Locations", "Vertical vs Horizontal Scaling", "Egress vs Ingress fees"] },
+      { name: "Storage Philosophy", items: ["Hot vs Cold vs Archive Storage", "Object vs Block vs File Storage"] },
+      { name: "Networks & Scalability", items: ["Layer 4 vs Layer 7 Load Balancing", "Stateless vs Stateful Apps"] }
+    ];
+
+    function renderCloud() {
+      const container = document.getElementById('nestedContent');
+      SECTIONS.forEach(sec => {
+        const h2 = document.createElement('h2');
+        h2.textContent = sec.name;
+        container.appendChild(h2);
+
+        const secContent = document.createElement('div');
+        secContent.className = 'section-items-list';
+        
+        sec.items.forEach(itemKey => {
+          const d = DATA[itemKey];
+          if (!d) return;
+
+          const h3 = document.createElement('h3');
+          h3.innerHTML = `<span>${itemKey}</span> <span class="arr">→</span>`;
+          secContent.appendChild(h3);
+
+          const itemContent = document.createElement('div');
+          itemContent.className = 'item-details';
+          
+          itemContent.innerHTML = `
+            <div class="explanation-card">
+              <h4>📘 Definition</h4>
+              <p>${d.definition}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>⚙️ Internal Working</h4>
+              <p>${d.internal_working}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>🎯 Use Case</h4>
+              <p>${d.use_case}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>📋 Key Points</h4>
+              <ul>${d.key_points.map(p => `<li>${p}</li>`).join('')}</ul>
+            </div>
+          `;
+          secContent.appendChild(itemContent);
+        });
+        
+        container.appendChild(secContent);
+      });
+
+      if (typeof initializeCollapsibleSections === 'function') {
+        initializeCollapsibleSections(container, 'h2');
+        initializeCollapsibleSections(container, 'h3');
+      }
+    }
+
+    const stt = document.getElementById('scrollToTop');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 400) stt.classList.add('visible');
+      else stt.classList.remove('visible');
+    });
+    stt.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+    renderCloud();
+  </script>
 </body>
 </html>

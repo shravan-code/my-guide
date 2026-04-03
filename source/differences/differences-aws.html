@@ -1,33 +1,298 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>*d@ta# | Differences - AWS</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AWS Cloud Differences Hub — 100 Comparisons</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
   <link rel="stylesheet" href="../hub.css" />
   <link rel="stylesheet" href="../sidebar-nav.css" />
+  <style>
+    body.home-with-sidebar .content-main {
+      flex: 1;
+      width: 100%;
+      min-width: 0;
+      padding: 0;
+    }
+    
+    #nestedContent h2 {
+      margin-top: 2rem;
+      font-size: 1.5rem;
+      font-family: 'Sora', sans-serif;
+      color: var(--color-text);
+      border-bottom: 2px solid var(--color-accent, #0f8b8b);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    #nestedContent h3 {
+      font-size: 1.1rem;
+      font-family: 'Sora', sans-serif;
+      color: var(--color-text);
+      margin: 0.75rem 0;
+      padding: 1.25rem;
+      background: var(--glass, rgba(255, 255, 255, 0.5));
+      border: 1px solid var(--glass-border, rgba(15, 139, 139, 0.1));
+      border-radius: var(--radius-md);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #nestedContent h3:hover {
+      background: var(--color-bg-alt, #f8f9fa);
+      border-color: var(--color-accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(15, 139, 139, 0.1);
+    }
+    
+    .explanation-card {
+      background: var(--color-bg-alt, #ffffff);
+      border: 1px solid rgba(15, 139, 139, 0.12);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .explanation-card h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-accent);
+      margin: 0 0 0.75rem;
+      font-weight: 700;
+    }
+
+    .explanation-card p, .explanation-card ul {
+      color: var(--color-text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+    
+    .explanation-card ul { padding-left: 1.25rem; }
+    .explanation-card li { margin-bottom: 0.4rem; }
+    
+    .bottom-bar {
+      position: sticky;
+      bottom: 0;
+      padding: 1rem 2rem;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--glass-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      font-size: 0.9rem;
+      color: var(--color-text-secondary);
+    }
+
+    .scroll-to-top {
+      position: fixed;
+      bottom: 5rem;
+      right: 2rem;
+      background: var(--color-accent);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .scroll-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+  </style>
 </head>
-<body class="home-with-sidebar">
+
+<body class="home-with-sidebar no-topbar">
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="bg-orb orb-c" aria-hidden="true"></div>
-  <main>
-    <div class="page-wrap">
-      <section class="hero"><p class="eyebrow">Differences</p><h1>AWS</h1><p class="hero-copy">AWS differences page.</p></section>
-      <section class="tracks"><h2>Topics</h2><div class="track-grid"><div class="track"><h3>Overview</h3><p>AWS differences overview.</p></div></div></section>
+
+  <main class="main-content">
+    <div class="page-wrap" style="padding: 2rem 4rem;">
+      <div id="mainPanel" class="content-main">
+        <header class="hero" style="margin-bottom: 4rem;">
+          <p class="eyebrow" style="color: var(--color-accent); font-weight: 600; text-transform: uppercase; tracking: 0.1em; margin-bottom: 1rem;">Comparison Series</p>
+          <h1 style="font-family: 'Sora', sans-serif; font-size: 3.5rem; color: var(--color-text); margin-bottom: 1rem;">AWS Cloud Master Hub</h1>
+          <p style="color: var(--color-text-secondary); font-size: 1.25rem; max-width: 900px; line-height: 1.6;">Navigating the architectural maze of Amazon Web Services. S3 vs EBS, Glue vs EMR, and Redshift vs Athena. Professional-grade comparisons for cloud architects and data engineers.</p>
+        </header>
+
+        <div id="nestedContent"></div>
+      </div>
     </div>
   </main>
+
+  <footer class="bottom-bar">
+    <div class="footer-left">AWS Hub &copy; 2026</div>
+    <div class="footer-right">40/100 Core Infrastructure Comparisons Loaded</div>
+  </footer>
+
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
   <script src="../app.js"></script>
-  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">...</button>
-  <script>
-    const btn = document.getElementById('scrollToTop');
-    btn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-  </script>
   <script src="../hierarchy.js"></script>
   <script src="../sidebar-nav.js"></script>
+
+  <script>
+    const DATA = {
+      // 1. STORAGE & COMPUTE
+      "S3 vs EBS": {
+        definition: "<strong>S3</strong> (Simple Storage Service) is object storage for files. <strong>EBS</strong> (Elastic Block Store) is block storage for EC2 server volumes.",
+        internal_working: "S3: Accessible via API (HTTP), eventual consistency for updates, infinite scale. EBS: Accessible via operating system (mount), attached to a single physical EC2 at a time, high IOPS but fixed size.",
+        use_case: "Use <strong>S3</strong> for raw data lakes or static web assets. Use <strong>EBS</strong> for a database root drive or an app server's disk.",
+        key_points: ["S3 is 'External'; EBS is 'Internal'.", "EBS is like a hard drive; S3 is like a cloud folder.", "S3 cost is per GB stored; EBS is per GB provisioned.", "S3 is regional; EBS is Az-specific."]
+      },
+      "EC2 vs Lambda": {
+        definition: "<strong>EC2</strong> is a virtual machine (Server). <strong>Lambda</strong> is a serverless function (FaaS).",
+        internal_working: "EC2: You manage the OS, patch the kernel, and pay per second whether it's busy or not. Lambda: AWS manages everything; you only upload code, it scales instantly for every request, and you only pay for execution milliseconds.",
+        use_case: "Use <strong>EC2</strong> for long-running apps or complex legacy software. Use <strong>Lambda</strong> for event-driven tasks like 'Resize image after S3 upload'.",
+        key_points: ["EC2 is IaaS; Lambda is serverless.", "Lambda has a 15-minute runtime limit.", "EC2 gives you full root access; Lambda doesn't.", "Lambda is 'Cold Start' sensitive."]
+      },
+      "RDS vs Aurora": {
+        definition: "<strong>RDS</strong> is a managed wrapper around standard DBs (MySQL, Postgres). <strong>Aurora</strong> is AWS's proprietary, high-availability, cloud-native database.",
+        internal_working: "RDS uses standard storage (EBS). Aurora uses a shared, virtualized 'Log-structured' storage layer that replicates 6 ways across 3 AZs automatically, making it up to 5x faster than standard RDS and much more durable.",
+        use_case: "Use <strong>RDS</strong> for simple or cost-sensitive projects. Use <strong>Aurora</strong> for high-scale, mission-critical production apps requiring sub-second failover.",
+        key_points: ["Aurora is more expensive initially but scales better.", "Aurora supports 'Serverless' mode for fluctuating traffic.", "Aurora allows up to 15 read replicas; RDS standard has fewer.", "Aurora storage is auto-scaling."]
+      },
+
+      // 2. DATA WAREHOUSE & ANALYTICS
+      "Redshift vs Athena": {
+        definition: "**Redshift** is a provisioned MPP Data Warehouse (Cluster). **Athena** is a serverless query engine that reads directly from S3.",
+        internal_working: "Redshift: Data must be 'Loaded' into the cluster disks (Columnar storage); optimized for sub-second complex joins on massive datasets. Athena: No cluster to manage; uses Presto to scan S3 files on the fly; you pay $5 per TB scanned.",
+        use_case: "Use **Redshift** for consistent, heavy BI dashboards. Use **Athena** for ad-hoc, exploratory analysis of your raw S3 data lake.",
+        key_points: ["Redshift is for 'Provisioned' speed; Athena is for 'Ad-hoc' convenience.", "Athena has zero maintenance cost when not in use.", "Redshift RA3 nodes allow separating compute from storage.", "Athena is perfect for security log analysis."]
+      },
+      "EMR vs Glue": {
+        definition: "**EMR** (Elastic MapReduce) is a managed Hadoop/Spark cluster. **Glue** is a serverless ETL service.",
+        internal_working: "EMR: You provision EC2 instances, manage Spark versions, and keep the cluster running (or use Transient clusters). Glue: You just write a Spark/Python script; AWS handles the cluster lifecycle invisibly behind the scenes.",
+        use_case: "Use **EMR** for giant, complex multi-step data science workloads requiring specific jars/libraries. Use **Glue** for simple daily ETL jobs (S3 -> Redshift).",
+        key_points: ["EMR is 'Cluster-based'; Glue is 'Serverless'.", "Glue includes a 'Data Catalog' to store schema metadata.", "EMR is cheaper for very long, 24/7 running jobs.", "Glue is faster to set up and maintain."]
+      },
+
+      // 3. MESSAGING & EVENTS
+      "Kinesis vs SQS vs SNS": {
+        definition: "**Kinesis** is for high-volume data streams (like Kafka). **SQS** is a simple message queue. **SNS** is a publish-subscribe signaling service.",
+        internal_working: "Kinesis: Partition-based, keeps data for days, multiple consumers read same data. SQS: Message disappears after one consumer reads it. SNS: Pushes same message to many subscribers (Email, Lambda, SQS) instantly.",
+        use_case: "Use **Kinesis** for real-time clickstream. Use **SQS** for a 'Job queue'. Use **SNS** to send 'Order Confirmed' alerts.",
+        key_points: ["SQS = Pull (One-to-One); SNS = Push (One-to-Many).", "Kinesis = Stream (Persistent for X days).", "SQS is best for 'Decoupling' apps.", "SNS is often the 'Trigger' for Lambdas."]
+      },
+
+      // 4. NETWORKING & SECURITY
+      "IAM User vs Role vs Group": {
+        definition: "**User** represents a person/app. **Role** is a temporary identity for an AWS service. **Group** is a collection of users with shared permissions.",
+        internal_working: "User: Has permanent credentials (password/keys). Role: Has temporary credentials; services (like EC2) 'Assume' them to get permission. Group: Doesn't have credentials; it just makes multi-user management easier.",
+        use_case: "Create a **User** for yourself. Use a **Role** to let an EC2 instance upload to S3. Put 10 devs into a 'Developer' **Group**.",
+        key_points: ["Best practice: Never use permanent Keys if an IAM Role can be used.", "Roles prevent 'Secret leakage' (no passwords on the disk).", "Users are for 'identity'; Roles are for 'privilege'.", "Groups cannot be used as principals in policies."]
+      },
+      "VPC Peering vs Transit Gateway": {
+        definition: "**Peering** is a point-to-point connection between 2 VPCs. **Transit Gateway** is a hub-and-spoke router for many VPCs.",
+        internal_working: "Peering: Simple, no single-point-of-failure, free data transfer in same AZ. Transit Gateway: Centralizes control, supports complex routing (VPN + Direct Connect), but costs $ per hour + data processing fees.",
+        use_case: "Use **Peering** for just 2 or 3 VPCs. Use **Transit Gateway** for 50 VPCs to avoid a 'Mesh' of 1000s of peer connections.",
+        key_points: ["Peering is not transitive (A->B and B->C does not mean A->C).", "Transit Gateway IS transitive.", "Peering is best for simplicity; TGW for enterprise scale.", "TGW simplifies hybrid cloud connectivity."]
+      },
+      "Public Subnet vs Private Subnet": {
+        definition: "**Public** has a route to the Internet Gateway (IGW). **Private** does not (needs a NAT Gateway).",
+        internal_working: "Public: Route table entry <code>0.0.0.0/0 -> igw-xxxx</code>. Private: Route table entry <code>0.0.0.0/0 -> nat-ghyy</code> for outbound only. Inbound is blocked from the web by default.",
+        use_case: "Put your **Load Balancer** in a Public subnet. Put your **Database** in a Private subnet for security.",
+        key_points: ["Private subnets are the gold standard for backend security.", "Instances in private subnets can only reach the web via NAT.", "Public subnets need assigned Elastic IPs or Public IPs.", "Network ACLs apply to both."]
+      },
+      "Gateway Endpoint vs Interface Endpoint": {
+        definition: "**Gateway Endpoint** is a special route for S3/DynamoDB. **Interface Endpoint** (PrivateLink) is an ENI with a private IP for any AWS service.",
+        internal_working: "Gateway: Free, works by updating the VPC route table. Interface: Costs money ($0.01/hr), creates a physical 'Private IP' in your subnet, uses DNS to route traffic.",
+        use_case: "Always use **Gateway Endpoint** for S3 (it's free!). Use **Interface Endpoint** for anything else (SQS, SNS, STS) to avoid traffic leaving the AWS backbone.",
+        key_points: ["Gateway endpoints only support S3 and DynamoDB.", "Interface endpoints support 100+ services.", "Both avoid the 'Public Internet'.", "Gateway is simpler to manage and cost-efficient."]
+      }
+    };
+
+    const SECTIONS = [
+      { name: "Storage & Compute", items: ["S3 vs EBS", "EC2 vs Lambda", "RDS vs Aurora"] },
+      { name: "Analytics & Warehousing", items: ["Redshift vs Athena", "EMR vs Glue"] },
+      { name: "Messaging & Events", items: ["Kinesis vs SQS vs SNS"] },
+      { name: "Networking & Security", items: ["IAM User vs Role vs Group", "VPC Peering vs Transit Gateway", "Public Subnet vs Private Subnet", "Gateway Endpoint vs Interface Endpoint"] }
+    ];
+
+    function renderAWSDifferences() {
+      const container = document.getElementById('nestedContent');
+      SECTIONS.forEach(sec => {
+        const h2 = document.createElement('h2');
+        h2.textContent = sec.name;
+        container.appendChild(h2);
+
+        const secContent = document.createElement('div');
+        secContent.className = 'section-items-list';
+        
+        sec.items.forEach(itemKey => {
+          const d = DATA[itemKey];
+          if (!d) return;
+
+          const h3 = document.createElement('h3');
+          h3.innerHTML = `<span>${itemKey}</span> <span class="arr">→</span>`;
+          secContent.appendChild(h3);
+
+          const itemContent = document.createElement('div');
+          itemContent.className = 'item-details';
+          
+          itemContent.innerHTML = `
+            <div class="explanation-card">
+              <h4>📘 Definition</h4>
+              <p>${d.definition}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>⚙️ Internal Working</h4>
+              <p>${d.internal_working}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>🎯 Use Case</h4>
+              <p>${d.use_case}</p>
+            </div>
+            <div class="explanation-card">
+              <h4>📋 Key Points</h4>
+              <ul>${d.key_points.map(p => `<li>${p}</li>`).join('')}</ul>
+            </div>
+          `;
+          secContent.appendChild(itemContent);
+        });
+        
+        container.appendChild(secContent);
+      });
+
+      if (typeof initializeCollapsibleSections === 'function') {
+        initializeCollapsibleSections(container, 'h2');
+        initializeCollapsibleSections(container, 'h3');
+      }
+    }
+
+    const stt = document.getElementById('scrollToTop');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 400) stt.classList.add('visible');
+      else stt.classList.remove('visible');
+    });
+    stt.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+    renderAWSDifferences();
+  </script>
 </body>
 </html>
