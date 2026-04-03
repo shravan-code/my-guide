@@ -3,43 +3,61 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>*d@ta# | NumPy Methods</title>
+  <title>Data Guide | NumPy Methods</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
-  <link rel="stylesheet" href="../hub.css" />
-  <link rel="stylesheet" href="../python/python.css" />
-  <link rel="stylesheet" href="../sidebar-nav.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../shared.css" />
 </head>
 
-<body class="home-with-sidebar">
-  <div class="bg-orb orb-a" aria-hidden="true"></div>
-  <div class="bg-orb orb-b" aria-hidden="true"></div>
-  <div class="bg-orb orb-c" aria-hidden="true"></div>
-
-
+<body class="topic-page">
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <a href="../../index.html" class="brand">
+        <div class="brand-icon">
+          <span class="material-symbols-outlined">architecture</span>
+        </div>
+        <span class="brand-text">Data Sheets</span>
+      </a>
+      <div class="nav-center">
+        <div class="search-bar">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" class="search-input" placeholder="Search architecture, patterns, or cloud..." />
+        </div>
+      </div>
+      <div class="nav-right">
+        <button class="nav-icon-btn" id="themeToggle" onclick="toggleTheme()">
+          <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+        </button>
+        <a href="../portfolios/portfolio.html" class="user-avatar">
+          <img src="../../assets/images/profile-pic.jpeg" alt="User profile" />
+        </a>
+      </div>
+    </div>
+  </header>
 
   <main class="main-content">
-    
-    <div class="page-wrap">
-      <section class="hero">
-        <p class="eyebrow">NumPy Guide</p>
+    <header class="page-header page-header--row">
+      <a href="index.html" class="back-link back-link--round" aria-label="Back">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </a>
+      <div class="page-header-inner">
         <h1>NumPy Methods</h1>
-        <p class="hero-copy">A focused guide to NumPy Methods.</p>
-      </section>
+        <p>Essential NumPy methods and functions reference.</p>
+      </div>
+    </header>
 
-      <!-- Section 1: Array Creation Methods -->
-      <section class="topic-section" id="array-creation">
-        <h2> Array Creation Methods <span class="level-badge basic">Basic</span> </h2>
-        <p>Methods for creating NumPy arrays from various data sources.</p>
+        <!-- Section 1: Array Creation Methods -->
+    <section class="topic-section" id="array-creation">
+      <h2> Array Creation Methods <span class="level-badge basic">Basic</span> </h2>
+      <p>Methods for creating NumPy arrays from various data sources.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>From Lists & Tuples</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>From Lists & Tuples</h4>
+          <div class="code-block">
 <code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
 
 <span class="comment"># np.array() - Create from list/tuple</span>
@@ -53,12 +71,12 @@ arr5 = np.<span class="function">asarray</span>(arr1)  <span class="comment"># R
 
 <span class="comment"># np.asanyarray() - Like asarray but preserves subclasses</span>
 arr6 = np.<span class="function">asanyarray</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])
-            </code>
-            </div>
+          </code>
           </div>
-          <div class="split-item">
-            <h4>Ranges & Sequences</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>Ranges & Sequences</h4>
+          <div class="code-block">
 <code><span class="comment"># np.arange() - Regular range of values</span>
 arr1 = np.<span class="function">arange</span>(<span class="number">10</span>)             <span class="comment"># [0, 1, ..., 9]</span>
 arr2 = np.<span class="function">arange</span>(<span class="number">1</span>, <span class="number">10</span>, <span class="number">2</span>)       <span class="comment"># [1, 3, 5, 7, 9]</span>
@@ -71,12 +89,12 @@ arr6 = np.<span class="function">logspace</span>(<span class="number">0</span>, 
 
 <span class="comment"># np.geomspace() - Geometric spacing</span>
 arr7 = np.<span class="function">geomspace</span>(<span class="number">1</span>, <span class="number">1000</span>, <span class="number">4</span>)  <span class="comment"># [1, 10, 100, 1000]</span>
-            </code>
-            </div>
+          </code>
           </div>
         </div>
+      </div>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment"># Special Arrays</span>
 zeros = np.<span class="function">zeros</span>(<span class="number">5</span>)                    <span class="comment"># [0, 0, 0, 0, 0]</span>
 ones = np.<span class="function">ones</span>(<span class="number">3</span>)                     <span class="comment"># [1, 1, 1]</span>
@@ -85,32 +103,32 @@ empty = np.<span class="function">empty</span>(<span class="number">5</span>)   
 eye = np.<span class="function">eye</span>(<span class="number">3</span>)                       <span class="comment"># 3x3 identity matrix</span>
 diag = np.<span class="function">diag</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])              <span class="comment"># Diagonal matrix</span>
 identity = np.<span class="function">identity</span>(<span class="number">3</span>)             <span class="comment"># 3x3 identity</span>
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 2: Array Attributes -->
-      <section class="topic-section" id="array-attributes">
-        <h2> Array Attributes <span class="level-badge basic">Basic</span> </h2>
-        <p>Properties and attributes that describe array characteristics.</p>
+    <!-- Section 2: Array Attributes -->
+    <section class="topic-section" id="array-attributes">
+      <h2> Array Attributes <span class="level-badge basic">Basic</span> </h2>
+      <p>Properties and attributes that describe array characteristics.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Shape & Size</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Shape & Size</h4>
+          <div class="code-block">
 <code>arr = np.<span class="function">array</span>([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],
-               [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]])
+             [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]])
 
 arr.<span class="function">shape</span>       <span class="comment"># (2, 3) - dimensions</span>
 arr.<span class="function">ndim</span>        <span class="comment"># 2 - number of dimensions</span>
 arr.<span class="function">size</span>        <span class="comment"># 6 - total elements</span>
 arr.<span class="function">nbytes</span>      <span class="comment"># 48 - bytes consumed</span>
-            </code>
-            </div>
+          </code>
           </div>
-          <div class="split-item">
-            <h4>Data Type Info</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>Data Type Info</h4>
+          <div class="code-block">
 <code>arr = np.<span class="function">array</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], dtype=<span class="string">'float32'</span>)
 
 arr.<span class="function">dtype</span>       <span class="comment"># dtype('float32')</span>
@@ -119,25 +137,25 @@ arr.<span class="function">real</span>        <span class="comment"># Real part<
 arr.<span class="function">imag</span>        <span class="comment"># Imaginary part</span>
 arr.<span class="function">flat</span>        <span class="comment"># Flat iterator</span>
 arr.<span class="function">T</span>           <span class="comment"># Transpose</span>
-            </code>
-            </div>
+          </code>
           </div>
         </div>
+      </div>
 
-        <div class="tip-box">
-          <p><strong>Tip:</strong> Use <code>arr.strides</code> to see byte steps for each dimension, useful for understanding memory layout and performance.</p>
-        </div>
-      </section>
+      <div class="tip-box">
+        <p><strong>Tip:</strong> Use <code>arr.strides</code> to see byte steps for each dimension, useful for understanding memory layout and performance.</p>
+      </div>
+    </section>
 
-      <!-- Section 3: Reshape Methods -->
-      <section class="topic-section" id="reshape-methods">
-        <h2> Reshape Methods <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Methods to change array shape without modifying data.</p>
+    <!-- Section 3: Reshape Methods -->
+    <section class="topic-section" id="reshape-methods">
+      <h2> Reshape Methods <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Methods to change array shape without modifying data.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Basic Reshaping</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Basic Reshaping</h4>
+          <div class="code-block">
 <code>arr = np.<span class="function">arange</span>(<span class="number">12</span>)  <span class="comment"># [0, 1, ..., 11]</span>
 
 <span class="comment"># .reshape() - Change shape</span>
@@ -149,12 +167,12 @@ arr.<span class="function">reshape</span>(<span class="number">-1</span>)       
 <span class="comment"># .ravel() - Flatten (returns view if possible)</span>
 arr.<span class="function">ravel</span>()          <span class="comment"># 1D view</span>
 arr.<span class="function">ravel</span>(<span class="string">'F'</span>)       <span class="comment"># Column-major (Fortran)</span>
-            </code>
-            </div>
+          </code>
           </div>
-          <div class="split-item">
-            <h4>Dimension Changes</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>Dimension Changes</h4>
+          <div class="code-block">
 <code>arr = np.<span class="function">array</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])
 
 <span class="comment"># .flatten() - Always returns copy</span>
@@ -170,21 +188,21 @@ np.<span class="function">expand_dims</span>(arr, <span class="number">1</span>)
 <span class="comment"># np.squeeze() - Remove size-1 dims</span>
 x = np.<span class="function">array</span>([[[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]]])  <span class="comment"># Shape (1, 1, 3)</span>
 x.<span class="function">squeeze</span>()         <span class="comment"># Shape (3,)</span>
-            </code>
-            </div>
+          </code>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 4: Join & Split Methods -->
-      <section class="topic-section" id="join-split">
-        <h2> Join & Split Methods <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Combine arrays or split them into multiple arrays.</p>
+    <!-- Section 4: Join & Split Methods -->
+    <section class="topic-section" id="join-split">
+      <h2> Join & Split Methods <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Combine arrays or split them into multiple arrays.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Joining Arrays</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Joining Arrays</h4>
+          <div class="code-block">
 <code>a = np.<span class="function">array</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])
 b = np.<span class="function">array</span>([<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>])
 
@@ -199,12 +217,12 @@ np.<span class="function">concatenate</span>([arr1, arr2.T], axis=<span class="n
 <span class="comment"># np.vstack() / np.hstack()</span>
 np.<span class="function">vstack</span>([a, b])           <span class="comment"># Vertical stack</span>
 np.<span class="function">hstack</span>([a, b])           <span class="comment"># Horizontal stack</span>
-            </code>
-            </div>
+          </code>
           </div>
-          <div class="split-item">
-            <h4>Stacking Variants</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>Stacking Variants</h4>
+          <div class="code-block">
 <code><span class="comment"># np.stack() - Join along new axis</span>
 np.<span class="function">stack</span>([a, b])           <span class="comment"># Shape (2, 3)</span>
 np.<span class="function">stack</span>([a, b], axis=<span class="number">1</span>)  <span class="comment"># Shape (3, 2)</span>
@@ -220,18 +238,18 @@ arr = np.<span class="function">arange</span>(<span class="number">9</span>)
 np.<span class="function">split</span>(arr, <span class="number">3</span>)           <span class="comment"># 3 equal parts</span>
 np.<span class="function">split</span>(arr, [<span class="number">2</span>, <span class="number">5</span>])      <span class="comment"># Split at indices</span>
 np.<span class="function">vsplit</span>(arr.reshape(<span class="number">3</span>,<span class="number">3</span>), <span class="number">3</span>) <span class="comment"># Vertical split</span>
-            </code>
-            </div>
+          </code>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 5: Add & Remove Methods -->
-      <section class="topic-section" id="add-remove">
-        <h2> Add & Remove Methods <span class="level-badge basic">Basic</span> </h2>
-        <p>Insert, append, or delete elements from arrays.</p>
+    <!-- Section 5: Add & Remove Methods -->
+    <section class="topic-section" id="add-remove">
+      <h2> Add & Remove Methods <span class="level-badge basic">Basic</span> </h2>
+      <p>Insert, append, or delete elements from arrays.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment"># np.append() - Add elements (creates new array)</span>
 arr = np.<span class="function">array</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])
 np.<span class="function">append</span>(arr, [<span class="number">4</span>, <span class="number">5</span>])           <span class="comment"># [1, 2, 3, 4, 5]</span>
@@ -250,19 +268,19 @@ np.<span class="function">delete</span>(arr, <span class="function">slice</span>
 arr = np.<span class="function">array</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>])
 np.<span class="function">unique</span>(arr)                <span class="comment"># [1, 2, 3]</span>
 np.<span class="function">unique</span>(arr, return_counts=<span class="keyword">True</span>) <span class="comment"># With counts</span>
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 6: Indexing & Slicing -->
-      <section class="topic-section" id="indexing">
-        <h2> Indexing & Slicing Methods <span class="level-badge basic">Basic</span> </h2>
-        <p>Access and modify array elements using various indexing techniques.</p>
+    <!-- Section 6: Indexing & Slicing -->
+    <section class="topic-section" id="indexing">
+      <h2> Indexing & Slicing Methods <span class="level-badge basic">Basic</span> </h2>
+      <p>Access and modify array elements using various indexing techniques.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Basic Indexing</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Basic Indexing</h4>
+          <div class="code-block">
 <code>arr = np.<span class="function">array</span>([<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>])
 
 <span class="comment"># Single element</span>
@@ -280,12 +298,12 @@ mat = np.<span class="function">arange</span>(<span class="number">9</span>).res
 mat[<span class="number">0</span>, :]        <span class="comment"># First row</span>
 mat[:, <span class="number">1</span>]        <span class="comment"># Second column</span>
 mat[<span class="number">1</span>, <span class="number">2</span>]         <span class="comment"># Element at [1, 2]</span>
-            </code>
-            </div>
+          </code>
           </div>
-          <div class="split-item">
-            <h4>Fancy Indexing</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>Fancy Indexing</h4>
+          <div class="code-block">
 <code>arr = np.<span class="function">array</span>([<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>])
 
 <span class="comment"># Index arrays</span>
@@ -301,21 +319,21 @@ np.<span class="function">where</span>(arr > <span class="number">25</span>, arr
 
 <span class="comment"># np.argwhere() - Find indices</span>
 np.<span class="function">argwhere</span>(arr > <span class="number">25</span>)        <span class="comment"># [[2], [3], [4]]</span>
-            </code>
-            </div>
+          </code>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 7: Sorting Methods -->
-      <section class="topic-section" id="sorting">
-        <h2> Sorting Methods <span class="level-badge basic">Basic</span> </h2>
-        <p>Sort arrays and get sorted indices.</p>
+    <!-- Section 7: Sorting Methods -->
+    <section class="topic-section" id="sorting">
+      <h2> Sorting Methods <span class="level-badge basic">Basic</span> </h2>
+      <p>Sort arrays and get sorted indices.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Sorting Arrays</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Sorting Arrays</h4>
+          <div class="code-block">
 <code>arr = np.<span class="function">array</span>([<span class="number">3</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">2</span>, <span class="number">6</span>])
 
 <span class="comment"># np.sort() - Return sorted copy</span>
@@ -329,12 +347,12 @@ arr.<span class="function">sort</span>()                  <span class="comment">
 mat = np.<span class="function">array</span>([[<span class="number">3</span>, <span class="number">1</span>], [<span class="number">4</span>, <span class="number">2</span>]])
 np.<span class="function">sort</span>(mat, axis=<span class="number">0</span>)         <span class="comment"># Sort each column</span>
 np.<span class="function">sort</span>(mat, axis=<span class="number">1</span>)         <span class="comment"># Sort each row</span>
-            </code>
-            </div>
+          </code>
           </div>
-          <div class="split-item">
-            <h4>Order & Rankings</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>Order & Rankings</h4>
+          <div class="code-block">
 <code><span class="comment"># np.argsort() - Indices that would sort</span>
 arr = np.<span class="function">array</span>([<span class="number">3</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">5</span>])
 np.<span class="function">argsort</span>(arr)              <span class="comment"># [1, 3, 0, 2, 4]</span>
@@ -350,21 +368,21 @@ np.<span class="function">partition</span>(arr, <span class="number">3</span>)  
 
 <span class="comment"># np.searchsorted() - Binary search</span>
 np.<span class="function">searchsorted</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>], <span class="number">2.5</span>)  <span class="comment"># 2</span>
-            </code>
-            </div>
+          </code>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 8: Searching Methods -->
-      <section class="topic-section" id="searching">
-        <h2> Searching Methods <span class="level-badge basic">Basic</span> </h2>
-        <p>Find elements and indices in arrays.</p>
+    <!-- Section 8: Searching Methods -->
+    <section class="topic-section" id="searching">
+      <h2> Searching Methods <span class="level-badge basic">Basic</span> </h2>
+      <p>Find elements and indices in arrays.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Min/Max Search</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Min/Max Search</h4>
+          <div class="code-block">
 <code>arr = np.<span class="function">array</span>([<span class="number">3</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">2</span>, <span class="number">6</span>])
 
 <span class="comment"># np.argmax() / np.argmin()</span>
@@ -377,15 +395,15 @@ arr.<span class="function">argmin</span>()       <span class="comment"># 1</span
 
 <span class="comment"># Max/Min with axis</span>
 mat = np.<span class="function">array</span>([[<span class="number">1</span>, <span class="number">5</span>, <span class="number">3</span>],
-               [<span class="number">4</span>, <span class="number">2</span>, <span class="number">6</span>]])
+             [<span class="number">4</span>, <span class="number">2</span>, <span class="number">6</span>]])
 mat.<span class="function">argmax</span>(axis=<span class="number">0</span>)  <span class="comment"># [1, 0, 1] - row indices of max</span>
 mat.<span class="function">argmax</span>(axis=<span class="number">1</span>)  <span class="comment"># [1, 2] - col indices of max</span>
-            </code>
-            </div>
+          </code>
           </div>
-          <div class="split-item">
-            <h4>Boolean Search</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>Boolean Search</h4>
+          <div class="code-block">
 <code>arr = np.<span class="function">array</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])
 
 <span class="comment"># np.where() - Find positions</span>
@@ -402,21 +420,21 @@ np.<span class="function">count_nonzero</span>(arr > <span class="number">3</spa
 np.<span class="function">any</span>(arr > <span class="number">3</span>)          <span class="comment"># True</span>
 np.<span class="function">all</span>(arr > <span class="number">0</span>)          <span class="comment"># True</span>
 np.<span class="function">all</span>(arr > <span class="number">10</span>)         <span class="comment"># False</span>
-            </code>
-            </div>
+          </code>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 9: Math Operations -->
-      <section class="topic-section" id="math-operations">
-        <h2> Mathematical Operations <span class="level-badge basic">Basic</span> </h2>
-        <p>Element-wise mathematical operations on arrays.</p>
+    <!-- Section 9: Math Operations -->
+    <section class="topic-section" id="math-operations">
+      <h2> Mathematical Operations <span class="level-badge basic">Basic</span> </h2>
+      <p>Element-wise mathematical operations on arrays.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Basic Arithmetic</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Basic Arithmetic</h4>
+          <div class="code-block">
 <code>a = np.<span class="function">array</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])
 b = np.<span class="function">array</span>([<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>])
 
@@ -433,12 +451,12 @@ a % b            <span class="comment"># [1, 2, 3]</span>
 np.<span class="function">sqrt</span>(a)       <span class="comment"># [1, 1.414, 1.732]</span>
 np.<span class="function">square</span>(a)     <span class="comment"># [1, 4, 9]</span>
 np.<span class="function">power</span>(a, <span class="number">3</span>)   <span class="comment"># [1, 8, 27]</span>
-            </code>
-            </div>
+          </code>
           </div>
-          <div class="split-item">
-            <h4>Exponential & Logarithmic</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>Exponential & Logarithmic</h4>
+          <div class="code-block">
 <code>arr = np.<span class="function">array</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])
 
 <span class="comment"># Exponential functions</span>
@@ -456,12 +474,12 @@ np.<span class="function">log1p</span>(arr)        <span class="comment"># log(1
 np.<span class="function">sin</span>([<span class="number">0</span>, np.pi/<span class="number">2</span>, np.pi])  <span class="comment"># [0, 1, 0]</span>
 np.<span class="function">cos</span>([<span class="number">0</span>, np.pi/<span class="number">2</span>, np.pi])  <span class="comment"># [1, 0, -1]</span>
 np.<span class="function">tan</span>([<span class="number">0</span>, np.pi/<span class="number">4</span>])        <span class="comment"># [0, 1]</span>
-            </code>
-            </div>
+          </code>
           </div>
         </div>
+      </div>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment"># Rounding & Floating Point</span>
 arr = np.<span class="function">array</span>([<span class="number">1.234</span>, <span class="number">2.567</span>, <span class="number">3.891</span>])
 np.<span class="function">round</span>(arr, <span class="number">1</span>)       <span class="comment"># [1.2, 2.6, 3.9]</span>
@@ -474,19 +492,19 @@ np.<span class="function">trunc</span>(arr)          <span class="comment"># [1,
 <span class="comment"># Absolute values</span>
 np.<span class="function">abs</span>([<span class="number">-1</span>, <span class="number">-2</span>, <span class="number">3</span>])    <span class="comment"># [1, 2, 3]</span>
 np.<span class="function">fabs</span>([<span class="number">-1</span>, <span class="number">-2</span>, <span class="number">3</span>])   <span class="comment"># [1, 2, 3]</span> (float)
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 10: Statistical Methods -->
-      <section class="topic-section" id="statistical">
-        <h2> Statistical Methods <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Compute statistics and aggregate array data.</p>
+    <!-- Section 10: Statistical Methods -->
+    <section class="topic-section" id="statistical">
+      <h2> Statistical Methods <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Compute statistics and aggregate array data.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Central Tendency</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Central Tendency</h4>
+          <div class="code-block">
 <code>arr = np.<span class="function">array</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>])
 
 <span class="comment"># Mean & Average</span>
@@ -504,12 +522,12 @@ np.<span class="function">percentile</span>(arr, <span class="number">25</span>)
 np.<span class="function">percentile</span>(arr, <span class="number">50</span>)   <span class="comment"># 5.5 (median)</span>
 np.<span class="function">percentile</span>(arr, <span class="number">75</span>)   <span class="comment"># 7.75</span>
 np.<span class="function">quantile</span>(arr, <span class="number">0.25</span>)   <span class="comment"># Same as 25th percentile</span>
-            </code>
-            </div>
+          </code>
           </div>
-          <div class="split-item">
-            <h4>Variation & Dispersion</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>Variation & Dispersion</h4>
+          <div class="code-block">
 <code>arr = np.<span class="function">array</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])
 
 <span class="comment"># Variance & Standard Deviation</span>
@@ -532,21 +550,21 @@ arr = np.<span class="function">array</span>([<span class="number">1</span>, <sp
 np.<span class="function">nanmean</span>(arr)     <span class="comment"># 2.333</span>
 np.<span class="function">nanvar</span>(arr)      <span class="comment"># 1.556</span>
 np.<span class="function">nanstd</span>(arr)      <span class="comment"># 1.247</span>
-            </code>
-            </div>
+          </code>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 11: Linear Algebra -->
-      <section class="topic-section" id="linear-algebra">
-        <h2> Linear Algebra Methods <span class="level-badge advanced">Advanced</span> </h2>
-        <p>Matrix operations and linear algebra functions.</p>
+    <!-- Section 11: Linear Algebra -->
+    <section class="topic-section" id="linear-algebra">
+      <h2> Linear Algebra Methods <span class="level-badge advanced">Advanced</span> </h2>
+      <p>Matrix operations and linear algebra functions.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Matrix Operations</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Matrix Operations</h4>
+          <div class="code-block">
 <code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
 
 a = np.<span class="function">array</span>([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>]])
@@ -564,12 +582,12 @@ np.<span class="function">vdot</span>(a.ravel(), b.ravel())  <span class="commen
 
 <span class="comment"># np.inner() - Inner product</span>
 np.<span class="function">inner</span>(a, b)              <span class="comment"># [[17, 23], [39, 53]]</span>
-            </code>
-            </div>
+          </code>
           </div>
-          <div class="split-item">
-            <h4>Matrix Functions</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>Matrix Functions</h4>
+          <div class="code-block">
 <code>a = np.<span class="function">array</span>([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>]])
 
 <span class="comment"># Determinant</span>
@@ -593,22 +611,22 @@ U, S, Vt = np.<span class="function">linalg.svd</span>(a)
 <span class="comment"># Solve linear system Ax = b</span>
 b = np.<span class="function">array</span>([<span class="number">5</span>, <span class="number">11</span>])
 x = np.<span class="function">linalg.solve</span>(a, b)  <span class="comment"># [1, 2]</span>
-            </code>
-            </div>
+          </code>
           </div>
         </div>
+      </div>
 
-        <div class="tip-box">
-          <p><strong>Tip:</strong> For large matrices, use <code>np.linalg.lstsq()</code> for least-squares solutions instead of inverse when the matrix is singular or ill-conditioned.</p>
-        </div>
-      </section>
+      <div class="tip-box">
+        <p><strong>Tip:</strong> For large matrices, use <code>np.linalg.lstsq()</code> for least-squares solutions instead of inverse when the matrix is singular or ill-conditioned.</p>
+      </div>
+    </section>
 
-      <!-- Section 12: Broadcasting -->
-      <section class="topic-section" id="broadcasting">
-        <h2> Broadcasting Rules <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>NumPy's broadcasting allows operations on arrays of different shapes.</p>
+    <!-- Section 12: Broadcasting -->
+    <section class="topic-section" id="broadcasting">
+      <h2> Broadcasting Rules <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>NumPy's broadcasting allows operations on arrays of different shapes.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment"># Broadcasting Rules:</span>
 <span class="comment"># 1. If arrays differ in dimensions, prepend 1s to smaller shape</span>
 <span class="comment"># 2. Arrays with size 1 can be stretched to match</span>
@@ -632,21 +650,21 @@ x, y = np.<span class="function">broadcast_arrays</span>(a, b)
 data = np.<span class="function">random</span>.rand(<span class="number">100</span>, <span class="number">5</span>)
 mean = data.<span class="function">mean</span>(axis=<span class="number">0</span>)    <span class="comment"># Shape (5,)</span>
 centered = data - mean       <span class="comment"># Broadcasting works!</span>
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 13: Iteration Methods -->
-      <section class="topic-section" id="iteration">
-        <h2> Iteration Methods <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Iterate over array elements efficiently.</p>
+    <!-- Section 13: Iteration Methods -->
+    <section class="topic-section" id="iteration">
+      <h2> Iteration Methods <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Iterate over array elements efficiently.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Basic Iteration</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Basic Iteration</h4>
+          <div class="code-block">
 <code>arr = np.<span class="function">array</span>([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],
-               [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]])
+             [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]])
 
 <span class="comment"># Basic iteration (like Python lists)</span>
 <span class="keyword">for</span> x <span class="keyword">in</span> arr:
@@ -659,12 +677,12 @@ centered = data - mean       <span class="comment"># Broadcasting works!</span>
 <span class="comment"># np.nditer() - Advanced iterator</span>
 <span class="keyword">for</span> x <span class="keyword">in</span> np.<span class="function">nditer</span>(arr):
     <span class="function">print</span>(x)
-            </code>
-            </div>
+          </code>
           </div>
-          <div class="split-item">
-            <h4>Advanced Iteration</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>Advanced Iteration</h4>
+          <div class="code-block">
 <code><span class="comment"># nditer flags</span>
 <span class="keyword">for</span> x <span class="keyword">in</span> np.<span class="function">nditer</span>(arr, flags=[<span class="string">'external_loop'</span>]):
     <span class="function">print</span>(x)  <span class="comment"># Loops as arrays</span>
@@ -672,8 +690,8 @@ centered = data - mean       <span class="comment"># Broadcasting works!</span>
 <span class="comment"># Write to output</span>
 out = np.<span class="function">zeros_like</span>(arr)
 <span class="keyword">for</span> x, y <span class="keyword">in</span> np.<span class="function">nditer</span>([arr, out],
-                       flags=[<span class="string">'external_loop'</span>],
-                       op_flags=[<span class="string">'readwrite'</span>]):
+                     flags=[<span class="string">'external_loop'</span>],
+                     op_flags=[<span class="string">'readwrite'</span>]):
     y[...] = x * <span class="number">2</span>
 
 <span class="comment"># ndenumerate() - Index + value</span>
@@ -683,21 +701,21 @@ out = np.<span class="function">zeros_like</span>(arr)
 <span class="comment"># np.ndindex() - Iterate indices</span>
 <span class="keyword">for</span> idx <span class="keyword">in</span> np.<span class="function">ndindex</span>(arr.shape):
     <span class="function">print</span>(idx, arr[idx])
-            </code>
-            </div>
+          </code>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 14: Random Methods -->
-      <section class="topic-section" id="random">
-        <h2> Random Methods <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Generate random numbers and samples.</p>
+    <!-- Section 14: Random Methods -->
+    <section class="topic-section" id="random">
+      <h2> Random Methods <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Generate random numbers and samples.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Random Distributions</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Random Distributions</h4>
+          <div class="code-block">
 <code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
 
 <span class="comment"># np.random.random() - Uniform [0, 1)</span>
@@ -714,12 +732,12 @@ np.<span class="function">random.randn</span>(<span class="number">2</span>, <sp
 <span class="comment"># np.random.normal() - Normal distribution</span>
 np.<span class="function">random.normal</span>(loc=<span class="number">0</span>, scale=<span class="number">1</span>, size=<span class="number">5</span>)  <span class="comment"># N(0,1)</span>
 np.<span class="function">random.normal</span>(loc=<span class="number">100</span>, scale=<span class="number">15</span>, size=<span class="number">1000</span>)  <span class="comment"># IQ-like</span>
-            </code>
-            </div>
+          </code>
           </div>
-          <div class="split-item">
-            <h4>Discrete & Sampling</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>Discrete & Sampling</h4>
+          <div class="code-block">
 <code><span class="comment"># np.random.randint() - Random integers</span>
 np.<span class="function">random.randint</span>(<span class="number">0</span>, <span class="number">10</span>, size=<span class="number">5</span>)     <span class="comment"># 5 ints [0, 10)</span>
 np.<span class="function">random.randint</span>(<span class="number">0</span>, <span class="number">10</span>, size=(<span class="number">2</span>,<span class="number">3</span>))  <span class="comment"># 2x3 matrix</span>
@@ -739,45 +757,57 @@ np.<span class="function">random.permutation</span>(arr) <span class="comment">#
 rng = np.<span class="function">random.default_rng</span>(<span class="number">42</span>)  <span class="comment"># Seed for reproducibility</span>
 rng.<span class="function">random</span>(<span class="number">5</span>)
 rng.<span class="function">integers</span>(<span class="number">0</span>, <span class="number">10</span>, size=<span class="number">5</span>)
-            </code>
-            </div>
+          </code>
           </div>
         </div>
+      </div>
 
-        <div class="tip-box">
-          <p><strong>Best Practice:</strong> Use <code>np.random.default_rng(seed)</code> for new code. The legacy <code>np.random.*</code> functions use global state and are not recommended for new applications.</p>
+      <div class="tip-box">
+        <p><strong>Best Practice:</strong> Use <code>np.random.default_rng(seed)</code> for new code. The legacy <code>np.random.*</code> functions use global state and are not recommended for new applications.</p>
+      </div>
+    </section>
+
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span class="footer-brand">Data Sheets</span>
+          <p class="footer-copyright">Â© 2026 Data Sheets. All rights reserved.</p>
         </div>
-      </section>
-
-    </div>
+        <div class="footer-links">
+          <a href="#">Documentation</a>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Support</a>
+        </div>
+      </div>
+    </footer>
   </main>
-  <script src="../python/python.js"></script>
-  <script src="../app.js"></script>
-  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 19V5M5 12l7-7 7 7"/>
-    </svg>
-  </button>
-  <script>
-    // Scroll to top functionality
-    const scrollToTopBtn = document.getElementById('scrollToTop');
-    
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        scrollToTopBtn.classList.add('visible');
-      } else {
-        scrollToTopBtn.classList.remove('visible');
-      }
-    });
-    
-    scrollToTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-  </script>
-<script src="../hierarchy.js"></script><script src="../sidebar-nav.js"></script>
-</body>
 
+  <script>
+    function toggleTheme() {
+      var html = document.documentElement;
+      var themeIcon = document.getElementById('themeIcon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        themeIcon.textContent = 'dark_mode';
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.textContent = 'light_mode';
+      }
+    }
+    (function() {
+      var savedTheme = localStorage.getItem('theme');
+      var themeIcon = document.getElementById('themeIcon');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+        themeIcon.textContent = 'light_mode';
+      } else {
+        themeIcon.textContent = 'dark_mode';
+      }
+    })();
+  </script>
+</body>
 </html>

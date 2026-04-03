@@ -1,253 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Tools Comparison | Cheatsheets</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@400;500;600;700&family=Fira+Code:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="../styles.css" />
-    <link rel="stylesheet" href="../hub.css" />
-    <link rel="stylesheet" href="cheatsheets.css">
-  <link rel="stylesheet" href="../sidebar-nav.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Guide | Comparison Tables</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../shared.css" />
 </head>
 
-<body class="home-with-sidebar">
-    <div class="bg-orb orb-a" aria-hidden="true"></div>
-    <div class="bg-orb orb-b" aria-hidden="true"></div>
-    <div class="bg-orb orb-c" aria-hidden="true"></div>
-
-
-
-    <main>
-      
-        <div class="page-wrap comparison-shell">
-            <section class="hero reveal in">
-                <p class="eyebrow">Cross-Tool View</p>
-                <h1>Data Tools Comparison</h1>
-                <p class="hero-copy">Compare equivalent operations across PostgreSQL, Pandas, NumPy, and PySpark with a cleaner responsive layout.</p>
-            </section>
-
-            <section class="controls-section reveal in">
-                <div class="controls-head">
-                    <div>
-                        <h2 class="controls-title">Choose tools and categories</h2>
-                        <p class="controls-copy">Use the filters below, then apply them to render only the comparisons you want to study.</p>
-                    </div>
-                    <div id="selectionSummary" class="selection-summary">4 tools · 12 categories selected</div>
-                </div>
-
-                <form id="comparisonFilters" class="filter-form">
-                    <div class="filter-grid">
-                        <section class="filter-group" aria-labelledby="tools-heading">
-                            <div class="filter-heading">
-                                <h2 id="tools-heading">Tools</h2>
-                                <span class="filter-note">Pick 1 or more</span>
-                            </div>
-                            <div id="toolOptions" class="option-grid tools"></div>
-                        </section>
-
-                        <section class="filter-group" aria-labelledby="categories-heading">
-                            <div class="filter-heading">
-                                <h2 id="categories-heading">Categories</h2>
-                                <span class="filter-note">Pick 1 or more</span>
-                            </div>
-                            <div id="categoryOptions" class="option-grid categories"></div>
-                        </section>
-                    </div>
-
-                    <div class="filter-actions">
-                        <button class="action-button primary" type="submit">Apply Filters</button>
-                        <button class="action-button secondary" type="reset">Reset</button>
-                    </div>
-                </form>
-            </section>
-
-            <div class="comparison-container" id="comparisonContainer"></div>
-
-            <div class="empty-state" id="emptyState" hidden>
-                <div class="empty-state-icon">⚠️</div>
-                <p>Select at least one tool and one category, then apply the filters.</p>
-            </div>
+<body class="topic-page">
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <a href="C:\Users\vanap" class="brand">
+        <div class="brand-icon">
+          <span class="material-symbols-outlined">architecture</span>
         </div>
-    </main>
-    <script>
-        let comparisonData = [];
+        <span class="brand-text">Data Sheets</span>
+      </a>
+      <div class="nav-center">
+        <div class="search-bar">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" class="search-input" placeholder="Search architecture, patterns, or cloud..." />
+        </div>
+      </div>
+      <div class="nav-right">
+        <button class="nav-icon-btn" id="themeToggle" onclick="toggleTheme()">
+          <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+        </button>
+        <a href="../portfolios/portfolio.html" class="user-avatar">
+          <img src="../../assets/images/profile-pic.jpeg" alt="User profile" />
+        </a>
+      </div>
+    </div>
+  </header>
 
-        const tools = {
-            postgresql: { name: 'PostgreSQL', icon: '🐘', color: '#336791', darkColor: '#60a5fa', note: 'SQL queries and analytics' },
-            pandas: { name: 'Pandas', icon: '🐼', color: '#150458', darkColor: '#a78bfa', note: 'Tabular Python workflows' },
-            numpy: { name: 'NumPy', icon: '🔢', color: '#013243', darkColor: '#22d3ee', note: 'Arrays and vectorized math' },
-            pyspark: { name: 'PySpark', icon: '⚡', color: '#E25A1C', darkColor: '#fb923c', note: 'Distributed data processing' }
-        };
+  <main class="main-content">
+    <header class="page-header page-header--row">
+      <a href="cheatsheet.html" class="back-link back-link--round" aria-label="Back">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </a>
+      <div class="page-header-inner">
+        <h1>Comparison Tables</h1>
+        <p>Side-by-side comparison of key technologies.</p>
+      </div>
+    </header>
 
-        function getToolColor(tool) {
-            return document.body.classList.contains('dark') ? tool.darkColor : tool.color;
-        }
+              <section class="controls-section reveal in">
+              <div class="controls-head">
+                  <div>
+                      <h2 class="controls-title">Choose tools and categories</h2>
+                      <p class="controls-copy">Use the filters below, then apply them to render only the comparisons you want to study.</p>
+                  </div>
+                  <div id="selectionSummary" class="selection-summary">4 tools · 12 categories selected</div>
+              </div>
 
-        const filterForm = document.getElementById('comparisonFilters');
-        const toolOptions = document.getElementById('toolOptions');
-        const categoryOptions = document.getElementById('categoryOptions');
-        const comparisonContainer = document.getElementById('comparisonContainer');
-        const emptyState = document.getElementById('emptyState');
-        const selectionSummary = document.getElementById('selectionSummary');
+              <form id="comparisonFilters" class="filter-form">
+                  <div class="filter-grid">
+                      <section class="filter-group" aria-labelledby="tools-heading">
+                          <div class="filter-heading">
+                              <h2 id="tools-heading">Tools</h2>
+                              <span class="filter-note">Pick 1 or more</span>
+                          </div>
+                          <div id="toolOptions" class="option-grid tools"></div>
+                      </section>
 
-        async function loadComparisonData() {
-            const response = await fetch('comparison-data.json', { cache: 'no-store' });
-            if (!response.ok) {
-                throw new Error(`Failed to load comparison data: ${response.status}`);
-            }
-            comparisonData = await response.json();
-        }
+                      <section class="filter-group" aria-labelledby="categories-heading">
+                          <div class="filter-heading">
+                              <h2 id="categories-heading">Categories</h2>
+                              <span class="filter-note">Pick 1 or more</span>
+                          </div>
+                          <div id="categoryOptions" class="option-grid categories"></div>
+                      </section>
+                  </div>
 
-        function escapeHtml(value) {
-            return String(value)
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;');
-        }
+                  <div class="filter-actions">
+                      <button class="action-button primary" type="submit">Apply Filters</button>
+                      <button class="action-button secondary" type="reset">Reset</button>
+                  </div>
+              </form>
+          </section>
 
-        function slugify(value) {
-            return value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-        }
+          <div class="comparison-container" id="comparisonContainer"></div>
 
-        function renderToolOptions() {
-            toolOptions.innerHTML = Object.entries(tools).map(([key, tool]) => `
-                <label class="checkbox-group tool-option" for="tool-${key}">
-                    <input class="pill-input" type="checkbox" id="tool-${key}" name="tool" value="${key}">
-                    <span class="tool-label">
-                        ${tool.name}
-                    </span>
-                </label>
-            `).join('');
-        }
+          <div class="empty-state" id="emptyState" hidden>
+              <div class="empty-state-icon">⚠️</div>
+              <p>Select at least one tool and one category, then apply the filters.</p>
+          </div>
 
-        function renderCategoryOptions() {
-            categoryOptions.innerHTML = comparisonData.map((section, index) => {
-                const id = `category-${index}`;
-                return `
-                    <label class="checkbox-group category-pill" for="${id}">
-                        <input class="pill-input" type="checkbox" id="${id}" name="category" value="${section.category}">
-                        <span class="category-label">
-                            ${section.category}
-                        </span>
-                    </label>
-                `;
-            }).join('');
-        }
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span class="footer-brand">Data Sheets</span>
+          <p class="footer-copyright">@ 2026 Data Sheets. All rights reserved.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#">Documentation</a>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Support</a>
+        </div>
+      </div>
+    </footer>
+  </main>
 
-        function getSelections() {
-            const selectedTools = Array.from(filterForm.querySelectorAll('input[name="tool"]:checked')).map((input) => input.value);
-            const selectedCategories = Array.from(filterForm.querySelectorAll('input[name="category"]:checked')).map((input) => input.value);
-            return { selectedTools, selectedCategories };
-        }
-
-        function updateSummary() {
-            const { selectedTools, selectedCategories } = getSelections();
-            selectionSummary.textContent = `${selectedTools.length} tool${selectedTools.length === 1 ? '' : 's'} · ${selectedCategories.length} categor${selectedCategories.length === 1 ? 'y' : 'ies'} selected`;
-        }
-
-        function renderComparison() {
-            const { selectedTools, selectedCategories } = getSelections();
-            updateSummary();
-
-            if (!selectedTools.length || !selectedCategories.length) {
-                comparisonContainer.innerHTML = '';
-                emptyState.hidden = false;
-                return;
-            }
-
-            emptyState.hidden = true;
-            const filteredSections = comparisonData.filter((section) => selectedCategories.includes(section.category));
-
-            comparisonContainer.innerHTML = filteredSections.map((section) => `
-                <section class="comparison-section reveal in" id="${slugify(section.category)}">
-                    <h2 class="comparison-title">${section.category}</h2>
-                    <div class="scenario-stack">
-                        ${section.scenarios.map((scenario) => `
-                            <article class="scenario-card">
-                                <div class="scenario-name">${scenario.scenario}</div>
-                                <div class="table-wrap">
-                                    <table class="comparison-table">
-                                        <thead>
-                                            <tr>
-                                                ${selectedTools.map((toolKey) => `
-                                                    <th>
-                                                        <span class="tool-chip" style="color:${getToolColor(tools[toolKey])}">
-                                                            <span>${tools[toolKey].name}</span>
-                                                        </span>
-                                                    </th>
-                                                `).join('')}
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                ${selectedTools.map((toolKey) => `
-                                                    <td><code class="code-cell">${escapeHtml(scenario[toolKey] || 'N/A')}</code></td>
-                                                `).join('')}
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </article>
-                        `).join('')}
-                    </div>
-                </section>
-            `).join('');
-        }
-
-        function resetFilters() {
-            filterForm.querySelectorAll('input[type="checkbox"]').forEach((input) => {
-                input.checked = false;
-            });
-            updateSummary();
-            renderComparison();
-        }
-
-        async function initializeComparison() {
-            try {
-                await loadComparisonData();
-            } catch (error) {
-                console.error(error);
-                selectionSummary.textContent = 'Unable to load comparison data';
-                emptyState.hidden = false;
-                emptyState.querySelector('p').textContent = 'Comparison data could not be loaded. Refresh the page or rebuild the export.';
-                return;
-            }
-
-            renderToolOptions();
-            renderCategoryOptions();
-            updateSummary();
-
-            filterForm.addEventListener('change', () => {
-                updateSummary();
-                renderComparison();
-            });
-            filterForm.addEventListener('submit', (event) => {
-                event.preventDefault();
-                renderComparison();
-            });
-            filterForm.querySelector('button[type="reset"]').addEventListener('click', (event) => {
-                event.preventDefault();
-                resetFilters();
-            });
-
-            renderComparison();
-        }
-
-        document.addEventListener('DOMContentLoaded', initializeComparison);
-    </script>
-    <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round">
-            <path d="M12 19V5M5 12l7-7 7 7" />
-        </svg>
-    </button>
-    <script src="cheatsheets.js"></script>
-<script src="../hierarchy.js"></script><script src="../sidebar-nav.js"></script>
+  <script>
+    function toggleTheme() {
+      var html = document.documentElement;
+      var themeIcon = document.getElementById('themeIcon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        themeIcon.textContent = 'dark_mode';
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.textContent = 'light_mode';
+      }
+    }
+    (function() {
+      var savedTheme = localStorage.getItem('theme');
+      var themeIcon = document.getElementById('themeIcon');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+        themeIcon.textContent = 'light_mode';
+      } else {
+        themeIcon.textContent = 'dark_mode';
+      }
+    })();
+  </script>
 </body>
-
 </html>
-

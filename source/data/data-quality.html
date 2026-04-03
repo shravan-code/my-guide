@@ -3,49 +3,68 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>*d@ta# | Data Quality</title>
+  <title>Data Guide | Data Quality</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
-  <link rel="stylesheet" href="../hub.css" />
-  <link rel="stylesheet" href="../python/python.css" />
-  <link rel="stylesheet" href="../sidebar-nav.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../shared.css" />
 </head>
 
-<body class="home-with-sidebar">
-  <div class="bg-orb orb-a" aria-hidden="true"></div>
-  <div class="bg-orb orb-b" aria-hidden="true"></div>
-  <div class="bg-orb orb-c" aria-hidden="true"></div>
-
-
+<body class="topic-page">
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <a href="../../index.html" class="brand">
+        <div class="brand-icon">
+          <span class="material-symbols-outlined">architecture</span>
+        </div>
+        <span class="brand-text">Data Sheets</span>
+      </a>
+      <div class="nav-center">
+        <div class="search-bar">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" class="search-input" placeholder="Search architecture, patterns, or cloud..." />
+        </div>
+      </div>
+      <div class="nav-right">
+        <button class="nav-icon-btn" id="themeToggle" onclick="toggleTheme()">
+          <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+        </button>
+        <a href="../portfolios/portfolio.html" class="user-avatar">
+          <img src="../../assets/images/profile-pic.jpeg" alt="User profile" />
+        </a>
+      </div>
+    </div>
+  </header>
 
   <main class="main-content">
-    
-    <div class="page-wrap">
-      <section class="hero">
+    <header class="page-header page-header--row">
+      <a href="index.html" class="back-link back-link--round" aria-label="Back">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </a>
+      <div class="page-header-inner">
         <h1>Data Quality</h1>
-        <p class="hero-copy">A focused guide to Data Quality.</p>
-      </section>
+        <p>Accuracy, completeness, consistency — ensuring reliable data for analysis.</p>
+      </div>
+    </header>
+<section class="topic-section" id="accuracy">
+      <h2> Accuracy <span class="level-badge basic">Basic</span> </h2>
+      <p>Accuracy measures how closely data values match the true or accepted values. Inaccurate data leads to wrong conclusions.</p>
 
-      <!-- Section 1: Accuracy -->
-      <section class="topic-section" id="accuracy">
-        <h2> Accuracy <span class="level-badge basic">Basic</span> </h2>
-        <p>Accuracy measures how closely data values match the true or accepted values. Inaccurate data leads to wrong conclusions.</p>
-
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Common Issues</h4>
-            <ul>
-              <li>Transcription errors (typos)</li>
-              <li>Unit conversion mistakes</li>
-              <li>Stale/outdated values</li>
-              <li>Measurement errors</li>
-            </ul>
-          </div>
-          <div class="split-item">
-            <h4>Detection Methods</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Common Issues</h4>
+          <ul>
+            <li>Transcription errors (typos)</li>
+            <li>Unit conversion mistakes</li>
+            <li>Stale/outdated values</li>
+            <li>Measurement errors</li>
+          </ul>
+        </div>
+        <div class="split-item">
+          <h4>Detection Methods</h4>
+          <div class="code-block">
 <code><span class="comment">-- Range validation</span>
 <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> products
 <span class="keyword">WHERE</span> price < <span class="number">0</span> <span class="keyword">OR</span> price > <span class="number">1000000</span>;
@@ -54,18 +73,18 @@
 <span class="keyword">SELECT</span> o.* <span class="keyword">FROM</span> orders o
 <span class="keyword">LEFT JOIN</span> customers c <span class="keyword">ON</span> o.customer_id = c.id
 <span class="keyword">WHERE</span> c.id <span class="keyword">IS NULL</span>;
-            </code>
-            </div>
+          </code>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 2: Completeness -->
-      <section class="topic-section" id="completeness">
-        <h2> Completeness <span class="level-badge basic">Basic</span> </h2>
-        <p>Completeness measures the presence of required values. Missing data can bias analysis and break pipelines.</p>
+    <!-- Section 2: Completeness -->
+    <section class="topic-section" id="completeness">
+      <h2> Completeness <span class="level-badge basic">Basic</span> </h2>
+      <p>Completeness measures the presence of required values. Missing data can bias analysis and break pipelines.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Check completeness per column</span>
 <span class="keyword">SELECT</span>
     <span class="function">COUNT</span>(*) <span class="keyword">AS</span> total_rows,
@@ -80,41 +99,41 @@
 <span class="keyword">WHERE</span> name <span class="keyword">IS NULL</span>
     <span class="keyword">OR</span> email <span class="keyword">IS NULL</span>
     <span class="keyword">OR</span> email = <span class="string">''</span>;
-        </code>
+      </code>
+      </div>
+
+      <div class="flowchart">
+        <h3>Completeness Check Flow</h3>
+        <div class="flow-row">
+          <span class="flow-node">Define Requirements</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node">Scan Columns</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node">Calculate %</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node">Alert if &lt; Threshold</span>
         </div>
+      </div>
+    </section>
 
-        <div class="flowchart">
-          <h3>Completeness Check Flow</h3>
-          <div class="flow-row">
-            <span class="flow-node">Define Requirements</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-node">Scan Columns</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-node">Calculate %</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-node">Alert if &lt; Threshold</span>
-          </div>
+    <!-- Section 3: Consistency -->
+    <section class="topic-section" id="consistency">
+      <h2> Consistency <span class="level-badge basic">Basic</span> </h2>
+      <p>Consistency ensures data follows the same rules across systems and over time.</p>
+
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Types of Consistency</h4>
+          <ul>
+            <li><strong>Format:</strong> Same date format everywhere</li>
+            <li><strong>Units:</strong> Same currency, measurement units</li>
+            <li><strong>Reference:</strong> Same lookup values</li>
+            <li><strong>Cross-system:</strong> Matching data across sources</li>
+          </ul>
         </div>
-      </section>
-
-      <!-- Section 3: Consistency -->
-      <section class="topic-section" id="consistency">
-        <h2> Consistency <span class="level-badge basic">Basic</span> </h2>
-        <p>Consistency ensures data follows the same rules across systems and over time.</p>
-
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Types of Consistency</h4>
-            <ul>
-              <li><strong>Format:</strong> Same date format everywhere</li>
-              <li><strong>Units:</strong> Same currency, measurement units</li>
-              <li><strong>Reference:</strong> Same lookup values</li>
-              <li><strong>Cross-system:</strong> Matching data across sources</li>
-            </ul>
-          </div>
-          <div class="split-item">
-            <h4>Example Issues</h4>
-            <div class="code-block">
+        <div class="split-item">
+          <h4>Example Issues</h4>
+          <div class="code-block">
 <code><span class="comment">-- Inconsistent formats</span>
 <span class="string">"2024-01-15"</span>  <span class="comment">-- ISO format</span>
 <span class="string">"01/15/2024"</span>  <span class="comment">-- US format</span>
@@ -126,26 +145,26 @@
 <span class="comment">-- Fix with CASE</span>
 <span class="keyword">UPDATE</span> users <span class="keyword">SET</span> country = <span class="string">'US'</span>
 <span class="keyword">WHERE</span> country <span class="keyword">IN</span> (<span class="string">'USA'</span>, <span class="string">'United States'</span>, <span class="string">'U.S.'</span>);
-            </code>
-            </div>
+          </code>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 4: Timeliness -->
-      <section class="topic-section" id="timeliness">
-        <h2> Timeliness <span class="level-badge basic">Basic</span> </h2>
-        <p>Timeliness measures how current the data is. Data that arrives too late loses value.</p>
+    <!-- Section 4: Timeliness -->
+    <section class="topic-section" id="timeliness">
+      <h2> Timeliness <span class="level-badge basic">Basic</span> </h2>
+      <p>Timeliness measures how current the data is. Data that arrives too late loses value.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Check data freshness</span>
 <span class="keyword">SELECT</span>
     <span class="function">MAX</span>(updated_at) <span class="keyword">AS</span> last_update,
     <span class="function">NOW</span>() - <span class="function">MAX</span>(updated_at) <span class="keyword">AS</span> staleness,
     <span class="keyword">CASE</span>
-        <span class="keyword">WHEN</span> <span class="function">NOW</span>() - <span class="function">MAX</span>(updated_at) > <span class="keyword">INTERVAL</span> <span class="string">'24 hours'</span>
-        <span class="keyword">THEN</span> <span class="string">'STALE'</span>
-        <span class="keyword">ELSE</span> <span class="string">'FRESH'</span>
+      <span class="keyword">WHEN</span> <span class="function">NOW</span>() - <span class="function">MAX</span>(updated_at) > <span class="keyword">INTERVAL</span> <span class="string">'24 hours'</span>
+      <span class="keyword">THEN</span> <span class="string">'STALE'</span>
+      <span class="keyword">ELSE</span> <span class="string">'FRESH'</span>
     <span class="keyword">END</span> <span class="keyword">AS</span> status
 <span class="keyword">FROM</span> orders;
 
@@ -156,16 +175,16 @@
     <span class="function">AVG</span>(duration_seconds) <span class="keyword">AS</span> avg_duration
 <span class="keyword">FROM</span> pipeline_runs
 <span class="keyword">GROUP BY</span> pipeline_name;
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 5: Validity -->
-      <section class="topic-section" id="validity">
-        <h2> Validity <span class="level-badge basic">Basic</span> </h2>
-        <p>Validity ensures data conforms to defined formats, types, and business rules.</p>
+    <!-- Section 5: Validity -->
+    <section class="topic-section" id="validity">
+      <h2> Validity <span class="level-badge basic">Basic</span> </h2>
+      <p>Validity ensures data conforms to defined formats, types, and business rules.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Email format validation</span>
 <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> users
 <span class="keyword">WHERE</span> email <span class="keyword">!~*</span> <span class="string">'^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z]{2,}$'</span>;
@@ -181,16 +200,16 @@
 <span class="comment">-- Date range validation</span>
 <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> events
 <span class="keyword">WHERE</span> event_date <span class="keyword">NOT BETWEEN</span> <span class="string">'2020-01-01'</span> <span class="keyword">AND</span> <span class="function">CURRENT_DATE</span>;
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 6: Uniqueness -->
-      <section class="topic-section" id="uniqueness">
-        <h2> Uniqueness <span class="level-badge basic">Basic</span> </h2>
-        <p>Uniqueness ensures each record can be uniquely identified. Duplicate records cause inflated metrics and errors.</p>
+    <!-- Section 6: Uniqueness -->
+    <section class="topic-section" id="uniqueness">
+      <h2> Uniqueness <span class="level-badge basic">Basic</span> </h2>
+      <p>Uniqueness ensures each record can be uniquely identified. Duplicate records cause inflated metrics and errors.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Find duplicate emails</span>
 <span class="keyword">SELECT</span> email, <span class="function">COUNT</span>(*) <span class="keyword">AS</span> cnt
 <span class="keyword">FROM</span> users
@@ -208,28 +227,28 @@
 <span class="comment">-- Prevent with unique constraint</span>
 <span class="keyword">ALTER TABLE</span> users
     <span class="keyword">ADD CONSTRAINT</span> uq_users_email <span class="keyword">UNIQUE</span> (email);
-        </code>
+      </code>
+      </div>
+    </section>
+
+    <!-- Section 7: Handling NULLs -->
+    <section class="topic-section" id="handling-nulls">
+      <h2> Handling NULL Values <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>NULL values require special handling. Strategy depends on the cause and impact of missing data.</p>
+
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Strategies</h4>
+          <ul>
+            <li><strong>Remove:</strong> Delete rows with NULLs</li>
+            <li><strong>Default:</strong> Replace with 0, "", or NA</li>
+            <li><strong>Impute:</strong> Mean, median, mode, or model</li>
+            <li><strong>Flag:</strong> Create is_missing column</li>
+          </ul>
         </div>
-      </section>
-
-      <!-- Section 7: Handling NULLs -->
-      <section class="topic-section" id="handling-nulls">
-        <h2> Handling NULL Values <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>NULL values require special handling. Strategy depends on the cause and impact of missing data.</p>
-
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Strategies</h4>
-            <ul>
-              <li><strong>Remove:</strong> Delete rows with NULLs</li>
-              <li><strong>Default:</strong> Replace with 0, "", or NA</li>
-              <li><strong>Impute:</strong> Mean, median, mode, or model</li>
-              <li><strong>Flag:</strong> Create is_missing column</li>
-            </ul>
-          </div>
-          <div class="split-item">
-            <h4>PostgreSQL Handling</h4>
-            <div class="code-block">
+        <div class="split-item">
+          <h4>PostgreSQL Handling</h4>
+          <div class="code-block">
 <code><span class="comment">-- Replace NULLs</span>
 <span class="keyword">SELECT</span>
     name,
@@ -240,26 +259,26 @@
 <span class="comment">-- NULL-safe comparison</span>
 <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> users
 <span class="keyword">WHERE</span> email <span class="keyword">IS NOT DISTINCT FROM</span> <span class="string">'alice@co.com'</span>;
-            </code>
-            </div>
+          </code>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 8: Deduplication -->
-      <section class="topic-section" id="deduplication">
-        <h2> Deduplication <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Remove duplicate records while preserving the most complete or recent version.</p>
+    <!-- Section 8: Deduplication -->
+    <section class="topic-section" id="deduplication">
+      <h2> Deduplication <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Remove duplicate records while preserving the most complete or recent version.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Method 1: ROW_NUMBER to find duplicates</span>
 <span class="keyword">WITH</span> numbered <span class="keyword">AS</span> (
     <span class="keyword">SELECT</span>
-        *,
-        <span class="function">ROW_NUMBER</span>() <span class="keyword">OVER</span> (
-            <span class="keyword">PARTITION BY</span> email
-            <span class="keyword">ORDER BY</span> updated_at <span class="keyword">DESC</span>
-        ) <span class="keyword">AS</span> rn
+      *,
+      <span class="function">ROW_NUMBER</span>() <span class="keyword">OVER</span> (
+          <span class="keyword">PARTITION BY</span> email
+          <span class="keyword">ORDER BY</span> updated_at <span class="keyword">DESC</span>
+      ) <span class="keyword">AS</span> rn
     <span class="keyword">FROM</span> users
 )
 <span class="keyword">DELETE FROM</span> numbered <span class="keyword">WHERE</span> rn > <span class="number">1</span>;
@@ -276,21 +295,21 @@
 <span class="keyword">ON CONFLICT</span> (email) <span class="keyword">DO UPDATE SET</span>
     name = <span class="keyword">EXCLUDED</span>.name,
     updated_at = <span class="keyword">EXCLUDED</span>.updated_at;
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 9: Outliers -->
-      <section class="topic-section" id="outliers">
-        <h2> Outlier Detection <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Outliers are extreme values that deviate significantly from other observations. They may indicate errors or interesting phenomena.</p>
+    <!-- Section 9: Outliers -->
+    <section class="topic-section" id="outliers">
+      <h2> Outlier Detection <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Outliers are extreme values that deviate significantly from other observations. They may indicate errors or interesting phenomena.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Method 1: IQR (Interquartile Range)</span>
 <span class="keyword">WITH</span> stats <span class="keyword">AS</span> (
     <span class="keyword">SELECT</span>
-        <span class="function">PERCENTILE_CONT</span>(<span class="number">0.25</span>) <span class="keyword">WITHIN GROUP</span> (<span class="keyword">ORDER BY</span> amount) <span class="keyword">AS</span> q1,
-        <span class="function">PERCENTILE_CONT</span>(<span class="number">0.75</span>) <span class="keyword">WITHIN GROUP</span> (<span class="keyword">ORDER BY</span> amount) <span class="keyword">AS</span> q3
+      <span class="function">PERCENTILE_CONT</span>(<span class="number">0.25</span>) <span class="keyword">WITHIN GROUP</span> (<span class="keyword">ORDER BY</span> amount) <span class="keyword">AS</span> q1,
+      <span class="function">PERCENTILE_CONT</span>(<span class="number">0.75</span>) <span class="keyword">WITHIN GROUP</span> (<span class="keyword">ORDER BY</span> amount) <span class="keyword">AS</span> q3
     <span class="keyword">FROM</span> orders
 )
 <span class="keyword">SELECT</span> *
@@ -301,8 +320,8 @@
 <span class="comment">-- Method 2: Z-score</span>
 <span class="keyword">WITH</span> stats <span class="keyword">AS</span> (
     <span class="keyword">SELECT</span>
-        <span class="function">AVG</span>(amount) <span class="keyword">AS</span> mean,
-        <span class="function">STDDEV</span>(amount) <span class="keyword">AS</span> stddev
+      <span class="function">AVG</span>(amount) <span class="keyword">AS</span> mean,
+      <span class="function">STDDEV</span>(amount) <span class="keyword">AS</span> stddev
     <span class="keyword">FROM</span> orders
 )
 <span class="keyword">SELECT</span> *
@@ -315,16 +334,16 @@
 <span class="keyword">WHERE</span> amount <span class="keyword">NOT BETWEEN</span>
     <span class="function">PERCENTILE_CONT</span>(<span class="number">0.01</span>) <span class="keyword">WITHIN GROUP</span> (<span class="keyword">ORDER BY</span> amount)
     <span class="keyword">AND</span> <span class="function">PERCENTILE_CONT</span>(<span class="number">0.99</span>) <span class="keyword">WITHIN GROUP</span> (<span class="keyword">ORDER BY</span> amount);
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 10: Standardization -->
-      <section class="topic-section" id="standardization">
-        <h2> Data Standardization <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Standardization converts data to a consistent format for reliable comparison and analysis.</p>
+    <!-- Section 10: Standardization -->
+    <section class="topic-section" id="standardization">
+      <h2> Data Standardization <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Standardization converts data to a consistent format for reliable comparison and analysis.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Standardize names</span>
 <span class="keyword">UPDATE</span> users <span class="keyword">SET</span> name = <span class="function">INITCAP</span>(<span class="function">TRIM</span>(name));
 
@@ -342,16 +361,16 @@
 
 <span class="comment">-- Normalize text encoding</span>
 <span class="keyword">UPDATE</span> articles <span class="keyword">SET</span> content = <span class="function">CONVERT</span>(content, <span class="string">'UTF8'</span>, <span class="string">'LATIN1'</span>);
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 11: DB Constraints -->
-      <section class="topic-section" id="constraints">
-        <h2> Database Constraints <span class="level-badge basic">Basic</span> </h2>
-        <p>Constraints enforce data quality at the database level, preventing bad data from entering the system.</p>
+    <!-- Section 11: DB Constraints -->
+    <section class="topic-section" id="constraints">
+      <h2> Database Constraints <span class="level-badge basic">Basic</span> </h2>
+      <p>Constraints enforce data quality at the database level, preventing bad data from entering the system.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="keyword">CREATE TABLE</span> orders (
     id <span class="keyword">SERIAL PRIMARY KEY</span>,
 
@@ -361,7 +380,7 @@
 
     <span class="comment">-- CHECK: Business rules</span>
     status <span class="keyword">VARCHAR</span>(20) <span class="keyword">NOT NULL</span>
-        <span class="keyword">CHECK</span> (status <span class="keyword">IN</span> (<span class="string">'pending'</span>, <span class="string">'confirmed'</span>, <span class="string">'shipped'</span>)),
+      <span class="keyword">CHECK</span> (status <span class="keyword">IN</span> (<span class="string">'pending'</span>, <span class="string">'confirmed'</span>, <span class="string">'shipped'</span>)),
     quantity <span class="keyword">INTEGER CHECK</span> (quantity > <span class="number">0</span>),
     total <span class="keyword">DECIMAL</span>(10,2) <span class="keyword">CHECK</span> (total >= <span class="number">0</span>),
 
@@ -380,16 +399,16 @@
     <span class="keyword">ADD CONSTRAINT</span> fk_order
     <span class="keyword">FOREIGN KEY</span> (order_id) <span class="keyword">REFERENCES</span> orders(id)
     <span class="keyword">DEFERRABLE INITIALLY DEFERRED</span>;
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 12: Data Tests -->
-      <section class="topic-section" id="data-tests">
-        <h2> Data Tests <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Automated tests verify data quality assertions in CI/CD pipelines.</p>
+    <!-- Section 12: Data Tests -->
+    <section class="topic-section" id="data-tests">
+      <h2> Data Tests <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Automated tests verify data quality assertions in CI/CD pipelines.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- dbt-style tests (YAML)</span>
 <span class="comment"># models/staging/stg_users.yml</span>
 <span class="comment">version: 2</span>
@@ -414,16 +433,16 @@
 <span class="comment">#     "amount": pa.Column(float, pa.Check.in_range(0, 1000000))</span>
 <span class="comment"># })</span>
 <span class="comment"># validated_df = schema(df)</span>
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 13: Data Profiling -->
-      <section class="topic-section" id="profiling">
-        <h2> Data Profiling <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Data profiling analyzes data to understand its structure, content, and quality.</p>
+    <!-- Section 13: Data Profiling -->
+    <section class="topic-section" id="profiling">
+      <h2> Data Profiling <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Data profiling analyzes data to understand its structure, content, and quality.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Basic profiling query</span>
 <span class="keyword">SELECT</span>
     column_name,
@@ -453,54 +472,66 @@
     <span class="function">MAX</span>(<span class="function">LENGTH</span>(name)) <span class="keyword">AS</span> max_length,
     <span class="function">MODE</span>() <span class="keyword">WITHIN GROUP</span> (<span class="keyword">ORDER BY</span> name) <span class="keyword">AS</span> most_common
 <span class="keyword">FROM</span> users;
-        </code>
-        </div>
+      </code>
+      </div>
 
-        <div class="flowchart">
-          <h3>Profiling Workflow</h3>
-          <div class="flow-row">
-            <span class="flow-node">Column Types</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-node">Null Analysis</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-node">Cardinality</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-node">Distribution</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-node">Quality Report</span>
-          </div>
+      <div class="flowchart">
+        <h3>Profiling Workflow</h3>
+        <div class="flow-row">
+          <span class="flow-node">Column Types</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node">Null Analysis</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node">Cardinality</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node">Distribution</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node">Quality Report</span>
         </div>
-      </section>
+      </div>
+    </section>
 
-    </div>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span class="footer-brand">Data Sheets</span>
+          <p class="footer-copyright">&copy; 2026 Data Sheets. All rights reserved.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#">Documentation</a>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Support</a>
+        </div>
+      </div>
+    </footer>
   </main>
 
-  <script src="../app.js"></script>
-  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 19V5M5 12l7-7 7 7"/>
-    </svg>
-  </button>
   <script>
-    // Scroll to top functionality
-    const scrollToTopBtn = document.getElementById('scrollToTop');
-    
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        scrollToTopBtn.classList.add('visible');
+    function toggleTheme() {
+      const html = document.documentElement;
+      const themeIcon = document.getElementById('themeIcon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        themeIcon.textContent = 'dark_mode';
       } else {
-        scrollToTopBtn.classList.remove('visible');
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.textContent = 'light_mode';
       }
-    });
-    
-    scrollToTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
+    }
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const themeIcon = document.getElementById('themeIcon');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+        themeIcon.textContent = 'light_mode';
+      } else {
+        themeIcon.textContent = 'dark_mode';
+      }
+    })();
   </script>
-<script src="../hierarchy.js"></script><script src="../sidebar-nav.js"></script>
 </body>
 </html>
-

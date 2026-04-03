@@ -3,69 +3,87 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>*d@ta# | Pandas DataFrames</title>
+  <title>Data Guide | Pandas DataFrames</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
-  <link rel="stylesheet" href="../hub.css" />
-  <link rel="stylesheet" href="../python/python.css" />
-  <link rel="stylesheet" href="../sidebar-nav.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../shared.css" />
 </head>
 
-<body class="home-with-sidebar">
-  <div class="bg-orb orb-a" aria-hidden="true"></div>
-  <div class="bg-orb orb-b" aria-hidden="true"></div>
-  <div class="bg-orb orb-c" aria-hidden="true"></div>
-
-
+<body class="topic-page">
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <a href="../../index.html" class="brand">
+        <div class="brand-icon">
+          <span class="material-symbols-outlined">architecture</span>
+        </div>
+        <span class="brand-text">Data Sheets</span>
+      </a>
+      <div class="nav-center">
+        <div class="search-bar">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" class="search-input" placeholder="Search architecture, patterns, or cloud..." />
+        </div>
+      </div>
+      <div class="nav-right">
+        <button class="nav-icon-btn" id="themeToggle" onclick="toggleTheme()">
+          <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+        </button>
+        <a href="../portfolios/portfolio.html" class="user-avatar">
+          <img src="../../assets/images/profile-pic.jpeg" alt="User profile" />
+        </a>
+      </div>
+    </div>
+  </header>
 
   <main class="main-content">
-    
-    <div class="page-wrap">
-      <section class="hero">
-        <p class="eyebrow">Pandas Guide</p>
+    <header class="page-header page-header--row">
+      <a href="index.html" class="back-link back-link--round" aria-label="Back">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </a>
+      <div class="page-header-inner">
         <h1>Pandas DataFrames</h1>
-        <p class="hero-copy">A focused guide to Pandas DataFrames.</p>
-      </section>
+        <p>Two-dimensional labeled data structures for tabular data.</p>
+      </div>
+    </header>
 
-      <!-- Section 1: What is DataFrame -->
-      <section class="topic-section" id="what-is-dataframe">
-        <h2> What is a DataFrame? <span class="level-badge basic">Basic</span> </h2>
-        <p>A DataFrame is a two-dimensional labeled data structure with columns of potentially different types. It is the primary workhorse of Pandas and is similar to a spreadsheet or SQL table.</p>
+        <!-- Section 1: What is DataFrame -->
+    <section class="topic-section" id="what-is-dataframe">
+      <h2> What is a DataFrame? <span class="level-badge basic">Basic</span> </h2>
+      <p>A DataFrame is a two-dimensional labeled data structure with columns of potentially different types. It is the primary workhorse of Pandas and is similar to a spreadsheet or SQL table.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Key Characteristics</h4>
-            <ul>
-              <li>Two-dimensional (rows × columns)</li>
-              <li>Heterogeneous column types</li>
-              <li>Labeled axes (index and columns)</li>
-              <li>Size mutable (rows/columns can be added)</li>
-              <li>Automatic data alignment</li>
-            </ul>
-          </div>
-          <div class="split-item">
-            <h4>When to Use DataFrames</h4>
-            <ul>
-              <li>Tabular data from CSV/SQL/Excel</li>
-              <li>Data analysis and exploration</li>
-              <li>Data cleaning and transformation</li>
-              <li>Statistical computing</li>
-              <li>Machine learning preprocessing</li>
-            </ul>
-          </div>
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Key Characteristics</h4>
+          <ul>
+            <li>Two-dimensional (rows × columns)</li>
+            <li>Heterogeneous column types</li>
+            <li>Labeled axes (index and columns)</li>
+            <li>Size mutable (rows/columns can be added)</li>
+            <li>Automatic data alignment</li>
+          </ul>
         </div>
-      </section>
+        <div class="split-item">
+          <h4>When to Use DataFrames</h4>
+          <ul>
+            <li>Tabular data from CSV/SQL/Excel</li>
+            <li>Data analysis and exploration</li>
+            <li>Data cleaning and transformation</li>
+            <li>Statistical computing</li>
+            <li>Machine learning preprocessing</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-      <!-- Section 2: Creating DataFrames -->
-      <section class="topic-section" id="creating-dataframes">
-        <h2> Creating DataFrames <span class="level-badge basic">Basic</span> </h2>
-        <p>DataFrames can be created from various sources including dictionaries, lists, files, and other data structures.</p>
+    <!-- Section 2: Creating DataFrames -->
+    <section class="topic-section" id="creating-dataframes">
+      <h2> Creating DataFrames <span class="level-badge basic">Basic</span> </h2>
+      <p>DataFrames can be created from various sources including dictionaries, lists, files, and other data structures.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
 <span class="keyword">import</span> numpy <span class="keyword">as</span> np
 
@@ -92,18 +110,18 @@ df = pd.<span class="function">read_csv</span>(<span class="string">'data.csv'</
 df = pd.<span class="function">read_excel</span>(<span class="string">'data.xlsx'</span>)
 df = pd.<span class="function">read_json</span>(<span class="string">'data.json'</span>)
 df = pd.<span class="function">read_sql</span>(<span class="string">'SELECT * FROM table'</span>, connection)</code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 3: Selecting Data -->
-      <section class="topic-section" id="selecting-data">
-        <h2> Selecting Data <span class="level-badge basic">Basic</span> </h2>
-        <p>Multiple methods exist to access rows, columns, and specific cells in a DataFrame.</p>
+    <!-- Section 3: Selecting Data -->
+    <section class="topic-section" id="selecting-data">
+      <h2> Selecting Data <span class="level-badge basic">Basic</span> </h2>
+      <p>Multiple methods exist to access rows, columns, and specific cells in a DataFrame.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Column Selection</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Column Selection</h4>
+          <div class="code-block">
 <code><span class="comment"># Single column (returns Series)</span>
 df[<span class="string">'Name'</span>]
 
@@ -112,12 +130,12 @@ df[[<span class="string">'Name'</span>, <span class="string">'Age'</span>]]
 
 <span class="comment"># Dot notation (only for valid identifiers)</span>
 df.Name
-            </code>
-            </div>
+          </code>
           </div>
-          <div class="split-item">
-            <h4>Row Selection</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>Row Selection</h4>
+          <div class="code-block">
 <code><span class="comment"># By label (.loc)</span>
 df.loc[<span class="number">0</span>]              <span class="comment"># First row</span>
 df.loc[<span class="number">0</span>:<span class="number">2</span>]            <span class="comment"># Rows 0-2</span>
@@ -125,12 +143,12 @@ df.loc[<span class="number">0</span>:<span class="number">2</span>]            <
 <span class="comment"># By position (.iloc)</span>
 df.iloc[<span class="number">0</span>]             <span class="comment"># First row</span>
 df.iloc[<span class="number">0</span>:<span class="number">2</span>]           <span class="comment"># First 2 rows</span>
-            </code>
-            </div>
+          </code>
           </div>
         </div>
+      </div>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment"># Cell selection</span>
 df.loc[<span class="number">0</span>, <span class="string">'Name'</span>]      <span class="comment"># Row 0, Name column</span>
 df.iloc[<span class="number">0</span>, <span class="number">1</span>]          <span class="comment"># Row 0, Column 1</span>
@@ -142,15 +160,15 @@ df.loc[df[<span class="string">'Age'</span>].<span class="function">idxmax</span
 
 <span class="comment"># Between values</span>
 df[df[<span class="string">'Age'</span>].<span class="function">between</span>(<span class="number">25</span>, <span class="number">30</span>)]</code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 4: Data Manipulation -->
-      <section class="topic-section" id="data-manipulation">
-        <h2> Data Manipulation <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Transform and manipulate your data with powerful DataFrame methods.</p>
+    <!-- Section 4: Data Manipulation -->
+    <section class="topic-section" id="data-manipulation">
+      <h2> Data Manipulation <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Transform and manipulate your data with powerful DataFrame methods.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment"># Add new columns</span>
 df[<span class="string">'Salary'</span>] = [<span class="number">50000</span>, <span class="number">60000</span>, <span class="number">70000</span>]
 df[<span class="string">'Age_in_10'</span>] = df[<span class="string">'Age'</span>] + <span class="number">10</span>
@@ -175,15 +193,15 @@ df.<span class="function">set_index</span>(<span class="string">'Name'</span>)
 
 <span class="comment"># Type conversion</span>
 df[<span class="string">'Age'</span>] = df[<span class="string">'Age'</span>].astype(<span class="string">'float32'</span>)</code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 5: Grouping and Aggregation -->
-      <section class="topic-section" id="grouping-aggregation">
-        <h2> Grouping & Aggregation <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Group data by categories and compute aggregate statistics with <code>groupby()</code>.</p>
+    <!-- Section 5: Grouping and Aggregation -->
+    <section class="topic-section" id="grouping-aggregation">
+      <h2> Grouping & Aggregation <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Group data by categories and compute aggregate statistics with <code>groupby()</code>.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment"># Basic groupby</span>
 grouped = df.<span class="function">groupby</span>(<span class="string">'City'</span>)
 
@@ -209,15 +227,15 @@ df.<span class="function">groupby</span>(<span class="string">'City'</span>).<sp
     avg_age=(<span class="string">'Age'</span>, <span class="string">'mean'</span>),
     total_salary=(<span class="string">'Salary'</span>, <span class="string">'sum'</span>)
 )</code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 6: Missing Data -->
-      <section class="topic-section" id="missing-data">
-        <h2> Handling Missing Data <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Identify, analyze, and handle missing values in your DataFrame.</p>
+    <!-- Section 6: Missing Data -->
+    <section class="topic-section" id="missing-data">
+      <h2> Handling Missing Data <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Identify, analyze, and handle missing values in your DataFrame.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment"># Detect missing values</span>
 df.<span class="function">isnull</span>()              <span class="comment"># Boolean mask</span>
 df.<span class="function">isnull</span>().<span class="function">sum</span>()         <span class="comment"># Count per column</span>
@@ -239,15 +257,15 @@ df.<span class="function">interpolate</span>()                     <span class="
 
 <span class="comment"># Replace specific values</span>
 df.<span class="function">replace</span>({<span class="string">'N/A'</span>: np.nan, <span class="string">'-'</span>: np.nan})</code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 7: Merge and Join -->
-      <section class="topic-section" id="merge-join">
-        <h2> Merge & Join <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Combine multiple DataFrames using SQL-like joins.</p>
+    <!-- Section 7: Merge and Join -->
+    <section class="topic-section" id="merge-join">
+      <h2> Merge & Join <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Combine multiple DataFrames using SQL-like joins.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment"># Inner join (default)</span>
 pd.<span class="function">merge</span>(df1, df2, on=<span class="string">'id'</span>)
 
@@ -267,15 +285,15 @@ df1.<span class="function">join</span>(df2, how=<span class="string">'left'</spa
 <span class="comment"># Concat (stack vertically)</span>
 pd.<span class="function">concat</span>([df1, df2])           <span class="comment"># Stack rows</span>
 pd.<span class="function">concat</span>([df1, df2], axis=<span class="number">1</span>)   <span class="comment"># Stack columns</span></code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 8: Pivot Tables -->
-      <section class="topic-section" id="pivot-tables">
-        <h2> Pivot Tables <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Reshape data and create summary tables with <code>pivot_table()</code>.</p>
+    <!-- Section 8: Pivot Tables -->
+    <section class="topic-section" id="pivot-tables">
+      <h2> Pivot Tables <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Reshape data and create summary tables with <code>pivot_table()</code>.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment"># Basic pivot table</span>
 pivot = df.<span class="function">pivot_table</span>(
     values=<span class="string">'Sales'</span>,
@@ -303,15 +321,15 @@ pivot = df.<span class="function">pivot_table</span>(
 
 <span class="comment"># Crosstab (frequency table)</span>
 pd.<span class="function">crosstab</span>(df[<span class="string">'Region'</span>], df[<span class="string">'Product'</span>], normalize=<span class="string">'index'</span>)</code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 9: Apply and Map -->
-      <section class="topic-section" id="apply-map">
-        <h2> Apply & Map <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Apply functions to DataFrame elements, rows, or columns.</p>
+    <!-- Section 9: Apply and Map -->
+    <section class="topic-section" id="apply-map">
+      <h2> Apply & Map <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Apply functions to DataFrame elements, rows, or columns.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment"># Apply function to each column/row</span>
 df.<span class="function">apply</span>(<span class="keyword">lambda</span> x: x.<span class="function">max</span>() - x.<span class="function">min</span>())  <span class="comment"># Column-wise</span>
 df.<span class="function">apply</span>(<span class="keyword">lambda</span> x: x.<span class="function">max</span>() - x.<span class="function">min</span>(), axis=<span class="number">1</span>)  <span class="comment"># Row-wise</span>
@@ -334,19 +352,19 @@ df.<span class="function">map</span>(<span class="keyword">lambda</span> x: x.<s
 <span class="comment"># Vectorized alternatives (faster than apply)</span>
 df[<span class="string">'Name_Upper'</span>] = df[<span class="string">'Name'</span>].str.upper()  <span class="comment"># Instead of apply(str.upper)</span>
 df[<span class="string">'Age_Squared'</span>] = df[<span class="string">'Age'</span>] ** <span class="number">2</span>       <span class="comment"># Instead of apply(lambda x: x**2)</span></code>
-        </div>
+      </div>
 
-        <div class="warning-box">
-          <p><strong>Warning:</strong> <code>apply()</code> is slower than vectorized operations. Use built-in methods and vectorized operations whenever possible for better performance.</p>
-        </div>
-      </section>
+      <div class="warning-box">
+        <p><strong>Warning:</strong> <code>apply()</code> is slower than vectorized operations. Use built-in methods and vectorized operations whenever possible for better performance.</p>
+      </div>
+    </section>
 
-      <!-- Section 10: Multi-Index -->
-      <section class="topic-section" id="multi-index">
-        <h2> Multi-Index (Hierarchical Indexing) <span class="level-badge advanced">Advanced</span> </h2>
-        <p>Multi-index allows multiple levels of indexing for complex data structures.</p>
+    <!-- Section 10: Multi-Index -->
+    <section class="topic-section" id="multi-index">
+      <h2> Multi-Index (Hierarchical Indexing) <span class="level-badge advanced">Advanced</span> </h2>
+      <p>Multi-index allows multiple levels of indexing for complex data structures.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment"># Create MultiIndex DataFrame</span>
 index = pd.<span class="function">MultiIndex</span>.from_tuples([
     (<span class="string">'A'</span>, <span class="number">1</span>), (<span class="string">'A'</span>, <span class="number">2</span>),
@@ -369,18 +387,18 @@ df.<span class="function">reset_index</span>(drop=<span class="keyword">True</sp
 <span class="comment"># Stack and unstack</span>
 df.<span class="function">unstack</span>()              <span class="comment"># Pivot inner level to columns</span>
 df.<span class="function">stack</span>()                <span class="comment"># Pivot column level to rows</span></code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 11: Memory Optimization -->
-      <section class="topic-section" id="memory-optimization">
-        <h2> Memory Optimization <span class="level-badge advanced">Advanced</span> </h2>
-        <p>Reduce DataFrame memory usage for handling larger datasets efficiently.</p>
+    <!-- Section 11: Memory Optimization -->
+    <section class="topic-section" id="memory-optimization">
+      <h2> Memory Optimization <span class="level-badge advanced">Advanced</span> </h2>
+      <p>Reduce DataFrame memory usage for handling larger datasets efficiently.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Check Memory Usage</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Check Memory Usage</h4>
+          <div class="code-block">
 <code><span class="comment"># Overall memory usage</span>
 df.<span class="function">memory_usage</span>(deep=<span class="keyword">True</span>)
 
@@ -389,12 +407,12 @@ df.<span class="function">memory_usage</span>(deep=<span class="keyword">True</s
 
 <span class="comment"># Detailed info</span>
 df.<span class="function">info</span>(memory_usage=<span class="string">'deep'</span>)
-            </code>
-            </div>
+          </code>
           </div>
-          <div class="split-item">
-            <h4>Downcast Numerics</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>Downcast Numerics</h4>
+          <div class="code-block">
 <code><span class="keyword">def</span> <span class="function">optimize_floats</span>(df):
     floats = df.select_dtypes(include=[<span class="string">'float64'</span>]).columns
     df[floats] = df[floats].astype(np.float32)
@@ -404,18 +422,18 @@ df.<span class="function">info</span>(memory_usage=<span class="string">'deep'</
     ints = df.select_dtypes(include=[<span class="string">'int64'</span>]).columns
     df[ints] = df[ints].apply(pd.to_numeric, downcast=<span class="string">'integer'</span>)
     <span class="keyword">return</span> df
-            </code>
-            </div>
+          </code>
           </div>
         </div>
+      </div>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment"># Convert strings to category for low cardinality</span>
 <span class="keyword">for</span> col <span class="keyword">in</span> df.select_dtypes(include=[<span class="string">'object'</span>]):
     num_unique = df[col].nunique()
     num_total = <span class="function">len</span>(df)
     <span class="keyword">if</span> num_unique / num_total < <span class="number">0.5</span>:  <span class="comment"># Less than 50% unique</span>
-        df[col] = df[col].astype(<span class="string">'category'</span>)
+      df[col] = df[col].astype(<span class="string">'category'</span>)
 
 <span class="comment"># Use datetime64[ns] efficiently</span>
 df[<span class="string">'date'</span>] = pd.<span class="function">to_datetime</span>(df[<span class="string">'date'</span>], format=<span class="string">'%Y-%m-%d'</span>)
@@ -426,41 +444,41 @@ df[<span class="string">'int_col'</span>] = df[<span class="string">'int_col'</s
 <span class="comment"># Memory optimization function</span>
 <span class="keyword">def</span> <span class="function">reduce_mem_usage</span>(df):
     <span class="keyword">for</span> col <span class="keyword">in</span> df.columns:
-        col_type = df[col].dtype
-        <span class="keyword">if</span> col_type != object:
-            c_min = df[col].<span class="function">min</span>()
-            c_max = df[col].<span class="function">max</span>()
-            <span class="keyword">if</span> str(col_type)[:<span class="number">3</span>] == <span class="string">'int'</span>:
-                <span class="keyword">if</span> c_min > np.iinfo(np.int8).<span class="function">min</span> <span class="keyword">and</span> c_max < np.iinfo(np.int8).<span class="function">max</span>:
-                    df[col] = df[col].astype(np.int8)
-            <span class="keyword">elif</span> str(col_type)[:<span class="number">5</span>] == <span class="string">'float'</span>:
-                <span class="keyword">if</span> c_min > np.finfo(np.float32).<span class="function">min</span> <span class="keyword">and</span> c_max < np.finfo(np.float32).<span class="function">max</span>:
-                    df[col] = df[col].astype(np.float32)
+      col_type = df[col].dtype
+      <span class="keyword">if</span> col_type != object:
+          c_min = df[col].<span class="function">min</span>()
+          c_max = df[col].<span class="function">max</span>()
+          <span class="keyword">if</span> str(col_type)[:<span class="number">3</span>] == <span class="string">'int'</span>:
+              <span class="keyword">if</span> c_min > np.iinfo(np.int8).<span class="function">min</span> <span class="keyword">and</span> c_max < np.iinfo(np.int8).<span class="function">max</span>:
+                  df[col] = df[col].astype(np.int8)
+          <span class="keyword">elif</span> str(col_type)[:<span class="number">5</span>] == <span class="string">'float'</span>:
+              <span class="keyword">if</span> c_min > np.finfo(np.float32).<span class="function">min</span> <span class="keyword">and</span> c_max < np.finfo(np.float32).<span class="function">max</span>:
+                  df[col] = df[col].astype(np.float32)
     <span class="keyword">return</span> df</code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 12: Performance Tips -->
-      <section class="topic-section" id="performance-tips">
-        <h2> Performance Tips <span class="level-badge advanced">Advanced</span> </h2>
-        <p>Optimize DataFrame operations for faster data processing.</p>
+    <!-- Section 12: Performance Tips -->
+    <section class="topic-section" id="performance-tips">
+      <h2> Performance Tips <span class="level-badge advanced">Advanced</span> </h2>
+      <p>Optimize DataFrame operations for faster data processing.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Use Vectorized Operations</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Use Vectorized Operations</h4>
+          <div class="code-block">
 <code><span class="comment"># ❌ Slow: Iteration</span>
 <span class="keyword">for</span> idx, row <span class="keyword">in</span> df.<span class="function">iterrows</span>():
     df.loc[idx, <span class="string">'result'</span>] = row[<span class="string">'a'</span>] + row[<span class="string">'b'</span>]
 
 <span class="comment"># ✅ Fast: Vectorized</span>
 df[<span class="string">'result'</span>] = df[<span class="string">'a'</span>] + df[<span class="string">'b'</span>]
-            </code>
-            </div>
+          </code>
           </div>
-          <div class="split-item">
-            <h4>Avoid Itertuples</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>Avoid Itertuples</h4>
+          <div class="code-block">
 <code><span class="comment"># ❌ Slowest: iterrows()</span>
 <span class="keyword">for</span> row <span class="keyword">in</span> df.<span class="function">iterrows</span>():
     <span class="keyword">pass</span>
@@ -471,12 +489,12 @@ df[<span class="string">'result'</span>] = df[<span class="string">'a'</span>] +
 
 <span class="comment"># ✅ Best: Vectorized</span>
 result = df[<span class="string">'col1'</span>] * df[<span class="string">'col2'</span>]
-            </code>
-            </div>
+          </code>
           </div>
         </div>
+      </div>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment"># Use query() for complex filtering</span>
 result = df.<span class="function">query</span>(<span class="string">'Age > 25 and City in ["NYC", "LA"]'</span>)
 
@@ -494,48 +512,48 @@ df = pd.<span class="function">concat</span>([chunk.<span class="function">query
 <span class="comment"># Parallel processing with swifter</span>
 <span class="comment"># import swifter</span>
 <span class="comment"># df['col'] = df['col'].swifter.apply(func)</span></code>
+      </div>
+
+      <div class="tip-box">
+        <p><strong>Tip:</strong> Profile your code with <code>%timeit</code> in Jupyter or <code>timeit</code> module to measure performance improvements.</p>
+      </div>
+    </section>
+
+    <!-- Section 13: Pros & Cons -->
+    <section class="topic-section" id="pros-cons">
+      <h2> Pros & Cons of DataFrames <span class="level-badge basic">Basic</span> </h2>
+
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Pros</h4>
+          <ul>
+            <li><strong>Rich Functionality:</strong> 200+ built-in methods for data manipulation</li>
+            <li><strong>Heterogeneous Data:</strong> Different column types in one structure</li>
+            <li><strong>Automatic Alignment:</strong> Data aligns by index automatically</li>
+            <li><strong>I/O Integration:</strong> Read/write CSV, Excel, SQL, JSON, Parquet, etc.</li>
+            <li><strong>Missing Data:</strong> Built-in NaN handling and imputation</li>
+            <li><strong>Ecosystem:</strong> Integrates with matplotlib, sklearn, scipy</li>
+          </ul>
         </div>
-
-        <div class="tip-box">
-          <p><strong>Tip:</strong> Profile your code with <code>%timeit</code> in Jupyter or <code>timeit</code> module to measure performance improvements.</p>
+        <div class="split-item">
+          <h4>Cons</h4>
+          <ul>
+            <li><strong>Memory Intensive:</strong> Significant overhead vs raw arrays</li>
+            <li><strong>Single-threaded:</strong> No native parallelism (GIL limited)</li>
+            <li><strong>Slow Iteration:</strong> iterrows() is very slow for large DataFrames</li>
+            <li><strong>Copy Semantics:</strong> Chained assignment can cause issues</li>
+            <li><strong>Columnar Memory:</strong> Row operations can be slower</li>
+            <li><strong>Version Changes:</strong> API changes across versions can break code</li>
+          </ul>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 13: Pros & Cons -->
-      <section class="topic-section" id="pros-cons">
-        <h2> Pros & Cons of DataFrames <span class="level-badge basic">Basic</span> </h2>
+    <!-- Section 14: Tips & Tricks -->
+    <section class="topic-section" id="tips-tricks">
+      <h2> Tips & Tricks <span class="level-badge intermediate">Intermediate</span> </h2>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Pros</h4>
-            <ul>
-              <li><strong>Rich Functionality:</strong> 200+ built-in methods for data manipulation</li>
-              <li><strong>Heterogeneous Data:</strong> Different column types in one structure</li>
-              <li><strong>Automatic Alignment:</strong> Data aligns by index automatically</li>
-              <li><strong>I/O Integration:</strong> Read/write CSV, Excel, SQL, JSON, Parquet, etc.</li>
-              <li><strong>Missing Data:</strong> Built-in NaN handling and imputation</li>
-              <li><strong>Ecosystem:</strong> Integrates with matplotlib, sklearn, scipy</li>
-            </ul>
-          </div>
-          <div class="split-item">
-            <h4>Cons</h4>
-            <ul>
-              <li><strong>Memory Intensive:</strong> Significant overhead vs raw arrays</li>
-              <li><strong>Single-threaded:</strong> No native parallelism (GIL limited)</li>
-              <li><strong>Slow Iteration:</strong> iterrows() is very slow for large DataFrames</li>
-              <li><strong>Copy Semantics:</strong> Chained assignment can cause issues</li>
-              <li><strong>Columnar Memory:</strong> Row operations can be slower</li>
-              <li><strong>Version Changes:</strong> API changes across versions can break code</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <!-- Section 14: Tips & Tricks -->
-      <section class="topic-section" id="tips-tricks">
-        <h2> Tips & Tricks <span class="level-badge intermediate">Intermediate</span> </h2>
-
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment"># 1. Quick summary with describe()</span>
 df.<span class="function">describe</span>()           <span class="comment"># Stats for numeric columns</span>
 df.<span class="function">describe</span>(include=<span class="string">'all'</span>) <span class="comment"># Include all columns</span>
@@ -570,83 +588,53 @@ result = (df
     .<span class="function">pipe</span>(filter_rows)
     .<span class="function">sort_values</span>(<span class="string">'total'</span>)
 )</code>
-        </div>
+      </div>
 
-        <div class="tip-box">
-          <p><strong>Pro Tip:</strong> Enable copy-on-write mode in Pandas 2.0+ with <code>pd.options.mode.copy_on_write = True</code> for better memory efficiency and cleaner code.</p>
+      <div class="tip-box">
+        <p><strong>Pro Tip:</strong> Enable copy-on-write mode in Pandas 2.0+ with <code>pd.options.mode.copy_on_write = True</code> for better memory efficiency and cleaner code.</p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span class="footer-brand">Data Sheets</span>
+          <p class="footer-copyright">Â© 2026 Data Sheets. All rights reserved.</p>
         </div>
-      </section>
-    </div>
+        <div class="footer-links">
+          <a href="#">Documentation</a>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Support</a>
+        </div>
+      </div>
+    </footer>
   </main>
 
-  <script src="../app.js"></script>
   <script>
-    const navItems = Array.from(document.querySelectorAll(".nav-item"));
-
-    const setActiveNav = (id) => {
-      navItems.forEach((item) => {
-        const isActive = item.getAttribute("href") === "#" + id;
-        item.classList.toggle("active", isActive);
-        if (isActive) {
-          item.setAttribute("aria-current", "location");
-        } else {
-          item.removeAttribute("aria-current");
-        }
-      });
-    };
-
-    navItems.forEach((item) => {
-      item.addEventListener("click", function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute("href").substring(1);
-        const target = document.getElementById(targetId);
-        if (!target) return;
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-        history.replaceState(null, "", "#" + targetId);
-        setActiveNav(targetId);
-        closeSidebar();
-      });
-    });
-
-    const sectionObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const id = entry.target.getAttribute("id");
-          setActiveNav(id);
-        }
-      });
-    }, { root: null, rootMargin: "-18% 0px -68% 0px", threshold: 0 });
-
-    document.querySelectorAll(".topic-section[id]").forEach((el) => sectionObserver.observe(el));
-
-    const initialId = (window.location.hash || "#what-is-dataframe").substring(1);
-    setActiveNav(initialId);
-  </script>
-  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 19V5M5 12l7-7 7 7"/>
-    </svg>
-  </button>
-  <script>
-    // Scroll to top functionality
-    const scrollToTopBtn = document.getElementById('scrollToTop');
-    
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        scrollToTopBtn.classList.add('visible');
+    function toggleTheme() {
+      var html = document.documentElement;
+      var themeIcon = document.getElementById('themeIcon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        themeIcon.textContent = 'dark_mode';
       } else {
-        scrollToTopBtn.classList.remove('visible');
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.textContent = 'light_mode';
       }
-    });
-    
-    scrollToTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
+    }
+    (function() {
+      var savedTheme = localStorage.getItem('theme');
+      var themeIcon = document.getElementById('themeIcon');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+        themeIcon.textContent = 'light_mode';
+      } else {
+        themeIcon.textContent = 'dark_mode';
+      }
+    })();
   </script>
-<script src="../hierarchy.js"></script><script src="../sidebar-nav.js"></script>
 </body>
 </html>
-

@@ -1,45 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>*d@ta# | NumPy Cheatsheet</title>
+  <title>Data Guide | NumPy Cheatsheet</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
-  <link rel="stylesheet" href="../hub.css" />
-  <link rel="stylesheet" href="cheatsheet-base.css" />
-  <link rel="stylesheet" href="../sidebar-nav.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../shared.css" />
 </head>
 
-<body class="home-with-sidebar">
-  <div class="bg-orb orb-a" aria-hidden="true"></div>
-  <div class="bg-orb orb-b" aria-hidden="true"></div>
-  <div class="bg-orb orb-c" aria-hidden="true"></div>
-
-
- 
+<body class="topic-page">
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <a href="C:\Users\vanap" class="brand">
+        <div class="brand-icon">
+          <span class="material-symbols-outlined">architecture</span>
+        </div>
+        <span class="brand-text">Data Sheets</span>
+      </a>
+      <div class="nav-center">
+        <div class="search-bar">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" class="search-input" placeholder="Search architecture, patterns, or cloud..." />
+        </div>
+      </div>
+      <div class="nav-right">
+        <button class="nav-icon-btn" id="themeToggle" onclick="toggleTheme()">
+          <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+        </button>
+        <a href="../portfolios/portfolio.html" class="user-avatar">
+          <img src="../../assets/images/profile-pic.jpeg" alt="User profile" />
+        </a>
+      </div>
+    </div>
+  </header>
 
   <main class="main-content">
-    
-    <div class="page-wrap">
-        <section class="hero">
-          <h1>NumPy Cheatsheet</h1>
-          <p class="hero-copy">A focused guide to NumPy Cheatsheet.</p>
-          <p>Quick reference for NumPy array creation, operations, linear algebra, and broadcasting.</p>
-        </section>
+    <header class="page-header page-header--row">
+      <a href="cheatsheet.html" class="back-link back-link--round" aria-label="Back">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </a>
+      <div class="page-header-inner">
+        <h1>NumPy Cheatsheet</h1>
+        <p>Quick reference for NumPy array operations.</p>
+      </div>
+    </header>
 
-        <section class="cheat-section" id="data-structures">
-        <h2 class="section-title">Data Structures <span class="section-difficulty difficulty-basic">Basic</span></h2>
-        <div class="code-grid">
-          <div class="code-card">
-            <span class="code-label">ndarray</span>
-            <h3>N‑dimensional Array</h3>
-            <p>The fundamental NumPy data structure.</p>
+          <section class="cheat-section" id="data-structures">
+      <h2 class="section-title">Data Structures <span class="section-difficulty difficulty-basic">Basic</span></h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">ndarray</span>
+          <h3>N‑dimensional Array</h3>
+          <p>The fundamental NumPy data structure.</p>
 <pre class="code-block"><code class="language-python">
 import numpy as np
 
@@ -54,11 +70,11 @@ matrix = np.array([[1, 2, 3],
 print(matrix.shape) # (2, 3)
 print(matrix.ndim) # 2
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">dtypes</span>
-            <h3>Data Types</h3>
-            <p>Control memory layout and precision.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">dtypes</span>
+          <h3>Data Types</h3>
+          <p>Control memory layout and precision.</p>
 <pre class="code-block"><code class="language-python">
 # Explicit dtype
 arr = np.array([1, 2, 3], dtype=np.float32)
@@ -73,17 +89,17 @@ dt = np.dtype([('x', np.int32), ('y', np.float64)])
 arr = np.array([(1, 2.5), (3, 4.7)], dtype=dt)
 print(arr[0]['x']) # 1
 </code></pre>
-          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="cheat-section" id="array-creation">
-        <h2 class="section-title">Array Creation <span class="section-difficulty difficulty-basic">Basic</span></h2>
-        <div class="code-grid">
-          <div class="code-card">
-            <span class="code-label">From List</span>
-            <h3 id="list">Create Arrays</h3>
-            <p>Create arrays from various sources.</p>
+    <section class="cheat-section" id="array-creation">
+      <h2 class="section-title">Array Creation <span class="section-difficulty difficulty-basic">Basic</span></h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">From List</span>
+          <h3 id="list">Create Arrays</h3>
+          <p>Create arrays from various sources.</p>
 <pre class="code-block"><code class="language-python">
 import numpy as np
 
@@ -98,11 +114,11 @@ arr = np.array([(1, 2), (3, 4)])
 arr_copy = arr.copy()
 arr_view = arr.view()
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Ranges</span>
-            <h3>Ranges & Sequences</h3>
-            <p>Create arrays with ranges.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Ranges</span>
+          <h3>Ranges & Sequences</h3>
+          <p>Create arrays with ranges.</p>
 <pre class="code-block"><code class="language-python">
 # Arange (like range)
 arr = np.arange(0, 10) # [0, 1, 2, ..., 9]
@@ -113,11 +129,11 @@ arr = np.arange(10, 0, -1) # Descending
 arr = np.linspace(0, 1, 10) # 10 points from 0 to 1
 arr = np.linspace(0, 1, 10, endpoint=False) # Exclude end
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Special</span>
-            <h3>Special Arrays</h3>
-            <p>Arrays with special values.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Special</span>
+          <h3>Special Arrays</h3>
+          <p>Arrays with special values.</p>
 <pre class="code-block"><code class="language-python">
 # Zeros and ones
 zeros = np.zeros(5) # [0, 0, 0, 0, 0]
@@ -132,11 +148,11 @@ eye = np.eye(3, 4) # 3x4 with diagonal 1s
 full = np.full((2, 3), 7) # 2x3 filled with 7
 full = np.full_like(arr, 0) # Same shape as arr, filled with 0
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Random</span>
-            <h3>Random Arrays</h3>
-            <p>Generate random arrays.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Random</span>
+          <h3>Random Arrays</h3>
+          <p>Generate random arrays.</p>
 <pre class="code-block"><code class="language-python">
 # Set seed for reproducibility
 np.random.seed(42)
@@ -156,18 +172,18 @@ rand_int = np.random.randint(0, 10, (3, 4))
 # Random choice
 choices = np.random.choice([1, 2, 3, 4, 5], size=3)
 </code></pre>
-          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="cheat-section" id="indexing-slicing">
-        <h2 class="section-title">Indexing & Slicing <span class="section-difficulty difficulty-medium">Medium</span>
-        </h2>
-        <div class="code-grid">
-          <div class="code-card">
-            <span class="code-label">Basic</span>
-            <h3>Basic Indexing</h3>
-            <p>Access array elements.</p>
+    <section class="cheat-section" id="indexing-slicing">
+      <h2 class="section-title">Indexing & Slicing <span class="section-difficulty difficulty-medium">Medium</span>
+      </h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Basic</span>
+          <h3>Basic Indexing</h3>
+          <p>Access array elements.</p>
 <pre class="code-block"><code class="language-python">
 arr = np.array([10, 20, 30, 40, 50])
 
@@ -183,11 +199,11 @@ arr[2:] # [30, 40, 50]
 arr[::2] # [10, 30, 50] (every 2nd)
 arr[::-1] # [50, 40, 30, 20, 10] (reverse)
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">2D</span>
-            <h3>Multi-dimensional Indexing</h3>
-            <p>Index into multi-dimensional arrays.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">2D</span>
+          <h3>Multi-dimensional Indexing</h3>
+          <p>Index into multi-dimensional arrays.</p>
 <pre class="code-block"><code class="language-python">
 matrix = np.array([[1, 2, 3],
 [4, 5, 6],
@@ -207,11 +223,11 @@ matrix[:, 2] # Third column [3, 6, 9]
 # Submatrix
 matrix[0:2, 1:3] # [[2, 3], [5, 6]]
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Boolean</span>
-            <h3>Boolean Indexing</h3>
-            <p>Filter arrays with conditions.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Boolean</span>
+          <h3>Boolean Indexing</h3>
+          <p>Filter arrays with conditions.</p>
 <pre class="code-block"><code class="language-python">
 arr = np.array([1, 5, 2, 8, 3, 9, 4])
 
@@ -227,11 +243,11 @@ arr[(arr > 2) & (arr < 8)] # [5, 3, 4] # Negation arr[~(arr> 5)] # [1, 5, 2, 3, 
 # Using where
 np.where(arr > 5, arr, 0) # [0, 0, 0, 8, 0, 9, 0]
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Fancy</span>
-            <h3>Fancy Indexing</h3>
-            <p>Index with arrays/lists.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Fancy</span>
+          <h3>Fancy Indexing</h3>
+          <p>Index with arrays/lists.</p>
 <pre class="code-block"><code class="language-python">
 arr = np.array([10, 20, 30, 40, 50])
 
@@ -252,17 +268,17 @@ np.take(arr, [0, 2, 4]) # [10, 30, 50]
 idx = np.argpartition(arr, 2) # Indices of 2 smallest
 arr[idx[:2]]
 </code></pre>
-          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="cheat-section" id="array-operations">
-        <h2 class="section-title">Array Operations <span class="section-difficulty difficulty-medium">Medium</span></h2>
-        <div class="code-grid">
-          <div class="code-card">
-            <span class="code-label">Arithmetic</span>
-            <h3>Mathematical Operations</h3>
-            <p>Element-wise math operations.</p>
+    <section class="cheat-section" id="array-operations">
+      <h2 class="section-title">Array Operations <span class="section-difficulty difficulty-medium">Medium</span></h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Arithmetic</span>
+          <h3>Mathematical Operations</h3>
+          <p>Element-wise math operations.</p>
 <pre class="code-block"><code class="language-python">
 a = np.array([1, 2, 3])
 b = np.array([4, 5, 6])
@@ -287,11 +303,11 @@ a @ b # 32 (dot product)
 np.dot(a, b) # 32
 np.matmul(a.reshape(1,3), b.reshape(3,1)) # [[32]]
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Statistics</span>
-            <h3>Statistical Functions</h3>
-            <p>Compute statistics on arrays.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Statistics</span>
+          <h3>Statistical Functions</h3>
+          <p>Compute statistics on arrays.</p>
 <pre class="code-block"><code class="language-python">
 arr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 
@@ -314,11 +330,11 @@ np.percentile(arr, 25) # 3.25 (Q1)
 np.percentile(arr, 50) # 5.5 (median)
 np.percentile(arr, 75) # 7.75 (Q3)
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Axis</span>
-            <h3>Axis Operations</h3>
-            <p>Operations along specific axis.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Axis</span>
+          <h3>Axis Operations</h3>
+          <p>Operations along specific axis.</p>
 <pre class="code-block"><code class="language-python">
 matrix = np.array([[1, 2, 3],
 [4, 5, 6],
@@ -337,11 +353,11 @@ np.max(matrix, axis=1) # [3, 6, 9]
 # Keep dimensions
 np.sum(matrix, axis=0, keepdims=True) # [[12, 15, 18]]
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Comparison</span>
-            <h3>Comparison Operations</h3>
-            <p>Compare arrays element-wise.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Comparison</span>
+          <h3>Comparison Operations</h3>
+          <p>Compare arrays element-wise.</p>
 <pre class="code-block"><code class="language-python">
 a = np.array([1, 2, 3, 4])
 b = np.array([2, 2, 2, 4])
@@ -363,18 +379,18 @@ np.array_equal(a, b) # False
 np.logical_and(a > 1, a < 4) # [False, True, True, False] np.logical_or(a < 2, a> 3) # [True, False,
 False, True]
 </code></pre>
-          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="cheat-section" id="reshaping-combining">
-        <h2 class="section-title">Reshaping & Combining <span class="section-difficulty difficulty-medium">Medium</span>
-        </h2>
-        <div class="code-grid">
-          <div class="code-card">
-            <span class="code-label">Reshape</span>
-            <h3>Reshape Arrays</h3>
-            <p>Change array shape.</p>
+    <section class="cheat-section" id="reshaping-combining">
+      <h2 class="section-title">Reshaping & Combining <span class="section-difficulty difficulty-medium">Medium</span>
+      </h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Reshape</span>
+          <h3>Reshape Arrays</h3>
+          <p>Change array shape.</p>
 <pre class="code-block"><code class="language-python">
 arr = np.arange(12)
 
@@ -396,11 +412,11 @@ arr.resize(2, 6)
 matrix.T # Transpose
 np.transpose(matrix)
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Stack</span>
-            <h3>Stack Arrays</h3>
-            <p>Combine arrays.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Stack</span>
+          <h3>Stack Arrays</h3>
+          <p>Combine arrays.</p>
 <pre class="code-block"><code class="language-python">
 a = np.array([1, 2, 3])
 b = np.array([4, 5, 6])
@@ -421,11 +437,11 @@ np.stack([a, b], axis=1)# [[1,4], [2,5], [3,6]]
 np.concatenate([a, b]) # [1, 2, 3, 4, 5, 6]
 np.concatenate([[a], [b]]) # [[1,2,3], [4,5,6]]
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Split</span>
-            <h3>Split Arrays</h3>
-            <p>Split arrays into sub-arrays.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Split</span>
+          <h3>Split Arrays</h3>
+          <p>Split arrays into sub-arrays.</p>
 <pre class="code-block"><code class="language-python">
 arr = np.arange(12)
 
@@ -444,11 +460,11 @@ np.vsplit(matrix, 3) # Split into 3 rows
 np.hsplit(matrix, 2) # Split into 2 column groups
 np.hsplit(matrix, [1, 3]) # Split at cols 1 and 3
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Tile/Repeat</span>
-            <h3>Tile & Repeat</h3>
-            <p>Repeat or tile arrays.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Tile/Repeat</span>
+          <h3>Tile & Repeat</h3>
+          <p>Repeat or tile arrays.</p>
 <pre class="code-block"><code class="language-python">
 arr = np.array([1, 2, 3])
 
@@ -466,18 +482,18 @@ np.unique(arr) # [1, 2, 3]
 np.unique(arr, return_counts=True)
 # ([1, 2, 3], [1, 2, 3])
 </code></pre>
-          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="cheat-section" id="linear-algebra">
-        <h2 class="section-title">Linear Algebra <span class="section-difficulty difficulty-advanced">Advanced</span>
-        </h2>
-        <div class="code-grid">
-          <div class="code-card">
-            <span class="code-label">Matrix</span>
-            <h3>Matrix Operations</h3>
-            <p>Basic linear algebra operations.</p>
+    <section class="cheat-section" id="linear-algebra">
+      <h2 class="section-title">Linear Algebra <span class="section-difficulty difficulty-advanced">Advanced</span>
+      </h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Matrix</span>
+          <h3>Matrix Operations</h3>
+          <p>Basic linear algebra operations.</p>
 <pre class="code-block"><code class="language-python">
 A = np.array([[1, 2], [3, 4]])
 B = np.array([[5, 6], [7, 8]])
@@ -503,11 +519,11 @@ trace = np.trace(A)
 A @ A @ A # or
 A**3 = np.linalg.matrix_power(A, 3)
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Decomposition</span>
-            <h3>Matrix Decomposition</h3>
-            <p>Decompose matrices.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Decomposition</span>
+          <h3>Matrix Decomposition</h3>
+          <p>Decompose matrices.</p>
 <pre class="code-block"><code class="language-python">
 # Eigenvalues and eigenvectors
 vals, vecs = np.linalg.eig(A)
@@ -525,11 +541,11 @@ Q, R = np.linalg.qr(A)
 from scipy import linalg
 P, L, U = linalg.lu(A)
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Solve</span>
-            <h3>Solve Linear Systems</h3>
-            <p>Solve Ax = b systems.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Solve</span>
+          <h3>Solve Linear Systems</h3>
+          <p>Solve Ax = b systems.</p>
 <pre class="code-block"><code class="language-python">
 # Solve Ax = b
 A = np.array([[3, 1], [1, 2]])
@@ -552,11 +568,11 @@ np.linalg.norm(A) # Frobenius norm
 np.linalg.norm(A, ord=2) # 2-norm
 np.linalg.norm(b, ord=1) # 1-norm
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Vector</span>
-            <h3>Vector Operations</h3>
-            <p>Vector math and operations.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Vector</span>
+          <h3>Vector Operations</h3>
+          <p>Vector math and operations.</p>
 <pre class="code-block"><code class="language-python">
 v1 = np.array([1, 2, 3])
 v2 = np.array([4, 5, 6])
@@ -578,17 +594,17 @@ normalized = v1 / np.linalg.norm(v1)
 cos_angle = np.dot(v1, v2) / (np.linalg.norm(v1) * np.linalg.norm(v2))
 angle = np.arccos(cos_angle)
 </code></pre>
-          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="cheat-section" id="broadcasting">
-        <h2 class="section-title">Broadcasting <span class="section-difficulty difficulty-advanced">Advanced</span></h2>
-        <div class="code-grid">
-          <div class="code-card">
-            <span class="code-label">Rules</span>
-            <h3>Broadcasting Rules</h3>
-            <p>Understand how broadcasting works.</p>
+    <section class="cheat-section" id="broadcasting">
+      <h2 class="section-title">Broadcasting <span class="section-difficulty difficulty-advanced">Advanced</span></h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Rules</span>
+          <h3>Broadcasting Rules</h3>
+          <p>Understand how broadcasting works.</p>
 <pre class="code-block"><code class="language-python">
 # Rule 1: Arrays with fewer dimensions prepend 1s
 # (3,) and (2,3) -> (1,3) and (2,3)
@@ -607,11 +623,11 @@ arr + 10 # [[11,12], [13,14]]
 # np.array([1,2,3]) + np.array([1,2])
 # ValueError: shapes (3,) and (2,) not compatible
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Examples</span>
-            <h3>Common Patterns</h3>
-            <p>Practical broadcasting examples.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Examples</span>
+          <h3>Common Patterns</h3>
+          <p>Practical broadcasting examples.</p>
 <pre class="code-block"><code class="language-python">
 # Row operations
 matrix = np.array([[1, 2, 3], [4, 5, 6]])
@@ -634,11 +650,11 @@ points = np.array([[0, 0], [1, 1], [2, 2]])
 diff = points[:, np.newaxis, :] - points[np.newaxis, :, :]
 distances = np.sqrt((diff**2).sum(axis=2))
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Newaxis</span>
-            <h3>np.newaxis</h3>
-            <p>Add dimensions for broadcasting.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Newaxis</span>
+          <h3>np.newaxis</h3>
+          <p>Add dimensions for broadcasting.</p>
 <pre class="code-block"><code class="language-python">
 arr = np.array([1, 2, 3, 4])
 
@@ -662,16 +678,16 @@ outer = a[:, np.newaxis] * b[np.newaxis, :]
 np.expand_dims(arr, axis=0) # Add row
 np.expand_dims(arr, axis=1) # Add column
 </code></pre>
-          </div>
         </div>
-      </section>
-      <section class="cheat-section" id="useful-modules">
-        <h2 class="section-title">Useful Modules <span class="section-difficulty difficulty-medium">Medium</span></h2>
-        <div class="code-grid">
-          <div class="code-card">
-            <span class="code-label">numpy.linalg</span>
-            <h3>Linear Algebra</h3>
-            <p>Matrix operations, decompositions, and solvers.</p>
+      </div>
+    </section>
+    <section class="cheat-section" id="useful-modules">
+      <h2 class="section-title">Useful Modules <span class="section-difficulty difficulty-medium">Medium</span></h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">numpy.linalg</span>
+          <h3>Linear Algebra</h3>
+          <p>Matrix operations, decompositions, and solvers.</p>
 <pre class="code-block"><code class="language-python">
 import numpy as np
 from numpy import linalg as LA
@@ -687,11 +703,11 @@ vals, vecs = LA.eig(A)
 # SVD
 U, s, Vh = LA.svd(A, full_matrices=False)
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">numpy.fft</span>
-            <h3>Fast Fourier Transform</h3>
-            <p>Discrete Fourier transforms and related routines.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">numpy.fft</span>
+          <h3>Fast Fourier Transform</h3>
+          <p>Discrete Fourier transforms and related routines.</p>
 <pre class="code-block"><code class="language-python">
 import numpy as np
 from numpy import fft
@@ -705,11 +721,11 @@ recon = fft.ifft(freq)
 image = np.random.rand(8, 8)
 freq2d = fft.fft2(image)
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">numpy.random</span>
-            <h3>Random Sampling</h3>
-            <p>Random number generation and distributions.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">numpy.random</span>
+          <h3>Random Sampling</h3>
+          <p>Random number generation and distributions.</p>
 <pre class="code-block"><code class="language-python">
 import numpy as np
 
@@ -725,16 +741,16 @@ normal = rng.normal(loc=0, scale=1, size=(2, 5))
 # Choose from list
 choices = rng.choice(['a', 'b', 'c'], size=10)
 </code></pre>
-          </div>
         </div>
-      </section>
-      <section class="cheat-section" id="tips-tricks">
-        <h2 class="section-title">Tips & Tricks</h2>
-        <div class="code-grid">
-          <div class="code-card">
-            <span class="code-label">Tip</span>
-            <h3>Use vectorized operations</h3>
-            <p>Replace Python loops with NumPy vectorized functions for massive speed gains.</p>
+      </div>
+    </section>
+    <section class="cheat-section" id="tips-tricks">
+      <h2 class="section-title">Tips & Tricks</h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Tip</span>
+          <h3>Use vectorized operations</h3>
+          <p>Replace Python loops with NumPy vectorized functions for massive speed gains.</p>
 <pre class="code-block"><code class="language-python">
 # Slow
 result = []
@@ -744,11 +760,11 @@ result.append(arr[i] * 2)
 # Fast
 result = arr * 2
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Trick</span>
-            <h3>Use broadcasting effectively</h3>
-            <p>Operate on arrays of different shapes without explicit loops.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Trick</span>
+          <h3>Use broadcasting effectively</h3>
+          <p>Operate on arrays of different shapes without explicit loops.</p>
 <pre class="code-block"><code class="language-python">
 # Create a 5x5 array of ones
 ones = np.ones((5, 5))
@@ -757,11 +773,11 @@ ones = np.ones((5, 5))
 row_vector = np.array([1, 2, 3, 4, 5])
 result = ones - row_vector # Broadcasting works
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Tip</span>
-            <h3>Use `np.where` for conditional selection</h3>
-            <p>Vectorized if-else for array elements.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Tip</span>
+          <h3>Use `np.where` for conditional selection</h3>
+          <p>Vectorized if-else for array elements.</p>
 <pre class="code-block"><code class="language-python">
 arr = np.array([1, -2, 3, -4, 5])
 # Replace negative values with zero
@@ -772,58 +788,84 @@ positive = np.where(arr > 0, arr, 0)
 cond = np.array([True, False, True, False, True])
 result = np.where(cond, arr, -arr)
 </code></pre>
-          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="cheat-section" id="best-practices">
-        <h2 class="section-title">Best Practices <span class="section-difficulty difficulty-medium">Medium</span></h2>
-        <div class="code-grid">
-          <div class="code-card">
-            <span class="code-label">Memory</span>
-            <h3>Use dtype wisely</h3>
-            <p>Use explicit dtypes and avoid object arrays to reduce memory and improve speed.</p>
+    <section class="cheat-section" id="best-practices">
+      <h2 class="section-title">Best Practices <span class="section-difficulty difficulty-medium">Medium</span></h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Memory</span>
+          <h3>Use dtype wisely</h3>
+          <p>Use explicit dtypes and avoid object arrays to reduce memory and improve speed.</p>
 <pre class="code-block"><code class="language-python">
 arr = np.array([1, 2, 3], dtype=np.int16)
 arr = arr.astype(np.float32)
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">IO</span>
-            <h3>Prefer binary formats</h3>
-            <p>Use `np.save`/`np.load` for numpy arrays instead of text files.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">IO</span>
+          <h3>Prefer binary formats</h3>
+          <p>Use `np.save`/`np.load` for numpy arrays instead of text files.</p>
 <pre class="code-block"><code class="language-python">
 np.save('data.npy', arr)
 arr2 = np.load('data.npy')
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Profiling</span>
-            <h3>Profile with `%timeit`</h3>
-            <p>Measure before optimizing to choose the best approach.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Profiling</span>
+          <h3>Profile with `%timeit`</h3>
+          <p>Measure before optimizing to choose the best approach.</p>
 <pre class="code-block"><code class="language-python">
 # in notebook
 %timeit arr * 2
 %timeit np.multiply(arr, 2)
 </code></pre>
-          </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span class="footer-brand">Data Sheets</span>
+          <p class="footer-copyright">@ 2026 Data Sheets. All rights reserved.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#">Documentation</a>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Support</a>
+        </div>
+      </div>
+    </footer>
   </main>
-    <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-      stroke-linejoin="round">
-      <path d="M12 19V5M5 12l7-7 7 7" />
-    </svg>
-  </button>
-  <script src="cheatsheets.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
-  <script>Prism.highlightAll();</script>
-<script src="../hierarchy.js"></script><script src="../sidebar-nav.js"></script>
+
+  <script>
+    function toggleTheme() {
+      var html = document.documentElement;
+      var themeIcon = document.getElementById('themeIcon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        themeIcon.textContent = 'dark_mode';
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.textContent = 'light_mode';
+      }
+    }
+    (function() {
+      var savedTheme = localStorage.getItem('theme');
+      var themeIcon = document.getElementById('themeIcon');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+        themeIcon.textContent = 'light_mode';
+      } else {
+        themeIcon.textContent = 'dark_mode';
+      }
+    })();
+  </script>
 </body>
 </html>

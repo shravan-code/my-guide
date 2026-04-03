@@ -1,45 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>*d@ta# | Python Cheatsheet</title>
+  <title>Data Guide | Python Cheatsheet</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
-  <link rel="stylesheet" href="../hub.css" />
-  <link rel="stylesheet" href="cheatsheet-base.css" />
-  <link rel="stylesheet" href="../sidebar-nav.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../shared.css" />
 </head>
 
-<body class="home-with-sidebar">
-  <div class="bg-orb orb-a" aria-hidden="true"></div>
-  <div class="bg-orb orb-b" aria-hidden="true"></div>
-  <div class="bg-orb orb-c" aria-hidden="true"></div>
-
-
- 
+<body class="topic-page">
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <a href="C:\Users\vanap" class="brand">
+        <div class="brand-icon">
+          <span class="material-symbols-outlined">architecture</span>
+        </div>
+        <span class="brand-text">Data Sheets</span>
+      </a>
+      <div class="nav-center">
+        <div class="search-bar">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" class="search-input" placeholder="Search architecture, patterns, or cloud..." />
+        </div>
+      </div>
+      <div class="nav-right">
+        <button class="nav-icon-btn" id="themeToggle" onclick="toggleTheme()">
+          <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+        </button>
+        <a href="../portfolios/portfolio.html" class="user-avatar">
+          <img src="../../assets/images/profile-pic.jpeg" alt="User profile" />
+        </a>
+      </div>
+    </div>
+  </header>
 
   <main class="main-content">
-    
-    <div class="page-wrap">
-        <section class="hero">
-          <h1>Python Cheatsheet</h1>
-          <p class="hero-copy">A focused guide to Python Cheatsheet.</p>
-          <p>Quick reference for Python fundamentals, data structures, and common patterns.</p>
-        </section>
+    <header class="page-header page-header--row">
+      <a href="cheatsheet.html" class="back-link back-link--round" aria-label="Back">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </a>
+      <div class="page-header-inner">
+        <h1>Python Cheatsheet</h1>
+        <p>Quick reference for Python syntax, methods, and patterns.</p>
+      </div>
+    </header>
 
-        <section class="cheat-section" id="data-structures">
-        <h2 class="section-title">Data Structures <span class="section-difficulty difficulty-basic">Basic</span></h2>
-        <div class="code-grid">
-          <div class="code-card">
-            <span class="code-label">List</span>
-            <h3 id="list">List Operations</h3>
-            <p>Mutable ordered collection.</p>
+          <section class="cheat-section" id="data-structures">
+      <h2 class="section-title">Data Structures <span class="section-difficulty difficulty-basic">Basic</span></h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">List</span>
+          <h3 id="list">List Operations</h3>
+          <p>Mutable ordered collection.</p>
 <pre class="code-block"><code class="language-python">
 # Create
 lst = [1, 2, 3] # lst is [1, 2, 3]
@@ -54,11 +70,11 @@ lst.remove(3) # lst becomes [0, 0, 1, 2, 4, 5, 6, 7, 8, 9, 4, 5]
 lst.sort() # lst becomes [0, 0, 1, 2, 4, 4, 5, 5, 6, 7, 8, 9]
 lst[::-1] # returns [9, 8, 7, 6, 5, 5, 4, 4, 2, 1, 0, 0]
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Dict</span>
-            <h3>Dictionary Operations</h3>
-            <p>Key-value pair storage.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Dict</span>
+          <h3>Dictionary Operations</h3>
+          <p>Key-value pair storage.</p>
 <pre class="code-block"><code class="language-python">
 # Create
 d = {'a': 1, 'b': 2} # d is {'a': 1, 'b': 2}
@@ -78,11 +94,11 @@ d.update({'c': 3}) # d becomes {'x': 10, 'y': 20, 'c': 3}
 d.pop('c') # removes 'c', returns 3, d becomes {'x': 10, 'y': 20}
 d.setdefault('x', 0) # returns 10 (key exists), d unchanged
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Set</span>
-            <h3>Set Operations</h3>
-            <p>Unique unordered collection.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Set</span>
+          <h3>Set Operations</h3>
+          <p>Unique unordered collection.</p>
 <pre class="code-block"><code class="language-python">
 # Create
 s = {1, 2, 3}
@@ -99,11 +115,11 @@ a & b # Intersection
 a - b # Difference
 a ^ b # Symmetric diff
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Tuple</span>
-            <h3>Tuple Unpacking</h3>
-            <p>Immutable ordered collection.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Tuple</span>
+          <h3>Tuple Unpacking</h3>
+          <p>Immutable ordered collection.</p>
 <pre class="code-block"><code class="language-python">
 # Create
 t = (1, 2, 3)
@@ -122,17 +138,17 @@ from collections import namedtuple
 Point = namedtuple('Point', ['x', 'y'])
 p = Point(1, 2)
 </code></pre>
-          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="cheat-section" id="comprehensions">
-        <h2 class="section-title">Comprehensions <span class="section-difficulty difficulty-medium">Medium</span></h2>
-        <div class="code-grid">
-          <div class="code-card">
-            <span class="code-label">List</span>
-            <h3>List Comprehension</h3>
-            <p>Create lists in a single line.</p>
+    <section class="cheat-section" id="comprehensions">
+      <h2 class="section-title">Comprehensions <span class="section-difficulty difficulty-medium">Medium</span></h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">List</span>
+          <h3>List Comprehension</h3>
+          <p>Create lists in a single line.</p>
 <pre class="code-block"><code class="language-python">
 # Basic
 squares = [x**2 for x in range(10)]
@@ -152,11 +168,11 @@ text = [' Hello ', 'World ']
 words = [w.strip().lower() for w in text]
 # words = ['hello', 'world']
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Dict</span>
-            <h3>Dict Comprehension</h3>
-            <p>Create dictionaries concisely.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Dict</span>
+          <h3>Dict Comprehension</h3>
+          <p>Create dictionaries concisely.</p>
 <pre class="code-block"><code class="language-python">
 # From two lists
 d = {k: v for k, v in zip(keys, values)}
@@ -170,11 +186,11 @@ word_len = {w: len(w) for w in words}
 # Invert dict
 inv = {v: k for k, v in d.items()}
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Set</span>
-            <h3>Set Comprehension</h3>
-            <p>Create sets with transformations.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Set</span>
+          <h3>Set Comprehension</h3>
+          <p>Create sets with transformations.</p>
 <pre class="code-block"><code class="language-python">
 # Basic
 unique = {x % 5 for x in range(100)}
@@ -186,11 +202,11 @@ if all(x % i != 0 for i in range(2, int(x**0.5)+1))}
 # From strings
 chars = {c.lower() for c in text if c.isalpha()}
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Generator</span>
-            <h3>Generator Expression</h3>
-            <p>Memory-efficient iteration.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Generator</span>
+          <h3>Generator Expression</h3>
+          <p>Memory-efficient iteration.</p>
 <pre class="code-block"><code class="language-python">
 # Generator (lazy)
 gen = (x**2 for x in range(1000000))
@@ -207,17 +223,17 @@ yield i
 import itertools
 result = itertools.chain(gen1, gen2)
 </code></pre>
-          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="cheat-section" id="functions">
-        <h2 class="section-title">Functions <span class="section-difficulty difficulty-medium">Medium</span></h2>
-        <div class="code-grid">
-          <div class="code-card">
-            <span class="code-label">Basics</span>
-            <h3>Function Basics</h3>
-            <p>Define and call functions.</p>
+    <section class="cheat-section" id="functions">
+      <h2 class="section-title">Functions <span class="section-difficulty difficulty-medium">Medium</span></h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Basics</span>
+          <h3>Function Basics</h3>
+          <p>Define and call functions.</p>
 <pre class="code-block"><code class="language-python">
 # Basic function
 def greet(name, greeting="Hello"):
@@ -235,11 +251,11 @@ square = lambda x: x ** 2
 def stats(data):
 return min(data), max(data), sum(data)
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Decorators</span>
-            <h3>Function Decorators</h3>
-            <p>Wrap functions to extend behavior.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Decorators</span>
+          <h3>Function Decorators</h3>
+          <p>Wrap functions to extend behavior.</p>
 <pre class="code-block"><code class="language-python">
 import time
 from functools import wraps
@@ -257,11 +273,11 @@ return wrapper
 def slow_function():
 time.sleep(1)
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Functional</span>
-            <h3>Functional Tools</h3>
-            <p>Map, filter, reduce operations.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Functional</span>
+          <h3>Functional Tools</h3>
+          <p>Map, filter, reduce operations.</p>
 <pre class="code-block"><code class="language-python">
 # Map
 list(map(str.upper, names))
@@ -276,11 +292,11 @@ reduce(lambda a, b: a + b, nums)
 # Sorted with key
 sorted(data, key=lambda x: x['age'], reverse=True)
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Closures</span>
-            <h3>Closures & Scope</h3>
-            <p>Functions that capture variables.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Closures</span>
+          <h3>Closures & Scope</h3>
+          <p>Functions that capture variables.</p>
 <pre class="code-block"><code class="language-python">
 # Closure
 def make_multiplier(n):
@@ -300,17 +316,17 @@ count += 1
 return count
 return increment
 </code></pre>
-          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="cheat-section" id="file-io-errors">
-        <h2 class="section-title">File I/O & Errors <span class="section-difficulty difficulty-basic">Basic</span></h2>
-        <div class="code-grid">
-          <div class="code-card">
-            <span class="code-label">Files</span>
-            <h3>File Operations</h3>
-            <p>Read and write files safely.</p>
+    <section class="cheat-section" id="file-io-errors">
+      <h2 class="section-title">File I/O & Errors <span class="section-difficulty difficulty-basic">Basic</span></h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Files</span>
+          <h3>File Operations</h3>
+          <p>Read and write files safely.</p>
 <pre class="code-block"><code class="language-python">
 # Read entire file
 with open('file.txt', 'r') as f:
@@ -328,11 +344,11 @@ f.write('Hello World')
 with open('log.txt', 'a') as f:
 f.write('new line\n')
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">JSON</span>
-            <h3>JSON Handling</h3>
-            <p>Parse and write JSON data.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">JSON</span>
+          <h3>JSON Handling</h3>
+          <p>Parse and write JSON data.</p>
 <pre class="code-block"><code class="language-python">
 import json
 
@@ -348,11 +364,11 @@ json.dump(data, f, indent=2)
 json_str = json.dumps(data)
 data = json.loads(json_str)
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Exceptions</span>
-            <h3>Error Handling</h3>
-            <p>Handle exceptions gracefully.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Exceptions</span>
+          <h3>Error Handling</h3>
+          <p>Handle exceptions gracefully.</p>
 <pre class="code-block"><code class="language-python">
 try:
 result = risky_operation()
@@ -368,11 +384,11 @@ print("Success")
 finally:
 cleanup()
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Custom</span>
-            <h3>Custom Exceptions</h3>
-            <p>Create your own exception classes.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Custom</span>
+          <h3>Custom Exceptions</h3>
+          <p>Create your own exception classes.</p>
 <pre class="code-block"><code class="language-python">
 class CustomError(Exception):
 def __init__(self, message, code):
@@ -391,17 +407,17 @@ validate(data)
 except ValidationError as e:
 print(f"Error {e.code}: {e}")
 </code></pre>
-          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="cheat-section" id="classes-oop">
-        <h2 class="section-title">Classes & OOP <span class="section-difficulty difficulty-medium">Medium</span></h2>
-        <div class="code-grid">
-          <div class="code-card">
-            <span class="code-label">Class</span>
-            <h3>Class Basics</h3>
-            <p>Define classes with methods.</p>
+    <section class="cheat-section" id="classes-oop">
+      <h2 class="section-title">Classes & OOP <span class="section-difficulty difficulty-medium">Medium</span></h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Class</span>
+          <h3>Class Basics</h3>
+          <p>Define classes with methods.</p>
 <pre class="code-block"><code class="language-python">
 class Person:
 species = "Human" # Class variable
@@ -419,11 +435,11 @@ return f"Person({self.name})"
 p = Person("Alice", 30)
 print(p.greet())
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Inheritance</span>
-            <h3>Inheritance</h3>
-            <p>Create specialized classes.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Inheritance</span>
+          <h3>Inheritance</h3>
+          <p>Create specialized classes.</p>
 <pre class="code-block"><code class="language-python">
 class Employee(Person):
 def __init__(self, name, age, emp_id):
@@ -439,11 +455,11 @@ class A: pass
 class B: pass
 class C(A, B): pass
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Properties</span>
-            <h3>Properties & Methods</h3>
-            <p>Controlled attribute access.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Properties</span>
+          <h3>Properties & Methods</h3>
+          <p>Controlled attribute access.</p>
 <pre class="code-block"><code class="language-python">
 class Circle:
 def __init__(self, radius):
@@ -458,11 +474,11 @@ def radius(self, value):
 if value < 0: raise ValueError("Negative!") self._radius=value @property def area(self): return 3.14159 *
 self._radius ** 2
 </code></pre>
-            </div>
-            <div class="code-card">
-              <span class="code-label">Dataclass</span>
-              <h3>Data Classes</h3>
-              <p>Simplified class creation.</p>
+          </div>
+          <div class="code-card">
+            <span class="code-label">Dataclass</span>
+            <h3>Data Classes</h3>
+            <p>Simplified class creation.</p>
 <pre class="code-block"><code class="language-python">
 from dataclasses import dataclass, field
 
@@ -479,17 +495,17 @@ return self.age >= 18
 user = User("Alice", "alice@example.com", 30)
 print(user) # User(name='Alice', ...)
 </code></pre>
-            </div>
           </div>
-      </section>
+        </div>
+    </section>
 
-      <section class="cheat-section" id="concurrency">
-        <h2 class="section-title">Concurrency <span class="section-difficulty difficulty-advanced">Advanced</span></h2>
-        <div class="code-grid">
-          <div class="code-card">
-            <span class="code-label">Threading</span>
-            <h3>Threading</h3>
-            <p>Run tasks concurrently (I/O bound).</p>
+    <section class="cheat-section" id="concurrency">
+      <h2 class="section-title">Concurrency <span class="section-difficulty difficulty-advanced">Advanced</span></h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Threading</span>
+          <h3>Threading</h3>
+          <p>Run tasks concurrently (I/O bound).</p>
 <pre class="code-block"><code class="language-python">
 import threading
 from concurrent.futures import ThreadPoolExecutor
@@ -507,11 +523,11 @@ t = threading.Thread(target=task, args=(5,))
 t.start()
 t.join()
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Multiprocessing</span>
-            <h3>Multiprocessing</h3>
-            <p>Parallel execution (CPU bound).</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Multiprocessing</span>
+          <h3>Multiprocessing</h3>
+          <p>Parallel execution (CPU bound).</p>
 <pre class="code-block"><code class="language-python">
 from multiprocessing import Pool
 from concurrent.futures import ProcessPoolExecutor
@@ -527,11 +543,11 @@ results = pool.map(heavy_task, [1000]*10)
 with ProcessPoolExecutor(max_workers=4) as executor:
 results = list(executor.map(heavy_task, data))
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Async</span>
-            <h3>Async/Await</h3>
-            <p>Asynchronous programming.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Async</span>
+          <h3>Async/Await</h3>
+          <p>Asynchronous programming.</p>
 <pre class="code-block"><code class="language-python">
 import asyncio
 import aiohttp
@@ -549,11 +565,11 @@ return results
 
 asyncio.run(main())
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Queue</span>
-            <h3>Queue</h3>
-            <p>Thread-safe data sharing.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Queue</span>
+          <h3>Queue</h3>
+          <p>Thread-safe data sharing.</p>
 <pre class="code-block"><code class="language-python">
 from queue import Queue
 from threading import Thread
@@ -573,17 +589,17 @@ Thread(target=producer, args=(q,)).start()
 Thread(target=consumer, args=(q,)).start()
 q.join()
 </code></pre>
-          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="cheat-section" id="useful-modules">
-        <h2 class="section-title">Useful Modules <span class="section-difficulty difficulty-medium">Medium</span></h2>
-        <div class="code-grid">
-          <div class="code-card">
-            <span class="code-label">Collections</span>
-            <h3>collections Module</h3>
-            <p>Specialized container datatypes.</p>
+    <section class="cheat-section" id="useful-modules">
+      <h2 class="section-title">Useful Modules <span class="section-difficulty difficulty-medium">Medium</span></h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Collections</span>
+          <h3>collections Module</h3>
+          <p>Specialized container datatypes.</p>
 <pre class="code-block"><code class="language-python">
 from collections import Counter, defaultdict, deque, OrderedDict, namedtuple
 
@@ -619,11 +635,11 @@ Point = namedtuple('Point', ['x', 'y'])
 p = Point(1, 2)
 p.x, p.y # (1, 2)
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">itertools</span>
-            <h3>itertools Module</h3>
-            <p>Iterator building blocks.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">itertools</span>
+          <h3>itertools Module</h3>
+          <p>Iterator building blocks.</p>
 <pre class="code-block"><code class="language-python">
 from itertools import chain, product, groupby, islice, takewhile, dropwhile,
 permutations, combinations, compress
@@ -664,11 +680,11 @@ taken = list(takewhile(lambda x: x<4, nums)) # [1,2,3] # dropwhile (drop while c
 dropped=list(dropwhile(lambda x: x<4, nums)) # [4,5,1,2] # compress (filter based on selectors)
 selectors=[1,0,1,0,1] compressed=list(compress(['a','b','c','d','e'], selectors)) # ['a','c','e']
 </code></pre>
-            </div>
-            <div class="code-card">
-              <span class="code-label">datetime</span>
-              <h3>datetime Module</h3>
-              <p>Date and time handling.</p>
+          </div>
+          <div class="code-card">
+            <span class="code-label">datetime</span>
+            <h3>datetime Module</h3>
+            <p>Date and time handling.</p>
 <pre class="code-block"><code class="language-python">
 from datetime import datetime, timedelta, date, time, timezone
 
@@ -705,11 +721,11 @@ from_ts = datetime.fromtimestamp(1700000000) # datetime from timestamp
 # ISO format
 iso_str = now.isoformat() # '2024-03-15T10:30:45.123456'
 </code></pre>
-            </div>
-            <div class="code-card">
-              <span class="code-label">logging</span>
-              <h3>logging Module</h3>
-              <p>Professional logging setup.</p>
+          </div>
+          <div class="code-card">
+            <span class="code-label">logging</span>
+            <h3>logging Module</h3>
+            <p>Professional logging setup.</p>
 <pre class="code-block"><code class="language-python">
 import logging
 
@@ -758,16 +774,16 @@ def filter(self, record):
 return record.levelno == logging.INFO
 logger.addFilter(InfoFilter())
 </code></pre>
-            </div>
           </div>
-      </section>
-      <section class="cheat-section" id="tips-tricks">
-        <h2 class="section-title">Tips & Tricks</h2>
-        <div class="code-grid">
-          <div class="code-card">
-            <span class="code-label">Tip</span>
-            <h3>Use list comprehensions wisely</h3>
-            <p>Avoid complex logic in comprehensions; keep them readable.</p>
+        </div>
+    </section>
+    <section class="cheat-section" id="tips-tricks">
+      <h2 class="section-title">Tips & Tricks</h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Tip</span>
+          <h3>Use list comprehensions wisely</h3>
+          <p>Avoid complex logic in comprehensions; keep them readable.</p>
 <pre class="code-block"><code class="language-python">
 # Good
 squares = [x**2 for x in range(10)]
@@ -775,57 +791,57 @@ squares = [x**2 for x in range(10)]
 # Bad (hard to read)
 result = [x**2 for x in range(10) if x % 2 == 0 if x > 3]
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Trick</span>
-            <h3>Swap variables without temp</h3>
-            <p>Python allows tuple unpacking for swapping.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Trick</span>
+          <h3>Swap variables without temp</h3>
+          <p>Python allows tuple unpacking for swapping.</p>
 <pre class="code-block"><code class="language-python">
 a, b = 1, 2
 a, b = b, a # a=2, b=1
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Tip</span>
-            <h3>Use `enumerate` for indexed loops</h3>
-            <p>Instead of range(len(...)).</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Tip</span>
+          <h3>Use `enumerate` for indexed loops</h3>
+          <p>Instead of range(len(...)).</p>
 <pre class="code-block"><code class="language-python">
 items = ['a', 'b', 'c']
 for idx, val in enumerate(items):
 print(f'{idx}: {val}')
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Trick</span>
-            <h3>Dictionary merging with `|`</h3>
-            <p>Python 3.9+ supports merge operator.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Trick</span>
+          <h3>Dictionary merging with `|`</h3>
+          <p>Python 3.9+ supports merge operator.</p>
 <pre class="code-block"><code class="language-python">
 dict1 = {'a': 1, 'b': 2}
 dict2 = {'b': 3, 'c': 4}
 merged = dict1 | dict2 # {'a':1, 'b':3, 'c':4}
 </code></pre>
-          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="cheat-section" id="best-practices">
-        <h2 class="section-title">Best Practices <span class="section-difficulty difficulty-medium">Medium</span></h2>
-        <div class="code-grid">
-          <div class="code-card">
-            <span class="code-label">Readability</span>
-            <h3>Follow PEP 8</h3>
-            <p>Use consistent style, spacing, and naming to keep code maintainable.</p>
+    <section class="cheat-section" id="best-practices">
+      <h2 class="section-title">Best Practices <span class="section-difficulty difficulty-medium">Medium</span></h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Readability</span>
+          <h3>Follow PEP 8</h3>
+          <p>Use consistent style, spacing, and naming to keep code maintainable.</p>
 <pre class="code-block"><code class="language-python">
 # Example: prefer clear variable names
 user_count = len(users)
 if user_count > 0:
 print(f"Total users: {user_count}")
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Testing</span>
-            <h3>Write tests for key logic</h3>
-            <p>Unit tests prevent regressions and improve confidence.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Testing</span>
+          <h3>Write tests for key logic</h3>
+          <p>Unit tests prevent regressions and improve confidence.</p>
 <pre class="code-block"><code class="language-python">
 import pytest
 
@@ -836,11 +852,11 @@ def test_increment():
 assert increment(1) == 2
 assert increment(-1) == 0
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Performance</span>
-            <h3>Prefer builtins over loops</h3>
-            <p>Use list comprehensions, map/filter, and numpy/pandas to speed loops.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Performance</span>
+          <h3>Prefer builtins over loops</h3>
+          <p>Use list comprehensions, map/filter, and numpy/pandas to speed loops.</p>
 <pre class="code-block"><code class="language-python">
 # avoid slow loops over lists
 # slow
@@ -851,24 +867,50 @@ sum_val += x
 # fast
 sum_val = sum(data)
 </code></pre>
-          </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span class="footer-brand">Data Sheets</span>
+          <p class="footer-copyright">@ 2026 Data Sheets. All rights reserved.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#">Documentation</a>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Support</a>
+        </div>
+      </div>
+    </footer>
   </main>
-    <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-      stroke-linejoin="round">
-      <path d="M12 19V5M5 12l7-7 7 7" />
-    </svg>
-  </button>
-  <script src="cheatsheets.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
-  <script>Prism.highlightAll();</script>
-<script src="../hierarchy.js"></script><script src="../sidebar-nav.js"></script>
+
+  <script>
+    function toggleTheme() {
+      var html = document.documentElement;
+      var themeIcon = document.getElementById('themeIcon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        themeIcon.textContent = 'dark_mode';
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.textContent = 'light_mode';
+      }
+    }
+    (function() {
+      var savedTheme = localStorage.getItem('theme');
+      var themeIcon = document.getElementById('themeIcon');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+        themeIcon.textContent = 'light_mode';
+      } else {
+        themeIcon.textContent = 'dark_mode';
+      }
+    })();
+  </script>
 </body>
 </html>

@@ -1,45 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>*d@ta# | PySpark Cheatsheet</title>
+  <title>Data Guide | Spark Cheatsheet</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
-  <link rel="stylesheet" href="../hub.css" />
-  <link rel="stylesheet" href="cheatsheet-base.css" />
-  <link rel="stylesheet" href="../sidebar-nav.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../shared.css" />
 </head>
 
-<body class="home-with-sidebar">
-  <div class="bg-orb orb-a" aria-hidden="true"></div>
-  <div class="bg-orb orb-b" aria-hidden="true"></div>
-  <div class="bg-orb orb-c" aria-hidden="true"></div>
-
-
- 
+<body class="topic-page">
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <a href="C:\Users\vanap" class="brand">
+        <div class="brand-icon">
+          <span class="material-symbols-outlined">architecture</span>
+        </div>
+        <span class="brand-text">Data Sheets</span>
+      </a>
+      <div class="nav-center">
+        <div class="search-bar">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" class="search-input" placeholder="Search architecture, patterns, or cloud..." />
+        </div>
+      </div>
+      <div class="nav-right">
+        <button class="nav-icon-btn" id="themeToggle" onclick="toggleTheme()">
+          <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+        </button>
+        <a href="../portfolios/portfolio.html" class="user-avatar">
+          <img src="../../assets/images/profile-pic.jpeg" alt="User profile" />
+        </a>
+      </div>
+    </div>
+  </header>
 
   <main class="main-content">
-    
-    <div class="page-wrap">
-        <section class="hero">
-          <h1>PySpark Cheatsheet</h1>
-          <p class="hero-copy">A focused guide to PySpark Cheatsheet.</p>
-          <p>Quick reference for Apache Spark with PySpark DataFrame API and common operations.</p>
-        </section>
+    <header class="page-header page-header--row">
+      <a href="cheatsheet.html" class="back-link back-link--round" aria-label="Back">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </a>
+      <div class="page-header-inner">
+        <h1>Spark Cheatsheet</h1>
+        <p>Quick reference for PySpark DataFrame operations.</p>
+      </div>
+    </header>
 
-        <section class="cheat-section" id="data-structures">
-        <h2 class="section-title">Data Structures <span class="section-difficulty difficulty-basic">Basic</span></h2>
-        <div class="code-grid">
-          <div class="code-card">
-            <span class="code-label">DataFrame</span>
-            <h3>DataFrame</h3>
-            <p>Distributed collection of data organized into named columns.</p>
+          <section class="cheat-section" id="data-structures">
+      <h2 class="section-title">Data Structures <span class="section-difficulty difficulty-basic">Basic</span></h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">DataFrame</span>
+          <h3>DataFrame</h3>
+          <p>Distributed collection of data organized into named columns.</p>
 <pre class="code-block"><code class="language-python">
 from pyspark.sql import SparkSession
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType
@@ -56,11 +72,11 @@ df.printSchema()
 # |-- Name: string (nullable = true)
 # |-- Age: long (nullable = true)
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">RDD</span>
-            <h3>RDD (Resilient Distributed Dataset)</h3>
-            <p>Low‑level distributed collection of objects (legacy API).</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">RDD</span>
+          <h3>RDD (Resilient Distributed Dataset)</h3>
+          <p>Low‑level distributed collection of objects (legacy API).</p>
 <pre class="code-block"><code class="language-python">
 from pyspark import SparkContext
 
@@ -75,18 +91,18 @@ squared = rdd.map(lambda x: x**2)
 print(squared.collect()) # [1, 4, 9, 16, 25]
 print(squared.count()) # 5
 </code></pre>
-          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="cheat-section" id="session-configuration">
-        <h2 class="section-title">Session & Configuration <span class="section-difficulty difficulty-basic">Basic</span>
-        </h2>
-        <div class="code-grid">
-          <div class="code-card">
-            <span class="code-label">Session</span>
-            <h3 id="list">Create Spark Session</h3>
-            <p>Initialize Spark with configuration options.</p>
+    <section class="cheat-section" id="session-configuration">
+      <h2 class="section-title">Session & Configuration <span class="section-difficulty difficulty-basic">Basic</span>
+      </h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Session</span>
+          <h3 id="list">Create Spark Session</h3>
+          <p>Initialize Spark with configuration options.</p>
 <pre class="code-block"><code class="language-python">
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
@@ -103,11 +119,11 @@ spark = SparkSession.builder \\
 # Stop session
 spark.stop()
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Config</span>
-            <h3>Common Configurations</h3>
-            <p>Useful Spark configurations.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Config</span>
+          <h3>Common Configurations</h3>
+          <p>Useful Spark configurations.</p>
 <pre class="code-block"><code class="language-python">
 # Memory
 spark.conf.set("spark.executor.memory", "8g")
@@ -122,17 +138,17 @@ spark.conf.set("spark.sql.adaptive.enabled", "true")
 # View all configs
 spark.conf.getAll()
 </code></pre>
-          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="cheat-section" id="reading-data">
-        <h2 class="section-title">Reading Data <span class="section-difficulty difficulty-medium">Medium</span></h2>
-        <div class="code-grid">
-          <div class="code-card">
-            <span class="code-label">Parquet</span>
-            <h3>Read Parquet</h3>
-            <p>Read Parquet files with options.</p>
+    <section class="cheat-section" id="reading-data">
+      <h2 class="section-title">Reading Data <span class="section-difficulty difficulty-medium">Medium</span></h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Parquet</span>
+          <h3>Read Parquet</h3>
+          <p>Read Parquet files with options.</p>
 <pre class="code-block"><code class="language-python">
 # Basic read
 df = spark.read.parquet("s3://bucket/data/")
@@ -149,11 +165,11 @@ df = spark.read \\
 df = spark.read.parquet("path/") \\
 .select("col1", "col2")
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">CSV</span>
-            <h3>Read CSV</h3>
-            <p>Read CSV files with options.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">CSV</span>
+          <h3>Read CSV</h3>
+          <p>Read CSV files with options.</p>
 <pre class="code-block"><code class="language-python">
 df = spark.read \\
 .option("header", "true") \\
@@ -170,11 +186,11 @@ StructField("name", StringType())
 ])
 df = spark.read.schema(schema).csv("path/")
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">JDBC</span>
-            <h3>Read from Database</h3>
-            <p>Read from relational databases.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">JDBC</span>
+          <h3>Read from Database</h3>
+          <p>Read from relational databases.</p>
 <pre class="code-block"><code class="language-python">
 df = spark.read \\
 .format("jdbc") \\
@@ -196,11 +212,11 @@ df = spark.read \\
 .option("numPartitions", 10) \\
 .load()
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">JSON</span>
-            <h3>Read JSON</h3>
-            <p>Read JSON files.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">JSON</span>
+          <h3>Read JSON</h3>
+          <p>Read JSON files.</p>
 <pre class="code-block"><code class="language-python">
 # Single line JSON
 df = spark.read.json("path/to/file.json")
@@ -214,17 +230,17 @@ df = spark.read \\
 json_str = '{"name": "Alice", "age": 30}'
 df = spark.read.json(spark.sparkContext.parallelize([json_str]))
 </code></pre>
-          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="cheat-section" id="transformations">
-        <h2 class="section-title">Transformations <span class="section-difficulty difficulty-medium">Medium</span></h2>
-        <div class="code-grid">
-          <div class="code-card">
-            <span class="code-label">Select</span>
-            <h3>Select & WithColumn</h3>
-            <p>Select columns and add new ones.</p>
+    <section class="cheat-section" id="transformations">
+      <h2 class="section-title">Transformations <span class="section-difficulty difficulty-medium">Medium</span></h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Select</span>
+          <h3>Select & WithColumn</h3>
+          <p>Select columns and add new ones.</p>
 <pre class="code-block"><code class="language-python">
 # Select columns
 df.select("name", "age")
@@ -243,11 +259,11 @@ df.withColumn("status",
 F.when(F.col("age") > 18, "adult")
 .otherwise("minor"))
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Filter</span>
-            <h3>Filter & Where</h3>
-            <p>Filter rows based on conditions.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Filter</span>
+          <h3>Filter & Where</h3>
+          <p>Filter rows based on conditions.</p>
 <pre class="code-block"><code class="language-python">
 # Basic filter
 df.filter(F.col("age") > 18)
@@ -266,11 +282,11 @@ df.filter(F.col("name").isNull())
 # In list
 df.filter(F.col("city").isin("NYC", "LA", "SF"))
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">GroupBy</span>
-            <h3>Aggregation</h3>
-            <p>Group and aggregate data.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">GroupBy</span>
+          <h3>Aggregation</h3>
+          <p>Group and aggregate data.</p>
 <pre class="code-block"><code class="language-python">
 # Basic aggregation
 df.groupBy("category").count()
@@ -287,11 +303,11 @@ F.min("amount").alias("min")
 df.groupBy("category", "status") \\
 .agg(F.sum("amount").alias("total"))
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Distinct</span>
-            <h3>Distinct & DropDuplicates</h3>
-            <p>Remove duplicate rows.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Distinct</span>
+          <h3>Distinct & DropDuplicates</h3>
+          <p>Remove duplicate rows.</p>
 <pre class="code-block"><code class="language-python">
 # All columns distinct
 df.distinct()
@@ -308,17 +324,17 @@ df.na.drop(subset=["name", "email"])
 df.na.fill(0)
 df.na.fill({"age": 0, "city": "Unknown"})
 </code></pre>
-          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="cheat-section" id="joins">
-        <h2 class="section-title">Joins <span class="section-difficulty difficulty-advanced">Advanced</span></h2>
-        <div class="code-grid">
-          <div class="code-card">
-            <span class="code-label">Join Types</span>
-            <h3>Join DataFrames</h3>
-            <p>Join DataFrames with different types.</p>
+    <section class="cheat-section" id="joins">
+      <h2 class="section-title">Joins <span class="section-difficulty difficulty-advanced">Advanced</span></h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Join Types</span>
+          <h3>Join DataFrames</h3>
+          <p>Join DataFrames with different types.</p>
 <pre class="code-block"><code class="language-python">
 # Inner join
 df1.join(df2, "id", "inner")
@@ -336,11 +352,11 @@ df1.join(df2, "id", "outer")
 # Cross join
 df1.crossJoin(df2)
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Conditions</span>
-            <h3>Complex Join Conditions</h3>
-            <p>Joins with multiple conditions.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Conditions</span>
+          <h3>Complex Join Conditions</h3>
+          <p>Joins with multiple conditions.</p>
 <pre class="code-block"><code class="language-python">
 # Multiple conditions
 df1.join(df2,
@@ -358,11 +374,11 @@ df1.join(df2, "id", "anti")
 # Semi join (rows in df1 that match df2)
 df1.join(df2, "id", "semi")
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Broadcast</span>
-            <h3>Broadcast Join</h3>
-            <p>Optimize joins with small tables.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Broadcast</span>
+          <h3>Broadcast Join</h3>
+          <p>Optimize joins with small tables.</p>
 <pre class="code-block"><code class="language-python">
 from pyspark.sql.functions import broadcast
 
@@ -379,17 +395,17 @@ FROM large
 JOIN small ON large.id = small.id
 """)
 </code></pre>
-          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="cheat-section" id="writing-data">
-        <h2 class="section-title">Writing Data <span class="section-difficulty difficulty-medium">Medium</span></h2>
-        <div class="code-grid">
-          <div class="code-card">
-            <span class="code-label">Parquet</span>
-            <h3>Write Parquet</h3>
-            <p>Write DataFrames to Parquet format.</p>
+    <section class="cheat-section" id="writing-data">
+      <h2 class="section-title">Writing Data <span class="section-difficulty difficulty-medium">Medium</span></h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Parquet</span>
+          <h3>Write Parquet</h3>
+          <p>Write DataFrames to Parquet format.</p>
 <pre class="code-block"><code class="language-python">
 # Basic write
 df.write.parquet("s3://bucket/output/")
@@ -409,11 +425,11 @@ df.write \\
 # Coalesce (single file)
 df.coalesce(1).write.parquet("path/")
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">JDBC</span>
-            <h3>Write to Database</h3>
-            <p>Write to relational databases.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">JDBC</span>
+          <h3>Write to Database</h3>
+          <p>Write to relational databases.</p>
 <pre class="code-block"><code class="language-python">
 df.write \\
 .format("jdbc") \\
@@ -432,11 +448,11 @@ df.write \\
 .mode("append") \\
 .save()
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Modes</span>
-            <h3>Write Modes</h3>
-            <p>Different write behaviors.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Modes</span>
+          <h3>Write Modes</h3>
+          <p>Different write behaviors.</p>
 <pre class="code-block"><code class="language-python">
 # overwrite - Replace existing
 df.write.mode("overwrite").save(path)
@@ -450,11 +466,11 @@ df.write.mode("error").save(path)
 # ignore - Skip if exists
 df.write.mode("ignore").save(path)
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Bucket</span>
-            <h3>Bucketed Tables</h3>
-            <p>Write bucketed tables for optimization.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Bucket</span>
+          <h3>Bucketed Tables</h3>
+          <p>Write bucketed tables for optimization.</p>
 <pre class="code-block"><code class="language-python">
 df.write \\
 .bucketBy(16, "user_id") \\
@@ -465,18 +481,18 @@ df.write \\
 # Read bucketed table
 df = spark.table("my_bucketed_table")
 </code></pre>
-          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="cheat-section" id="udfs-functions">
-        <h2 class="section-title">UDFs & Functions <span class="section-difficulty difficulty-advanced">Advanced</span>
-        </h2>
-        <div class="code-grid">
-          <div class="code-card">
-            <span class="code-label">UDF</span>
-            <h3>User Defined Functions</h3>
-            <p>Create custom functions for Spark.</p>
+    <section class="cheat-section" id="udfs-functions">
+      <h2 class="section-title">UDFs & Functions <span class="section-difficulty difficulty-advanced">Advanced</span>
+      </h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">UDF</span>
+          <h3>User Defined Functions</h3>
+          <p>Create custom functions for Spark.</p>
 <pre class="code-block"><code class="language-python">
 from pyspark.sql.functions import udf
 from pyspark.sql.types import StringType, IntegerType
@@ -496,11 +512,11 @@ StringType())
 # Use UDF
 df.withColumn("domain", extract_domain(F.col("email")))
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Pandas UDF</span>
-            <h3>Pandas UDF (Vectorized)</h3>
-            <p>Fast UDFs using pandas/vectorized operations.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Pandas UDF</span>
+          <h3>Pandas UDF (Vectorized)</h3>
+          <p>Fast UDFs using pandas/vectorized operations.</p>
 <pre class="code-block"><code class="language-python">
 from pyspark.sql.functions import pandas_udf
 from pyspark.sql.types import DoubleType
@@ -519,11 +535,11 @@ df.groupBy("category") \\
 def uppercase_udf(s: pd.Series) -> pd.Series:
 return s.str.upper()
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Window</span>
-            <h3>Window Functions</h3>
-            <p>Analytics with window specifications.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Window</span>
+          <h3>Window Functions</h3>
+          <p>Analytics with window specifications.</p>
 <pre class="code-block"><code class="language-python">
 from pyspark.sql.window import Window
 
@@ -545,11 +561,11 @@ window_unbounded = Window.partitionBy("category") \\
 .rowsBetween(Window.unboundedPreceding, 0)
 df.withColumn("running_total", F.sum("amount").over(window_unbounded))
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Built-in</span>
-            <h3>Built-in Functions</h3>
-            <p>Common built-in functions.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Built-in</span>
+          <h3>Built-in Functions</h3>
+          <p>Common built-in functions.</p>
 <pre class="code-block"><code class="language-python">
 # String functions
 F.upper("name")
@@ -571,17 +587,17 @@ F.to_date("date_string", "yyyy-MM-dd")
 F.when(F.col("x") > 0, "positive")
 .when(F.col("x") < 0, "negative" ) .otherwise("zero")
 </code></pre>
-            </div>
           </div>
-      </section>
+        </div>
+    </section>
 
-      <section class="cheat-section" id="performance">
-        <h2 class="section-title">Performance <span class="section-difficulty difficulty-advanced">Advanced</span></h2>
-        <div class="code-grid">
-          <div class="code-card">
-            <span class="code-label">Repartition</span>
-            <h3>Repartition & Coalesce</h3>
-            <p>Control partitioning for performance.</p>
+    <section class="cheat-section" id="performance">
+      <h2 class="section-title">Performance <span class="section-difficulty difficulty-advanced">Advanced</span></h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Repartition</span>
+          <h3>Repartition & Coalesce</h3>
+          <p>Control partitioning for performance.</p>
 <pre class="code-block"><code class="language-python">
 # Repartition (shuffle)
 df.repartition(200)
@@ -597,11 +613,11 @@ df.rdd.getNumPartitions()
 # Cache
 df.cache() # or df.persist()
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Caching</span>
-            <h3>Cache & Persist</h3>
-            <p>Cache DataFrames for reuse.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Caching</span>
+          <h3>Cache & Persist</h3>
+          <p>Cache DataFrames for reuse.</p>
 <pre class="code-block"><code class="language-python">
 from pyspark import StorageLevel
 
@@ -622,11 +638,11 @@ spark.catalog.isCached("my_table")
 df.createOrReplaceTempView("my_table")
 spark.catalog.cacheTable("my_table")
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Explain</span>
-            <h3>Query Plan</h3>
-            <p>Analyze query execution plans.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Explain</span>
+          <h3>Query Plan</h3>
+          <p>Analyze query execution plans.</p>
 <pre class="code-block"><code class="language-python">
 # Show physical plan
 df.explain()
@@ -644,11 +660,11 @@ df.describe().show()
 # Count rows
 df.count()
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">AQE</span>
-            <h3>Adaptive Query Execution</h3>
-            <p>Enable AQE for automatic optimization.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">AQE</span>
+          <h3>Adaptive Query Execution</h3>
+          <p>Enable AQE for automatic optimization.</p>
 <pre class="code-block"><code class="language-python">
 # Enable AQE
 spark.conf.set("spark.sql.adaptive.enabled", "true")
@@ -664,16 +680,16 @@ spark.conf.set("spark.sql.adaptive.skewJoin.skewedPartitionFactor", "5")
 # Check AQE in explain
 df.explain() # Look for "AdaptiveSparkPlan"
 </code></pre>
-          </div>
         </div>
-      </section>
-      <section class="cheat-section" id="useful-modules">
-        <h2 class="section-title">Useful Modules <span class="section-difficulty difficulty-medium">Medium</span></h2>
-        <div class="code-grid">
-          <div class="code-card">
-            <span class="code-label">pyspark.sql</span>
-            <h3>Spark SQL</h3>
-            <p>Structured data processing with DataFrames and SQL.</p>
+      </div>
+    </section>
+    <section class="cheat-section" id="useful-modules">
+      <h2 class="section-title">Useful Modules <span class="section-difficulty difficulty-medium">Medium</span></h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">pyspark.sql</span>
+          <h3>Spark SQL</h3>
+          <p>Structured data processing with DataFrames and SQL.</p>
 <pre class="code-block"><code class="language-python">
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, avg
@@ -690,11 +706,11 @@ result = spark.sql("SELECT * FROM people WHERE age > 30")
 # DataFrame API
 result = df.filter(col("age") > 30).groupBy("city").agg(avg("age"))
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">pyspark.ml</span>
-            <h3>Machine Learning</h3>
-            <p>ML pipelines, feature extraction, and algorithms.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">pyspark.ml</span>
+          <h3>Machine Learning</h3>
+          <p>ML pipelines, feature extraction, and algorithms.</p>
 <pre class="code-block"><code class="language-python">
 from pyspark.ml import Pipeline
 from pyspark.ml.feature import VectorAssembler
@@ -710,11 +726,11 @@ lr = LogisticRegression(featuresCol="features", labelCol="label")
 pipeline = Pipeline(stages=[assembler, lr])
 model = pipeline.fit(train_df)
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">pyspark.streaming</span>
-            <h3>Structured Streaming</h3>
-            <p>Real‑time data processing with continuous queries.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">pyspark.streaming</span>
+          <h3>Structured Streaming</h3>
+          <p>Real‑time data processing with continuous queries.</p>
 <pre class="code-block"><code class="language-python">
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import window
@@ -730,16 +746,16 @@ df = spark.readStream.format("kafka") \\
 windowed = df.groupBy(window(df.timestamp, "10 minutes")).count()
 query = windowed.writeStream.outputMode("append").format("console").start()
 </code></pre>
-          </div>
         </div>
-      </section>
-      <section class="cheat-section" id="tips-tricks">
-        <h2 class="section-title">Tips & Tricks</h2>
-        <div class="code-grid">
-          <div class="code-card">
-            <span class="code-label">Tip</span>
-            <h3>Cache intermediate DataFrames</h3>
-            <p>Reuse expensive computations with caching.</p>
+      </div>
+    </section>
+    <section class="cheat-section" id="tips-tricks">
+      <h2 class="section-title">Tips & Tricks</h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Tip</span>
+          <h3>Cache intermediate DataFrames</h3>
+          <p>Reuse expensive computations with caching.</p>
 <pre class="code-block"><code class="language-python">
 # Cache after expensive transformation
 df = df.filter(...).select(...).cache()
@@ -748,11 +764,11 @@ df = df.filter(...).select(...).cache()
 from pyspark import StorageLevel
 df.persist(StorageLevel.MEMORY_AND_DISK)
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Trick</span>
-            <h3>Use broadcast joins for small tables</h3>
-            <p>Speed up joins by broadcasting smaller DataFrame.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Trick</span>
+          <h3>Use broadcast joins for small tables</h3>
+          <p>Speed up joins by broadcasting smaller DataFrame.</p>
 <pre class="code-block"><code class="language-python">
 from pyspark.sql.functions import broadcast
 
@@ -763,11 +779,11 @@ on="id",
 how="inner"
 )
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Tip</span>
-            <h3>Avoid UDFs when possible</h3>
-            <p>Prefer built‑in functions; UDFs have serialization overhead.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Tip</span>
+          <h3>Avoid UDFs when possible</h3>
+          <p>Prefer built‑in functions; UDFs have serialization overhead.</p>
 <pre class="code-block"><code class="language-python">
 # Slow UDF
 from pyspark.sql.functions import udf
@@ -779,57 +795,83 @@ return x.upper()
 from pyspark.sql.functions import upper
 df.withColumn("upper", upper(df.name))
 </code></pre>
-          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="cheat-section" id="best-practices">
-        <h2 class="section-title">Best Practices <span class="section-difficulty difficulty-medium">Medium</span></h2>
-        <div class="code-grid">
-          <div class="code-card">
-            <span class="code-label">Partitioning</span>
-            <h3>Use partition pruning</h3>
-            <p>Filter on partition columns to reduce scanned data.</p>
+    <section class="cheat-section" id="best-practices">
+      <h2 class="section-title">Best Practices <span class="section-difficulty difficulty-medium">Medium</span></h2>
+      <div class="code-grid">
+        <div class="code-card">
+          <span class="code-label">Partitioning</span>
+          <h3>Use partition pruning</h3>
+          <p>Filter on partition columns to reduce scanned data.</p>
 <pre class="code-block"><code class="language-python">
 df = spark.read.parquet('/data/events').filter('event_date = "2024-05-01"')</div>
 
 </code></pre>
-          <div class="code-card">
-            <span class="code-label">Shuffle</span>
-            <h3>Reduce shuffle</h3>
-            <p>Aggressively use coalesce/repartition only when needed.</p>
+        <div class="code-card">
+          <span class="code-label">Shuffle</span>
+          <h3>Reduce shuffle</h3>
+          <p>Aggressively use coalesce/repartition only when needed.</p>
 <pre class="code-block"><code class="language-python">
 df = df.repartition(200) # only if needed for parallelism
 
 # Avoid unnecessary reapply while query planning
 </code></pre>
-          </div>
-          <div class="code-card">
-            <span class="code-label">Logging</span>
-            <h3>Check logs and history server</h3>
-            <p>Use Spark UI and logs to diagnose stage bottlenecks.</p>
+        </div>
+        <div class="code-card">
+          <span class="code-label">Logging</span>
+          <h3>Check logs and history server</h3>
+          <p>Use Spark UI and logs to diagnose stage bottlenecks.</p>
 <pre class="code-block"><code class="language-python">
 # Start with Spark UI at http://<driver>:4040
 # Use local history server for finished apps
 </code></pre>
-          </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span class="footer-brand">Data Sheets</span>
+          <p class="footer-copyright">@ 2026 Data Sheets. All rights reserved.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#">Documentation</a>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Support</a>
+        </div>
+      </div>
+    </footer>
   </main>
-    <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-      stroke-linejoin="round">
-      <path d="M12 19V5M5 12l7-7 7 7" />
-    </svg>
-  </button>
-  <script src="cheatsheets.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
-  <script>Prism.highlightAll();</script>
-<script src="../hierarchy.js"></script><script src="../sidebar-nav.js"></script>
+
+  <script>
+    function toggleTheme() {
+      var html = document.documentElement;
+      var themeIcon = document.getElementById('themeIcon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        themeIcon.textContent = 'dark_mode';
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.textContent = 'light_mode';
+      }
+    }
+    (function() {
+      var savedTheme = localStorage.getItem('theme');
+      var themeIcon = document.getElementById('themeIcon');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+        themeIcon.textContent = 'light_mode';
+      } else {
+        themeIcon.textContent = 'dark_mode';
+      }
+    })();
+  </script>
 </body>
 </html>

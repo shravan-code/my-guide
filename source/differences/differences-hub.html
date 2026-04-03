@@ -3,104 +3,178 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>*d@ta# | Differences</title>
+  <title>Data Guide | Differences</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
-  <link rel="stylesheet" href="../hub.css" />
-  <link rel="stylesheet" href="../sidebar-nav.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="../shared.css" />
 </head>
-<body class="home-with-sidebar">
-  <div class="bg-orb orb-a" aria-hidden="true"></div>
-  <div class="bg-orb orb-b" aria-hidden="true"></div>
-  <div class="bg-orb orb-c" aria-hidden="true"></div>
 
-  <main>
-
-    <div class="page-wrap">
-      <section class="hero">
-        <p class="eyebrow">Differences Hub</p>
-        <h1>Differences</h1>
-        <p class="hero-copy">Explore and compare different learning paths, scaffolding, and content relationships.</p>
-      </section>
-
-      <section class="tracks">
-        <h2>Explore Differences</h2>
-        <div class="track-grid">
-          <a href="differences-overview.html" class="track">
-            <h3>Overview</h3>
-            <p>High-level differences and comparisons between paths</p>
-          </a>
-          <a href="differences-python.html" class="track">
-            <h3>Python</h3>
-            <p>Python path differences and language patterns</p>
-          </a>
-          <a href="differences-pandas.html" class="track">
-            <h3>Pandas</h3>
-            <p>DataFrame-centric differences across tracks</p>
-          </a>
-          <a href="differences-numpy.html" class="track">
-            <h3>Numpy</h3>
-            <p>Numerical computing differences and patterns</p>
-          </a>
-          <a href="differences-spark.html" class="track">
-            <h3>Spark</h3>
-            <p>Big data processing differences</p>
-          </a>
-          <a href="differences-sql.html" class="track">
-            <h3>SQL</h3>
-            <p>Database querying differences</p>
-          </a>
-          <a href="differences-airflow.html" class="track">
-            <h3>Airflow</h3>
-            <p>Orchestration differences</p>
-          </a>
-          <a href="differences-dbt.html" class="track">
-            <h3>DBT</h3>
-            <p>Data tooling and modeling differences</p>
-          </a>
-          <a href="differences-kafka.html" class="track">
-            <h3>Kafka</h3>
-            <p>Streaming differences</p>
-          </a>
-          <a href="differences-aws.html" class="track">
-            <h3>AWS</h3>
-            <p>AWS-specific differences</p>
-          </a>
-          <a href="differences-cloud.html" class="track">
-            <h3>Cloud</h3>
-            <p>Cloud platform differences</p>
-          </a>
-          <a href="differences-databricks.html" class="track">
-            <h3>Databricks</h3>
-            <p>Databricks differences</p>
-          </a>
-          <a href="differences-data-modelling.html" class="track">
-            <h3>Data Modelling</h3>
-            <p>Models and schemes difference</p>
-          </a>
+<body class="topic-page topic-index">
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <a href="../../index.html" class="brand">
+        <div class="brand-icon">
+          <span class="material-symbols-outlined">architecture</span>
         </div>
-      </section>
+        <span class="brand-text">Data Sheets</span>
+      </a>
+      <div class="nav-center">
+        <div class="search-bar">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" class="search-input" placeholder="Search architecture, patterns, or cloud..." />
+        </div>
+      </div>
+      <div class="nav-right">
+        <button class="nav-icon-btn" id="themeToggle" onclick="toggleTheme()">
+          <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+        </button>
+        <a href="../portfolios/portfolio.html" class="user-avatar">
+          <img src="../../assets/images/profile-pic.jpeg" alt="User profile" />
+        </a>
+      </div>
     </div>
+  </header>
+
+  <main class="main-content">
+    <a href="../../index.html" class="back-link">
+      <span class="material-symbols-outlined">arrow_back</span>
+      Back to Home
+    </a>
+
+    <header class="page-header">
+      <p class="eyebrow">Comparisons</p>
+      <h1>Differences</h1>
+      <p>Side-by-side comparisons of similar concepts, tools, and techniques across data engineering.</p>
+    </header>
+
+    <section class="inspire">
+      <p>
+        <strong>Clarity through comparison</strong>. Understanding the differences between similar concepts
+        is what separates a good engineer from a great one. These guides break down confusing pairs
+        and groups with clear examples and use cases. <strong>Compare, contrast, master.</strong>
+      </p>
+    </section>
+
+    <section>
+      <h2 class="section-title">Language & Library Differences</h2>
+      <div class="section-grid">
+        <a href="differences-python.html" class="section-card">
+          <span class="material-symbols-outlined">terminal</span>
+          <h3>Python</h3>
+          <p>Python comparison concepts and patterns</p>
+        </a>
+        <a href="differences-pandas.html" class="section-card">
+          <span class="material-symbols-outlined">table_chart</span>
+          <h3>Pandas</h3>
+          <p>DataFrame operation differences</p>
+        </a>
+        <a href="differences-numpy.html" class="section-card">
+          <span class="material-symbols-outlined">grid_on</span>
+          <h3>NumPy</h3>
+          <p>Array operation comparisons</p>
+        </a>
+        <a href="differences-spark.html" class="section-card">
+          <span class="material-symbols-outlined">bolt</span>
+          <h3>Spark</h3>
+          <p>PySpark patterns and distinctions</p>
+        </a>
+        <a href="differences-sql.html" class="section-card">
+          <span class="material-symbols-outlined">database</span>
+          <h3>SQL</h3>
+          <p>SQL concepts and query patterns</p>
+        </a>
+      </div>
+    </section>
+
+    <section style="margin-top: var(--space-12);">
+      <h2 class="section-title">Framework & Tool Differences</h2>
+      <div class="section-grid">
+        <a href="differences-airflow.html" class="section-card">
+          <span class="material-symbols-outlined">air</span>
+          <h3>Airflow</h3>
+          <p>Orchestration concepts compared</p>
+        </a>
+        <a href="differences-dbt.html" class="section-card">
+          <span class="material-symbols-outlined">transform</span>
+          <h3>dbt</h3>
+          <p>Transformation tool distinctions</p>
+        </a>
+        <a href="differences-kafka.html" class="section-card">
+          <span class="material-symbols-outlined">stream</span>
+          <h3>Kafka</h3>
+          <p>Streaming concepts compared</p>
+        </a>
+        <a href="differences-data-modelling.html" class="section-card">
+          <span class="material-symbols-outlined">schema</span>
+          <h3>Data Modelling</h3>
+          <p>Modelling patterns and approaches</p>
+        </a>
+      </div>
+    </section>
+
+    <section style="margin-top: var(--space-12);">
+      <h2 class="section-title">Cloud & Platform Differences</h2>
+      <div class="section-grid">
+        <a href="differences-aws.html" class="section-card">
+          <span class="material-symbols-outlined">dns</span>
+          <h3>AWS</h3>
+          <p>AWS service comparisons</p>
+        </a>
+        <a href="differences-cloud.html" class="section-card">
+          <span class="material-symbols-outlined">cloud</span>
+          <h3>Cloud</h3>
+          <p>Cross-provider differences</p>
+        </a>
+        <a href="differences-databricks.html" class="section-card">
+          <span class="material-symbols-outlined">analytics</span>
+          <h3>Databricks</h3>
+          <p>Databricks platform comparisons</p>
+        </a>
+      </div>
+    </section>
   </main>
 
-  <script src="../app.js"></script>
-  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 19V5M5 12l7-7 7 7" />
-    </svg>
-  </button>
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <span class="footer-brand">Data Sheets</span>
+        <p class="footer-copyright">&copy; 2026 Data Sheets. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">Documentation</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Support</a>
+      </div>
+    </div>
+  </footer>
+
   <script>
-    const scrollToTopBtn = document.getElementById('scrollToTop');
-    window.addEventListener('scroll', function () {
-      scrollToTopBtn.classList.toggle('visible', window.pageYOffset > 300);
-    });
-    scrollToTopBtn.addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    function toggleTheme() {
+      const html = document.documentElement;
+      const themeIcon = document.getElementById('themeIcon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        themeIcon.textContent = 'dark_mode';
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.textContent = 'light_mode';
+      }
+    }
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const themeIcon = document.getElementById('themeIcon');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+        themeIcon.textContent = 'light_mode';
+      } else {
+        themeIcon.textContent = 'dark_mode';
+      }
+    })();
   </script>
-  <script src="../hierarchy.js"></script>
-  <script src="../sidebar-nav.js"></script>
 </body>
 </html>

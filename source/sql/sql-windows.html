@@ -3,41 +3,61 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>*d@ta# | SQL Window Functions</title>
+  <title>Data Guide | Window Functions</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
-  <link rel="stylesheet" href="../hub.css" />
-  <link rel="stylesheet" href="../python/python.css" />
-  <link rel="stylesheet" href="../sidebar-nav.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../shared.css" />
 </head>
 
-<body class="home-with-sidebar">
-  <div class="bg-orb orb-a" aria-hidden="true"></div>
-  <div class="bg-orb orb-b" aria-hidden="true"></div>
-  <div class="bg-orb orb-c" aria-hidden="true"></div>
+<body class="topic-page">
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <a href="../../index.html" class="brand">
+        <div class="brand-icon">
+          <span class="material-symbols-outlined">architecture</span>
+        </div>
+        <span class="brand-text">Data Sheets</span>
+      </a>
+      <div class="nav-center">
+        <div class="search-bar">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" class="search-input" placeholder="Search architecture, patterns, or cloud..." />
+        </div>
+      </div>
+      <div class="nav-right">
+        <button class="nav-icon-btn" id="themeToggle" onclick="toggleTheme()">
+          <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+        </button>
+        <a href="../portfolios/portfolio.html" class="user-avatar">
+          <img src="../../assets/images/profile-pic.jpeg" alt="User profile" />
+        </a>
+      </div>
+    </div>
+  </header>
 
   <main class="main-content">
-    
-    <div class="page-wrap">
-      <section class="hero">
-        <p class="eyebrow">SQL Guide</p>
-        <h1>SQL Window Functions</h1>
-        <p class="hero-copy">Perform calculations across sets of rows related to the current row without collapsing results.</p>
-      </section>
+    <header class="page-header page-header--row">
+      <a href="index.html" class="back-link back-link--round" aria-label="Back">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </a>
+      <div class="page-header-inner">
+        <h1>Window Functions</h1>
+        <p>ROW_NUMBER, RANK, LAG, LEAD - analytical window functions.</p>
+      </div>
+    </header>
 
-      <!-- Section 1: Window Concepts -->
-      <section class="topic-section" id="window-concepts">
-        <h2> Window Function Concepts <span class="level-badge basic">Basic</span> </h2>
-        <p>Window functions perform calculations across a "window" of rows related to the current row. Unlike aggregates, they don't collapse rows.</p>
+        <!-- Section 1: Window Concepts -->
+    <section class="topic-section" id="window-concepts">
+      <h2> Window Function Concepts <span class="level-badge basic">Basic</span> </h2>
+      <p>Window functions perform calculations across a "window" of rows related to the current row. Unlike aggregates, they don't collapse rows.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Window vs Aggregate</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Window vs Aggregate</h4>
+          <div class="code-block">
 <code><span class="comment">-- AGGREGATE: Collapses rows</span>
 <span class="keyword">SELECT</span>
     department,
@@ -52,36 +72,36 @@
     department,
     salary,
     <span class="function">AVG</span>(salary) <span class="keyword">OVER</span> (
-        <span class="keyword">PARTITION BY</span> department
+      <span class="keyword">PARTITION BY</span> department
     ) <span class="keyword">AS</span> dept_avg
 <span class="keyword">FROM</span> employees;
 <span class="comment">-- Returns all rows with dept average</span>
-            </code>
-            </div>
-          </div>
-          <div class="split-item">
-            <h4>Key Concepts</h4>
-            <ul>
-              <li><strong>Window</strong> - Set of rows related to current row</li>
-              <li><strong>Partition</strong> - Group of rows (like GROUP BY)</li>
-              <li><strong>Frame</strong> - Subset of partition for calculation</li>
-              <li><strong>Current Row</strong> - The row being processed</li>
-              <li><strong>OVER clause</strong> - Defines the window</li>
-            </ul>
+          </code>
           </div>
         </div>
-
-        <div class="tip-box">
-          <p><strong>Key difference:</strong> Window functions return a value for <em>every row</em>, while aggregates return one value per group. Use window functions when you need both detail rows and summary calculations.</p>
+        <div class="split-item">
+          <h4>Key Concepts</h4>
+          <ul>
+            <li><strong>Window</strong> - Set of rows related to current row</li>
+            <li><strong>Partition</strong> - Group of rows (like GROUP BY)</li>
+            <li><strong>Frame</strong> - Subset of partition for calculation</li>
+            <li><strong>Current Row</strong> - The row being processed</li>
+            <li><strong>OVER clause</strong> - Defines the window</li>
+          </ul>
         </div>
-      </section>
+      </div>
 
-      <!-- Section 2: OVER Syntax -->
-      <section class="topic-section" id="syntax">
-        <h2> OVER Clause Syntax <span class="level-badge basic">Basic</span> </h2>
-        <p>The OVER clause defines the window over which the function operates.</p>
+      <div class="tip-box">
+        <p><strong>Key difference:</strong> Window functions return a value for <em>every row</em>, while aggregates return one value per group. Use window functions when you need both detail rows and summary calculations.</p>
+      </div>
+    </section>
 
-        <div class="code-block">
+    <!-- Section 2: OVER Syntax -->
+    <section class="topic-section" id="syntax">
+      <h2> OVER Clause Syntax <span class="level-badge basic">Basic</span> </h2>
+      <p>The OVER clause defines the window over which the function operates.</p>
+
+      <div class="code-block">
 <code><span class="comment">-- Basic OVER syntax</span>
 function_name() <span class="keyword">OVER</span> window_definition
 
@@ -120,30 +140,30 @@ function_name() <span class="keyword">OVER</span> window_definition
     department,
     salary,
     <span class="function">SUM</span>(salary) <span class="keyword">OVER</span> (
-        <span class="keyword">PARTITION BY</span> department
-        <span class="keyword">ORDER BY</span> hire_date
+      <span class="keyword">PARTITION BY</span> department
+      <span class="keyword">ORDER BY</span> hire_date
     ) <span class="keyword">AS</span> running_dept_total
 <span class="keyword">FROM</span> employees;</code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 3: PARTITION BY -->
-      <section class="topic-section" id="partition-by">
-        <h2> PARTITION BY <span class="level-badge basic">Basic</span> </h2>
-        <p>PARTITION BY divides rows into groups (partitions) for the window function. Each partition is processed independently.</p>
+    <!-- Section 3: PARTITION BY -->
+    <section class="topic-section" id="partition-by">
+      <h2> PARTITION BY <span class="level-badge basic">Basic</span> </h2>
+      <p>PARTITION BY divides rows into groups (partitions) for the window function. Each partition is processed independently.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Single Partition</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Single Partition</h4>
+          <div class="code-block">
 <code><span class="comment">-- Rank within each department</span>
 <span class="keyword">SELECT</span>
     name,
     department,
     salary,
     <span class="function">RANK</span>() <span class="keyword">OVER</span> (
-        <span class="keyword">PARTITION BY</span> department
-        <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>
+      <span class="keyword">PARTITION BY</span> department
+      <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>
     ) <span class="keyword">AS</span> dept_rank
 <span class="keyword">FROM</span> employees;
 
@@ -153,11 +173,11 @@ function_name() <span class="keyword">OVER</span> window_definition
     department,
     <span class="function">COUNT</span>(*) <span class="keyword">OVER</span> (<span class="keyword">PARTITION BY</span> department) <span class="keyword">AS</span> dept_size
 <span class="keyword">FROM</span> employees;</code>
-            </div>
           </div>
-          <div class="split-item">
-            <h4>Multiple Partitions</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>Multiple Partitions</h4>
+          <div class="code-block">
 <code><span class="comment">-- Partition by multiple columns</span>
 <span class="keyword">SELECT</span>
     name,
@@ -165,7 +185,7 @@ function_name() <span class="keyword">OVER</span> window_definition
     region,
     salary,
     <span class="function">AVG</span>(salary) <span class="keyword">OVER</span> (
-        <span class="keyword">PARTITION BY</span> department, region
+      <span class="keyword">PARTITION BY</span> department, region
     ) <span class="keyword">AS</span> dept_region_avg
 <span class="keyword">FROM</span> employees;
 
@@ -176,11 +196,11 @@ function_name() <span class="keyword">OVER</span> window_definition
     <span class="function">SUM</span>(salary) <span class="keyword">OVER</span> () <span class="keyword">AS</span> company_total,
     salary * <span class="number">100.0</span> / <span class="function">SUM</span>(salary) <span class="keyword">OVER</span> () <span class="keyword">AS</span> pct_of_total
 <span class="keyword">FROM</span> employees;</code>
-            </div>
           </div>
         </div>
+      </div>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Multiple window functions with different partitions</span>
 <span class="keyword">SELECT</span>
     name,
@@ -191,15 +211,15 @@ function_name() <span class="keyword">OVER</span> window_definition
     <span class="function">AVG</span>(salary) <span class="keyword">OVER</span> (<span class="keyword">PARTITION BY</span> department) <span class="keyword">AS</span> dept_avg,
     <span class="function">AVG</span>(salary) <span class="keyword">OVER</span> () <span class="keyword">AS</span> company_avg
 <span class="keyword">FROM</span> employees;</code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 4: ORDER BY in Windows -->
-      <section class="topic-section" id="order-by-window">
-        <h2> ORDER BY in Windows <span class="level-badge basic">Basic</span> </h2>
-        <p>ORDER BY within OVER determines the order of rows within each partition. Required for ranking and cumulative calculations.</p>
+    <!-- Section 4: ORDER BY in Windows -->
+    <section class="topic-section" id="order-by-window">
+      <h2> ORDER BY in Windows <span class="level-badge basic">Basic</span> </h2>
+      <p>ORDER BY within OVER determines the order of rows within each partition. Required for ranking and cumulative calculations.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- ORDER BY is required for ranking functions</span>
 <span class="keyword">SELECT</span>
     name,
@@ -221,8 +241,8 @@ function_name() <span class="keyword">OVER</span> window_definition
     salary,
     hire_date,
     <span class="function">ROW_NUMBER</span>() <span class="keyword">OVER</span> (
-        <span class="keyword">PARTITION BY</span> department
-        <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>, hire_date <span class="keyword">ASC</span>
+      <span class="keyword">PARTITION BY</span> department
+      <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>, hire_date <span class="keyword">ASC</span>
     ) <span class="keyword">AS</span> rank
 <span class="keyword">FROM</span> employees;
 
@@ -232,15 +252,15 @@ function_name() <span class="keyword">OVER</span> window_definition
     bonus,
     <span class="function">ROW_NUMBER</span>() <span class="keyword">OVER</span> (<span class="keyword">ORDER BY</span> bonus <span class="keyword">NULLS LAST</span>) <span class="keyword">AS</span> rank
 <span class="keyword">FROM</span> employees;</code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 5: ROW_NUMBER -->
-      <section class="topic-section" id="row-number">
-        <h2> ROW_NUMBER <span class="level-badge basic">Basic</span> </h2>
-        <p>Assigns a unique sequential integer to each row within a partition. Ties get different numbers.</p>
+    <!-- Section 5: ROW_NUMBER -->
+    <section class="topic-section" id="row-number">
+      <h2> ROW_NUMBER <span class="level-badge basic">Basic</span> </h2>
+      <p>Assigns a unique sequential integer to each row within a partition. Ties get different numbers.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Simple row numbering</span>
 <span class="keyword">SELECT</span>
     name,
@@ -254,19 +274,19 @@ function_name() <span class="keyword">OVER</span> window_definition
     department,
     salary,
     <span class="function">ROW_NUMBER</span>() <span class="keyword">OVER</span> (
-        <span class="keyword">PARTITION BY</span> department
-        <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>
+      <span class="keyword">PARTITION BY</span> department
+      <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>
     ) <span class="keyword">AS</span> dept_row_num
 <span class="keyword">FROM</span> employees;
 
 <span class="comment">-- Get top N per group (PostgreSQL pattern)</span>
 <span class="keyword">WITH</span> ranked <span class="keyword">AS</span> (
     <span class="keyword">SELECT</span>
-        *,
-        <span class="function">ROW_NUMBER</span>() <span class="keyword">OVER</span> (
-            <span class="keyword">PARTITION BY</span> department
-            <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>
-        ) <span class="keyword">AS</span> rn
+      *,
+      <span class="function">ROW_NUMBER</span>() <span class="keyword">OVER</span> (
+          <span class="keyword">PARTITION BY</span> department
+          <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>
+      ) <span class="keyword">AS</span> rn
     <span class="keyword">FROM</span> employees
 )
 <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> ranked
@@ -284,18 +304,18 @@ function_name() <span class="keyword">OVER</span> window_definition
     <span class="keyword">FROM</span> products
 ) t
 <span class="keyword">WHERE</span> rn = <span class="function">FLOOR</span>(<span class="function">RANDOM</span>() * (<span class="keyword">SELECT</span> <span class="function">COUNT</span>(*) <span class="keyword">FROM</span> products)) + <span class="number">1</span>;</code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 6: RANK & DENSE_RANK -->
-      <section class="topic-section" id="rank-functions">
-        <h2> RANK and DENSE_RANK <span class="level-badge basic">Basic</span> </h2>
-        <p>Rank rows based on values. RANK skips numbers after ties; DENSE_RANK does not.</p>
+    <!-- Section 6: RANK & DENSE_RANK -->
+    <section class="topic-section" id="rank-functions">
+      <h2> RANK and DENSE_RANK <span class="level-badge basic">Basic</span> </h2>
+      <p>Rank rows based on values. RANK skips numbers after ties; DENSE_RANK does not.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>RANK vs DENSE_RANK</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>RANK vs DENSE_RANK</h4>
+          <div class="code-block">
 <code><span class="keyword">SELECT</span>
     name,
     salary,
@@ -309,19 +329,19 @@ function_name() <span class="keyword">OVER</span> window_definition
 <span class="comment">-- 100000    1        1</span>
 <span class="comment">--  90000    3        2      ← RANK skips 2</span>
 <span class="comment">--  80000    4        3</span>
-            </code>
-            </div>
+          </code>
           </div>
-          <div class="split-item">
-            <h4>Use Cases</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>Use Cases</h4>
+          <div class="code-block">
 <code><span class="comment">-- Find salary ties</span>
 <span class="keyword">SELECT</span> name, salary
 <span class="keyword">FROM</span> (
     <span class="keyword">SELECT</span>
-        name,
-        salary,
-        <span class="function">RANK</span>() <span class="keyword">OVER</span> (<span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>) <span class="keyword">AS</span> rnk
+      name,
+      salary,
+      <span class="function">RANK</span>() <span class="keyword">OVER</span> (<span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>) <span class="keyword">AS</span> rnk
     <span class="keyword">FROM</span> employees
 ) t
 <span class="keyword">WHERE</span> rnk <span class="keyword">IN</span> (
@@ -337,22 +357,22 @@ function_name() <span class="keyword">OVER</span> window_definition
     department,
     salary,
     <span class="function">DENSE_RANK</span>() <span class="keyword">OVER</span> (
-        <span class="keyword">PARTITION BY</span> department
-        <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>
+      <span class="keyword">PARTITION BY</span> department
+      <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>
     ) <span class="keyword">AS</span> dept_rank
 <span class="keyword">FROM</span> employees;
-            </code>
-            </div>
+          </code>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 7: NTILE -->
-      <section class="topic-section" id="ntile">
-        <h2> NTILE <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Distributes rows into a specified number of roughly equal groups (buckets).</p>
+    <!-- Section 7: NTILE -->
+    <section class="topic-section" id="ntile">
+      <h2> NTILE <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Distributes rows into a specified number of roughly equal groups (buckets).</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Divide into quartiles (4 groups)</span>
 <span class="keyword">SELECT</span>
     name,
@@ -390,22 +410,22 @@ function_name() <span class="keyword">OVER</span> window_definition
     department,
     salary,
     <span class="function">NTILE</span>(<span class="number">3</span>) <span class="keyword">OVER</span> (
-        <span class="keyword">PARTITION BY</span> department
-        <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>
+      <span class="keyword">PARTITION BY</span> department
+      <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>
     ) <span class="keyword">AS</span> salary_tercile
 <span class="keyword">FROM</span> employees;</code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 8: LAG & LEAD -->
-      <section class="topic-section" id="lag-lead">
-        <h2> LAG and LEAD <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Access values from previous (LAG) or following (LEAD) rows without self-joins.</p>
+    <!-- Section 8: LAG & LEAD -->
+    <section class="topic-section" id="lag-lead">
+      <h2> LAG and LEAD <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Access values from previous (LAG) or following (LEAD) rows without self-joins.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>LAG - Previous Rows</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>LAG - Previous Rows</h4>
+          <div class="code-block">
 <code><span class="comment">-- Previous row's salary</span>
 <span class="keyword">SELECT</span>
     name,
@@ -426,12 +446,12 @@ function_name() <span class="keyword">OVER</span> window_definition
     salary,
     <span class="function">LAG</span>(salary, <span class="number">1</span>, <span class="number">0</span>) <span class="keyword">OVER</span> (<span class="keyword">ORDER BY</span> hire_date) <span class="keyword">AS</span> prev_salary
 <span class="keyword">FROM</span> employees;
-            </code>
-            </div>
+          </code>
           </div>
-          <div class="split-item">
-            <h4>LEAD - Following Rows</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>LEAD - Following Rows</h4>
+          <div class="code-block">
 <code><span class="comment">-- Next row's salary</span>
 <span class="keyword">SELECT</span>
     name,
@@ -453,27 +473,27 @@ function_name() <span class="keyword">OVER</span> window_definition
     department,
     hire_date,
     <span class="function">LAG</span>(name) <span class="keyword">OVER</span> (
-        <span class="keyword">PARTITION BY</span> department
-        <span class="keyword">ORDER BY</span> hire_date
+      <span class="keyword">PARTITION BY</span> department
+      <span class="keyword">ORDER BY</span> hire_date
     ) <span class="keyword">AS</span> previous_hire
 <span class="keyword">FROM</span> employees;
-            </code>
-            </div>
+          </code>
           </div>
         </div>
+      </div>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Calculate days between events</span>
 <span class="keyword">SELECT</span>
     customer_id,
     order_date,
     <span class="function">LAG</span>(order_date) <span class="keyword">OVER</span> (
-        <span class="keyword">PARTITION BY</span> customer_id
-        <span class="keyword">ORDER BY</span> order_date
+      <span class="keyword">PARTITION BY</span> customer_id
+      <span class="keyword">ORDER BY</span> order_date
     ) <span class="keyword">AS</span> prev_order,
     order_date - <span class="function">LAG</span>(order_date) <span class="keyword">OVER</span> (
-        <span class="keyword">PARTITION BY</span> customer_id
-        <span class="keyword">ORDER BY</span> order_date
+      <span class="keyword">PARTITION BY</span> customer_id
+      <span class="keyword">ORDER BY</span> order_date
     ) <span class="keyword">AS</span> days_between
 <span class="keyword">FROM</span> orders;
 
@@ -487,26 +507,26 @@ function_name() <span class="keyword">OVER</span> window_definition
     <span class="function">LEAD</span>(salary, <span class="number">1</span>, <span class="number">0</span>) <span class="keyword">OVER</span> (<span class="keyword">ORDER BY</span> salary) - salary <span class="keyword">AS</span> diff_next
 <span class="keyword">FROM</span> employees
 <span class="keyword">ORDER BY</span> salary;</code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 9: FIRST_VALUE & LAST_VALUE -->
-      <section class="topic-section" id="first-last">
-        <h2> FIRST_VALUE and LAST_VALUE <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Access the first or last value in the window frame.</p>
+    <!-- Section 9: FIRST_VALUE & LAST_VALUE -->
+    <section class="topic-section" id="first-last">
+      <h2> FIRST_VALUE and LAST_VALUE <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Access the first or last value in the window frame.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>FIRST_VALUE</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>FIRST_VALUE</h4>
+          <div class="code-block">
 <code><span class="comment">-- First value in partition</span>
 <span class="keyword">SELECT</span>
     name,
     department,
     salary,
     <span class="function">FIRST_VALUE</span>(name) <span class="keyword">OVER</span> (
-        <span class="keyword">PARTITION BY</span> department
-        <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>
+      <span class="keyword">PARTITION BY</span> department
+      <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>
     ) <span class="keyword">AS</span> highest_paid
 <span class="keyword">FROM</span> employees;
 
@@ -517,12 +537,12 @@ function_name() <span class="keyword">OVER</span> window_definition
     <span class="function">FIRST_VALUE</span>(salary) <span class="keyword">OVER</span> (<span class="keyword">ORDER BY</span> hire_date) <span class="keyword">AS</span> first_salary,
     salary - <span class="function">FIRST_VALUE</span>(salary) <span class="keyword">OVER</span> (<span class="keyword">ORDER BY</span> hire_date) <span class="keyword">AS</span> diff_from_first
 <span class="keyword">FROM</span> employees;
-            </code>
-            </div>
+          </code>
           </div>
-          <div class="split-item">
-            <h4>LAST_VALUE (careful!)</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>LAST_VALUE (careful!)</h4>
+          <div class="code-block">
 <code><span class="comment">-- LAST_VALUE needs explicit frame</span>
 <span class="comment">-- WRONG: Only sees current row</span>
 <span class="keyword">SELECT</span>
@@ -536,8 +556,8 @@ function_name() <span class="keyword">OVER</span> window_definition
     name,
     salary,
     <span class="function">LAST_VALUE</span>(name) <span class="keyword">OVER</span> (
-        <span class="keyword">ORDER BY</span> salary
-        <span class="keyword">ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING</span>
+      <span class="keyword">ORDER BY</span> salary
+      <span class="keyword">ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING</span>
     ) <span class="keyword">AS</span> last_name
 <span class="keyword">FROM</span> employees;
 
@@ -546,33 +566,33 @@ function_name() <span class="keyword">OVER</span> window_definition
     name,
     salary,
     <span class="function">FIRST_VALUE</span>(name) <span class="keyword">OVER</span> (
-        <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>
-        <span class="keyword">ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING</span>
+      <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>
+      <span class="keyword">ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING</span>
     ) <span class="keyword">AS</span> last_name
 <span class="keyword">FROM</span> employees;
-            </code>
-            </div>
+          </code>
           </div>
         </div>
+      </div>
 
-        <div class="warning-box">
-          <p><strong>Warning:</strong> The default frame is <code>RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW</code>. This means LAST_VALUE only sees up to the current row. Use an explicit frame clause to see the true last value.</p>
-        </div>
-      </section>
+      <div class="warning-box">
+        <p><strong>Warning:</strong> The default frame is <code>RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW</code>. This means LAST_VALUE only sees up to the current row. Use an explicit frame clause to see the true last value.</p>
+      </div>
+    </section>
 
-      <!-- Section 10: NTH_VALUE -->
-      <section class="topic-section" id="nth-value">
-        <h2> NTH_VALUE <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Access the nth value in the window frame. Also requires proper framing to work correctly.</p>
+    <!-- Section 10: NTH_VALUE -->
+    <section class="topic-section" id="nth-value">
+      <h2> NTH_VALUE <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Access the nth value in the window frame. Also requires proper framing to work correctly.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Nth value with proper frame</span>
 <span class="keyword">SELECT</span>
     name,
     salary,
     <span class="function">NTH_VALUE</span>(name, <span class="number">2</span>) <span class="keyword">OVER</span> (
-        <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>
-        <span class="keyword">ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING</span>
+      <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>
+      <span class="keyword">ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING</span>
     ) <span class="keyword">AS</span> second_highest
 <span class="keyword">FROM</span> employees;
 
@@ -603,15 +623,15 @@ function_name() <span class="keyword">OVER</span> window_definition
     <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>
     <span class="keyword">ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING</span>
 );</code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 11: Aggregate Windows -->
-      <section class="topic-section" id="aggregate-windows">
-        <h2> Aggregate Window Functions <span class="level-badge basic">Basic</span> </h2>
-        <p>Standard aggregate functions (SUM, AVG, COUNT, MIN, MAX) can be used as window functions.</p>
+    <!-- Section 11: Aggregate Windows -->
+    <section class="topic-section" id="aggregate-windows">
+      <h2> Aggregate Window Functions <span class="level-badge basic">Basic</span> </h2>
+      <p>Standard aggregate functions (SUM, AVG, COUNT, MIN, MAX) can be used as window functions.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Running total</span>
 <span class="keyword">SELECT</span>
     order_date,
@@ -647,8 +667,8 @@ function_name() <span class="keyword">OVER</span> window_definition
     order_date,
     amount,
     <span class="function">AVG</span>(amount) <span class="keyword">OVER</span> (
-        <span class="keyword">ORDER BY</span> order_date
-        <span class="keyword">ROWS BETWEEN</span> <span class="number">2</span> <span class="keyword">PRECEDING AND CURRENT ROW</span>
+      <span class="keyword">ORDER BY</span> order_date
+      <span class="keyword">ROWS BETWEEN</span> <span class="number">2</span> <span class="keyword">PRECEDING AND CURRENT ROW</span>
     ) <span class="keyword">AS</span> moving_avg_3
 <span class="keyword">FROM</span> orders;
 
@@ -657,19 +677,19 @@ function_name() <span class="keyword">OVER</span> window_definition
     order_date,
     customer_id,
     <span class="function">COUNT</span>(<span class="keyword">DISTINCT</span> customer_id) <span class="keyword">OVER</span> (
-        <span class="keyword">ORDER BY</span> order_date
-        <span class="keyword">ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW</span>
+      <span class="keyword">ORDER BY</span> order_date
+      <span class="keyword">ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW</span>
     ) <span class="keyword">AS</span> cumulative_customers
 <span class="keyword">FROM</span> orders;</code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 12: Running Totals -->
-      <section class="topic-section" id="running-totals">
-        <h2> Running Totals <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Calculate cumulative sums and other running aggregates using window functions.</p>
+    <!-- Section 12: Running Totals -->
+    <section class="topic-section" id="running-totals">
+      <h2> Running Totals <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Calculate cumulative sums and other running aggregates using window functions.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Simple running total</span>
 <span class="keyword">SELECT</span>
     order_date,
@@ -684,8 +704,8 @@ function_name() <span class="keyword">OVER</span> window_definition
     order_date,
     amount,
     <span class="function">SUM</span>(amount) <span class="keyword">OVER</span> (
-        <span class="keyword">PARTITION BY</span> customer_id
-        <span class="keyword">ORDER BY</span> order_date
+      <span class="keyword">PARTITION BY</span> customer_id
+      <span class="keyword">ORDER BY</span> order_date
     ) <span class="keyword">AS</span> customer_running_total
 <span class="keyword">FROM</span> orders;
 
@@ -702,8 +722,8 @@ function_name() <span class="keyword">OVER</span> window_definition
     sale_date,
     amount,
     <span class="function">SUM</span>(amount) <span class="keyword">OVER</span> (
-        <span class="keyword">PARTITION BY</span> <span class="function">EXTRACT</span>(<span class="keyword">YEAR FROM</span> sale_date)
-        <span class="keyword">ORDER BY</span> sale_date
+      <span class="keyword">PARTITION BY</span> <span class="function">EXTRACT</span>(<span class="keyword">YEAR FROM</span> sale_date)
+      <span class="keyword">ORDER BY</span> sale_date
     ) <span class="keyword">AS</span> ytd_total
 <span class="keyword">FROM</span> sales;
 
@@ -712,27 +732,27 @@ function_name() <span class="keyword">OVER</span> window_definition
     order_date,
     status,
     <span class="function">SUM</span>(<span class="keyword">CASE WHEN</span> status = <span class="string">'completed'</span> <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>)
-        <span class="keyword">OVER</span> (<span class="keyword">ORDER BY</span> order_date) <span class="keyword">AS</span> completed_running_count
+      <span class="keyword">OVER</span> (<span class="keyword">ORDER BY</span> order_date) <span class="keyword">AS</span> completed_running_count
 <span class="keyword">FROM</span> orders;</code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 13: Moving Averages -->
-      <section class="topic-section" id="moving-averages">
-        <h2> Moving Averages <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Calculate rolling averages using frame clauses to smooth out data over a window.</p>
+    <!-- Section 13: Moving Averages -->
+    <section class="topic-section" id="moving-averages">
+      <h2> Moving Averages <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Calculate rolling averages using frame clauses to smooth out data over a window.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>ROWS Frame (Fixed count)</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>ROWS Frame (Fixed count)</h4>
+          <div class="code-block">
 <code><span class="comment">-- 3-day moving average</span>
 <span class="keyword">SELECT</span>
     sale_date,
     amount,
     <span class="function">AVG</span>(amount) <span class="keyword">OVER</span> (
-        <span class="keyword">ORDER BY</span> sale_date
-        <span class="keyword">ROWS BETWEEN</span> <span class="number">1</span> <span class="keyword">PRECEDING AND</span> <span class="number">1</span> <span class="keyword">FOLLOWING</span>
+      <span class="keyword">ORDER BY</span> sale_date
+      <span class="keyword">ROWS BETWEEN</span> <span class="number">1</span> <span class="keyword">PRECEDING AND</span> <span class="number">1</span> <span class="keyword">FOLLOWING</span>
     ) <span class="keyword">AS</span> ma_3
 <span class="keyword">FROM</span> sales;
 
@@ -741,20 +761,20 @@ function_name() <span class="keyword">OVER</span> window_definition
     <span class="keyword">ORDER BY</span> sale_date
     <span class="keyword">ROWS BETWEEN</span> <span class="number">3</span> <span class="keyword">PRECEDING AND</span> <span class="number">3</span> <span class="keyword">FOLLOWING</span>
 ) <span class="keyword">AS</span> ma_7
-            </code>
-            </div>
+          </code>
           </div>
-          <div class="split-item">
-            <h4>RANGE Frame (Time-based)</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>RANGE Frame (Time-based)</h4>
+          <div class="code-block">
 <code><span class="comment">-- 30-day rolling average</span>
 <span class="keyword">SELECT</span>
     sale_date,
     amount,
     <span class="function">AVG</span>(amount) <span class="keyword">OVER</span> (
-        <span class="keyword">ORDER BY</span> sale_date
-        <span class="keyword">RANGE BETWEEN</span> <span class="function">INTERVAL</span> <span class="string">'30 days'</span> <span class="keyword">PRECEDING</span>
-        <span class="keyword">AND CURRENT ROW</span>
+      <span class="keyword">ORDER BY</span> sale_date
+      <span class="keyword">RANGE BETWEEN</span> <span class="function">INTERVAL</span> <span class="string">'30 days'</span> <span class="keyword">PRECEDING</span>
+      <span class="keyword">AND CURRENT ROW</span>
     ) <span class="keyword">AS</span> rolling_30d
 <span class="keyword">FROM</span> sales;
 
@@ -764,27 +784,27 @@ function_name() <span class="keyword">OVER</span> window_definition
     <span class="keyword">RANGE BETWEEN</span> <span class="function">INTERVAL</span> <span class="string">'6 days'</span> <span class="keyword">PRECEDING</span>
     <span class="keyword">AND CURRENT ROW</span>
 ) <span class="keyword">AS</span> week_avg
-            </code>
-            </div>
+          </code>
           </div>
         </div>
+      </div>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Multiple moving averages</span>
 <span class="keyword">SELECT</span>
     date,
     close_price,
     <span class="function">AVG</span>(close_price) <span class="keyword">OVER</span> (
-        <span class="keyword">ORDER BY</span> date
-        <span class="keyword">ROWS BETWEEN</span> <span class="number">4</span> <span class="keyword">PRECEDING AND CURRENT ROW</span>
+      <span class="keyword">ORDER BY</span> date
+      <span class="keyword">ROWS BETWEEN</span> <span class="number">4</span> <span class="keyword">PRECEDING AND CURRENT ROW</span>
     ) <span class="keyword">AS</span> ma_5,
     <span class="function">AVG</span>(close_price) <span class="keyword">OVER</span> (
-        <span class="keyword">ORDER BY</span> date
-        <span class="keyword">ROWS BETWEEN</span> <span class="number">19</span> <span class="keyword">PRECEDING AND CURRENT ROW</span>
+      <span class="keyword">ORDER BY</span> date
+      <span class="keyword">ROWS BETWEEN</span> <span class="number">19</span> <span class="keyword">PRECEDING AND CURRENT ROW</span>
     ) <span class="keyword">AS</span> ma_20,
     <span class="function">AVG</span>(close_price) <span class="keyword">OVER</span> (
-        <span class="keyword">ORDER BY</span> date
-        <span class="keyword">ROWS BETWEEN</span> <span class="number">49</span> <span class="keyword">PRECEDING AND CURRENT ROW</span>
+      <span class="keyword">ORDER BY</span> date
+      <span class="keyword">ROWS BETWEEN</span> <span class="number">49</span> <span class="keyword">PRECEDING AND CURRENT ROW</span>
     ) <span class="keyword">AS</span> ma_50
 <span class="keyword">FROM</span> stock_prices;
 
@@ -798,15 +818,15 @@ function_name() <span class="keyword">OVER</span> window_definition
     <span class="keyword">ORDER BY</span> date
     <span class="keyword">ROWS BETWEEN</span> <span class="number">2</span> <span class="keyword">PRECEDING AND CURRENT ROW</span>
 );</code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 14: Frame Basics -->
-      <section class="topic-section" id="frame-basics">
-        <h2> Frame Clause Basics <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>The frame clause defines which rows are included in the window calculation relative to the current row.</p>
+    <!-- Section 14: Frame Basics -->
+    <section class="topic-section" id="frame-basics">
+      <h2> Frame Clause Basics <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>The frame clause defines which rows are included in the window calculation relative to the current row.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Frame syntax</span>
 {ROWS | RANGE | GROUPS} frame_extent
 
@@ -833,73 +853,73 @@ frame_extent =
     id,
     value,
     <span class="function">SUM</span>(value) <span class="keyword">OVER</span> (
-        <span class="keyword">ORDER BY</span> id
-        <span class="keyword">ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW</span>
+      <span class="keyword">ORDER BY</span> id
+      <span class="keyword">ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW</span>
     ) <span class="keyword">AS</span> running_total,
     <span class="function">SUM</span>(value) <span class="keyword">OVER</span> (
-        <span class="keyword">ORDER BY</span> id
-        <span class="keyword">ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING</span>
+      <span class="keyword">ORDER BY</span> id
+      <span class="keyword">ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING</span>
     ) <span class="keyword">AS</span> total,
     <span class="function">SUM</span>(value) <span class="keyword">OVER</span> (
-        <span class="keyword">ORDER BY</span> id
-        <span class="keyword">ROWS BETWEEN</span> <span class="number">1</span> <span class="keyword">PRECEDING AND</span> <span class="number">1</span> <span class="keyword">FOLLOWING</span>
+      <span class="keyword">ORDER BY</span> id
+      <span class="keyword">ROWS BETWEEN</span> <span class="number">1</span> <span class="keyword">PRECEDING AND</span> <span class="number">1</span> <span class="keyword">FOLLOWING</span>
     ) <span class="keyword">AS</span> centered_sum
 <span class="keyword">FROM</span> data;</code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 15: ROWS vs RANGE -->
-      <section class="topic-section" id="rows-vs-range">
-        <h2> ROWS vs RANGE vs GROUPS <span class="level-badge advanced">Advanced</span> </h2>
-        <p>Three frame types that determine how rows are selected relative to the current row.</p>
+    <!-- Section 15: ROWS vs RANGE -->
+    <section class="topic-section" id="rows-vs-range">
+      <h2> ROWS vs RANGE vs GROUPS <span class="level-badge advanced">Advanced</span> </h2>
+      <p>Three frame types that determine how rows are selected relative to the current row.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>ROWS (Physical rows)</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>ROWS (Physical rows)</h4>
+          <div class="code-block">
 <code><span class="comment">-- ROWS: Counts physical rows</span>
 <span class="keyword">SELECT</span>
     id,
     value,
     <span class="function">SUM</span>(value) <span class="keyword">OVER</span> (
-        <span class="keyword">ORDER BY</span> id
-        <span class="keyword">ROWS BETWEEN</span> <span class="number">1</span> <span class="keyword">PRECEDING AND</span> <span class="number">1</span> <span class="keyword">FOLLOWING</span>
+      <span class="keyword">ORDER BY</span> id
+      <span class="keyword">ROWS BETWEEN</span> <span class="number">1</span> <span class="keyword">PRECEDING AND</span> <span class="number">1</span> <span class="keyword">FOLLOWING</span>
     ) <span class="keyword">AS</span> sum_neighbors
 <span class="keyword">FROM</span> data;
 
 <span class="comment">-- Always includes exactly 3 rows</span>
 <span class="comment">-- (previous, current, next)</span>
-            </code>
-            </div>
+          </code>
           </div>
-          <div class="split-item">
-            <h4>RANGE (Value range)</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>RANGE (Value range)</h4>
+          <div class="code-block">
 <code><span class="comment">-- RANGE: Based on ORDER BY values</span>
 <span class="keyword">SELECT</span>
     salary,
     <span class="function">COUNT</span>(*) <span class="keyword">OVER</span> (
-        <span class="keyword">ORDER BY</span> salary
-        <span class="keyword">RANGE BETWEEN</span> <span class="number">1000</span> <span class="keyword">PRECEDING AND</span> <span class="number">1000</span> <span class="keyword">FOLLOWING</span>
+      <span class="keyword">ORDER BY</span> salary
+      <span class="keyword">RANGE BETWEEN</span> <span class="number">1000</span> <span class="keyword">PRECEDING AND</span> <span class="number">1000</span> <span class="keyword">FOLLOWING</span>
     ) <span class="keyword">AS</span> within_1000
 <span class="keyword">FROM</span> employees;
 
 <span class="comment">-- INCLUDES all rows within value range</span>
 <span class="comment">-- Multiple rows with same value are included</span>
 <span class="comment">-- Default frame type when ORDER BY is specified</span>
-            </code>
-            </div>
+          </code>
           </div>
         </div>
+      </div>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- GROUPS (Value groups - PostgreSQL)</span>
 <span class="comment">-- Includes all rows with the same ORDER BY value</span>
 <span class="keyword">SELECT</span>
     salary,
     <span class="function">COUNT</span>(*) <span class="keyword">OVER</span> (
-        <span class="keyword">ORDER BY</span> salary
-        <span class="keyword">GROUPS BETWEEN</span> <span class="number">1</span> <span class="keyword">PRECEDING AND</span> <span class="number">1</span> <span class="keyword">FOLLOWING</span>
+      <span class="keyword">ORDER BY</span> salary
+      <span class="keyword">GROUPS BETWEEN</span> <span class="number">1</span> <span class="keyword">PRECEDING AND</span> <span class="number">1</span> <span class="keyword">FOLLOWING</span>
     ) <span class="keyword">AS</span> groups_count
 <span class="keyword">FROM</span> employees;
 
@@ -922,15 +942,15 @@ frame_extent =
     w_rows <span class="keyword">AS</span> (<span class="keyword">ORDER BY</span> salary <span class="keyword">ROWS BETWEEN</span> <span class="number">1</span> <span class="keyword">PRECEDING AND</span> <span class="number">1</span> <span class="keyword">FOLLOWING</span>),
     w_range <span class="keyword">AS</span> (<span class="keyword">ORDER BY</span> salary <span class="keyword">RANGE BETWEEN</span> <span class="number">1000</span> <span class="keyword">PRECEDING AND</span> <span class="number">1000</span> <span class="keyword">FOLLOWING</span>),
     w_groups <span class="keyword">AS</span> (<span class="keyword">ORDER BY</span> salary <span class="keyword">GROUPS BETWEEN</span> <span class="number">1</span> <span class="keyword">PRECEDING AND</span> <span class="number">1</span> <span class="keyword">FOLLOWING</span>);</code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 16: GROUP & EXCLUDE -->
-      <section class="topic-section" id="group-bound">
-        <h2> GROUP and EXCLUDE <span class="level-badge advanced">Advanced</span> </h2>
-        <p>PostgreSQL extensions for advanced frame control.</p>
+    <!-- Section 16: GROUP & EXCLUDE -->
+    <section class="topic-section" id="group-bound">
+      <h2> GROUP and EXCLUDE <span class="level-badge advanced">Advanced</span> </h2>
+      <p>PostgreSQL extensions for advanced frame control.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- EXCLUDE clause (PostgreSQL)</span>
 <span class="comment">-- Remove specific rows from the frame</span>
 
@@ -938,21 +958,21 @@ frame_extent =
     id,
     value,
     <span class="function">SUM</span>(value) <span class="keyword">OVER</span> (
-        <span class="keyword">ORDER BY</span> id
-        <span class="keyword">ROWS BETWEEN</span> <span class="number">1</span> <span class="keyword">PRECEDING AND</span> <span class="number">1</span> <span class="keyword">FOLLOWING</span>
-        <span class="keyword">EXCLUDE CURRENT ROW</span>
+      <span class="keyword">ORDER BY</span> id
+      <span class="keyword">ROWS BETWEEN</span> <span class="number">1</span> <span class="keyword">PRECEDING AND</span> <span class="number">1</span> <span class="keyword">FOLLOWING</span>
+      <span class="keyword">EXCLUDE CURRENT ROW</span>
     ) <span class="keyword">AS</span> neighbors_sum,
     
     <span class="function">SUM</span>(value) <span class="keyword">OVER</span> (
-        <span class="keyword">ORDER BY</span> id
-        <span class="keyword">ROWS BETWEEN</span> <span class="number">1</span> <span class="keyword">PRECEDING AND</span> <span class="number">1</span> <span class="keyword">FOLLOWING</span>
-        <span class="keyword">EXCLUDE TIES</span>
+      <span class="keyword">ORDER BY</span> id
+      <span class="keyword">ROWS BETWEEN</span> <span class="number">1</span> <span class="keyword">PRECEDING AND</span> <span class="number">1</span> <span class="keyword">FOLLOWING</span>
+      <span class="keyword">EXCLUDE TIES</span>
     ) <span class="keyword">AS</span> no_ties_sum,
     
     <span class="function">SUM</span>(value) <span class="keyword">OVER</span> (
-        <span class="keyword">ORDER BY</span> id
-        <span class="keyword">ROWS BETWEEN</span> <span class="number">1</span> <span class="keyword">PRECEDING AND</span> <span class="number">1</span> <span class="keyword">FOLLOWING</span>
-        <span class="keyword">EXCLUDE GROUP</span>
+      <span class="keyword">ORDER BY</span> id
+      <span class="keyword">ROWS BETWEEN</span> <span class="number">1</span> <span class="keyword">PRECEDING AND</span> <span class="number">1</span> <span class="keyword">FOLLOWING</span>
+      <span class="keyword">EXCLUDE GROUP</span>
     ) <span class="keyword">AS</span> no_group_sum
 <span class="keyword">FROM</span> data;
 
@@ -967,23 +987,23 @@ frame_extent =
     id,
     value,
     <span class="function">AVG</span>(value) <span class="keyword">OVER</span> (
-        <span class="keyword">ORDER BY</span> id
-        <span class="keyword">ROWS BETWEEN</span> <span class="number">1</span> <span class="keyword">PRECEDING AND</span> <span class="number">1</span> <span class="keyword">FOLLOWING</span>
-        <span class="keyword">EXCLUDE CURRENT ROW</span>
+      <span class="keyword">ORDER BY</span> id
+      <span class="keyword">ROWS BETWEEN</span> <span class="number">1</span> <span class="keyword">PRECEDING AND</span> <span class="number">1</span> <span class="keyword">FOLLOWING</span>
+      <span class="keyword">EXCLUDE CURRENT ROW</span>
     ) <span class="keyword">AS</span> neighbor_avg
 <span class="keyword">FROM</span> temperatures;</code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 17: PERCENT_RANK & CUME_DIST -->
-      <section class="topic-section" id="percent-rank">
-        <h2> PERCENT_RANK and CUME_DIST <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Statistical ranking functions for relative position calculations.</p>
+    <!-- Section 17: PERCENT_RANK & CUME_DIST -->
+    <section class="topic-section" id="percent-rank">
+      <h2> PERCENT_RANK and CUME_DIST <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Statistical ranking functions for relative position calculations.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>PERCENT_RANK</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>PERCENT_RANK</h4>
+          <div class="code-block">
 <code><span class="comment">-- Relative rank (0 to 1)</span>
 <span class="comment">-- Formula: (rank - 1) / (total_rows - 1)</span>
 <span class="keyword">SELECT</span>
@@ -1000,12 +1020,12 @@ frame_extent =
 <span class="comment">--  80000    3      0.50</span>
 <span class="comment">--  70000    4      0.75</span>
 <span class="comment">--  60000    5      1.00  ← Last is always 1</span>
-            </code>
-            </div>
+          </code>
           </div>
-          <div class="split-item">
-            <h4>CUME_DIST</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>CUME_DIST</h4>
+          <div class="code-block">
 <code><span class="comment">-- Cumulative distribution (0 to 1)</span>
 <span class="comment">-- Formula: rows <= current / total_rows</span>
 <span class="keyword">SELECT</span>
@@ -1028,18 +1048,18 @@ frame_extent =
     <span class="function">CUME_DIST</span>() <span class="keyword">OVER</span> (<span class="keyword">ORDER BY</span> salary) <span class="keyword">AS</span> percentile
 <span class="keyword">FROM</span> employees
 <span class="keyword">ORDER BY</span> salary;
-            </code>
-            </div>
+          </code>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 18: Distribution Functions -->
-      <section class="topic-section" id="distribution">
-        <h2> Distribution Functions <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>PostgreSQL's PERCENTILE_CONT and PERCENTILE_DISC for percentile calculations.</p>
+    <!-- Section 18: Distribution Functions -->
+    <section class="topic-section" id="distribution">
+      <h2> Distribution Functions <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>PostgreSQL's PERCENTILE_CONT and PERCENTILE_DISC for percentile calculations.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- PERCENTILE_CONT - Continuous (interpolated)</span>
 <span class="keyword">SELECT</span>
     department,
@@ -1060,7 +1080,7 @@ frame_extent =
 <span class="keyword">SELECT</span>
     department,
     <span class="function">PERCENTILE_CONT</span>(<span class="function">UNNEST</span>(<span class="function">ARRAY</span>[<span class="number">0.25</span>, <span class="number">0.5</span>, <span class="number">0.75</span>, <span class="number">0.9</span>]))
-        <span class="keyword">WITHIN GROUP</span> (<span class="keyword">ORDER BY</span> salary) <span class="keyword">AS</span> percentile
+      <span class="keyword">WITHIN GROUP</span> (<span class="keyword">ORDER BY</span> salary) <span class="keyword">AS</span> percentile
 <span class="keyword">FROM</span> employees
 <span class="keyword">GROUP BY</span> department;
 
@@ -1069,33 +1089,33 @@ frame_extent =
     name,
     salary,
     <span class="function">PERCENTILE_CONT</span>(<span class="number">0.5</span>) <span class="keyword">WITHIN GROUP</span> (<span class="keyword">ORDER BY</span> salary)
-        <span class="keyword">OVER</span> (<span class="keyword">PARTITION BY</span> department) <span class="keyword">AS</span> dept_median
+      <span class="keyword">OVER</span> (<span class="keyword">PARTITION BY</span> department) <span class="keyword">AS</span> dept_median
 <span class="keyword">FROM</span> employees;</code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 19: Window Aliases -->
-      <section class="topic-section" id="window-aliases">
-        <h2> Window Aliases <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Define reusable window specifications with the WINDOW clause to avoid repetition.</p>
+    <!-- Section 19: Window Aliases -->
+    <section class="topic-section" id="window-aliases">
+      <h2> Window Aliases <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Define reusable window specifications with the WINDOW clause to avoid repetition.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Without window alias (repetitive)</span>
 <span class="keyword">SELECT</span>
     name,
     department,
     salary,
     <span class="function">RANK</span>() <span class="keyword">OVER</span> (
-        <span class="keyword">PARTITION BY</span> department
-        <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>
+      <span class="keyword">PARTITION BY</span> department
+      <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>
     ) <span class="keyword">AS</span> rank,
     <span class="function">DENSE_RANK</span>() <span class="keyword">OVER</span> (
-        <span class="keyword">PARTITION BY</span> department
-        <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>
+      <span class="keyword">PARTITION BY</span> department
+      <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>
     ) <span class="keyword">AS</span> dense_rank,
     <span class="function">ROW_NUMBER</span>() <span class="keyword">OVER</span> (
-        <span class="keyword">PARTITION BY</span> department
-        <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>
+      <span class="keyword">PARTITION BY</span> department
+      <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>
     ) <span class="keyword">AS</span> row_num
 <span class="keyword">FROM</span> employees;
 
@@ -1141,42 +1161,42 @@ frame_extent =
     ma_3 <span class="keyword">AS</span> (<span class="keyword">ORDER BY</span> date <span class="keyword">ROWS BETWEEN</span> <span class="number">1</span> <span class="keyword">PRECEDING AND</span> <span class="number">1</span> <span class="keyword">FOLLOWING</span>),
     ma_7 <span class="keyword">AS</span> (<span class="keyword">ORDER BY</span> date <span class="keyword">ROWS BETWEEN</span> <span class="number">3</span> <span class="keyword">PRECEDING AND</span> <span class="number">3</span> <span class="keyword">FOLLOWING</span>),
     running <span class="keyword">AS</span> (<span class="keyword">ORDER BY</span> date);</code>
+      </div>
+
+      <div class="tip-box">
+        <p><strong>Tip:</strong> Use window aliases when you need to reference the same window specification multiple times in a query. It improves readability and maintainability.</p>
+      </div>
+    </section>
+
+    <!-- Section 20: Optimization Tips -->
+    <section class="topic-section" id="optimization">
+      <h2> Optimization Tips <span class="level-badge advanced">Advanced</span> </h2>
+      <p>Best practices for writing efficient window functions in PostgreSQL.</p>
+
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Do's</h4>
+          <ul>
+            <li>Index columns used in PARTITION BY and ORDER BY</li>
+            <li>Use CTEs to break complex window operations</li>
+            <li>Use WINDOW clause to reuse specifications</li>
+            <li>Choose appropriate frame type (ROWS vs RANGE)</li>
+            <li>Use covering indexes for window queries</li>
+          </ul>
         </div>
-
-        <div class="tip-box">
-          <p><strong>Tip:</strong> Use window aliases when you need to reference the same window specification multiple times in a query. It improves readability and maintainability.</p>
+        <div class="split-item">
+          <h4>Don'ts</h4>
+          <ul>
+            <li>Avoid large frames with many rows</li>
+            <li>Don't use RANGE without ORDER BY</li>
+            <li>Don't nest window functions unnecessarily</li>
+            <li>Avoid DISTINCT with window functions</li>
+            <li>Don't forget frame boundaries</li>
+          </ul>
         </div>
-      </section>
+      </div>
 
-      <!-- Section 20: Optimization Tips -->
-      <section class="topic-section" id="optimization">
-        <h2> Optimization Tips <span class="level-badge advanced">Advanced</span> </h2>
-        <p>Best practices for writing efficient window functions in PostgreSQL.</p>
-
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Do's</h4>
-            <ul>
-              <li>Index columns used in PARTITION BY and ORDER BY</li>
-              <li>Use CTEs to break complex window operations</li>
-              <li>Use WINDOW clause to reuse specifications</li>
-              <li>Choose appropriate frame type (ROWS vs RANGE)</li>
-              <li>Use covering indexes for window queries</li>
-            </ul>
-          </div>
-          <div class="split-item">
-            <h4>Don'ts</h4>
-            <ul>
-              <li>Avoid large frames with many rows</li>
-              <li>Don't use RANGE without ORDER BY</li>
-              <li>Don't nest window functions unnecessarily</li>
-              <li>Avoid DISTINCT with window functions</li>
-              <li>Don't forget frame boundaries</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Check performance with EXPLAIN</span>
 <span class="keyword">EXPLAIN ANALYZE</span>
 <span class="keyword">SELECT</span>
@@ -1192,8 +1212,8 @@ frame_extent =
 <span class="comment">-- Materialize CTE for complex calculations</span>
 <span class="keyword">WITH</span> ranked_data <span class="keyword">AS</span> (
     <span class="keyword">SELECT</span>
-        *,
-        <span class="function">ROW_NUMBER</span>() <span class="keyword">OVER</span> (w) <span class="keyword">AS</span> rn
+      *,
+      <span class="function">ROW_NUMBER</span>() <span class="keyword">OVER</span> (w) <span class="keyword">AS</span> rn
     <span class="keyword">FROM</span> large_table
     <span class="keyword">WINDOW</span> w <span class="keyword">AS</span> (<span class="keyword">PARTITION BY</span> category <span class="keyword">ORDER BY</span> created_at)
 )
@@ -1213,41 +1233,54 @@ frame_extent =
     <span class="keyword">ORDER BY</span> sale_date
     <span class="keyword">RANGE BETWEEN</span> <span class="function">INTERVAL</span> <span class="string">'7 days'</span> <span class="keyword">PRECEDING AND CURRENT ROW</span>
 ) <span class="keyword">AS</span> rolling_7_days;</code>
-        </div>
+      </div>
 
-        <div class="warning-box">
-          <p><strong>Performance note:</strong> Window functions require sorting, which can be expensive on large datasets. Always ensure appropriate indexes exist on the columns used in ORDER BY and PARTITION BY clauses.</p>
-        </div>
-      </section>
+      <div class="warning-box">
+        <p><strong>Performance note:</strong> Window functions require sorting, which can be expensive on large datasets. Always ensure appropriate indexes exist on the columns used in ORDER BY and PARTITION BY clauses.</p>
+      </div>
+    </section>
 
-    </div>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span class="footer-brand">Data Sheets</span>
+          <p class="footer-copyright">Â© 2026 Data Sheets. All rights reserved.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#">Documentation</a>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Support</a>
+        </div>
+      </div>
+    </footer>
   </main>
-  <script src="../python/python.js"></script>
-  <script src="../app.js"></script>
-  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 19V5M5 12l7-7 7 7"/>
-    </svg>
-  </button>
+
   <script>
-    // Scroll to top functionality
-    const scrollToTopBtn = document.getElementById('scrollToTop');
-    
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        scrollToTopBtn.classList.add('visible');
+    function toggleTheme() {
+      var html = document.documentElement;
+      var themeIcon = document.getElementById('themeIcon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        themeIcon.textContent = 'dark_mode';
       } else {
-        scrollToTopBtn.classList.remove('visible');
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.textContent = 'light_mode';
       }
-    });
-    
-    scrollToTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
+    }
+    (function() {
+      var savedTheme = localStorage.getItem('theme');
+      var themeIcon = document.getElementById('themeIcon');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+        themeIcon.textContent = 'light_mode';
+      } else {
+        themeIcon.textContent = 'dark_mode';
+      }
+    })();
   </script>
-<script src="../hierarchy.js"></script><script src="../sidebar-nav.js"></script>
 </body>
 </html>

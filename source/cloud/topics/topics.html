@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Guide | Cloud Topics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="../../shared.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+
+</head>
+
+<body class="topic-page topic-index">
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <a href="../../index.html" class="brand">
+        <div class="brand-icon">
+          <span class="material-symbols-outlined">architecture</span>
+        </div>
+        <span class="brand-text">Data Sheets</span>
+      </a>
+
+      <div class="nav-center">
+        <div class="search-bar">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" class="search-input" placeholder="Search architecture, patterns, or cloud..." />
+        </div>
+      </div>
+
+      <div class="nav-right">
+        <button class="nav-icon-btn" id="themeToggle" onclick="toggleTheme()">
+          <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+        </button>
+        <a href="../../source/portfolios/portfolio.html" class="user-avatar">
+          <img src="../../source/assets/images/profile-pic.jpeg" alt="User profile" />
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <a href="../index.html" class="back-link">
+      <span class="material-symbols-outlined">arrow_back</span>
+      Back to Cloud Hub
+    </a>
+
+    <header class="page-header">
+      <p class="eyebrow">Cloud Guide</p>
+      <h1>Cloud Topics</h1>
+      <p>A focused guide to Cloud Topics.</p>
+    </header>
+
+    <section class="inspire">
+      <p>
+        Master the <strong>fundamental concepts</strong> of cloud computing. From understanding service models
+        to comparing providers, these topics cover everything you need to build, deploy, and manage
+        applications in the cloud. <strong>Start with the basics, then dive into specific services.</strong>
+        <strong>Learn once, apply everywhere.</strong>
+      </p>
+    </section>
+
+    <section>
+      <h2 class="section-title">Core Topics</h2>
+      <div class="section-grid">
+        <a href="topics-basics.html" class="section-card">
+          <span class="material-symbols-outlined">cloud</span>
+          <h3>Cloud Basics</h3>
+          <p>IaaS, PaaS, SaaS, and deployment models</p>
+        </a>
+        <a href="topics-services.html" class="section-card">
+          <span class="material-symbols-outlined">compare</span>
+          <h3>Services</h3>
+          <p>AWS, Azure, and GCP service comparison</p>
+        </a>
+        <a href="topics-storage.html" class="section-card">
+          <span class="material-symbols-outlined">storage</span>
+          <h3>Storage</h3>
+          <p>Object, block, file, and data lake storage</p>
+        </a>
+        <a href="topics-compute.html" class="section-card">
+          <span class="material-symbols-outlined">memory</span>
+          <h3>Compute</h3>
+          <p>VMs, containers, and Kubernetes</p>
+        </a>
+        <a href="topics-serverless.html" class="section-card">
+          <span class="material-symbols-outlined">bolt</span>
+          <h3>Serverless</h3>
+          <p>Functions, events, and managed services</p>
+        </a>
+      </div>
+    </section>
+
+    <section style="margin-top: var(--space-12);">
+      <h2 class="section-title">Learning Path</h2>
+      <div class="section-grid">
+        <a href="topics-basics.html" class="section-card">
+          <span class="material-symbols-outlined">looks_one</span>
+          <h3>1. Start Here</h3>
+          <p>Understand cloud fundamentals and models</p>
+        </a>
+        <a href="topics-services.html" class="section-card">
+          <span class="material-symbols-outlined">looks_two</span>
+          <h3>2. Compare Providers</h3>
+          <p>See how AWS, Azure, and GCP compare</p>
+        </a>
+        <a href="topics-compute.html" class="section-card">
+          <span class="material-symbols-outlined">looks_3</span>
+          <h3>3. Compute Options</h3>
+          <p>VMs, containers, and orchestration</p>
+        </a>
+        <a href="topics-storage.html" class="section-card">
+          <span class="material-symbols-outlined">looks_4</span>
+          <h3>4. Storage Solutions</h3>
+          <p>Choose the right storage for your data</p>
+        </a>
+        <a href="topics-serverless.html" class="section-card">
+          <span class="material-symbols-outlined">looks_5</span>
+          <h3>5. Go Serverless</h3>
+          <p>Build without managing infrastructure</p>
+        </a>
+      </div>
+    </section>
+
+    <section style="margin-top: var(--space-12);">
+      <h2 class="section-title">Cloud Providers</h2>
+      <div class="section-grid">
+        <a href="../providers/providers-aws.html" class="section-card">
+          <span class="material-symbols-outlined">dns</span>
+          <h3>AWS</h3>
+          <p>Amazon Web Services - market leader</p>
+        </a>
+        <a href="../providers/providers-azure.html" class="section-card">
+          <span class="material-symbols-outlined">cloud</span>
+          <h3>Azure</h3>
+          <p>Microsoft Azure - enterprise integration</p>
+        </a>
+        <a href="../providers/providers-gcp.html" class="section-card">
+          <span class="material-symbols-outlined">scatter_plot</span>
+          <h3>GCP</h3>
+          <p>Google Cloud Platform - data & AI focus</p>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span class="footer-brand">Data Sheets</span>
+      <span class="footer-copyright">&copy; 2026 Data Sheets. All rights reserved.</span>
+    </div>
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const themeIcon = document.getElementById('themeIcon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        themeIcon.textContent = 'dark_mode';
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.textContent = 'light_mode';
+      }
+    }
+
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const themeIcon = document.getElementById('themeIcon');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+        themeIcon.textContent = 'light_mode';
+      } else {
+        themeIcon.textContent = 'dark_mode';
+      }
+    })();
+  </script>
+
+</body>
+</html>
