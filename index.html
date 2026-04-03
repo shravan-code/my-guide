@@ -1606,7 +1606,9 @@
       /* Move home content up */
       .home-container {
         padding: 1rem 1rem 5rem;
-        margin-top: 2rem;
+        min-height: 100vh;
+        height: 100vh;
+        margin-top: 0;
       }
 
       .home-hero {
@@ -1727,22 +1729,23 @@
       .home-container {
         padding: 0 0.75rem 3rem;
         overflow: hidden;
-        min-height: auto;
-        height: auto;
-        justify-content: flex-start;
-        align-items: flex-start;
+        min-height: 100vh;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
         display: flex;
+        flex-direction: column;
         padding-top: 0;
-        margin-top: 3rem;
+        margin-top: 0;
       }
 
       /* Home Hero - left aligned, three lines */
       .home-hero {
-        text-align: left;
+        text-align: center;
         margin-bottom: 0;
         overflow: hidden;
         width: 100%;
-        margin-top: 1rem;
+        margin-top: 0;
       }
 
       /* Hero title — Build/Better | Data row */
@@ -1752,25 +1755,51 @@
         max-width: 100%;
         margin-bottom: 0.5rem;
         display: block;
-        text-align: left;
+        text-align: center;
       }
 
       .hero-title-inner {
-        font-size: clamp(1.35rem, 7vw, 2.25rem);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
         justify-content: flex-start;
-        gap: 0.5rem;
+        gap: 0;
+        font-size: clamp(1.8rem, 10vw, 2.8rem);
       }
 
       .hero-title-lines {
-        text-align: left;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        line-height: 1.15;
+      }
+
+      .hero-title-lines br {
+        display: none;
+      }
+
+      .hero-title-lines .letter {
+        display: block;
       }
 
       .hero-data {
+        display: block;
         font-size: 2.2em;
+        line-height: 1.15;
+      }
+
+      @media (max-width: 360px) {
+        .hero-title-inner {
+          font-size: clamp(1.6rem, 12vw, 2.4rem);
+        }
+        .hero-data {
+          font-size: 2.4em;
+        }
       }
 
       .hero-title br {
-        display: block;
+        display: none;
       }
 
       .hero-subtitle {
@@ -1953,6 +1982,7 @@
       flex-direction: column;
       justify-content: center;
       min-height: 100vh;
+      height: 100vh;
       position: relative;
       z-index: 1;
     }
@@ -2010,16 +2040,59 @@
       transition: transform 0.1s ease;
     }
 
+    @media (max-width: 768px) {
+      .hero-title-inner {
+        font-size: clamp(1.5rem, 6vw, 2.5rem);
+      }
+      .hero-data {
+        font-size: 2.2em;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero-title-inner {
+        font-size: clamp(1.6rem, 8vw, 2.4rem);
+      }
+      .hero-data {
+        font-size: 2.3em;
+      }
+    }
+
     @media (max-width: 480px) {
       .hero-title-inner {
         flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
         gap: 0.25rem;
+        font-size: clamp(1.8rem, 12vw, 2.5rem);
       }
       .hero-title-lines {
-        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        text-align: left;
+        line-height: 1.15;
+      }
+      .hero-title-lines br {
+        display: none;
+      }
+      .hero-title-lines .letter {
+        display: block;
       }
       .hero-data {
-        font-size: 1.8em;
+        display: block;
+        font-size: 2.5em;
+        line-height: 1.15;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .hero-title-inner {
+        font-size: clamp(1.6rem, 14vw, 2.2rem);
+      }
+      .hero-data {
+        font-size: 2.2em;
       }
     }
 
@@ -2102,42 +2175,6 @@
   <!-- Sidebar Navigation -->
   <aside class="sidebar-nav" id="sidebar-nav"></aside>
 
-  <div class="tools-marquee" aria-hidden="true">
-    <div class="marquee-track">
-      <span class="tool-tag">Python</span>
-      <span class="tool-tag">PySpark</span>
-      <span class="tool-tag">SQL</span>
-      <span class="tool-tag">AWS</span>
-      <span class="tool-tag">Databricks</span>
-      <span class="tool-tag">Pandas</span>
-      <span class="tool-tag">NumPy</span>
-      <span class="tool-tag">Docker</span>
-      <span class="tool-tag">Airflow</span>
-      <span class="tool-tag">Kafka</span>
-      <span class="tool-tag">Spark</span>
-      <span class="tool-tag">Glue</span>
-      <span class="tool-tag">Redshift</span>
-      <span class="tool-tag">S3</span>
-      <span class="tool-tag">Lambda</span>
-      <span class="tool-tag">Terraform</span>
-      <span class="tool-tag">Python</span>
-      <span class="tool-tag">PySpark</span>
-      <span class="tool-tag">SQL</span>
-      <span class="tool-tag">AWS</span>
-      <span class="tool-tag">Databricks</span>
-      <span class="tool-tag">Pandas</span>
-      <span class="tool-tag">NumPy</span>
-      <span class="tool-tag">Docker</span>
-      <span class="tool-tag">Airflow</span>
-      <span class="tool-tag">Kafka</span>
-      <span class="tool-tag">Spark</span>
-      <span class="tool-tag">Glue</span>
-      <span class="tool-tag">Redshift</span>
-      <span class="tool-tag">S3</span>
-      <span class="tool-tag">Lambda</span>
-      <span class="tool-tag">Terraform</span>
-    </div>
-  </div>
 
   <!-- Mobile Menu -->
   <div id="mobile-menu" class="mobile-menu">
@@ -2165,7 +2202,7 @@
             <span class="letter hero-highlight hero-data" aria-label="Data star">Data*</span>
           </span>
         </h1>
-        <p class="hero-subtitle">Curated resources for modern data workflows</p>
+
       </section>
 
     </div>
