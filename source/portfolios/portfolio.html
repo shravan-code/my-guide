@@ -1,22 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shravan Kumar Tela | Data Engineer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
-  <link rel="stylesheet" href="../hub.css" />
-  <link rel="stylesheet" href="../sidebar-nav.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="../shared.css" />
   <style>
     @import url("../design-tokens.css");
-
-    /* ---- Page Layout ---- */
+/* ---- Page Layout ---- */
     main {
       width: min(1300px, calc(100% - 4rem));
       margin: 0 auto;
@@ -501,15 +496,44 @@
       fill: none;
       stroke-width: 2;
     }
+  
   </style>
 </head>
 
-<body class="home-with-sidebar">
-  <div class="bg-orb orb-a" aria-hidden="true"></div>
-  <div class="bg-orb orb-b" aria-hidden="true"></div>
-  <div class="bg-orb orb-c" aria-hidden="true"></div>
+<body class="topic-page">
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <a href="../../index.html" class="brand">
+        <div class="brand-icon">
+          <span class="material-symbols-outlined">architecture</span>
+        </div>
+        <span class="brand-text">Data Sheets</span>
+      </a>
 
-  <main>
+      <div class="nav-center">
+        <div class="search-bar">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" class="search-input" placeholder="Search architecture, patterns, or cloud..." />
+        </div>
+      </div>
+
+      <div class="nav-right">
+        <button class="nav-icon-btn" id="themeToggle" onclick="toggleTheme()">
+          <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+        </button>
+        <a href="../../source/portfolios/portfolio.html" class="user-avatar" title="View Portfolio">
+          <img src="../../assets/images/profile-pic.jpeg" alt="User profile" />
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content" style="max-width: 1300px; margin: 64px auto 0; padding: 2rem 1rem;">
+    <a href="../../index.html" class="back-link">
+      <span class="material-symbols-outlined">arrow_back</span>
+      Back
+    </a>
+    
 
     <section class="hero">
       <div class="profile-image">
@@ -710,15 +734,69 @@
         </ul>
       </div>
     </section>
+  
+    <section id="my-projects" class="section">
+      <h2 class="section-title">My Projects</h2>
+      <div class="skills-grid">
+        <a href="projects/projects-experienced.html" style="text-decoration: none;">
+          <div class="skill-category glow-card" style="text-align: center; cursor: pointer;">
+            <span class="material-symbols-outlined" style="font-size: 32px; color: var(--primary);">work</span>
+            <h3 style="margin-top: 10px; font-size: 1.1rem;">Experienced Projects</h3>
+            <p style="color: var(--color-text-secondary); font-size: 0.85rem; text-transform:none;">Professional work and enterprise systems.</p>
+          </div>
+        </a>
+        <a href="projects/projects-self.html" style="text-decoration: none;">
+          <div class="skill-category glow-card" style="text-align: center; cursor: pointer;">
+            <span class="material-symbols-outlined" style="font-size: 32px; color: var(--fuchsia-flame);">school</span>
+            <h3 style="margin-top: 10px; font-size: 1.1rem;">Self-Taught Projects</h3>
+            <p style="color: var(--color-text-secondary); font-size: 0.85rem; text-transform:none;">Personal experiments and continuous learning.</p>
+          </div>
+        </a>
+      </div>
+    </section>
+        
   </main>
 
-  <script src="../app.js"></script>
-  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-      stroke-linejoin="round">
-      <path d="M12 19V5M5 12l7-7 7 7" />
-    </svg>
-  </button>
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <span class="footer-brand">Data Sheets</span>
+        <p class="footer-copyright">&copy; 2026 Data Sheets. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">Documentation</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Support</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const themeIcon = document.getElementById('themeIcon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        themeIcon.textContent = 'dark_mode';
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.textContent = 'light_mode';
+      }
+    }
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const themeIcon = document.getElementById('themeIcon');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+        themeIcon.textContent = 'light_mode';
+      } else {
+        themeIcon.textContent = 'dark_mode';
+      }
+    })();
+  </script>
   <script>
     // Scroll to top functionality
     const scrollToTopBtn = document.getElementById('scrollToTop');
@@ -738,8 +816,5 @@
       });
     });
   </script>
-  <script src="../hierarchy.js"></script>
-  <script src="../sidebar-nav.js"></script>
 </body>
-
 </html>

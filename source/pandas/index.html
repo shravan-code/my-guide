@@ -3,96 +3,135 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>*d@ta# | Pandas</title>
+  <title>Data Guide | Pandas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
-  <link rel="stylesheet" href="../hub.css" />
-  <link rel="stylesheet" href="../sidebar-nav.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="../shared.css" />
 </head>
 
-<body class="home-with-sidebar">
-  <div class="bg-orb orb-a" aria-hidden="true"></div>
-  <div class="bg-orb orb-b" aria-hidden="true"></div>
-  <div class="bg-orb orb-c" aria-hidden="true"></div>
+<body class="topic-page topic-index">
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <a href="../../index.html" class="brand">
+        <div class="brand-icon">
+          <span class="material-symbols-outlined">architecture</span>
+        </div>
+        <span class="brand-text">Data Sheets</span>
+      </a>
 
+      <div class="nav-center">
+        <div class="search-bar">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" class="search-input" placeholder="Search architecture, patterns, or cloud..." />
+        </div>
+      </div>
 
+      <div class="nav-right">
+        <button class="nav-icon-btn" id="themeToggle" onclick="toggleTheme()">
+          <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+        </button>
+        <a href="../../source/portfolios/portfolio.html" class="user-avatar" title="View Portfolio">
+          <img src="../../assets/images/profile-pic.jpeg" alt="User profile" />
+        </a>
+      </div>
+    </div>
+  </header>
 
-  <main>
-    
-    <div class="page-wrap">
-      <section class="hero">
-        <p class="eyebrow">Pandas Guide</p>
-        <h1>Pandas</h1>
-        <p class="hero-copy">A focused guide to Pandas.</p>
-      </section>
+  <main class="main-content">
+    <a href="../../index.html" class="back-link">
+      <span class="material-symbols-outlined">arrow_back</span>
+      Back to Home
+    </a>
 
-      <section class="inspire">
-        <p>
+    <header class="page-header">
+      <p class="eyebrow">Pandas Guide</p>
+      <h1>Pandas</h1>
+      <p>A focused guide to Pandas.</p>
+    </header>
+
+    <section class="inspire">
+      <p>
           <strong>Python's powerhouse</strong> for data manipulation. Pandas turns messy spreadsheets into
-          clean insights with grace and speed. Filter, aggregate, transform—master the art of
+          clean insights with grace and speed. Filter, aggregate, transformÃ¢â‚¬â€master the art of
           <strong>data wrangling</strong>. Whether you're cleaning crime statistics or analyzing stock trends,
           Pandas gives your data a home. <strong>Structure from chaos. Clarity from noise.</strong>
         </p>
-      </section>
+    </section>
 
-      <section class="tracks">
-        <h2>Explore Pandas</h2>
-        <div class="track-grid">
-          <a href="pandas-series.html" class="track">
-            <h3>Series</h3>
-            <p>One-dimensional data structures</p>
-          </a>
-          <a href="pandas-dataframes.html" class="track">
-            <h3>DataFrames</h3>
-            <p>Two-dimensional tabular data</p>
-          </a>
-          <a href="methods.html" class="track">
-            <h3>Methods</h3>
-            <p>Complete API reference</p>
-          </a>
-          <a href="../numpy/index.html" class="track">
-            <h3>NumPy</h3>
-            <p>Numerical computing foundation</p>
-          </a>
-          <a href="https://pandas.pydata.org/docs/" target="_blank" rel="noopener" class="track">
-            <h3>Docs ↗</h3>
-            <p>Official Pandas documentation</p>
-          </a>
-        </div>
-      </section>
-    </div>
+    <section>
+      <h2 class="section-title">Explore Pandas</h2>
+      <div class="section-grid">
+        <a href="pandas-series.html" class="section-card">
+          <span class="material-symbols-outlined">article</span>
+          <h3>Series</h3>
+          <p>One-dimensional data structures</p>
+        </a>
+        <a href="pandas-dataframes.html" class="section-card">
+          <span class="material-symbols-outlined">data_object</span>
+          <h3>DataFrames</h3>
+          <p>Two-dimensional tabular data</p>
+        </a>
+        <a href="methods.html" class="section-card">
+          <span class="material-symbols-outlined">code</span>
+          <h3>Methods</h3>
+          <p>Complete API reference</p>
+        </a>
+        <a href="../numpy/index.html" class="section-card">
+          <span class="material-symbols-outlined">article</span>
+          <h3>NumPy</h3>
+          <p>Numerical computing foundation</p>
+        </a>
+        <a href="https://pandas.pydata.org/docs/" class="section-card">
+          <span class="material-symbols-outlined">article</span>
+          <h3>Docs Ã¢â€ â€”</h3>
+          <p>Official Pandas documentation</p>
+        </a>
+      </div>
+    </section>
+
   </main>
-  <script src="../app.js"></script>
-  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 19V5M5 12l7-7 7 7"/>
-    </svg>
-  </button>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <span class="footer-brand">Data Sheets</span>
+        <p class="footer-copyright">&copy; 2026 Data Sheets. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">Documentation</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Support</a>
+      </div>
+    </div>
+  </footer>
+
   <script>
-    // Scroll to top functionality
-    const scrollToTopBtn = document.getElementById('scrollToTop');
-    
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        scrollToTopBtn.classList.add('visible');
+    function toggleTheme() {
+      const html = document.documentElement;
+      const themeIcon = document.getElementById('themeIcon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        themeIcon.textContent = 'dark_mode';
       } else {
-        scrollToTopBtn.classList.remove('visible');
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.textContent = 'light_mode';
       }
-    });
-    
-    scrollToTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
+    }
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const themeIcon = document.getElementById('themeIcon');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+        themeIcon.textContent = 'light_mode';
+      } else {
+        themeIcon.textContent = 'dark_mode';
+      }
+    })();
   </script>
-<script src="../hierarchy.js"></script><script src="../sidebar-nav.js"></script>
 </body>
-
 </html>
-
