@@ -1,654 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>*d@ta# | Data Engineering Roadmap</title>
+  <title>Data Guide | Data Engineer Roadmap</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
-  <link rel="stylesheet" href="../hub.css" />
-  <link rel="stylesheet" href="roadmap.css" />
-  <style>
-    :root {
-      --roadmap-phase-start: #6366f1;
-      --roadmap-phase-end: #8b5cf6;
-      --roadmap-phase-shadow: rgba(99, 102, 241, 0.3);
-      --roadmap-phase-start-dark: #818cf8;
-      --roadmap-phase-end-dark: #a78bfa;
-      --roadmap-phase-shadow-dark: rgba(129, 140, 248, 0.25);
-      --roadmap-link: #6366f1;
-      --roadmap-link-dark: #818cf8;
-      --roadmap-required-bg: rgba(99, 102, 241, 0.12);
-      --roadmap-required-border: rgba(99, 102, 241, 0.3);
-      --roadmap-required-text: #6366f1;
-      --roadmap-required-bg-dark: rgba(129, 140, 248, 0.15);
-      --roadmap-required-border-dark: rgba(129, 140, 248, 0.3);
-      --roadmap-required-text-dark: #818cf8;
-      color: var(--glow-color);
-      font-weight: 600;
-    }</style>
-  <link rel="stylesheet" href="../sidebar-nav.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../shared.css" />
 </head>
 
-<body class="home-with-sidebar">
-  <div class="bg-orb orb-a" aria-hidden="true"></div>
-  <div class="bg-orb orb-b" aria-hidden="true"></div>
-  <div class="bg-orb orb-c" aria-hidden="true"></div>
-
-  <main>
-    
-    <div class="page-wrap">
-      <section class="hero">
-        <p class="eyebrow">Your Learning Path</p>
-        <h1>Data Engineering Roadmap</h1>
-        <p class="hero-copy">A comprehensive guide from beginner to advanced data engineer, including ML and AI tools.
-        </p>
-      </section>
-
-      <div class="roadmap-container">
-
-        <!-- Phase 1: Foundations -->
-        <div class="roadmap-phase">
-          <div class="phase-connector"></div>
-          <div class="phase-header">
-            <div class="phase-number">1</div>
-            <div>
-              <h2 id="foundations" class="phase-title">Foundations</h2>
-              <p class="phase-description">Master the fundamentals of programming and data</p>
-            </div>
-          </div>
-          <div class="topic-grid">
-            <div class="topic-card">
-              <h4><a href="../python/python-fundamentals.html">Python Programming</a></h4>
-              <p>Learn Python basics, data structures, control flow, and functions.</p>
-              <ul>
-                <li>Variables, data types, operators</li>
-                <li>Lists, dictionaries, sets, tuples</li>
-                <li>Functions and modules</li>
-                <li>OOP concepts</li>
-              </ul>
-              <span class="skill-badge required">Required</span>
-            </div>
-            <div class="topic-card">
-              <h4><a href="../sql/sql-concepts.html">SQL Fundamentals</a></h4>
-              <p>Master relational database concepts and SQL queries.</p>
-              <ul>
-                <li>SELECT, INSERT, UPDATE, DELETE</li>
-                <li>WHERE, GROUP BY, ORDER BY</li>
-                <li>JOINs and subqueries</li>
-                <li>Indexes and optimization</li>
-              </ul>
-              <span class="skill-badge required">Required</span>
-            </div>
-            <div class="topic-card">
-              <h4>Linux & Command Line</h4>
-              <p>Navigate the terminal and manage files efficiently.</p>
-              <ul>
-                <li>Shell commands and scripting</li>
-                <li>File permissions</li>
-                <li>Process management</li>
-                <li>SSH and remote access</li>
-              </ul>
-              <span class="skill-badge required">Required</span>
-            </div>
-            <div class="topic-card">
-              <h4>Git & Version Control</h4>
-              <p>Track changes and collaborate on code.</p>
-              <ul>
-                <li>Git commands (clone, commit, push)</li>
-                <li>Branching and merging</li>
-                <li>Pull requests</li>
-                <li>GitHub/GitLab workflows</li>
-              </ul>
-              <span class="skill-badge required">Required</span>
-            </div>
-          </div>
+<body class="topic-page">
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <a href="C:\Users\vanap" class="brand">
+        <div class="brand-icon">
+          <span class="material-symbols-outlined">architecture</span>
         </div>
-
-        <!-- Phase 2: Data Fundamentals -->
-        <div class="roadmap-phase">
-          <div class="phase-connector"></div>
-          <div class="phase-header">
-            <div class="phase-number">2</div>
-            <div>
-              <h2 id="data-fundamentals" class="phase-title">Data Fundamentals</h2>
-              <p class="phase-description">Learn to work with data in Python</p>
-            </div>
-          </div>
-          <div class="topic-grid">
-            <div class="topic-card">
-              <h4><a href="../numpy/numpy-arrays.html">NumPy</a></h4>
-              <p>Foundation for numerical computing in Python.</p>
-              <ul>
-                <li>Arrays and array operations</li>
-                <li>Broadcasting and vectorization</li>
-                <li>Linear algebra operations</li>
-                <li>Random number generation</li>
-              </ul>
-              <span class="skill-badge required">Required</span>
-            </div>
-            <div class="topic-card">
-              <h4><a href="../pandas/pandas-dataframes.html">Pandas</a></h4>
-              <p>Data manipulation and analysis library.</p>
-              <ul>
-                <li>Series and DataFrames</li>
-                <li>Data cleaning and transformation</li>
-                <li>Grouping and aggregation</li>
-                <li>Merging and joining</li>
-              </ul>
-              <span class="skill-badge required">Required</span>
-            </div>
-            <div class="topic-card">
-              <h4>Data Visualization</h4>
-              <p>Communicate insights through visual representations.</p>
-              <ul>
-                <li>Matplotlib and Seaborn</li>
-                <li>Plotly for interactive charts</li>
-                <li>Dashboards with Streamlit</li>
-                <li>Business intelligence tools</li>
-              </ul>
-              <span class="skill-badge required">Required</span>
-            </div>
-            <div class="topic-card">
-              <h4><a href="../data/data-types.html">Data Types & Formats</a></h4>
-              <p>Understand different data structures and file formats.</p>
-              <ul>
-                <li>Structured, semi-structured, unstructured</li>
-                <li>CSV, JSON, Parquet, Avro</li>
-                <li>Data modeling basics</li>
-                <li>Data quality concepts</li>
-              </ul>
-              <span class="skill-badge required">Required</span>
-            </div>
-          </div>
+        <span class="brand-text">Data Sheets</span>
+      </a>
+      <div class="nav-center">
+        <div class="search-bar">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" class="search-input" placeholder="Search architecture, patterns, or cloud..." />
         </div>
-
-        <!-- Phase 3: Databases -->
-        <div class="roadmap-phase">
-          <div class="phase-connector"></div>
-          <div class="phase-header">
-            <div class="phase-number">3</div>
-            <div>
-              <h2 id="databases" class="phase-title">Databases</h2>
-              <p class="phase-description">Master relational and NoSQL databases</p>
-            </div>
-          </div>
-          <div class="topic-grid">
-            <div class="topic-card">
-              <h4><a href="../sql/sql-concepts.html">PostgreSQL</a></h4>
-              <p>Advanced open-source relational database.</p>
-              <ul>
-                <li>PostgreSQL-specific features</li>
-                <li>JSONB and array types</li>
-                <li>Window functions (advanced)</li>
-                <li>Query optimization with EXPLAIN</li>
-              </ul>
-              <span class="skill-badge required">Required</span>
-            </div>
-            <div class="topic-card">
-              <h4><a href="../sql/sql-modelling.html">Data Modeling</a></h4>
-              <p>Design efficient database schemas.</p>
-              <ul>
-                <li>Normalization (1NF - 3NF, BCNF)</li>
-                <li>Star and snowflake schemas</li>
-                <li>Slowly changing dimensions</li>
-                <li>Data Vault methodology</li>
-              </ul>
-              <span class="skill-badge required">Required</span>
-            </div>
-            <div class="topic-card">
-              <h4>NoSQL Databases</h4>
-              <p>Document, key-value, and column-family stores.</p>
-              <ul>
-                <li>MongoDB (Document)</li>
-                <li>Redis (Key-Value)</li>
-                <li>Cassandra (Column)</li>
-                <li>DynamoDB (Managed)</li>
-              </ul>
-              <span class="skill-badge required">Required</span>
-            </div>
-            <div class="topic-card">
-              <h4>Data Warehousing</h4>
-              <p>Central repositories for analytical data.</p>
-              <ul>
-                <li>Star schema design</li>
-                <li>ETL/ELT processes</li>
-                <li>Dimensional modeling</li>
-                <li>OLAP vs OLTP</li>
-              </ul>
-              <span class="skill-badge required">Required</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Phase 4: Data Processing -->
-        <div class="roadmap-phase">
-          <div class="phase-connector"></div>
-          <div class="phase-header">
-            <div class="phase-number">4</div>
-            <div>
-              <h2 id="data-processing" class="phase-title">Data Processing</h2>
-              <p class="phase-description">Process large-scale data efficiently</p>
-            </div>
-          </div>
-          <div class="topic-grid">
-            <div class="topic-card">
-              <h4><a href="../spark/index.html">Apache Spark</a></h4>
-              <p>Distributed data processing engine.</p>
-              <ul>
-                <li>Spark Core and RDDs</li>
-                <li>Spark SQL and DataFrames</li>
-                <li>Spark Streaming</li>
-                <li>PySpark programming</li>
-              </ul>
-              <span class="skill-badge required">Required</span>
-            </div>
-            <div class="topic-card">
-              <h4>Apache Kafka</h4>
-              <p>Distributed event streaming platform.</p>
-              <ul>
-                <li>Producers and consumers</li>
-                <li>Topics and partitions</li>
-                <li>Kafka Connect</li>
-                <li>Stream processing</li>
-              </ul>
-              <span class="skill-badge required">Required</span>
-            </div>
-            <div class="topic-card">
-              <h4><a href="../data/data-pipeline.html">Data Pipelines</a></h4>
-              <p>Orchestrate data workflows.</p>
-              <ul>
-                <li>ETL vs ELT patterns</li>
-                <li>Apache Airflow</li>
-                <li>Workflow scheduling</li>
-                <li>Error handling and retries</li>
-              </ul>
-              <span class="skill-badge required">Required</span>
-            </div>
-            <div class="topic-card">
-              <h4><a href="../data/data-quality.html">Data Quality</a></h4>
-              <p>Ensure data accuracy and reliability.</p>
-              <ul>
-                <li>Data validation and testing</li>
-                <li>Data profiling</li>
-                <li>Deduplication</li>
-                <li>Monitoring and alerting</li>
-              </ul>
-              <span class="skill-badge required">Required</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Phase 5: Cloud -->
-        <div class="roadmap-phase">
-          <div class="phase-connector"></div>
-          <div class="phase-header">
-            <div class="phase-number">5</div>
-            <div>
-              <h2 id="cloud-platforms" class="phase-title">Cloud Platforms</h2>
-              <p class="phase-description">Deploy and manage data systems in the cloud</p>
-            </div>
-          </div>
-          <div class="topic-grid">
-            <div class="topic-card">
-              <h4><a href="../cloud/cloud-basics.html">Cloud Fundamentals</a></h4>
-              <p>Understand IaaS, PaaS, SaaS and deployment models.</p>
-              <ul>
-                <li>Public, private, hybrid cloud</li>
-                <li>Regions and availability zones</li>
-                <li>IAM and security</li>
-                <li>Cost management</li>
-              </ul>
-              <span class="skill-badge required">Required</span>
-            </div>
-            <div class="topic-card">
-              <h4><a href="../cloud/cloud-aws.html">AWS Data Services</a></h4>
-              <p>Amazon's comprehensive data platform.</p>
-              <ul>
-                <li>S3, Redshift, Glue</li>
-                <li>Lambda, EMR, Kinesis</li>
-                <li>Athena, Lake Formation</li>
-                <li>MWAA (Managed Airflow)</li>
-              </ul>
-              <span class="skill-badge required">Required</span>
-            </div>
-            <div class="topic-card">
-              <h4><a href="../cloud/cloud-azure.html">Azure Data Services</a></h4>
-              <p>Microsoft's enterprise data platform.</p>
-              <ul>
-                <li>Synapse Analytics</li>
-                <li>Data Factory</li>
-                <li>Cosmos DB</li>
-                <li>Data Lake Storage</li>
-              </ul>
-              <span class="skill-badge optional">Optional</span>
-            </div>
-            <div class="topic-card">
-              <h4><a href="../cloud/cloud-gcp.html">GCP Data Services</a></h4>
-              <p>Google Cloud's data and ML platform.</p>
-              <ul>
-                <li>BigQuery</li>
-                <li>Dataflow, Pub/Sub</li>
-                <li>Vertex AI</li>
-                <li>Cloud Storage, Firestore</li>
-              </ul>
-              <span class="skill-badge optional">Optional</span>
-            </div>
-            <div class="topic-card">
-              <h4><a href="../cloud/cloud-compute.html">Containers & Orchestration</a></h4>
-              <p>Package and deploy applications.</p>
-              <ul>
-                <li>Docker fundamentals</li>
-                <li>Kubernetes basics</li>
-                <li>Container registries</li>
-                <li>Helm charts</li>
-              </ul>
-              <span class="skill-badge required">Required</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Phase 6: Data Architecture -->
-        <div class="roadmap-phase">
-          <div class="phase-connector"></div>
-          <div class="phase-header">
-            <div class="phase-number">6</div>
-            <div>
-              <h2 id="data-architecture" class="phase-title">Data Architecture</h2>
-              <p class="phase-description">Design scalable data systems</p>
-            </div>
-          </div>
-          <div class="topic-grid">
-            <div class="topic-card">
-              <h4>Data Lakehouse</h4>
-              <p>Unified storage for structured and unstructured data.</p>
-              <ul>
-                <li>Delta Lake / Apache Iceberg</li>
-                <li>Medallion architecture</li>
-                <li>ACID transactions on data lakes</li>
-                <li>Time travel and versioning</li>
-              </ul>
-              <span class="skill-badge required">Required</span>
-            </div>
-            <div class="topic-card">
-              <h4>dbt (Data Build Tool)</h4>
-              <p>Transform data with SQL and version control.</p>
-              <ul>
-                <li>SQL-based transformations</li>
-                <li>Models and tests</li>
-                <li>Documentation generation</li>
-                <li>dbt Cloud and Core</li>
-              </ul>
-              <span class="skill-badge required">Required</span>
-            </div>
-            <div class="topic-card">
-              <h4>Real-time Processing</h4>
-              <p>Process data as it arrives.</p>
-              <ul>
-                <li>Apache Flink</li>
-                <li>Spark Structured Streaming</li>
-                <li>Kafka Streams</li>
-                <li>Change Data Capture (CDC)</li>
-              </ul>
-              <span class="skill-badge required">Required</span>
-            </div>
-            <div class="topic-card">
-              <h4>Data Governance</h4>
-              <p>Manage data as a strategic asset.</p>
-              <ul>
-                <li>Data catalogs (Amundsen, DataHub)</li>
-                <li>Lineage tracking</li>
-                <li>Access control</li>
-                <li>Compliance (GDPR, HIPAA)</li>
-              </ul>
-              <span class="skill-badge optional">Optional</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Phase 7: ML/AI Foundations -->
-        <div class="roadmap-phase">
-          <div class="phase-connector"></div>
-          <div class="phase-header">
-            <div class="phase-number">7</div>
-            <div>
-              <h2 id="ml-ai-foundations" class="phase-title">ML/AI Foundations</h2>
-              <p class="phase-description">Understand machine learning fundamentals</p>
-            </div>
-          </div>
-          <div class="topic-grid">
-            <div class="topic-card">
-              <h4>Statistics & Probability</h4>
-              <p>Mathematical foundation for ML.</p>
-              <ul>
-                <li>Descriptive statistics</li>
-                <li>Probability distributions</li>
-                <li>Hypothesis testing</li>
-                <li>Correlation vs causation</li>
-              </ul>
-              <span class="skill-badge required">Required</span>
-            </div>
-            <div class="topic-card">
-              <h4>Scikit-learn</h4>
-              <p>Classic ML library for Python.</p>
-              <ul>
-                <li>Classification and regression</li>
-                <li>Clustering algorithms</li>
-                <li>Feature engineering</li>
-                <li>Model evaluation</li>
-              </ul>
-              <span class="skill-badge required">Required</span>
-            </div>
-            <div class="topic-card">
-              <h4>Feature Engineering</h4>
-              <p>Create meaningful features from raw data.</p>
-              <ul>
-                <li>Encoding categorical variables</li>
-                <li>Scaling and normalization</li>
-                <li>Feature selection</li>
-                <li>Time series features</li>
-              </ul>
-              <span class="skill-badge required">Required</span>
-            </div>
-            <div class="topic-card">
-              <h4>MLOps Basics</h4>
-              <p>Deploy and monitor ML models in production.</p>
-              <ul>
-                <li>Model versioning (MLflow)</li>
-                <li>Experiment tracking</li>
-                <li>Model serving</li>
-                <li>Monitoring and drift detection</li>
-              </ul>
-              <span class="skill-badge required">Required</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Phase 8: Deep Learning & AI -->
-        <div class="roadmap-phase">
-          <div class="phase-connector"></div>
-          <div class="phase-header">
-            <div class="phase-number">8</div>
-            <div>
-              <h2 id="deep-learning-ai" class="phase-title">Deep Learning & AI</h2>
-              <p class="phase-description">Neural networks and advanced AI techniques</p>
-            </div>
-          </div>
-          <div class="topic-grid">
-            <div class="topic-card">
-              <h4>PyTorch / TensorFlow</h4>
-              <p>Deep learning frameworks.</p>
-              <ul>
-                <li>Neural network fundamentals</li>
-                <li>Convolutional networks (CNNs)</li>
-                <li>Recurrent networks (RNNs/LSTMs)</li>
-                <li>GPU acceleration</li>
-              </ul>
-              <span class="skill-badge required">Required</span>
-            </div>
-            <div class="topic-card">
-              <h4>LLMs & Generative AI</h4>
-              <p>Large language models and generative AI.</p>
-              <ul>
-                <li>Transformer architecture</li>
-                <li>Prompt engineering</li>
-                <li>Fine-tuning models</li>
-                <li>RAG (Retrieval Augmented Generation)</li>
-              </ul>
-              <span class="skill-badge required">Required</span>
-            </div>
-            <div class="topic-card">
-              <h4>MLOps & LLMOps</h4>
-              <p>Operationalize AI/ML at scale.</p>
-              <ul>
-                <li>ML pipelines (Kubeflow, MLflow)</li>
-                <li>Model registries</li>
-                <li>A/B testing models</li>
-                <li>LLM monitoring and evaluation</li>
-              </ul>
-              <span class="skill-badge required">Required</span>
-            </div>
-            <div class="topic-card">
-              <h4>AI Tools & APIs</h4>
-              <p>Leverage pre-built AI services.</p>
-              <ul>
-                <li>OpenAI API / Azure OpenAI</li>
-                <li>Hugging Face models</li>
-                <li>LangChain / LlamaIndex</li>
-                <li>Vector databases (Pinecone, Weaviate)</li>
-              </ul>
-              <span class="skill-badge required">Required</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Phase 9: Advanced Topics -->
-        <div class="roadmap-phase">
-          <div class="phase-header">
-            <div class="phase-number">9</div>
-            <div>
-              <h2 id="advanced-topics" class="phase-title">Advanced Topics</h2>
-              <p class="phase-description">Specialized skills for senior roles</p>
-            </div>
-          </div>
-          <div class="topic-grid">
-            <div class="topic-card">
-              <h4>Distributed Systems</h4>
-              <p>Design systems that scale horizontally.</p>
-              <ul>
-                <li>Consistent hashing</li>
-                <li>CAP theorem</li>
-                <li>Replication strategies</li>
-                <li>Consensus algorithms</li>
-              </ul>
-              <span class="skill-badge optional">Optional</span>
-            </div>
-            <div class="topic-card">
-              <h4>Performance Optimization</h4>
-              <p>Optimize queries and pipelines.</p>
-              <ul>
-                <li>Query optimization</li>
-                <li>Partitioning strategies</li>
-                <li>Caching (Redis, Memcached)</li>
-                <li>Compression techniques</li>
-              </ul>
-              <span class="skill-badge optional">Optional</span>
-            </div>
-            <div class="topic-card">
-              <h4>Security & Compliance</h4>
-              <p>Protect data and ensure compliance.</p>
-              <ul>
-                <li>Encryption at rest and transit</li>
-                <li>Access control (RBAC)</li>
-                <li>Audit logging</li>
-                <li>Data masking</li>
-              </ul>
-              <span class="skill-badge optional">Optional</span>
-            </div>
-            <div class="topic-card">
-              <h4>System Design</h4>
-              <p>Design end-to-end data platforms.</p>
-              <ul>
-                <li>Data platform architecture</li>
-                <li>Microservices patterns</li>
-                <li>Event-driven design</li>
-                <li>High availability patterns</li>
-              </ul>
-              <span class="skill-badge optional">Optional</span>
-            </div>
-          </div>
-        </div>
-
       </div>
-
-      <!-- Quick Links Section -->
-      <section class="tracks">
-        <h2 id="quick-reference">Quick Reference</h2>
-        <div class="track-grid">
-          <a href="../python/index.html" class="track">
-            <h3>Python</h3>
-            <p>Programming fundamentals</p>
-          </a>
-          <a href="../sql/index.html" class="track">
-            <h3>SQL</h3>
-            <p>Query and model data</p>
-          </a>
-          <a href="../spark/index.html" class="track">
-            <h3>Spark</h3>
-            <p>Big data processing</p>
-          </a>
-          <a href="../cloud/index.html" class="track">
-            <h3>Cloud</h3>
-            <p>AWS, Azure, GCP</p>
-          </a>
-          <a href="../data/index.html" class="track">
-            <h3>Big Data</h3>
-            <p>Data fundamentals</p>
-          </a>
-          <a href="../pandas/index.html" class="track">
-            <h3>Pandas</h3>
-            <p>Data manipulation</p>
-          </a>
-        </div>
-      </section>
-
+      <div class="nav-right">
+        <button class="nav-icon-btn" id="themeToggle" onclick="toggleTheme()">
+          <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+        </button>
+        <a href="../portfolios/portfolio.html" class="user-avatar">
+          <img src="../../assets/images/profile-pic.jpeg" alt="User profile" />
+        </a>
+      </div>
     </div>
+  </header>
+
+  <main class="main-content">
+    <header class="page-header page-header--row">
+      <a href="roadmap.html" class="back-link back-link--round" aria-label="Back">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </a>
+      <div class="page-header-inner">
+        <h1>Data Engineer Roadmap</h1>
+        <p>Step-by-step guide to becoming a data engineer.</p>
+      </div>
+    </header>
+
+        <!-- Quick Links Section -->
+    <section class="tracks">
+      <h2 id="quick-reference">Quick Reference</h2>
+      <div class="track-grid">
+        <a href="../python/index.html" class="track">
+          <h3>Python</h3>
+          <p>Programming fundamentals</p>
+        </a>
+        <a href="../sql/index.html" class="track">
+          <h3>SQL</h3>
+          <p>Query and model data</p>
+        </a>
+        <a href="../spark/index.html" class="track">
+          <h3>Spark</h3>
+          <p>Big data processing</p>
+        </a>
+        <a href="../cloud/index.html" class="track">
+          <h3>Cloud</h3>
+          <p>AWS, Azure, GCP</p>
+        </a>
+        <a href="../data/index.html" class="track">
+          <h3>Big Data</h3>
+          <p>Data fundamentals</p>
+        </a>
+        <a href="../pandas/index.html" class="track">
+          <h3>Pandas</h3>
+          <p>Data manipulation</p>
+        </a>
+      </div>
+    </section>
+
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span class="footer-brand">Data Sheets</span>
+          <p class="footer-copyright">@ 2026 Data Sheets. All rights reserved.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#">Documentation</a>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Support</a>
+        </div>
+      </div>
+    </footer>
   </main>
 
-  <script src="../app.js"></script>
-  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-      stroke-linejoin="round">
-      <path d="M12 19V5M5 12l7-7 7 7" />
-    </svg>
-  </button>
   <script>
-    // Scroll to top functionality
-    const scrollToTopBtn = document.getElementById('scrollToTop');
-
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        scrollToTopBtn.classList.add('visible');
+    function toggleTheme() {
+      var html = document.documentElement;
+      var themeIcon = document.getElementById('themeIcon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        themeIcon.textContent = 'dark_mode';
       } else {
-        scrollToTopBtn.classList.remove('visible');
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.textContent = 'light_mode';
       }
-    });
-
-    scrollToTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-
+    }
+    (function() {
+      var savedTheme = localStorage.getItem('theme');
+      var themeIcon = document.getElementById('themeIcon');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+        themeIcon.textContent = 'light_mode';
+      } else {
+        themeIcon.textContent = 'dark_mode';
+      }
+    })();
   </script>
-<script src="../hierarchy.js"></script><script src="../sidebar-nav.js"></script>
 </body>
-
 </html>
-

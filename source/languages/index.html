@@ -3,139 +3,191 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>*d@ta# | Languages</title>
+  <title>Data Guide | Languages</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
-  <link rel="stylesheet" href="../hub.css" />
-  <link rel="stylesheet" href="../sidebar-nav.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="../shared.css" />
 </head>
 
-<body class="home-with-sidebar no-topbar">
-  <div class="bg-orb orb-a" aria-hidden="true"></div>
-  <div class="bg-orb orb-b" aria-hidden="true"></div>
-  <div class="bg-orb orb-c" aria-hidden="true"></div>
-
-  <main>
-    
-    <div class="page-wrap">
-      <section class="hero">
-        <p class="eyebrow">Programming Languages</p>
-        <h1>Languages</h1>
-        <p class="hero-copy">Core languages for data engineering.</p>
-      </section>
-
-      <section class="inspire">
-        <p>
-          <strong>Languages that power data</strong>. From Python's versatility to SQL's data querying 
-          capabilities and Spark's distributed processing, these are the tools that transform raw data 
-          into actionable insights. Master these, and you hold the keys to the data kingdom.
-        </p>
-      </section>
-
-      <section class="tracks">
-        <h2>Python</h2>
-        <div class="track-grid">
-          <a href="../python/python-fundamentals.html" class="track">
-            <h3>Fundamentals</h3>
-            <p>Variables, data types, control flow</p>
-          </a>
-          <a href="../python/python-oops.html" class="track">
-            <h3>OOPs</h3>
-            <p>Classes, inheritance, polymorphism</p>
-          </a>
-          <a href="../python/python-methods.html" class="track">
-            <h3>Methods</h3>
-            <p>All types of methods in Python</p>
-          </a>
-          <a href="../python/memory-performance.html" class="track">
-            <h3>Memory & Performance</h3>
-            <p>Optimization techniques</p>
-          </a>
+<body class="topic-page topic-index">
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <a href="../../index.html" class="brand">
+        <div class="brand-icon">
+          <span class="material-symbols-outlined">architecture</span>
         </div>
-      </section>
+        <span class="brand-text">Data Sheets</span>
+      </a>
 
-      <section class="tracks">
-        <h2>SQL</h2>
-        <div class="track-grid">
-          <a href="../sql/sql-concepts.html" class="track">
-            <h3>Concepts</h3>
-            <p>SQL fundamentals, data types, RDBMS</p>
-          </a>
-          <a href="../sql/sql-modelling.html" class="track">
-            <h3>Modelling</h3>
-            <p>Data modeling, normalization, schemas</p>
-          </a>
-          <a href="../sql/sql-queries.html" class="track">
-            <h3>Queries</h3>
-            <p>SELECT, WHERE, GROUP BY, ORDER BY</p>
-          </a>
-          <a href="../sql/sql-joins.html" class="track">
-            <h3>Joins</h3>
-            <p>INNER, LEFT, RIGHT, FULL joins</p>
-          </a>
+      <div class="nav-center">
+        <div class="search-bar">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" class="search-input" placeholder="Search architecture, patterns, or cloud..." />
         </div>
-      </section>
+      </div>
 
-      <section class="tracks">
-        <h2>Tools</h2>
-        <div class="track-grid">
-          <a href="../pandas/index.html" class="track">
-            <h3>Pandas</h3>
-            <p>DataFrames and data analysis</p>
-          </a>
-          <a href="../numpy/index.html" class="track">
-            <h3>NumPy</h3>
-            <p>Numerical computing with arrays</p>
-          </a>
-          <a href="../spark/index.html" class="track">
-            <h3>Spark</h3>
-            <p>Distributed data processing</p>
-          </a>
-          <a href="../tools/airflow.html" class="track">
-            <h3>Airflow</h3>
-            <p>Workflow orchestration</p>
-          </a>
-          <a href="../tools/dbt.html" class="track">
-            <h3>dbt</h3>
-            <p>Data transformation</p>
-          </a>
-          <a href="../tools/kafka.html" class="track">
-            <h3>Kafka</h3>
-            <p>Event streaming</p>
-          </a>
-        </div>
-      </section>
+      <div class="nav-right">
+        <button class="nav-icon-btn" id="themeToggle" onclick="toggleTheme()">
+          <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+        </button>
+        <a href="../portfolios/portfolio.html" class="user-avatar">
+          <img src="../../assets/images/profile-pic.jpeg" alt="User profile" />
+        </a>
+      </div>
     </div>
-  </main>
-  <script src="../app.js"></script>
-  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 19V5M5 12l7-7 7 7"/>
-    </svg>
-  </button>
-  <script>
-    const scrollToTopBtn = document.getElementById('scrollToTop');
-    
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        scrollToTopBtn.classList.add('visible');
-      } else {
-        scrollToTopBtn.classList.remove('visible');
-      }
-    });
-    
-    scrollToTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-  </script>
-<script src="../hierarchy.js"></script><script src="../sidebar-nav.js"></script>
-</body>
+  </header>
 
+  <main class="main-content">
+    <a href="../../index.html" class="back-link">
+      <span class="material-symbols-outlined">arrow_back</span>
+      Back to Home
+    </a>
+
+    <header class="page-header">
+      <p class="eyebrow">Programming Languages</p>
+      <h1>Languages</h1>
+      <p>Core languages for data engineering — Python, SQL, and the tools that power data workflows.</p>
+    </header>
+
+    <section class="inspire">
+      <p>
+        <strong>Languages that power data</strong>. From Python's versatility to SQL's data querying
+        capabilities and Spark's distributed processing, these are the tools that transform raw data
+        into actionable insights. Master these, and you hold the keys to the data kingdom.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="section-title">Python</h2>
+      <div class="section-grid">
+        <a href="../python/python-fundamentals.html" class="section-card">
+          <span class="material-symbols-outlined">code</span>
+          <h3>Fundamentals</h3>
+          <p>Variables, data types, control flow</p>
+        </a>
+        <a href="../python/python-oops.html" class="section-card">
+          <span class="material-symbols-outlined">account_tree</span>
+          <h3>OOPs</h3>
+          <p>Classes, inheritance, polymorphism</p>
+        </a>
+        <a href="../python/python-methods.html" class="section-card">
+          <span class="material-symbols-outlined">functions</span>
+          <h3>Methods</h3>
+          <p>All types of methods in Python</p>
+        </a>
+        <a href="../python/memory-performance.html" class="section-card">
+          <span class="material-symbols-outlined">speed</span>
+          <h3>Memory & Performance</h3>
+          <p>Optimization techniques</p>
+        </a>
+      </div>
+    </section>
+
+    <section style="margin-top: var(--space-12);">
+      <h2 class="section-title">SQL</h2>
+      <div class="section-grid">
+        <a href="../sql/sql-concepts.html" class="section-card">
+          <span class="material-symbols-outlined">database</span>
+          <h3>Concepts</h3>
+          <p>SQL fundamentals, data types, RDBMS</p>
+        </a>
+        <a href="../sql/sql-modelling.html" class="section-card">
+          <span class="material-symbols-outlined">schema</span>
+          <h3>Modelling</h3>
+          <p>Data modeling, normalization, schemas</p>
+        </a>
+        <a href="../sql/sql-queries.html" class="section-card">
+          <span class="material-symbols-outlined">search</span>
+          <h3>Queries</h3>
+          <p>SELECT, WHERE, GROUP BY, ORDER BY</p>
+        </a>
+        <a href="../sql/sql-joins.html" class="section-card">
+          <span class="material-symbols-outlined">join</span>
+          <h3>Joins</h3>
+          <p>INNER, LEFT, RIGHT, FULL joins</p>
+        </a>
+      </div>
+    </section>
+
+    <section style="margin-top: var(--space-12);">
+      <h2 class="section-title">Libraries & Tools</h2>
+      <div class="section-grid">
+        <a href="../pandas/index.html" class="section-card">
+          <span class="material-symbols-outlined">table_chart</span>
+          <h3>Pandas</h3>
+          <p>DataFrames and data analysis</p>
+        </a>
+        <a href="../numpy/index.html" class="section-card">
+          <span class="material-symbols-outlined">grid_on</span>
+          <h3>NumPy</h3>
+          <p>Numerical computing with arrays</p>
+        </a>
+        <a href="../spark/index.html" class="section-card">
+          <span class="material-symbols-outlined">bolt</span>
+          <h3>Spark</h3>
+          <p>Distributed data processing</p>
+        </a>
+        <a href="../tools/airflow.html" class="section-card">
+          <span class="material-symbols-outlined">air</span>
+          <h3>Airflow</h3>
+          <p>Workflow orchestration</p>
+        </a>
+        <a href="../tools/dbt.html" class="section-card">
+          <span class="material-symbols-outlined">transform</span>
+          <h3>dbt</h3>
+          <p>Data transformation</p>
+        </a>
+        <a href="../tools/kafka.html" class="section-card">
+          <span class="material-symbols-outlined">stream</span>
+          <h3>Kafka</h3>
+          <p>Event streaming</p>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <span class="footer-brand">Data Sheets</span>
+        <p class="footer-copyright">&copy; 2026 Data Sheets. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">Documentation</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Support</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const themeIcon = document.getElementById('themeIcon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        themeIcon.textContent = 'dark_mode';
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.textContent = 'light_mode';
+      }
+    }
+
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const themeIcon = document.getElementById('themeIcon');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+        themeIcon.textContent = 'light_mode';
+      } else {
+        themeIcon.textContent = 'dark_mode';
+      }
+    })();
+  </script>
+</body>
 </html>

@@ -3,36 +3,58 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>*d@ta# | SQL Methods</title>
+  <title>Data Guide | SQL Methods</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
-  <link rel="stylesheet" href="../hub.css" />
-  <link rel="stylesheet" href="../python/python.css" />
-  <link rel="stylesheet" href="../sidebar-nav.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../shared.css" />
 </head>
 
-<body class="home-with-sidebar">
-  <div class="bg-orb orb-a" aria-hidden="true"></div>
-  <div class="bg-orb orb-b" aria-hidden="true"></div>
-  <div class="bg-orb orb-c" aria-hidden="true"></div>
+<body class="topic-page">
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <a href="../../index.html" class="brand">
+        <div class="brand-icon">
+          <span class="material-symbols-outlined">architecture</span>
+        </div>
+        <span class="brand-text">Data Sheets</span>
+      </a>
+      <div class="nav-center">
+        <div class="search-bar">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" class="search-input" placeholder="Search architecture, patterns, or cloud..." />
+        </div>
+      </div>
+      <div class="nav-right">
+        <button class="nav-icon-btn" id="themeToggle" onclick="toggleTheme()">
+          <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+        </button>
+        <a href="../portfolios/portfolio.html" class="user-avatar">
+          <img src="../../assets/images/profile-pic.jpeg" alt="User profile" />
+        </a>
+      </div>
+    </div>
+  </header>
 
   <main class="main-content">
-    
-    <div class="page-wrap">
-      <section class="hero">
-        <p class="eyebrow">SQL Guide</p>
+    <header class="page-header page-header--row">
+      <a href="index.html" class="back-link back-link--round" aria-label="Back">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </a>
+      <div class="page-header-inner">
         <h1>SQL Methods</h1>
-        <p class="hero-copy">A focused guide to SQL Methods.</p>
-      </section>
+        <p>String, date, and aggregate functions for data manipulation.</p>
+      </div>
+    </header>
 
-      <!-- Section 1: Aggregate Functions -->
-      <section class="topic-section" id="aggregate">
-        <h2> Aggregate Functions <span class="level-badge basic">Basic</span> </h2>
-        <p>PostgreSQL aggregate functions compute a single result from a set of input values. These are essential for data analysis and reporting.</p>
+        <!-- Section 1: Aggregate Functions -->
+    <section class="topic-section" id="aggregate">
+      <h2> Aggregate Functions <span class="level-badge basic">Basic</span> </h2>
+      <p>PostgreSQL aggregate functions compute a single result from a set of input values. These are essential for data analysis and reporting.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Sample data</span>
 <span class="keyword">CREATE TABLE</span> sales (
     id <span class="keyword">SERIAL PRIMARY KEY</span>,
@@ -67,16 +89,16 @@
 <span class="keyword">FROM</span> sales
 <span class="keyword">GROUP BY</span> product
 <span class="keyword">ORDER BY</span> total_revenue <span class="keyword">DESC</span>;
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 2: String Aggregation -->
-      <section class="topic-section" id="string-agg">
-        <h2> String Aggregation <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>The STRING_AGG function concatenates values from multiple rows into a single string, similar to GROUP_CONCAT in MySQL.</p>
+    <!-- Section 2: String Aggregation -->
+    <section class="topic-section" id="string-agg">
+      <h2> String Aggregation <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>The STRING_AGG function concatenates values from multiple rows into a single string, similar to GROUP_CONCAT in MySQL.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- STRING_AGG: Concatenate values</span>
 <span class="keyword">SELECT</span>
     category,
@@ -105,16 +127,16 @@
     <span class="function">ARRAY_AGG</span>(created_at <span class="keyword">ORDER BY</span> created_at) <span class="keyword">AS</span> timestamps
 <span class="keyword">FROM</span> user_logs
 <span class="keyword">GROUP BY</span> user_id;
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 3: String Functions -->
-      <section class="topic-section" id="string-functions">
-        <h2> String Functions <span class="level-badge basic">Basic</span> </h2>
-        <p>PostgreSQL provides rich string manipulation functions for text processing, transformation, and extraction.</p>
+    <!-- Section 3: String Functions -->
+    <section class="topic-section" id="string-functions">
+      <h2> String Functions <span class="level-badge basic">Basic</span> </h2>
+      <p>PostgreSQL provides rich string manipulation functions for text processing, transformation, and extraction.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Length and position</span>
 <span class="keyword">SELECT</span>
     <span class="function">LENGTH</span>(<span class="string">'Hello World'</span>) <span class="keyword">AS</span> char_length,        <span class="comment">-- 11</span>
@@ -155,16 +177,16 @@
 <span class="keyword">SELECT</span>
     <span class="function">REPEAT</span>(<span class="string">'ab'</span>, 3) <span class="keyword">AS</span> repeated,                      <span class="comment">-- 'ababab'</span>
     <span class="function">OVERLAY</span>(<span class="string">'Hello World'</span> <span class="keyword">PLACING</span> <span class="string">'PostgreSQL'</span> <span class="keyword">FROM</span> 7) <span class="keyword">AS</span> overlaid;
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 4: Pattern Matching -->
-      <section class="topic-section" id="pattern-matching">
-        <h2> Pattern Matching <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>PostgreSQL supports LIKE and ILIKE operators for simple pattern matching with wildcards.</p>
+    <!-- Section 4: Pattern Matching -->
+    <section class="topic-section" id="pattern-matching">
+      <h2> Pattern Matching <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>PostgreSQL supports LIKE and ILIKE operators for simple pattern matching with wildcards.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- LIKE: Case-sensitive pattern matching</span>
 <span class="comment">-- % matches any sequence of characters</span>
 <span class="comment">-- _ matches any single character</span>
@@ -192,16 +214,16 @@
 <span class="comment">-- SIMILAR TO: SQL standard regex-like patterns</span>
 <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> users
 <span class="keyword">WHERE</span> phone <span class="keyword">SIMILAR TO</span> <span class="string">'[0-9]{3}-[0-9]{4}'</span>;  <span class="comment">-- Phone format</span>
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 5: Regular Expressions -->
-      <section class="topic-section" id="regular-expressions">
-        <h2> Regular Expressions <span class="level-badge advanced">Advanced</span> </h2>
-        <p>PostgreSQL provides powerful regex operators and functions using POSIX regular expressions.</p>
+    <!-- Section 5: Regular Expressions -->
+    <section class="topic-section" id="regular-expressions">
+      <h2> Regular Expressions <span class="level-badge advanced">Advanced</span> </h2>
+      <p>PostgreSQL provides powerful regex operators and functions using POSIX regular expressions.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- ~ operator: Match regex (case-sensitive)</span>
 <span class="keyword">SELECT</span> <span class="string">'Hello123'</span> <span class="keyword">~</span> <span class="string">'[0-9]+'</span>;         <span class="comment">-- true</span>
 <span class="keyword">SELECT</span> <span class="string">'Hello'</span> <span class="keyword">~</span> <span class="string">'^[A-Z]'</span>;            <span class="comment">-- true</span>
@@ -230,21 +252,21 @@
 <span class="comment">-- POSITION with regex-like pattern</span>
 <span class="keyword">SELECT</span>
     <span class="keyword">CASE</span>
-        <span class="keyword">WHEN</span> email <span class="keyword">~</span> <span class="string">'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'</span>
-        <span class="keyword">THEN</span> <span class="string">'Valid'</span>
-        <span class="keyword">ELSE</span> <span class="string">'Invalid'</span>
+      <span class="keyword">WHEN</span> email <span class="keyword">~</span> <span class="string">'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'</span>
+      <span class="keyword">THEN</span> <span class="string">'Valid'</span>
+      <span class="keyword">ELSE</span> <span class="string">'Invalid'</span>
     <span class="keyword">END</span> <span class="keyword">AS</span> email_status
 <span class="keyword">FROM</span> users;
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 6: Date Functions -->
-      <section class="topic-section" id="date-functions">
-        <h2> Date Functions <span class="level-badge basic">Basic</span> </h2>
-        <p>PostgreSQL offers comprehensive date/time functions for handling temporal data.</p>
+    <!-- Section 6: Date Functions -->
+    <section class="topic-section" id="date-functions">
+      <h2> Date Functions <span class="level-badge basic">Basic</span> </h2>
+      <p>PostgreSQL offers comprehensive date/time functions for handling temporal data.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Current date and time</span>
 <span class="keyword">SELECT</span>
     <span class="function">CURRENT_DATE</span> <span class="keyword">AS</span> today,            <span class="comment">-- Current date</span>
@@ -277,16 +299,16 @@
     <span class="function">TO_CHAR</span>(<span class="function">CURRENT_DATE</span>, <span class="string">'Day, Month DD, YYYY'</span>) <span class="keyword">AS</span> formatted,
     <span class="function">TO_CHAR</span>(<span class="function">NOW</span>(), <span class="string">'HH24:MI:SS'</span>) <span class="keyword">AS</span> time_only,
     <span class="function">TO_CHAR</span>(<span class="function">NOW</span>(), <span class="string">'DY, DD Mon YYYY HH24:MI:SS'</span>) <span class="keyword">AS</span> full_format;
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 7: Extract & Trunc -->
-      <section class="topic-section" id="time-extract">
-        <h2> Extract and Truncate <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Extract specific parts of dates or truncate dates to specific precision.</p>
+    <!-- Section 7: Extract & Trunc -->
+    <section class="topic-section" id="time-extract">
+      <h2> Extract and Truncate <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Extract specific parts of dates or truncate dates to specific precision.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- EXTRACT: Get specific date parts</span>
 <span class="keyword">SELECT</span>
     <span class="function">EXTRACT</span>(<span class="keyword">YEAR</span> <span class="keyword">FROM</span> <span class="function">CURRENT_DATE</span>) <span class="keyword">AS</span> year,
@@ -316,16 +338,16 @@
     <span class="function">EXTRACT</span>(<span class="keyword">ISODOW</span> <span class="keyword">FROM</span> <span class="function">CURRENT_DATE</span>) <span class="keyword">AS</span> iso_dow,     <span class="comment">-- 1=Monday, 7=Sunday</span>
     <span class="function">EXTRACT</span>(<span class="keyword">ISOWEEK</span> <span class="keyword">FROM</span> <span class="function">CURRENT_DATE</span>) <span class="keyword">AS</span> iso_week,
     <span class="function">EXTRACT</span>(<span class="keyword">ISOYEAR</span> <span class="keyword">FROM</span> <span class="function">CURRENT_DATE</span>) <span class="keyword">AS</span> iso_year;
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 8: Date Arithmetic -->
-      <section class="topic-section" id="date-arithmetic">
-        <h2> Date Arithmetic <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Perform calculations with dates and times using intervals and date functions.</p>
+    <!-- Section 8: Date Arithmetic -->
+    <section class="topic-section" id="date-arithmetic">
+      <h2> Date Arithmetic <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Perform calculations with dates and times using intervals and date functions.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Add/subtract intervals</span>
 <span class="keyword">SELECT</span>
     <span class="function">CURRENT_DATE</span> + <span class="keyword">INTERVAL</span> <span class="string">'1 day'</span> <span class="keyword">AS</span> tomorrow,
@@ -352,16 +374,16 @@
     <span class="function">MAKE_DATE</span>(<span class="number">2024</span>, <span class="number">3</span>, <span class="number">15</span>) <span class="keyword">AS</span> constructed_date,
     <span class="function">MAKE_TIME</span>(<span class="number">14</span>, <span class="number">30</span>, <span class="number">0</span>) <span class="keyword">AS</span> constructed_time,
     <span class="function">MAKE_TIMESTAMP</span>(<span class="number">2024</span>, <span class="number">3</span>, <span class="number">15</span>, <span class="number">14</span>, <span class="number">30</span>, <span class="number">0</span>) <span class="keyword">AS</span> constructed_ts;
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 9: Interval Operations -->
-      <section class="topic-section" id="interval">
-        <h2> Interval Operations <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>PostgreSQL intervals represent spans of time and support various arithmetic operations.</p>
+    <!-- Section 9: Interval Operations -->
+    <section class="topic-section" id="interval">
+      <h2> Interval Operations <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>PostgreSQL intervals represent spans of time and support various arithmetic operations.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Interval literals</span>
 <span class="keyword">SELECT</span>
     <span class="keyword">INTERVAL</span> <span class="string">'1 day'</span>,
@@ -393,16 +415,16 @@
 <span class="comment">-- Timezone conversions</span>
 <span class="keyword">SELECT</span>
     <span class="function">TIMESTAMP WITH TIME ZONE</span> <span class="string">'2024-03-15 14:30:00 UTC'</span> <span class="keyword">AT TIME ZONE</span> <span class="string">'US/Pacific'</span>;
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 10: Math Functions -->
-      <section class="topic-section" id="math-functions">
-        <h2> Math Functions <span class="level-badge basic">Basic</span> </h2>
-        <p>PostgreSQL provides comprehensive mathematical functions for numeric calculations.</p>
+    <!-- Section 10: Math Functions -->
+    <section class="topic-section" id="math-functions">
+      <h2> Math Functions <span class="level-badge basic">Basic</span> </h2>
+      <p>PostgreSQL provides comprehensive mathematical functions for numeric calculations.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Absolute and sign</span>
 <span class="keyword">SELECT</span>
     <span class="function">ABS</span>(-42) <span class="keyword">AS</span> absolute,       <span class="comment">-- 42</span>
@@ -443,16 +465,16 @@
     <span class="function">SETSEED</span>(<span class="number">0.5</span>),                  <span class="comment">-- Set random seed</span>
     <span class="function">MD5</span>(<span class="string">'Hello'</span>) <span class="keyword">AS</span> md5_hash,
     <span class="function">SHA256</span>(<span class="string">'Hello'</span>::<span class="keyword">BYTEA</span>) <span class="keyword">AS</span> sha256_hash;
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 11: Rounding & Truncation -->
-      <section class="topic-section" id="rounding">
-        <h2> Rounding and Truncation <span class="level-badge basic">Basic</span> </h2>
-        <p>Control numeric precision with rounding and truncation functions.</p>
+    <!-- Section 11: Rounding & Truncation -->
+    <section class="topic-section" id="rounding">
+      <h2> Rounding and Truncation <span class="level-badge basic">Basic</span> </h2>
+      <p>Control numeric precision with rounding and truncation functions.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- ROUND: Round to specified decimal places</span>
 <span class="keyword">SELECT</span>
     <span class="function">ROUND</span>(<span class="number">3.14159</span>, <span class="number">2</span>) <span class="keyword">AS</span> rounded2,     <span class="comment">-- 3.14</span>
@@ -481,16 +503,16 @@
     <span class="function">ROUND</span>(<span class="number">123.456</span>, <span class="number">1</span>) <span class="keyword">AS</span> one_dec,   <span class="comment">-- 123.5</span>
     <span class="function">ROUND</span>(<span class="number">123.456</span>, <span class="number">0</span>) <span class="keyword">AS</span> no_dec,    <span class="comment">-- 123</span>
     <span class="function">ROUND</span>(<span class="number">123.456</span>, -1) <span class="keyword">AS</span> ten_place; <span class="comment">-- 120</span>
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 12: JSON Functions -->
-      <section class="topic-section" id="json-functions">
-        <h2> JSON Functions <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>PostgreSQL has native JSON support with functions to create, query, and manipulate JSON/JSONB data.</p>
+    <!-- Section 12: JSON Functions -->
+    <section class="topic-section" id="json-functions">
+      <h2> JSON Functions <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>PostgreSQL has native JSON support with functions to create, query, and manipulate JSON/JSONB data.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Parse and validate JSON</span>
 <span class="keyword">SELECT</span>
     <span class="string">'{"name":"John","age":30}'</span>::<span class="keyword">JSON</span> <span class="keyword">AS</span> json_val,
@@ -531,16 +553,16 @@
     <span class="string">'{b}'</span>,
     <span class="string">'2'</span>::<span class="keyword">JSONB</span>
 );
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 13: JSON Operators -->
-      <section class="topic-section" id="json-operators">
-        <h2> JSON Operators <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>PostgreSQL JSONB operators provide efficient ways to query and filter JSON data.</p>
+    <!-- Section 13: JSON Operators -->
+    <section class="topic-section" id="json-operators">
+      <h2> JSON Operators <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>PostgreSQL JSONB operators provide efficient ways to query and filter JSON data.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- -> operator: Get JSON object field (returns JSON)</span>
 <span class="keyword">SELECT</span> <span class="string">'{"name":"John","age":30}'</span>::<span class="keyword">JSON</span> <span class="keyword">-></span> <span class="string">'name'</span>;  <span class="comment">-- "John" (JSON)</span>
 
@@ -575,16 +597,16 @@
 <span class="comment">-- Filter with contains operator</span>
 <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> orders
 <span class="keyword">WHERE</span> data <span class="keyword">@></span> <span class="string">'{"priority":"high"}'</span>::<span class="keyword">JSONB</span>;
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 14: Array Functions -->
-      <section class="topic-section" id="array-functions">
-        <h2> Array Functions <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>PostgreSQL native arrays provide efficient storage and manipulation of ordered collections.</p>
+    <!-- Section 14: Array Functions -->
+    <section class="topic-section" id="array-functions">
+      <h2> Array Functions <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>PostgreSQL native arrays provide efficient storage and manipulation of ordered collections.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Array literals and construction</span>
 <span class="keyword">SELECT</span>
     <span class="string">'{1,2,3}'</span>::<span class="keyword">INT[]</span> <span class="keyword">AS</span> arr1,           <span class="comment">-- Using curly braces</span>
@@ -617,16 +639,16 @@
 <span class="comment">-- Array contains operator</span>
 <span class="keyword">SELECT</span> <span class="string">'{1,2,3}'</span>::<span class="keyword">INT[]</span> <span class="keyword">@></span> <span class="string">'{2}'</span>::<span class="keyword">INT[]</span>;   <span class="comment">-- true</span>
 <span class="keyword">SELECT</span> <span class="keyword">ANY</span>(<span class="string">'{1,2,3}'</span>::<span class="keyword">INT[]</span>) = <span class="number">2</span>;         <span class="comment">-- true</span>
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 15: Range Functions -->
-      <section class="topic-section" id="range-functions">
-        <h2> Range Functions <span class="level-badge advanced">Advanced</span> </h2>
-        <p>PostgreSQL range types represent ranges of values (dates, numbers, etc.) with built-in operators.</p>
+    <!-- Section 15: Range Functions -->
+    <section class="topic-section" id="range-functions">
+      <h2> Range Functions <span class="level-badge advanced">Advanced</span> </h2>
+      <p>PostgreSQL range types represent ranges of values (dates, numbers, etc.) with built-in operators.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Range types</span>
 <span class="keyword">SELECT</span>
     <span class="string">'[2024-01-01, 2024-12-31]'</span>::<span class="keyword">DATERANGE</span> <span class="keyword">AS</span> year_range,
@@ -663,16 +685,16 @@
 <span class="keyword">SELECT</span>
     <span class="function">RANGE_AGG</span>(date_range) <span class="keyword">AS</span> combined_dates
 <span class="keyword">FROM</span> events;
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 16: Type Casting -->
-      <section class="topic-section" id="type-casting">
-        <h2> Type Casting <span class="level-badge basic">Basic</span> </h2>
-        <p>Convert between data types using explicit casting syntax in PostgreSQL.</p>
+    <!-- Section 16: Type Casting -->
+    <section class="topic-section" id="type-casting">
+      <h2> Type Casting <span class="level-badge basic">Basic</span> </h2>
+      <p>Convert between data types using explicit casting syntax in PostgreSQL.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Cast syntax options</span>
 <span class="keyword">SELECT</span>
     <span class="string">'42'</span>::<span class="keyword">INTEGER</span> <span class="keyword">AS</span> int_cast,           <span class="comment">-- PostgreSQL cast</span>
@@ -691,9 +713,9 @@
 <span class="comment">-- Safe casting with TRY_CAST pattern (using CASE)</span>
 <span class="keyword">SELECT</span>
     <span class="keyword">CASE</span>
-        <span class="keyword">WHEN</span> <span class="string">'abc'</span> <span class="keyword">~</span> <span class="string">'^[0-9]+$'</span>
-        <span class="keyword">THEN</span> <span class="string">'abc'</span>::<span class="keyword">INTEGER</span>
-        <span class="keyword">ELSE</span> <span class="keyword">NULL</span>
+      <span class="keyword">WHEN</span> <span class="string">'abc'</span> <span class="keyword">~</span> <span class="string">'^[0-9]+$'</span>
+      <span class="keyword">THEN</span> <span class="string">'abc'</span>::<span class="keyword">INTEGER</span>
+      <span class="keyword">ELSE</span> <span class="keyword">NULL</span>
     <span class="keyword">END</span> <span class="keyword">AS</span> safe_cast;
 
 <span class="comment">-- Convert arrays</span>
@@ -705,16 +727,16 @@
 <span class="keyword">SELECT</span>
     <span class="function">TO_CHAR</span>(<span class="number">1234.56</span>, <span class="string">'999G999D99'</span>) <span class="keyword">AS</span> formatted_num,   <span class="comment">-- '1,234.56'</span>
     <span class="function">TO_CHAR</span>(<span class="number">0.85</span>, <span class="string">'PCT999'</span>) <span class="keyword">AS</span> percentage;            <span class="comment">-- '85%'</span>
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 17: NULL Handling -->
-      <section class="topic-section" id="coalesce-nullif">
-        <h2> NULL Handling <span class="level-badge basic">Basic</span> </h2>
-        <p>Handle NULL values gracefully with COALESCE, NULLIF, and related functions.</p>
+    <!-- Section 17: NULL Handling -->
+    <section class="topic-section" id="coalesce-nullif">
+      <h2> NULL Handling <span class="level-badge basic">Basic</span> </h2>
+      <p>Handle NULL values gracefully with COALESCE, NULLIF, and related functions.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- COALESCE: Return first non-NULL value</span>
 <span class="keyword">SELECT</span>
     <span class="function">COALESCE</span>(phone, email, <span class="string">'N/A'</span>) <span class="keyword">AS</span> contact
@@ -749,16 +771,16 @@
 <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> users
 <span class="keyword">WHERE</span> status <span class="keyword">IS NOT DISTINCT FROM</span> <span class="string">'active'</span>;
 <span class="comment">-- This treats NULL = NULL as true</span>
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 18: Set Operations -->
-      <section class="topic-section" id="set-operations">
-        <h2> Set Operations <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Combine result sets using UNION, INTERSECT, and EXCEPT operations.</p>
+    <!-- Section 18: Set Operations -->
+    <section class="topic-section" id="set-operations">
+      <h2> Set Operations <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Combine result sets using UNION, INTERSECT, and EXCEPT operations.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- UNION: Combine results (removes duplicates)</span>
 <span class="keyword">SELECT</span> name <span class="keyword">FROM</span> customers
 <span class="keyword">UNION</span>
@@ -789,16 +811,16 @@
 <span class="keyword">SELECT</span> name <span class="keyword">AS</span> entity_name, <span class="string">'customer'</span> <span class="keyword">AS</span> type <span class="keyword">FROM</span> customers
 <span class="keyword">UNION ALL</span>
 <span class="keyword">SELECT</span> name, <span class="string">'supplier'</span> <span class="keyword">FROM</span> suppliers;
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 19: Generate Series -->
-      <section class="topic-section" id="generate">
-        <h2> Generate Series <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Generate sequences of numbers, timestamps, or other values for testing and reporting.</p>
+    <!-- Section 19: Generate Series -->
+    <section class="topic-section" id="generate">
+      <h2> Generate Series <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Generate sequences of numbers, timestamps, or other values for testing and reporting.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- GENERATE_SERIES: Create number sequence</span>
 <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="function">GENERATE_SERIES</span>(<span class="number">1</span>, <span class="number">10</span>);
 <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="function">GENERATE_SERIES</span>(<span class="number">1</span>, <span class="number">100</span>, <span class="number">5</span>);  <span class="comment">-- Step of 5</span>
@@ -837,23 +859,23 @@
 <span class="keyword">SELECT</span>
     <span class="function">GENERATE_SERIES</span>(<span class="number">1</span>, <span class="number">5</span>) <span class="keyword">AS</span> id,
     (<span class="function">RANDOM</span>() * <span class="number">100</span>)::<span class="keyword">INT</span> <span class="keyword">AS</span> random_value;
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 20: Conditional Logic -->
-      <section class="topic-section" id="conditional">
-        <h2> Conditional Logic <span class="level-badge basic">Basic</span> </h2>
-        <p>Use CASE, COALESCE, and other conditional expressions to implement business logic in SQL.</p>
+    <!-- Section 20: Conditional Logic -->
+    <section class="topic-section" id="conditional">
+      <h2> Conditional Logic <span class="level-badge basic">Basic</span> </h2>
+      <p>Use CASE, COALESCE, and other conditional expressions to implement business logic in SQL.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- CASE expression</span>
 <span class="keyword">SELECT</span>
     name,
     <span class="keyword">CASE</span>
-        <span class="keyword">WHEN</span> age < <span class="number">18</span> <span class="keyword">THEN</span> <span class="string">'Minor'</span>
-        <span class="keyword">WHEN</span> age < <span class="number">65</span> <span class="keyword">THEN</span> <span class="string">'Adult'</span>
-        <span class="keyword">ELSE</span> <span class="string">'Senior'</span>
+      <span class="keyword">WHEN</span> age < <span class="number">18</span> <span class="keyword">THEN</span> <span class="string">'Minor'</span>
+      <span class="keyword">WHEN</span> age < <span class="number">65</span> <span class="keyword">THEN</span> <span class="string">'Adult'</span>
+      <span class="keyword">ELSE</span> <span class="string">'Senior'</span>
     <span class="keyword">END</span> <span class="keyword">AS</span> age_group
 <span class="keyword">FROM</span> users;
 
@@ -866,23 +888,23 @@
 <span class="comment">-- DECODE-style (PostgreSQL uses CASE)</span>
 <span class="keyword">SELECT</span>
     <span class="keyword">CASE</span> status
-        <span class="keyword">WHEN</span> <span class="string">'A'</span> <span class="keyword">THEN</span> <span class="string">'Active'</span>
-        <span class="keyword">WHEN</span> <span class="string">'I'</span> <span class="keyword">THEN</span> <span class="string">'Inactive'</span>
-        <span class="keyword">WHEN</span> <span class="string">'P'</span> <span class="keyword">THEN</span> <span class="string">'Pending'</span>
-        <span class="keyword">ELSE</span> <span class="string">'Unknown'</span>
+      <span class="keyword">WHEN</span> <span class="string">'A'</span> <span class="keyword">THEN</span> <span class="string">'Active'</span>
+      <span class="keyword">WHEN</span> <span class="string">'I'</span> <span class="keyword">THEN</span> <span class="string">'Inactive'</span>
+      <span class="keyword">WHEN</span> <span class="string">'P'</span> <span class="keyword">THEN</span> <span class="string">'Pending'</span>
+      <span class="keyword">ELSE</span> <span class="string">'Unknown'</span>
     <span class="keyword">END</span> <span class="keyword">AS</span> status_name
 <span class="keyword">FROM</span> accounts;
 
 <span class="comment">-- Nested CASE</span>
 <span class="keyword">SELECT</span>
     <span class="keyword">CASE</span>
-        <span class="keyword">WHEN</span> <span class="function">SUM</span>(amount) > <span class="number">10000</span> <span class="keyword">THEN</span> <span class="string">'Gold'</span>
-        <span class="keyword">WHEN</span> <span class="function">SUM</span>(amount) > <span class="number">5000</span> <span class="keyword">THEN</span>
-            <span class="keyword">CASE</span>
-                <span class="keyword">WHEN</span> <span class="function">COUNT</span>(*) > <span class="number">50</span> <span class="keyword">THEN</span> <span class="string">'Silver Plus'</span>
-                <span class="keyword">ELSE</span> <span class="string">'Silver'</span>
-            <span class="keyword">END</span>
-        <span class="keyword">ELSE</span> <span class="string">'Bronze'</span>
+      <span class="keyword">WHEN</span> <span class="function">SUM</span>(amount) > <span class="number">10000</span> <span class="keyword">THEN</span> <span class="string">'Gold'</span>
+      <span class="keyword">WHEN</span> <span class="function">SUM</span>(amount) > <span class="number">5000</span> <span class="keyword">THEN</span>
+          <span class="keyword">CASE</span>
+              <span class="keyword">WHEN</span> <span class="function">COUNT</span>(*) > <span class="number">50</span> <span class="keyword">THEN</span> <span class="string">'Silver Plus'</span>
+              <span class="keyword">ELSE</span> <span class="string">'Silver'</span>
+          <span class="keyword">END</span>
+      <span class="keyword">ELSE</span> <span class="string">'Bronze'</span>
     <span class="keyword">END</span> <span class="keyword">AS</span> tier
 <span class="keyword">FROM</span> orders
 <span class="keyword">WHERE</span> customer_id = <span class="number">123</span>;
@@ -900,38 +922,51 @@
     <span class="function">SUM</span>(amount) <span class="keyword">FILTER</span> (<span class="keyword">WHERE</span> year = <span class="number">2024</span>) <span class="keyword">AS</span> y2024,
     <span class="function">AVG</span>(amount) <span class="keyword">FILTER</span> (<span class="keyword">WHERE</span> region = <span class="string">'US'</span>) <span class="keyword">AS</span> us_avg
 <span class="keyword">FROM</span> sales;
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-    </div>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span class="footer-brand">Data Sheets</span>
+          <p class="footer-copyright">Â© 2026 Data Sheets. All rights reserved.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#">Documentation</a>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Support</a>
+        </div>
+      </div>
+    </footer>
   </main>
 
-  <script src="../app.js"></script>
-  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 19V5M5 12l7-7 7 7"/>
-    </svg>
-  </button>
   <script>
-    // Scroll to top functionality
-    const scrollToTopBtn = document.getElementById('scrollToTop');
-    
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        scrollToTopBtn.classList.add('visible');
+    function toggleTheme() {
+      var html = document.documentElement;
+      var themeIcon = document.getElementById('themeIcon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        themeIcon.textContent = 'dark_mode';
       } else {
-        scrollToTopBtn.classList.remove('visible');
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.textContent = 'light_mode';
       }
-    });
-    
-    scrollToTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
+    }
+    (function() {
+      var savedTheme = localStorage.getItem('theme');
+      var themeIcon = document.getElementById('themeIcon');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+        themeIcon.textContent = 'light_mode';
+      } else {
+        themeIcon.textContent = 'dark_mode';
+      }
+    })();
   </script>
-<script src="../hierarchy.js"></script><script src="../sidebar-nav.js"></script>
 </body>
 </html>

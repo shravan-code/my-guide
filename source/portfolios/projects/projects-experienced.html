@@ -14,6 +14,37 @@
   <link rel="stylesheet" href="../../hub.css" />
   <link rel="stylesheet" href="../../sidebar-nav.css" />
   <style>
+    /* Navigation Pills */
+    .nav-pills {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-pill {
+      padding: 0.6rem 1.25rem;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.25s ease;
+    }
+
+    .nav-pill:hover {
+      border-color: var(--color-accent);
+      color: var(--color-text);
+      background: var(--color-bg-alt);
+    }
+
+    .nav-pill.active {
+      background: linear-gradient(135deg, var(--dark-cyan), var(--fuchsia-flame));
+      color: white;
+      border-color: transparent;
+    }
+
     /* Premium Experience Hub Styles */
     body.home-with-sidebar .content-main {
       flex: 1;
@@ -237,6 +268,7 @@
   <main class="main-content">
     <div class="page-wrap" style="padding: 2rem 4rem;">
       <div id="mainPanel" class="content-main">
+        
         <header class="hero" style="margin-bottom: 4rem;">
           <p class="eyebrow" style="color: var(--color-accent); font-weight: 600; text-transform: uppercase; tracking: 0.1em; margin-bottom: 1rem;">Career Journey</p>
           <h1 style="font-family: 'Sora', sans-serif; font-size: 3.5rem; color: var(--color-text); margin-bottom: 1rem;">Experience</h1>
@@ -399,6 +431,12 @@
       </div>
     </div>
   </main>
+
+  <!-- Navigation Pills -->
+  <nav class="nav-pills" style="display: flex; gap: 1rem; margin: 3rem 0; justify-content: center;">
+    <a href="projects-self.html" class="nav-pill">Self-Taught</a>
+    <a href="projects-experienced.html" class="nav-pill active">Experienced</a>
+  </nav>
 
   <footer class="bottom-bar">
     <div class="footer-left">Experience Hub | Shravan Portfolio</div>

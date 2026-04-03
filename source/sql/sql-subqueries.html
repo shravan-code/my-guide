@@ -3,61 +3,81 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>*d@ta# | SQL Subqueries</title>
+  <title>Data Guide | Subqueries</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
-  <link rel="stylesheet" href="../hub.css" />
-  <link rel="stylesheet" href="../python/python.css" />
-  <link rel="stylesheet" href="../sidebar-nav.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../shared.css" />
 </head>
 
-<body class="home-with-sidebar">
-  <div class="bg-orb orb-a" aria-hidden="true"></div>
-  <div class="bg-orb orb-b" aria-hidden="true"></div>
-  <div class="bg-orb orb-c" aria-hidden="true"></div>
+<body class="topic-page">
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <a href="../../index.html" class="brand">
+        <div class="brand-icon">
+          <span class="material-symbols-outlined">architecture</span>
+        </div>
+        <span class="brand-text">Data Sheets</span>
+      </a>
+      <div class="nav-center">
+        <div class="search-bar">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" class="search-input" placeholder="Search architecture, patterns, or cloud..." />
+        </div>
+      </div>
+      <div class="nav-right">
+        <button class="nav-icon-btn" id="themeToggle" onclick="toggleTheme()">
+          <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+        </button>
+        <a href="../portfolios/portfolio.html" class="user-avatar">
+          <img src="../../assets/images/profile-pic.jpeg" alt="User profile" />
+        </a>
+      </div>
+    </div>
+  </header>
 
   <main class="main-content">
-    
-    <div class="page-wrap">
-      <section class="hero">
-        <p class="eyebrow">SQL Guide</p>
-        <h1>SQL Subqueries</h1>
-        <p class="hero-copy">Nest queries within queries and use Common Table Expressions for complex data operations in PostgreSQL.</p>
-      </section>
+    <header class="page-header page-header--row">
+      <a href="index.html" class="back-link back-link--round" aria-label="Back">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </a>
+      <div class="page-header-inner">
+        <h1>Subqueries</h1>
+        <p>Nested queries, CTEs, and correlated subqueries.</p>
+      </div>
+    </header>
 
-      <!-- Section 1: Subquery Concepts -->
-      <section class="topic-section" id="subquery-concepts">
-        <h2> Subquery Concepts <span class="level-badge basic">Basic</span> </h2>
-        <p>A subquery (inner query) is a SELECT statement nested within another SQL statement. They can return scalar values, rows, or entire tables.</p>
+        <!-- Section 1: Subquery Concepts -->
+    <section class="topic-section" id="subquery-concepts">
+      <h2> Subquery Concepts <span class="level-badge basic">Basic</span> </h2>
+      <p>A subquery (inner query) is a SELECT statement nested within another SQL statement. They can return scalar values, rows, or entire tables.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Types of Subqueries</h4>
-            <ul>
-              <li><strong>Scalar</strong> - Returns single value</li>
-              <li><strong>Row</strong> - Returns single row</li>
-                <li><strong>Table</strong> - Returns multiple rows/columns</li>
-              <li><strong>Correlated</strong> - References outer query</li>
-              <li><strong>Non-correlated</strong> - Independent execution</li>
-            </ul>
-          </div>
-          <div class="split-item">
-            <h4>Where Subqueries Can Appear</h4>
-            <ul>
-              <li><strong>SELECT</strong> - Column expressions</li>
-              <li><strong>FROM</strong> - Derived tables</li>
-              <li><strong>WHERE</strong> - Filter conditions</li>
-              <li><strong>HAVING</strong> - Group filters</li>
-              <li><strong>JOIN</strong> - Join conditions</li>
-            </ul>
-          </div>
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Types of Subqueries</h4>
+          <ul>
+            <li><strong>Scalar</strong> - Returns single value</li>
+            <li><strong>Row</strong> - Returns single row</li>
+              <li><strong>Table</strong> - Returns multiple rows/columns</li>
+            <li><strong>Correlated</strong> - References outer query</li>
+            <li><strong>Non-correlated</strong> - Independent execution</li>
+          </ul>
         </div>
+        <div class="split-item">
+          <h4>Where Subqueries Can Appear</h4>
+          <ul>
+            <li><strong>SELECT</strong> - Column expressions</li>
+            <li><strong>FROM</strong> - Derived tables</li>
+            <li><strong>WHERE</strong> - Filter conditions</li>
+            <li><strong>HAVING</strong> - Group filters</li>
+            <li><strong>JOIN</strong> - Join conditions</li>
+          </ul>
+        </div>
+      </div>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Basic structure</span>
 <span class="keyword">SELECT</span> column1, column2, ...
 <span class="keyword">FROM</span> table1
@@ -72,19 +92,19 @@
 <span class="keyword">WHERE</span> dept_id <span class="keyword">IN</span> (
     <span class="keyword">SELECT</span> id <span class="keyword">FROM</span> departments
     <span class="keyword">WHERE</span> location_id <span class="keyword">IN</span> (
-        <span class="keyword">SELECT</span> id <span class="keyword">FROM</span> locations
-        <span class="keyword">WHERE</span> country = <span class="string">'USA'</span>
+      <span class="keyword">SELECT</span> id <span class="keyword">FROM</span> locations
+      <span class="keyword">WHERE</span> country = <span class="string">'USA'</span>
     )
 );</code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 2: Scalar Subqueries -->
-      <section class="topic-section" id="scalar-subquery">
-        <h2> Scalar Subqueries <span class="level-badge basic">Basic</span> </h2>
-        <p>A scalar subquery returns exactly one value (one row, one column). Use it anywhere a single value is expected.</p>
+    <!-- Section 2: Scalar Subqueries -->
+    <section class="topic-section" id="scalar-subquery">
+      <h2> Scalar Subqueries <span class="level-badge basic">Basic</span> </h2>
+      <p>A scalar subquery returns exactly one value (one row, one column). Use it anywhere a single value is expected.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- In SELECT clause</span>
 <span class="keyword">SELECT</span>
     name,
@@ -112,8 +132,8 @@
 <span class="keyword">SELECT</span>
     name,
     <span class="function">COALESCE</span>(
-        department_id,
-        ( <span class="keyword">SELECT</span> id <span class="keyword">FROM</span> departments <span class="keyword">WHERE</span> dept_name = <span class="string">'Unassigned'</span> )
+      department_id,
+      ( <span class="keyword">SELECT</span> id <span class="keyword">FROM</span> departments <span class="keyword">WHERE</span> dept_name = <span class="string">'Unassigned'</span> )
     ) <span class="keyword">AS</span> dept
 <span class="keyword">FROM</span> employees;
 
@@ -123,15 +143,15 @@
     (<span class="keyword">SELECT</span> <span class="function">COUNT</span>(*) <span class="keyword">FROM</span> departments) <span class="keyword">AS</span> total_depts,
     (<span class="keyword">SELECT</span> <span class="function">SUM</span>(salary) <span class="keyword">FROM</span> employees) <span class="keyword">AS</span> total_payroll
 <span class="keyword">FROM</span> employees;</code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 3: Row Subqueries -->
-      <section class="topic-section" id="row-subquery">
-        <h2> Row Subqueries <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>A row subquery returns a single row with multiple columns.</p>
+    <!-- Section 3: Row Subqueries -->
+    <section class="topic-section" id="row-subquery">
+      <h2> Row Subqueries <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>A row subquery returns a single row with multiple columns.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Row constructor comparison</span>
 <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> employees
 <span class="keyword">WHERE</span> (dept_id, salary) = (
@@ -167,18 +187,18 @@
     <span class="keyword">FROM</span> employees
     <span class="keyword">GROUP BY</span> dept_id
 );</code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 4: IN Subqueries -->
-      <section class="topic-section" id="in-subquery">
-        <h2> IN Subqueries <span class="level-badge basic">Basic</span> </h2>
-        <p>Use IN with subqueries to check if a value matches any value in a result set.</p>
+    <!-- Section 4: IN Subqueries -->
+    <section class="topic-section" id="in-subquery">
+      <h2> IN Subqueries <span class="level-badge basic">Basic</span> </h2>
+      <p>Use IN with subqueries to check if a value matches any value in a result set.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Basic IN Subquery</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Basic IN Subquery</h4>
+          <div class="code-block">
 <code><span class="comment">-- Employees in NYC departments</span>
 <span class="keyword">SELECT</span> name
 <span class="keyword">FROM</span> employees
@@ -196,11 +216,11 @@
     <span class="keyword">FROM</span> orders
     <span class="keyword">WHERE</span> order_date >= <span class="string">'2024-01-01'</span>
 );</code>
-            </div>
           </div>
-          <div class="split-item">
-            <h4>NOT IN (with caution)</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>NOT IN (with caution)</h4>
+          <div class="code-block">
 <code><span class="comment">-- Employees in departments outside NYC</span>
 <span class="keyword">SELECT</span> name
 <span class="keyword">FROM</span> employees
@@ -221,17 +241,17 @@
     <span class="keyword">WHERE</span> d.id = e.dept_id
     <span class="keyword">AND</span> d.location = <span class="string">'NYC'</span>
 );</code>
-            </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 5: EXISTS Subqueries -->
-      <section class="topic-section" id="exists-subquery">
-        <h2> EXISTS Subqueries <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>EXISTS checks for the presence of rows in a subquery without returning actual values. Often more efficient than IN.</p>
+    <!-- Section 5: EXISTS Subqueries -->
+    <section class="topic-section" id="exists-subquery">
+      <h2> EXISTS Subqueries <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>EXISTS checks for the presence of rows in a subquery without returning actual values. Often more efficient than IN.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Employees with orders (EXISTS)</span>
 <span class="keyword">SELECT</span> e.name
 <span class="keyword">FROM</span> employees e
@@ -271,18 +291,18 @@
 <span class="comment">-- IN is better when:</span>
 <span class="comment">-- 1. Small, static list of values</span>
 <span class="comment">-- 2. You need the actual values</span></code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 6: Comparison Operators -->
-      <section class="topic-section" id="comparison-subquery">
-        <h2> Comparison Operators <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Use comparison operators with scalar subqueries for conditions like "greater than all" or "equal to any".</p>
+    <!-- Section 6: Comparison Operators -->
+    <section class="topic-section" id="comparison-subquery">
+      <h2> Comparison Operators <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Use comparison operators with scalar subqueries for conditions like "greater than all" or "equal to any".</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>ANY / SOME</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>ANY / SOME</h4>
+          <div class="code-block">
 <code><span class="comment">-- Salary greater than ANY (at least one)</span>
 <span class="keyword">SELECT</span> name, salary
 <span class="keyword">FROM</span> employees
@@ -303,11 +323,11 @@
 
 <span class="comment">-- SOME is synonymous with ANY</span>
 <span class="keyword">WHERE</span> salary > <span class="keyword">SOME</span> (subquery)</code>
-            </div>
           </div>
-          <div class="split-item">
-            <h4>ALL</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>ALL</h4>
+          <div class="code-block">
 <code><span class="comment">-- Salary greater than ALL (every single one)</span>
 <span class="keyword">SELECT</span> name, salary
 <span class="keyword">FROM</span> employees
@@ -334,26 +354,26 @@
     <span class="keyword">FROM</span> products
     <span class="keyword">WHERE</span> category = <span class="string">'Books'</span>
 );</code>
-            </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 7: FROM Subqueries -->
-      <section class="topic-section" id="from-subquery">
-        <h2> FROM Subqueries (Derived Tables) <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>A derived table is a subquery in the FROM clause that acts as a temporary table.</p>
+    <!-- Section 7: FROM Subqueries -->
+    <section class="topic-section" id="from-subquery">
+      <h2> FROM Subqueries (Derived Tables) <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>A derived table is a subquery in the FROM clause that acts as a temporary table.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Basic derived table</span>
 <span class="keyword">SELECT</span>
     dept_stats.department,
     dept_stats.avg_salary
 <span class="keyword">FROM</span> (
     <span class="keyword">SELECT</span>
-        department,
-        <span class="function">AVG</span>(salary) <span class="keyword">AS</span> avg_salary,
-        <span class="function">COUNT</span>(*) <span class="keyword">AS</span> emp_count
+      department,
+      <span class="function">AVG</span>(salary) <span class="keyword">AS</span> avg_salary,
+      <span class="function">COUNT</span>(*) <span class="keyword">AS</span> emp_count
     <span class="keyword">FROM</span> employees
     <span class="keyword">GROUP BY</span> department
 ) <span class="keyword">AS</span> dept_stats
@@ -372,8 +392,8 @@
 ) <span class="keyword">AS</span> top_depts
 <span class="keyword">JOIN</span> (
     <span class="keyword">SELECT DISTINCT ON</span> (dept_id)
-        dept_id,
-        name <span class="keyword">AS</span> top_earner
+      dept_id,
+      name <span class="keyword">AS</span> top_earner
     <span class="keyword">FROM</span> employees
     <span class="keyword">ORDER BY</span> dept_id, salary <span class="keyword">DESC</span>
 ) <span class="keyword">AS</span> top_employees
@@ -386,27 +406,27 @@
     total_orders
 <span class="keyword">FROM</span> (
     <span class="keyword">SELECT</span>
-        p.category,
-        <span class="function">SUM</span>(oi.quantity * oi.price) <span class="keyword">AS</span> total_sales,
-        <span class="function">COUNT</span>(<span class="keyword">DISTINCT</span> oi.order_id) <span class="keyword">AS</span> total_orders
+      p.category,
+      <span class="function">SUM</span>(oi.quantity * oi.price) <span class="keyword">AS</span> total_sales,
+      <span class="function">COUNT</span>(<span class="keyword">DISTINCT</span> oi.order_id) <span class="keyword">AS</span> total_orders
     <span class="keyword">FROM</span> order_items oi
     <span class="keyword">JOIN</span> products p <span class="keyword">ON</span> p.id = oi.product_id
     <span class="keyword">GROUP BY</span> p.category
 ) <span class="keyword">AS</span> stats
 <span class="keyword">WHERE</span> total_sales > <span class="number">10000</span>;</code>
-        </div>
+      </div>
 
-        <div class="tip-box">
-          <p><strong>Tip:</strong> Derived tables must have an alias in PostgreSQL. Use meaningful aliases to improve query readability.</p>
-        </div>
-      </section>
+      <div class="tip-box">
+        <p><strong>Tip:</strong> Derived tables must have an alias in PostgreSQL. Use meaningful aliases to improve query readability.</p>
+      </div>
+    </section>
 
-      <!-- Section 8: LATERAL Subqueries -->
-      <section class="topic-section" id="lateral-subquery">
-        <h2> LATERAL Subqueries <span class="level-badge advanced">Advanced</span> </h2>
-        <p>LATERAL allows a subquery to reference columns from previous FROM items, enabling correlated derived tables.</p>
+    <!-- Section 8: LATERAL Subqueries -->
+    <section class="topic-section" id="lateral-subquery">
+      <h2> LATERAL Subqueries <span class="level-badge advanced">Advanced</span> </h2>
+      <p>LATERAL allows a subquery to reference columns from previous FROM items, enabling correlated derived tables.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Top N per group (classic LATERAL use)</span>
 <span class="keyword">SELECT</span>
     d.dept_name,
@@ -430,13 +450,13 @@
 <span class="keyword">FROM</span> accounts a
 <span class="keyword">CROSS JOIN LATERAL</span> (
     <span class="keyword">SELECT</span>
-        <span class="function">MAX</span>(transaction_date) <span class="keyword">AS</span> last_transaction_date,
-        (   <span class="keyword">SELECT</span> amount
-            <span class="keyword">FROM</span> transactions t2
-            <span class="keyword">WHERE</span> t2.account_id = a.id
-            <span class="keyword">ORDER BY</span> transaction_date <span class="keyword">DESC</span>
-            <span class="keyword">LIMIT</span> <span class="number">1</span>
-        ) <span class="keyword">AS</span> last_amount
+      <span class="function">MAX</span>(transaction_date) <span class="keyword">AS</span> last_transaction_date,
+      (   <span class="keyword">SELECT</span> amount
+          <span class="keyword">FROM</span> transactions t2
+          <span class="keyword">WHERE</span> t2.account_id = a.id
+          <span class="keyword">ORDER BY</span> transaction_date <span class="keyword">DESC</span>
+          <span class="keyword">LIMIT</span> <span class="number">1</span>
+      ) <span class="keyword">AS</span> last_amount
     <span class="keyword">FROM</span> transactions t
     <span class="keyword">WHERE</span> t.account_id = a.id
 ) lt;
@@ -461,22 +481,22 @@
     <span class="string">'1 day'</span>
 ) d
 <span class="keyword">CROSS JOIN</span> employees e;</code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 9: Basic CTEs -->
-      <section class="topic-section" id="basic-cte">
-        <h2> Basic CTEs <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Common Table Expressions (CTEs) provide a cleaner, more readable alternative to subqueries and derived tables.</p>
+    <!-- Section 9: Basic CTEs -->
+    <section class="topic-section" id="basic-cte">
+      <h2> Basic CTEs <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Common Table Expressions (CTEs) provide a cleaner, more readable alternative to subqueries and derived tables.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Basic CTE syntax</span>
 <span class="keyword">WITH</span> dept_stats <span class="keyword">AS</span> (
     <span class="keyword">SELECT</span>
-        dept_id,
-        <span class="function">COUNT</span>(*) <span class="keyword">AS</span> emp_count,
-        <span class="function">AVG</span>(salary) <span class="keyword">AS</span> avg_salary,
-        <span class="function">SUM</span>(salary) <span class="keyword">AS</span> total_salary
+      dept_id,
+      <span class="function">COUNT</span>(*) <span class="keyword">AS</span> emp_count,
+      <span class="function">AVG</span>(salary) <span class="keyword">AS</span> avg_salary,
+      <span class="function">SUM</span>(salary) <span class="keyword">AS</span> total_salary
     <span class="keyword">FROM</span> employees
     <span class="keyword">GROUP BY</span> dept_id
 )
@@ -490,16 +510,16 @@
 <span class="comment">-- Multiple CTEs</span>
 <span class="keyword">WITH</span>
     high_earners <span class="keyword">AS</span> (
-        <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> employees
-        <span class="keyword">WHERE</span> salary > <span class="number">80000</span>
+      <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> employees
+      <span class="keyword">WHERE</span> salary > <span class="number">80000</span>
     ),
     dept_summary <span class="keyword">AS</span> (
-        <span class="keyword">SELECT</span>
-            dept_id,
-            <span class="function">COUNT</span>(*) <span class="keyword">AS</span> high_earner_count,
-            <span class="function">AVG</span>(salary) <span class="keyword">AS</span> avg_high_salary
-        <span class="keyword">FROM</span> high_earners
-        <span class="keyword">GROUP BY</span> dept_id
+      <span class="keyword">SELECT</span>
+          dept_id,
+          <span class="function">COUNT</span>(*) <span class="keyword">AS</span> high_earner_count,
+          <span class="function">AVG</span>(salary) <span class="keyword">AS</span> avg_high_salary
+      <span class="keyword">FROM</span> high_earners
+      <span class="keyword">GROUP BY</span> dept_id
     )
 <span class="keyword">SELECT</span>
     d.dept_name,
@@ -511,31 +531,31 @@
 <span class="comment">-- CTE for data transformation</span>
 <span class="keyword">WITH</span> normalized <span class="keyword">AS</span> (
     <span class="keyword">SELECT</span>
-        id,
-        <span class="keyword">TRIM</span>(<span class="function">LOWER</span>(name)) <span class="keyword">AS</span> clean_name,
-        <span class="function">INITCAP</span>(department) <span class="keyword">AS</span> title_case_dept,
-        <span class="function">COALESCE</span>(email, <span class="string">'N/A'</span>) <span class="keyword">AS</span> email
+      id,
+      <span class="keyword">TRIM</span>(<span class="function">LOWER</span>(name)) <span class="keyword">AS</span> clean_name,
+      <span class="function">INITCAP</span>(department) <span class="keyword">AS</span> title_case_dept,
+      <span class="function">COALESCE</span>(email, <span class="string">'N/A'</span>) <span class="keyword">AS</span> email
     <span class="keyword">FROM</span> employees
 )
 <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> normalized;</code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 10: Recursive CTEs -->
-      <section class="topic-section" id="recursive-cte">
-        <h2> Recursive CTEs <span class="level-badge advanced">Advanced</span> </h2>
-        <p>Recursive CTEs reference themselves, enabling hierarchical and graph traversals.</p>
+    <!-- Section 10: Recursive CTEs -->
+    <section class="topic-section" id="recursive-cte">
+      <h2> Recursive CTEs <span class="level-badge advanced">Advanced</span> </h2>
+      <p>Recursive CTEs reference themselves, enabling hierarchical and graph traversals.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Organization hierarchy</span>
 <span class="keyword">WITH RECURSIVE</span> org_chart <span class="keyword">AS</span> (
     <span class="comment">-- Base case: top-level managers</span>
     <span class="keyword">SELECT</span>
-        id,
-        name,
-        manager_id,
-        <span class="number">0</span> <span class="keyword">AS</span> level,
-        <span class="function">ARRAY</span>[id] <span class="keyword">AS</span> path
+      id,
+      name,
+      manager_id,
+      <span class="number">0</span> <span class="keyword">AS</span> level,
+      <span class="function">ARRAY</span>[id] <span class="keyword">AS</span> path
     <span class="keyword">FROM</span> employees
     <span class="keyword">WHERE</span> manager_id <span class="keyword">IS NULL</span>
     
@@ -543,11 +563,11 @@
     
     <span class="comment">-- Recursive case: employees under managers</span>
     <span class="keyword">SELECT</span>
-        e.id,
-        e.name,
-        e.manager_id,
-        oc.level + <span class="number">1</span>,
-        oc.path || e.id
+      e.id,
+      e.name,
+      e.manager_id,
+      oc.level + <span class="number">1</span>,
+      oc.path || e.id
     <span class="keyword">FROM</span> employees e
     <span class="keyword">JOIN</span> org_chart oc <span class="keyword">ON</span> e.manager_id = oc.id
     <span class="keyword">WHERE</span> e.id <span class="keyword">NOT IN</span> (<span class="keyword">SELECT</span> <span class="function">UNNEST</span>(oc.path))  <span class="comment">-- Prevent cycles</span>
@@ -579,24 +599,24 @@
 <span class="keyword">FROM</span> date_range d
 <span class="keyword">LEFT JOIN</span> sales s <span class="keyword">ON</span> s.sale_date = d.dt
 <span class="keyword">WHERE</span> s.id <span class="keyword">IS NULL</span>;  <span class="comment">-- Days with no sales</span></code>
-        </div>
+      </div>
 
-        <div class="warning-box">
-          <p><strong>Important:</strong> Always include a cycle detection mechanism in recursive CTEs (like checking against a path array) to prevent infinite loops with circular references.</p>
-        </div>
-      </section>
+      <div class="warning-box">
+        <p><strong>Important:</strong> Always include a cycle detection mechanism in recursive CTEs (like checking against a path array) to prevent infinite loops with circular references.</p>
+      </div>
+    </section>
 
-      <!-- Section 11: Advanced CTEs -->
-      <section class="topic-section" id="cte-advanced">
-        <h2> Advanced CTE Patterns <span class="level-badge advanced">Advanced</span> </h2>
-        <p>Powerful CTE patterns for common data analysis tasks in PostgreSQL.</p>
+    <!-- Section 11: Advanced CTEs -->
+    <section class="topic-section" id="cte-advanced">
+      <h2> Advanced CTE Patterns <span class="level-badge advanced">Advanced</span> </h2>
+      <p>Powerful CTE patterns for common data analysis tasks in PostgreSQL.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Running totals and moving averages</span>
 <span class="keyword">WITH</span> daily_sales <span class="keyword">AS</span> (
     <span class="keyword">SELECT</span>
-        order_date::<span class="function">DATE</span> <span class="keyword">AS</span> dt,
-        <span class="function">SUM</span>(total) <span class="keyword">AS</span> daily_total
+      order_date::<span class="function">DATE</span> <span class="keyword">AS</span> dt,
+      <span class="function">SUM</span>(total) <span class="keyword">AS</span> daily_total
     <span class="keyword">FROM</span> orders
     <span class="keyword">GROUP BY</span> order_date::<span class="function">DATE</span>
 )
@@ -605,8 +625,8 @@
     daily_total,
     <span class="function">SUM</span>(daily_total) <span class="keyword">OVER</span> (<span class="keyword">ORDER BY</span> dt) <span class="keyword">AS</span> running_total,
     <span class="function">AVG</span>(daily_total) <span class="keyword">OVER</span> (
-        <span class="keyword">ORDER BY</span> dt
-        <span class="keyword">ROWS BETWEEN</span> <span class="number">6</span> <span class="keyword">PRECEDING AND CURRENT ROW</span>
+      <span class="keyword">ORDER BY</span> dt
+      <span class="keyword">ROWS BETWEEN</span> <span class="number">6</span> <span class="keyword">PRECEDING AND CURRENT ROW</span>
     ) <span class="keyword">AS</span> moving_avg_7day
 <span class="keyword">FROM</span> daily_sales
 <span class="keyword">ORDER BY</span> dt;
@@ -614,16 +634,16 @@
 <span class="comment">-- Cohort analysis</span>
 <span class="keyword">WITH</span> first_order <span class="keyword">AS</span> (
     <span class="keyword">SELECT</span>
-        customer_id,
-        <span class="function">DATE_TRUNC</span>(<span class="string">'month'</span>, <span class="function">MIN</span>(order_date)) <span class="keyword">AS</span> cohort_month
+      customer_id,
+      <span class="function">DATE_TRUNC</span>(<span class="string">'month'</span>, <span class="function">MIN</span>(order_date)) <span class="keyword">AS</span> cohort_month
     <span class="keyword">FROM</span> orders
     <span class="keyword">GROUP BY</span> customer_id
 ),
 cohort_data <span class="keyword">AS</span> (
     <span class="keyword">SELECT</span>
-        fo.cohort_month,
-        <span class="function">DATE_TRUNC</span>(<span class="string">'month'</span>, o.order_date) <span class="keyword">AS</span> order_month,
-        <span class="function">COUNT</span>(<span class="keyword">DISTINCT</span> o.customer_id) <span class="keyword">AS</span> customers
+      fo.cohort_month,
+      <span class="function">DATE_TRUNC</span>(<span class="string">'month'</span>, o.order_date) <span class="keyword">AS</span> order_month,
+      <span class="function">COUNT</span>(<span class="keyword">DISTINCT</span> o.customer_id) <span class="keyword">AS</span> customers
     <span class="keyword">FROM</span> orders o
     <span class="keyword">JOIN</span> first_order fo <span class="keyword">ON</span> o.customer_id = fo.customer_id
     <span class="keyword">GROUP BY</span> fo.cohort_month, <span class="function">DATE_TRUNC</span>(<span class="string">'month'</span>, o.order_date)
@@ -639,12 +659,12 @@ cohort_data <span class="keyword">AS</span> (
 <span class="comment">-- Gap and island analysis</span>
 <span class="keyword">WITH</span> numbered_logins <span class="keyword">AS</span> (
     <span class="keyword">SELECT</span>
-        user_id,
-        login_date,
-        login_date - <span class="function">ROW_NUMBER</span>() <span class="keyword">OVER</span> (
-            <span class="keyword">PARTITION BY</span> user_id
-            <span class="keyword">ORDER BY</span> login_date
-        ) <span class="keyword">AS</span> grp
+      user_id,
+      login_date,
+      login_date - <span class="function">ROW_NUMBER</span>() <span class="keyword">OVER</span> (
+          <span class="keyword">PARTITION BY</span> user_id
+          <span class="keyword">ORDER BY</span> login_date
+      ) <span class="keyword">AS</span> grp
     <span class="keyword">FROM</span> logins
 )
 <span class="keyword">SELECT</span>
@@ -655,15 +675,15 @@ cohort_data <span class="keyword">AS</span> (
 <span class="keyword">FROM</span> numbered_logins
 <span class="keyword">GROUP BY</span> user_id, grp
 <span class="keyword">ORDER BY</span> streak_length <span class="keyword">DESC</span>;</code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 12: Correlated Subqueries -->
-      <section class="topic-section" id="correlated">
-        <h2> Correlated Subqueries <span class="level-badge advanced">Advanced</span> </h2>
-        <p>A correlated subquery references columns from the outer query and is re-executed for each row.</p>
+    <!-- Section 12: Correlated Subqueries -->
+    <section class="topic-section" id="correlated">
+      <h2> Correlated Subqueries <span class="level-badge advanced">Advanced</span> </h2>
+      <p>A correlated subquery references columns from the outer query and is re-executed for each row.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Basic correlated subquery</span>
 <span class="keyword">SELECT</span>
     e.name,
@@ -708,42 +728,42 @@ cohort_data <span class="keyword">AS</span> (
     order_date
 <span class="keyword">FROM</span> orders
 <span class="keyword">ORDER BY</span> customer_id, order_date <span class="keyword">DESC</span>;</code>
+      </div>
+
+      <div class="tip-box">
+        <p><strong>Performance tip:</strong> Correlated subqueries can be slow on large tables. Consider using JOINs, CTEs, or window functions as alternatives when possible.</p>
+      </div>
+    </section>
+
+    <!-- Section 13: Optimization Tips -->
+    <section class="topic-section" id="optimization">
+      <h2> Subquery Optimization <span class="level-badge advanced">Advanced</span> </h2>
+      <p>Tips for writing efficient subqueries in PostgreSQL.</p>
+
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Do's</h4>
+          <ul>
+            <li>Use EXISTS instead of IN for large subqueries</li>
+            <li>Use CTEs for complex, multi-step queries</li>
+            <li>Use window functions instead of correlated subqueries</li>
+            <li>Add indexes on columns used in subquery joins</li>
+            <li>Use LATERAL for top-N per group queries</li>
+          </ul>
         </div>
-
-        <div class="tip-box">
-          <p><strong>Performance tip:</strong> Correlated subqueries can be slow on large tables. Consider using JOINs, CTEs, or window functions as alternatives when possible.</p>
+        <div class="split-item">
+          <h4>Don'ts</h4>
+          <ul>
+            <li>Avoid NOT IN with nullable columns</li>
+            <li>Don't nest too deeply (3+ levels)</li>
+            <li>Avoid correlated subqueries in SELECT when possible</li>
+            <li>Don't use DISTINCT when EXISTS would suffice</li>
+            <li>Avoid SELECT * in subqueries</li>
+          </ul>
         </div>
-      </section>
+      </div>
 
-      <!-- Section 13: Optimization Tips -->
-      <section class="topic-section" id="optimization">
-        <h2> Subquery Optimization <span class="level-badge advanced">Advanced</span> </h2>
-        <p>Tips for writing efficient subqueries in PostgreSQL.</p>
-
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Do's</h4>
-            <ul>
-              <li>Use EXISTS instead of IN for large subqueries</li>
-              <li>Use CTEs for complex, multi-step queries</li>
-              <li>Use window functions instead of correlated subqueries</li>
-              <li>Add indexes on columns used in subquery joins</li>
-              <li>Use LATERAL for top-N per group queries</li>
-            </ul>
-          </div>
-          <div class="split-item">
-            <h4>Don'ts</h4>
-            <ul>
-              <li>Avoid NOT IN with nullable columns</li>
-              <li>Don't nest too deeply (3+ levels)</li>
-              <li>Avoid correlated subqueries in SELECT when possible</li>
-              <li>Don't use DISTINCT when EXISTS would suffice</li>
-              <li>Avoid SELECT * in subqueries</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Use EXPLAIN ANALYZE to check performance</span>
 <span class="keyword">EXPLAIN ANALYZE</span>
 <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> employees
@@ -781,41 +801,54 @@ cohort_data <span class="keyword">AS</span> (
     <span class="keyword">SELECT</span> <span class="number">1</span> <span class="keyword">FROM</span> orders
     <span class="keyword">WHERE</span> orders.customer_id = customers.id
 );</code>
-        </div>
+      </div>
 
-        <div class="tip-box">
-          <p><strong>Pro tip:</strong> Use <code>EXPLAIN (ANALYZE, BUFFERS)</code> to see actual execution times and I/O statistics. Compare different approaches to find the most efficient pattern for your data.</p>
-        </div>
-      </section>
+      <div class="tip-box">
+        <p><strong>Pro tip:</strong> Use <code>EXPLAIN (ANALYZE, BUFFERS)</code> to see actual execution times and I/O statistics. Compare different approaches to find the most efficient pattern for your data.</p>
+      </div>
+    </section>
 
-    </div>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span class="footer-brand">Data Sheets</span>
+          <p class="footer-copyright">Â© 2026 Data Sheets. All rights reserved.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#">Documentation</a>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Support</a>
+        </div>
+      </div>
+    </footer>
   </main>
-  <script src="../python/python.js"></script>
-  <script src="../app.js"></script>
-  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 19V5M5 12l7-7 7 7"/>
-    </svg>
-  </button>
+
   <script>
-    // Scroll to top functionality
-    const scrollToTopBtn = document.getElementById('scrollToTop');
-    
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        scrollToTopBtn.classList.add('visible');
+    function toggleTheme() {
+      var html = document.documentElement;
+      var themeIcon = document.getElementById('themeIcon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        themeIcon.textContent = 'dark_mode';
       } else {
-        scrollToTopBtn.classList.remove('visible');
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.textContent = 'light_mode';
       }
-    });
-    
-    scrollToTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
+    }
+    (function() {
+      var savedTheme = localStorage.getItem('theme');
+      var themeIcon = document.getElementById('themeIcon');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+        themeIcon.textContent = 'light_mode';
+      } else {
+        themeIcon.textContent = 'dark_mode';
+      }
+    })();
   </script>
-<script src="../hierarchy.js"></script><script src="../sidebar-nav.js"></script>
 </body>
 </html>

@@ -3,41 +3,61 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>*d@ta# | SQL Queries</title>
+  <title>Data Guide | SQL Queries</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
-  <link rel="stylesheet" href="../hub.css" />
-  <link rel="stylesheet" href="../python/python.css" />
-  <link rel="stylesheet" href="../sidebar-nav.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../shared.css" />
 </head>
 
-<body class="home-with-sidebar">
-  <div class="bg-orb orb-a" aria-hidden="true"></div>
-  <div class="bg-orb orb-b" aria-hidden="true"></div>
-  <div class="bg-orb orb-c" aria-hidden="true"></div>
+<body class="topic-page">
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <a href="../../index.html" class="brand">
+        <div class="brand-icon">
+          <span class="material-symbols-outlined">architecture</span>
+        </div>
+        <span class="brand-text">Data Sheets</span>
+      </a>
+      <div class="nav-center">
+        <div class="search-bar">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" class="search-input" placeholder="Search architecture, patterns, or cloud..." />
+        </div>
+      </div>
+      <div class="nav-right">
+        <button class="nav-icon-btn" id="themeToggle" onclick="toggleTheme()">
+          <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+        </button>
+        <a href="../portfolios/portfolio.html" class="user-avatar">
+          <img src="../../assets/images/profile-pic.jpeg" alt="User profile" />
+        </a>
+      </div>
+    </div>
+  </header>
 
   <main class="main-content">
-    
-    <div class="page-wrap">
-      <section class="hero">
-        <p class="eyebrow">SQL Guide</p>
+    <header class="page-header page-header--row">
+      <a href="index.html" class="back-link back-link--round" aria-label="Back">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </a>
+      <div class="page-header-inner">
         <h1>SQL Queries</h1>
-        <p class="hero-copy">Master data retrieval with SELECT statements, filtering, sorting, and aggregation in PostgreSQL.</p>
-      </section>
+        <p>SELECT, WHERE, GROUP BY, ORDER BY - essential query patterns.</p>
+      </div>
+    </header>
 
-      <!-- Section 1: SELECT Basics -->
-      <section class="topic-section" id="select-basics">
-        <h2> SELECT Basics <span class="level-badge basic">Basic</span> </h2>
-        <p>The SELECT statement retrieves data from one or more tables. It's the most fundamental SQL command.</p>
+        <!-- Section 1: SELECT Basics -->
+    <section class="topic-section" id="select-basics">
+      <h2> SELECT Basics <span class="level-badge basic">Basic</span> </h2>
+      <p>The SELECT statement retrieves data from one or more tables. It's the most fundamental SQL command.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Selecting Columns</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Selecting Columns</h4>
+          <div class="code-block">
 <code><span class="comment">-- Select all columns</span>
 <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> employees;
 
@@ -51,11 +71,11 @@
     salary <span class="keyword">AS</span> monthly_salary,
     salary * <span class="number">12</span> <span class="keyword">AS</span> annual_salary
 <span class="keyword">FROM</span> employees;</code>
-            </div>
           </div>
-          <div class="split-item">
-            <h4>Calculations in SELECT</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>Calculations in SELECT</h4>
+          <div class="code-block">
 <code><span class="comment">-- Arithmetic expressions</span>
 <span class="keyword">SELECT</span>
     product_name,
@@ -70,17 +90,17 @@
     first_name || <span class="string">' '</span> || last_name <span class="keyword">AS</span> full_name,
     <span class="function">CONCAT</span>(city, <span class="string">', '</span>, country) <span class="keyword">AS</span> location
 <span class="keyword">FROM</span> customers;</code>
-            </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 2: WHERE Clause -->
-      <section class="topic-section" id="where-clause">
-        <h2> WHERE Clause <span class="level-badge basic">Basic</span> </h2>
-        <p>The WHERE clause filters rows based on specified conditions, returning only rows that evaluate to true.</p>
+    <!-- Section 2: WHERE Clause -->
+    <section class="topic-section" id="where-clause">
+      <h2> WHERE Clause <span class="level-badge basic">Basic</span> </h2>
+      <p>The WHERE clause filters rows based on specified conditions, returning only rows that evaluate to true.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Basic filtering</span>
 <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> employees
 <span class="keyword">WHERE</span> department = <span class="string">'Engineering'</span>;
@@ -100,18 +120,18 @@
 <span class="keyword">WHERE</span> order_date = <span class="function">CURRENT_DATE</span>;
 <span class="keyword">WHERE</span> order_date > <span class="string">'2024-01-01'</span>::<span class="function">DATE</span>;
 <span class="keyword">WHERE</span> created_at >= <span class="function">NOW</span>() - <span class="function">INTERVAL</span> <span class="string">'7 days'</span>;</code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 3: Comparison Operators -->
-      <section class="topic-section" id="comparison-ops">
-        <h2> Comparison Operators <span class="level-badge basic">Basic</span> </h2>
-        <p>SQL provides various operators for comparing values in WHERE clauses.</p>
+    <!-- Section 3: Comparison Operators -->
+    <section class="topic-section" id="comparison-ops">
+      <h2> Comparison Operators <span class="level-badge basic">Basic</span> </h2>
+      <p>SQL provides various operators for comparing values in WHERE clauses.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Standard Operators</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Standard Operators</h4>
+          <div class="code-block">
 <code><span class="comment">-- Equality and inequality</span>
 <span class="keyword">WHERE</span> status = <span class="string">'active'</span>
 <span class="keyword">WHERE</span> status != <span class="string">'archived'</span>
@@ -121,11 +141,11 @@
 <span class="keyword">WHERE</span> age > <span class="number">18</span>
 <span class="keyword">WHERE</span> price <= <span class="number">100</span>
 <span class="keyword">WHERE</span> quantity >= <span class="number">1</span></code>
-            </div>
           </div>
-          <div class="split-item">
-            <h4>IN Operator</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>IN Operator</h4>
+          <div class="code-block">
 <code><span class="comment">-- Match against list of values</span>
 <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> employees
 <span class="keyword">WHERE</span> department <span class="keyword">IN</span> (
@@ -143,17 +163,17 @@
 
 <span class="comment">-- NOT IN</span>
 <span class="keyword">WHERE</span> status <span class="keyword">NOT IN</span> (<span class="string">'cancelled'</span>, <span class="string">'archived'</span>)</code>
-            </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 4: Logical Operators -->
-      <section class="topic-section" id="logical-ops">
-        <h2> Logical Operators <span class="level-badge basic">Basic</span> </h2>
-        <p>Combine multiple conditions using AND, OR, and NOT operators.</p>
+    <!-- Section 4: Logical Operators -->
+    <section class="topic-section" id="logical-ops">
+      <h2> Logical Operators <span class="level-badge basic">Basic</span> </h2>
+      <p>Combine multiple conditions using AND, OR, and NOT operators.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- AND: All conditions must be true</span>
 <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> employees
 <span class="keyword">WHERE</span> salary > <span class="number">50000</span>
@@ -177,18 +197,18 @@
 <span class="comment">-- IN is equivalent to multiple ORs</span>
 <span class="keyword">WHERE</span> dept <span class="keyword">IN</span> (<span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'C'</span>)  <span class="comment">-- Simpler</span>
 <span class="keyword">WHERE</span> dept = <span class="string">'A'</span> <span class="keyword">OR</span> dept = <span class="string">'B'</span> <span class="keyword">OR</span> dept = <span class="string">'C'</span></code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 5: Pattern Matching -->
-      <section class="topic-section" id="pattern-matching">
-        <h2> Pattern Matching <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Use LIKE, ILIKE, and regular expressions for flexible string matching.</p>
+    <!-- Section 5: Pattern Matching -->
+    <section class="topic-section" id="pattern-matching">
+      <h2> Pattern Matching <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Use LIKE, ILIKE, and regular expressions for flexible string matching.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>LIKE & ILIKE</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>LIKE & ILIKE</h4>
+          <div class="code-block">
 <code><span class="comment">-- LIKE (case-sensitive)</span>
 <span class="keyword">WHERE</span> name <span class="keyword">LIKE</span> <span class="string">'J%'</span>       <span class="comment">-- Starts with J</span>
 <span class="keyword">WHERE</span> name <span class="keyword">LIKE</span> <span class="string">'%son'</span>     <span class="comment">-- Ends with son</span>
@@ -198,11 +218,11 @@
 <span class="comment">-- ILIKE (PostgreSQL: case-insensitive)</span>
 <span class="keyword">WHERE</span> email <span class="keyword">ILIKE</span> <span class="string">'%@gmail.com'</span>
 <span class="keyword">WHERE</span> name <span class="keyword">ILIKE</span> <span class="string">'%smith%'</span></code>
-            </div>
           </div>
-          <div class="split-item">
-            <h4>Regular Expressions</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>Regular Expressions</h4>
+          <div class="code-block">
 <code><span class="comment">-- ~ (matches regex, case-sensitive)</span>
 <span class="keyword">WHERE</span> name <span class="keyword">~</span> <span class="string">'^[A-Z][a-z]+$'</span>  <span class="comment">-- Capitalized name</span>
 <span class="keyword">WHERE</span> email <span class="keyword">~</span> <span class="string">'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'</span>
@@ -216,17 +236,17 @@
 
 <span class="comment">-- SIMILAR TO (SQL standard regex)</span>
 <span class="keyword">WHERE</span> name <span class="keyword">SIMILAR TO</span> <span class="string">'[A-Z]%'</span></code>
-            </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 6: Range & NULL -->
-      <section class="topic-section" id="range-null">
-        <h2> Range and NULL Handling <span class="level-badge basic">Basic</span> </h2>
-        <p>BETWEEN for ranges and IS NULL/IS NOT NULL for handling missing values.</p>
+    <!-- Section 6: Range & NULL -->
+    <section class="topic-section" id="range-null">
+      <h2> Range and NULL Handling <span class="level-badge basic">Basic</span> </h2>
+      <p>BETWEEN for ranges and IS NULL/IS NOT NULL for handling missing values.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- BETWEEN (inclusive on both ends)</span>
 <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> products
 <span class="keyword">WHERE</span> price <span class="keyword">BETWEEN</span> <span class="number">10</span> <span class="keyword">AND</span> <span class="number">100</span>;
@@ -252,18 +272,18 @@
     <span class="function">NULLIF</span>(quantity, <span class="number">0</span>) <span class="keyword">AS</span> safe_quantity,
     price / <span class="function">NULLIF</span>(quantity, <span class="number">0</span>) <span class="keyword">AS</span> unit_price
 <span class="keyword">FROM</span> orders;</code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 7: ORDER BY -->
-      <section class="topic-section" id="order-by">
-        <h2> ORDER BY <span class="level-badge basic">Basic</span> </h2>
-        <p>Sort query results by one or more columns in ascending or descending order.</p>
+    <!-- Section 7: ORDER BY -->
+    <section class="topic-section" id="order-by">
+      <h2> ORDER BY <span class="level-badge basic">Basic</span> </h2>
+      <p>Sort query results by one or more columns in ascending or descending order.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Basic Sorting</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Basic Sorting</h4>
+          <div class="code-block">
 <code><span class="comment">-- Ascending (default)</span>
 <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> employees
 <span class="keyword">ORDER BY</span> name;
@@ -280,11 +300,11 @@
 <span class="keyword">SELECT</span> name, salary, department
 <span class="keyword">FROM</span> employees
 <span class="keyword">ORDER BY</span> <span class="number">2</span> <span class="keyword">DESC</span>;  <span class="comment">-- Sort by 2nd column (salary)</span></code>
-            </div>
           </div>
-          <div class="split-item">
-            <h4>Advanced Sorting</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>Advanced Sorting</h4>
+          <div class="code-block">
 <code><span class="comment">-- Sort by expression</span>
 <span class="keyword">SELECT</span> name, salary
 <span class="keyword">FROM</span> employees
@@ -307,17 +327,17 @@
 <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> products
 <span class="keyword">ORDER BY</span> <span class="function">RANDOM</span>()  <span class="comment">-- PostgreSQL</span>
 <span class="keyword">LIMIT</span> <span class="number">5</span>;</code>
-            </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 8: LIMIT & OFFSET -->
-      <section class="topic-section" id="limit-offset">
-        <h2> LIMIT and OFFSET <span class="level-badge basic">Basic</span> </h2>
-        <p>Control the number of rows returned and implement pagination.</p>
+    <!-- Section 8: LIMIT & OFFSET -->
+    <section class="topic-section" id="limit-offset">
+      <h2> LIMIT and OFFSET <span class="level-badge basic">Basic</span> </h2>
+      <p>Control the number of rows returned and implement pagination.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Get top N rows</span>
 <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> employees
 <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>
@@ -345,22 +365,22 @@
 <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> employees
 <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>
 <span class="keyword">FETCH FIRST</span> <span class="number">10</span> <span class="keyword">ROWS WITH TIES</span>;</code>
-        </div>
+      </div>
 
-        <div class="tip-box">
-          <p><strong>Tip:</strong> Always use ORDER BY with LIMIT to get consistent results. Without ORDER BY, the order of rows is undefined and may change between queries.</p>
-        </div>
-      </section>
+      <div class="tip-box">
+        <p><strong>Tip:</strong> Always use ORDER BY with LIMIT to get consistent results. Without ORDER BY, the order of rows is undefined and may change between queries.</p>
+      </div>
+    </section>
 
-      <!-- Section 9: DISTINCT -->
-      <section class="topic-section" id="distinct">
-        <h2> DISTINCT <span class="level-badge basic">Basic</span> </h2>
-        <p>Remove duplicate rows from query results.</p>
+    <!-- Section 9: DISTINCT -->
+    <section class="topic-section" id="distinct">
+      <h2> DISTINCT <span class="level-badge basic">Basic</span> </h2>
+      <p>Remove duplicate rows from query results.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Basic DISTINCT</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Basic DISTINCT</h4>
+          <div class="code-block">
 <code><span class="comment">-- Unique values in one column</span>
 <span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> department
 <span class="keyword">FROM</span> employees;
@@ -376,11 +396,11 @@
 <span class="comment">-- Count distinct combinations</span>
 <span class="keyword">SELECT</span> <span class="function">COUNT</span>(<span class="keyword">DISTINCT</span> department, title)
 <span class="keyword">FROM</span> employees;</code>
-            </div>
           </div>
-          <div class="split-item">
-            <h4>DISTINCT ON (PostgreSQL)</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>DISTINCT ON (PostgreSQL)</h4>
+          <div class="code-block">
 <code><span class="comment">-- Get first row per group</span>
 <span class="keyword">SELECT DISTINCT ON</span> (department)
     department,
@@ -404,20 +424,20 @@
     sales
 <span class="keyword">FROM</span> products
 <span class="keyword">ORDER BY</span> category, sales <span class="keyword">DESC</span>;</code>
-            </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 10: Aggregate Functions -->
-      <section class="topic-section" id="aggregate-functions">
-        <h2> Aggregate Functions <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Calculate summary statistics from multiple rows.</p>
+    <!-- Section 10: Aggregate Functions -->
+    <section class="topic-section" id="aggregate-functions">
+      <h2> Aggregate Functions <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Calculate summary statistics from multiple rows.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Common Aggregates</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Common Aggregates</h4>
+          <div class="code-block">
 <code><span class="comment">-- Count rows</span>
 <span class="keyword">SELECT</span> <span class="function">COUNT</span>(*) <span class="keyword">FROM</span> employees;
 <span class="keyword">SELECT</span> <span class="function">COUNT</span>(email) <span class="keyword">FROM</span> employees;  <span class="comment">-- Excludes NULLs</span>
@@ -435,11 +455,11 @@
     <span class="function">COUNT</span>(*) <span class="keyword">FILTER</span> (<span class="keyword">WHERE</span> is_active) <span class="keyword">AS</span> active_count,
     <span class="function">AVG</span>(salary) <span class="keyword">FILTER</span> (<span class="keyword">WHERE</span> dept = <span class="string">'Engineering'</span>) <span class="keyword">AS</span> eng_avg
 <span class="keyword">FROM</span> employees;</code>
-            </div>
           </div>
-          <div class="split-item">
-            <h4>Statistical Aggregates</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>Statistical Aggregates</h4>
+          <div class="code-block">
 <code><span class="comment">-- Standard deviation and variance</span>
 <span class="keyword">SELECT</span>
     <span class="function">STDDEV</span>(salary) <span class="keyword">AS</span> stddev_salary,
@@ -467,17 +487,17 @@
     <span class="function">JSON_AGG</span>(<span class="function">JSON_BUILD_OBJECT</span>(<span class="string">'name'</span>, name, <span class="string">'salary'</span>, salary))
 <span class="keyword">FROM</span> employees
 <span class="keyword">GROUP BY</span> department;</code>
-            </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 11: GROUP BY -->
-      <section class="topic-section" id="group-by">
-        <h2> GROUP BY <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Group rows that share a property and aggregate each group.</p>
+    <!-- Section 11: GROUP BY -->
+    <section class="topic-section" id="group-by">
+      <h2> GROUP BY <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Group rows that share a property and aggregate each group.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Basic grouping</span>
 <span class="keyword">SELECT</span>
     department,
@@ -518,18 +538,18 @@
 <span class="comment">-- ROLLUP and CUBE</span>
 <span class="keyword">GROUP BY</span> <span class="keyword">ROLLUP</span>(department, title)  <span class="comment">-- Hierarchical subtotals</span>
 <span class="keyword">GROUP BY</span> <span class="keyword">CUBE</span>(department, title)     <span class="comment">-- All combinations</span></code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 12: HAVING -->
-      <section class="topic-section" id="having">
-        <h2> HAVING Clause <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Filter groups after aggregation (WHERE filters rows before aggregation).</p>
+    <!-- Section 12: HAVING -->
+    <section class="topic-section" id="having">
+      <h2> HAVING Clause <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Filter groups after aggregation (WHERE filters rows before aggregation).</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>HAVING Basics</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>HAVING Basics</h4>
+          <div class="code-block">
 <code><span class="comment">-- Filter groups by aggregate</span>
 <span class="keyword">SELECT</span> department, <span class="function">COUNT</span>(*) <span class="keyword">AS</span> emp_count
 <span class="keyword">FROM</span> employees
@@ -544,11 +564,11 @@
 <span class="keyword">GROUP BY</span> department
 <span class="keyword">HAVING</span> <span class="function">AVG</span>(salary) > <span class="number">60000</span>
    <span class="keyword">AND</span> <span class="function">COUNT</span>(*) >= <span class="number">3</span>;</code>
-            </div>
           </div>
-          <div class="split-item">
-            <h4>WHERE vs HAVING</h4>
-            <div class="code-block">
+        </div>
+        <div class="split-item">
+          <h4>WHERE vs HAVING</h4>
+          <div class="code-block">
 <code><span class="comment">-- WHERE: Filter before grouping</span>
 <span class="keyword">SELECT</span> department, <span class="function">AVG</span>(salary)
 <span class="keyword">FROM</span> employees
@@ -567,26 +587,26 @@
 <span class="keyword">WHERE</span> hire_date >= <span class="string">'2020-01-01'</span>
 <span class="keyword">GROUP BY</span> department
 <span class="keyword">HAVING</span> <span class="function">COUNT</span>(*) >= <span class="number">2</span>;</code>
-            </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 13: CASE Expressions -->
-      <section class="topic-section" id="case-expressions">
-        <h2> CASE Expressions <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Conditional logic within SQL queries - like if-then-else.</p>
+    <!-- Section 13: CASE Expressions -->
+    <section class="topic-section" id="case-expressions">
+      <h2> CASE Expressions <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Conditional logic within SQL queries - like if-then-else.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Simple CASE</span>
 <span class="keyword">SELECT</span>
     name,
     department,
     <span class="keyword">CASE</span> department
-        <span class="keyword">WHEN</span> <span class="string">'Engineering'</span> <span class="keyword">THEN</span> <span class="string">'Tech'</span>
-        <span class="keyword">WHEN</span> <span class="string">'Product'</span> <span class="keyword">THEN</span> <span class="string">'Tech'</span>
-        <span class="keyword">WHEN</span> <span class="string">'Sales'</span> <span class="keyword">THEN</span> <span class="string">'Revenue'</span>
-        <span class="keyword">ELSE</span> <span class="string">'Other'</span>
+      <span class="keyword">WHEN</span> <span class="string">'Engineering'</span> <span class="keyword">THEN</span> <span class="string">'Tech'</span>
+      <span class="keyword">WHEN</span> <span class="string">'Product'</span> <span class="keyword">THEN</span> <span class="string">'Tech'</span>
+      <span class="keyword">WHEN</span> <span class="string">'Sales'</span> <span class="keyword">THEN</span> <span class="string">'Revenue'</span>
+      <span class="keyword">ELSE</span> <span class="string">'Other'</span>
     <span class="keyword">END</span> <span class="keyword">AS</span> division
 <span class="keyword">FROM</span> employees;
 
@@ -595,10 +615,10 @@
     name,
     salary,
     <span class="keyword">CASE</span>
-        <span class="keyword">WHEN</span> salary >= <span class="number">100000</span> <span class="keyword">THEN</span> <span class="string">'Senior'</span>
-        <span class="keyword">WHEN</span> salary >= <span class="number">60000</span> <span class="keyword">THEN</span> <span class="string">'Mid'</span>
-        <span class="keyword">WHEN</span> salary >= <span class="number">40000</span> <span class="keyword">THEN</span> <span class="string">'Junior'</span>
-        <span class="keyword">ELSE</span> <span class="string">'Entry'</span>
+      <span class="keyword">WHEN</span> salary >= <span class="number">100000</span> <span class="keyword">THEN</span> <span class="string">'Senior'</span>
+      <span class="keyword">WHEN</span> salary >= <span class="number">60000</span> <span class="keyword">THEN</span> <span class="string">'Mid'</span>
+      <span class="keyword">WHEN</span> salary >= <span class="number">40000</span> <span class="keyword">THEN</span> <span class="string">'Junior'</span>
+      <span class="keyword">ELSE</span> <span class="string">'Entry'</span>
     <span class="keyword">END</span> <span class="keyword">AS</span> level
 <span class="keyword">FROM</span> employees;
 
@@ -623,15 +643,15 @@
     <span class="function">SUM</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> department = <span class="string">'Engineering'</span> <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>) <span class="keyword">AS</span> eng_count,
     <span class="function">SUM</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> department = <span class="string">'Sales'</span> <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>) <span class="keyword">AS</span> sales_count
 <span class="keyword">FROM</span> employees;</code>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 14: Window Basics -->
-      <section class="topic-section" id="window-basics">
-        <h2> Window Function Basics <span class="level-badge advanced">Advanced</span> </h2>
-        <p>Window functions perform calculations across a set of rows related to the current row.</p>
+    <!-- Section 14: Window Basics -->
+    <section class="topic-section" id="window-basics">
+      <h2> Window Function Basics <span class="level-badge advanced">Advanced</span> </h2>
+      <p>Window functions perform calculations across a set of rows related to the current row.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Row numbers</span>
 <span class="keyword">SELECT</span>
     name,
@@ -646,8 +666,8 @@
     department,
     salary,
     <span class="function">ROW_NUMBER</span>() <span class="keyword">OVER</span> (
-        <span class="keyword">PARTITION BY</span> department
-        <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>
+      <span class="keyword">PARTITION BY</span> department
+      <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>
     ) <span class="keyword">AS</span> dept_rank
 <span class="keyword">FROM</span> employees;
 
@@ -663,8 +683,8 @@
     order_date,
     amount,
     <span class="function">AVG</span>(amount) <span class="keyword">OVER</span> (
-        <span class="keyword">ORDER BY</span> order_date
-        <span class="keyword">ROWS BETWEEN</span> <span class="number">2</span> <span class="keyword">PRECEDING AND CURRENT ROW</span>
+      <span class="keyword">ORDER BY</span> order_date
+      <span class="keyword">ROWS BETWEEN</span> <span class="number">2</span> <span class="keyword">PRECEDING AND CURRENT ROW</span>
     ) <span class="keyword">AS</span> moving_avg_3
 <span class="keyword">FROM</span> orders;
 
@@ -683,41 +703,54 @@
     <span class="function">PERCENT_RANK</span>() <span class="keyword">OVER</span> (<span class="keyword">ORDER BY</span> salary) <span class="keyword">AS</span> pct_rank,
     <span class="function">CUME_DIST</span>() <span class="keyword">OVER</span> (<span class="keyword">ORDER BY</span> salary) <span class="keyword">AS</span> cumulative_dist
 <span class="keyword">FROM</span> employees;</code>
-        </div>
+      </div>
 
-        <div class="tip-box">
-          <p><strong>Tip:</strong> Window functions don't collapse rows like GROUP BY. Use them when you need aggregated values while preserving individual row details.</p>
-        </div>
-      </section>
+      <div class="tip-box">
+        <p><strong>Tip:</strong> Window functions don't collapse rows like GROUP BY. Use them when you need aggregated values while preserving individual row details.</p>
+      </div>
+    </section>
 
-    </div>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span class="footer-brand">Data Sheets</span>
+          <p class="footer-copyright">Â© 2026 Data Sheets. All rights reserved.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#">Documentation</a>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Support</a>
+        </div>
+      </div>
+    </footer>
   </main>
-  <script src="../python/python.js"></script>
-  <script src="../app.js"></script>
-  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 19V5M5 12l7-7 7 7"/>
-    </svg>
-  </button>
+
   <script>
-    // Scroll to top functionality
-    const scrollToTopBtn = document.getElementById('scrollToTop');
-    
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        scrollToTopBtn.classList.add('visible');
+    function toggleTheme() {
+      var html = document.documentElement;
+      var themeIcon = document.getElementById('themeIcon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        themeIcon.textContent = 'dark_mode';
       } else {
-        scrollToTopBtn.classList.remove('visible');
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.textContent = 'light_mode';
       }
-    });
-    
-    scrollToTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
+    }
+    (function() {
+      var savedTheme = localStorage.getItem('theme');
+      var themeIcon = document.getElementById('themeIcon');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+        themeIcon.textContent = 'light_mode';
+      } else {
+        themeIcon.textContent = 'dark_mode';
+      }
+    })();
   </script>
-<script src="../hierarchy.js"></script><script src="../sidebar-nav.js"></script>
 </body>
 </html>

@@ -3,68 +3,87 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>*d@ta# | Data Pipelines</title>
+  <title>Data Guide | Data Pipelines</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
-  <link rel="stylesheet" href="../hub.css" />
-  <link rel="stylesheet" href="../python/python.css" />
-  <link rel="stylesheet" href="../sidebar-nav.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../shared.css" />
 </head>
 
-<body class="home-with-sidebar">
-  <div class="bg-orb orb-a" aria-hidden="true"></div>
-  <div class="bg-orb orb-b" aria-hidden="true"></div>
-  <div class="bg-orb orb-c" aria-hidden="true"></div>
-
-
+<body class="topic-page">
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <a href="../../index.html" class="brand">
+        <div class="brand-icon">
+          <span class="material-symbols-outlined">architecture</span>
+        </div>
+        <span class="brand-text">Data Sheets</span>
+      </a>
+      <div class="nav-center">
+        <div class="search-bar">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" class="search-input" placeholder="Search architecture, patterns, or cloud..." />
+        </div>
+      </div>
+      <div class="nav-right">
+        <button class="nav-icon-btn" id="themeToggle" onclick="toggleTheme()">
+          <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+        </button>
+        <a href="../portfolios/portfolio.html" class="user-avatar">
+          <img src="../../assets/images/profile-pic.jpeg" alt="User profile" />
+        </a>
+      </div>
+    </div>
+  </header>
 
   <main class="main-content">
-    
-    <div class="page-wrap">
-      <section class="hero">
+    <header class="page-header page-header--row">
+      <a href="index.html" class="back-link back-link--round" aria-label="Back">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </a>
+      <div class="page-header-inner">
         <h1>Data Pipelines</h1>
-        <p class="hero-copy">A focused guide to Data Pipelines.</p>
-      </section>
+        <p>ETL, ELT, orchestration, and monitoring — building robust data pipelines.</p>
+      </div>
+    </header>
+<section class="topic-section" id="etl">
+      <h2> ETL (Extract, Transform, Load) <span class="level-badge basic">Basic</span> </h2>
+      <p>ETL extracts data from sources, transforms it in a staging area, then loads into the target system.</p>
 
-      <!-- Section 1: ETL -->
-      <section class="topic-section" id="etl">
-        <h2> ETL (Extract, Transform, Load) <span class="level-badge basic">Basic</span> </h2>
-        <p>ETL extracts data from sources, transforms it in a staging area, then loads into the target system.</p>
-
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>ETL Flow</h4>
-            <div class="flowchart">
-              <div class="flow-row">
-                <span class="flow-node">Extract</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-node">Transform</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-node">Load</span>
-              </div>
-              <div class="flow-row" style="margin-top: 0.5rem;">
-                <span class="flow-node">Source Systems</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-node">Staging Server</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-node">Data Warehouse</span>
-              </div>
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>ETL Flow</h4>
+          <div class="flowchart">
+            <div class="flow-row">
+              <span class="flow-node">Extract</span>
+              <span class="flow-arrow">→</span>
+              <span class="flow-node">Transform</span>
+              <span class="flow-arrow">→</span>
+              <span class="flow-node">Load</span>
+            </div>
+            <div class="flow-row" style="margin-top: 0.5rem;">
+              <span class="flow-node">Source Systems</span>
+              <span class="flow-arrow">→</span>
+              <span class="flow-node">Staging Server</span>
+              <span class="flow-arrow">→</span>
+              <span class="flow-node">Data Warehouse</span>
             </div>
           </div>
-          <div class="split-item">
-            <h4>Characteristics</h4>
-            <ul>
-              <li>Transform before loading</li>
-              <li>Requires staging area</li>
-              <li>Better for complex transformations</li>
-              <li>Data warehouse optimized</li>
-            </ul>
-          </div>
         </div>
+        <div class="split-item">
+          <h4>Characteristics</h4>
+          <ul>
+            <li>Transform before loading</li>
+            <li>Requires staging area</li>
+            <li>Better for complex transformations</li>
+            <li>Data warehouse optimized</li>
+          </ul>
+        </div>
+      </div>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment"># Python ETL example</span>
 <span class="keyword">import</span> pandas <span class="keyword">as</span> pd
 
@@ -87,47 +106,47 @@
 raw = <span class="function">extract</span>()
 clean = <span class="function">transform</span>(raw)
 <span class="function">load</span>(clean)
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 2: ELT -->
-      <section class="topic-section" id="elt">
-        <h2> ELT (Extract, Load, Transform) <span class="level-badge basic">Basic</span> </h2>
-        <p>ELT loads raw data directly into the target system, then transforms it using the target's compute power.</p>
+    <!-- Section 2: ELT -->
+    <section class="topic-section" id="elt">
+      <h2> ELT (Extract, Load, Transform) <span class="level-badge basic">Basic</span> </h2>
+      <p>ELT loads raw data directly into the target system, then transforms it using the target's compute power.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>ELT Flow</h4>
-            <div class="flowchart">
-              <div class="flow-row">
-                <span class="flow-node">Extract</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-node">Load</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-node">Transform</span>
-              </div>
-              <div class="flow-row" style="margin-top: 0.5rem;">
-                <span class="flow-node">Source Systems</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-node">Data Lake</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-node">SQL Transform</span>
-              </div>
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>ELT Flow</h4>
+          <div class="flowchart">
+            <div class="flow-row">
+              <span class="flow-node">Extract</span>
+              <span class="flow-arrow">→</span>
+              <span class="flow-node">Load</span>
+              <span class="flow-arrow">→</span>
+              <span class="flow-node">Transform</span>
+            </div>
+            <div class="flow-row" style="margin-top: 0.5rem;">
+              <span class="flow-node">Source Systems</span>
+              <span class="flow-arrow">→</span>
+              <span class="flow-node">Data Lake</span>
+              <span class="flow-arrow">→</span>
+              <span class="flow-node">SQL Transform</span>
             </div>
           </div>
-          <div class="split-item">
-            <h4>Characteristics</h4>
-            <ul>
-              <li>Transform after loading</li>
-              <li>No staging server needed</li>
-              <li>Leverages target compute (dbt, Spark)</li>
-              <li>Modern cloud-native approach</li>
-            </ul>
-          </div>
         </div>
+        <div class="split-item">
+          <h4>Characteristics</h4>
+          <ul>
+            <li>Transform after loading</li>
+            <li>No staging server needed</li>
+            <li>Leverages target compute (dbt, Spark)</li>
+            <li>Modern cloud-native approach</li>
+          </ul>
+        </div>
+      </div>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- dbt-style ELT transformations</span>
 
 <span class="comment">-- Stage: Raw data (loaded as-is)</span>
@@ -147,62 +166,62 @@ clean = <span class="function">transform</span>(raw)
 <span class="comment">-- Serve: Business model</span>
 <span class="keyword">CREATE TABLE</span> dim_events <span class="keyword">AS</span>
 <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> stg_events;
-        </code>
+      </code>
+      </div>
+    </section>
+
+    <!-- Section 3: Batch vs Streaming -->
+    <section class="topic-section" id="batch-streaming">
+      <h2> Batch vs Streaming <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Batch processes data in chunks; streaming processes data continuously as it arrives.</p>
+
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Batch Processing</h4>
+          <ul>
+            <li>Processes large volumes periodically</li>
+            <li>Higher latency (minutes to hours)</li>
+            <li>Complete data for accuracy</li>
+            <li><strong>Tools:</strong> Spark, Hadoop, dbt</li>
+          </ul>
         </div>
-      </section>
-
-      <!-- Section 3: Batch vs Streaming -->
-      <section class="topic-section" id="batch-streaming">
-        <h2> Batch vs Streaming <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Batch processes data in chunks; streaming processes data continuously as it arrives.</p>
-
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Batch Processing</h4>
-            <ul>
-              <li>Processes large volumes periodically</li>
-              <li>Higher latency (minutes to hours)</li>
-              <li>Complete data for accuracy</li>
-              <li><strong>Tools:</strong> Spark, Hadoop, dbt</li>
-            </ul>
-          </div>
-          <div class="split-item">
-            <h4>Streaming Processing</h4>
-            <ul>
-              <li>Processes data in real-time</li>
-              <li>Low latency (milliseconds)</li>
-              <li>Approximate results possible</li>
-              <li><strong>Tools:</strong> Kafka, Flink, Spark Streaming</li>
-            </ul>
-          </div>
+        <div class="split-item">
+          <h4>Streaming Processing</h4>
+          <ul>
+            <li>Processes data in real-time</li>
+            <li>Low latency (milliseconds)</li>
+            <li>Approximate results possible</li>
+            <li><strong>Tools:</strong> Kafka, Flink, Spark Streaming</li>
+          </ul>
         </div>
+      </div>
 
-        <div class="flowchart">
-          <h3>Batch vs Streaming Decision</h3>
-          <div class="flow-row">
-            <span class="flow-node">Latency &lt; 1 min?</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-node">Streaming</span>
-          </div>
-          <div class="flow-row" style="margin-top: 0.5rem;">
-            <span class="flow-node">Complex joins?</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-node">Batch</span>
-          </div>
-          <div class="flow-row" style="margin-top: 0.5rem;">
-            <span class="flow-node">Need exactly-once?</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-node">Batch or Micro-batch</span>
-          </div>
+      <div class="flowchart">
+        <h3>Batch vs Streaming Decision</h3>
+        <div class="flow-row">
+          <span class="flow-node">Latency &lt; 1 min?</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node">Streaming</span>
         </div>
-      </section>
+        <div class="flow-row" style="margin-top: 0.5rem;">
+          <span class="flow-node">Complex joins?</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node">Batch</span>
+        </div>
+        <div class="flow-row" style="margin-top: 0.5rem;">
+          <span class="flow-node">Need exactly-once?</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node">Batch or Micro-batch</span>
+        </div>
+      </div>
+    </section>
 
-      <!-- Section 4: Data Sources -->
-      <section class="topic-section" id="sources">
-        <h2> Data Sources <span class="level-badge basic">Basic</span> </h2>
-        <p>Data pipelines ingest from diverse sources, each with unique characteristics and challenges.</p>
+    <!-- Section 4: Data Sources -->
+    <section class="topic-section" id="sources">
+      <h2> Data Sources <span class="level-badge basic">Basic</span> </h2>
+      <p>Data pipelines ingest from diverse sources, each with unique characteristics and challenges.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Common data sources</span>
 
 <span class="comment">-- 1. Databases (RDBMS)</span>
@@ -223,52 +242,52 @@ clean = <span class="function">transform</span>(raw)
 
 <span class="comment">-- 6. IoT sensors</span>
 <span class="comment">-- MQTT, time-series telemetry</span>
-        </code>
+      </code>
+      </div>
+
+      <div class="flowchart">
+        <h3>Source → Ingestion Pattern</h3>
+        <div class="flow-row">
+          <span class="flow-node">Database</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node">CDC / Full Load</span>
         </div>
-
-        <div class="flowchart">
-          <h3>Source → Ingestion Pattern</h3>
-          <div class="flow-row">
-            <span class="flow-node">Database</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-node">CDC / Full Load</span>
-          </div>
-          <div class="flow-row" style="margin-top: 0.5rem;">
-            <span class="flow-node">API</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-node">REST Polling / Webhook</span>
-          </div>
-          <div class="flow-row" style="margin-top: 0.5rem;">
-            <span class="flow-node">Files</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-node">Scheduled File Watch</span>
-          </div>
-          <div class="flow-row" style="margin-top: 0.5rem;">
-            <span class="flow-node">Events</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-node">Stream Consumer</span>
-          </div>
+        <div class="flow-row" style="margin-top: 0.5rem;">
+          <span class="flow-node">API</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node">REST Polling / Webhook</span>
         </div>
-      </section>
+        <div class="flow-row" style="margin-top: 0.5rem;">
+          <span class="flow-node">Files</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node">Scheduled File Watch</span>
+        </div>
+        <div class="flow-row" style="margin-top: 0.5rem;">
+          <span class="flow-node">Events</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node">Stream Consumer</span>
+        </div>
+      </div>
+    </section>
 
-      <!-- Section 5: Staging -->
-      <section class="topic-section" id="staging">
-        <h2> Staging Area <span class="level-badge basic">Basic</span> </h2>
-        <p>The staging area is an intermediate storage zone where raw data lands before transformation.</p>
+    <!-- Section 5: Staging -->
+    <section class="topic-section" id="staging">
+      <h2> Staging Area <span class="level-badge basic">Basic</span> </h2>
+      <p>The staging area is an intermediate storage zone where raw data lands before transformation.</p>
 
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Purpose</h4>
-            <ul>
-              <li>Decouple extraction from transformation</li>
-              <li>Preserve raw data for reprocessing</li>
-              <li>Handle schema evolution</li>
-              <li>Enable data quality checks</li>
-            </ul>
-          </div>
-          <div class="split-item">
-            <h4>Staging Design</h4>
-            <div class="code-block">
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Purpose</h4>
+          <ul>
+            <li>Decouple extraction from transformation</li>
+            <li>Preserve raw data for reprocessing</li>
+            <li>Handle schema evolution</li>
+            <li>Enable data quality checks</li>
+          </ul>
+        </div>
+        <div class="split-item">
+          <h4>Staging Design</h4>
+          <div class="code-block">
 <code><span class="comment">-- Staging schema (minimal transformation)</span>
 <span class="keyword">CREATE SCHEMA</span> staging;
 
@@ -284,18 +303,18 @@ clean = <span class="function">transform</span>(raw)
     data <span class="keyword">JSONB</span>,
     _loaded_at <span class="keyword">TIMESTAMPTZ DEFAULT</span> <span class="function">NOW</span>()
 );
-            </code>
-            </div>
+          </code>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section 6: Transformation -->
-      <section class="topic-section" id="transformation">
-        <h2> Transformation <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Transformations clean, enrich, and reshape raw data into analysis-ready formats.</p>
+    <!-- Section 6: Transformation -->
+    <section class="topic-section" id="transformation">
+      <h2> Transformation <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Transformations clean, enrich, and reshape raw data into analysis-ready formats.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Common transformations</span>
 
 <span class="comment">-- 1. Type casting</span>
@@ -327,40 +346,40 @@ clean = <span class="function">transform</span>(raw)
     <span class="function">COUNT</span>(*) <span class="keyword">AS</span> order_count
 <span class="keyword">FROM</span> staging.orders
 <span class="keyword">GROUP BY</span> customer_id;
-        </code>
+      </code>
+      </div>
+    </section>
+
+    <!-- Section 7: Data Serving -->
+    <section class="topic-section" id="serving">
+      <h2> Data Serving <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Data serving delivers processed data to consumers: dashboards, APIs, ML models, or applications.</p>
+
+      <div class="flowchart">
+        <h3>Data Serving Patterns</h3>
+        <div class="flow-row">
+          <span class="flow-node">Data Warehouse</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node">BI Dashboards</span>
         </div>
-      </section>
-
-      <!-- Section 7: Data Serving -->
-      <section class="topic-section" id="serving">
-        <h2> Data Serving <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Data serving delivers processed data to consumers: dashboards, APIs, ML models, or applications.</p>
-
-        <div class="flowchart">
-          <h3>Data Serving Patterns</h3>
-          <div class="flow-row">
-            <span class="flow-node">Data Warehouse</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-node">BI Dashboards</span>
-          </div>
-          <div class="flow-row" style="margin-top: 0.5rem;">
-            <span class="flow-node">API Layer</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-node">Applications</span>
-          </div>
-          <div class="flow-row" style="margin-top: 0.5rem;">
-            <span class="flow-node">Feature Store</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-node">ML Models</span>
-          </div>
-          <div class="flow-row" style="margin-top: 0.5rem;">
-            <span class="flow-node">Cache (Redis)</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-node">Low-latency Apps</span>
-          </div>
+        <div class="flow-row" style="margin-top: 0.5rem;">
+          <span class="flow-node">API Layer</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node">Applications</span>
         </div>
+        <div class="flow-row" style="margin-top: 0.5rem;">
+          <span class="flow-node">Feature Store</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node">ML Models</span>
+        </div>
+        <div class="flow-row" style="margin-top: 0.5rem;">
+          <span class="flow-node">Cache (Redis)</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node">Low-latency Apps</span>
+        </div>
+      </div>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Materialized view for serving</span>
 <span class="keyword">CREATE MATERIALIZED VIEW</span> mv_daily_sales <span class="keyword">AS</span>
 <span class="keyword">SELECT</span>
@@ -377,64 +396,64 @@ clean = <span class="function">transform</span>(raw)
 <span class="comment">-- Create index for fast lookup</span>
 <span class="keyword">CREATE INDEX</span> idx_mv_date_product
     <span class="keyword">ON</span> mv_daily_sales(sale_date, product_id);
-        </code>
+      </code>
+      </div>
+    </section>
+
+    <!-- Section 8: Orchestration -->
+    <section class="topic-section" id="orchestration">
+      <h2> Orchestration <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Orchestration manages dependencies, scheduling, and monitoring of pipeline tasks.</p>
+
+      <div class="split-grid">
+        <div class="split-item">
+          <h4>Key Concepts</h4>
+          <ul>
+            <li><strong>DAG:</strong> Directed Acyclic Graph of tasks</li>
+            <li><strong>Dependencies:</strong> Task ordering (upstream/downstream)</li>
+            <li><strong>Retries:</strong> Automatic failure recovery</li>
+            <li><strong>Alerting:</strong> Notify on failures</li>
+          </ul>
         </div>
-      </section>
-
-      <!-- Section 8: Orchestration -->
-      <section class="topic-section" id="orchestration">
-        <h2> Orchestration <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Orchestration manages dependencies, scheduling, and monitoring of pipeline tasks.</p>
-
-        <div class="split-grid">
-          <div class="split-item">
-            <h4>Key Concepts</h4>
-            <ul>
-              <li><strong>DAG:</strong> Directed Acyclic Graph of tasks</li>
-              <li><strong>Dependencies:</strong> Task ordering (upstream/downstream)</li>
-              <li><strong>Retries:</strong> Automatic failure recovery</li>
-              <li><strong>Alerting:</strong> Notify on failures</li>
-            </ul>
-          </div>
-          <div class="split-item">
-            <h4>Popular Tools</h4>
-            <ul>
-              <li><strong>Apache Airflow:</strong> Most popular, Python-based</li>
-              <li><strong>Dagster:</strong> Data-aware orchestration</li>
-              <li><strong>Prefect:</strong> Dynamic workflow orchestration</li>
-              <li><strong>dbt:</strong> SQL transformation orchestration</li>
-            </ul>
-          </div>
+        <div class="split-item">
+          <h4>Popular Tools</h4>
+          <ul>
+            <li><strong>Apache Airflow:</strong> Most popular, Python-based</li>
+            <li><strong>Dagster:</strong> Data-aware orchestration</li>
+            <li><strong>Prefect:</strong> Dynamic workflow orchestration</li>
+            <li><strong>dbt:</strong> SQL transformation orchestration</li>
+          </ul>
         </div>
+      </div>
 
-        <div class="flowchart">
-          <h3>Pipeline Orchestration Flow</h3>
-          <div class="flow-row">
-            <span class="flow-node">Extract A</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-node">Transform</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-node">Load</span>
-          </div>
-          <div class="flow-row" style="margin-top: 0.5rem;">
-            <span class="flow-arrow" style="margin-left: 1rem;">↘</span>
-          </div>
-          <div class="flow-row">
-            <span class="flow-node">Extract B</span>
-            <span class="flow-arrow">↗</span>
-            <span class="flow-node">Join</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-node">Serve</span>
-          </div>
+      <div class="flowchart">
+        <h3>Pipeline Orchestration Flow</h3>
+        <div class="flow-row">
+          <span class="flow-node">Extract A</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node">Transform</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node">Load</span>
         </div>
-      </section>
+        <div class="flow-row" style="margin-top: 0.5rem;">
+          <span class="flow-arrow" style="margin-left: 1rem;">↘</span>
+        </div>
+        <div class="flow-row">
+          <span class="flow-node">Extract B</span>
+          <span class="flow-arrow">↗</span>
+          <span class="flow-node">Join</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node">Serve</span>
+        </div>
+      </div>
+    </section>
 
-      <!-- Section 9: Scheduling -->
-      <section class="topic-section" id="scheduling">
-        <h2> Scheduling <span class="level-badge basic">Basic</span> </h2>
-        <p>Define when and how often pipelines run based on business requirements.</p>
+    <!-- Section 9: Scheduling -->
+    <section class="topic-section" id="scheduling">
+      <h2> Scheduling <span class="level-badge basic">Basic</span> </h2>
+      <p>Define when and how often pipelines run based on business requirements.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Common schedules</span>
 
 <span class="comment">-- Real-time / Near real-time</span>
@@ -460,16 +479,16 @@ clean = <span class="function">transform</span>(raw)
 <span class="comment">-- Airflow DAG example</span>
 <span class="comment"># with DAG('daily_sales', schedule='0 2 * * *') as dag:</span>
 <span class="comment">#     extract >> transform >> load</span>
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 10: Monitoring -->
-      <section class="topic-section" id="monitoring">
-        <h2> Monitoring <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Monitor pipeline health, data quality, and SLA compliance.</p>
+    <!-- Section 10: Monitoring -->
+    <section class="topic-section" id="monitoring">
+      <h2> Monitoring <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Monitor pipeline health, data quality, and SLA compliance.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- Pipeline metrics table</span>
 <span class="keyword">CREATE TABLE</span> pipeline_metrics (
     id <span class="keyword">SERIAL PRIMARY KEY</span>,
@@ -488,9 +507,9 @@ clean = <span class="function">transform</span>(raw)
     pipeline_name,
     <span class="function">MAX</span>(started_at) <span class="keyword">AS</span> last_run,
     <span class="keyword">CASE</span>
-        <span class="keyword">WHEN</span> <span class="function">MAX</span>(started_at) < <span class="function">NOW</span>() - <span class="keyword">INTERVAL</span> <span class="string">'24 hours'</span>
-        <span class="keyword">THEN</span> <span class="string">'OVERDUE'</span>
-        <span class="keyword">ELSE</span> <span class="string">'OK'</span>
+      <span class="keyword">WHEN</span> <span class="function">MAX</span>(started_at) < <span class="function">NOW</span>() - <span class="keyword">INTERVAL</span> <span class="string">'24 hours'</span>
+      <span class="keyword">THEN</span> <span class="string">'OVERDUE'</span>
+      <span class="keyword">ELSE</span> <span class="string">'OK'</span>
     <span class="keyword">END</span> <span class="keyword">AS</span> sla_status,
     <span class="function">ROUND</span>(<span class="function">AVG</span>(duration_seconds), <span class="number">0</span>) <span class="keyword">AS</span> avg_duration_sec
 <span class="keyword">FROM</span> pipeline_metrics
@@ -501,16 +520,16 @@ clean = <span class="function">transform</span>(raw)
 <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> pipeline_metrics
 <span class="keyword">WHERE</span> status = <span class="string">'failed'</span>
     <span class="keyword">AND</span> started_at > <span class="function">NOW</span>() - <span class="keyword">INTERVAL</span> <span class="string">'1 hour'</span>;
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 11: Airflow -->
-      <section class="topic-section" id="airflow">
-        <h2> Apache Airflow <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Airflow is the most popular workflow orchestration platform for scheduling and monitoring pipelines.</p>
+    <!-- Section 11: Airflow -->
+    <section class="topic-section" id="airflow">
+      <h2> Apache Airflow <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Airflow is the most popular workflow orchestration platform for scheduling and monitoring pipelines.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment"># airflow_dag.py</span>
 <span class="keyword">from</span> airflow <span class="keyword">import</span> DAG
 <span class="keyword">from</span> airflow.operators.python <span class="keyword">import</span> PythonOperator
@@ -536,31 +555,31 @@ clean = <span class="function">transform</span>(raw)
 ) <span class="keyword">as</span> dag:
 
     extract = <span class="function">PythonOperator</span>(
-        task_id=<span class="string">'extract'</span>,
-        python_callable=extract_data
+      task_id=<span class="string">'extract'</span>,
+      python_callable=extract_data
     )
 
     transform = <span class="function">PythonOperator</span>(
-        task_id=<span class="string">'transform'</span>,
-        python_callable=transform_data
+      task_id=<span class="string">'transform'</span>,
+      python_callable=transform_data
     )
 
     load = <span class="function">PythonOperator</span>(
-        task_id=<span class="string">'load'</span>,
-        python_callable=load_data
+      task_id=<span class="string">'load'</span>,
+      python_callable=load_data
     )
 
     extract >> transform >> load
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 12: Dagster -->
-      <section class="topic-section" id="dagster">
-        <h2> Dagster <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>Dagster is a data-aware orchestration platform that focuses on data assets and software-defined assets.</p>
+    <!-- Section 12: Dagster -->
+    <section class="topic-section" id="dagster">
+      <h2> Dagster <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>Dagster is a data-aware orchestration platform that focuses on data assets and software-defined assets.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment"># dagster_pipeline.py</span>
 <span class="keyword">from</span> dagster <span class="keyword">import</span> asset, job, op
 
@@ -583,16 +602,16 @@ clean = <span class="function">transform</span>(raw)
 <span class="comment"># - Data lineage</span>
 <span class="comment"># - Asset freshness</span>
 <span class="comment"># - Run history</span>
-        </code>
-        </div>
-      </section>
+      </code>
+      </div>
+    </section>
 
-      <!-- Section 13: dbt -->
-      <section class="topic-section" id="dbt">
-        <h2> dbt (Data Build Tool) <span class="level-badge intermediate">Intermediate</span> </h2>
-        <p>dbt enables analysts to transform data using SQL with software engineering practices like version control and testing.</p>
+    <!-- Section 13: dbt -->
+    <section class="topic-section" id="dbt">
+      <h2> dbt (Data Build Tool) <span class="level-badge intermediate">Intermediate</span> </h2>
+      <p>dbt enables analysts to transform data using SQL with software engineering practices like version control and testing.</p>
 
-        <div class="code-block">
+      <div class="code-block">
 <code><span class="comment">-- models/staging/stg_orders.sql</span>
 <span class="keyword">SELECT</span>
     order_id,
@@ -619,57 +638,69 @@ clean = <span class="function">transform</span>(raw)
 <span class="comment"># dbt test             -- Run data quality tests</span>
 <span class="comment"># dbt run --select +fct_orders  -- Run dependencies</span>
 <span class="comment"># dbt docs generate    -- Generate documentation</span>
-        </code>
-        </div>
+      </code>
+      </div>
 
-        <div class="flowchart">
-          <h3>dbt Project Structure</h3>
-          <div class="flow-row">
-            <span class="flow-node">Sources</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-node">Staging</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-node">Marts</span>
-          </div>
-          <div class="flow-row" style="margin-top: 0.5rem; font-size: 0.8rem;">
-            <span class="flow-node" style="background: var(--glass);">Raw tables</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-node" style="background: var(--glass);">Cleaned, 1:1</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-node" style="background: var(--glass);">Business models</span>
-          </div>
+      <div class="flowchart">
+        <h3>dbt Project Structure</h3>
+        <div class="flow-row">
+          <span class="flow-node">Sources</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node">Staging</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node">Marts</span>
         </div>
-      </section>
+        <div class="flow-row" style="margin-top: 0.5rem; font-size: 0.8rem;">
+          <span class="flow-node" style="background: var(--glass);">Raw tables</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node" style="background: var(--glass);">Cleaned, 1:1</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node" style="background: var(--glass);">Business models</span>
+        </div>
+      </div>
+    </section>
 
-    </div>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span class="footer-brand">Data Sheets</span>
+          <p class="footer-copyright">&copy; 2026 Data Sheets. All rights reserved.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#">Documentation</a>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Support</a>
+        </div>
+      </div>
+    </footer>
   </main>
 
-  <script src="../app.js"></script>
-  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 19V5M5 12l7-7 7 7"/>
-    </svg>
-  </button>
   <script>
-    // Scroll to top functionality
-    const scrollToTopBtn = document.getElementById('scrollToTop');
-    
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        scrollToTopBtn.classList.add('visible');
+    function toggleTheme() {
+      const html = document.documentElement;
+      const themeIcon = document.getElementById('themeIcon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        themeIcon.textContent = 'dark_mode';
       } else {
-        scrollToTopBtn.classList.remove('visible');
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.textContent = 'light_mode';
       }
-    });
-    
-    scrollToTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
+    }
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const themeIcon = document.getElementById('themeIcon');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+        themeIcon.textContent = 'light_mode';
+      } else {
+        themeIcon.textContent = 'dark_mode';
+      }
+    })();
   </script>
-<script src="../hierarchy.js"></script><script src="../sidebar-nav.js"></script>
 </body>
 </html>
-
