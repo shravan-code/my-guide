@@ -101,7 +101,7 @@
 }
 
 /* Dark Mode */
-body.dark {
+html.dark {
   --color-bg: #0a1a1a;
   --color-bg-alt: rgba(8, 178, 177, 0.08);
   --color-bg-elevated: #0f2525;
