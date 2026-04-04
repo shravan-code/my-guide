@@ -114,9 +114,119 @@
 </head>
 
 <body>
+
+<aside class="sidebar">
+<nav class="sidebar-nav">
+        <span class="nav-section-title">Main Section</span>
+        <a href="../../../../../index.html" class="nav-item">
+          <span class="material-symbols-outlined">home</span>
+          Home
+        </a>
+        <a href="../cloud/index.html" class="nav-item">
+          <span class="material-symbols-outlined">cloud</span>
+          Cloud
+        </a>
+        <a href="../data/index.html" class="nav-item">
+          <span class="material-symbols-outlined">analytics</span>
+          Big-Data
+        </a>
+        <a href="../python/index.html" class="nav-item">
+          <span class="material-symbols-outlined">code</span>
+          Python
+        </a>
+        <a href="../sql/index.html" class="nav-item">
+          <span class="material-symbols-outlined">database</span>
+          Database
+        </a>
+        <a href="../apis/index.html" class="nav-item">
+          <span class="material-symbols-outlined">api</span>
+          APIs
+        </a>
+        <a href="../tools/index.html" class="nav-item">
+          <span class="material-symbols-outlined">build</span>
+          Tools
+        </a>
+        <a href="../orchestration/index.html" class="nav-item">
+          <span class="material-symbols-outlined">account_tree</span>
+          Orchestration
+        </a>
+        <a href="../roadmaps/roadmap.html" class="nav-item">
+          <span class="material-symbols-outlined">map</span>
+          Roadmaps
+        </a>
+        <a href="../practice/index.html" class="nav-item">
+          <span class="material-symbols-outlined">model_training</span>
+          Practice
+        </a>
+        <a href="../portfolios/portfolio.html" class="nav-item">
+          <span class="material-symbols-outlined">person</span>
+          Portfolio
+        </a>
+    </nav>
+</aside>
+
+<div class="drawer-overlay" onclick="closeDrawer()"></div>
+<aside class="drawer">
+    <div class="drawer-header">
+      <span class="drawer-brand">Data Sheets</span>
+      <button class="drawer-close" onclick="closeDrawer()">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <nav class="drawer-nav">
+        <span class="nav-section-title">Main Section</span>
+        <a href="../../../../../index.html" class="nav-item">
+          <span class="material-symbols-outlined">home</span>
+          Home
+        </a>
+        <a href="../cloud/index.html" class="nav-item">
+          <span class="material-symbols-outlined">cloud</span>
+          Cloud
+        </a>
+        <a href="../data/index.html" class="nav-item">
+          <span class="material-symbols-outlined">analytics</span>
+          Big-Data
+        </a>
+        <a href="../python/index.html" class="nav-item">
+          <span class="material-symbols-outlined">code</span>
+          Python
+        </a>
+        <a href="../sql/index.html" class="nav-item">
+          <span class="material-symbols-outlined">database</span>
+          Database
+        </a>
+        <a href="../apis/index.html" class="nav-item">
+          <span class="material-symbols-outlined">api</span>
+          APIs
+        </a>
+        <a href="../tools/index.html" class="nav-item">
+          <span class="material-symbols-outlined">build</span>
+          Tools
+        </a>
+        <a href="../orchestration/index.html" class="nav-item">
+          <span class="material-symbols-outlined">account_tree</span>
+          Orchestration
+        </a>
+        <a href="../roadmaps/roadmap.html" class="nav-item">
+          <span class="material-symbols-outlined">map</span>
+          Roadmaps
+        </a>
+        <a href="../practice/index.html" class="nav-item">
+          <span class="material-symbols-outlined">model_training</span>
+          Practice
+        </a>
+        <a href="../portfolios/portfolio.html" class="nav-item">
+          <span class="material-symbols-outlined">person</span>
+          Portfolio
+        </a>
+    </nav>
+</aside>
+
   <header class="top-nav">
     <div class="top-nav-inner">
-      <a href="../../../../../index.html" class="brand">
+                <button class="nav-icon-btn hamburger" onclick="toggleDrawer()">
+            <span class="material-symbols-outlined">menu</span>
+          </button><a href="../../../../../index.html" class="brand">
         <div class="brand-icon">
           <span class="material-symbols-outlined">architecture</span>
         </div>
@@ -132,7 +242,7 @@
         <button class="nav-icon-btn" id="themeToggle" onclick="toggleTheme()" title="Toggle theme">
           <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
         </button>
-        <a href="../../../../../source/portfolios/portfolio.html" class="user-avatar" title="View Portfolio">
+        <a href="../portfolios/portfolio.html" class="user-avatar" title="View Portfolio">
           <img src="../../../../../assets/images/profile-pic.jpeg" alt="User profile" />
         </a>
       </div>
@@ -286,7 +396,7 @@
       <div class="footer-links">
         <a href="../../../../index.html">Home</a>
         <a href="../aws-index.html">AWS</a>
-        <a href="../../../../source/portfolios/portfolio.html">Portfolio</a>
+        <a href="../portfolios/portfolio.html">Portfolio</a>
       </div>
     </div>
   </footer>
@@ -328,6 +438,8 @@
     })();
   </script>
 
+
+  <script src="../../../../scripts.js"></script>
 </body>
 
 </html>

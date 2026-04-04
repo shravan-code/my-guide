@@ -12,9 +12,120 @@
 </head>
 
 <body class="topic-page topic-index">
+
+<aside class="sidebar">
+<nav class="sidebar-nav">
+        <span class="nav-section-title">Main Section</span>
+        <a href="../../index.html" class="nav-item">
+          <span class="material-symbols-outlined">home</span>
+          Home
+        </a>
+        <a href="../cloud/index.html" class="nav-item">
+          <span class="material-symbols-outlined">cloud</span>
+          Cloud
+        </a>
+        <a href="../data/index.html" class="nav-item">
+          <span class="material-symbols-outlined">analytics</span>
+          Big-Data
+        </a>
+        <a href="../python/index.html" class="nav-item active">
+          <span class="material-symbols-outlined">code</span>
+          Python
+        </a>
+        <a href="../sql/index.html" class="nav-item">
+          <span class="material-symbols-outlined">database</span>
+          Database
+        </a>
+        <a href="../apis/index.html" class="nav-item">
+          <span class="material-symbols-outlined">api</span>
+          APIs
+        </a>
+        <a href="../tools/index.html" class="nav-item">
+          <span class="material-symbols-outlined">build</span>
+          Tools
+        </a>
+        <a href="../orchestration/index.html" class="nav-item">
+          <span class="material-symbols-outlined">account_tree</span>
+          Orchestration
+        </a>
+        <a href="../roadmaps/roadmap.html" class="nav-item">
+          <span class="material-symbols-outlined">map</span>
+          Roadmaps
+        </a>
+        <a href="../practice/index.html" class="nav-item">
+          <span class="material-symbols-outlined">model_training</span>
+          Practice
+        </a>
+        <a href="../portfolios/portfolio.html" class="nav-item">
+          <span class="material-symbols-outlined">person</span>
+          Portfolio
+        </a>
+    </nav>
+</aside>
+
+<div class="drawer-overlay" onclick="closeDrawer()"></div>
+<aside class="drawer">
+    <div class="drawer-header">
+      <span class="drawer-brand">Data Sheets</span>
+      <button class="drawer-close" onclick="closeDrawer()">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <nav class="drawer-nav">
+        <span class="nav-section-title">Main Section</span>
+        <a href="../../index.html" class="nav-item">
+          <span class="material-symbols-outlined">home</span>
+          Home
+        </a>
+        <a href="../cloud/index.html" class="nav-item">
+          <span class="material-symbols-outlined">cloud</span>
+          Cloud
+        </a>
+        <a href="../data/index.html" class="nav-item">
+          <span class="material-symbols-outlined">analytics</span>
+          Big-Data
+        </a>
+        <a href="../python/index.html" class="nav-item active">
+          <span class="material-symbols-outlined">code</span>
+          Python
+        </a>
+        <a href="../sql/index.html" class="nav-item">
+          <span class="material-symbols-outlined">database</span>
+          Database
+        </a>
+        <a href="../apis/index.html" class="nav-item">
+          <span class="material-symbols-outlined">api</span>
+          APIs
+        </a>
+        <a href="../tools/index.html" class="nav-item">
+          <span class="material-symbols-outlined">build</span>
+          Tools
+        </a>
+        <a href="../orchestration/index.html" class="nav-item">
+          <span class="material-symbols-outlined">account_tree</span>
+          Orchestration
+        </a>
+        <a href="../roadmaps/roadmap.html" class="nav-item">
+          <span class="material-symbols-outlined">map</span>
+          Roadmaps
+        </a>
+        <a href="../practice/index.html" class="nav-item">
+          <span class="material-symbols-outlined">model_training</span>
+          Practice
+        </a>
+        <a href="../portfolios/portfolio.html" class="nav-item">
+          <span class="material-symbols-outlined">person</span>
+          Portfolio
+        </a>
+    </nav>
+</aside>
+
+
   <header class="top-nav">
     <div class="top-nav-inner">
-      <a href="../../index.html" class="brand">
+                <button class="nav-icon-btn hamburger" onclick="toggleDrawer()">
+            <span class="material-symbols-outlined">menu</span>
+          </button><a href="../../index.html" class="brand">
         <div class="brand-icon">
           <span class="material-symbols-outlined">architecture</span>
         </div>
@@ -32,7 +143,7 @@
         <button class="nav-icon-btn" id="themeToggle" onclick="toggleTheme()">
           <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
         </button>
-        <a href="../../source/portfolios/portfolio.html" class="user-avatar" title="View Portfolio">
+        <a href="../portfolios/portfolio.html" class="user-avatar" title="View Portfolio">
           <img src="../../assets/images/profile-pic.jpeg" alt="User profile" />
         </a>
       </div>
@@ -86,9 +197,97 @@
           <h3>Docs Ã¢â€ â€”</h3>
           <p>Official Python documentation</p>
         </a>
+        <a href="classes.html" class="section-card">
+          <span class="material-symbols-outlined">class</span>
+          <h3>Classes</h3>
+          <p>Object creation and structuring.</p>
+        </a>
+        <a href="functions.html" class="section-card">
+          <span class="material-symbols-outlined">functions</span>
+          <h3>Functions</h3>
+          <p>Callables, lambdas, and scope.</p>
+        </a>
+        <a href="generators.html" class="section-card">
+          <span class="material-symbols-outlined">cyclone</span>
+          <h3>Generators</h3>
+          <p>Yield functions and lazy evaluation.</p>
+        </a>
+        <a href="decorators.html" class="section-card">
+          <span class="material-symbols-outlined">magic_button</span>
+          <h3>Decorators</h3>
+          <p>Function wrapping and metaprogramming.</p>
+        </a>
+        <a href="metaclasses.html" class="section-card">
+          <span class="material-symbols-outlined">category</span>
+          <h3>Metaclasses</h3>
+          <p>Class manipulation and types.</p>
+        </a>
+        <a href="iters.html" class="section-card">
+          <span class="material-symbols-outlined">repeat</span>
+          <h3>Iters</h3>
+          <p>Iterator protocol and traversal.</p>
+        </a>
       </div>
     </section>
 
+
+
+    <section style="margin-top: var(--space-12);">
+      <h2 class="section-title">Concurrency & Performance</h2>
+      <div class="section-grid">
+        <a href="multi-processing.html" class="section-card">
+          <span class="material-symbols-outlined">memory</span>
+          <h3>Multi-Processing</h3>
+          <p>High parallel performance and sub-processes.</p>
+        </a>
+        <a href="multi-threading.html" class="section-card">
+          <span class="material-symbols-outlined">view_timeline</span>
+          <h3>Multi-Threading</h3>
+          <p>Concurrency for I/O operations.</p>
+        </a>
+        <a href="async.html" class="section-card">
+          <span class="material-symbols-outlined">sync_alt</span>
+          <h3>Asynchronisation</h3>
+          <p>Asyncio, event loops, and non-blocking tasks.</p>
+        </a>
+      </div>
+    </section>
+
+    <section style="margin-top: var(--space-12);">
+      <h2 class="section-title">Standard Library & Modules</h2>
+      <div class="section-grid">
+        <a href="itertools.html" class="section-card">
+          <span class="material-symbols-outlined">recenter</span>
+          <h3>Itertools</h3>
+          <p>Advanced sequence manipulation tools.</p>
+        </a>
+        <a href="functools.html" class="section-card">
+          <span class="material-symbols-outlined">manufacturing</span>
+          <h3>Functools</h3>
+          <p>Higher-order functions and callable caching.</p>
+        </a>
+        <a href="collections.html" class="section-card">
+          <span class="material-symbols-outlined">list_alt</span>
+          <h3>Collections</h3>
+          <p>Specialized container datatypes.</p>
+        </a>
+        <a href="random.html" class="section-card">
+          <span class="material-symbols-outlined">shuffle</span>
+          <h3>Random</h3>
+          <p>Pseudo-random number generation.</p>
+        </a>
+        <a href="datetime.html" class="section-card">
+          <span class="material-symbols-outlined">calendar_month</span>
+          <h3>Datetime</h3>
+          <p>Time and date manipulation.</p>
+        </a>
+        <a href="regex.html" class="section-card">
+          <span class="material-symbols-outlined">regular_expression</span>
+          <h3>Regex</h3>
+          <p>Pattern matching via strings.</p>
+        </a>
+      </div>
+    </section>
   </main>
 
   <footer class="footer">
@@ -98,10 +297,10 @@
         <p class="footer-copyright">&copy; 2026 Data Sheets. All rights reserved.</p>
       </div>
       <div class="footer-links">
-        <a href="#">Documentation</a>
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-        <a href="#">Support</a>
+        <a href="#documentation">Documentation</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#terms">Terms</a>
+        <a href="#support">Support</a>
       </div>
     </div>
   </footer>
@@ -131,5 +330,8 @@
       }
     })();
   </script>
+
+
+  <script src="../scripts.js"></script>
 </body>
 </html>

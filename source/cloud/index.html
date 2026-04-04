@@ -10,296 +10,124 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-  
-  <style>
-    :root {
-      --primary: #006882;
-      --primary-dim: #005b72;
-      --primary-container: #8fdfff;
-      --on-primary: #f2faff;
-      --on-primary-container: #005065;
-      
-      --secondary: #526074;
-      --secondary-container: #d5e3fc;
-      --on-secondary: #f8f8ff;
-      --on-secondary-container: #455367;
-      
-      --tertiary: #4d5f84;
-      --tertiary-container: #bfd2fd;
-      --on-tertiary: #f9f8ff;
-      --on-tertiary-container: #35476b;
-      
-      --surface: #f7f9fb;
-      --surface-container-lowest: #ffffff;
-      --surface-container-low: #f0f4f7;
-      --surface-container: #eaeff2;
-      --surface-container-high: #e3e9ed;
-      --surface-container-highest: #dce4e8;
-      --background: #f7f9fb;
-      
-      --on-surface: #2c3437;
-      --on-surface-variant: #596064;
-      
-      --outline: #747c80;
-      --outline-variant: #acb3b7;
-      
-      --font-headline: 'Manrope', sans-serif;
-      --font-body: 'Inter', sans-serif;
-      
-      --space-1: 0.25rem;
-      --space-2: 0.5rem;
-      --space-3: 0.75rem;
-      --space-4: 1rem;
-      --space-6: 1.5rem;
-      --space-8: 2rem;
-      --space-10: 2.5rem;
-      --space-12: 3rem;
-      --space-16: 4rem;
-      
-      --radius-sm: 0.125rem;
-      --radius-md: 0.25rem;
-      --radius-lg: 0.5rem;
-      --radius-xl: 0.75rem;
-      --radius-full: 9999px;
-      
-      --transition-fast: 0.2s ease;
-      --transition-slow: 0.5s ease;
-    }
-
-    html.dark {
-      color-scheme: dark;
-      --primary: #8fdfff;
-      --primary-dim: #81d1f0;
-      --primary-container: #005065;
-      --on-primary: #003b4c;
-      --on-primary-container: #8fdfff;
-      
-      --secondary: #c7d5ed;
-      --secondary-container: #455367;
-      --on-secondary: #324053;
-      --on-secondary-container: #d5e3fc;
-      
-      --tertiary: #b1c4ee;
-      --tertiary-container: #35476b;
-      --on-tertiary: #213456;
-      --on-tertiary-container: #bfd2fd;
-      
-      --surface: #1a1c1e;
-      --surface-container-lowest: #111314;
-      --surface-container-low: #1a1c1e;
-      --surface-container: #202324;
-      --surface-container-high: #282b2d;
-      --surface-container-highest: #2f3234;
-      --background: #1a1c1e;
-      
-      --on-surface: #e2e4e6;
-      --on-surface-variant: #9aa0a3;
-      
-      --outline: #8c9195;
-      --outline-variant: #44474a;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: var(--font-body);
-      font-size: 0.875rem;
-      line-height: 1.5;
-      color: var(--on-surface);
-      background-color: var(--background);
-      min-height: 100vh;
-    }
-
-    h1, h2, h3, h4 { font-family: var(--font-headline); font-weight: 700; color: var(--on-surface); line-height: 1.2; }
-    h1 { font-size: 3rem; font-weight: 800; letter-spacing: -0.02em; }
-    h2 { font-size: 1.5rem; }
-    h3 { font-size: 1.25rem; }
-    p { color: var(--on-surface-variant); }
-    a { color: var(--primary); text-decoration: none; }
-    a:hover { color: var(--primary-dim); }
-
-    .top-nav {
-      position: fixed; top: 0; left: 0; right: 0; height: 64px;
-      background: var(--surface); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-      border-bottom: 1px solid var(--outline-variant); z-index: 50;
-      display: flex; align-items: center; padding: 0 var(--space-6);
-    }
-
-    .top-nav-inner {
-      display: flex; align-items: center; justify-content: space-between;
-      width: 100%; max-width: 1280px; margin: 0 auto;
-    }
-
-    .brand { display: flex; align-items: center; gap: var(--space-3); }
-
-    .brand-icon {
-      width: 40px; height: 40px; background: var(--primary-container);
-      border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center;
-    }
-
-    .brand-icon .material-symbols-outlined { color: var(--on-primary-container); font-size: 24px; }
-
-    .brand-text {
-      font-family: var(--font-headline); font-weight: 700;
-      font-size: 1.125rem; color: var(--on-surface);
-    }
-
-    .nav-center { flex: 1; max-width: 400px; margin: 0 var(--space-8); }
-
-    .search-bar { position: relative; width: 100%; }
-    .search-bar .material-symbols-outlined {
-      position: absolute; left: var(--space-3); top: 50%; transform: translateY(-50%);
-      color: var(--outline); font-size: 20px;
-    }
-
-    .search-input {
-      width: 100%; padding: var(--space-2) var(--space-4) var(--space-2) 2.5rem;
-      background: var(--surface-container-low); border: none; border-radius: var(--radius-full);
-      font-family: var(--font-body); font-size: 0.875rem; color: var(--on-surface);
-      outline: none; transition: all var(--transition-fast);
-    }
-
-    .search-input::placeholder { color: var(--on-surface-variant); }
-    .search-input:focus { box-shadow: 0 0 0 2px rgba(0, 104, 130, 0.2); }
-
-    .nav-right { display: flex; align-items: center; gap: var(--space-3); }
-
-    .nav-icon-btn {
-      width: 40px; height: 40px; border-radius: var(--radius-full);
-      background: transparent; border: none; display: flex; align-items: center; justify-content: center;
-      cursor: pointer; color: var(--on-surface-variant); transition: all var(--transition-fast);
-    }
-
-    .nav-icon-btn:hover { background: var(--surface-container); color: var(--primary); }
-
-    .user-avatar {
-      width: 32px; height: 32px; border-radius: var(--radius-full);
-      background: var(--surface-container-highest); border: 1px solid var(--outline-variant); overflow: hidden;
-    }
-
-    .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
-    .hamburger { display: none; }
-
-    @media (max-width: 767px) {
-      .hamburger { display: flex; }
-      .nav-center { display: none; }
-    }
-
-    .breadcrumb {
-      display: flex; align-items: center; gap: var(--space-2);
-      margin-bottom: var(--space-10); font-size: 0.75rem;
-      font-weight: 500; color: var(--on-surface-variant);
-    }
-
-    .breadcrumb a { color: var(--on-surface-variant); }
-    .breadcrumb a:hover { color: var(--primary); }
-    .breadcrumb .material-symbols-outlined { font-size: 14px; opacity: 0.4; }
-    .breadcrumb .current { color: var(--primary); font-weight: 600; }
-
-    .main-content {
-      margin-top: 64px;
-      padding: var(--space-10) var(--space-12); max-width: 1280px;
-    }
-
-    @media (max-width: 767px) {
-      .main-content { padding: var(--space-8) var(--space-6); }
-    }
-
-    .page-header { margin-bottom: var(--space-12); }
-    .page-header h1 { font-size: 3rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: var(--space-3); }
-    .page-header p { font-size: 1.125rem; line-height: 1.7; max-width: 42rem; color: var(--on-surface-variant); }
-
-    @media (max-width: 767px) {
-      .page-header h1 { font-size: 1.875rem; }
-      .page-header p { font-size: 1rem; }
-    }
-
-    .section-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-6);
-    }
-
-    @media (max-width: 1023px) {
-      .section-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    @media (max-width: 767px) {
-      .section-grid { grid-template-columns: 1fr; }
-    }
-
-    .section-card {
-      background: var(--surface-container-lowest);
-      border-radius: var(--radius-xl);
-      padding: var(--space-6);
-      text-decoration: none;
-      transition: all var(--transition-slow);
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-2);
-    }
-
-    .section-card:hover {
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-      transform: translateY(-2px);
-    }
-
-    .section-card .material-symbols-outlined {
-      font-size: 28px;
-      color: var(--primary);
-      margin-bottom: var(--space-2);
-    }
-
-    .section-card h3 {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--on-surface);
-      margin-bottom: var(--space-1);
-    }
-
-    .section-card p {
-      font-size: 0.8125rem;
-      color: var(--on-surface-variant);
-      line-height: 1.5;
-    }
-
-    .section-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: var(--space-6);
-      display: flex;
-      align-items: center;
-      gap: var(--space-3);
-    }
-
-    .footer {
-      margin-top: var(--space-16); padding: var(--space-12) var(--space-6);
-      border-top: 1px solid var(--outline-variant);
-    }
-
-    .footer-inner {
-      max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column;
-      justify-content: space-between; align-items: center; gap: var(--space-4);
-    }
-
-    @media (min-width: 768px) { .footer-inner { flex-direction: row; } }
-
-    .footer-brand { font-family: var(--font-headline); font-weight: 700; font-size: 1rem; color: var(--on-surface); }
-    .footer-copyright { font-size: 0.75rem; color: var(--on-surface-variant); margin-top: var(--space-2); }
-
-    .footer-links { display: flex; gap: var(--space-8); margin-top: var(--space-6); }
-    @media (min-width: 768px) { .footer-links { margin-top: 0; } }
-    .footer-links a { font-size: 0.75rem; color: var(--on-surface-variant); }
-    .footer-links a:hover { color: var(--primary); }
-  </style>
+  <link rel="stylesheet" href="../shared.css" />
 </head>
 
-<body>
+<body class="topic-page topic-index">
+
+<aside class="sidebar">
+<nav class="sidebar-nav">
+        <span class="nav-section-title">Main Section</span>
+        <a href="../../index.html" class="nav-item">
+          <span class="material-symbols-outlined">home</span>
+          Home
+        </a>
+        <a href="./index.html" class="nav-item active">
+          <span class="material-symbols-outlined">cloud</span>
+          Cloud
+        </a>
+        <a href="../data/index.html" class="nav-item">
+          <span class="material-symbols-outlined">analytics</span>
+          Big-Data
+        </a>
+        <a href="../python/index.html" class="nav-item">
+          <span class="material-symbols-outlined">code</span>
+          Python
+        </a>
+        <a href="../sql/index.html" class="nav-item">
+          <span class="material-symbols-outlined">database</span>
+          Database
+        </a>
+        <a href="../apis/index.html" class="nav-item">
+          <span class="material-symbols-outlined">api</span>
+          APIs
+        </a>
+        <a href="../tools/index.html" class="nav-item">
+          <span class="material-symbols-outlined">build</span>
+          Tools
+        </a>
+        <a href="../orchestration/index.html" class="nav-item">
+          <span class="material-symbols-outlined">account_tree</span>
+          Orchestration
+        </a>
+        <a href="../roadmaps/roadmap.html" class="nav-item">
+          <span class="material-symbols-outlined">map</span>
+          Roadmaps
+        </a>
+        <a href="../practice/index.html" class="nav-item">
+          <span class="material-symbols-outlined">model_training</span>
+          Practice
+        </a>
+        <a href="../portfolios/portfolio.html" class="nav-item">
+          <span class="material-symbols-outlined">person</span>
+          Portfolio
+        </a>
+    </nav>
+</aside>
+
+<div class="drawer-overlay" onclick="closeDrawer()"></div>
+<aside class="drawer">
+    <div class="drawer-header">
+      <span class="drawer-brand">Data Sheets</span>
+      <button class="drawer-close" onclick="closeDrawer()">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <nav class="drawer-nav">
+        <span class="nav-section-title">Main Section</span>
+        <a href="../../index.html" class="nav-item">
+          <span class="material-symbols-outlined">home</span>
+          Home
+        </a>
+        <a href="./index.html" class="nav-item active">
+          <span class="material-symbols-outlined">cloud</span>
+          Cloud
+        </a>
+        <a href="../data/index.html" class="nav-item">
+          <span class="material-symbols-outlined">analytics</span>
+          Big-Data
+        </a>
+        <a href="../python/index.html" class="nav-item">
+          <span class="material-symbols-outlined">code</span>
+          Python
+        </a>
+        <a href="../sql/index.html" class="nav-item">
+          <span class="material-symbols-outlined">database</span>
+          Database
+        </a>
+        <a href="../apis/index.html" class="nav-item">
+          <span class="material-symbols-outlined">api</span>
+          APIs
+        </a>
+        <a href="../tools/index.html" class="nav-item">
+          <span class="material-symbols-outlined">build</span>
+          Tools
+        </a>
+        <a href="../orchestration/index.html" class="nav-item">
+          <span class="material-symbols-outlined">account_tree</span>
+          Orchestration
+        </a>
+        <a href="../roadmaps/roadmap.html" class="nav-item">
+          <span class="material-symbols-outlined">map</span>
+          Roadmaps
+        </a>
+        <a href="../practice/index.html" class="nav-item">
+          <span class="material-symbols-outlined">model_training</span>
+          Practice
+        </a>
+        <a href="../portfolios/portfolio.html" class="nav-item">
+          <span class="material-symbols-outlined">person</span>
+          Portfolio
+        </a>
+    </nav>
+</aside>
+
   <!-- Top Navigation Bar -->
   <header class="top-nav">
     <div class="top-nav-inner">
-      <a href="../../index.html" class="brand">
+                <button class="nav-icon-btn hamburger" onclick="toggleDrawer()">
+            <span class="material-symbols-outlined">menu</span>
+          </button><a href="../../index.html" class="brand">
         <div class="brand-icon">
           <span class="material-symbols-outlined">architecture</span>
         </div>
@@ -317,7 +145,7 @@
         <button class="nav-icon-btn" id="themeToggle" onclick="toggleTheme()">
           <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
         </button>
-        <a href="../../source/portfolios/portfolio.html" class="user-avatar" title="View Portfolio">
+        <a href="../portfolios/portfolio.html" class="user-avatar" title="View Portfolio">
           <img src="../../assets/images/profile-pic.jpeg" alt="User profile" />
         </a>
       </div>
@@ -333,33 +161,33 @@
 
     <section>
       <h2 class="section-title">Cloud Topics</h2>
-      <div class="section-grid">
-        <a href="topics/topics-basics.html" class="section-card">
+      <div class="hub-grid">
+        <a href="topics/topics-basics.html" class="hub-card">
           <span class="material-symbols-outlined">cloud</span>
           <h3>Cloud Basics</h3>
           <p>IaaS, PaaS, SaaS, and deployment models</p>
         </a>
-        <a href="topics/topics-services.html" class="section-card">
+        <a href="topics/topics-services.html" class="hub-card">
           <span class="material-symbols-outlined">compare</span>
           <h3>Services</h3>
           <p>AWS, Azure, and GCP service comparison</p>
         </a>
-        <a href="topics/topics-storage.html" class="section-card">
+        <a href="topics/topics-storage.html" class="hub-card">
           <span class="material-symbols-outlined">storage</span>
           <h3>Storage</h3>
           <p>Object, block, file, and data lake storage</p>
         </a>
-        <a href="topics/topics-compute.html" class="section-card">
+        <a href="topics/topics-compute.html" class="hub-card">
           <span class="material-symbols-outlined">memory</span>
           <h3>Compute</h3>
           <p>VMs, containers, and Kubernetes</p>
         </a>
-        <a href="topics/topics-serverless.html" class="section-card">
+        <a href="topics/topics-serverless.html" class="hub-card">
           <span class="material-symbols-outlined">bolt</span>
           <h3>Serverless</h3>
           <p>Functions, events, and managed services</p>
         </a>
-        <a href="cloud-architecture.html" class="section-card">
+        <a href="cloud-architecture.html" class="hub-card">
           <span class="material-symbols-outlined">hub</span>
           <h3>Architecture</h3>
           <p>9-Layer data engineering model</p>
@@ -369,18 +197,18 @@
 
     <section style="margin-top: var(--space-12);">
       <h2 class="section-title">Cloud Providers</h2>
-      <div class="section-grid">
-        <a href="providers/aws/aws-index.html" class="section-card">
+      <div class="hub-grid">
+        <a href="providers/aws/aws-index.html" class="hub-card">
           <span class="material-symbols-outlined">dns</span>
           <h3>AWS</h3>
           <p>Amazon Web Services - market leader</p>
         </a>
-        <a href="providers/providers-azure.html" class="section-card">
+        <a href="providers/providers-azure.html" class="hub-card">
           <span class="material-symbols-outlined">cloud</span>
           <h3>Azure</h3>
           <p>Microsoft Azure - enterprise integration</p>
         </a>
-        <a href="providers/providers-gcp.html" class="section-card">
+        <a href="providers/providers-gcp.html" class="hub-card">
           <span class="material-symbols-outlined">scatter_plot</span>
           <h3>GCP</h3>
           <p>Google Cloud Platform - data & AI focus</p>
@@ -390,43 +218,43 @@
 
     <section style="margin-top: var(--space-12);">
       <h2 class="section-title">AWS Domains</h2>
-      <div class="section-grid">
-        <a href="providers/aws/domains/storage.html" class="section-card">
+      <div class="hub-grid">
+        <a href="providers/aws/domains/storage.html" class="hub-card">
           <span class="material-symbols-outlined">inventory_2</span>
           <h3>Storage</h3>
           <p>S3, EBS, EFS, Glacier</p>
         </a>
-        <a href="providers/aws/domains/streaming.html" class="section-card">
+        <a href="providers/aws/domains/streaming.html" class="hub-card">
           <span class="material-symbols-outlined">stream</span>
           <h3>Streaming</h3>
           <p>Kinesis, Kafka MSK</p>
         </a>
-        <a href="providers/aws/domains/warehouse.html" class="section-card">
+        <a href="providers/aws/domains/warehouse.html" class="hub-card">
           <span class="material-symbols-outlined">warehouse</span>
           <h3>Data Warehouse</h3>
           <p>Redshift, Athena</p>
         </a>
-        <a href="providers/aws/domains/serverless.html" class="section-card">
+        <a href="providers/aws/domains/serverless.html" class="hub-card">
           <span class="material-symbols-outlined">bolt</span>
           <h3>Serverless</h3>
           <p>Lambda, Step Functions</p>
         </a>
-        <a href="providers/aws/domains/databases.html" class="section-card">
+        <a href="providers/aws/domains/databases.html" class="hub-card">
           <span class="material-symbols-outlined">dns</span>
           <h3>Databases</h3>
           <p>RDS, DynamoDB, ElastiCache</p>
         </a>
-        <a href="providers/aws/domains/bigdata.html" class="section-card">
+        <a href="providers/aws/domains/bigdata.html" class="hub-card">
           <span class="material-symbols-outlined">analytics</span>
           <h3>Big Data</h3>
           <p>EMR, Glue, Lake Formation</p>
         </a>
-        <a href="providers/aws/domains/pipelines.html" class="section-card">
+        <a href="providers/aws/domains/pipelines.html" class="hub-card">
           <span class="material-symbols-outlined">sync</span>
           <h3>Pipelines</h3>
           <p>Data pipelines patterns</p>
         </a>
-        <a href="providers/aws/domains/interview.html" class="section-card">
+        <a href="providers/aws/domains/interview.html" class="hub-card">
           <span class="material-symbols-outlined">quiz</span>
           <h3>Interview Q&A</h3>
           <p>AWS interview questions</p>
@@ -438,13 +266,13 @@
       <div class="footer-inner">
         <div class="footer-left">
           <span class="footer-brand">Data Sheets</span>
-          <p class="footer-copyright">© 2024 Data Sheets. All rights reserved.</p>
+          <p class="footer-copyright">© 2026 Data Sheets. All rights reserved.</p>
         </div>
         <div class="footer-links">
-          <a href="#">Documentation</a>
-          <a href="#">Privacy</a>
-          <a href="#">Terms</a>
-          <a href="#">Support</a>
+          <a href="#documentation">Documentation</a>
+          <a href="#privacy">Privacy</a>
+          <a href="#terms">Terms</a>
+          <a href="#support">Support</a>
         </div>
       </div>
     </footer>
@@ -483,6 +311,9 @@
       }
     })();
   </script>
+
+
+  <script src="../scripts.js"></script>
 </body>
 
 </html>
