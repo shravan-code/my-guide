@@ -1,6 +1,12 @@
 /* ============================================
    DESIGN TOKENS - Custom Color Palette
    ============================================ */
+
+body {
+  background-color: var(--color-bg) !important;
+  color: var(--color-text) !important;
+}
+
 :root {
   /* Typography */
   --font-body: "Space Grotesk", "Segoe UI", sans-serif;

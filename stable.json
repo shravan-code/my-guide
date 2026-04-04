@@ -1,0 +1,482 @@
+[
+    {
+        "page": "index.html",
+        "stable": false
+    },
+    {
+        "page": "source/apis/concepts.html",
+        "stable": true
+    },
+    {
+        "page": "source/apis/django.html",
+        "stable": true
+    },
+    {
+        "page": "source/apis/fastapi.html",
+        "stable": true
+    },
+    {
+        "page": "source/apis/flask.html",
+        "stable": true
+    },
+    {
+        "page": "source/apis/index.html",
+        "stable": true
+    },
+    {
+        "page": "source/apis/types.html",
+        "stable": true
+    },
+    {
+        "page": "source/cheatsheets/cheatsheet.html",
+        "stable": true
+    },
+    {
+        "page": "source/cheatsheets/compare.html",
+        "stable": true
+    },
+    {
+        "page": "source/cheatsheets/numpy-cheatsheet.html",
+        "stable": true
+    },
+    {
+        "page": "source/cheatsheets/pandas-cheatsheet.html",
+        "stable": true
+    },
+    {
+        "page": "source/cheatsheets/postgresql-cheatsheet.html",
+        "stable": true
+    },
+    {
+        "page": "source/cheatsheets/python-cheatsheet.html",
+        "stable": true
+    },
+    {
+        "page": "source/cheatsheets/spark-cheatsheet.html",
+        "stable": true
+    },
+    {
+        "page": "source/cloud/cloud-architecture.html",
+        "stable": false
+    },
+    {
+        "page": "source/cloud/index.html",
+        "stable": true
+    },
+    {
+        "page": "source/cloud/providers/providers-aws.html",
+        "stable": false
+    },
+    {
+        "page": "source/cloud/providers/providers-azure.html",
+        "stable": true
+    },
+    {
+        "page": "source/cloud/providers/providers-gcp.html",
+        "stable": true
+    },
+    {
+        "page": "source/cloud/providers/aws/aws-index.html",
+        "stable": true
+    },
+    {
+        "page": "source/cloud/providers/aws/domains/bigdata.html",
+        "stable": true
+    },
+    {
+        "page": "source/cloud/providers/aws/domains/databases.html",
+        "stable": true
+    },
+    {
+        "page": "source/cloud/providers/aws/domains/interview.html",
+        "stable": true
+    },
+    {
+        "page": "source/cloud/providers/aws/domains/pipelines.html",
+        "stable": true
+    },
+    {
+        "page": "source/cloud/providers/aws/domains/serverless.html",
+        "stable": true
+    },
+    {
+        "page": "source/cloud/providers/aws/domains/storage.html",
+        "stable": true
+    },
+    {
+        "page": "source/cloud/providers/aws/domains/streaming.html",
+        "stable": true
+    },
+    {
+        "page": "source/cloud/providers/aws/domains/warehouse.html",
+        "stable": true
+    },
+    {
+        "page": "source/cloud/providers/aws/services/services.html",
+        "stable": false
+    },
+    {
+        "page": "source/cloud/topics/topics-basics.html",
+        "stable": true
+    },
+    {
+        "page": "source/cloud/topics/topics-compute.html",
+        "stable": true
+    },
+    {
+        "page": "source/cloud/topics/topics-serverless.html",
+        "stable": true
+    },
+    {
+        "page": "source/cloud/topics/topics-services.html",
+        "stable": true
+    },
+    {
+        "page": "source/cloud/topics/topics-storage.html",
+        "stable": true
+    },
+    {
+        "page": "source/cloud/topics/topics.html",
+        "stable": true
+    },
+    {
+        "page": "source/data/data-formats.html",
+        "stable": true
+    },
+    {
+        "page": "source/data/data-pipeline.html",
+        "stable": true
+    },
+    {
+        "page": "source/data/data-quality.html",
+        "stable": true
+    },
+    {
+        "page": "source/data/data-types.html",
+        "stable": true
+    },
+    {
+        "page": "source/data/index.html",
+        "stable": true
+    },
+    {
+        "page": "source/differences/differences-airflow.html",
+        "stable": true
+    },
+    {
+        "page": "source/differences/differences-aws.html",
+        "stable": true
+    },
+    {
+        "page": "source/differences/differences-cloud.html",
+        "stable": true
+    },
+    {
+        "page": "source/differences/differences-data-modelling.html",
+        "stable": true
+    },
+    {
+        "page": "source/differences/differences-databricks.html",
+        "stable": true
+    },
+    {
+        "page": "source/differences/differences-dbt.html",
+        "stable": true
+    },
+    {
+        "page": "source/differences/differences-kafka.html",
+        "stable": true
+    },
+    {
+        "page": "source/differences/differences-numpy.html",
+        "stable": true
+    },
+    {
+        "page": "source/differences/differences-pandas.html",
+        "stable": true
+    },
+    {
+        "page": "source/differences/differences-python.html",
+        "stable": true
+    },
+    {
+        "page": "source/differences/differences-spark.html",
+        "stable": true
+    },
+    {
+        "page": "source/differences/differences-sql.html",
+        "stable": true
+    },
+    {
+        "page": "source/differences/index.html",
+        "stable": true
+    },
+    {
+        "page": "source/frameworks/index.html",
+        "stable": true
+    },
+    {
+        "page": "source/languages/index.html",
+        "stable": true
+    },
+    {
+        "page": "source/libraries/index.html",
+        "stable": true
+    },
+    {
+        "page": "source/libraries/libraries-hub.html",
+        "stable": true
+    },
+    {
+        "page": "source/libraries/sqlalchemy.html",
+        "stable": true
+    },
+    {
+        "page": "source/numpy/index.html",
+        "stable": true
+    },
+    {
+        "page": "source/numpy/methods.html",
+        "stable": true
+    },
+    {
+        "page": "source/numpy/numpy-arrays.html",
+        "stable": true
+    },
+    {
+        "page": "source/numpy/numpy-basics.html",
+        "stable": true
+    },
+    {
+        "page": "source/numpy/numpy-operations.html",
+        "stable": true
+    },
+    {
+        "page": "source/orchestration/airflow.html",
+        "stable": true
+    },
+    {
+        "page": "source/orchestration/docker.html",
+        "stable": true
+    },
+    {
+        "page": "source/orchestration/github-workflows.html",
+        "stable": true
+    },
+    {
+        "page": "source/orchestration/index.html",
+        "stable": true
+    },
+    {
+        "page": "source/orchestration/kubernetes.html",
+        "stable": true
+    },
+    {
+        "page": "source/orchestration/terraform.html",
+        "stable": true
+    },
+    {
+        "page": "source/pandas/index.html",
+        "stable": true
+    },
+    {
+        "page": "source/pandas/methods.html",
+        "stable": true
+    },
+    {
+        "page": "source/pandas/pandas-dataframes.html",
+        "stable": true
+    },
+    {
+        "page": "source/pandas/pandas-series.html",
+        "stable": true
+    },
+    {
+        "page": "source/portfolios/portfolio.html",
+        "stable": true
+    },
+    {
+        "page": "source/portfolios/projects/projects-experienced.html",
+        "stable": true
+    },
+    {
+        "page": "source/portfolios/projects/projects-self.html",
+        "stable": true
+    },
+    {
+        "page": "source/practice/index.html",
+        "stable": true
+    },
+    {
+        "page": "source/python/async.html",
+        "stable": true
+    },
+    {
+        "page": "source/python/classes.html",
+        "stable": true
+    },
+    {
+        "page": "source/python/collections.html",
+        "stable": true
+    },
+    {
+        "page": "source/python/datetime.html",
+        "stable": true
+    },
+    {
+        "page": "source/python/decorators.html",
+        "stable": true
+    },
+    {
+        "page": "source/python/functions.html",
+        "stable": true
+    },
+    {
+        "page": "source/python/functools.html",
+        "stable": true
+    },
+    {
+        "page": "source/python/generators.html",
+        "stable": true
+    },
+    {
+        "page": "source/python/index.html",
+        "stable": true
+    },
+    {
+        "page": "source/python/iters.html",
+        "stable": true
+    },
+    {
+        "page": "source/python/itertools.html",
+        "stable": true
+    },
+    {
+        "page": "source/python/memory-performance.html",
+        "stable": true
+    },
+    {
+        "page": "source/python/metaclasses.html",
+        "stable": true
+    },
+    {
+        "page": "source/python/multi-processing.html",
+        "stable": true
+    },
+    {
+        "page": "source/python/multi-threading.html",
+        "stable": true
+    },
+    {
+        "page": "source/python/python-fundamentals.html",
+        "stable": true
+    },
+    {
+        "page": "source/python/python-methods.html",
+        "stable": true
+    },
+    {
+        "page": "source/python/python-oops.html",
+        "stable": true
+    },
+    {
+        "page": "source/python/random.html",
+        "stable": true
+    },
+    {
+        "page": "source/python/regex.html",
+        "stable": true
+    },
+    {
+        "page": "source/roadmaps/ai-engineer-roadmap.html",
+        "stable": true
+    },
+    {
+        "page": "source/roadmaps/data-engineer-roadmap.html",
+        "stable": true
+    },
+    {
+        "page": "source/roadmaps/ml-engineer-roadmap.html",
+        "stable": true
+    },
+    {
+        "page": "source/roadmaps/python-roadmap.html",
+        "stable": true
+    },
+    {
+        "page": "source/roadmaps/roadmap.html",
+        "stable": true
+    },
+    {
+        "page": "source/roadmaps/spark-roadmap.html",
+        "stable": true
+    },
+    {
+        "page": "source/roadmaps/sql-roadmap.html",
+        "stable": true
+    },
+    {
+        "page": "source/spark/index.html",
+        "stable": true
+    },
+    {
+        "page": "source/spark/spark-architecture.html",
+        "stable": true
+    },
+    {
+        "page": "source/spark/spark-code.html",
+        "stable": true
+    },
+    {
+        "page": "source/spark/spark-theory.html",
+        "stable": true
+    },
+    {
+        "page": "source/sql/index.html",
+        "stable": true
+    },
+    {
+        "page": "source/sql/sql-concepts.html",
+        "stable": true
+    },
+    {
+        "page": "source/sql/sql-joins.html",
+        "stable": true
+    },
+    {
+        "page": "source/sql/sql-methods.html",
+        "stable": true
+    },
+    {
+        "page": "source/sql/sql-modelling.html",
+        "stable": true
+    },
+    {
+        "page": "source/sql/sql-queries.html",
+        "stable": true
+    },
+    {
+        "page": "source/sql/sql-subqueries.html",
+        "stable": true
+    },
+    {
+        "page": "source/sql/sql-windows.html",
+        "stable": true
+    },
+    {
+        "page": "source/tools/airflow.html",
+        "stable": true
+    },
+    {
+        "page": "source/tools/dbt.html",
+        "stable": true
+    },
+    {
+        "page": "source/tools/index.html",
+        "stable": true
+    },
+    {
+        "page": "source/tools/kafka.html",
+        "stable": true
+    }
+]

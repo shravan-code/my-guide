@@ -245,9 +245,119 @@
 </head>
 
 <body class="topic-page">
+
+<aside class="sidebar">
+<nav class="sidebar-nav">
+        <span class="nav-section-title">Main Section</span>
+        <a href="../../../index.html" class="nav-item">
+          <span class="material-symbols-outlined">home</span>
+          Home
+        </a>
+        <a href="../cloud/index.html" class="nav-item">
+          <span class="material-symbols-outlined">cloud</span>
+          Cloud
+        </a>
+        <a href="../data/index.html" class="nav-item">
+          <span class="material-symbols-outlined">analytics</span>
+          Big-Data
+        </a>
+        <a href="../python/index.html" class="nav-item">
+          <span class="material-symbols-outlined">code</span>
+          Python
+        </a>
+        <a href="../sql/index.html" class="nav-item">
+          <span class="material-symbols-outlined">database</span>
+          Database
+        </a>
+        <a href="../apis/index.html" class="nav-item">
+          <span class="material-symbols-outlined">api</span>
+          APIs
+        </a>
+        <a href="../tools/index.html" class="nav-item">
+          <span class="material-symbols-outlined">build</span>
+          Tools
+        </a>
+        <a href="../orchestration/index.html" class="nav-item">
+          <span class="material-symbols-outlined">account_tree</span>
+          Orchestration
+        </a>
+        <a href="../roadmaps/roadmap.html" class="nav-item">
+          <span class="material-symbols-outlined">map</span>
+          Roadmaps
+        </a>
+        <a href="../practice/index.html" class="nav-item">
+          <span class="material-symbols-outlined">model_training</span>
+          Practice
+        </a>
+        <a href="../portfolios/portfolio.html" class="nav-item">
+          <span class="material-symbols-outlined">person</span>
+          Portfolio
+        </a>
+    </nav>
+</aside>
+
+<div class="drawer-overlay" onclick="closeDrawer()"></div>
+<aside class="drawer">
+    <div class="drawer-header">
+      <span class="drawer-brand">Data Sheets</span>
+      <button class="drawer-close" onclick="closeDrawer()">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <nav class="drawer-nav">
+        <span class="nav-section-title">Main Section</span>
+        <a href="../../../index.html" class="nav-item">
+          <span class="material-symbols-outlined">home</span>
+          Home
+        </a>
+        <a href="../cloud/index.html" class="nav-item">
+          <span class="material-symbols-outlined">cloud</span>
+          Cloud
+        </a>
+        <a href="../data/index.html" class="nav-item">
+          <span class="material-symbols-outlined">analytics</span>
+          Big-Data
+        </a>
+        <a href="../python/index.html" class="nav-item">
+          <span class="material-symbols-outlined">code</span>
+          Python
+        </a>
+        <a href="../sql/index.html" class="nav-item">
+          <span class="material-symbols-outlined">database</span>
+          Database
+        </a>
+        <a href="../apis/index.html" class="nav-item">
+          <span class="material-symbols-outlined">api</span>
+          APIs
+        </a>
+        <a href="../tools/index.html" class="nav-item">
+          <span class="material-symbols-outlined">build</span>
+          Tools
+        </a>
+        <a href="../orchestration/index.html" class="nav-item">
+          <span class="material-symbols-outlined">account_tree</span>
+          Orchestration
+        </a>
+        <a href="../roadmaps/roadmap.html" class="nav-item">
+          <span class="material-symbols-outlined">map</span>
+          Roadmaps
+        </a>
+        <a href="../practice/index.html" class="nav-item">
+          <span class="material-symbols-outlined">model_training</span>
+          Practice
+        </a>
+        <a href="../portfolios/portfolio.html" class="nav-item">
+          <span class="material-symbols-outlined">person</span>
+          Portfolio
+        </a>
+    </nav>
+</aside>
+
   <header class="top-nav">
     <div class="top-nav-inner">
-      <a href="../../../index.html" class="brand">
+                <button class="nav-icon-btn hamburger" onclick="toggleDrawer()">
+            <span class="material-symbols-outlined">menu</span>
+          </button><a href="../../../index.html" class="brand">
         <div class="brand-icon">
           <span class="material-symbols-outlined">architecture</span>
         </div>
@@ -265,7 +375,7 @@
         <button class="nav-icon-btn" id="themeToggle" onclick="toggleTheme()">
           <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
         </button>
-        <a href="../../../source/portfolios/portfolio.html" class="user-avatar" title="View Portfolio">
+        <a href="../portfolios/portfolio.html" class="user-avatar" title="View Portfolio">
           <img src="../../../assets/images/profile-pic.jpeg" alt="User profile" />
         </a>
       </div>
@@ -280,109 +390,11 @@
     
     <div class="page-wrap" style="padding: 2rem 4rem;">
       <div id="mainPanel" class="content-main">
-        
-        <header class="hero" style="margin-bottom: 4rem;">
-          <p class="eyebrow" style="color: var(--color-accent); font-weight: 600; text-transform: uppercase; tracking: 0.1em; margin-bottom: 1rem;">Personal Projects</p>
-          <h1 style="font-family: 'Sora', sans-serif; font-size: 3.5rem; color: var(--color-text); margin-bottom: 1rem;">Self-Taught Labs</h1>
-          <p style="color: var(--color-text-secondary); font-size: 1.25rem; max-width: 900px; line-height: 1.6;">Translating curiosity into code. These projects represent deep-dives into modern data engineering patterns, from streaming architectures to serverless data lakes.</p>
-        </header>
-
-        <!-- Project 1: Real Estate Lakehouse -->
-        <article class="experience-card">
-          <div class="company-header">
-            <div class="company-info">
-              <h2>End-to-End Data Lakehouse</h2>
-              <p class="role">Python • Spark • Delta Lake • AWS</p>
-            </div>
-            <div class="duration">
-              <strong>Personal Project</strong>
-              <span>Q4 2025</span>
-            </div>
-          </div>
-          
-          <div class="project-section">
-            <h3>🏠 Real Estate Market Intelligence</h3>
-            <div class="tech-stack">
-              <span class="tech-pill">BeautifulSoup</span>
-              <span class="tech-pill">Amazon S3</span>
-              <span class="tech-pill">PySpark</span>
-              <span class="tech-pill">Delta Lake</span>
-              <span class="tech-pill">Athena</span>
-            </div>
-            
-            <div class="details-grid">
-              <div class="detail-item">
-                <h4>🎯 Objective</h4>
-                <p>Built a full-stack data lakehouse to monitor real estate price fluctuations across major cities, providing historical trend analysis.</p>
-              </div>
-              <div class="detail-item">
-                <h4>🏗️ Pipeline Flow</h4>
-                <div class="pipeline-visual">
-                  <div class="visual-flow">
-                    <div class="flow-node">Scrapy Crawlers (Bronze)</div>
-                    <div class="flow-arrow">↓</div>
-                    <div class="flow-node">Spark Cleaning + Delta (Silver)</div>
-                    <div class="flow-arrow">↓</div>
-                    <div class="flow-node">Aggregated Metrics (Gold)</div>
-                    <div class="flow-arrow">↓</div>
-                    <div class="flow-node">Looker Dashboard</div>
-                  </div>
-                </div>
-              </div>
-              <div class="detail-item">
-                <h4>📈 Highlights</h4>
-                <ul>
-                  <li>Implemented 'Medallion Architecture' using Delta Lake for ACID transactions on S3.</li>
-                  <li>Automated daily ingestion of 50k+ listings with fault-tolerant retry logic.</li>
-                  <li>Used Z-Order indexing to speed up spatial queries by 80%.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Project 2: Real-time Streams -->
-        <article class="experience-card">
-          <div class="company-header">
-            <div class="company-info">
-              <h2>Streaming Analytics Hub</h2>
-              <p class="role">Kafka • Spark Streaming • Scala</p>
-            </div>
-            <div class="duration">
-              <strong>Personal Project</strong>
-              <span>Q2 2025</span>
-            </div>
-          </div>
-
-          <div class="project-section">
-            <h3>📈 Financial Market Stream Processor</h3>
-            <div class="tech-stack">
-              <span class="tech-pill">Apache Kafka</span>
-              <span class="tech-pill">Spark Streaming</span>
-              <span class="tech-pill">Redis</span>
-              <span class="tech-pill">FastAPI</span>
-            </div>
-            
-            <div class="details-grid">
-              <div class="detail-item">
-                <h4>🚀 Implementation</h4>
-                <ul>
-                  <li>Developed a real-time log ingestion system handling 5k events/sec.</li>
-                  <li>Implemented windowed aggregations to calculate moving averages for crypto tickers.</li>
-                  <li>Stored low-latency state in Redis for immediate API serving.</li>
-                </ul>
-              </div>
-              <div class="detail-item">
-                <h4>🛠️ Core Learnings</h4>
-                <ul>
-                  <li>Mastering 'Exactly-once' processing semantics in Kafka.</li>
-                  <li>Optimizing Spark checkpointing to minimize latency.</li>
-                  <li>Building asynchronous API consumers for live data.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </article>
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 400px; text-align: center; color: var(--color-text-secondary);">
+          <span class="material-symbols-outlined" style="font-size: 4rem; margin-bottom: 1rem; opacity: 0.3;">construction</span>
+          <h2 style="font-family: 'Sora', sans-serif; font-size: 2rem; color: var(--color-text); margin-bottom: 0.5rem;">Yet to implement</h2>
+          <p>This section is currently under development. Check back soon for more project deep-dives.</p>
+        </div>
 
       </div>
     </div>
@@ -396,10 +408,10 @@
         <p class="footer-copyright">&copy; 2026 Data Sheets. All rights reserved.</p>
       </div>
       <div class="footer-links">
-        <a href="#">Documentation</a>
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-        <a href="#">Support</a>
+        <a href="#documentation">Documentation</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#terms">Terms</a>
+        <a href="#support">Support</a>
       </div>
     </div>
   </footer>
@@ -436,5 +448,7 @@
     });
     stt.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
   </script>
+
+  <script src="../../scripts.js"></script>
 </body>
 </html>

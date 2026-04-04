@@ -9,13 +9,137 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
   <link rel="stylesheet" href="../shared.css" />
+  <link rel="stylesheet" href="comparison.css" />
 </head>
 
 <body class="topic-page">
+
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <a href="../../index.html" class="brand">
+            <div class="brand-icon">
+                <span class="material-symbols-outlined">architecture</span>
+            </div>
+            <span class="brand-text">Data Sheets</span>
+        </a>
+    </div>
+    <nav class="sidebar-nav">
+        <div class="nav-section">
+            <span class="nav-section-title">Main Section</span>
+            <a href="../../index.html" class="nav-item">
+                <span class="material-symbols-outlined">home</span>
+                Home
+            </a>
+            <a href="../cloud/index.html" class="nav-item">
+                <span class="material-symbols-outlined">cloud</span>
+                Cloud
+            </a>
+            <a href="../data/index.html" class="nav-item">
+                <span class="material-symbols-outlined">analytics</span>
+                Big-Data
+            </a>
+            <a href="../python/index.html" class="nav-item">
+                <span class="material-symbols-outlined">code</span>
+                Python
+            </a>
+            <a href="../sql/index.html" class="nav-item">
+                <span class="material-symbols-outlined">database</span>
+                Database
+            </a>
+            <a href="../apis/index.html" class="nav-item">
+                <span class="material-symbols-outlined">api</span>
+                APIs
+            </a>
+            <a href="../tools/index.html" class="nav-item">
+                <span class="material-symbols-outlined">build</span>
+                Tools
+            </a>
+            <a href="../orchestration/index.html" class="nav-item">
+                <span class="material-symbols-outlined">account_tree</span>
+                Orchestration
+            </a>
+            <a href="../roadmaps/roadmap.html" class="nav-item">
+                <span class="material-symbols-outlined">map</span>
+                Roadmaps
+            </a>
+            <a href="../practice/index.html" class="nav-item">
+                <span class="material-symbols-outlined">model_training</span>
+                Practice
+            </a>
+            <a href="../portfolios/portfolio.html" class="nav-item">
+                <span class="material-symbols-outlined">person</span>
+                Portfolio
+            </a>
+        </div>
+    </nav>
+</aside>
+
+<div class="drawer-overlay" onclick="closeDrawer()"></div>
+<aside class="drawer">
+    <div class="drawer-header">
+      <span class="drawer-brand">Data Sheets</span>
+      <button class="drawer-close" onclick="closeDrawer()">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <nav class="drawer-nav">
+        <div class="nav-section">
+            <span class="nav-section-title">Main Section</span>
+            <a href="../../index.html" class="nav-item">
+                <span class="material-symbols-outlined">home</span>
+                Home
+            </a>
+            <a href="../cloud/index.html" class="nav-item">
+                <span class="material-symbols-outlined">cloud</span>
+                Cloud
+            </a>
+            <a href="../data/index.html" class="nav-item">
+                <span class="material-symbols-outlined">analytics</span>
+                Big-Data
+            </a>
+            <a href="../python/index.html" class="nav-item">
+                <span class="material-symbols-outlined">code</span>
+                Python
+            </a>
+            <a href="../sql/index.html" class="nav-item">
+                <span class="material-symbols-outlined">database</span>
+                Database
+            </a>
+            <a href="../apis/index.html" class="nav-item">
+                <span class="material-symbols-outlined">api</span>
+                APIs
+            </a>
+            <a href="../tools/index.html" class="nav-item">
+                <span class="material-symbols-outlined">build</span>
+                Tools
+            </a>
+            <a href="../orchestration/index.html" class="nav-item">
+                <span class="material-symbols-outlined">account_tree</span>
+                Orchestration
+            </a>
+            <a href="../roadmaps/roadmap.html" class="nav-item">
+                <span class="material-symbols-outlined">map</span>
+                Roadmaps
+            </a>
+            <a href="../practice/index.html" class="nav-item">
+                <span class="material-symbols-outlined">model_training</span>
+                Practice
+            </a>
+            <a href="../portfolios/portfolio.html" class="nav-item">
+                <span class="material-symbols-outlined">person</span>
+                Portfolio
+            </a>
+        </div>
+    </nav>
+</aside>
+
   <header class="top-nav">
     <div class="top-nav-inner">
-      <a href="../../index.html" class="brand">
+                <button class="nav-icon-btn hamburger" onclick="toggleDrawer()">
+            <span class="material-symbols-outlined">menu</span>
+          </button><a href="../../index.html" class="brand">
         <div class="brand-icon">
           <span class="material-symbols-outlined">architecture</span>
         </div>
@@ -31,7 +155,7 @@
         <button class="nav-icon-btn" id="themeToggle" onclick="toggleTheme()">
           <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
         </button>
-        <a href="../../source/portfolios/portfolio.html" class="user-avatar" title="View Portfolio">
+        <a href="../portfolios/portfolio.html" class="user-avatar" title="View Portfolio">
           <img src="../../assets/images/profile-pic.jpeg" alt="User profile" />
         </a>
       </div>
@@ -55,7 +179,7 @@
                       <h2 class="controls-title">Choose tools and categories</h2>
                       <p class="controls-copy">Use the filters below, then apply them to render only the comparisons you want to study.</p>
                   </div>
-                  <div id="selectionSummary" class="selection-summary">4 tools · 12 categories selected</div>
+                  <div id="selectionSummary" class="selection-summary">0 tools · 0 categories selected</div>
               </div>
 
               <form id="comparisonFilters" class="filter-form">
@@ -95,13 +219,13 @@
       <div class="footer-inner">
         <div class="footer-left">
           <span class="footer-brand">Data Sheets</span>
-          <p class="footer-copyright">@ 2026 Data Sheets. All rights reserved.</p>
+          <p class="footer-copyright">© 2026 Data Sheets. All rights reserved.</p>
         </div>
         <div class="footer-links">
-          <a href="#">Documentation</a>
-          <a href="#">Privacy</a>
-          <a href="#">Terms</a>
-          <a href="#">Support</a>
+          <a href="#documentation">Documentation</a>
+          <a href="#privacy">Privacy</a>
+          <a href="#terms">Terms</a>
+          <a href="#support">Support</a>
         </div>
       </div>
     </footer>
@@ -132,5 +256,8 @@
       }
     })();
   </script>
+
+  <script src="../scripts.js"></script>
+  <script src="compare.js"></script>
 </body>
 </html>
