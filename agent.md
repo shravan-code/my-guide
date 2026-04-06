@@ -104,3 +104,24 @@ To maintain the premium "Data Sheets" feel, the following patterns are strictly 
 * **No tabs**: Only spaces.
 * **No naked data**: Only designed components.
 * **Full width**: Content uses maximum available width, no arbitrary max-width constraints.
+
+## Container Width Pattern
+
+When adding constrained width to pages (home, portfolio, etc.), use this pattern:
+
+```css
+.container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+}
+```
+
+Wrap main content inside `<div class="container">`. Use `max-width: 1280px` for home page, `1200px` for other pages.
