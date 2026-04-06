@@ -159,9 +159,1073 @@
       </div>
     </header>
 
-        <section class="topic-section">
+    <section class="topic-section">
       <h2 id="introduction">Introduction</h2>
-      <p>Apache Kafka is a distributed event streaming platform that enables you to publish, subscribe to, store, and process streams of records in real-time.</p>
+      <p>Apache Kafka is an open-source distributed event streaming platform used by thousands of companies for high-performance data pipelines, streaming analytics, data integration, and mission-critical applications. Originally developed at LinkedIn and donated to the Apache Software Foundation in 2011, Kafka has become the de facto standard for real-time data streaming at massive scale.</p>
+      
+      <h3>What is Kafka?</h3>
+      <p>Kafka is a distributed publish-subscribe messaging system that can handle trillions of events per day. It is designed around three key capabilities:</p>
+      <div class="key-points">
+        <div class="key-point">
+          <span class="material-symbols-outlined">send</span>
+          <div>
+            <h4>Publish and Subscribe</h4>
+            <p>Publish and subscribe to streams of records, similar to a message queue or enterprise messaging system.</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="material-symbols-outlined">storage</span>
+          <div>
+            <h4>Store</h4>
+            <p>Store streams of records durably and reliably in a fault-tolerant way.</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="material-symbols-outlined">bolt</span>
+          <div>
+            <h4>Process</h4>
+            <p>Process streams of records as they occur in real-time.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>Why Kafka?</h3>
+      <p>Traditional databases and message queues struggle with high-throughput, low-latency requirements at scale. Kafka was built specifically to solve these challenges.</p>
+
+      <h3>Kafka Use Cases</h3>
+      <div class="service-grid">
+        <div class="service-card">
+          <h4>Real-time Analytics</h4>
+          <p>Real-time analytics dashboards (click streams, user activity)</p>
+        </div>
+        <div class="service-card">
+          <h4>Log Aggregation</h4>
+          <p>Log aggregation across microservices</p>
+        </div>
+        <div class="service-card">
+          <h4>Event Sourcing</h4>
+          <p>Event sourcing for CQRS architecture</p>
+        </div>
+        <div class="service-card">
+          <h4>Stream Processing</h4>
+          <p>Stream processing pipelines (ETL)</p>
+        </div>
+        <div class="service-card">
+          <h4>Microservice Decoupling</h4>
+          <p>Microservice decoupling and communication</p>
+        </div>
+        <div class="service-card">
+          <h4>Change Data Capture</h4>
+          <p>Change Data Capture (CDC) from databases</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="core-concepts">Core Concepts & Architecture</h2>
+      
+      <h3>Kafka Cluster Overview</h3>
+      <p>A Kafka deployment is called a cluster. A cluster consists of multiple broker servers that coordinate with each other using Apache ZooKeeper (or KRaft in newer versions) for distributed coordination.</p>
+      
+      <div class="bento-grid">
+        <div class="bento-card medium">
+          <div class="card-header">
+            <span class="material-symbols-outlined">dns</span>
+            <h4>Broker</h4>
+          </div>
+          <p>A Kafka broker is a server that stores data and serves client requests. Each broker is identified by a unique integer ID. A typical production cluster has 3-10+ brokers for fault tolerance and throughput.</p>
+          <ul>
+            <li>Handles read and write requests from clients</li>
+            <li>Manages partition assignment and replication</li>
+            <li>Each broker can handle hundreds of thousands of reads/writes per second</li>
+            <li>Stateless — data is stored in logs on disk</li>
+          </ul>
+        </div>
+        <div class="bento-card medium">
+          <div class="card-header">
+            <span class="material-symbols-outlined">storage</span>
+            <h4>ZooKeeper / KRaft</h4>
+          </div>
+          <p>ZooKeeper was traditionally used for cluster metadata management, leader election, and configuration storage. Kafka 3.x+ introduces KRaft (Kafka Raft) mode which eliminates the ZooKeeper dependency, simplifying operations significantly.</p>
+          <p class="tip-box"><span class="material-symbols-outlined">stars</span> Kafka 3.3+ supports KRaft mode as production-ready. New deployments should prefer KRaft over ZooKeeper.</p>
+        </div>
+      </div>
+
+      <h3>Topics</h3>
+      <p>A topic is a named stream of records. Topics in Kafka are multi-subscriber — meaning a single topic can be consumed by any number of consumer groups simultaneously.</p>
+
+      <h3>Partitions</h3>
+      <p>Partitions are the fundamental unit of parallelism in Kafka. Each topic is split into one or more partitions. Partitions allow Kafka to scale horizontally by distributing data across multiple brokers.</p>
+      <div class="key-points">
+        <div class="key-point">
+          <span class="material-symbols-outlined">check_circle</span>
+          <div>
+            <h4>Ordering</h4>
+            <p>Messages within a partition are strictly ordered by offset</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="material-symbols-outlined">warning</span>
+          <div>
+            <h4>Note</h4>
+            <p>Ordering is NOT guaranteed across different partitions</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="material-symbols-outlined">tune</span>
+          <div>
+            <h4>Parallelism</h4>
+            <p>Partition count determines maximum consumer parallelism</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>Partition Assignment</h3>
+      <p>When a producer sends a message, it chooses which partition to write to based on:</p>
+      <ul>
+        <li><strong>Explicit partition key</strong> — Kafka hashes the key to determine partition (same key always → same partition)</li>
+        <li><strong>Round-robin</strong> — if no key is specified, messages are distributed evenly across partitions</li>
+        <li><strong>Custom partitioner</strong> — developer-defined partitioning logic</li>
+      </ul>
+
+      <h3>Offsets</h3>
+      <p>An offset is a unique, sequential integer assigned to every message within a partition. Offsets are immutable and always increasing. Consumers track their position in each partition using offsets.</p>
+      <p class="tip-box"><span class="material-symbols-outlined">info</span> Offsets are partition-specific, not topic-wide. Partition 0 offset 5 is a completely different message than Partition 1 offset 5.</p>
+
+      <h3>Producers</h3>
+      <p>Producers are client applications that publish (write) messages to Kafka topics. Producers are responsible for deciding which partition to write to.</p>
+
+      <h3>Consumers & Consumer Groups</h3>
+      <p>Consumers are applications that read (consume) messages from Kafka topics. Consumer Groups enable parallel consumption — multiple consumers working together to process a topic.</p>
+      <ul>
+        <li>Each partition is consumed by exactly ONE consumer within a group</li>
+        <li>A consumer can read from multiple partitions</li>
+        <li>Multiple groups can independently consume the same topic</li>
+        <li>Adding consumers beyond partition count provides no parallelism benefit</li>
+      </ul>
+
+      <h3>Consumer Group Rebalancing</h3>
+      <p>When consumers join or leave a group, Kafka triggers a rebalance to redistribute partitions:</p>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Protocol</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Eager</td>
+              <td>Stop-the-world — all consumers stop, give up partitions, get reassigned</td>
+            </tr>
+            <tr>
+              <td>Cooperative</td>
+              <td>Incremental — only partitions that need to move are reassigned (preferred for production)</td>
+            </tr>
+            <tr>
+              <td>Static Membership</td>
+              <td>Consumers rejoin with the same partition without triggering a full rebalance</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Replication & Fault Tolerance</h3>
+      <p>Kafka replicates each partition across multiple brokers for fault tolerance. The replication factor determines how many copies exist.</p>
+      <div class="key-points">
+        <div class="key-point">
+          <span class="material-symbols-outlined">person</span>
+          <div>
+            <h4>Leader</h4>
+            <p>Each partition has one leader — all reads and writes go to the leader</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="material-symbols-outlined">group</span>
+          <div>
+            <h4>Followers</h4>
+            <p>Followers replicate data from the leader</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="material-symbols-outlined">swap_horiz</span>
+          <div>
+            <h4>Failover</h4>
+            <p>If a leader fails, a follower is automatically elected as the new leader</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="installation">Installation & Local Setup</h2>
+      
+      <h3>Prerequisites</h3>
+      <ul>
+        <li>Java 11+ (OpenJDK or Oracle JDK)</li>
+        <li>At least 4GB RAM for development</li>
+        <li>Linux/macOS recommended (Windows via WSL2)</li>
+      </ul>
+
+      <h3>Docker Compose Setup</h3>
+      <p>Docker Compose is the fastest way to get a full Kafka + Kafka UI environment running locally.</p>
+
+      <div class="code-block"><code>version: '3.8'
+   
+services:
+  kafka:
+    image: confluentinc/cp-kafka:7.6.0
+    hostname: kafka
+    container_name: kafka
+    ports:
+      - '9092:9092'
+      - '9093:9093'
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@kafka:9093'
+      KAFKA_LISTENERS: 'PLAINTEXT://kafka:29092,CONTROLLER://kafka:9093,EXTERNAL://0.0.0.0:9092'
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://kafka:29092,EXTERNAL://localhost:9092'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT'
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
+      CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
+    ports:
+      - '8080:8080'
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092
+    depends_on:
+      - kafka</code></div>
+
+      <h3>Start Kafka</h3>
+      <div class="code-block"><code># Start the cluster
+docker-compose up -d
+
+# Access Kafka UI at http://localhost:8080
+
+# Verify Kafka is running
+docker exec kafka kafka-topics --bootstrap-server localhost:9092 --list</code></div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="python-kafka">Kafka in Python</h2>
+      
+      <h3>Library Comparison</h3>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Library</th>
+              <th>Pros</th>
+              <th>Cons</th>
+              <th>Best For</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>kafka-python</td>
+              <td>Pure Python, easy install, simple API</td>
+              <td>Slower, less feature-complete</td>
+              <td>Learning, simple apps</td>
+            </tr>
+            <tr>
+              <td>confluent-kafka</td>
+              <td>High performance (librdkafka C), full-featured, schema registry</td>
+              <td>Requires librdkafka</td>
+              <td>Production workloads</td>
+            </tr>
+            <tr>
+              <td>aiokafka</td>
+              <td>AsyncIO native, non-blocking</td>
+              <td>Less mature</td>
+              <td>Async applications</td>
+            </tr>
+            <tr>
+              <td>faust</td>
+              <td>Stream processing, Django-style API</td>
+              <td>Heavier dependency</td>
+              <td>Stream processing</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Installation</h3>
+      <div class="code-block"><code># Install confluent-kafka (recommended)
+pip install confluent-kafka
+
+# Install with Avro/Schema Registry support
+pip install confluent-kafka[avro]
+
+# Install kafka-python (alternative)
+pip install kafka-python
+
+# Install aiokafka for async
+pip install aiokafka</code></div>
+
+      <h3>Basic Producer — confluent-kafka</h3>
+      <div class="code-block"><code>from confluent_kafka import Producer
+import json
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+conf = {
+    'bootstrap.servers': 'localhost:9092',
+    'client.id': 'my-python-producer',
+    'acks': 'all',
+    'enable.idempotence': True,
+    'retries': 2147483647,
+    'max.in.flight.requests.per.connection': 5,
+    'compression.type': 'lz4',
+    'batch.size': 65536,
+    'linger.ms': 10,
+}
+
+producer = Producer(conf)
+
+def delivery_report(err, msg):
+    if err is not None:
+        logger.error(f'Message delivery failed: {err}')
+    else:
+        logger.info(f'Message delivered to {msg.topic()} [{msg.partition()}] at {msg.offset()}')
+
+events = [
+    {'user_id': 'u001', 'action': 'page_view', 'page': '/home'},
+    {'user_id': 'u002', 'action': 'purchase', 'amount': 49.99},
+    {'user_id': 'u001', 'action': 'click', 'element': 'buy-btn'},
+]
+
+for event in events:
+    producer.produce(
+        topic='user-events',
+        key=event['user_id'],
+        value=json.dumps(event),
+        callback=delivery_report
+    )
+    producer.poll(0)
+
+producer.flush(timeout=10)</code></div>
+
+      <h3>Basic Consumer — confluent-kafka</h3>
+      <div class="code-block"><code>from confluent_kafka import Consumer, KafkaError, KafkaException
+import json
+import signal
+import logging
+
+logger = logging.getLogger(__name__)
+
+conf = {
+    'bootstrap.servers': 'localhost:9092',
+    'group.id': 'analytics-consumer-group',
+    'client.id': 'analytics-consumer-1',
+    'auto.offset.reset': 'earliest',
+    'enable.auto.commit': False,
+    'max.poll.interval.ms': 300000,
+    'session.timeout.ms': 45000,
+    'heartbeat.interval.ms': 3000,
+}
+
+consumer = Consumer(conf)
+
+running = True
+def shutdown(signum, frame):
+    global running
+    running = False
+
+signal.signal(signal.SIGINT, shutdown)
+signal.signal(signal.SIGTERM, shutdown)
+
+try:
+    consumer.subscribe(['user-events'])
+    logger.info('Consumer started. Listening on user-events...')
+
+    while running:
+        msg = consumer.poll(timeout=1.0)
+        if msg is None:
+            continue
+        if msg.error():
+            if msg.error().code() == KafkaError._PARTITION_EOF:
+                logger.debug(f'End of partition: {msg.topic()} [{msg.partition()}] at {msg.offset()}')
+            else:
+                raise KafkaException(msg.error())
+        else:
+            event = json.loads(msg.value().decode('utf-8'))
+            key = msg.key().decode('utf-8') if msg.key() else None
+            logger.info(f'[Partition {msg.partition()} | Offset {msg.offset()}] Key: {key} Event: {event}')
+            consumer.commit(asynchronous=False)
+finally:
+    consumer.close()</code></div>
+
+      <h3>Producer — kafka-python Library</h3>
+      <div class="code-block"><code>from kafka import KafkaProducer
+import json
+
+producer = KafkaProducer(
+    bootstrap_servers=['localhost:9092'],
+    key_serializer=lambda k: k.encode('utf-8'),
+    value_serializer=lambda v: json.dumps(v).encode('utf-8'),
+    acks='all',
+    retries=3,
+    compression_type='gzip',
+)
+
+future = producer.send(
+    'user-events',
+    key='user-123',
+    value={'action': 'login', 'timestamp': '2025-01-01T10:00:00Z'}
+)
+
+record_metadata = future.get(timeout=10)
+print(f'Topic: {record_metadata.topic}')
+print(f'Partition: {record_metadata.partition}')
+print(f'Offset: {record_metadata.offset}')
+
+producer.flush()
+producer.close()</code></div>
+
+      <h3>Async Consumer — aiokafka</h3>
+      <div class="code-block"><code>import asyncio
+from aiokafka import AIOKafkaConsumer
+import json
+
+async def consume():
+    consumer = AIOKafkaConsumer(
+        'user-events',
+        bootstrap_servers='localhost:9092',
+        group_id='async-consumer-group',
+        auto_offset_reset='earliest',
+        enable_auto_commit=False,
+        value_deserializer=lambda m: json.loads(m.decode('utf-8')),
+    )
+
+    await consumer.start()
+    try:
+        async for msg in consumer:
+            print(f'Received: partition={msg.partition} offset={msg.offset}')
+            print(f'Value: {msg.value}')
+            await consumer.commit()
+    finally:
+        await consumer.stop()
+
+if __name__ == '__main__':
+    asyncio.run(consume())</code></div>
+
+      <h3>Avro Serialization with Schema Registry</h3>
+      <p>Apache Avro is the recommended serialization format for Kafka. The Confluent Schema Registry stores and manages Avro schemas.</p>
+      <div class="code-block"><code>from confluent_kafka import SerializingProducer
+from confluent_kafka.schema_registry import SchemaRegistryClient
+from confluent_kafka.schema_registry.avro import AvroSerializer
+from confluent_kafka.serialization import StringSerializer
+
+schema_str = """
+{
+  "type": "record",
+  "name": "UserEvent",
+  "namespace": "com.example.events",
+  "fields": [
+    {"name": "user_id", "type": "string"},
+    {"name": "action", "type": "string"},
+    {"name": "timestamp", "type": "long"},
+    {"name": "amount", "type": ["null", "double"], "default": null}
+  ]
+}
+"""
+
+schema_registry_client = SchemaRegistryClient({'url': 'http://localhost:8081'})
+avro_serializer = AvroSerializer(schema_registry_client, schema_str)
+
+producer_conf = {
+    'bootstrap.servers': 'localhost:9092',
+    'key.serializer': StringSerializer('utf_8'),
+    'value.serializer': avro_serializer,
+}
+
+producer = SerializingProducer(producer_conf)
+producer.produce(topic='user-events-avro', key='u001', value={
+    'user_id': 'u001', 'action': 'purchase', 'timestamp': 1735689600, 'amount': 99.99
+})
+producer.flush()</code></div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="kafka-streams">Kafka Streams</h2>
+      <p>Kafka Streams is a client library for building stream processing applications. It processes data directly from Kafka topics and writes results back to Kafka.</p>
+      
+      <div class="key-points">
+        <div class="key-point">
+          <span class="material-symbols-outlined">check_circle</span>
+          <div>
+            <h4>No Separate Cluster</h4>
+            <p>Runs inside your application — no separate processing cluster required</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="material-symbols-outlined">check_circle</span>
+          <div>
+            <h4>Exactly-Once</h4>
+            <p>Exactly-once processing semantics</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="material-symbols-outlined">check_circle</span>
+          <div>
+            <h4>Stateful</h4>
+            <p>Stateful operations with local state stores (RocksDB)</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>Stream Processor with Faust</h3>
+      <div class="code-block"><code>import faust
+
+app = faust.App(
+    'order-processor',
+    broker='kafka://localhost:9092',
+    value_serializer='json',
+)
+
+class Order(faust.Record, serializer='json'):
+    order_id: str
+    user_id: str
+    amount: float
+    status: str
+
+orders_topic = app.topic('orders', value_type=Order)
+enriched_topic = app.topic('orders-enriched', value_type=Order)
+user_spend = app.Table('user-total-spend', default=float)
+
+@app.agent(orders_topic)
+async def process_orders(orders):
+    async for order in orders:
+        print(f'Processing order {order.order_id} for user {order.user_id}')
+        user_spend[order.user_id] += order.amount
+        await enriched_topic.send(key=order.order_id, value=order)
+
+@app.timer(interval=60.0)
+async def log_top_spenders():
+    sorted_users = sorted(user_spend.items(), key=lambda x: x[1], reverse=True)
+    for user_id, total in sorted_users[:10]:
+        print(f'Top spender: {user_id} - ${total:.2f}')
+
+if __name__ == '__main__':
+    app.main()</code></div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="kafka-connect">Kafka Connect</h2>
+      <p>Kafka Connect is a framework for streaming data between Kafka and external systems — databases, file systems, cloud services — without writing custom code.</p>
+
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Direction</th>
+              <th>Examples</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Source Connector</td>
+              <td>External System → Kafka</td>
+              <td>Debezium (CDC), JDBC Source, S3 Source, Twitter</td>
+            </tr>
+            <tr>
+              <td>Sink Connector</td>
+              <td>Kafka → External System</td>
+              <td>JDBC Sink, Elasticsearch, S3 Sink, MongoDB</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Deploy Kafka Connect Source Connector</h3>
+      <div class="code-block"><code>curl -X POST http://localhost:8083/connectors \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "name": "postgres-source",
+    "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+      "connection.url": "jdbc:postgresql://db:5432/mydb",
+      "connection.user": "kafka_user",
+      "connection.password": "secret",
+      "table.whitelist": "users,orders",
+      "mode": "timestamp+incrementing",
+      "timestamp.column.name": "updated_at",
+      "incrementing.column.name": "id",
+      "topic.prefix": "postgres.",
+      "poll.interval.ms": "5000"
+    }
+  }'</code></div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="exactly-once">Exactly-Once Semantics</h2>
+      <p>Kafka supports three message delivery guarantees. Understanding them is critical for building reliable applications.</p>
+
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Guarantee</th>
+              <th>Description</th>
+              <th>Risk</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>At Most Once</td>
+              <td>Messages may be lost, never duplicated</td>
+              <td>Data loss</td>
+            </tr>
+            <tr>
+              <td>At Least Once</td>
+              <td>Messages never lost, may be duplicated</td>
+              <td>Duplicates</td>
+            </tr>
+            <tr>
+              <td>Exactly Once</td>
+              <td>Never lost, never duplicated</td>
+              <td>Higher latency</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Transactional Producer</h3>
+      <div class="code-block"><code>from confluent_kafka import Producer
+
+producer = Producer({
+    'bootstrap.servers': 'localhost:9092',
+    'transactional.id': 'payment-producer-v1',
+    'enable.idempotence': True,
+    'acks': 'all',
+})
+
+producer.init_transactions()
+
+try:
+    producer.begin_transaction()
+    producer.produce('payments', key='pay001', value='{"amount": 100}')
+    producer.produce('audit-log', key='pay001', value='{"event": "payment_created"}')
+    producer.commit_transaction()
+    print('Transaction committed successfully')
+except Exception as e:
+    print(f'Transaction failed: {e}')
+    producer.abort_transaction()</code></div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="topic-compaction">Topic Compaction</h2>
+      <p>Log compaction is an alternative to time-based retention. In a compacted topic, Kafka keeps only the latest message for each unique key.</p>
+
+      <div class="code-block"><code># Create a compacted topic
+kafka-topics.sh --bootstrap-server localhost:9092 \
+  --create --topic user-profiles \
+  --partitions 6 \
+  --replication-factor 3 \
+  --config cleanup.policy=compact \
+  --config min.cleanable.dirty.ratio=0.1 \
+  --config segment.ms=3600000
+
+# Update existing topic to add compaction
+kafka-configs.sh --bootstrap-server localhost:9092 \
+  --entity-type topics --entity-name user-profiles \
+  --alter --add-config cleanup.policy=compact</code></div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="offset-management">Consumer Offset Management</h2>
+      <div class="code-block"><code>from confluent_kafka import Consumer, TopicPartition
+
+consumer = Consumer({
+    'bootstrap.servers': 'localhost:9092',
+    'group.id': 'offset-demo-group',
+    'auto.offset.reset': 'earliest',
+    'enable.auto.commit': False,
+})
+
+consumer.subscribe(['user-events'])
+
+# Manually seek to specific offset
+def on_assign(consumer, partitions):
+    for p in partitions:
+        p.offset = 100
+    consumer.assign(partitions)
+
+consumer.subscribe(['user-events'], on_assign=on_assign)
+
+# Or seek to beginning / end
+partitions = consumer.assignment()
+consumer.seek_to_beginning(*partitions)
+consumer.seek_to_end(*partitions)
+
+# Commit specific offsets
+msg = consumer.poll(1.0)
+if msg:
+    tp = TopicPartition(msg.topic(), msg.partition(), msg.offset() + 1)
+    consumer.commit(offsets=[tp], asynchronous=False)</code></div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="monitoring">Monitoring & Metrics</h2>
+      <p>Critical Kafka metrics to monitor in production:</p>
+      <div class="key-points">
+        <div class="key-point">
+          <span class="material-symbols-outlined">warning</span>
+          <div>
+            <h4>UnderReplicatedPartitions</h4>
+            <p>> 0 (immediate alert)</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="material-symbols-outlined">check_circle</span>
+          <div>
+            <h4>ActiveControllerCount</h4>
+            <p>Should equal 1</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="material-symbols-outlined">speed</span>
+          <div>
+            <h4>ConsumerLag</h4>
+            <p>Monitor for capacity planning</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>Admin Client</h3>
+      <div class="code-block"><code>from confluent_kafka.admin import AdminClient
+
+admin = AdminClient({'bootstrap.servers': 'localhost:9092'})
+
+# List consumer groups
+groups = admin.list_consumer_groups().result()
+for group in groups.valid:
+    print(f'Group: {group.group_id}')
+
+# Describe consumer group
+described = admin.describe_consumer_groups(['analytics-consumer-group'])
+for group_id, future in described.items():
+    group = future.result()
+    print(f'Group: {group.group_id}, State: {group.state}')
+    for member in group.members:
+        print(f'  Member: {member.member_id}, Host: {member.host}')</code></div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="aws-msk">Kafka on AWS — Amazon MSK</h2>
+      
+      <h3>What is Amazon MSK?</h3>
+      <p>Amazon Managed Streaming for Apache Kafka (MSK) is a fully managed service that makes it easy to build and run applications that use Apache Kafka to process streaming data.</p>
+
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Aspect</th>
+              <th>Amazon MSK</th>
+              <th>Self-Managed Kafka</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Broker Provisioning</td>
+              <td>Automatic</td>
+              <td>Manual</td>
+            </tr>
+            <tr>
+              <td>Kafka Upgrades</td>
+              <td>Managed</td>
+              <td>Manual with downtime risk</td>
+            </tr>
+            <tr>
+              <td>Multi-AZ</td>
+              <td>Built-in (3 AZs)</td>
+              <td>Manual setup</td>
+            </tr>
+            <tr>
+              <td>Monitoring</td>
+              <td>CloudWatch built-in</td>
+              <td>Prometheus/Grafana setup</td>
+            </tr>
+            <tr>
+              <td>Cost Model</td>
+              <td>Instance + storage + data transfer</td>
+              <td>EC2 + EBS + ops time</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>MSK with IAM Auth</h3>
+      <div class="code-block"><code># Install MSK IAM packages
+pip install confluent-kafka aws-msk-iam-sasl-signer-python boto3</code></div>
+
+      <h3>MSK Producer with IAM Auth</h3>
+      <div class="code-block"><code>import boto3
+from confluent_kafka import Producer
+from aws_msk_iam_sasl_signer import MSKAuthTokenProvider
+import json
+import os
+
+MSK_BROKERS = os.environ['MSK_BOOTSTRAP_SERVERS']
+AWS_REGION = os.environ.get('AWS_REGION', 'us-east-1')
+
+def oauth_cb(oauth_config):
+    auth_token, expiry_ms = MSKAuthTokenProvider.generate_auth_token(AWS_REGION)
+    return auth_token, expiry_ms / 1000
+
+producer_conf = {
+    'bootstrap.servers': MSK_BROKERS,
+    'security.protocol': 'SASL_SSL',
+    'sasl.mechanism': 'OAUTHBEARER',
+    'oauth_cb': oauth_cb,
+    'acks': 'all',
+    'enable.idempotence': True,
+}
+
+producer = Producer(producer_conf)
+
+def delivery_report(err, msg):
+    if err:
+        print(f'ERROR: {err}')
+    else:
+        print(f'OK: {msg.topic()}[{msg.partition()}]@{msg.offset()}')
+
+events = [
+    {'event': 'order_created', 'order_id': 'ORD-001', 'amount': 125.50},
+    {'event': 'order_shipped', 'order_id': 'ORD-001', 'tracking': 'TRK-789'},
+]
+
+for event in events:
+    producer.produce(topic='orders', key=event['order_id'], value=json.dumps(event), callback=delivery_report)
+    producer.poll(0)
+
+producer.flush()</code></div>
+
+      <h3>MSK Consumer with IAM Auth</h3>
+      <div class="code-block"><code>from confluent_kafka import Consumer
+from aws_msk_iam_sasl_signer import MSKAuthTokenProvider
+import json, os, signal
+
+MSK_BROKERS = os.environ['MSK_BOOTSTRAP_SERVERS']
+AWS_REGION = os.environ.get('AWS_REGION', 'us-east-1')
+
+def oauth_cb(oauth_config):
+    auth_token, expiry_ms = MSKAuthTokenProvider.generate_auth_token(AWS_REGION)
+    return auth_token, expiry_ms / 1000
+
+consumer_conf = {
+    'bootstrap.servers': MSK_BROKERS,
+    'security.protocol': 'SASL_SSL',
+    'sasl.mechanism': 'OAUTHBEARER',
+    'oauth_cb': oauth_cb,
+    'group.id': 'order-processor-v1',
+    'auto.offset.reset': 'earliest',
+    'enable.auto.commit': False,
+}
+
+consumer = Consumer(consumer_conf)
+consumer.subscribe(['orders'])
+
+running = True
+signal.signal(signal.SIGINT, lambda s, f: globals().update(running=False))
+signal.signal(signal.SIGTERM, lambda s, f: globals().update(running=False))
+
+try:
+    while running:
+        msg = consumer.poll(timeout=1.0)
+        if msg is None or msg.error():
+            continue
+        event = json.loads(msg.value())
+        print(f'[{msg.topic()}:{msg.partition()}@{msg.offset()}] {event}')
+        consumer.commit(asynchronous=False)
+finally:
+    consumer.close()</code></div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="best-practices">Best Practices</h2>
+      
+      <h3>Topic Design Guidelines</h3>
+      <ul>
+        <li><strong>Partitions:</strong> Start with 3x the number of consumers you expect. Prefer multiples of 3 for even distribution.</li>
+        <li><strong>Replication Factor:</strong> Always use 3 in production. Never use 1.</li>
+        <li><strong>Naming Convention:</strong> Use kebab-case with clear domain prefixes (e.g., orders-created, payments-processed).</li>
+        <li><strong>Message Size:</strong> Keep messages under 1MB. Use external storage (S3) for large payloads.</li>
+        <li><strong>Keys:</strong> Always use meaningful keys for ordering guarantees.</li>
+      </ul>
+
+      <h3>Security Checklist</h3>
+      <div class="key-points">
+        <div class="key-point">
+          <span class="material-symbols-outlined">lock</span>
+          <div>
+            <h4>TLS Encryption</h4>
+            <p>Enable TLS encryption in transit</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="material-symbols-outlined">key</span>
+          <div>
+            <h4>Authentication</h4>
+            <p>Use SASL/SCRAM or SASL/OAUTHBEARER (IAM on MSK)</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="material-symbols-outlined">shield</span>
+          <div>
+            <h4>ACLs</h4>
+            <p>Enable ACLs for access control</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="material-symbols-outlined">vpn_key</span>
+          <div>
+            <h4>Credentials</h4>
+            <p>Rotate credentials regularly; use AWS Secrets Manager</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>Performance Tuning</h3>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Component</th>
+              <th>Setting</th>
+              <th>Tuning Tip</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Producer</td>
+              <td>linger.ms=20, batch.size=131072</td>
+              <td>Larger batches = better throughput</td>
+            </tr>
+            <tr>
+              <td>Producer</td>
+              <td>compression.type=lz4</td>
+              <td>Best balance of speed/ratio</td>
+            </tr>
+            <tr>
+              <td>Consumer</td>
+              <td>fetch.min.bytes=50000</td>
+              <td>Reduce fetch calls</td>
+            </tr>
+            <tr>
+              <td>Consumer</td>
+              <td>max.poll.records=500</td>
+              <td>Based on processing time</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="cli-commands">CLI Commands</h2>
+      <div class="code-block"><code># Create a topic
+kafka-topics.sh --bootstrap-server HOST:9092 --create --topic NAME --partitions 6 --replication-factor 3
+
+# List topics
+kafka-topics.sh --bootstrap-server HOST:9092 --list
+
+# Describe a topic
+kafka-topics.sh --bootstrap-server HOST:9092 --describe --topic NAME
+
+# Produce messages
+kafka-console-producer.sh --bootstrap-server HOST:9092 --topic NAME --property 'parse.key=true'
+
+# Consume messages
+kafka-console-consumer.sh --bootstrap-server HOST:9092 --topic NAME --from-beginning
+
+# Consumer groups
+kafka-consumer-groups.sh --bootstrap-server HOST:9092 --list
+kafka-consumer-groups.sh --bootstrap-server HOST:9092 --describe --group GROUP_ID
+
+# Reset offsets
+kafka-consumer-groups.sh --bootstrap-server HOST:9092 --reset-offsets --group GROUP --topic NAME --to-earliest --execute</code></div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="glossary">Key Terms Glossary</h2>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Term</th>
+              <th>Definition</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Broker</td>
+              <td>A Kafka server process that stores data and serves clients</td>
+            </tr>
+            <tr>
+              <td>Topic</td>
+              <td>Named stream of records, divided into partitions</td>
+            </tr>
+            <tr>
+              <td>Partition</td>
+              <td>Ordered, immutable sequence of records; unit of parallelism</td>
+            </tr>
+            <tr>
+              <td>Offset</td>
+              <td>Unique ID of a record within a partition, always increasing</td>
+            </tr>
+            <tr>
+              <td>Producer</td>
+              <td>Client that writes messages to Kafka topics</td>
+            </tr>
+            <tr>
+              <td>Consumer</td>
+              <td>Client that reads messages from Kafka topics</td>
+            </tr>
+            <tr>
+              <td>Consumer Group</td>
+              <td>Group of consumers sharing work of consuming a topic</td>
+            </tr>
+            <tr>
+              <td>Replication Factor</td>
+              <td>Number of copies of each partition across brokers</td>
+            </tr>
+            <tr>
+              <td>ISR</td>
+              <td>In-Sync Replicas — replicas fully caught up with the leader</td>
+            </tr>
+            <tr>
+              <td>KRaft</td>
+              <td>Kafka Raft — replaces ZooKeeper for cluster coordination</td>
+            </tr>
+            <tr>
+              <td>Schema Registry</td>
+              <td>Service that stores and validates Avro/JSON schemas</td>
+            </tr>
+            <tr>
+              <td>Consumer Lag</td>
+              <td>Difference between latest offset and consumer position</td>
+            </tr>
+            <tr>
+              <td>DLQ</td>
+              <td>Dead Letter Queue — topic for messages that failed processing</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </section>
 
     <footer class="footer">

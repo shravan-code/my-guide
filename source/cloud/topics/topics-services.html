@@ -171,37 +171,34 @@
       <h2> Compute Services <span class="level-badge basic">Basic</span> </h2>
       <p>Compute services provide processing power for applications. The three major providers offer similar capabilities with different names.</p>
 
-      <div class="code-block">
-<code><span class="comment"># Compute Services Comparison</span>
-
-<span class="comment"># Virtual Machines</span>
-┌──────────────┬──────────────────┬──────────────────┐
-│ AWS          │ Azure            │ GCP              │
-├──────────────┼──────────────────┼──────────────────┤
-│ EC2          │ Virtual Machines │ Compute Engine   │
-│ Lightsail    │ VM Scale Sets    │ Sole-Tenant      │
-│ Bottlerocket │ DevTest Labs     │ Shielded VMs     │
-└──────────────┴──────────────────┴──────────────────┘
-
-<span class="comment"># Containers</span>
-┌──────────────┬──────────────────┬──────────────────┐
-│ ECS          │ Container        │ Cloud Run        │
-│ EKS          │ Instances        │ GKE              │
-│ Fargate      │ AKS              │                  │
-└──────────────┴──────────────────┴──────────────────┘
-
-<span class="comment"># Serverless</span>
-┌──────────────┬──────────────────┬──────────────────┐
-│ Lambda       │ Functions        │ Cloud Functions  │
-│              │ Logic Apps       │ Cloud Workflows  │
-└──────────────┴──────────────────┴──────────────────┘
-
-<span class="comment"># PaaS</span>
-┌──────────────┬──────────────────┬──────────────────┐
-│ Elastic      │ App Service      │ App Engine       │
-│ Beanstalk    │ Spring Apps      │                  │
-│ Amplify      │ Container Apps   │ Cloud Run        │
-└──────────────┴──────────────────┴──────────────────┘</code>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr><th>AWS</th><th>Azure</th><th>GCP</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Virtual Machines</strong><br>EC2, Lightsail, Bottlerocket</td>
+              <td><strong>Virtual Machines</strong><br>VM Scale Sets, DevTest Labs</td>
+              <td><strong>Compute Engine</strong><br>Sole-Tenant, Shielded VMs</td>
+            </tr>
+            <tr>
+              <td><strong>Containers</strong><br>ECS, EKS, Fargate</td>
+              <td><strong>Containers</strong><br>Container Instances, AKS</td>
+              <td><strong>Containers</strong><br>Cloud Run, GKE</td>
+            </tr>
+            <tr>
+              <td><strong>Serverless</strong><br>Lambda</td>
+              <td><strong>Serverless</strong><br>Functions, Logic Apps</td>
+              <td><strong>Serverless</strong><br>Cloud Functions, Cloud Workflows</td>
+            </tr>
+            <tr>
+              <td><strong>PaaS</strong><br>Elastic Beanstalk, Amplify</td>
+              <td><strong>PaaS</strong><br>App Service, Spring Apps, Container Apps</td>
+              <td><strong>PaaS</strong><br>App Engine, Cloud Run</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
@@ -210,29 +207,29 @@
       <h2> Storage Services <span class="level-badge basic">Basic</span> </h2>
       <p>Cloud storage includes object, block, file, and specialized storage types for different use cases.</p>
 
-      <div class="code-block">
-<code><span class="comment"># Storage Services Comparison</span>
-
-<span class="comment"># Object Storage</span>
-┌──────────────┬──────────────────┬──────────────────┐
-│ AWS S3       │ Azure Blob       │ GCS              │
-│ S3 Glacier   │ Archive Storage  │ Archive Storage  │
-│              │ Data Lake Gen2   │                  │
-└──────────────┴──────────────────┴──────────────────┘
-
-<span class="comment"># Block Storage</span>
-┌──────────────┬──────────────────┬──────────────────┐
-│ EBS          │ Managed Disks    │ Persistent Disk  │
-│ Instance     │ Azure Disk       │ Local SSD        │
-│ Store        │ Ultra Disk       │                  │
-└──────────────┴──────────────────┴──────────────────┘
-
-<span class="comment"># File Storage</span>
-┌──────────────┬──────────────────┬──────────────────┐
-│ EFS          │ Azure Files      │ Filestore        │
-│ FSx for      │ NetApp Files     │ Cloud Filestore  │
-│ Lustre/NTFS  │                  │                  │
-└──────────────┴──────────────────┴──────────────────┘</code>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr><th>AWS</th><th>Azure</th><th>GCP</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Object Storage</strong><br>S3, S3 Glacier</td>
+              <td><strong>Object Storage</strong><br>Blob, Archive Storage, Data Lake Gen2</td>
+              <td><strong>Object Storage</strong><br>GCS, Archive Storage</td>
+            </tr>
+            <tr>
+              <td><strong>Block Storage</strong><br>EBS, Instance Store</td>
+              <td><strong>Block Storage</strong><br>Managed Disks, Ultra Disk</td>
+              <td><strong>Block Storage</strong><br>Persistent Disk, Local SSD</td>
+            </tr>
+            <tr>
+              <td><strong>File Storage</strong><br>EFS, FSx for Lustre/NTFS</td>
+              <td><strong>File Storage</strong><br>Azure Files, NetApp Files</td>
+              <td><strong>File Storage</strong><br>Filestore</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
@@ -241,34 +238,34 @@
       <h2> Database Services <span class="level-badge basic">Basic</span> </h2>
       <p>Managed database services handle provisioning, patching, backups, and scaling.</p>
 
-      <div class="code-block">
-<code><span class="comment"># Database Services Comparison</span>
-
-<span class="comment"># Relational (SQL)</span>
-┌──────────────┬──────────────────┬──────────────────┐
-│ RDS          │ Azure SQL        │ Cloud SQL        │
-│ Aurora       │ SQL Managed Inst │ Cloud Spanner    │
-│              │ Database         │ AlloyDB          │
-└──────────────┴──────────────────┴──────────────────┘
-
-<span class="comment"># NoSQL Document</span>
-┌──────────────┬──────────────────┬──────────────────┐
-│ DynamoDB     │ Cosmos DB        │ Firestore        │
-│              │ Table Storage    │ Bigtable         │
-└──────────────┴──────────────────┴──────────────────┘
-
-<span class="comment"># In-Memory Cache</span>
-┌──────────────┬──────────────────┬──────────────────┐
-│ ElastiCache  │ Azure Cache      │ Memorystore      │
-│ (Redis/      │ (Redis/Memcached)│ (Redis/Memcached)│
-│  Memcached)  │                  │                  │
-└──────────────┴──────────────────┴──────────────────┘
-
-<span class="comment"># Data Warehouse</span>
-┌──────────────┬──────────────────┬──────────────────┐
-│ Redshift     │ Synapse          │ BigQuery         │
-│              │ Analytics        │                  │
-└──────────────┴──────────────────┴──────────────────┘</code>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr><th>AWS</th><th>Azure</th><th>GCP</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Relational (SQL)</strong><br>RDS, Aurora</td>
+              <td><strong>SQL</strong><br>Azure SQL, SQL Managed Instance</td>
+              <td><strong>Cloud SQL</strong><br>Spanner, AlloyDB</td>
+            </tr>
+            <tr>
+              <td><strong>NoSQL Document</strong><br>DynamoDB</td>
+              <td><strong>Cosmos DB</strong><br>Table Storage</td>
+              <td><strong>Firestore</strong><br>Bigtable</td>
+            </tr>
+            <tr>
+              <td><strong>In-Memory Cache</strong><br>ElastiCache (Redis/Memcached)</td>
+              <td><strong>Azure Cache</strong><br>(Redis/Memcached)</td>
+              <td><strong>Memorystore</strong><br>(Redis/Memcached)</td>
+            </tr>
+            <tr>
+              <td><strong>Data Warehouse</strong><br>Redshift</td>
+              <td><strong>Synapse Analytics</strong></td>
+              <td><strong>BigQuery</strong></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
@@ -277,35 +274,34 @@
       <h2> Analytics Services <span class="level-badge intermediate">Intermediate</span> </h2>
       <p>Analytics services process and analyze large datasets for business intelligence and data science.</p>
 
-      <div class="code-block">
-<code><span class="comment"># Analytics Services Comparison</span>
-
-<span class="comment"># Big Data Processing</span>
-┌──────────────┬──────────────────┬──────────────────┐
-│ EMR          │ HDInsight        │ Dataproc         │
-│ (Spark,      │ (Spark, Hadoop,  │ (Spark, Hadoop)  │
-│  Hadoop)     │  Kafka, HBase)   │                  │
-└──────────────┴──────────────────┴──────────────────┘
-
-<span class="comment"># Data Integration / ETL</span>
-┌──────────────┬──────────────────┬──────────────────┐
-│ Glue         │ Data Factory     │ Dataflow         │
-│              │ Data Factory v2  │ Dataprep         │
-│              │ Synapse Pipelines│ Cloud Composer   │
-└──────────────┴──────────────────┴──────────────────┘
-
-<span class="comment"># Streaming</span>
-┌──────────────┬──────────────────┬──────────────────┐
-│ Kinesis      │ Event Hubs       │ Pub/Sub          │
-│ MSK (Kafka)  │ Stream Analytics │ Dataflow         │
-│              │ Service Bus      │                  │
-└──────────────┴──────────────────┴──────────────────┘
-
-<span class="comment"># BI & Visualization</span>
-┌──────────────┬──────────────────┬──────────────────┐
-│ QuickSight   │ Power BI         │ Looker           │
-│              │                  │ Data Studio      │
-└──────────────┴──────────────────┴──────────────────┘</code>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr><th>AWS</th><th>Azure</th><th>GCP</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Big Data Processing</strong><br>EMR (Spark, Hadoop)</td>
+              <td><strong>HDInsight</strong><br>Spark, Hadoop, Kafka</td>
+              <td><strong>Dataproc</strong><br>Spark, Hadoop</td>
+            </tr>
+            <tr>
+              <td><strong>Data Integration (ETL)</strong><br>Glue</td>
+              <td><strong>Data Factory</strong><br>Synapse Pipelines</td>
+              <td><strong>Dataflow</strong><br>Dataprep, Composer</td>
+            </tr>
+            <tr>
+              <td><strong>Streaming</strong><br>Kinesis, MSK (Kafka)</td>
+              <td><strong>Event Hubs</strong><br>Stream Analytics</td>
+              <td><strong>Pub/Sub</strong><br>Dataflow</td>
+            </tr>
+            <tr>
+              <td><strong>BI & Visualization</strong><br>QuickSight</td>
+              <td><strong>Power BI</strong></td>
+              <td><strong>Looker</strong><br>Data Studio</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
@@ -314,31 +310,29 @@
       <h2> AI & Machine Learning <span class="level-badge intermediate">Intermediate</span> </h2>
       <p>Cloud AI/ML services provide pre-built models and training infrastructure.</p>
 
-      <div class="code-block">
-<code><span class="comment"># AI/ML Services Comparison</span>
-
-<span class="comment"># ML Platform</span>
-┌──────────────┬──────────────────┬──────────────────┐
-│ SageMaker    │ Azure ML         │ Vertex AI        │
-│              │ Machine Learning │                  │
-└──────────────┴──────────────────┴──────────────────┘
-
-<span class="comment"># Pre-built AI APIs</span>
-┌──────────────┬──────────────────┬──────────────────┐
-│ Rekognition  │ Cognitive        │ Vision AI        │
-│ Comprehend   │ Services         │ Natural Language │
-│ Transcribe   │ - Vision         │ Speech-to-Text   │
-│ Polly        │ - Language       │ Translation      │
-│ Textract     │ - Speech         │ Video Intelligence│
-│ Translate    │ - Decision       │                  │
-│ Lex          │                  │                  │
-└──────────────┴──────────────────┴──────────────────┘
-
-<span class="comment"># LLM / GenAI</span>
-┌──────────────┬──────────────────┬──────────────────┐
-│ Bedrock      │ Azure OpenAI     │ Vertex AI        │
-│              │ Service          │ (PaLM, Gemini)   │
-└──────────────┴──────────────────┴──────────────────┘</code>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr><th>AWS</th><th>Azure</th><th>GCP</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>ML Platform</strong><br>SageMaker</td>
+              <td><strong>Azure ML</strong></td>
+              <td><strong>Vertex AI</strong></td>
+            </tr>
+            <tr>
+              <td><strong>AI APIs</strong><br>Rekognition, Comprehend, Polly</td>
+              <td><strong>Cognitive Services</strong><br>Vision, Language, Speech</td>
+              <td><strong>AI APIs</strong><br>Vision AI, Natural Language, Translation</td>
+            </tr>
+            <tr>
+              <td><strong>LLM / GenAI</strong><br>Bedrock</td>
+              <td><strong>Azure OpenAI</strong></td>
+              <td><strong>Vertex AI Generative AI</strong><br>(Gemini)</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
@@ -347,36 +341,34 @@
       <h2> Networking Services <span class="level-badge intermediate">Intermediate</span> </h2>
       <p>Cloud networking provides isolated networks, load balancing, DNS, and connectivity.</p>
 
-      <div class="code-block">
-<code><span class="comment"># Networking Services Comparison</span>
-
-<span class="comment"># Virtual Network</span>
-┌──────────────┬──────────────────┬──────────────────┐
-│ VPC          │ VNet             │ VPC              │
-│ Subnets      │ Subnets          │ Subnets          │
-│ Security     │ NSG              │ Firewall Rules   │
-│ Groups       │                  │                  │
-└──────────────┴──────────────────┴──────────────────┘
-
-<span class="comment"># Load Balancing</span>
-┌──────────────┬──────────────────┬──────────────────┐
-│ ALB / NLB    │ Load Balancer    │ Cloud Load       │
-│ API Gateway  │ Application GW   │ Balancing         │
-│              │ Traffic Manager  │ Cloud Endpoints  │
-└──────────────┴──────────────────┴──────────────────┘
-
-<span class="comment"># DNS</span>
-┌──────────────┬──────────────────┬──────────────────┐
-│ Route 53     │ Azure DNS        │ Cloud DNS        │
-│              │ Traffic Manager  │                  │
-└──────────────┴──────────────────┴──────────────────┘
-
-<span class="comment"># VPN / Direct Connect</span>
-┌──────────────┬──────────────────┬──────────────────┐
-│ VPN Gateway  │ VPN Gateway      │ Cloud VPN        │
-│ Direct       │ ExpressRoute     │ Cloud Interconnect│
-│ Connect      │                  │                  │
-└──────────────┴──────────────────┴──────────────────┘</code>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr><th>AWS</th><th>Azure</th><th>GCP</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Virtual Network</strong><br>VPC, Subnets</td>
+              <td><strong>VNet</strong><br>Subnets</td>
+              <td><strong>VPC</strong><br>Subnets</td>
+            </tr>
+            <tr>
+              <td><strong>Load Balancing</strong><br>ALB / NLB, API Gateway</td>
+              <td><strong>Load Balancer</strong><br>Application Gateway</td>
+              <td><strong>Cloud Load Balancing</strong><br>End-Points</td>
+            </tr>
+            <tr>
+              <td><strong>DNS</strong><br>Route 53</td>
+              <td><strong>Azure DNS</strong><br>Traffic Manager</td>
+              <td><strong>Cloud DNS</strong></td>
+            </tr>
+            <tr>
+              <td><strong>VPN / Interconnect</strong><br>VPN Gateway, Direct Connect</td>
+              <td><strong>VPN Gateway</strong><br>ExpressRoute</td>
+              <td><strong>Cloud VPN</strong><br>Cloud Interconnect</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
@@ -385,39 +377,39 @@
       <h2> Security & Identity <span class="level-badge intermediate">Intermediate</span> </h2>
       <p>Cloud security services manage identity, access, encryption, and threat detection.</p>
 
-      <div class="code-block">
-<code><span class="comment"># Security Services Comparison</span>
-
-<span class="comment"># Identity & Access Management</span>
-┌──────────────┬──────────────────┬──────────────────┐
-│ IAM          │ Azure AD         │ IAM              │
-│ Cognito      │ Entra ID         │ Cloud Identity   │
-│              │ Managed Identity │ Service Accounts │
-└──────────────┴──────────────────┴──────────────────┘
-
-<span class="comment"># Secrets Management</span>
-┌──────────────┬──────────────────┬──────────────────┐
-│ Secrets      │ Key Vault        │ Secret Manager   │
-│ Manager      │                  │                  │
-└──────────────┴──────────────────┴──────────────────┘
-
-<span class="comment"># Key Management</span>
-┌──────────────┬──────────────────┬──────────────────┐
-│ KMS          │ Key Vault        │ Cloud KMS        │
-└──────────────┴──────────────────┴──────────────────┘
-
-<span class="comment"># Threat Detection</span>
-┌──────────────┬──────────────────┬──────────────────┐
-│ GuardDuty    │ Security Center  │ Security Command │
-│ Inspector    │ Defender         │ Center           │
-│ Macie        │ Sentinel         │ Chronicle        │
-└──────────────┴──────────────────┴──────────────────┘
-
-<span class="comment"># WAF / DDoS Protection</span>
-┌──────────────┬──────────────────┬──────────────────┐
-│ WAF          │ Azure WAF        │ Cloud Armor      │
-│ Shield       │ DDoS Protection  │                  │
-└──────────────┴──────────────────┴──────────────────┘</code>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr><th>AWS</th><th>Azure</th><th>GCP</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Identity & Access</strong><br>IAM, Cognito</td>
+              <td><strong>Entra ID (Azure AD)</strong><br>Managed Identity</td>
+              <td><strong>IAM</strong><br>Cloud Identity, Service Accounts</td>
+            </tr>
+            <tr>
+              <td><strong>Secrets Management</strong><br>Secrets Manager</td>
+              <td><strong>Key Vault</strong></td>
+              <td><strong>Secret Manager</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Key Management</strong><br>KMS</td>
+              <td><strong>Key Vault</strong></td>
+              <td><strong>Cloud KMS</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Threat Detection</strong><br>GuardDuty, Inspector, Macie</td>
+              <td><strong>Security Center</strong><br>Defender, Sentinel</td>
+              <td><strong>Security Command Center</strong><br>Chronicle</td>
+            </tr>
+            <tr>
+              <td><strong>WAF / DDoS</strong><br>WAF, Shield</td>
+              <td><strong>Azure WAF</strong><br>DDoS Protection</td>
+              <td><strong>Cloud Armor</strong></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
 

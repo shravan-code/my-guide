@@ -88,6 +88,73 @@
       .layer-hero h1 { font-size: 1.75rem; }
       .services-grid { grid-template-columns: 1fr 1fr; }
     }
+
+    .provider-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.25rem;
+      background: var(--surface-container-low);
+      border-radius: 12px;
+      width: fit-content;
+    }
+
+    .provider-tab {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      background: transparent;
+      color: var(--on-surface-variant);
+      font-family: var(--font-family);
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .provider-tab:hover {
+      background: var(--surface-container);
+      color: var(--on-surface);
+    }
+
+    .provider-tab.active {
+      background: var(--surface-container-lowest);
+      color: var(--primary);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .provider-tab .provider-icon {
+      width: 18px;
+      height: 18px;
+      opacity: 0.7;
+    }
+
+    .provider-tab.active .provider-icon {
+      opacity: 1;
+    }
+
+    .provider-content {
+      display: none;
+    }
+
+    .provider-content.active {
+      display: block;
+    }
+
+    @media (max-width: 600px) {
+      .provider-tabs {
+        width: 100%;
+      }
+      .provider-tab {
+        flex: 1;
+        justify-content: center;
+        padding: 0.6rem 0.75rem;
+        font-size: 0.8rem;
+      }
+    }
   </style>
 </head>
 
@@ -219,9 +286,18 @@
         <h2>Complete 9-Layer Architecture</h2>
 
         <div class="provider-tabs">
-          <button class="provider-tab active" onclick="showProvider('aws')">AWS</button>
-          <button class="provider-tab" onclick="showProvider('azure')">Azure</button>
-          <button class="provider-tab" onclick="showProvider('gcp')">GCP</button>
+          <button class="provider-tab active" onclick="showProvider('aws')">
+            <img class="provider-icon" src="https://cdn.jsdelivr.net/npm/cloud-icons@0.3.0/svg/amazon-web-services.svg" alt="" onerror="this.style.display='none'" />
+            AWS
+          </button>
+          <button class="provider-tab" onclick="showProvider('azure')">
+            <img class="provider-icon" src="https://cdn.jsdelivr.net/npm/cloud-icons@0.3.0/svg/azure.svg" alt="" onerror="this.style.display='none'" />
+            Azure
+          </button>
+          <button class="provider-tab" onclick="showProvider('gcp')">
+            <img class="provider-icon" src="https://cdn.jsdelivr.net/npm/cloud-icons@0.3.0/svg/google-cloud.svg" alt="" onerror="this.style.display='none'" />
+            GCP
+          </button>
         </div>
 
         <!-- AWS Services -->
@@ -786,36 +862,62 @@
           <div class="comparison-grid">
             <div class="comparison-item">
               <h5>Databases (OLTP)</h5>
-              <ul>
-                <li>Relational: RDS, Aurora, PostgreSQL, MySQL</li>
-                <li>NoSQL: DynamoDB, MongoDB</li>
-                <li>Data warehouses: Redshift</li>
-              </ul>
+              <div class="key-points">
+                <div class="key-point">
+                  <h5>Relational: RDS, Aurora, PostgreSQL, MySQL</h5>
+                </div>
+                <div class="key-point">
+                  <h5>NoSQL: DynamoDB, MongoDB</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Data Warehouses: Redshift</h5>
+                </div>
+              </div>
             </div>
             <div class="comparison-item">
               <h5>Files & APIs</h5>
-              <ul>
-                <li>S3 (CSV, JSON, Parquet, Avro)</li>
-                <li>REST/GraphQL APIs</li>
-                <li>FTP/SFTP drops</li>
-                <li>Event streams</li>
-              </ul>
+              <div class="key-points">
+                <div class="key-point">
+                  <h5>S3 (CSV, JSON, Parquet, Avro)</h5>
+                </div>
+                <div class="key-point">
+                  <h5>REST/GraphQL APIs</h5>
+                </div>
+                <div class="key-point">
+                  <h5>FTP/SFTP Drops</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Event Streams</h5>
+                </div>
+              </div>
             </div>
             <div class="comparison-item">
               <h5>Logs & Events</h5>
-              <ul>
-                <li>Application logs</li>
-                <li>CloudWatch logs</li>
-                <li>Custom events</li>
-              </ul>
+              <div class="key-points">
+                <div class="key-point">
+                  <h5>Application Logs</h5>
+                </div>
+                <div class="key-point">
+                  <h5>CloudWatch Logs</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Custom Events</h5>
+                </div>
+              </div>
             </div>
             <div class="comparison-item">
               <h5>IoT & Streaming</h5>
-              <ul>
-                <li>Sensors and devices</li>
-                <li>Clickstreams</li>
-                <li>Time-series data</li>
-              </ul>
+              <div class="key-points">
+                <div class="key-point">
+                  <h5>Sensors and Devices</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Clickstreams</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Time-series Data</h5>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -887,20 +989,39 @@
           <div class="comparison-grid">
             <div class="comparison-item">
               <h5>Batch Ingestion</h5>
-              <ul>
-                <li>Scheduled bulk transfers</li>
-                <li>Good for daily/hourly loads</li>
-                <li>Cost-effective for large volumes</li>
-                <li>Higher latency acceptable</li>
-              </ul>
+              <div class="key-points">
+                <div class="key-point">
+                  <h5>Scheduled Bulk Transfers</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Good for Daily/Hourly Loads</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Cost-effective for Large Volumes</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Higher Latency Acceptable</h5>
+                </div>
+              </div>
             </div>
             <div class="comparison-item">
               <h5>Streaming Ingestion</h5>
-              <ul>
-                <li>Continuous real-time flow</li>
-                <li>Sub-second latency</li>
-                <li>Handles millions of events/sec</li>
-                <li>Higher cost per event</li>
+              <div class="key-points">
+                <div class="key-point">
+                  <h5>Continuous Real-time Flow</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Sub-second Latency</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Handles Millions of Events/sec</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Higher Cost per Event</h5>
+                </div>
+              </div>
+            </div>
+          </div>
               </ul>
             </div>
           </div>
@@ -1003,21 +1124,37 @@
           <div class="comparison-grid">
             <div class="comparison-item">
               <h5>ETL (Extract-Transform-Load)</h5>
-              <ul>
-                <li>Transform before loading</li>
-                <li>Clean data at source</li>
-                <li>Reduces target storage</li>
-                <li>Better for complex transforms</li>
-              </ul>
+              <div class="key-points">
+                <div class="key-point">
+                  <h5>Transform Before Loading</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Clean Data at Source</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Reduces Target Storage</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Better for Complex Transforms</h5>
+                </div>
+              </div>
             </div>
             <div class="comparison-item">
               <h5>ELT (Extract-Load-Transform)</h5>
-              <ul>
-                <li>Load raw, transform later</li>
-                <li>Full data preservation</li>
-                <li>Flexible transformations</li>
-                <li>Better for ad-hoc analysis</li>
-              </ul>
+              <div class="key-points">
+                <div class="key-point">
+                  <h5>Load Raw, Transform Later</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Full Data Preservation</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Flexible Transformations</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Better for Ad-hoc Analysis</h5>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -1045,12 +1182,24 @@
           </div>
 
           <h3>Internal Components</h3>
-          <ul>
-            <li><strong>DAG Execution</strong> - Directed Acyclic Graph for task orchestration</li>
-            <li><strong>Distributed Compute</strong> - Spark, Hadoop, Flink under the hood</li>
-            <li><strong>Memory Management</strong> - Handling large datasets in memory</li>
-            <li><strong>Shuffle Handling</strong> - Data movement between nodes during joins</li>
-          </ul>
+          <div class="key-points">
+            <div class="key-point">
+              <h5>DAG Execution</h5>
+              <p>Directed Acyclic Graph for task orchestration</p>
+            </div>
+            <div class="key-point">
+              <h5>Distributed Compute</h5>
+              <p>Spark, Hadoop, Flink under the hood</p>
+            </div>
+            <div class="key-point">
+              <h5>Memory Management</h5>
+              <p>Handling large datasets in memory</p>
+            </div>
+            <div class="key-point">
+              <h5>Shuffle Handling</h5>
+              <p>Data movement between nodes during joins</p>
+            </div>
+          </div>
 
           <div class="callout tldr">
             <p>Use Glue for serverless ETL, EMR for complex/big data processing (ML, large Spark jobs), Lambda for
@@ -1101,21 +1250,37 @@
           <div class="comparison-grid">
             <div class="comparison-item">
               <h5>Raw / Landing Zone</h5>
-              <ul>
-                <li>Immutable source of truth</li>
-                <li>Never overwritten</li>
-                <li>Enables reprocessing</li>
-                <li>Schema-on-read</li>
-              </ul>
+              <div class="key-points">
+                <div class="key-point">
+                  <h5>Immutable Source of Truth</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Never Overwritten</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Enables Reprocessing</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Schema-on-read</h5>
+                </div>
+              </div>
             </div>
             <div class="comparison-item">
               <h5>Curated / Analytics Zone</h5>
-              <ul>
-                <li>Processed, validated data</li>
-                <li>Optimized for queries</li>
-                <li>Business-ready format</li>
-                <li>Schema-enforced</li>
-              </ul>
+              <div class="key-points">
+                <div class="key-point">
+                  <h5>Processed, Validated Data</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Optimized for Queries</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Business-ready Format</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Schema-enforced</h5>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -1213,14 +1378,32 @@
           </div>
 
           <h3>Orchestration Responsibilities</h3>
-          <ul>
-            <li><strong>Dependency Management</strong> - Ensure tasks run in correct order</li>
-            <li><strong>Scheduling</strong> - Cron-based or event-driven triggers</li>
-            <li><strong>Retries</strong> - Automatic retry with backoff on failures</li>
-            <li><strong>State Management</strong> - Track pipeline execution state</li>
-            <li><strong>Failure Recovery</strong> - Idempotent reruns, checkpoints</li>
-            <li><strong>Notifications</strong> - Alert on failures or SLAs</li>
-          </ul>
+          <div class="key-points">
+            <div class="key-point">
+              <h5>Dependency Management</h5>
+              <p>Ensure tasks run in correct order</p>
+            </div>
+            <div class="key-point">
+              <h5>Scheduling</h5>
+              <p>Cron-based or event-driven triggers</p>
+            </div>
+            <div class="key-point">
+              <h5>Retries</h5>
+              <p>Automatic retry with backoff on failures</p>
+            </div>
+            <div class="key-point">
+              <h5>State Management</h5>
+              <p>Track pipeline execution state</p>
+            </div>
+            <div class="key-point">
+              <h5>Failure Recovery</h5>
+              <p>Idempotent reruns, checkpoints</p>
+            </div>
+            <div class="key-point">
+              <h5>Notifications</h5>
+              <p>Alert on failures or SLAs</p>
+            </div>
+          </div>
 
           <h3>AWS Services</h3>
           <div class="services-grid">
@@ -1246,27 +1429,45 @@
           <div class="comparison-grid">
             <div class="comparison-item">
               <h5>Step Functions</h5>
-              <ul>
-                <li>Workflows with complex branching/conditions</li>
-                <li>Microservice orchestration</li>
-                <li>Long-running workflows (up to 1 year)</li>
-              </ul>
+              <div class="key-points">
+                <div class="key-point">
+                  <h5>Workflows with Complex Branching/Conditions</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Microservice Orchestration</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Long-running Workflows (up to 1 year)</h5>
+                </div>
+              </div>
             </div>
             <div class="comparison-item">
               <h5>MWAA (Airflow)</h5>
-              <ul>
-                <li>Data engineering teams familiar with Airflow</li>
-                <li>Complex DAGs with many dependencies</li>
-                <li>Large ecosystem of operators</li>
-              </ul>
+              <div class="key-points">
+                <div class="key-point">
+                  <h5>Data Engineering Teams Familiar with Airflow</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Complex DAGs with Many Dependencies</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Large Ecosystem of Operators</h5>
+                </div>
+              </div>
             </div>
             <div class="comparison-item">
               <h5>EventBridge</h5>
-              <ul>
-                <li>Simple scheduled tasks</li>
-                <li>Event-driven pipelines</li>
-                <li>Cost-effective for basic orchestration</li>
-              </ul>
+              <div class="key-points">
+                <div class="key-point">
+                  <h5>Simple Scheduled Tasks</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Event-driven Pipelines</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Cost-effective for Basic Orchestration</h5>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -1323,39 +1524,71 @@
           <div class="comparison-grid">
             <div class="comparison-item">
               <h5>Interactive Query</h5>
-              <ul>
-                <li>Ad-hoc analysis</li>
-                <li>Data exploration</li>
-                <li>One-time queries</li>
-                <li>Examples: Athena, Redshift Query</li>
-              </ul>
+              <div class="key-points">
+                <div class="key-point">
+                  <h5>Ad-hoc Analysis</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Data Exploration</h5>
+                </div>
+                <div class="key-point">
+                  <h5>One-time Queries</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Examples: Athena, Redshift Query</h5>
+                </div>
+              </div>
             </div>
             <div class="comparison-item">
               <h5>Dashboards / BI</h5>
-              <ul>
-                <li>Scheduled reports</li>
-                <li>Real-time dashboards</li>
-                <li>Visual analytics</li>
-                <li>Examples: QuickSight, Tableau</li>
-              </ul>
+              <div class="key-points">
+                <div class="key-point">
+                  <h5>Scheduled Reports</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Real-time Dashboards</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Visual Analytics</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Examples: QuickSight, Tableau</h5>
+                </div>
+              </div>
             </div>
             <div class="comparison-item">
               <h5>Application API</h5>
-              <ul>
-                <li>Embedded analytics</li>
-                <li>API-driven access</li>
-                <li>Programmatic queries</li>
-                <li>Examples: Lambda, API Gateway</li>
-              </ul>
+              <div class="key-points">
+                <div class="key-point">
+                  <h5>Embedded Analytics</h5>
+                </div>
+                <div class="key-point">
+                  <h5>API-driven Access</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Programmatic Queries</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Examples: Lambda, API Gateway</h5>
+                </div>
+              </div>
             </div>
             <div class="comparison-item">
               <h5>ML / Data Science</h5>
-              <ul>
-                <li>Feature engineering</li>
-                <li>Model training</li>
-                <li>Experimentation</li>
-                <li>Examples: SageMaker, EMR</li>
-              </ul>
+              <div class="key-points">
+                <div class="key-point">
+                  <h5>Feature Engineering</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Model Training</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Experimentation</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Examples: SageMaker, EMR</h5>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -1467,21 +1700,37 @@
           <div class="comparison-grid">
             <div class="comparison-item">
               <h5>CloudWatch Metrics</h5>
-              <ul>
-                <li><strong>Glue</strong>: job_duration, records_written, data_units</li>
-                <li><strong>Kinesis</strong>: success, iterator_age</li>
-                <li><strong>Lambda</strong>: invocations, duration, errors</li>
-                <li><strong>S3</strong>: number_of_objects, bucket_size_bytes</li>
-              </ul>
+              <div class="key-points">
+                <div class="key-point">
+                  <h5>Glue: job_duration, records_written, data_units</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Kinesis: success, iterator_age</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Lambda: invocations, duration, errors</h5>
+                </div>
+                <div class="key-point">
+                  <h5>S3: number_of_objects, bucket_size_bytes</h5>
+                </div>
+              </div>
             </div>
             <div class="comparison-item">
               <h5>CloudWatch Alarms</h5>
-              <ul>
-                <li>Job failure (Glue/EMR)</li>
-                <li>Iterator age growing (Kinesis)</li>
-                <li>Error rate exceeding threshold</li>
-                <li>Data freshness SLA breach</li>
-              </ul>
+              <div class="key-points">
+                <div class="key-point">
+                  <h5>Job Failure (Glue/EMR)</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Iterator Age Growing (Kinesis)</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Error Rate Exceeding Threshold</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Data Freshness SLA Breach</h5>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -1512,39 +1761,71 @@
           <div class="comparison-grid">
             <div class="comparison-item">
               <h5>Identity & Access</h5>
-              <ul>
-                <li>IAM roles with least privilege</li>
-                <li>Service-specific policies</li>
-                <li>Cross-account access</li>
-                <li>Federation for users</li>
-              </ul>
+              <div class="key-points">
+                <div class="key-point">
+                  <h5>IAM Roles with Least Privilege</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Service-specific Policies</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Cross-account Access</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Federation for Users</h5>
+                </div>
+              </div>
             </div>
             <div class="comparison-item">
               <h5>Encryption</h5>
-              <ul>
-                <li>KMS for key management</li>
-                <li>Encryption at rest (SSE-S3, SSE-KMS)</li>
-                <li>Encryption in transit (TLS)</li>
-                <li>Client-side encryption option</li>
-              </ul>
+              <div class="key-points">
+                <div class="key-point">
+                  <h5>KMS for Key Management</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Encryption at Rest (SSE-S3, SSE-KMS)</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Encryption in Transit (TLS)</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Client-side Encryption Option</h5>
+                </div>
+              </div>
             </div>
             <div class="comparison-item">
               <h5>Network</h5>
-              <ul>
-                <li>VPC with private subnets</li>
-                <li>VPC endpoints for AWS services</li>
-                <li>Security groups</li>
-                <li>Network ACLs</li>
-              </ul>
+              <div class="key-points">
+                <div class="key-point">
+                  <h5>VPC with Private Subnets</h5>
+                </div>
+                <div class="key-point">
+                  <h5>VPC Endpoints for AWS Services</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Security Groups</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Network ACLs</h5>
+                </div>
+              </div>
             </div>
             <div class="comparison-item">
               <h5>Data Protection</h5>
-              <ul>
-                <li>PII classification</li>
-                <li>Column-level masking</li>
-                <li>Row-level security</li>
-                <li>Secrets Manager for credentials</li>
-              </ul>
+              <div class="key-points">
+                <div class="key-point">
+                  <h5>Access Logs (CloudTrail)</h5>
+                </div>
+                <div class="key-point">
+                  <h5>S3 Object Lock / Versioning</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Replication for DR</h5>
+                </div>
+                <div class="key-point">
+                  <h5>Data Loss Prevention (DLP)</h5>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -1615,12 +1896,24 @@
           </div>
 
           <h3>Without a Catalog</h3>
-          <ul>
-            <li>Data swamp: "What does this S3 prefix contain?"</li>
-            <li>Schema drift: "Why did this query break?"</li>
-            <li>Lost datasets: "Where did we put the Q3 report?"</li>
-            <li>Duplicate work: "Did we already build this metric?"</li>
-          </ul>
+          <div class="key-points">
+            <div class="key-point">
+              <h5>Data Swamp</h5>
+              <p>"What does this S3 prefix contain?"</p>
+            </div>
+            <div class="key-point">
+              <h5>Schema Drift</h5>
+              <p>"Why did this query break?"</p>
+            </div>
+            <div class="key-point">
+              <h5>Lost Datasets</h5>
+              <p>"Where did we put the Q3 report?"</p>
+            </div>
+            <div class="key-point">
+              <h5>Duplicate Work</h5>
+              <p>"Did we already build this metric?"</p>
+            </div>
+          </div>
 
           <h3>AWS Services</h3>
           <div class="services-grid">
@@ -1637,13 +1930,28 @@
           </div>
 
           <h3>Catalog Best Practices</h3>
-          <ul>
-            <li><strong>Use Crawlers</strong> - Auto-discover schema from S3, JDBC</li>
-            <li><strong>Add Descriptions</strong> - Document tables and columns</li>
-            <li><strong>Classify Data</strong> - Tag PII, sensitive fields</li>
-            <li><strong>Track Partitions</strong> - Keep partition metadata current</li>
-            <li><strong>Version Schemas</strong> - Track schema changes over time</li>
-          </ul>
+          <div class="key-points">
+            <div class="key-point">
+              <h5>Use Crawlers</h5>
+              <p>Auto-discover schema from S3, JDBC</p>
+            </div>
+            <div class="key-point">
+              <h5>Add Descriptions</h5>
+              <p>Document tables and columns</p>
+            </div>
+            <div class="key-point">
+              <h5>Classify Data</h5>
+              <p>Tag PII, sensitive fields</p>
+            </div>
+            <div class="key-point">
+              <h5>Track Partitions</h5>
+              <p>Keep partition metadata current</p>
+            </div>
+            <div class="key-point">
+              <h5>Version Schemas</h5>
+              <p>Track schema changes over time</p>
+            </div>
+          </div>
 
           <div class="callout tldr">
             <p>Start with Glue Crawlers to auto-discover schemas, then add business descriptions and classifications. A
@@ -1699,17 +2007,12 @@
 
   <script src="../scripts.js"></script>
   <script>
-    // Simplified specific initialization for this page
+    // Provider tab-specific initialization
     document.addEventListener('DOMContentLoaded', () => {
-      // Sync detailed cards with provider choice (optional, but good for UX)
-      window.originalShowProvider = window.showProvider;
-      window.showProvider = function(provider) {
-        window.originalShowProvider(provider);
-        // Hide/Show services in detailed cards
-        document.querySelectorAll('.detailed-service').forEach(s => {
-          s.style.display = s.classList.contains(provider) ? 'flex' : 'none';
-        });
-      };
+      // Hide/Show services in detailed cards based on provider
+      document.querySelectorAll('.detailed-service').forEach(s => {
+        s.style.display = s.classList.contains('aws') ? 'flex' : 'none';
+      });
     });
   </script>
 </body>

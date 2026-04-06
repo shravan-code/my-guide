@@ -162,6 +162,33 @@
         <section class="topic-section" id="what-is-api">
       <h2>What is an API? <span class="level-badge basic">Basic</span></h2>
       <p>An <strong>API (Application Programming Interface)</strong> is a contract between two software systems defining how they communicate. It abstracts internal implementation details and exposes only what is needed.</p>
+      
+      <div class="architecture-diagram">
+        <div class="api-flow">
+          <div class="flow-entity">
+            <h4>Client</h4>
+            <div class="entity-title">App / Browser</div>
+          </div>
+          <div class="flow-arrow-container">
+            <span class="flow-label">Request</span>
+            <div class="flow-arrow-line"></div>
+            <span class="flow-label">Response</span>
+          </div>
+          <div class="flow-entity">
+            <h4>API Layer</h4>
+            <div class="entity-title">API Endpoint</div>
+          </div>
+          <div class="flow-arrow-container">
+            <span class="flow-label">Logic</span>
+            <div class="flow-arrow-line"></div>
+            <span class="flow-label">Data</span>
+          </div>
+          <div class="flow-entity">
+            <h4>Server</h4>
+            <div class="entity-title">Logic + DB</div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section class="topic-section" id="rest-api">
@@ -388,6 +415,26 @@ GET    /users/{id}/posts   → Get all posts by user</code>
     <section class="topic-section" id="grpc-api">
       <h2>gRPC API <span class="level-badge advanced">Advanced</span></h2>
       <p><strong>gRPC (Google Remote Procedure Call)</strong> is a high-performance RPC framework developed by <strong>Google</strong>. It uses <strong>HTTP/2</strong> for transport and <strong>Protocol Buffers (protobuf)</strong> for serialization.</p>
+
+      <div class="architecture-diagram">
+        <div class="api-flow">
+          <div class="flow-entity">
+            <h4>gRPC Client</h4>
+            <div class="entity-title">Generated Stub</div>
+            <div class="comment" style="font-size: 0.75rem; margin-top: 0.5rem; color: var(--text-tertiary);">user.proto</div>
+          </div>
+          <div class="flow-arrow-container">
+            <span class="flow-label">Binary Protobuf</span>
+            <div class="flow-arrow-line"></div>
+            <span class="flow-label">HTTP/2 Stream</span>
+          </div>
+          <div class="flow-entity">
+            <h4>gRPC Server</h4>
+            <div class="entity-title">Service Impl</div>
+            <div class="comment" style="font-size: 0.75rem; margin-top: 0.5rem; color: var(--text-tertiary);">user.proto</div>
+          </div>
+        </div>
+      </div>
 
       <h3>Protocol Buffer Definition (.proto)</h3>
       <div class="code-block">

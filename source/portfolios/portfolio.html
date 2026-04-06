@@ -13,9 +13,9 @@
     @import url("../design-tokens.css");
 /* ---- Page Layout ---- */
     main {
-      width: min(1300px, calc(100% - 4rem));
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 1.5rem 0 3rem;
+      padding: 1.5rem 2rem 3rem;
     }
 
     /* ---- Hero ---- */
@@ -563,7 +563,7 @@
   </style>
 </head>
 
-<body class="topic-page">
+<body class="topic-page topic-index">
 
 <aside class="sidebar">
 <nav class="sidebar-nav">
@@ -701,7 +701,7 @@
     </div>
   </header>
 
-  <main class="main-content" style="max-width: 1300px; margin: 64px auto 0; padding: 2rem 1rem;">
+  <main class="main-content">
     <a href="../../index.html" class="back-link">
       <span class="material-symbols-outlined">arrow_back</span>
       Back
@@ -768,8 +768,8 @@
       </div>
     </section>
 
-    <section id="skills" class="section">
-      <h2 class="section-title">Technical Skills</h2>
+    <section id="skills" class="topic-section">
+      <h2><span class="material-symbols-outlined">psychology</span>Technical Skills</h2>
       <div class="skills-grid">
         <div class="skill-category">
           <h3>Languages</h3>
@@ -837,8 +837,8 @@
       </div>
     </section>
 
-    <section id="certifications" class="section">
-      <h2 class="section-title">Certifications</h2>
+    <section id="certifications" class="topic-section">
+      <h2><span class="material-symbols-outlined">verified</span>Certifications</h2>
       <div class="cert-grid">
         <div class="cert-card">
           <h3>AWS Certified Data Engineer Associate</h3>
@@ -851,8 +851,8 @@
       </div>
     </section>
 
-    <section id="experience" class="section">
-      <h2 class="section-title">Professional Experience</h2>
+    <section id="experience" class="topic-section">
+      <h2><span class="material-symbols-outlined">work</span>Professional Experience</h2>
 
       <div class="experience-timeline">
         <div class="experience-item">
@@ -864,22 +864,22 @@
             <span class="period">Jan 2023 – Present</span>
           </div>
 
-          <div class="project-block">
+            <div class="project-block">
             <p class="project-title"><span class="material-symbols-outlined">cloud_done</span>Cloud-Native Batch Processing System</p>
-            <ul>
-              <li>Designed event-driven architecture (API → Lambda → Batch → S3) for scalable data processing workflows using Flask and AWS Batch with EC2.</li>
-              <li>Automated infrastructure provisioning using Terraform + GitLab CI/CD and implemented multithreading for high API throughput.</li>
-              <li>Engineered idempotent job execution, retry logic, and real-time monitoring via CloudWatch and Google Chat Webhooks (60% incident response improvement).</li>
-            </ul>
+            <div class="key-points">
+              <p><span class="material-symbols-outlined">hub</span>Designed event-driven architecture (API → Lambda → Batch → S3) for scalable data processing workflows using Flask and AWS Batch with EC2.</p>
+              <p><span class="material-symbols-outlined">build</span>Automated infrastructure provisioning using Terraform + GitLab CI/CD and implemented multithreading for high API throughput.</p>
+              <p><span class="material-symbols-outlined">monitor_heart</span>Engineered idempotent job execution, retry logic, and real-time monitoring via CloudWatch and Google Chat Webhooks (60% incident response improvement).</p>
+            </div>
           </div>
 
           <div class="project-block">
             <p class="project-title"><span class="material-symbols-outlined">sync_problem</span>Legacy System Migration & Modernization</p>
-            <ul>
-              <li>Migrated Oracle-dependent ETL systems to a modular Python framework, reverse-engineering PL/SQL logic into scalable workflows.</li>
-              <li>Developed an AI-assisted unit test generation system using agents and GitHub Copilot, reducing manual testing effort by 80%.</li>
-              <li>Designed reusable components, improving maintainability by 40% and eliminating vendor lock-in.</li>
-            </ul>
+            <div class="key-points">
+              <p><span class="material-symbols-outlined">transform</span>Migrated Oracle-dependent ETL systems to a modular Python framework, reverse-engineering PL/SQL logic into scalable workflows.</p>
+              <p><span class="material-symbols-outlined">smart_toy</span>Developed an AI-assisted unit test generation system using agents and GitHub Copilot, reducing manual testing effort by 80%.</p>
+              <p><span class="material-symbols-outlined">recycling</span>Designed reusable components, improving maintainability by 40% and eliminating vendor lock-in.</p>
+            </div>
           </div>
         </div>
 
@@ -894,18 +894,18 @@
 
           <div class="project-block">
             <p class="project-title"><span class="material-symbols-outlined">dataset</span>Scalable CSV Data Processing Pipeline</p>
-            <ul>
-              <li>Designed end-to-end architecture for processing ~3GB unstructured datasets using Pandas and Regex, handling noisy formats.</li>
-              <li>Built an OOP-based pipeline using dataclasses and optimized performance via multiprocessing, reducing runtime by 70%.</li>
-              <li>Developed reusable validation and transformation modules to generate analysis-ready datasets for multiple workflows.</li>
-            </ul>
+            <div class="key-points">
+              <p><span class="material-symbols-outlined">architecture</span>Designed end-to-end architecture for processing ~3GB unstructured datasets using Pandas and Regex, handling noisy formats.</p>
+              <p><span class="material-symbols-outlined">settings</span>Built an OOP-based pipeline using dataclasses and optimized performance via multiprocessing, reducing runtime by 70%.</p>
+              <p><span class="material-symbols-outlined">rule</span>Developed reusable validation and transformation modules to generate analysis-ready datasets for multiple workflows.</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
   
-    <section id="my-projects" class="section">
-      <h2 class="section-title">My Projects</h2>
+    <section id="my-projects" class="topic-section">
+      <h2><span class="material-symbols-outlined">folder</span>My Projects</h2>
       <div class="skills-grid">
         <a href="projects/projects-experienced.html" style="text-decoration: none;">
           <div class="skill-category glow-card" style="text-align: center; cursor: pointer;">
@@ -940,51 +940,6 @@
       </div>
     </div>
   </footer>
-
-  <script>
-    function toggleTheme() {
-      const html = document.documentElement;
-      const themeIcon = document.getElementById('themeIcon');
-      if (html.classList.contains('dark')) {
-        html.classList.remove('dark');
-        localStorage.setItem('theme', 'light');
-        themeIcon.textContent = 'dark_mode';
-      } else {
-        html.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
-        themeIcon.textContent = 'light_mode';
-      }
-    }
-    (function() {
-      const savedTheme = localStorage.getItem('theme');
-      const themeIcon = document.getElementById('themeIcon');
-      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-        themeIcon.textContent = 'light_mode';
-      } else {
-        themeIcon.textContent = 'dark_mode';
-      }
-    })();
-  </script>
-  <script>
-    // Scroll to top functionality
-    const scrollToTopBtn = document.getElementById('scrollToTop');
-
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        scrollToTopBtn.classList.add('visible');
-      } else {
-        scrollToTopBtn.classList.remove('visible');
-      }
-    });
-
-    scrollToTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-  </script>
 
   <script src="../scripts.js"></script>
 </body>

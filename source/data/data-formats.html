@@ -380,21 +380,19 @@ df = spark.<span class="function">read</span>.<span class="function">parquet</sp
         </div>
         <div class="split-item">
           <h4>ORC Structure</h4>
-          <div class="code-block">
-<code><span class="comment"># ORC file structure</span>
-┌─────────────────────┐
-│ File Footer         │
-│ - Column statistics │
-│ - Stripe statistics │
-├─────────────────────┤
-│ Stripe 1            │
-│ - Row data (column) │
-│ - Indexes           │
-├─────────────────────┤
-│ Stripe 2            │
-│ ...                 │
-└─────────────────────┘
-          </code>
+          <div class="architecture-stack">
+            <div class="stack-box header">
+              <span class="stack-label">File Footer</span>
+              <span class="stack-detail">Column & Stripe statistics</span>
+            </div>
+            <div class="stack-box stripe">
+              <span class="stack-label">Stripe 1</span>
+              <span class="stack-detail">Indexes & Row Data (Columnar)</span>
+            </div>
+            <div class="stack-box stripe">
+              <span class="stack-label">Stripe 2</span>
+              <span class="stack-detail">Row data, indexes, footer</span>
+            </div>
           </div>
         </div>
       </div>

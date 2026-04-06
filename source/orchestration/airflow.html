@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Data Guide | {title}</title>
+  <title>Data Guide | Apache Airflow</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-  <link rel="stylesheet" href="{root_offset}shared.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../shared.css" />
 </head>
 <body class="topic-page">
 
@@ -139,19 +140,1004 @@
   </header>
 
   <main class="main-content">
-    <a href="index.html" class="back-link">
-      <span class="material-symbols-outlined">arrow_back</span>
-      Back to {category}
-    </a>
-    <header class="page-header">
-      <p class="eyebrow">{category}</p>
-      <h1>{title}</h1>
-      <p>{description}</p>
+    <header class="page-header page-header--row">
+      <a href="index.html" class="back-link back-link--round" aria-label="Back">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </a>
+      <div class="page-header-inner">
+        <h1>Apache Airflow</h1>
+        <p>Workflow orchestration platform for programmatically authoring, scheduling, and monitoring workflows.</p>
+      </div>
     </header>
-    <div class="topic-content">
-      <p>Content for {title} is under construction.</p>
-    </div>
+
+    <section class="topic-section">
+      <h2 id="introduction">Introduction</h2>
+      <p>Apache Airflow is a workflow orchestration platform that helps you programmatically author, schedule, and monitor workflows. Think of Airflow as a tool that helps you create, schedule, and track tasks. These workflows are defined as Directed Acyclic Graphs (DAGs), where each node represents a task and edges define dependencies between tasks.</p>
+      <p>At its core, Airflow is designed to help you automate and manage ETL (Extract, Transform, Load) processes, data pipelines, and any kind of batch processing.</p>
+
+      <h3>Key Features</h3>
+      <div class="key-points">
+        <div class="key-point">
+          <span class="material-symbols-outlined">autorenew</span>
+          <div>
+            <h4>Automation</h4>
+            <p>Automates complex workflows by scheduling tasks and ensuring they run in the correct order based on defined dependencies.</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="material-symbols-outlined">visibility</span>
+          <div>
+            <h4>Visibility</h4>
+            <p>With Airflow's UI, you can easily monitor the status of each task, check for failures, and even trigger tasks manually.</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="material-symbols-outlined">replay</span>
+          <div>
+            <h4>Reusability</h4>
+            <p>Workflows can be reused across different environments or teams, making it highly scalable for large organizations.</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="material-symbols-outlined">group</span>
+          <div>
+            <h4>Community Support</h4>
+            <p>As an open-source project, Airflow has a large community that continually contributes plugins, operators, and improvements.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>Airflow in the Data Engineering Ecosystem</h3>
+      <p>Airflow plays a crucial role in data engineering, especially for orchestrating and automating data pipelines. In a typical data pipeline, data is extracted from a source, transformed into a usable format, and loaded into a target system.</p>
+      <div class="service-grid">
+        <div class="service-card">
+          <h4>ETL Pipelines</h4>
+          <p>Scheduling and orchestrating ETL pipelines</p>
+        </div>
+        <div class="service-card">
+          <h4>ML Workflows</h4>
+          <p>Managing machine learning workflows</p>
+        </div>
+        <div class="service-card">
+          <h4>Data Quality</h4>
+          <p>Running periodic data quality checks</p>
+        </div>
+        <div class="service-card">
+          <h4>Cloud Integration</h4>
+          <p>Integrating with cloud services (AWS, GCP, Azure)</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="cron-basics">Understanding Cron</h2>
+      <p>Before diving deep into Airflow, you must understand cron expressions. Cron is a time-based job scheduler in Unix-like operating systems that automates the execution of scripts, commands, or programs at scheduled times or intervals. Airflow uses cron expressions extensively to define when your DAGs execute.</p>
+
+      <h3>Cron Expression Format</h3>
+      <div class="cron-wrap">
+        <div class="cron-diagram">
+          <div class="cron-field">
+            <span class="cron-value">*</span>
+            <span class="cron-label">Minute</span>
+            <span class="cron-range">0-59</span>
+          </div>
+          <div class="cron-field">
+            <span class="cron-value">*</span>
+            <span class="cron-label">Hour</span>
+            <span class="cron-range">0-23</span>
+          </div>
+          <div class="cron-field">
+            <span class="cron-value">*</span>
+            <span class="cron-label">Day</span>
+            <span class="cron-range">1-31</span>
+          </div>
+          <div class="cron-field">
+            <span class="cron-value">*</span>
+            <span class="cron-label">Month</span>
+            <span class="cron-range">1-12</span>
+          </div>
+          <div class="cron-field">
+            <span class="cron-value">*</span>
+            <span class="cron-label">Weekday</span>
+            <span class="cron-range">0-7</span>
+          </div>
+        </div>
+        <div class="cron-command">
+          <span class="keyword">command</span> to execute
+        </div>
+      </div>
+
+      <h3>Common Cron Examples</h3>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Cron Expression</th>
+              <th>Meaning</th>
+              <th>Airflow Equivalent</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>0 0 * * *</td>
+              <td>Every day at midnight</td>
+              <td>@daily</td>
+            </tr>
+            <tr>
+              <td>0 6 * * *</td>
+              <td>Every day at 6:00 AM</td>
+              <td>(custom)</td>
+            </tr>
+            <tr>
+              <td>0 10 * * 2</td>
+              <td>Every Tuesday at 10:00 AM</td>
+              <td>(custom)</td>
+            </tr>
+            <tr>
+              <td>*/15 * * * *</td>
+              <td>Every 15 minutes</td>
+              <td>(custom)</td>
+            </tr>
+            <tr>
+              <td>0 0 1 * *</td>
+              <td>First day of every month</td>
+              <td>@monthly</td>
+            </tr>
+            <tr>
+              <td>0 0 * * 0</td>
+              <td>Every Sunday at midnight</td>
+              <td>@weekly</td>
+            </tr>
+            <tr>
+              <td>0 * * * *</td>
+              <td>Every hour</td>
+              <td>@hourly</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Cron vs Apache Airflow</h3>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Cron Jobs</th>
+              <th>Apache Airflow</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Scalability</td>
+              <td>Limited</td>
+              <td>Handles thousands of tasks in distributed environment</td>
+            </tr>
+            <tr>
+              <td>Dependency Management</td>
+              <td>No</td>
+              <td>Handles complex task dependencies</td>
+            </tr>
+            <tr>
+              <td>Retry Logic</td>
+              <td>No built-in</td>
+              <td>Configurable retries with delay</td>
+            </tr>
+            <tr>
+              <td>Monitoring</td>
+              <td>Limited visibility</td>
+              <td>Rich web UI with full monitoring</td>
+            </tr>
+            <tr>
+              <td>State Management</td>
+              <td>No</td>
+              <td>Full state tracking</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="core-components">Core Components</h2>
+      
+      <h3>DAG (Directed Acyclic Graph)</h3>
+      <p>At the heart of Airflow lies the DAG. A DAG represents the workflow you want to schedule and run. Each DAG is composed of tasks, which define the work to be done.</p>
+      <p>The "directed" and "acyclic" properties mean:</p>
+      <ul>
+        <li><strong>Directed</strong> — tasks flow in a specific direction (from one task to another)</li>
+        <li><strong>Acyclic</strong> — there are no cycles: a task cannot depend on itself or create a circular dependency</li>
+      </ul>
+
+      <h3>Tasks and Task Instances</h3>
+      <p>Each DAG consists of tasks — the individual units of work. A task in Airflow is defined by an Operator, which determines the nature of the work performed.</p>
+      <p>Each time a DAG runs, each task creates a Task Instance. A task instance represents the execution of a task at a specific point in time and includes its state.</p>
+
+      <div class="bento-grid">
+        <div class="bento-card medium">
+          <div class="card-header">
+            <span class="material-symbols-outlined">schedule</span>
+            <h4>Scheduler</h4>
+          </div>
+          <p>Continuously monitors your DAGs, checks task dependencies, and queues tasks for execution when they are due.</p>
+          <ul>
+            <li>Dependency Management</li>
+            <li>Task Queuing</li>
+            <li>DAG Monitoring</li>
+          </ul>
+        </div>
+        <div class="bento-card medium">
+          <div class="card-header">
+            <span class="material-symbols-outlined">settings</span>
+            <h4>Executor</h4>
+          </div>
+          <p>Defines how tasks will be run and manages task execution. Determines where and how tasks are dispatched.</p>
+        </div>
+        <div class="bento-card medium">
+          <div class="card-header">
+            <span class="material-symbols-outlined">dns</span>
+            <h4>Web Server</h4>
+          </div>
+          <p>Provides Airflow's browser-based UI. Through this interface, you can monitor DAGs, view logs, manage connections, and trigger tasks.</p>
+        </div>
+        <div class="bento-card medium">
+          <div class="card-header">
+            <span class="material-symbols-outlined">storage</span>
+            <h4>Metadata Database</h4>
+          </div>
+          <p>Stores all information about DAGs, tasks, task instances, connections, variables, and execution history.</p>
+        </div>
+        <div class="bento-card medium">
+          <div class="card-header">
+            <span class="material-symbols-outlined">work</span>
+            <h4>Worker</h4>
+          </div>
+          <p>Processes that execute the tasks assigned by the Executor. Each worker pulls tasks from the queue and executes them.</p>
+        </div>
+        <div class="bento-card medium">
+          <div class="card-header">
+            <span class="material-symbols-outlined">bolt</span>
+            <h4>Triggerer</h4>
+          </div>
+          <p>Introduced in Airflow 2.2. Handles tasks asynchronously using Python's asyncio for long-running sensor tasks.</p>
+        </div>
+      </div>
+
+      <h3>Task States</h3>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>State</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>none</td>
+              <td>Task has not yet been queued</td>
+            </tr>
+            <tr>
+              <td>scheduled</td>
+              <td>Task is ready and waiting to be queued</td>
+            </tr>
+            <tr>
+              <td>queued</td>
+              <td>Task is in the queue, waiting for a worker</td>
+            </tr>
+            <tr>
+              <td>running</td>
+              <td>Task is currently being executed</td>
+            </tr>
+            <tr>
+              <td>success</td>
+              <td>Task completed successfully</td>
+            </tr>
+            <tr>
+              <td>failed</td>
+              <td>Task encountered an error and failed</td>
+            </tr>
+            <tr>
+              <td>skipped</td>
+              <td>Task was skipped (e.g., due to branching)</td>
+            </tr>
+            <tr>
+              <td>up_for_retry</td>
+              <td>Task failed but will be retried</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="executors">Executor Types</h2>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Executor</th>
+              <th>Use Case</th>
+              <th>Scalability</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>SequentialExecutor</td>
+              <td>Default; development only; runs one task at a time</td>
+              <td>Low</td>
+            </tr>
+            <tr>
+              <td>LocalExecutor</td>
+              <td>Single machine; runs tasks in parallel using subprocesses</td>
+              <td>Medium</td>
+            </tr>
+            <tr>
+              <td>CeleryExecutor</td>
+              <td>Distributes tasks across a Celery cluster of worker machines</td>
+              <td>High</td>
+            </tr>
+            <tr>
+              <td>KubernetesExecutor</td>
+              <td>Each task runs in its own Kubernetes pod; ideal for isolation</td>
+              <td>Very High</td>
+            </tr>
+            <tr>
+              <td>CeleryKubernetesExecutor</td>
+              <td>Hybrid of Celery and Kubernetes for advanced scenarios</td>
+              <td>Very High</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="operators">Operators</h2>
+      <p>In Apache Airflow, an Operator is a predefined template that encapsulates the logic of a specific task in a workflow.</p>
+
+      <h3>Operator Categories</h3>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Purpose</th>
+              <th>Examples</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Action Operators</td>
+              <td>Perform an action: run a function, command, or API request</td>
+              <td>PythonOperator, BashOperator, EmailOperator</td>
+            </tr>
+            <tr>
+              <td>Transfer Operators</td>
+              <td>Move data from one system to another</td>
+              <td>S3ToRedshiftOperator, MySqlToS3Operator</td>
+            </tr>
+            <tr>
+              <td>Sensor Operators</td>
+              <td>Wait for a condition to be met before proceeding</td>
+              <td>FileSensor, HttpSensor, S3KeySensor</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>PythonOperator</h3>
+      <p>Execute any Python callable as a task.</p>
+      <div class="code-block"><code>from airflow.operators.python import PythonOperator
+
+def process_data(**kwargs):
+    execution_date = kwargs["execution_date"]
+    print(f"Processing data for: {execution_date}")
+    return "Data processed successfully"
+
+with DAG("python_operator_example", ...) as dag:
+    process_task = PythonOperator(
+        task_id="process_data_task",
+        python_callable=process_data,
+        provide_context=True,
+    )</code></div>
+
+      <h3>BashOperator</h3>
+      <p>Run bash shell commands or scripts.</p>
+      <div class="code-block"><code>from airflow.operators.bash import BashOperator
+
+with DAG("bash_operator_example", ...) as dag:
+    list_files = BashOperator(
+        task_id="list_files",
+        bash_command="ls -la /data/input/",
+    )
+
+    run_script = BashOperator(
+        task_id="run_etl_script",
+        bash_command="/scripts/etl_pipeline.sh {{ ds }}",
+        env={"DB_HOST": "localhost"},
+    )
+
+    list_files >> run_script</code></div>
+
+      <h3>EmailOperator</h3>
+      <p>Send an email as part of your workflow.</p>
+      <div class="code-block"><code>from airflow.operators.email import EmailOperator
+
+send_alert = EmailOperator(
+    task_id="send_completion_email",
+    to=["data-team@company.com"],
+    subject="Pipeline {{ ds }} Completed",
+    html_content="""
+        <h3>Pipeline Execution Summary</h3>
+        <p>Date: {{ ds }}</p>
+        <p>Status: <b>SUCCESS</b></p>
+    """,
+    dag=dag,
+)</code></div>
+
+      <h3>HttpOperator</h3>
+      <p>Send HTTP requests to interact with REST APIs.</p>
+      <div class="code-block"><code>from airflow.providers.http.operators.http import SimpleHttpOperator
+import json
+
+fetch_weather = SimpleHttpOperator(
+    task_id="fetch_weather_data",
+    http_conn_id="weather_api",
+    endpoint="/data/2.5/weather",
+    method="GET",
+    data={"q": "Seattle", "units": "metric"},
+    response_filter=lambda r: json.loads(r.text),
+    log_response=True,
+)</code></div>
+
+      <h3>Transfer Operators</h3>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Operator</th>
+              <th>Source</th>
+              <th>Destination</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>S3ToRedshiftOperator</td>
+              <td>Amazon S3</td>
+              <td>Amazon Redshift</td>
+            </tr>
+            <tr>
+              <td>MySqlToS3Operator</td>
+              <td>MySQL Database</td>
+              <td>Amazon S3</td>
+            </tr>
+            <tr>
+              <td>PostgresToS3Operator</td>
+              <td>PostgreSQL</td>
+              <td>Amazon S3</td>
+            </tr>
+            <tr>
+              <td>GCSToBigQueryOperator</td>
+              <td>Google GCS</td>
+              <td>BigQuery</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Sensor Operators</h3>
+      <p>Wait for a certain condition to be met before allowing downstream tasks to proceed.</p>
+      <div class="code-block"><code>from airflow.sensors.filesystem import FileSensor
+from airflow.providers.http.sensors.http import HttpSensor
+from airflow.providers.amazon.aws.sensors.s3 import S3KeySensor
+
+# Wait for a file
+wait_for_file = FileSensor(
+    task_id="wait_for_input_file",
+    filepath="/data/input/daily_report.csv",
+    poke_interval=30,
+    timeout=3600,
+)
+
+# Wait for an API
+check_api = HttpSensor(
+    task_id="check_api_health",
+    http_conn_id="weather_api",
+    endpoint="/health",
+    poke_interval=10,
+    timeout=300,
+)
+
+# Wait for S3 object
+wait_for_s3 = S3KeySensor(
+    task_id="wait_for_s3_file",
+    bucket_name="my-data-bucket",
+    bucket_key="data/{{ ds }}/input.csv",
+    aws_conn_id="aws_default",
+    poke_interval=120,
+    timeout=3600,
+)</code></div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="building-dags">Building Your First DAG</h2>
+      <div class="code-block"><code>from airflow import DAG
+from airflow.operators.python import PythonOperator
+from airflow.operators.bash import BashOperator
+from datetime import datetime, timedelta
+
+# Define default arguments
+default_args = {
+    "owner": "airflow",
+    "depends_on_past": False,
+    "start_date": datetime(2024, 1, 1),
+    "email_on_failure": False,
+    "email_on_retry": False,
+    "retries": 1,
+    "retry_delay": timedelta(minutes=5),
+}
+
+# Define Python functions
+def hello_world(**kwargs):
+    print("Hello from Apache Airflow!")
+    print(f"Execution date: {kwargs['execution_date']}")
+    return "Hello World!"
+
+def process_data(**kwargs):
+    ti = kwargs["ti"]
+    previous_result = ti.xcom_pull(task_ids="print_hello")
+    print(f"Previous task returned: {previous_result}")
+    print("Processing data...")
+
+# Create the DAG
+with DAG(
+    dag_id="first_dag",
+    default_args=default_args,
+    description="My very first Airflow DAG",
+    schedule_interval=timedelta(days=1),
+    catchup=False,
+    tags=["example", "beginner"],
+) as dag:
+    start = BashOperator(
+        task_id="start_pipeline",
+        bash_command="echo 'Pipeline started at $(date)'",
+    )
+
+    hello_task = PythonOperator(
+        task_id="print_hello",
+        python_callable=hello_world,
+        provide_context=True,
+    )
+
+    process_task = PythonOperator(
+        task_id="process_data",
+        python_callable=process_data,
+        provide_context=True,
+    )
+
+    end = BashOperator(
+        task_id="end_pipeline",
+        bash_command="echo 'Pipeline completed successfully'",
+    )
+
+    start >> hello_task >> process_task >> end</code></div>
+
+      <h3>DAG Dependency Syntax</h3>
+      <div class="code-block"><code># Method 1: Bitshift operators (recommended)
+task_a >> task_b >> task_c
+task_a >> [task_b, task_c]
+[task_b, task_c] >> task_d
+
+# Method 2: Explicit set_upstream / set_downstream
+task_b.set_upstream(task_a)
+task_b.set_downstream(task_c)</code></div>
+
+      <h3>Schedule Interval Options</h3>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Schedule Interval</th>
+              <th>Meaning</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>@once</td>
+              <td>Run only once</td>
+            </tr>
+            <tr>
+              <td>@hourly</td>
+              <td>Run every hour</td>
+            </tr>
+            <tr>
+              <td>@daily</td>
+              <td>Run once a day at midnight</td>
+            </tr>
+            <tr>
+              <td>@weekly</td>
+              <td>Run once a week on Sunday</td>
+            </tr>
+            <tr>
+              <td>@monthly</td>
+              <td>Run once a month on the 1st</td>
+            </tr>
+            <tr>
+              <td>timedelta(days=1)</td>
+              <td>Run every 24 hours</td>
+            </tr>
+            <tr>
+              <td>"0 6 * * *"</td>
+              <td>Custom cron: every day at 6:00 AM</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="advanced-concepts">Advanced DAG Concepts</h2>
+      
+      <h3>Branching with BranchPythonOperator</h3>
+      <div class="code-block"><code>from airflow.operators.python import BranchPythonOperator
+from airflow.operators.empty import EmptyOperator
+import random
+
+def decide_branch(**kwargs):
+    execution_hour = kwargs["execution_date"].hour
+    if execution_hour < 12:
+        return "morning_pipeline"
+    else:
+        return "evening_pipeline"
+
+with DAG("branching_dag", ...) as dag:
+    start = EmptyOperator(task_id="start")
+
+    branch = BranchPythonOperator(
+        task_id="decide_branch",
+        python_callable=decide_branch,
+        provide_context=True,
+    )
+
+    morning = BashOperator(task_id="morning_pipeline", bash_command="echo 'Running morning ETL'")
+    evening = BashOperator(task_id="evening_pipeline", bash_command="echo 'Running evening ETL'")
+    join = EmptyOperator(task_id="join", trigger_rule="none_failed_or_skipped")
+
+    start >> branch >> [morning, evening] >> join</code></div>
+
+      <h3>Dynamic Task Generation</h3>
+      <div class="code-block"><code>with DAG("dynamic_tasks_dag", ...) as dag:
+    regions = ["us-east-1", "us-west-2", "eu-west-1"]
+
+    extract_tasks = []
+    for region in regions:
+        task = PythonOperator(
+            task_id=f"extract_{region.replace('-', '_')}",
+            python_callable=extract_data,
+            op_kwargs={"region": region},
+        )
+        extract_tasks.append(task)
+
+    combine = PythonOperator(
+        task_id="combine_all_regions",
+        python_callable=combine_data,
+    )
+
+    extract_tasks >> combine</code></div>
+
+      <h3>Error Handling and Task Retries</h3>
+      <div class="code-block"><code>default_args = {
+    "retries": 3,
+    "retry_delay": timedelta(minutes=5),
+    "retry_exponential_backoff": True,
+    "max_retry_delay": timedelta(hours=1),
+}
+
+# Or configure per-task
+critical_task = PythonOperator(
+    task_id="critical_task",
+    python_callable=run_critical_process,
+    retries=5,
+    retry_delay=timedelta(minutes=2),
+)</code></div>
+
+      <h3>Trigger Rules</h3>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Trigger Rule</th>
+              <th>Behavior</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>all_success (default)</td>
+              <td>Triggers only if ALL upstream tasks succeeded</td>
+            </tr>
+            <tr>
+              <td>all_failed</td>
+              <td>Triggers only if ALL upstream tasks failed</td>
+            </tr>
+            <tr>
+              <td>all_done</td>
+              <td>Triggers once ALL upstream tasks are done (any state)</td>
+            </tr>
+            <tr>
+              <td>one_failed</td>
+              <td>Triggers if ANY upstream task fails</td>
+            </tr>
+            <tr>
+              <td>one_success</td>
+              <td>Triggers if ANY upstream task succeeds</td>
+            </tr>
+            <tr>
+              <td>none_failed_or_skipped</td>
+              <td>Triggers if no upstream tasks failed or were skipped</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>XCom — Cross-Task Communication</h3>
+      <div class="code-block"><code># Task 1: Push data to XCom
+def push_data(**kwargs):
+    result = {"records_processed": 1500, "status": "success"}
+    kwargs["ti"].xcom_push(key="processing_result", value=result)
+    return result
+
+# Task 2: Pull data from Task 1
+def pull_data(**kwargs):
+    ti = kwargs["ti"]
+    result = ti.xcom_pull(task_ids="push_task", key="processing_result")
+    print(f"Records processed: {result['records_processed']}")</code></div>
+
+      <p class="tip-box"><span class="material-symbols-outlined">info</span> XComs are designed for SMALL data (metadata, IDs, flags). Do NOT use XCom to pass large DataFrames or binary data.</p>
+
+      <h3>Sensor Modes</h3>
+      <div class="key-points">
+        <div class="key-point">
+          <span class="material-symbols-outlined">check_circle</span>
+          <div>
+            <h4>poke (default)</h4>
+            <p>Worker holds the slot while waiting. Use for short waits (seconds to minutes).</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="material-symbols-outlined">schedule</span>
+          <div>
+            <h4>reschedule</h4>
+            <p>Frees the worker slot between polls. Use for long waits (minutes to hours).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="hooks-sensors">Hooks and Sensors</h2>
+      
+      <h3>What are Hooks?</h3>
+      <p>Hooks are interfaces to external systems that provide methods for connecting, interacting, and executing commands.</p>
+
+      <div class="code-block"><code>from airflow.providers.http.hooks.http import HttpHook
+
+def fetch_data_via_hook(**kwargs):
+    hook = HttpHook(method="GET", http_conn_id="weather_api")
+    response = hook.run(
+        endpoint="/data/2.5/weather",
+        data={"q": "Seattle", "units": "metric"},
+    )
+    return response.json()
+
+# Example: Using PostgresHook
+from airflow.providers.postgres.hooks.postgres import PostgresHook
+
+def query_database(**kwargs):
+    hook = PostgresHook(postgres_conn_id="my_postgres")
+    records = hook.get_records("SELECT id, name FROM users LIMIT 100")
+    for row in records:
+        print(f"ID: {row[0]}, Name: {row[1]}")</code></div>
+
+      <h3>Common Hooks</h3>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Hook</th>
+              <th>System</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>HttpHook</td>
+              <td>HTTP APIs</td>
+            </tr>
+            <tr>
+              <td>PostgresHook</td>
+              <td>PostgreSQL</td>
+            </tr>
+            <tr>
+              <td>MySqlHook</td>
+              <td>MySQL</td>
+            </tr>
+            <tr>
+              <td>S3Hook</td>
+              <td>Amazon S3</td>
+            </tr>
+            <tr>
+              <td>BigQueryHook</td>
+              <td>Google BigQuery</td>
+            </tr>
+            <tr>
+              <td>SlackHook</td>
+              <td>Slack</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="connections-variables">Connections and Variables</h2>
+      
+      <h3>Connections</h3>
+      <p>Connections store credentials and configuration for external systems (databases, APIs, cloud services).</p>
+      <div class="code-block"><code># Creating a Connection programmatically
+from airflow.models import Connection
+from airflow import settings
+
+new_conn = Connection(
+    conn_id="my_postgres",
+    conn_type="postgres",
+    host="db.example.com",
+    login="admin",
+    password="secret",
+    schema="my_database",
+    port=5432,
+)
+session = settings.Session()
+session.add(new_conn)
+session.commit()
+
+# Using environment variables
+# AIRFLOW_CONN_MY_POSTGRES="postgresql://admin:secret@db.example.com:5432/my_database"
+
+# Using in Hooks
+hook = PostgresHook(postgres_conn_id="my_postgres")
+records = hook.get_records("SELECT * FROM orders")</code></div>
+
+      <h3>Variables</h3>
+      <div class="code-block"><code># Setting Variables via CLI
+airflow variables set api_key "your-api-key-here"
+airflow variables set environment "production"
+
+# Retrieving Variables in Python code
+from airflow.models import Variable
+
+api_key = Variable.get("api_key")
+config = Variable.get("pipeline_config", deserialize_json=True)
+
+# Using Variables in Jinja templates
+bash_task = BashOperator(
+    task_id="use_variable",
+    bash_command="echo {{ var.value.environment }}",
+)</code></div>
+
+      <h3>Security Best Practices</h3>
+      <div class="key-points">
+        <div class="key-point">
+          <span class="material-symbols-outlined">lock</span>
+          <div>
+            <h4>Centralize Credentials</h4>
+            <p>Always use Connections and Variables — never hardcode secrets in DAG files.</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="material-symbols-outlined">shield</span>
+          <div>
+            <h4>Use Secrets Backend</h4>
+            <p>For production, configure AWS Secrets Manager, HashiCorp Vault, or GCP Secret Manager.</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="material-symbols-outlined">policy</span>
+          <div>
+            <h4>Least Privilege</h4>
+            <p>Grant IAM/database roles with only the permissions required for each workflow.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="cli-commands">CLI Commands</h2>
+      <div class="code-block"><code># Test a specific task without running the whole DAG
+airflow tasks test first_dag print_hello 2024-01-01
+
+# List all DAGs
+airflow dags list
+
+# Trigger a DAG run manually
+airflow dags trigger first_dag
+
+# Check DAG run status
+airflow dags list-runs -d first_dag
+
+# List tasks
+airflow tasks list first_dag
+
+# Clear task instances
+airflow tasks clear first_dag
+
+# Access the Airflow Web UI
+# Default: http://localhost:8080</code></div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="best-practices">Best Practices</h2>
+      <div class="key-points">
+        <div class="key-point">
+          <span class="material-symbols-outlined">check_circle</span>
+          <div>
+            <h4>Use Connections & Variables</h4>
+            <p>Never hardcode credentials in DAG files.</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="material-symbols-outlined">check_circle</span>
+          <div>
+            <h4>Set Appropriate Timeouts</h4>
+            <p>Prevent runaway DAG runs with sensible timeouts.</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="material-symbols-outlined">check_circle</span>
+          <div>
+            <h4>Test Tasks in Isolation</h4>
+            <p>Use airflow tasks test before running full DAGs.</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="material-symbols-outlined">check_circle</span>
+          <div>
+            <h4>Use catchup=False During Development</h4>
+            <p>Avoid unnecessary backfill runs.</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="material-symbols-outlined">check_circle</span>
+          <div>
+            <h4>Add Logging</h4>
+            <p>Use Airflow's built-in logging in Python callables.</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="material-symbols-outlined">check_circle</span>
+          <div>
+            <h4>Configure SLAs</h4>
+            <p>Use sla parameter on critical tasks for alerting.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span class="footer-brand">Data Sheets</span>
+          <p class="footer-copyright">© 2026 Data Sheets. All rights reserved.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#documentation">Documentation</a>
+          <a href="#privacy">Privacy</a>
+          <a href="#terms">Terms</a>
+          <a href="#support">Support</a>
+        </div>
+      </div>
+    </footer>
   </main>
+
   <script>
     function toggleTheme() {
       const html = document.documentElement;
