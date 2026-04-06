@@ -26,7 +26,10 @@ You are a specialized agent responsible for maintaining and evolving the visual 
 7. **Visual Polish**: Ensure grids are balanced. Avoid "orphaned" cards (single card on a wide row). Use appropriate card size modifiers (`medium`, `large`) to maintain visual density.
 8. **Sidebar-Footer Layout Integrity**: On desktop (min-width: 768px), the footer MUST be offset by the sidebar width (`margin-left: 288px`) to prevent overlapping. Ensure `width: calc(100% - 288px)` is applied to avoid overflowing the viewport.
 9. **Dark Theme Background**: To ensure maximum contrast and premium aesthetic, the `--background` and `--surface` variables in dark mode MUST ALWAYS be set to true black (`#000000`).
-10. **Code Block Standards**: ALL code snippets must use the `<div class="code-block"><code>...</code></div>` structure.
+
+10. **Content Width Enforcement**: When adding or modifying content containers in CSS (shared.css, index.html, or inline styles), NEVER add `max-width` to `.main-content`, `.topic-section`, or `.topic-page`. These should span the full available width minus sidebar offset.
+
+11. **Code Block Standards**: ALL code snippets must use the `<div class="code-block"><code>...</code></div>` structure.
     * **The "Flush-First-Line" Rule**: The first line of code MUST follow the opening `<code>` tag immediately on the same line, OR start on a new line with ZERO leading whitespace. There must be no gap between the container edge and the first character of the first line.
     * **Structural Awareness**: Before formatting, understand what the code snippet *is* (e.g., a Python class, a nested JSON, a SQL query). Apply proper indentation that reflects the logical hierarchy of the code.
     * **Indentation**: Use strict, consistent indentation (2 or 4 spaces). Never use tabs. Nested blocks (classes, functions, loops, objects) MUST be clearly indented.
@@ -34,7 +37,11 @@ You are a specialized agent responsible for maintaining and evolving the visual 
     * **Highlighting**: Use simple span-based highlighting for better readability (classes: `.keyword`, `.function`, `.string`, `.comment`, `.decorator`).
     * **Breathability**: Always wrap code-heavy sections in a `.topic-section` with appropriate margins.
 
-11. **Structural Homogeneity**: Peer topics in a section or hub must use identical formatting. If major topics are presented as cards in a `.section-grid`, ensure *every* primary topic on that page is represented in the grid. Avoid "mixed" structures where some topics are premium cards and others are plain headers or lists. If a topic exists as a section below the hub, use an anchor-linked card in the grid to represent it.
+12. **Maximum Content Width**: Content MUST use the maximum available width. Do NOT impose arbitrary `max-width` constraints on content containers (`.main-content`, `.topic-section`, `.topic-page`) that would leave unused whitespace. The `max-width: 1280px` is ONLY for the nav-inner and footer-inner containers. All content areas should expand to fill available space.
+
+13. **No Nested Cards**: Avoid nesting cards within cards. Nested card structures create unnecessary visual hierarchy and reduce usable content space. Each content block should be a single-level container. If you need to group related items, use `.key-points`, `.feature-list`, or direct `<div>` wrappers with consistent styling instead of embedding `.bento-card` or `.hub-card` inside other cards.
+
+14. **Structural Homogeneity**: Peer topics in a section or hub must use identical formatting. If major topics are presented as cards in a `.section-grid`, ensure *every* primary topic on that page is represented in the grid. Avoid "mixed" structures where some topics are premium cards and others are plain headers or lists. If a topic exists as a section below the hub, use an anchor-linked card in the grid to represent it.
 
 ## Prohibited Patterns (The "Anti-Raw-Data" Rule)
 
@@ -43,6 +50,8 @@ To maintain the premium "Data Sheets" feel, the following patterns are strictly 
 * **❌ Raw Unordered Lists**: Never use `<ul>` for lists that have more than 2-3 lines of text. Convert to `.key-points`.
 * **❌ Bullet Point Structure**: NEVER use `<ul>`/`<li>` for key points or feature lists. Always use `<div class="key-points">` with `<p>` or `<div>` children. The only exception is navigation menus.
 * **❌ Nested Card Lists**: Using multiple `<li>` inside a card without design intent.
+* **❌ Nested Cards**: Embedding `.bento-card`, `.hub-card`, or `.service-card` inside other card containers. This reduces available content space.
+* **❌ Max-Width on Content**: Adding `max-width` to `.main-content`, `.topic-section`, or `.topic-page` containers. Content should always use maximum available width.
 * **❌ Naked Tables**: Standard `<table>` without `.comparison-table` and `.table-wrap`.
 * **❌ Emojis in Content**: Using 🚀, 💡, or 📌 to signify tips or highlights. Use Material Symbols inside a `.tip-box` or `.warning-box`.
 * **❌ Raw "Problem/Solution" Text**: Paragraph blocks starting with "Problem:" and "How it solves it:". These MUST be refactored into a `.bento-grid` or `.service-grid`.
@@ -94,3 +103,4 @@ To maintain the premium "Data Sheets" feel, the following patterns are strictly 
 * **No orphans**: Always balanced.
 * **No tabs**: Only spaces.
 * **No naked data**: Only designed components.
+* **Full width**: Content uses maximum available width, no arbitrary max-width constraints.
