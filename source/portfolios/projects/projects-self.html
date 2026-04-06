@@ -244,7 +244,7 @@
   </style>
 </head>
 
-<body class="topic-page">
+<body class="topic-page topic-index home-with-sidebar">
 
 <aside class="sidebar">
 <nav class="sidebar-nav">
@@ -382,17 +382,18 @@
     </div>
   </header>
 
-  <main class="main-content" style="max-width: 1300px; margin: 64px auto 0; padding: 2rem 1rem;">
+  <main class="main-content">
     <a href="../portfolio.html" class="back-link">
       <span class="material-symbols-outlined">arrow_back</span>
       Back
     </a>
     
-    <div class="page-wrap" style="padding: 2rem 4rem;">
-        <header class="hero" style="margin-bottom: 4rem;">
-          <p class="eyebrow" style="color: var(--color-accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem;">Learning & Experiments</p>
-          <h1 style="font-family: 'Sora', sans-serif; font-size: 3.5rem; color: var(--color-text); margin-bottom: 1rem;">Self-Taught</h1>
-          <p style="color: var(--color-text-secondary); font-size: 1.25rem; max-width: 900px; line-height: 1.6;">Continuous exploration of distributed systems, big data architectures, and cloud-native engineering.</p>
+    <div class="page-wrap">
+      <div id="mainPanel" class="content-main">
+        <header class="hero">
+          <p class="eyebrow">Learning & Experiments</p>
+          <h1>Self-Taught</h1>
+          <p>Continuous exploration of distributed systems, big data architectures, and cloud-native engineering.</p>
         </header>
 
         <article class="experience-card" id="healthcare-pipeline">
@@ -408,7 +409,7 @@
           </div>
           
           <div class="project-section">
-            <h3>🏥 High-Volume Patient Data Orchestration</h3>
+            <h3><span class="material-symbols-outlined">medical_services</span>High-Volume Patient Data Orchestration</h3>
             <div class="tech-stack">
               <span class="tech-pill">PySpark</span>
               <span class="tech-pill">AWS EMR</span>
@@ -420,25 +421,25 @@
             
             <div class="details-grid">
               <div class="detail-item">
-                <h4>🎯 Objective</h4>
+                <h4><span class="material-symbols-outlined">track_changes</span>Objective</h4>
                 <p>Building a distributed batch processing pipeline to handle large-scale healthcare datasets (~10GB CSV) and enable serverless analytics with high performance.</p>
               </div>
               <div class="detail-item">
-                <h4>🛠️ Core Implementation</h4>
-                <ul>
-                  <li>Deployed a distributed Spark cluster on AWS EMR to process multi-gigabyte healthcare datasets efficiently.</li>
-                  <li>Converted raw unstructured CSV data into partitioned and columnar Parquet format (partitioned by <code>hospital_id</code> and <code>date</code>).</li>
-                  <li>Designed complex Spark transformations for patient classification and hospital-level aggregations using lazy evaluation.</li>
-                  <li>Integrated AWS Athena for serverless SQL querying, utilizing partition pruning to minimize data scan costs.</li>
-                </ul>
+                <h4><span class="material-symbols-outlined">build</span>Core Implementation</h4>
+                <div class="key-points">
+                  <p><span class="material-symbols-outlined">dns</span>Deployed a distributed Spark cluster on AWS EMR to process multi-gigabyte healthcare datasets efficiently.</p>
+                  <p><span class="material-symbols-outlined">storage</span>Converted raw unstructured CSV data into partitioned and columnar Parquet format (partitioned by <code>hospital_id</code> and <code>date</code>).</p>
+                  <p><span class="material-symbols-outlined">transform</span>Designed complex Spark transformations for patient classification and hospital-level aggregations using lazy evaluation.</p>
+                  <p><span class="material-symbols-outlined">query</span>Integrated AWS Athena for serverless SQL querying, utilizing partition pruning to minimize data scan costs.</p>
+                </div>
               </div>
               <div class="detail-item">
-                <h4>📈 Results & Impact</h4>
-                <ul>
-                  <li>Improved storage efficiency and query performance by ~50% through columnar storage (Parquet).</li>
-                  <li>Reduced query cost and latency by implementing effective partition pruning strategies.</li>
-                  <li>Built interactive dashboards in AWS QuickSight for real-time patient trends and hospital analytics.</li>
-                </ul>
+                <h4><span class="material-symbols-outlined">trending_up</span>Results & Impact</h4>
+                <div class="key-points">
+                  <p><span class="material-symbols-outlined">savings</span>Improved storage efficiency and query performance by ~50% through columnar storage (Parquet).</p>
+                  <p><span class="material-symbols-outlined">speed</span>Reduced query cost and latency by implementing effective partition pruning strategies.</p>
+                  <p><span class="material-symbols-outlined">dashboard</span>Built interactive dashboards in AWS QuickSight for real-time patient trends and hospital analytics.</p>
+                </div>
               </div>
             </div>
 
@@ -459,6 +460,7 @@
           </div>
         </article>
     </div>
+    </div>
   
   </main>
 
@@ -476,39 +478,6 @@
       </div>
     </div>
   </footer>
-
-  <script>
-    function toggleTheme() {
-      const html = document.documentElement;
-      const themeIcon = document.getElementById('themeIcon');
-      if (html.classList.contains('dark')) {
-        html.classList.remove('dark');
-        localStorage.setItem('theme', 'light');
-        themeIcon.textContent = 'dark_mode';
-      } else {
-        html.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
-        themeIcon.textContent = 'light_mode';
-      }
-    }
-    (function() {
-      const savedTheme = localStorage.getItem('theme');
-      const themeIcon = document.getElementById('themeIcon');
-      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-        themeIcon.textContent = 'light_mode';
-      } else {
-        themeIcon.textContent = 'dark_mode';
-      }
-    })();
-  </script>
-  <script>
-    const stt = document.getElementById('scrollToTop');
-    window.addEventListener('scroll', () => {
-      stt.classList.toggle('visible', window.pageYOffset > 400);
-    });
-    stt.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
-  </script>
 
   <script src="../../scripts.js"></script>
 </body>

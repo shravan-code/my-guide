@@ -9,7 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
   <link rel="stylesheet" href="../shared.css" />
 </head>
 
@@ -167,88 +166,85 @@
           <span class="code-label">List</span>
           <h3 id="list">List Operations</h3>
           <p>Mutable ordered collection.</p>
-<pre class="code-block"><code class="language-python">
-# Create
-lst = [1, 2, 3] # lst is [1, 2, 3]
-lst = list(range(10)) # lst becomes [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+          <div class="code-block">
+            <code><span class="comment"># Create</span>
+<span class="variable">lst</span> = [1, 2, 3] <span class="comment"># [1, 2, 3]</span>
+<span class="variable">lst</span> = <span class="function">list</span>(<span class="function">range</span>(10)) <span class="comment"># [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</span>
 
-# Methods
-lst.append(4) # lst becomes [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 4]
-lst.insert(0, 0) # lst becomes [0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 4]
-lst.extend([5, 6]) # lst becomes [0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 4, 5, 6]
-lst.pop() # returns 6, lst becomes [0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 4, 5]
-lst.remove(3) # lst becomes [0, 0, 1, 2, 4, 5, 6, 7, 8, 9, 4, 5]
-lst.sort() # lst becomes [0, 0, 1, 2, 4, 4, 5, 5, 6, 7, 8, 9]
-lst[::-1] # returns [9, 8, 7, 6, 5, 5, 4, 4, 2, 1, 0, 0]
-</code></pre>
+<span class="comment"># Methods</span>
+<span class="variable">lst</span>.<span class="function">append</span>(4)
+<span class="variable">lst</span>.<span class="function">insert</span>(0, 0)
+<span class="variable">lst</span>.<span class="function">sort</span>()
+<span class="variable">lst</span>[<span class="keyword">::</span>-1] <span class="comment"># Reverse</span></code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Dict</span>
           <h3>Dictionary Operations</h3>
           <p>Key-value pair storage.</p>
-<pre class="code-block"><code class="language-python">
-# Create
-d = {'a': 1, 'b': 2} # d is {'a': 1, 'b': 2}
-keys = ['x', 'y']
-vals = [10, 20]
-d = dict(zip(keys, vals)) # d becomes {'x': 10, 'y': 20}
+          <div class="code-block">
+            <code><span class="comment"># Create</span>
+<span class="variable">d</span> = {<span class="string">'a'</span>: 1, <span class="string">'b'</span>: 2} <span class="comment"># d is {'a': 1, 'b': 2}</span>
+<span class="variable">keys</span> = [<span class="string">'x'</span>, <span class="string">'y'</span>]
+<span class="variable">vals</span> = [10, 20]
+<span class="variable">d</span> = <span class="function">dict</span>(<span class="function">zip</span>(<span class="variable">keys</span>, <span class="variable">vals</span>)) <span class="comment"># d becomes {'x': 10, 'y': 20}</span>
 
-# Access
-d.get('key', 'default') # returns 'default' (key missing)
-d['key'] # raises KeyError (if key missing)
+<span class="comment"># Access</span>
+<span class="variable">d</span>.<span class="function">get</span>(<span class="string">'key'</span>, <span class="string">'default'</span>) <span class="comment"># returns 'default' (key missing)</span>
+<span class="variable">d</span>[<span class="string">'key'</span>] <span class="comment"># raises KeyError (if key missing)</span>
 
-# Methods
-d.keys() # returns dict_keys(['x', 'y'])
-d.values() # returns dict_values([10, 20])
-d.items() # returns dict_items([('x', 10), ('y', 20)])
-d.update({'c': 3}) # d becomes {'x': 10, 'y': 20, 'c': 3}
-d.pop('c') # removes 'c', returns 3, d becomes {'x': 10, 'y': 20}
-d.setdefault('x', 0) # returns 10 (key exists), d unchanged
-</code></pre>
+<span class="comment"># Methods</span>
+<span class="variable">d</span>.<span class="function">keys</span>() <span class="comment"># returns dict_keys(['x', 'y'])</span>
+<span class="variable">d</span>.<span class="function">values</span>() <span class="comment"># returns dict_values([10, 20])</span>
+<span class="variable">d</span>.<span class="function">items</span>() <span class="comment"># returns dict_items([('x', 10), ('y', 20)])</span>
+<span class="variable">d</span>.<span class="function">update</span>({<span class="string">'c'</span>: 3}) <span class="comment"># d becomes {'x': 10, 'y': 20, 'c': 3}</span>
+<span class="variable">d</span>.<span class="function">pop</span>(<span class="string">'c'</span>) <span class="comment"># removes 'c', returns 3, d becomes {'x': 10, 'y': 20}</span>
+<span class="variable">d</span>.<span class="function">setdefault</span>(<span class="string">'x'</span>, 0) <span class="comment"># returns 10 (key exists), d unchanged</span></code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Set</span>
           <h3>Set Operations</h3>
           <p>Unique unordered collection.</p>
-<pre class="code-block"><code class="language-python">
-# Create
-s = {1, 2, 3}
-s = set([1, 2, 2, 3])
+          <div class="code-block">
+            <code><span class="comment"># Create</span>
+<span class="variable">s</span> = {1, 2, 3}
+<span class="variable">s</span> = <span class="function">set</span>([1, 2, 2, 3])
 
-# Operations
-s.add(4)
-s.remove(1)
-s.discard(99) # No error if missing
+<span class="comment"># Operations</span>
+<span class="variable">s</span>.<span class="function">add</span>(4)
+<span class="variable">s</span>.<span class="function">remove</span>(1)
+<span class="variable">s</span>.<span class="function">discard</span>(99) <span class="comment"># No error if missing</span>
 
-# Set math
-a | b # Union
-a & b # Intersection
-a - b # Difference
-a ^ b # Symmetric diff
-</code></pre>
+<span class="comment"># Set math</span>
+<span class="variable">a</span> | <span class="variable">b</span> <span class="comment"># Union</span>
+<span class="variable">a</span> & <span class="variable">b</span> <span class="comment"># Intersection</span>
+<span class="variable">a</span> - <span class="variable">b</span> <span class="comment"># Difference</span>
+<span class="variable">a</span> ^ <span class="variable">b</span> <span class="comment"># Symmetric diff</span></code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Tuple</span>
           <h3>Tuple Unpacking</h3>
           <p>Immutable ordered collection.</p>
-<pre class="code-block"><code class="language-python">
-# Create
-t = (1, 2, 3)
-t = tuple([1, 2, 3])
+          <div class="code-block">
+            <code><span class="comment"># Create</span>
+<span class="variable">t</span> = (1, 2, 3)
+<span class="variable">t</span> = <span class="function">tuple</span>([1, 2, 3])
 
-# Unpacking
-a, b, c = t
-first, *rest = t
-first, *middle, last = t
+<span class="comment"># Unpacking</span>
+<span class="variable">a</span>, <span class="variable">b</span>, <span class="variable">c</span> = <span class="variable">t</span>
+<span class="variable">first</span>, *<span class="variable">rest</span> = <span class="variable">t</span>
+<span class="variable">first</span>, *<span class="variable">middle</span>, <span class="variable">last</span> = <span class="variable">t</span>
 
-# Swap
-a, b = b, a
+<span class="comment"># Swap</span>
+<span class="variable">a</span>, <span class="variable">b</span> = <span class="variable">b</span>, <span class="variable">a</span>
 
-# Named tuple
-from collections import namedtuple
-Point = namedtuple('Point', ['x', 'y'])
-p = Point(1, 2)
-</code></pre>
+<span class="comment"># Named tuple</span>
+<span class="keyword">from</span> <span class="variable">collections</span> <span class="keyword">import</span> <span class="variable">namedtuple</span>
+<span class="variable">Point</span> = <span class="function">namedtuple</span>(<span class="string">'Point'</span>, [<span class="string">'x'</span>, <span class="string">'y'</span>])
+<span class="variable">p</span> = <span class="function">Point</span>(1, 2)</code>
+          </div>
         </div>
       </div>
     </section>
@@ -260,80 +256,80 @@ p = Point(1, 2)
           <span class="code-label">List</span>
           <h3>List Comprehension</h3>
           <p>Create lists in a single line.</p>
-<pre class="code-block"><code class="language-python">
-# Basic
-squares = [x**2 for x in range(10)]
-# squares = [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+          <div class="code-block">
+            <code><span class="comment"># Basic</span>
+<span class="variable">squares</span> = [<span class="variable">x</span>**2 <span class="keyword">for</span> <span class="variable">x</span> <span class="keyword">in</span> <span class="function">range</span>(10)]
+<span class="comment"># squares = [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]</span>
 
-# With condition
-evens = [x for x in range(20) if x % 2 == 0]
-# evens = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+<span class="comment"># With condition</span>
+<span class="variable">evens</span> = [<span class="variable">x</span> <span class="keyword">for</span> <span class="variable">x</span> <span class="keyword">in</span> <span class="function">range</span>(20) <span class="keyword">if</span> <span class="variable">x</span> % 2 == 0]
+<span class="comment"># evens = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]</span>
 
-# Nested
-matrix = [[1,2,3], [4,5,6], [7,8,9]]
-flat = [x for row in matrix for x in row]
-# flat = [1,2,3,4,5,6,7,8,9]
+<span class="comment"># Nested</span>
+<span class="variable">matrix</span> = [[1,2,3], [4,5,6], [7,8,9]]
+<span class="variable">flat</span> = [<span class="variable">x</span> <span class="keyword">for</span> <span class="variable">row</span> <span class="keyword">in</span> <span class="variable">matrix</span> <span class="keyword">for</span> <span class="variable">x</span> <span class="keyword">in</span> <span class="variable">row</span>]
+<span class="comment"># flat = [1,2,3,4,5,6,7,8,9]</span>
 
-# With function
-text = [' Hello ', 'World ']
-words = [w.strip().lower() for w in text]
-# words = ['hello', 'world']
-</code></pre>
+<span class="comment"># With function</span>
+<span class="variable">text</span> = [<span class="string">' Hello '</span>, <span class="string">'World '</span>]
+<span class="variable">words</span> = [<span class="variable">w</span>.<span class="function">strip</span>().<span class="function">lower</span>() <span class="keyword">for</span> <span class="variable">w</span> <span class="keyword">in</span> <span class="variable">text</span>]
+<span class="comment"># words = ['hello', 'world']</span></code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Dict</span>
           <h3>Dict Comprehension</h3>
           <p>Create dictionaries concisely.</p>
-<pre class="code-block"><code class="language-python">
-# From two lists
-d = {k: v for k, v in zip(keys, values)}
+          <div class="code-block">
+            <code><span class="comment"># From two lists</span>
+<span class="variable">d</span> = {<span class="variable">k</span>: <span class="variable">v</span> <span class="keyword">for</span> <span class="variable">k</span>, <span class="variable">v</span> <span class="keyword">in</span> <span class="function">zip</span>(<span class="variable">keys</span>, <span class="variable">values</span>)}
 
-# With condition
-d = {k: v for k, v in items if v > 0}
+<span class="comment"># With condition</span>
+<span class="variable">d</span> = {<span class="variable">k</span>: <span class="variable">v</span> <span class="keyword">for</span> <span class="variable">k</span>, <span class="variable">v</span> <span class="keyword">in</span> <span class="variable">items</span> <span class="keyword">if</span> <span class="variable">v</span> > 0}
 
-# Transform
-word_len = {w: len(w) for w in words}
+<span class="comment"># Transform</span>
+<span class="variable">word_len</span> = {<span class="variable">w</span>: <span class="function">len</span>(<span class="variable">w</span>) <span class="keyword">for</span> <span class="variable">w</span> <span class="keyword">in</span> <span class="variable">words</span>}
 
-# Invert dict
-inv = {v: k for k, v in d.items()}
-</code></pre>
+<span class="comment"># Invert dict</span>
+<span class="variable">inv</span> = {<span class="variable">v</span>: <span class="variable">k</span> <span class="keyword">for</span> <span class="variable">k</span>, <span class="variable">v</span> <span class="keyword">in</span> <span class="variable">d</span>.<span class="function">items</span>()}</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Set</span>
           <h3>Set Comprehension</h3>
           <p>Create sets with transformations.</p>
-<pre class="code-block"><code class="language-python">
-# Basic
-unique = {x % 5 for x in range(100)}
+          <div class="code-block">
+            <code><span class="comment"># Basic</span>
+<span class="variable">unique</span> = {<span class="variable">x</span> % 5 <span class="keyword">for</span> <span class="variable">x</span> <span class="keyword">in</span> <span class="function">range</span>(100)}
 
-# With condition
-primes = {x for x in range(100)
-if all(x % i != 0 for i in range(2, int(x**0.5)+1))}
+<span class="comment"># With condition</span>
+<span class="variable">primes</span> = {<span class="variable">x</span> <span class="keyword">for</span> <span class="variable">x</span> <span class="keyword">in</span> <span class="function">range</span>(100)
+<span class="keyword">if</span> <span class="function">all</span>(<span class="variable">x</span> % <span class="variable">i</span> != 0 <span class="keyword">for</span> <span class="variable">i</span> <span class="keyword">in</span> <span class="function">range</span>(2, <span class="function">int</span>(<span class="variable">x</span>**0.5)+1))}
 
-# From strings
-chars = {c.lower() for c in text if c.isalpha()}
-</code></pre>
+<span class="comment"># From strings</span>
+<span class="variable">chars</span> = {<span class="variable">c</span>.<span class="function">lower</span>() <span class="keyword">for</span> <span class="variable">c</span> <span class="keyword">in</span> <span class="variable">text</span> <span class="keyword">if</span> <span class="variable">c</span>.<span class="function">isalpha</span>()}</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Generator</span>
           <h3>Generator Expression</h3>
           <p>Memory-efficient iteration.</p>
-<pre class="code-block"><code class="language-python">
-# Generator (lazy)
-gen = (x**2 for x in range(1000000))
+          <div class="code-block">
+            <code><span class="comment"># Generator (lazy)</span>
+<span class="variable">gen</span> = (<span class="variable">x</span>**2 <span class="keyword">for</span> <span class="variable">x</span> <span class="keyword">in</span> <span class="function">range</span>(1000000))
 
-# In function
-total = sum(x**2 for x in range(100))
+<span class="comment"># In function</span>
+<span class="variable">total</span> = <span class="function">sum</span>(<span class="variable">x</span>**2 <span class="keyword">for</span> <span class="variable">x</span> <span class="keyword">in</span> <span class="function">range</span>(100))
 
-# Generator function
-def counter(n):
-for i in range(n):
-yield i
+<span class="comment"># Generator function</span>
+<span class="keyword">def</span> <span class="function">counter</span>(<span class="variable">n</span>):
+  <span class="keyword">for</span> <span class="variable">i</span> <span class="keyword">in</span> <span class="function">range</span>(<span class="variable">n</span>):
+    <span class="keyword">yield</span> <span class="variable">i</span>
 
-# Chain generators
-import itertools
-result = itertools.chain(gen1, gen2)
-</code></pre>
+<span class="comment"># Chain generators</span>
+<span class="keyword">import</span> <span class="variable">itertools</span>
+<span class="variable">result</span> = <span class="variable">itertools</span>.<span class="function">chain</span>(<span class="variable">gen1</span>, <span class="variable">gen2</span>)</code>
+          </div>
         </div>
       </div>
     </section>
@@ -345,88 +341,88 @@ result = itertools.chain(gen1, gen2)
           <span class="code-label">Basics</span>
           <h3>Function Basics</h3>
           <p>Define and call functions.</p>
-<pre class="code-block"><code class="language-python">
-# Basic function
-def greet(name, greeting="Hello"):
-"""Return a greeting."""
-return f"{greeting}, {name}!"
+          <div class="code-block">
+            <code><span class="comment"># Basic function</span>
+<span class="keyword">def</span> <span class="function">greet</span>(<span class="variable">name</span>, <span class="variable">greeting</span>=<span class="string">"Hello"</span>):
+  <span class="string">"""Return a greeting."""</span>
+  <span class="keyword">return</span> <span class="string">f"</span>{<span class="variable">greeting</span>}<span class="string">, </span>{<span class="variable">name</span>}<span class="string">!"</span>
 
-# *args, **kwargs
-def flexible(*args, **kwargs):
-print(args, kwargs)
+<span class="comment"># *args, **kwargs</span>
+<span class="keyword">def</span> <span class="function">flexible</span>(*<span class="variable">args</span>, **<span class="variable">kwargs</span>):
+  <span class="function">print</span>(<span class="variable">args</span>, <span class="variable">kwargs</span>)
 
-# Lambda
-square = lambda x: x ** 2
+<span class="comment"># Lambda</span>
+<span class="variable">square</span> = <span class="keyword">lambda</span> <span class="variable">x</span>: <span class="variable">x</span> ** 2
 
-# Multiple return
-def stats(data):
-return min(data), max(data), sum(data)
-</code></pre>
+<span class="comment"># Multiple return</span>
+<span class="keyword">def</span> <span class="function">stats</span>(<span class="variable">data</span>):
+  <span class="keyword">return</span> <span class="function">min</span>(<span class="variable">data</span>), <span class="function">max</span>(<span class="variable">data</span>), <span class="function">sum</span>(<span class="variable">data</span>)</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Decorators</span>
           <h3>Function Decorators</h3>
           <p>Wrap functions to extend behavior.</p>
-<pre class="code-block"><code class="language-python">
-import time
-from functools import wraps
+          <div class="code-block">
+            <code><span class="keyword">import</span> <span class="variable">time</span>
+<span class="keyword">from</span> <span class="variable">functools</span> <span class="keyword">import</span> <span class="variable">wraps</span>
 
-def timer(func):
-@wraps(func)
-def wrapper(*args, **kwargs):
-start = time.time()
-result = func(*args, **kwargs)
-print(f"{func.__name__}: {time.time()-start:.2f}s")
-return result
-return wrapper
+<span class="keyword">def</span> <span class="function">timer</span>(<span class="variable">func</span>):
+  <span class="decorator">@wraps</span>(<span class="variable">func</span>)
+  <span class="keyword">def</span> <span class="function">wrapper</span>(*<span class="variable">args</span>, **<span class="variable">kwargs</span>):
+    <span class="variable">start</span> = <span class="variable">time</span>.<span class="function">time</span>()
+    <span class="variable">result</span> = <span class="variable">func</span>(*<span class="variable">args</span>, **<span class="variable">kwargs</span>)
+    <span class="function">print</span>(<span class="string">f"</span>{<span class="variable">func</span>.<span class="variable">__name__</span>}<span class="string">: </span>{<span class="variable">time</span>.<span class="function">time</span>()-<span class="variable">start</span><span class="string">:.2f}s"</span>)
+    <span class="keyword">return</span> <span class="variable">result</span>
+  <span class="keyword">return</span> <span class="variable">wrapper</span>
 
-@timer
-def slow_function():
-time.sleep(1)
-</code></pre>
+<span class="decorator">@timer</span>
+<span class="keyword">def</span> <span class="function">slow_function</span>():
+  <span class="variable">time</span>.<span class="function">sleep</span>(1)</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Functional</span>
           <h3>Functional Tools</h3>
           <p>Map, filter, reduce operations.</p>
-<pre class="code-block"><code class="language-python">
-# Map
-list(map(str.upper, names))
+          <div class="code-block">
+            <code><span class="comment"># Map</span>
+<span class="function">list</span>(<span class="function">map</span>(<span class="variable">str</span>.<span class="variable">upper</span>, <span class="variable">names</span>))
 
-# Filter
-list(filter(lambda x: x > 0, nums))
+<span class="comment"># Filter</span>
+<span class="function">list</span>(<span class="function">filter</span>(<span class="keyword">lambda</span> <span class="variable">x</span>: <span class="variable">x</span> > 0, <span class="variable">nums</span>))
 
-# Reduce
-from functools import reduce
-reduce(lambda a, b: a + b, nums)
+<span class="comment"># Reduce</span>
+<span class="keyword">from</span> <span class="variable">functools</span> <span class="keyword">import</span> <span class="variable">reduce</span>
+<span class="function">reduce</span>(<span class="keyword">lambda</span> <span class="variable">a</span>, <span class="variable">b</span>: <span class="variable">a</span> + <span class="variable">b</span>, <span class="variable">nums</span>)
 
-# Sorted with key
-sorted(data, key=lambda x: x['age'], reverse=True)
-</code></pre>
+<span class="comment"># Sorted with key</span>
+<span class="function">sorted</span>(<span class="variable">data</span>, <span class="variable">key</span>=<span class="keyword">lambda</span> <span class="variable">x</span>: <span class="variable">x</span>[<span class="string">'age'</span>], <span class="variable">reverse</span>=<span class="keyword">True</span>)</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Closures</span>
           <h3>Closures & Scope</h3>
           <p>Functions that capture variables.</p>
-<pre class="code-block"><code class="language-python">
-# Closure
-def make_multiplier(n):
-def multiplier(x):
-return x * n
-return multiplier
+          <div class="code-block">
+            <code><span class="comment"># Closure</span>
+<span class="keyword">def</span> <span class="function">make_multiplier</span>(<span class="variable">n</span>):
+  <span class="keyword">def</span> <span class="function">multiplier</span>(<span class="variable">x</span>):
+    <span class="keyword">return</span> <span class="variable">x</span> * <span class="variable">n</span>
+  <span class="keyword">return</span> <span class="variable">multiplier</span>
 
-times2 = make_multiplier(2)
-times2(5) # 10
+<span class="variable">times2</span> = <span class="function">make_multiplier</span>(2)
+<span class="variable">times2</span>(5) <span class="comment"># 10</span>
 
-# Nonlocal
-def counter():
-count = 0
-def increment():
-nonlocal count
-count += 1
-return count
-return increment
-</code></pre>
+<span class="comment"># Nonlocal</span>
+<span class="keyword">def</span> <span class="function">counter</span>():
+  <span class="variable">count</span> = 0
+  <span class="keyword">def</span> <span class="function">increment</span>():
+    <span class="keyword">nonlocal</span> <span class="variable">count</span>
+    <span class="variable">count</span> += 1
+    <span class="keyword">return</span> <span class="variable">count</span>
+  <span class="keyword">return</span> <span class="variable">increment</span></code>
+          </div>
         </div>
       </div>
     </section>
@@ -438,86 +434,86 @@ return increment
           <span class="code-label">Files</span>
           <h3>File Operations</h3>
           <p>Read and write files safely.</p>
-<pre class="code-block"><code class="language-python">
-# Read entire file
-with open('file.txt', 'r') as f:
-content = f.read()
+          <div class="code-block">
+            <code><span class="comment"># Read entire file</span>
+<span class="keyword">with</span> <span class="function">open</span>(<span class="string">'file.txt'</span>, <span class="string">'r'</span>) <span class="keyword">as</span> <span class="variable">f</span>:
+  <span class="variable">content</span> = <span class="variable">f</span>.<span class="function">read</span>()
 
-# Read lines
-with open('file.txt') as f:
-lines = f.readlines()
+<span class="comment"># Read lines</span>
+<span class="keyword">with</span> <span class="function">open</span>(<span class="string">'file.txt'</span>) <span class="keyword">as</span> <span class="variable">f</span>:
+  <span class="variable">lines</span> = <span class="variable">f</span>.<span class="function">readlines</span>()
 
-# Write file
-with open('output.txt', 'w') as f:
-f.write('Hello World')
+<span class="comment"># Write file</span>
+<span class="keyword">with</span> <span class="function">open</span>(<span class="string">'output.txt'</span>, <span class="string">'w'</span>) <span class="keyword">as</span> <span class="variable">f</span>:
+  <span class="variable">f</span>.<span class="function">write</span>(<span class="string">'Hello World'</span>)
 
-# Append
-with open('log.txt', 'a') as f:
-f.write('new line\n')
-</code></pre>
+<span class="comment"># Append</span>
+<span class="keyword">with</span> <span class="function">open</span>(<span class="string">'log.txt'</span>, <span class="string">'a'</span>) <span class="keyword">as</span> <span class="variable">f</span>:
+  <span class="variable">f</span>.<span class="function">write</span>(<span class="string">'new line\n'</span>)</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">JSON</span>
           <h3>JSON Handling</h3>
           <p>Parse and write JSON data.</p>
-<pre class="code-block"><code class="language-python">
-import json
+          <div class="code-block">
+            <code><span class="keyword">import</span> <span class="variable">json</span>
 
-# Read JSON
-with open('data.json') as f:
-data = json.load(f)
+<span class="comment"># Read JSON</span>
+<span class="keyword">with</span> <span class="function">open</span>(<span class="string">'data.json'</span>) <span class="keyword">as</span> <span class="variable">f</span>:
+  <span class="variable">data</span> = <span class="variable">json</span>.<span class="function">load</span>(<span class="variable">f</span>)
 
-# Write JSON
-with open('out.json', 'w') as f:
-json.dump(data, f, indent=2)
+<span class="comment"># Write JSON</span>
+<span class="keyword">with</span> <span class="function">open</span>(<span class="string">'out.json'</span>, <span class="string">'w'</span>) <span class="keyword">as</span> <span class="variable">f</span>:
+  <span class="variable">json</span>.<span class="function">dump</span>(<span class="variable">data</span>, <span class="variable">f</span>, <span class="variable">indent</span>=2)
 
-# String
-json_str = json.dumps(data)
-data = json.loads(json_str)
-</code></pre>
+<span class="comment"># String</span>
+<span class="variable">json_str</span> = <span class="variable">json</span>.<span class="function">dumps</span>(<span class="variable">data</span>)
+<span class="variable">data</span> = <span class="variable">json</span>.<span class="function">loads</span>(<span class="variable">json_str</span>)</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Exceptions</span>
           <h3>Error Handling</h3>
           <p>Handle exceptions gracefully.</p>
-<pre class="code-block"><code class="language-python">
-try:
-result = risky_operation()
-except ValueError as e:
-print(f"Value error: {e}")
-except (TypeError, KeyError) as e:
-print(f"Type error: {e}")
-except Exception as e:
-logger.error(f"Unexpected: {e}")
-raise
-else:
-print("Success")
-finally:
-cleanup()
-</code></pre>
+          <div class="code-block">
+            <code><span class="keyword">try</span>:
+  <span class="variable">result</span> = <span class="function">risky_operation</span>()
+<span class="keyword">except</span> <span class="variable">ValueError</span> <span class="keyword">as</span> <span class="variable">e</span>:
+  <span class="function">print</span>(<span class="string">f"Value error: </span>{<span class="variable">e</span>}<span class="string">"</span>)
+<span class="keyword">except</span> (<span class="variable">TypeError</span>, <span class="variable">KeyError</span>) <span class="keyword">as</span> <span class="variable">e</span>:
+  <span class="function">print</span>(<span class="string">f"Type error: </span>{<span class="variable">e</span>}<span class="string">"</span>)
+<span class="keyword">except</span> <span class="variable">Exception</span> <span class="keyword">as</span> <span class="variable">e</span>:
+  <span class="variable">logger</span>.<span class="function">error</span>(<span class="string">f"Unexpected: </span>{<span class="variable">e</span>}<span class="string">"</span>)
+  <span class="keyword">raise</span>
+<span class="keyword">else</span>:
+  <span class="function">print</span>(<span class="string">"Success"</span>)
+<span class="keyword">finally</span>:
+  <span class="function">cleanup</span>()</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Custom</span>
           <h3>Custom Exceptions</h3>
           <p>Create your own exception classes.</p>
-<pre class="code-block"><code class="language-python">
-class CustomError(Exception):
-def __init__(self, message, code):
-super().__init__(message)
-self.code = code
+          <div class="code-block">
+            <code><span class="keyword">class</span> <span class="function">CustomError</span>(<span class="variable">Exception</span>):
+  <span class="keyword">def</span> <span class="function">__init__</span>(<span class="variable">self</span>, <span class="variable">message</span>, <span class="variable">code</span>):
+    <span class="function">super</span>().<span class="function">__init__</span>(<span class="variable">message</span>)
+    <span class="variable">self</span>.<span class="variable">code</span> = <span class="variable">code</span>
 
-class ValidationError(CustomError):
-pass
+<span class="keyword">class</span> <span class="function">ValidationError</span>(<span class="variable">CustomError</span>):
+  <span class="keyword">pass</span>
 
-# Usage
-raise ValidationError("Invalid input", code=400)
+<span class="comment"># Usage</span>
+<span class="keyword">raise</span> <span class="function">ValidationError</span>(<span class="string">"Invalid input"</span>, <span class="variable">code</span>=400)
 
-# Catching
-try:
-validate(data)
-except ValidationError as e:
-print(f"Error {e.code}: {e}")
-</code></pre>
+<span class="comment"># Catching</span>
+<span class="keyword">try</span>:
+  <span class="function">validate</span>(<span class="variable">data</span>)
+<span class="keyword">except</span> <span class="variable">ValidationError</span> <span class="keyword">as</span> <span class="variable">e</span>:
+  <span class="function">print</span>(<span class="string">f"Error </span>{<span class="variable">e</span>.<span class="variable">code</span>}<span class="string">: </span>{<span class="variable">e</span>}<span class="string">"</span>)</code>
+          </div>
         </div>
       </div>
     </section>
@@ -529,87 +525,88 @@ print(f"Error {e.code}: {e}")
           <span class="code-label">Class</span>
           <h3>Class Basics</h3>
           <p>Define classes with methods.</p>
-<pre class="code-block"><code class="language-python">
-class Person:
-species = "Human" # Class variable
+          <div class="code-block">
+            <code><span class="keyword">class</span> <span class="function">Person</span>:
+  <span class="variable">species</span> = <span class="string">"Human"</span> <span class="comment"># Class variable</span>
 
-def __init__(self, name, age):
-self.name = name # Instance var
-self.age = age
+  <span class="keyword">def</span> <span class="function">__init__</span>(<span class="variable">self</span>, <span class="variable">name</span>, <span class="variable">age</span>):
+    <span class="variable">self</span>.<span class="variable">name</span> = <span class="variable">name</span> <span class="comment"># Instance var</span>
+    <span class="variable">self</span>.<span class="variable">age</span> = <span class="variable">age</span>
 
-def greet(self):
-return f"Hi, I'm {self.name}"
+  <span class="keyword">def</span> <span class="function">greet</span>(<span class="variable">self</span>):
+    <span class="keyword">return</span> <span class="string">f"Hi, I'm </span>{<span class="variable">self</span>.<span class="variable">name</span>}<span class="string">"</span>
 
-def __str__(self):
-return f"Person({self.name})"
+  <span class="keyword">def</span> <span class="function">__str__</span>(<span class="variable">self</span>):
+    <span class="keyword">return</span> <span class="string">f"Person(</span>{<span class="variable">self</span>.<span class="variable">name</span>}<span class="string">)"</span>
 
-p = Person("Alice", 30)
-print(p.greet())
-</code></pre>
+<span class="variable">p</span> = <span class="function">Person</span>(<span class="string">"Alice"</span>, 30)
+<span class="function">print</span>(<span class="variable">p</span>.<span class="function">greet</span>())</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Inheritance</span>
           <h3>Inheritance</h3>
           <p>Create specialized classes.</p>
-<pre class="code-block"><code class="language-python">
-class Employee(Person):
-def __init__(self, name, age, emp_id):
-super().__init__(name, age)
-self.emp_id = emp_id
+          <div class="code-block">
+            <code><span class="keyword">class</span> <span class="function">Employee</span>(<span class="variable">Person</span>):
+  <span class="keyword">def</span> <span class="function">__init__</span>(<span class="variable">self</span>, <span class="variable">name</span>, <span class="variable">age</span>, <span class="variable">emp_id</span>):
+    <span class="function">super</span>().<span class="function">__init__</span>(<span class="variable">name</span>, <span class="variable">age</span>)
+    <span class="variable">self</span>.<span class="variable">emp_id</span> = <span class="variable">emp_id</span>
 
-def greet(self):
-base = super().greet()
-return f"{base}, ID: {self.emp_id}"
+  <span class="keyword">def</span> <span class="function">greet</span>(<span class="variable">self</span>):
+    <span class="variable">base</span> = <span class="function">super</span>().<span class="function">greet</span>()
+    <span class="keyword">return</span> <span class="string">f"</span>{<span class="variable">base</span>}<span class="string">, ID: </span>{<span class="variable">self</span>.<span class="variable">emp_id</span>}<span class="string">"</span>
 
-# Multiple inheritance
-class A: pass
-class B: pass
-class C(A, B): pass
-</code></pre>
+<span class="comment"># Multiple inheritance</span>
+<span class="keyword">class</span> <span class="function">A</span>: <span class="keyword">pass</span>
+<span class="keyword">class</span> <span class="function">B</span>: <span class="keyword">pass</span>
+<span class="keyword">class</span> <span class="function">C</span>(<span class="variable">A</span>, <span class="variable">B</span>): <span class="keyword">pass</span></code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Properties</span>
           <h3>Properties & Methods</h3>
           <p>Controlled attribute access.</p>
-<pre class="code-block"><code class="language-python">
-class Circle:
-def __init__(self, radius):
-self._radius = radius
+          <div class="code-block">
+            <code><span class="keyword">class</span> <span class="function">Circle</span>:
+  <span class="keyword">def</span> <span class="function">__init__</span>(<span class="variable">self</span>, <span class="variable">radius</span>):
+    <span class="variable">self</span>.<span class="variable">_radius</span> = <span class="variable">radius</span>
 
-@property
-def radius(self):
-return self._radius
+  <span class="decorator">@property</span>
+  <span class="keyword">def</span> <span class="function">radius</span>(<span class="variable">self</span>):
+    <span class="keyword">return</span> <span class="variable">self</span>.<span class="variable">_radius</span>
 
-@radius.setter
-def radius(self, value):
-if value < 0: raise ValueError("Negative!") self._radius = value
+  <span class="decorator">@radius.setter</span>
+  <span class="keyword">def</span> <span class="function">radius</span>(<span class="variable">self</span>, <span class="variable">value</span>):
+    <span class="keyword">if</span> <span class="variable">value</span> < 0:
+      <span class="keyword">raise</span> <span class="variable">ValueError</span>(<span class="string">"Negative!"</span>)
+    <span class="variable">self</span>.<span class="variable">_radius</span> = <span class="variable">value</span>
 
-    @property
-    def area(self):
-        return 3.14159 *
-self._radius ** 2
-</code></pre>
+  <span class="decorator">@property</span>
+  <span class="keyword">def</span> <span class="function">area</span>(<span class="variable">self</span>):
+    <span class="keyword">return</span> 3.14159 * <span class="variable">self</span>.<span class="variable">_radius</span> ** 2</code>
+          </div>
           </div>
           <div class="code-card">
             <span class="code-label">Dataclass</span>
             <h3>Data Classes</h3>
             <p>Simplified class creation.</p>
-<pre class="code-block"><code class="language-python">
-from dataclasses import dataclass, field
+          <div class="code-block">
+            <code><span class="keyword">from</span> <span class="variable">dataclasses</span> <span class="keyword">import</span> <span class="variable">dataclass</span>, <span class="variable">field</span>
 
-@dataclass
-class User:
-name: str
-email: str
-age: int = 0
-tags: list = field(default_factory=list)
+<span class="decorator">@dataclass</span>
+<span class="keyword">class</span> <span class="function">User</span>:
+  <span class="variable">name</span>: <span class="variable">str</span>
+  <span class="variable">email</span>: <span class="variable">str</span>
+  <span class="variable">age</span>: <span class="variable">int</span> = 0
+  <span class="variable">tags</span>: <span class="variable">list</span> = <span class="function">field</span>(<span class="variable">default_factory</span>=<span class="variable">list</span>)
 
-def is_adult(self):
-return self.age >= 18
+  <span class="keyword">def</span> <span class="function">is_adult</span>(<span class="variable">self</span>):
+    <span class="keyword">return</span> <span class="variable">self</span>.<span class="variable">age</span> >= 18
 
-user = User("Alice", "alice@example.com", 30)
-print(user) # User(name='Alice', ...)
-</code></pre>
+<span class="variable">user</span> = <span class="function">User</span>(<span class="string">"Alice"</span>, <span class="string">"alice@example.com"</span>, 30)
+<span class="function">print</span>(<span class="variable">user</span>) <span class="comment"># User(name='Alice', ...)</span></code>
+          </div>
           </div>
         </div>
     </section>
@@ -621,89 +618,89 @@ print(user) # User(name='Alice', ...)
           <span class="code-label">Threading</span>
           <h3>Threading</h3>
           <p>Run tasks concurrently (I/O bound).</p>
-<pre class="code-block"><code class="language-python">
-import threading
-from concurrent.futures import ThreadPoolExecutor
+          <div class="code-block">
+            <code><span class="keyword">import</span> <span class="variable">threading</span>
+<span class="keyword">from</span> <span class="variable">concurrent.futures</span> <span class="keyword">import</span> <span class="variable">ThreadPoolExecutor</span>
 
-def task(n):
-return n * 2
+<span class="keyword">def</span> <span class="function">task</span>(<span class="variable">n</span>):
+  <span class="keyword">return</span> <span class="variable">n</span> * 2
 
-# Thread pool
-with ThreadPoolExecutor(max_workers=4) as executor:
-futures = [executor.submit(task, i) for i in range(10)]
-results = [f.result() for f in futures]
+<span class="comment"># Thread pool</span>
+<span class="keyword">with</span> <span class="function">ThreadPoolExecutor</span>(<span class="variable">max_workers</span>=4) <span class="keyword">as</span> <span class="variable">executor</span>:
+  <span class="variable">futures</span> = [<span class="variable">executor</span>.<span class="function">submit</span>(<span class="variable">task</span>, <span class="variable">i</span>) <span class="keyword">for</span> <span class="variable">i</span> <span class="keyword">in</span> <span class="function">range</span>(10)]
+  <span class="variable">results</span> = [<span class="variable">f</span>.<span class="function">result</span>() <span class="keyword">for</span> <span class="variable">f</span> <span class="keyword">in</span> <span class="variable">futures</span>]
 
-# Thread
-t = threading.Thread(target=task, args=(5,))
-t.start()
-t.join()
-</code></pre>
+<span class="comment"># Thread</span>
+<span class="variable">t</span> = <span class="variable">threading</span>.<span class="function">Thread</span>(<span class="variable">target</span>=<span class="variable">task</span>, <span class="variable">args</span>=(5,))
+<span class="variable">t</span>.<span class="function">start</span>()
+<span class="variable">t</span>.<span class="function">join</span>()</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Multiprocessing</span>
           <h3>Multiprocessing</h3>
           <p>Parallel execution (CPU bound).</p>
-<pre class="code-block"><code class="language-python">
-from multiprocessing import Pool
-from concurrent.futures import ProcessPoolExecutor
+          <div class="code-block">
+            <code><span class="keyword">from</span> <span class="variable">multiprocessing</span> <span class="keyword">import</span> <span class="variable">Pool</span>
+<span class="keyword">from</span> <span class="variable">concurrent.futures</span> <span class="keyword">import</span> <span class="variable">ProcessPoolExecutor</span>
 
-def heavy_task(n):
-return sum(i**2 for i in range(n))
+<span class="keyword">def</span> <span class="function">heavy_task</span>(<span class="variable">n</span>):
+  <span class="keyword">return</span> <span class="function">sum</span>(<span class="variable">i</span>**2 <span class="keyword">for</span> <span class="variable">i</span> <span class="keyword">in</span> <span class="function">range</span>(<span class="variable">n</span>))
 
-# Process pool
-with Pool(4) as pool:
-results = pool.map(heavy_task, [1000]*10)
+<span class="comment"># Process pool</span>
+<span class="keyword">with</span> <span class="function">Pool</span>(4) <span class="keyword">as</span> <span class="variable">pool</span>:
+  <span class="variable">results</span> = <span class="variable">pool</span>.<span class="function">map</span>(<span class="variable">heavy_task</span>, [1000]*10)
 
-# ProcessPoolExecutor
-with ProcessPoolExecutor(max_workers=4) as executor:
-results = list(executor.map(heavy_task, data))
-</code></pre>
+<span class="comment"># ProcessPoolExecutor</span>
+<span class="keyword">with</span> <span class="function">ProcessPoolExecutor</span>(<span class="variable">max_workers</span>=4) <span class="keyword">as</span> <span class="variable">executor</span>:
+  <span class="variable">results</span> = <span class="function">list</span>(<span class="variable">executor</span>.<span class="function">map</span>(<span class="variable">heavy_task</span>, <span class="variable">data</span>))</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Async</span>
           <h3>Async/Await</h3>
           <p>Asynchronous programming.</p>
-<pre class="code-block"><code class="language-python">
-import asyncio
-import aiohttp
+          <div class="code-block">
+            <code><span class="keyword">import</span> <span class="variable">asyncio</span>
+<span class="keyword">import</span> <span class="variable">aiohttp</span>
 
-async def fetch(url):
-async with aiohttp.ClientSession() as session:
-async with session.get(url) as resp:
-return await resp.text()
+<span class="keyword">async def</span> <span class="function">fetch</span>(<span class="variable">url</span>):
+  <span class="keyword">async with</span> <span class="variable">aiohttp</span>.<span class="function">ClientSession</span>() <span class="keyword">as</span> <span class="variable">session</span>:
+    <span class="keyword">async with</span> <span class="variable">session</span>.<span class="function">get</span>(<span class="variable">url</span>) <span class="keyword">as</span> <span class="variable">resp</span>:
+      <span class="keyword">return await</span> <span class="variable">resp</span>.<span class="function">text</span>()
 
-async def main():
-urls = ['url1', 'url2', 'url3']
-tasks = [fetch(url) for url in urls]
-results = await asyncio.gather(*tasks)
-return results
+<span class="keyword">async def</span> <span class="function">main</span>():
+  <span class="variable">urls</span> = [<span class="string">'url1'</span>, <span class="string">'url2'</span>, <span class="string">'url3'</span>]
+  <span class="variable">tasks</span> = [<span class="function">fetch</span>(<span class="variable">url</span>) <span class="keyword">for</span> <span class="variable">url</span> <span class="keyword">in</span> <span class="variable">urls</span>]
+  <span class="variable">results</span> = <span class="keyword">await</span> <span class="variable">asyncio</span>.<span class="function">gather</span>(*<span class="variable">tasks</span>)
+  <span class="keyword">return</span> <span class="variable">results</span>
 
-asyncio.run(main())
-</code></pre>
+<span class="variable">asyncio</span>.<span class="function">run</span>(<span class="function">main</span>())</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Queue</span>
           <h3>Queue</h3>
           <p>Thread-safe data sharing.</p>
-<pre class="code-block"><code class="language-python">
-from queue import Queue
-from threading import Thread
+          <div class="code-block">
+            <code><span class="keyword">from</span> <span class="variable">queue</span> <span class="keyword">import</span> <span class="variable">Queue</span>
+<span class="keyword">from</span> <span class="variable">threading</span> <span class="keyword">import</span> <span class="variable">Thread</span>
 
-def producer(q):
-for i in range(5):
-q.put(i)
+<span class="keyword">def</span> <span class="function">producer</span>(<span class="variable">q</span>):
+  <span class="keyword">for</span> <span class="variable">i</span> <span class="keyword">in</span> <span class="function">range</span>(5):
+    <span class="variable">q</span>.<span class="function">put</span>(<span class="variable">i</span>)
 
-def consumer(q):
-while True:
-item = q.get()
-print(f"Processing {item}")
-q.task_done()
+<span class="keyword">def</span> <span class="function">consumer</span>(<span class="variable">q</span>):
+  <span class="keyword">while</span> <span class="keyword">True</span>:
+    <span class="variable">item</span> = <span class="variable">q</span>.<span class="function">get</span>()
+    <span class="function">print</span>(<span class="string">f"Processing </span>{<span class="variable">item</span>}<span class="string">"</span>)
+    <span class="variable">q</span>.<span class="function">task_done</span>()
 
-q = Queue()
-Thread(target=producer, args=(q,)).start()
-Thread(target=consumer, args=(q,)).start()
-q.join()
-</code></pre>
+<span class="variable">q</span> = <span class="function">Queue</span>()
+<span class="function">Thread</span>(<span class="variable">target</span>=<span class="variable">producer</span>, <span class="variable">args</span>=(<span class="variable">q</span>,)).<span class="function">start</span>()
+<span class="function">Thread</span>(<span class="variable">target</span>=<span class="variable">consumer</span>, <span class="variable">args</span>=(<span class="variable">q</span>,)).<span class="function">start</span>()
+<span class="variable">q</span>.<span class="function">join</span>()</code>
+          </div>
         </div>
       </div>
     </section>
@@ -715,180 +712,175 @@ q.join()
           <span class="code-label">Collections</span>
           <h3>collections Module</h3>
           <p>Specialized container datatypes.</p>
-<pre class="code-block"><code class="language-python">
-from collections import Counter, defaultdict, deque, OrderedDict, namedtuple
+          <div class="code-block">
+            <code><span class="keyword">from</span> <span class="variable">collections</span> <span class="keyword">import</span> <span class="variable">Counter</span>, <span class="variable">defaultdict</span>, <span class="variable">deque</span>, <span class="variable">OrderedDict</span>, <span class="variable">namedtuple</span>
 
-# Counter
-counts = Counter(['a', 'b', 'a', 'c', 'a'])
-# Counter({'a': 3, 'b': 1, 'c': 1})
-counts.most_common(2) # [('a', 3), ('b', 1)]
-counts['a'] # 3
-counts.elements() # iterator: 'a','a','a','b','c'
-counts.subtract(['a', 'a']) # Counter({'a': 1, 'b': 1, 'c': 1})
-counts.update(['d', 'd', 'd']) # Counter({'d': 3, 'a': 1, 'b': 1, 'c': 1})
+<span class="comment"># Counter</span>
+<span class="variable">counts</span> = <span class="function">Counter</span>([<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'a'</span>, <span class="string">'c'</span>, <span class="string">'a'</span>])
+<span class="comment"># Counter({'a': 3, 'b': 1, 'c': 1})</span>
+<span class="variable">counts</span>.<span class="function">most_common</span>(2) <span class="comment"># [('a', 3), ('b', 1)]</span>
+<span class="variable">counts</span>[<span class="string">'a'</span>] <span class="comment"># 3</span>
+<span class="variable">counts</span>.<span class="function">elements</span>() <span class="comment"># iterator: 'a','a','a','b','c'</span>
+<span class="variable">counts</span>.<span class="function">subtract</span>([<span class="string">'a'</span>, <span class="string">'a'</span>]) <span class="comment"># Counter({'a': 1, 'b': 1, 'c': 1})</span>
+<span class="variable">counts</span>.<span class="function">update</span>([<span class="string">'d'</span>, <span class="string">'d'</span>, <span class="string">'d'</span>]) <span class="comment"># Counter({'d': 3, 'a': 1, 'b': 1, 'c': 1})</span>
 
-# defaultdict
-dd = defaultdict(list)
-dd['key'].append('value') # {'key': ['value']}
-dd['missing'] # [] (auto-created empty list)
+<span class="comment"># defaultdict</span>
+<span class="variable">dd</span> = <span class="function">defaultdict</span>(<span class="variable">list</span>)
+<span class="variable">dd</span>[<span class="string">'key'</span>].<span class="function">append</span>(<span class="string">'value'</span>) <span class="comment"># {'key': ['value']}</span>
+<span class="variable">dd</span>[<span class="string">'missing'</span>] <span class="comment"># [] (auto-created empty list)</span>
 
-# deque (fast append/pop both ends)
-d = deque([1, 2, 3])
-d.appendleft(0) # deque([0, 1, 2, 3])
-d.rotate(1) # deque([3, 0, 1, 2])
-d.popleft() # 3, deque([0, 1, 2])
-d.extend([4,5]) # deque([0, 1, 2, 4, 5])
-d.extendleft([-1,-2]) # deque([-2, -1, 0, 1, 2, 4, 5])
+<span class="comment"># deque (fast append/pop both ends)</span>
+<span class="variable">d</span> = <span class="function">deque</span>([1, 2, 3])
+<span class="variable">d</span>.<span class="function">appendleft</span>(0) <span class="comment"># deque([0, 1, 2, 3])</span>
+<span class="variable">d</span>.<span class="function">rotate</span>(1) <span class="comment"># deque([3, 0, 1, 2])</span>
+<span class="variable">d</span>.<span class="function">popleft</span>() <span class="comment"># 3, deque([0, 1, 2])</span>
+<span class="variable">d</span>.<span class="function">extend</span>([4,5]) <span class="comment"># deque([0, 1, 2, 4, 5])</span>
+<span class="variable">d</span>.<span class="function">extendleft</span>([-1,-2]) <span class="comment"># deque([-2, -1, 0, 1, 2, 4, 5])</span>
 
-# OrderedDict ( insertion order remembers )
-od = OrderedDict([('a', 1), ('b', 2)])
-od.move_to_end('a') # OrderedDict([('b', 2), ('a', 1)])
-od.popitem(last=False) # ('b', 2)
+<span class="comment"># OrderedDict (insertion order remembers)</span>
+<span class="variable">od</span> = <span class="function">OrderedDict</span>([(<span class="string">'a'</span>, 1), (<span class="string">'b'</span>, 2)])
+<span class="variable">od</span>.<span class="function">move_to_end</span>(<span class="string">'a'</span>) <span class="comment"># OrderedDict([('b', 2), ('a', 1)])</span>
+<span class="variable">od</span>.<span class="function">popitem</span>(<span class="variable">last</span>=<span class="keyword">False</span>) <span class="comment"># ('b', 2)</span>
 
-# namedtuple
-Point = namedtuple('Point', ['x', 'y'])
-p = Point(1, 2)
-p.x, p.y # (1, 2)
-</code></pre>
+<span class="comment"># namedtuple</span>
+<span class="variable">Point</span> = <span class="function">namedtuple</span>(<span class="string">'Point'</span>, [<span class="string">'x'</span>, <span class="string">'y'</span>])
+<span class="variable">p</span> = <span class="function">Point</span>(1, 2)
+<span class="variable">p</span>.<span class="variable">x</span>, <span class="variable">p</span>.<span class="variable">y</span> <span class="comment"># (1, 2)</span></code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">itertools</span>
           <h3>itertools Module</h3>
           <p>Iterator building blocks.</p>
-<pre class="code-block"><code class="language-python">
-from itertools import chain, product, groupby, islice, takewhile, dropwhile,
-permutations, combinations, compress
+          <div class="code-block">
+            <code><span class="keyword">from</span> <span class="variable">itertools</span> <span class="keyword">import</span> (
+  <span class="variable">chain</span>, <span class="variable">product</span>, <span class="variable">groupby</span>, <span class="variable">islice</span>,
+  <span class="variable">takewhile</span>, <span class="variable">dropwhile</span>, <span class="variable">permutations</span>,
+  <span class="variable">combinations</span>, <span class="variable">compress</span>
+)
 
-# Chain iterables
-list1 = [1,2,3]
-list2 = [4,5]
-list3 = [6]
-combined = chain(list1, list2, list3) # iterator: 1,2,3,4,5,6
-list(combined) # [1,2,3,4,5,6]
+<span class="comment"># Chain iterables</span>
+<span class="variable">list1</span>, <span class="variable">list2</span>, <span class="variable">list3</span> = [1,2], [3,4], [5]
+<span class="variable">combined</span> = <span class="function">chain</span>(<span class="variable">list1</span>, <span class="variable">list2</span>, <span class="variable">list3</span>) <span class="comment"># 1,2,3,4,5</span>
 
-# Cartesian product
-pairs = list(product([1,2], ['a','b'])) # [(1,'a'),(1,'b'),(2,'a'),(2,'b')]
+<span class="comment"># Cartesian product</span>
+<span class="variable">pairs</span> = <span class="function">list</span>(<span class="function">product</span>([1,2], [<span class="string">'a'</span>,<span class="string">'b'</span>]))
 
-# Group by
-data = [{'cat': 'A', 'val': 1}, {'cat': 'B', 'val': 2}, {'cat': 'A', 'val': 3}]
-sorted_data = sorted(data, key=lambda x: x['cat'])
-for key, group in groupby(sorted_data, key=lambda x: x['cat']):
-print(key, list(group))
-# Output: A [{'cat': 'A', 'val': 1}, {'cat': 'A', 'val': 3}]
-# B [{'cat': 'B', 'val': 2}]
+<span class="comment"># Group by</span>
+<span class="variable">data</span> = [{<span class="string">'cat'</span>: <span class="string">'A'</span>, <span class="string">'val'</span>: 1}, {<span class="string">'cat'</span>: <span class="string">'B'</span>, <span class="string">'val'</span>: 2}, {<span class="string">'cat'</span>: <span class="string">'A'</span>, <span class="string">'val'</span>: 3}]
+<span class="variable">sorted_data</span> = <span class="function">sorted</span>(<span class="variable">data</span>, <span class="variable">key</span>=<span class="keyword">lambda</span> <span class="variable">x</span>: <span class="variable">x</span>[<span class="string">'cat'</span>])
+<span class="keyword">for</span> <span class="variable">key</span>, <span class="variable">group</span> <span class="keyword">in</span> <span class="function">groupby</span>(<span class="variable">sorted_data</span>, <span class="variable">key</span>=<span class="keyword">lambda</span> <span class="variable">x</span>: <span class="variable">x</span>[<span class="string">'cat'</span>]):
+  <span class="function">print</span>(<span class="variable">key</span>, <span class="function">list</span>(<span class="variable">group</span>))
 
-# Combinations
-combos = list(combinations([1,2,3,4], 2))
-# [(1,2), (1,3), (1,4), (2,3), (2,4), (3,4)]
+<span class="comment"># Combinations / Permutations</span>
+<span class="variable">combos</span> = <span class="function">list</span>(<span class="function">combinations</span>([1,2,3], 2)) <span class="comment"># (1,2), (1,3), (2,3)</span>
+<span class="variable">perms</span> = <span class="function">list</span>(<span class="function">permutations</span>([1,2,3], 2))
 
-# Permutations
-perms = list(permutations([1,2,3], 2))
-# [(1,2), (1,3), (2,1), (2,3), (3,1), (3,2)]
+<span class="comment"># islice (slice iterator)</span>
+<span class="variable">sliced</span> = <span class="function">list</span>(<span class="function">islice</span>(<span class="function">range</span>(10), 2, 8, 2)) <span class="comment"># [2,4,6]</span>
 
-# islice (slice iterator)
-iterator = iter(range(10))
-sliced = list(islice(iterator, 2, 8, 2)) # [2,4,6]
+<span class="comment"># takewhile / dropwhile</span>
+<span class="variable">nums</span> = [1,2,3,4,5,1,2]
+<span class="variable">taken</span> = <span class="function">list</span>(<span class="function">takewhile</span>(<span class="keyword">lambda</span> <span class="variable">x</span>: <span class="variable">x</span><4, <span class="variable">nums</span>)) <span class="comment"># [1,2,3]</span>
+<span class="variable">dropped</span> = <span class="function">list</span>(<span class="function">dropwhile</span>(<span class="keyword">lambda</span> <span class="variable">x</span>: <span class="variable">x</span><4, <span class="variable">nums</span>)) <span class="comment"># [4,5,1,2]</span>
 
-# takewhile (take while condition true)
-nums = [1,2,3,4,5,1,2]
-taken = list(takewhile(lambda x: x<4, nums)) # [1,2,3] # dropwhile (drop while condition true)
-dropped=list(dropwhile(lambda x: x<4, nums)) # [4,5,1,2] # compress (filter based on selectors)
-selectors=[1,0,1,0,1] compressed=list(compress(['a','b','c','d','e'], selectors)) # ['a','c','e']
-</code></pre>
+<span class="comment"># compress (filter based on selectors)</span>
+<span class="variable">selectors</span> = [1,0,1,0,1]
+<span class="variable">compressed</span> = <span class="function">list</span>(<span class="function">compress</span>([<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'d'</span>,<span class="string">'e'</span>], <span class="variable">selectors</span>)) <span class="comment"># ['a','c','e']</span></code>
+          </div>
           </div>
           <div class="code-card">
             <span class="code-label">datetime</span>
             <h3>datetime Module</h3>
             <p>Date and time handling.</p>
-<pre class="code-block"><code class="language-python">
-from datetime import datetime, timedelta, date, time, timezone
+          <div class="code-block">
+            <code><span class="keyword">from</span> <span class="variable">datetime</span> <span class="keyword">import</span> <span class="variable">datetime</span>, <span class="variable">timedelta</span>, <span class="variable">date</span>, <span class="variable">time</span>, <span class="variable">timezone</span>
 
-# Current time
-now = datetime.now() # 2024-03-15 10:30:45.123456
-today = date.today() # 2024-03-15
-current_time = time.now() # 10:30:45.123456
+<span class="comment"># Current time</span>
+<span class="variable">now</span> = <span class="variable">datetime</span>.<span class="function">now</span>()
+<span class="variable">today</span> = <span class="variable">date</span>.<span class="function">today</span>()
 
-# Parse string
-dt = datetime.strptime('2024-01-15', '%Y-%m-%d') # datetime(2024,1,15,0,0)
+<span class="comment"># Parse string</span>
+<span class="variable">dt</span> = <span class="variable">datetime</span>.<span class="function">strptime</span>(<span class="string">'2024-01-15'</span>, <span class="string">'%Y-%m-%d'</span>)
 
-# Format
-now.strftime('%Y-%m-%d %H:%M:%S') # '2024-03-15 10:30:45'
-now.strftime('%B %d, %Y') # 'March 15, 2024'
+<span class="comment"># Format</span>
+<span class="variable">now</span>.<span class="function">strftime</span>(<span class="string">'%Y-%m-%d %H:%M:%S'</span>) <span class="comment"># '2024-03-15 10:30:45'</span>
+<span class="variable">now</span>.<span class="function">strftime</span>(<span class="string">'%B %d, %Y'</span>) <span class="comment"># 'March 15, 2024'</span>
 
-# Arithmetic
-tomorrow = now + timedelta(days=1) # datetime tomorrow same time
-yesterday = now - timedelta(days=1) # datetime yesterday
-diff = now - datetime(2024,1,1) # timedelta days=74
-diff.days # 74
-diff.seconds # seconds part
+<span class="comment"># Arithmetic</span>
+<span class="variable">tomorrow</span> = <span class="variable">now</span> + <span class="function">timedelta</span>(<span class="variable">days</span>=1)
+<span class="variable">yesterday</span> = <span class="variable">now</span> - <span class="function">timedelta</span>(<span class="variable">days</span>=1)
+<span class="variable">diff</span> = <span class="variable">now</span> - <span class="variable">datetime</span>(2024,1,1)
+<span class="variable">diff</span>.<span class="variable">days</span> <span class="comment"># 74</span>
 
-# Timezone
-utc_now = datetime.now(timezone.utc) # UTC datetime
-local_now = utc_now.astimezone() # convert to local timezone
+<span class="comment"># Timezone</span>
+<span class="variable">utc_now</span> = <span class="variable">datetime</span>.<span class="function">now</span>(<span class="variable">timezone</span>.<span class="variable">utc</span>)
+<span class="variable">local_now</span> = <span class="variable">utc_now</span>.<span class="function">astimezone</span>()
 
-# Replace
-dt_replace = now.replace(year=2025) # datetime with year changed
+<span class="comment"># Replace</span>
+<span class="variable">dt_replace</span> = <span class="variable">now</span>.<span class="function">replace</span>(<span class="variable">year</span>=2025)
 
-# Timestamp
-timestamp = now.timestamp() # Unix timestamp (seconds)
-from_ts = datetime.fromtimestamp(1700000000) # datetime from timestamp
+<span class="comment"># Timestamp</span>
+<span class="variable">timestamp</span> = <span class="variable">now</span>.<span class="function">timestamp</span>()
+<span class="variable">from_ts</span> = <span class="variable">datetime</span>.<span class="function">fromtimestamp</span>(1700000000)
 
-# ISO format
-iso_str = now.isoformat() # '2024-03-15T10:30:45.123456'
-</code></pre>
+<span class="comment"># ISO format</span>
+<span class="variable">iso_str</span> = <span class="variable">now</span>.<span class="function">isoformat</span>()</code>
+          </div>
           </div>
           <div class="code-card">
             <span class="code-label">logging</span>
             <h3>logging Module</h3>
             <p>Professional logging setup.</p>
-<pre class="code-block"><code class="language-python">
-import logging
+          <div class="code-block">
+            <code><span class="keyword">import</span> <span class="variable">logging</span>
 
-# Basic configuration (call once)
-logging.basicConfig(
-level=logging.DEBUG, # log level threshold
-format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-datefmt='%Y-%m-%d %H:%M:%S', # timestamp format
-handlers=[
-logging.FileHandler('app.log'), # log to file
-logging.StreamHandler() # log to console
-]
+<span class="comment"># Basic configuration (call once)</span>
+<span class="variable">logging</span>.<span class="function">basicConfig</span>(
+  <span class="variable">level</span>=<span class="variable">logging</span>.<span class="variable">DEBUG</span>,
+  <span class="variable">format</span>=<span class="string">'%(asctime)s - %(name)s - %(levelname)s - %(message)s'</span>,
+  <span class="variable">datefmt</span>=<span class="string">'%Y-%m-%d %H:%M:%S'</span>,
+  <span class="variable">handlers</span>=[
+    <span class="variable">logging</span>.<span class="function">FileHandler</span>(<span class="string">'app.log'</span>),
+    <span class="variable">logging</span>.<span class="function">StreamHandler</span>()
+  ]
 )
 
-# Get logger
-logger = logging.getLogger(__name__) # named logger
-logger.setLevel(logging.INFO) # override level
+<span class="comment"># Get logger</span>
+<span class="variable">logger</span> = <span class="variable">logging</span>.<span class="function">getLogger</span>(<span class="variable">__name__</span>)
+<span class="variable">logger</span>.<span class="function">setLevel</span>(<span class="variable">logging</span>.<span class="variable">INFO</span>)
 
-# Logging methods
-logger.debug("Debug message") # level=DEBUG
-logger.info("Info message") # level=INFO
-logger.warning("Warning message") # level=WARNING
-logger.error("Error message") # level=ERROR
-logger.critical("Critical message") # level=CRITICAL
+<span class="comment"># Logging methods</span>
+<span class="variable">logger</span>.<span class="function">debug</span>(<span class="string">"Debug message"</span>)
+<span class="variable">logger</span>.<span class="function">info</span>(<span class="string">"Info message"</span>)
+<span class="variable">logger</span>.<span class="function">warning</span>(<span class="string">"Warning message"</span>)
+<span class="variable">logger</span>.<span class="function">error</span>(<span class="string">"Error message"</span>)
+<span class="variable">logger</span>.<span class="function">critical</span>(<span class="string">"Critical message"</span>)
 
-# Exception logging
-try:
-1/0
-except ZeroDivisionError:
-logger.exception("Division by zero") # includes traceback
+<span class="comment"># Exception logging</span>
+<span class="keyword">try</span>:
+  1/0
+<span class="keyword">except</span> <span class="variable">ZeroDivisionError</span>:
+  <span class="variable">logger</span>.<span class="function">exception</span>(<span class="string">"Division by zero"</span>)
 
-# Custom formatter
-formatter = logging.Formatter('%(levelname)s:%(name)s:%(message)s')
-handler = logging.StreamHandler()
-handler.setFormatter(formatter)
-logger.addHandler(handler)
+<span class="comment"># Custom formatter</span>
+<span class="variable">formatter</span> = <span class="variable">logging</span>.<span class="function">Formatter</span>(<span class="string">'%(levelname)s:%(name)s:%(message)s'</span>)
+<span class="variable">handler</span> = <span class="variable">logging</span>.<span class="function">StreamHandler</span>()
+<span class="variable">handler</span>.<span class="function">setFormatter</span>(<span class="variable">formatter</span>)
+<span class="variable">logger</span>.<span class="function">addHandler</span>(<span class="variable">handler</span>)
 
-# Log to specific file with RotatingFileHandler
-from logging.handlers import RotatingFileHandler
-rot_handler = RotatingFileHandler('app.log', maxBytes=1048576, backupCount=3)
-logger.addHandler(rot_handler)
+<span class="comment"># RotatingFileHandler</span>
+<span class="keyword">from</span> <span class="variable">logging.handlers</span> <span class="keyword">import</span> <span class="variable">RotatingFileHandler</span>
+<span class="variable">rot_handler</span> = <span class="function">RotatingFileHandler</span>(<span class="string">'app.log'</span>, <span class="variable">maxBytes</span>=1048576, <span class="variable">backupCount</span>=3)
+<span class="variable">logger</span>.<span class="function">addHandler</span>(<span class="variable">rot_handler</span>)
 
-# Filter specific messages
-class InfoFilter(logging.Filter):
-def filter(self, record):
-return record.levelno == logging.INFO
-logger.addFilter(InfoFilter())
-</code></pre>
+<span class="comment"># Filter specific messages</span>
+<span class="keyword">class</span> <span class="function">InfoFilter</span>(<span class="variable">logging</span>.<span class="variable">Filter</span>):
+  <span class="keyword">def</span> <span class="function">filter</span>(<span class="variable">self</span>, <span class="variable">record</span>):
+    <span class="keyword">return</span> <span class="variable">record</span>.<span class="variable">levelno</span> == <span class="variable">logging</span>.<span class="variable">INFO</span>
+
+<span class="variable">logger</span>.<span class="function">addFilter</span>(<span class="function">InfoFilter</span>())</code>
+          </div>
           </div>
         </div>
     </section>
@@ -899,42 +891,42 @@ logger.addFilter(InfoFilter())
           <span class="code-label">Tip</span>
           <h3>Use list comprehensions wisely</h3>
           <p>Avoid complex logic in comprehensions; keep them readable.</p>
-<pre class="code-block"><code class="language-python">
-# Good
-squares = [x**2 for x in range(10)]
+          <div class="code-block">
+            <code><span class="comment"># Good</span>
+<span class="variable">squares</span> = [<span class="variable">x</span>**2 <span class="keyword">for</span> <span class="variable">x</span> <span class="keyword">in</span> <span class="function">range</span>(10)]
 
-# Bad (hard to read)
-result = [x**2 for x in range(10) if x % 2 == 0 if x > 3]
-</code></pre>
+<span class="comment"># Bad (hard to read)</span>
+<span class="variable">result</span> = [<span class="variable">x</span>**2 <span class="keyword">for</span> <span class="variable">x</span> <span class="keyword">in</span> <span class="function">range</span>(10) <span class="keyword">if</span> <span class="variable">x</span> % 2 == 0 <span class="keyword">if</span> <span class="variable">x</span> > 3]</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Trick</span>
           <h3>Swap variables without temp</h3>
           <p>Python allows tuple unpacking for swapping.</p>
-<pre class="code-block"><code class="language-python">
-a, b = 1, 2
-a, b = b, a # a=2, b=1
-</code></pre>
+          <div class="code-block">
+            <code><span class="variable">a</span>, <span class="variable">b</span> = 1, 2
+<span class="variable">a</span>, <span class="variable">b</span> = <span class="variable">b</span>, <span class="variable">a</span> <span class="comment"># a=2, b=1</span></code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Tip</span>
           <h3>Use `enumerate` for indexed loops</h3>
           <p>Instead of range(len(...)).</p>
-<pre class="code-block"><code class="language-python">
-items = ['a', 'b', 'c']
-for idx, val in enumerate(items):
-print(f'{idx}: {val}')
-</code></pre>
+          <div class="code-block">
+            <code><span class="variable">items</span> = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>]
+<span class="keyword">for</span> <span class="variable">idx</span>, <span class="variable">val</span> <span class="keyword">in</span> <span class="function">enumerate</span>(<span class="variable">items</span>):
+  <span class="function">print</span>(<span class="string">f'</span>{<span class="variable">idx</span>}<span class="string">: </span>{<span class="variable">val</span>}<span class="string">'</span>)</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Trick</span>
           <h3>Dictionary merging with `|`</h3>
           <p>Python 3.9+ supports merge operator.</p>
-<pre class="code-block"><code class="language-python">
-dict1 = {'a': 1, 'b': 2}
-dict2 = {'b': 3, 'c': 4}
-merged = dict1 | dict2 # {'a':1, 'b':3, 'c':4}
-</code></pre>
+          <div class="code-block">
+            <code><span class="variable">dict1</span> = {<span class="string">'a'</span>: 1, <span class="string">'b'</span>: 2}
+<span class="variable">dict2</span> = {<span class="string">'b'</span>: 3, <span class="string">'c'</span>: 4}
+<span class="variable">merged</span> = <span class="variable">dict1</span> | <span class="variable">dict2</span> <span class="comment"># {'a':1, 'b':3, 'c':4}</span></code>
+          </div>
         </div>
       </div>
     </section>
@@ -946,42 +938,41 @@ merged = dict1 | dict2 # {'a':1, 'b':3, 'c':4}
           <span class="code-label">Readability</span>
           <h3>Follow PEP 8</h3>
           <p>Use consistent style, spacing, and naming to keep code maintainable.</p>
-<pre class="code-block"><code class="language-python">
-# Example: prefer clear variable names
-user_count = len(users)
-if user_count > 0:
-print(f"Total users: {user_count}")
-</code></pre>
+          <div class="code-block">
+            <code><span class="comment"># prefer clear variable names</span>
+<span class="variable">user_count</span> = <span class="function">len</span>(<span class="variable">users</span>)
+<span class="keyword">if</span> <span class="variable">user_count</span> > 0:
+  <span class="function">print</span>(<span class="string">f"Total users: </span>{<span class="variable">user_count</span>}<span class="string">"</span>)</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Testing</span>
           <h3>Write tests for key logic</h3>
           <p>Unit tests prevent regressions and improve confidence.</p>
-<pre class="code-block"><code class="language-python">
-import pytest
+          <div class="code-block">
+            <code><span class="keyword">import</span> <span class="variable">pytest</span>
 
-def increment(x):
-return x + 1
+<span class="keyword">def</span> <span class="function">increment</span>(<span class="variable">x</span>):
+  <span class="keyword">return</span> <span class="variable">x</span> + 1
 
-def test_increment():
-assert increment(1) == 2
-assert increment(-1) == 0
-</code></pre>
+<span class="keyword">def</span> <span class="function">test_increment</span>():
+  <span class="keyword">assert</span> <span class="function">increment</span>(1) == 2
+  <span class="keyword">assert</span> <span class="function">increment</span>(-1) == 0</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Performance</span>
           <h3>Prefer builtins over loops</h3>
           <p>Use list comprehensions, map/filter, and numpy/pandas to speed loops.</p>
-<pre class="code-block"><code class="language-python">
-# avoid slow loops over lists
-# slow
-sum_val = 0
-for x in data:
-sum_val += x
+          <div class="code-block">
+            <code><span class="comment"># avoid slow loops</span>
+<span class="variable">sum_val</span> = 0
+<span class="keyword">for</span> <span class="variable">x</span> <span class="keyword">in</span> <span class="variable">data</span>:
+  <span class="variable">sum_val</span> += <span class="variable">x</span>
 
-# fast
-sum_val = sum(data)
-</code></pre>
+<span class="comment"># Fast</span>
+<span class="variable">sum_val</span> = <span class="function">sum</span>(<span class="variable">data</span>)</code>
+          </div>
         </div>
       </div>
     </section>

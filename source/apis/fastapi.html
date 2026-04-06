@@ -3,63 +3,64 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Data Guide | {title}</title>
+  <title>Data Guide | FastAPI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-  <link rel="stylesheet" href="{root_offset}shared.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../shared.css" />
 </head>
 <body class="topic-page">
 
 <aside class="sidebar">
-<nav class="sidebar-nav">
-        <span class="nav-section-title">Main Section</span>
-        <a href="../../index.html" class="nav-item">
-          <span class="material-symbols-outlined">home</span>
-          Home
-        </a>
-        <a href="../cloud/index.html" class="nav-item">
-          <span class="material-symbols-outlined">cloud</span>
-          Cloud
-        </a>
-        <a href="../data/index.html" class="nav-item">
-          <span class="material-symbols-outlined">analytics</span>
-          Big-Data
-        </a>
-        <a href="../python/index.html" class="nav-item">
-          <span class="material-symbols-outlined">code</span>
-          Python
-        </a>
-        <a href="../sql/index.html" class="nav-item">
-          <span class="material-symbols-outlined">database</span>
-          Database
-        </a>
-        <a href="../apis/index.html" class="nav-item">
-          <span class="material-symbols-outlined">api</span>
-          APIs
-        </a>
-        <a href="../tools/index.html" class="nav-item">
-          <span class="material-symbols-outlined">build</span>
-          Tools
-        </a>
-        <a href="../orchestration/index.html" class="nav-item">
-          <span class="material-symbols-outlined">account_tree</span>
-          Orchestration
-        </a>
-        <a href="../roadmaps/roadmap.html" class="nav-item">
-          <span class="material-symbols-outlined">map</span>
-          Roadmaps
-        </a>
-        <a href="../practice/index.html" class="nav-item">
-          <span class="material-symbols-outlined">model_training</span>
-          Practice
-        </a>
-        <a href="../portfolios/portfolio.html" class="nav-item">
-          <span class="material-symbols-outlined">person</span>
-          Portfolio
-        </a>
-    </nav>
+  <nav class="sidebar-nav">
+    <span class="nav-section-title">Main Section</span>
+    <a href="../../index.html" class="nav-item">
+      <span class="material-symbols-outlined">home</span>
+      Home
+    </a>
+    <a href="../cloud/index.html" class="nav-item">
+      <span class="material-symbols-outlined">cloud</span>
+      Cloud
+    </a>
+    <a href="../data/index.html" class="nav-item">
+      <span class="material-symbols-outlined">analytics</span>
+      Big-Data
+    </a>
+    <a href="../python/index.html" class="nav-item">
+      <span class="material-symbols-outlined">code</span>
+      Python
+    </a>
+    <a href="../sql/index.html" class="nav-item">
+      <span class="material-symbols-outlined">database</span>
+      Database
+    </a>
+    <a href="../apis/index.html" class="nav-item active">
+      <span class="material-symbols-outlined">api</span>
+      APIs
+    </a>
+    <a href="../tools/index.html" class="nav-item">
+      <span class="material-symbols-outlined">build</span>
+      Tools
+    </a>
+    <a href="../orchestration/index.html" class="nav-item">
+      <span class="material-symbols-outlined">account_tree</span>
+      Orchestration
+    </a>
+    <a href="../roadmaps/roadmap.html" class="nav-item">
+      <span class="material-symbols-outlined">map</span>
+      Roadmaps
+    </a>
+    <a href="../practice/index.html" class="nav-item">
+      <span class="material-symbols-outlined">model_training</span>
+      Practice
+    </a>
+    <a href="../portfolios/portfolio.html" class="nav-item">
+      <span class="material-symbols-outlined">person</span>
+      Portfolio
+    </a>
+  </nav>
 </aside>
 
 <div class="drawer-overlay" onclick="closeDrawer()"></div>
@@ -92,7 +93,7 @@
           <span class="material-symbols-outlined">database</span>
           Database
         </a>
-        <a href="../apis/index.html" class="nav-item">
+        <a href="../apis/index.html" class="nav-item active">
           <span class="material-symbols-outlined">api</span>
           APIs
         </a>
@@ -121,9 +122,10 @@
 
   <header class="top-nav">
     <div class="top-nav-inner">
-                <button class="nav-icon-btn hamburger" onclick="toggleDrawer()">
-            <span class="material-symbols-outlined">menu</span>
-          </button><a href="../../index.html" class="brand">
+      <button class="nav-icon-btn hamburger" onclick="toggleDrawer()">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+      <a href="../../index.html" class="brand">
         <div class="brand-icon">
           <span class="material-symbols-outlined">architecture</span>
         </div>
@@ -134,24 +136,102 @@
         <button class="nav-icon-btn" id="themeToggle" onclick="toggleTheme()">
           <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
         </button>
+        <a href="../portfolios/portfolio.html" class="user-avatar" title="View Portfolio">
+          <img src="../../assets/images/profile-pic.jpeg" alt="User profile" />
+        </a>
       </div>
     </div>
   </header>
 
   <main class="main-content">
-    <a href="index.html" class="back-link">
-      <span class="material-symbols-outlined">arrow_back</span>
-      Back to {category}
-    </a>
-    <header class="page-header">
-      <p class="eyebrow">{category}</p>
-      <h1>{title}</h1>
-      <p>{description}</p>
+    <header class="page-header page-header--row">
+      <a href="index.html" class="back-link back-link--round" aria-label="Back">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </a>
+      <div class="page-header-inner">
+        <h1>FastAPI</h1>
+        <p>Modern, high-performance web framework for building APIs with Python 3.8+ based on standard Python type hints.</p>
+      </div>
     </header>
-    <div class="topic-content">
-      <p>Content for {title} is under construction.</p>
-    </div>
+
+    <section class="topic-section">
+      <h2>Extreme Performance <span class="level-badge advanced">Advanced</span></h2>
+      <div class="bento-grid">
+        <div class="bento-card large">
+          <div class="card-icon primary">
+            <span class="material-symbols-outlined">bolt</span>
+          </div>
+          <h3>Asynchronous Power</h3>
+          <p><strong>Problem:</strong> Python web frameworks have traditionally struggled with concurrent I/O performance.</p>
+          <p><strong>Solution:</strong> FastAPI is built on top of Starlette and Pydantic, making it one of the fastest Python frameworks available, rivaling Go and NodeJS.</p>
+        </div>
+        <div class="bento-card medium">
+          <div class="card-icon primary">
+            <span class="material-symbols-outlined">fact_check</span>
+          </div>
+          <h3>Type-Driven Validation</h3>
+          <p><strong>Problem:</strong> Manually validating input data is tedious and error-prone.</p>
+          <p><strong>Solution:</strong> Standard Python type hints drive data validation, serialization, and automatic documentation.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2>Key Features <span class="level-badge advanced">Advanced</span></h2>
+      <div class="service-grid">
+        <div class="service-card">
+          <h4><span class="material-symbols-outlined">description</span> Documentation</h4>
+          <p>Automatic interactive API documentation with Swagger UI and ReDoc by default.</p>
+        </div>
+        <div class="service-card">
+          <h4><span class="material-symbols-outlined">verified_user</span> Security</h4>
+          <p>Integrated support for OAuth2, JWT tokens, and basic authentication handlers.</p>
+        </div>
+        <div class="service-card">
+          <h4><span class="material-symbols-outlined">sync_alt</span> Dependency Injection</h4>
+          <p>Powerful, intuitive dependency injection system for managing database sessions and auth.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2>Minimalist FastAPI Example</h2>
+      <div class="code-block">
+<code><span class="keyword">from</span> fastapi <span class="keyword">import</span> FastAPI
+<span class="keyword">from</span> pydantic <span class="keyword">import</span> BaseModel
+
+app = FastAPI()
+
+<span class="keyword">class</span> <span class="class-name">Item</span>(BaseModel):
+    name: <span class="keyword">str</span>
+    price: <span class="keyword">float</span>
+
+<span class="decorator">@app.post</span>(<span class="string">"/items/"</span>)
+<span class="keyword">async def</span> <span class="function">create_item</span>(item: Item):
+    <span class="keyword">return</span> item</code>
+      </div>
+      <div class="tip-box">
+        <p><span class="material-symbols-outlined">stars</span> <strong>Insight:</strong> FastAPI utilizes <code>Pydantic</code> for all data modeling, providing out-of-the-box validation and ID/Intellisense support.</p>
+      </div>
+    </section>
   </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <span class="footer-brand">Data Sheets</span>
+        <p class="footer-copyright">&copy; 2026 Data Sheets. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#documentation">Documentation</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#terms">Terms</a>
+        <a href="#support">Support</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../scripts.js"></script>
   <script>
     function toggleTheme() {
       const html = document.documentElement;
@@ -177,7 +257,5 @@
       }
     })();
   </script>
-
-  <script src="../scripts.js"></script>
 </body>
 </html>

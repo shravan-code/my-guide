@@ -3,13 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Data Guide | {title}</title>
+  <title>Data Guide | Terraform</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-  <link rel="stylesheet" href="{root_offset}shared.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../shared.css" />
 </head>
+
 <body class="topic-page">
 
 <aside class="sidebar">
@@ -139,19 +141,1210 @@
   </header>
 
   <main class="main-content">
-    <a href="index.html" class="back-link">
-      <span class="material-symbols-outlined">arrow_back</span>
-      Back to {category}
-    </a>
-    <header class="page-header">
-      <p class="eyebrow">{category}</p>
-      <h1>{title}</h1>
-      <p>{description}</p>
+    <header class="page-header page-header--row">
+      <a href="index.html" class="back-link back-link--round" aria-label="Back">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </a>
+      <div class="page-header-inner">
+        <h1>Terraform</h1>
+        <p>Infrastructure as Code tool for defining cloud and on-prem resources in human-readable configuration files.</p>
+      </div>
     </header>
-    <div class="topic-content">
-      <p>Content for {title} is under construction.</p>
-    </div>
+
+    <section class="topic-section">
+      <h2 id="introduction">Introduction</h2>
+      <p>Terraform is an open-source Infrastructure as Code (IaC) tool created by HashiCorp. It lets you define cloud and on-prem resources in human-readable configuration files that you can version, reuse, and share. Terraform manages the full lifecycle of your infrastructure — create, update, and destroy — across hundreds of providers.</p>
+      
+      <h3>Core Principles</h3>
+      <div class="key-points">
+        <div class="key-point">
+          <span class="material-symbols-outlined">description</span>
+          <div>
+            <h4>Declarative</h4>
+            <p>You describe WHAT you want, Terraform figures out HOW</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="material-symbols-outlined">replay</span>
+          <div>
+            <h4>Idempotent</h4>
+            <p>Running terraform apply multiple times yields the same result</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="material-symbols-outlined">visibility</span>
+          <div>
+            <h4>Plan Before Apply</h4>
+            <p>Preview changes before making them</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="material-symbols-outlined">storage</span>
+          <div>
+            <h4>State Management</h4>
+            <p>Tracks real-world resource state</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>Terraform vs Other IaC Tools</h3>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Tool</th>
+              <th>Characteristics</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Terraform</td>
+              <td>Declarative HCL, multi-cloud, state file, plan/apply workflow</td>
+            </tr>
+            <tr>
+              <td>CloudFormation</td>
+              <td>AWS-only, YAML/JSON, tightly integrated with AWS</td>
+            </tr>
+            <tr>
+              <td>Pulumi</td>
+              <td>Code-first (Python/TS/Go), Terraform-compatible providers</td>
+            </tr>
+            <tr>
+              <td>Ansible</td>
+              <td>Procedural, great for config mgmt, weaker for infra provisioning</td>
+            </tr>
+            <tr>
+              <td>CDK</td>
+              <td>AWS-only, code-first, synthesizes to CloudFormation</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="installation">Installation & Setup</h2>
+      
+      <h3>macOS (Homebrew)</h3>
+      <div class="code-block"><code>brew tap hashicorp/tap
+brew install hashicorp/tap/terraform
+
+# Verify installation
+terraform --version</code></div>
+
+      <h3>Ubuntu / Debian Linux</h3>
+      <div class="code-block"><code>wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+
+echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
+  https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
+  sudo tee /etc/apt/sources.list.d/hashicorp.list
+
+sudo apt update && sudo apt install terraform</code></div>
+
+      <h3>Windows (Chocolatey)</h3>
+      <div class="code-block"><code>choco install terraform</code></div>
+
+      <h3>Configure AWS Provider</h3>
+      <div class="code-block"><code># Install AWS CLI
+pip install awscli
+
+# Configure credentials
+aws configure
+# AWS Access Key ID: <your-key>
+# AWS Secret Access Key: <your-secret>
+# Default region name: us-east-1
+# Default output format: json
+
+# Or set environment variables
+export AWS_ACCESS_KEY_ID='YOUR_KEY'
+export AWS_SECRET_ACCESS_KEY='YOUR_SECRET'
+export AWS_DEFAULT_REGION='us-east-1'</code></div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="core-concepts">Core Concepts</h2>
+      
+      <h3>Providers</h3>
+      <p>Providers are plugins that interact with APIs (AWS, Azure, GCP, etc.). They must be declared in your config and initialized with terraform init.</p>
+      <div class="code-block"><code>terraform {
+  required_version = ">= 1.5.0"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.0"
+    }
+  }
+}
+
+provider "aws" {
+  region  = var.aws_region
+  profile = "default"
+}</code></div>
+
+      <h3>Resources</h3>
+      <p>Resources are the most important element. Each resource block describes one or more infrastructure object.</p>
+      <div class="code-block"><code>resource "aws_s3_bucket" "my_bucket" {
+  bucket = "my-app-data-2024"
+  tags = {
+    Name        = "my-app-data"
+    Environment = "production"
+    ManagedBy   = "terraform"
+  }
+}</code></div>
+
+      <h3>Variables</h3>
+      <p>Variables make your config reusable and avoid hardcoding values.</p>
+      <div class="code-block"><code>variable "aws_region" {
+  description = "AWS region to deploy resources"
+  type        = string
+  default     = "us-east-1"
+}
+
+variable "instance_type" {
+  description = "EC2 instance type"
+  type        = string
+  default     = "t3.micro"
+  validation {
+    condition     = contains(["t3.micro","t3.small","t3.medium"], var.instance_type)
+    error_message = "Must be a valid t3 instance type."
+  }
+}
+
+variable "db_password" {
+  description = "RDS database password"
+  type        = string
+  sensitive   = true
+}
+
+variable "allowed_cidrs" {
+  description = "List of CIDRs allowed to access the app"
+  type        = list(string)
+  default     = ["10.0.0.0/8", "172.16.0.0/12"]
+}
+
+variable "tags" {
+  description = "Common resource tags"
+  type        = map(string)
+  default     = {
+    Team    = "platform"
+    Project = "web-app"
+  }
+}</code></div>
+
+      <h3>Passing Variables</h3>
+      <div class="code-block"><code># 1. terraform.tfvars (auto-loaded)
+aws_region    = "us-west-2"
+instance_type = "t3.small"
+
+# 2. CLI flags
+terraform apply -var="aws_region=us-west-2"
+
+# 3. Environment variables (TF_VAR_ prefix)
+export TF_VAR_aws_region=us-west-2
+export TF_VAR_db_password=super_secret</code></div>
+
+      <h3>Outputs</h3>
+      <p>Outputs expose resource attributes for use by other modules or for display after apply.</p>
+      <div class="code-block"><code>output "vpc_id" {
+  description = "The ID of the created VPC"
+  value       = aws_vpc.main.id
+}
+
+output "instance_public_ip" {
+  description = "Public IP of the EC2 instance"
+  value       = aws_instance.web.public_ip
+}
+
+output "db_endpoint" {
+  description = "RDS endpoint (sensitive)"
+  value       = aws_db_instance.main.endpoint
+  sensitive   = true
+}</code></div>
+
+      <h3>Locals</h3>
+      <p>Locals are computed values assigned to names within a module.</p>
+      <div class="code-block"><code>locals {
+  app_name    = "my-web-app"
+  environment = terraform.workspace
+  name_prefix = "${local.app_name}-${local.environment}"
+
+  common_tags = merge(var.tags, {
+    AppName     = local.app_name
+    Environment = local.environment
+    ManagedBy   = "terraform"
+    CreatedAt   = timestamp()
+  })
+}</code></div>
+
+      <h3>Data Sources</h3>
+      <p>Data sources allow Terraform to fetch information from existing resources or APIs without managing them.</p>
+      <div class="code-block"><code># Fetch latest Ubuntu AMI
+data "aws_ami" "ubuntu" {
+  most_recent = true
+  owners      = ["099720109477"]
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-*-22.04-amd64-server-*"]
+  }
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+}
+
+# Fetch existing VPC by tag
+data "aws_vpc" "existing" {
+  filter {
+    name   = "tag:Name"
+    values = ["production-vpc"]
+  }
+}
+
+# Fetch current AWS account info
+data "aws_caller_identity" "current" {}
+
+output "account_id" {
+  value = data.aws_caller_identity.current.account_id
+}</code></div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="hcl-syntax">HCL Syntax Deep Dive</h2>
+      
+      <h3>Types & Expressions</h3>
+      <div class="code-block"><code># Primitive Types
+string_val  = "hello"
+number_val  = 42
+bool_val    = true
+
+# Collection Types
+list_val    = ["a", "b", "c"]
+set_val     = toset(["x", "y", "z"])
+map_val     = { key1 = "val1", key2 = "val2" }
+
+# Tuple & Object (mixed types)
+tuple_val   = ["string", 42, true]
+object_val  = { name = "alice", age = 30 }
+
+# String interpolation
+greeting    = "Hello, ${var.name}!"
+
+# Multiline (heredoc)
+user_data = <<-EOT
+  #!/bin/bash
+  apt-get update
+  apt-get install -y nginx
+EOT</code></div>
+
+      <h3>Conditional Expressions</h3>
+      <div class="code-block"><code># Ternary
+instance_type = var.environment == "prod" ? "t3.large" : "t3.micro"
+
+# Null coalescing
+ami = var.custom_ami != null ? var.custom_ami : data.aws_ami.ubuntu.id
+
+# Count-based conditional resource
+resource "aws_eip" "web" {
+  count    = var.environment == "prod" ? 1 : 0
+  instance = aws_instance.web.id
+}</code></div>
+
+      <h3>for Expressions</h3>
+      <div class="code-block"><code># List comprehension
+upper_names = [for name in var.names : upper(name)]
+
+# Map comprehension
+tag_map = {for k, v in var.raw_tags : lower(k) => trimspace(v)}
+
+# Filtered list
+prod_instances = [for inst in var.instances : inst if inst.env == "prod"]
+
+# Flatten nested lists
+all_cidr_blocks = flatten([for s in aws_subnet.all : s.cidr_block])</code></div>
+
+      <h3>Dynamic Blocks</h3>
+      <div class="code-block"><code>variable "ingress_rules" {
+  type = list(object({
+    port       = number
+    protocol   = string
+    cidr_blocks = list(string)
+  }))
+  default = [
+    { port = 80,  protocol = "tcp", cidr_blocks = ["0.0.0.0/0"] },
+    { port = 443, protocol = "tcp", cidr_blocks = ["0.0.0.0/0"] },
+    { port = 22,  protocol = "tcp", cidr_blocks = ["10.0.0.0/8"] },
+  ]
+}
+
+resource "aws_security_group" "web" {
+  name   = "web-sg"
+  vpc_id = aws_vpc.main.id
+
+  dynamic "ingress" {
+    for_each = var.ingress_rules
+    content {
+      from_port   = ingress.value.port
+      to_port     = ingress.value.port
+      protocol    = ingress.value.protocol
+      cidr_blocks = ingress.value.cidr_blocks
+    }
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}</code></div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="workflow">Terraform Workflow</h2>
+      <p>The standard Terraform workflow consists of five commands:</p>
+      <div class="code-block"><code># Step 1: Initialize (first time, or when providers change)
+terraform init
+
+# Step 2: Format all .tf files
+terraform fmt -recursive
+
+# Step 3: Validate config
+terraform validate
+
+# Step 4: Plan — preview changes
+terraform plan -out=tfplan
+
+# Step 5: Apply the saved plan
+terraform apply tfplan
+
+# Step 6: View outputs
+terraform output
+terraform output -json
+terraform output instance_ip
+
+# Destroy everything (careful!)
+terraform destroy -target="aws_instance.web"
+terraform destroy</code></div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="state-management">State Management</h2>
+      <p>Terraform state is a JSON file that maps your config to real-world resources. It is critical — treat it like a database.</p>
+
+      <h3>Remote State with S3 Backend</h3>
+      <div class="code-block"><code>terraform {
+  backend "s3" {
+    bucket         = "my-terraform-state-bucket"
+    key            = "prod/vpc/terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
+    dynamodb_table = "terraform-state-lock"
+  }
+}</code></div>
+
+      <h3>Bootstrap S3 and DynamoDB</h3>
+      <div class="code-block"><code># Run this ONCE manually
+resource "aws_s3_bucket" "tf_state" {
+  bucket = "my-terraform-state-bucket"
+}
+
+resource "aws_s3_bucket_versioning" "tf_state" {
+  bucket = aws_s3_bucket.tf_state.id
+  versioning_configuration { status = "Enabled" }
+}
+
+resource "aws_dynamodb_table" "tf_lock" {
+  name         = "terraform-state-lock"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "LockID"
+
+  attribute {
+    name = "LockID"
+    type = "S"
+  }
+}</code></div>
+
+      <h3>State Commands</h3>
+      <div class="code-block"><code># List all resources in state
+terraform state list
+
+# Show details of a specific resource
+terraform state show aws_instance.web
+
+# Move resource to new address
+terraform state mv aws_instance.web aws_instance.web_server
+
+# Remove resource from state
+terraform state rm aws_s3_bucket.legacy
+
+# Pull remote state locally
+terraform state pull > backup.tfstate</code></div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="aws-examples">AWS Examples</h2>
+      
+      <h3>Complete VPC with Subnets</h3>
+      <div class="code-block"><code>resource "aws_vpc" "main" {
+  cidr_block           = "10.0.0.0/16"
+  enable_dns_hostnames = true
+  enable_dns_support   = true
+}
+
+resource "aws_subnet" "public" {
+  count             = length(var.availability_zones)
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = cidrsubnet(aws_vpc.main.cidr_block, 8, count.index)
+  availability_zone = var.availability_zones[count.index]
+  map_public_ip_on_launch = true
+}
+
+resource "aws_subnet" "private" {
+  count             = length(var.availability_zones)
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = cidrsubnet(aws_vpc.main.cidr_block, 8, count.index + 10)
+  availability_zone = var.availability_zones[count.index]
+}
+
+resource "aws_internet_gateway" "main" {
+  vpc_id = aws_vpc.main.id
+}
+
+resource "aws_nat_gateway" "main" {
+  count         = length(var.availability_zones)
+  allocation_id = aws_eip.nat[count.index].id
+  subnet_id     = aws_subnet.public[count.index].id
+}</code></div>
+
+      <h3>EC2 Instance with User Data</h3>
+      <div class="code-block"><code>data "aws_ami" "ubuntu" {
+  most_recent = true
+  owners      = ["099720109477"]
+  filter { name = "name"; values = ["ubuntu/images/hvm-ssd/ubuntu-*-22.04-amd64-server-*"] }
+  filter { name = "virtualization-type"; values = ["hvm"] }
+}
+
+resource "aws_key_pair" "web" {
+  key_name   = "${local.name_prefix}-key"
+  public_key = file("~/.ssh/id_rsa.pub")
+}
+
+resource "aws_instance" "web" {
+  ami                    = data.aws_ami.ubuntu.id
+  instance_type          = var.instance_type
+  subnet_id              = aws_subnet.public[0].id
+  vpc_security_group_ids = [aws_security_group.web.id]
+  key_name               = aws_key_pair.web.key_name
+
+  root_block_device {
+    volume_type           = "gp3"
+    volume_size           = 20
+    encrypted             = true
+  }
+
+  user_data = templatefile("scripts/init.sh.tpl", {
+    app_name    = local.app_name
+    environment = local.environment
+  })
+}</code></div>
+
+      <h3>Application Load Balancer</h3>
+      <div class="code-block"><code>resource "aws_lb" "main" {
+  name               = "${local.name_prefix}-alb"
+  internal           = false
+  load_balancer_type = "application"
+  security_groups    = [aws_security_group.alb.id]
+  subnets            = aws_subnet.public[*].id
+
+  enable_deletion_protection = var.environment == "prod"
+}
+
+resource "aws_lb_target_group" "web" {
+  name     = "${local.name_prefix}-tg"
+  port     = 80
+  protocol = "HTTP"
+  vpc_id   = aws_vpc.main.id
+
+  health_check {
+    enabled             = true
+    path                = "/health"
+    healthy_threshold   = 2
+    unhealthy_threshold = 3
+    timeout             = 5
+    interval            = 30
+  }
+}
+
+resource "aws_lb_listener" "https" {
+  load_balancer_arn = aws_lb.main.arn
+  port              = 443
+  protocol          = "HTTPS"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.web.arn
+  }
+}</code></div>
+
+      <h3>RDS PostgreSQL Database</h3>
+      <div class="code-block"><code>resource "aws_db_subnet_group" "main" {
+  name       = "${local.name_prefix}-db-subnet-group"
+  subnet_ids = aws_subnet.private[*].id
+}
+
+resource "aws_db_instance" "main" {
+  identifier        = "${local.name_prefix}-postgres"
+  engine            = "postgres"
+  engine_version    = "15.4"
+  instance_class    = var.environment == "prod" ? "db.t3.medium" : "db.t3.micro"
+  allocated_storage = 20
+
+  db_name  = "appdb"
+  username = "admin"
+  password = var.db_password
+
+  db_subnet_group_name   = aws_db_subnet_group.main.name
+  vpc_security_group_ids = [aws_security_group.rds.id]
+
+  backup_retention_period = var.environment == "prod" ? 7 : 1
+  storage_encrypted        = true
+  deletion_protection      = var.environment == "prod"
+  skip_final_snapshot     = var.environment != "prod"
+}</code></div>
+
+      <h3>Lambda Function + API Gateway</h3>
+      <div class="code-block"><code>data "archive_file" "lambda_zip" {
+  type        = "zip"
+  source_dir  = "${path.module}/lambda_src"
+  output_path = "${path.module}/lambda.zip"
+}
+
+resource "aws_lambda_function" "api" {
+  function_name    = "${local.name_prefix}-api"
+  filename         = data.archive_file.lambda_zip.output_path
+  source_code_hash = data.archive_file.lambda_zip.output_base64sha256
+  handler          = "handler.lambda_handler"
+  runtime          = "python3.11"
+  role             = aws_iam_role.lambda.arn
+  timeout          = 30
+
+  environment {
+    variables = {
+      DB_HOST     = aws_db_instance.main.endpoint
+      ENVIRONMENT = local.environment
+    }
+  }
+}</code></div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="modules">Modules</h2>
+      <p>Modules are containers for multiple resources. They allow you to package and reuse infrastructure patterns.</p>
+
+      <h3>Module Structure</h3>
+      <div class="code-block"><code># Recommended project layout
+├── main.tf           # Root module: calls child modules
+├── variables.tf
+├── outputs.tf
+├── locals.tf
+├── terraform.tfvars
+└── modules/
+    ├── vpc/
+    │   ├── main.tf
+    │   ├── variables.tf
+    │   └── outputs.tf
+    ├── ec2/
+    │   ├── main.tf
+    │   ├── variables.tf
+    │   └── outputs.tf
+    └── rds/
+        ├── main.tf
+        ├── variables.tf
+        └── outputs.tf</code></div>
+
+      <h3>Creating a Reusable VPC Module</h3>
+      <div class="code-block"><code># modules/vpc/variables.tf
+variable "name"               { type = string }
+variable "cidr_block"         { type = string; default = "10.0.0.0/16" }
+variable "availability_zones" { type = list(string) }
+variable "tags"               { type = map(string); default = {} }
+
+# modules/vpc/main.tf
+resource "aws_vpc" "this" {
+  cidr_block           = var.cidr_block
+  enable_dns_hostnames = true
+}
+
+resource "aws_subnet" "public" {
+  count             = length(var.availability_zones)
+  vpc_id            = aws_vpc.this.id
+  cidr_block        = cidrsubnet(var.cidr_block, 8, count.index)
+  availability_zone = var.availability_zones[count.index]
+  map_public_ip_on_launch = true
+}
+
+# modules/vpc/outputs.tf
+output "vpc_id"            { value = aws_vpc.this.id }
+output "public_subnet_ids" { value = aws_subnet.public[*].id }</code></div>
+
+      <h3>Using Registry Modules</h3>
+      <div class="code-block"><code># Use official AWS VPC module
+module "vpc" {
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "~> 5.0"
+
+  name = "my-vpc"
+  cidr = "10.0.0.0/16"
+
+  azs             = ["us-east-1a", "us-east-1b", "us-east-1c"]
+  private_subnets = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+  public_subnets  = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
+
+  enable_nat_gateway = true
+  single_nat_gateway = var.environment != "prod"
+}
+
+# Official EKS module
+module "eks" {
+  source  = "terraform-aws-modules/eks/aws"
+  version = "~> 20.0"
+
+  cluster_name    = "${local.name_prefix}-eks"
+  cluster_version = "1.29"
+  vpc_id          = module.vpc.vpc_id
+
+  eks_managed_node_groups = {
+    default = {
+      min_size       = 1
+      max_size       = 5
+      desired_size   = 2
+      instance_types = ["t3.medium"]
+    }
+  }
+}</code></div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="workspaces">Workspaces</h2>
+      <p>Workspaces allow multiple state files from the same config — useful for managing dev / staging / prod environments.</p>
+      <div class="code-block"><code># Create and switch workspaces
+terraform workspace new dev
+terraform workspace new staging
+terraform workspace new prod
+
+terraform workspace list
+terraform workspace select prod
+terraform workspace show
+
+# Reference workspace in config
+locals {
+  environment = terraform.workspace
+  instance_type = {
+    dev     = "t3.micro"
+    staging = "t3.small"
+    prod    = "t3.large"
+  }
+}
+
+resource "aws_instance" "web" {
+  instance_type = local.instance_type[local.environment]
+}</code></div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="python-integration">Python Integration</h2>
+      
+      <h3>Python CDK for Terraform (CDKTF)</h3>
+      <div class="code-block"><code># Install CDKTF
+npm install -g cdktf-cli
+pip install cdktf
+
+# Initialize a new CDKTF Python project
+cdkft init --template=python --local</code></div>
+
+      <h3>CDKTF Example</h3>
+      <div class="code-block"><code>from constructs import Construct
+from cdft import App, TerraformStack
+from AwsProvider import AwsProvider
+from Instance import Instance
+
+class WebStack(TerraformStack):
+    def __init__(self, scope: Construct, id: str, env: str) -> None:
+        super().__init__(scope, id)
+
+        AwsProvider(self, 'AWS', region='us-east-1')
+
+        instance_types = {'dev': 't3.micro', 'staging': 't3.small', 'prod': 't3.large'}
+
+        Instance(self, 'WebServer',
+            ami='ami-0c02fb55956c7d316',
+            instance_type=instance_types.get(env, 't3.micro'),
+            tags={'Name': f'{env}-web', 'Environment': env}
+        )
+
+app = App()
+WebStack(app, 'dev-web',   env='dev')
+WebStack(app, 'prod-web',  env='prod')
+app.synth()</code></div>
+
+      <h3>Python Script: Run Terraform Programmatically</h3>
+      <div class="code-block"><code>import subprocess, json, sys, os
+from pathlib import Path
+
+class TerraformRunner:
+    def __init__(self, working_dir: str):
+        self.cwd = Path(working_dir)
+
+    def _run(self, *args, capture=True):
+        cmd = ['terraform', *args]
+        result = subprocess.run(cmd, cwd=self.cwd, capture_output=capture, text=True)
+        if result.returncode != 0:
+            raise RuntimeError(f'Terraform error:\n{result.stderr}')
+        return result.stdout.strip()
+
+    def init(self):
+        print('Initializing Terraform...')
+        return self._run('init', '-no-color')
+
+    def plan(self, var_file=None, out='tfplan'):
+        print('Planning...')
+        args = ['plan', '-no-color', f'-out={out}']
+        if var_file:
+            args += [f'-var-file={var_file}']
+        return self._run(*args)
+
+    def apply(self, plan_file='tfplan'):
+        print('Applying...')
+        return self._run('apply', '-no-color', '-auto-approve', plan_file)
+
+    def output(self) -> dict:
+        raw = self._run('output', '-json')
+        return json.loads(raw)
+
+    def destroy(self, target=None):
+        print('Destroying...')
+        args = ['destroy', '-no-color', '-auto-approve']
+        if target:
+            args += [f'-target={target}']
+        return self._run(*args)
+
+# Usage
+if __name__ == '__main__':
+    tf = TerraformRunner('./infrastructure')
+    tf.init()
+    tf.plan(var_file='envs/dev.tfvars')
+    tf.apply()</code></div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="advanced-topics">Advanced Topics</h2>
+      
+      <h3>count vs for_each</h3>
+      <div class="code-block"><code># count — index-based, order matters
+resource "aws_instance" "worker" {
+  count         = 3
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = "t3.micro"
+}
+# Access: aws_instance.worker[0].id
+
+# for_each — key-based, preferred for maps/sets
+variable "instances" {
+  type = map(object({ instance_type = string, az = string }))
+  default = {
+    web  = { instance_type = "t3.small",  az = "us-east-1a" }
+    api  = { instance_type = "t3.medium", az = "us-east-1b" }
+  }
+}
+
+resource "aws_instance" "servers" {
+  for_each      = var.instances
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = each.value.instance_type
+}
+# Access: aws_instance.servers["web"].id</code></div>
+
+      <h3>Lifecycle Rules</h3>
+      <div class="code-block"><code>resource "aws_instance" "web" {
+  lifecycle {
+    create_before_destroy = true
+    prevent_destroy       = true
+    ignore_changes        = [ami, user_data]
+    replace_triggered_by  = [aws_security_group.web]
+  }
+}</code></div>
+
+      <h3>depends_on & Implicit Dependencies</h3>
+      <div class="code-block"><code># Implicit dependency (recommended)
+resource "aws_instance" "web" {
+  subnet_id = aws_subnet.public.id
+}
+
+# Explicit depends_on
+resource "aws_iam_role_policy_attachment" "web" {
+  role       = aws_iam_role.web.name
+  policy_arn = aws_iam_policy.web.arn
+}
+
+resource "aws_instance" "web" {
+  depends_on = [aws_iam_role_policy_attachment.web]
+}</code></div>
+
+      <h3>Provisioners (Use Sparingly)</h3>
+      <div class="code-block"><code>resource "aws_instance" "web" {
+  # Run local command
+  provisioner "local-exec" {
+    command = "echo ${self.public_ip} >> inventory.txt"
+  }
+
+  # Copy file to remote
+  provisioner "file" {
+    source      = "scripts/setup.sh"
+    destination = "/tmp/setup.sh"
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      private_key = file("~/.ssh/id_rsa")
+      host        = self.public_ip
+    }
+  }
+
+  # Run remote command
+  provisioner "remote-exec" {
+    inline = ["chmod +x /tmp/setup.sh", "sudo /tmp/setup.sh"]
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      private_key = file("~/.ssh/id_rsa")
+      host        = self.public_ip
+    }
+  }
+}</code></div>
+
+      <h3>Terraform Functions</h3>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Functions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>String</td>
+              <td>lower, upper, trimspace, format, replace, split, join</td>
+            </tr>
+            <tr>
+              <td>Numeric</td>
+              <td>max, min, floor, ceil, abs</td>
+            </tr>
+            <tr>
+              <td>Collection</td>
+              <td>length, contains, flatten, distinct, merge, lookup, toset</td>
+            </tr>
+            <tr>
+              <td>Encoding</td>
+              <td>base64encode, jsonencode, yamlencode, file, templatefile</td>
+            </tr>
+            <tr>
+              <td>Network</td>
+              <td>cidrhost, cidrsubnet, cidrnetmask</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="best-practices">Best Practices</h2>
+      
+      <h3>File Organization</h3>
+      <ul>
+        <li>Use separate files: main.tf, variables.tf, outputs.tf, locals.tf, backend.tf</li>
+        <li>Group related resources into named files: vpc.tf, ec2.tf, rds.tf, iam.tf</li>
+        <li>Use modules for repeated patterns</li>
+        <li>Keep backend configuration separate</li>
+      </ul>
+
+      <h3>Variable & Secret Management</h3>
+      <div class="key-points">
+        <div class="key-point">
+          <span class="material-symbols-outlined">lock</span>
+          <div>
+            <h4>Never Hardcode Secrets</h4>
+            <p>Mark sensitive variables with sensitive = true</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="material-symbols-outlined">shield</span>
+          <div>
+            <h4>Use Secrets Manager</h4>
+            <p>Use AWS Secrets Manager or Vault for runtime secrets</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="material-symbols-outlined">visibility_off</span>
+          <div>
+            <h4>.gitignore</h4>
+            <p>Add terraform.tfvars and *.tfvars to .gitignore</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>Naming Conventions</h3>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Element</th>
+              <th>Convention</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Resources</td>
+              <td>aws_instance.web_server (snake_case)</td>
+            </tr>
+            <tr>
+              <td>Variables</td>
+              <td>instance_type, db_password</td>
+            </tr>
+            <tr>
+              <td>Modules</td>
+              <td>modules/vpc, modules/rds_cluster</td>
+            </tr>
+            <tr>
+              <td>Outputs</td>
+              <td>vpc_id, public_subnet_ids</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>CI/CD Pipeline</h3>
+      <div class="code-block"><code>name: Terraform CI/CD
+on:
+  pull_request:
+    paths: ['infrastructure/**']
+  push:
+    branches: [main]
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::ACCOUNT:role/GitHubActionsRole
+          aws-region: us-east-1
+      - name: terraform init
+        run: terraform init
+      - name: terraform validate
+        run: terraform validate
+      - name: terraform plan
+        run: terraform plan -no-color -out=tfplan
+      - name: terraform apply
+        run: terraform apply -auto-approve tfplan
+        if: github.ref == 'refs/heads/main'</code></div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="import">Import Existing Resources</h2>
+      
+      <h3>Classic Import</h3>
+      <div class="code-block"><code># 1. Write the resource block
+resource "aws_instance" "legacy_web" {
+  # ... attributes will be populated
+}
+
+# 2. Import
+terraform import aws_instance.legacy_web i-0abc123def456ghi
+
+# 3. Run plan to see drift
+terraform plan
+
+# 4. Update config to match — then apply
+terraform apply</code></div>
+
+      <h3>Import Block (Terraform 1.5+)</h3>
+      <div class="code-block"><code>import {
+  to = aws_instance.legacy_web
+  id = "i-0abc123def456ghi"
+}
+
+import {
+  to = aws_s3_bucket.legacy_data
+  id = "my-old-bucket-name"
+}</code></div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="testing">Testing Terraform</h2>
+      
+      <h3>Native Testing (terraform test)</h3>
+      <div class="code-block"><code># tests/vpc.tftest.hcl
+run "creates_vpc_with_correct_cidr" {
+  command = plan
+  variables {
+    cidr_block = "192.168.0.0/16"
+  }
+  assert {
+    condition     = aws_vpc.main.cidr_block == "192.168.0.0/16"
+    error_message = "VPC CIDR should match the input variable"
+  }
+}
+
+# Run all tests
+terraform test</code></div>
+
+      <h3>Terratest (Go-based)</h3>
+      <div class="code-block"><code>// vpc_test.go
+package test
+import (
+    "testing"
+    "github.com/gruntwork-io/terratest/modules/terraform"
+    "github.com/stretchr/testify/assert"
+)
+
+func TestVPC(t *testing.T) {
+    opts := &terraform.Options{
+        TerraformDir: "../modules/vpc",
+        Vars: map[string]interface{}{
+            "name":       "test-vpc",
+            "cidr_block": "10.0.0.0/16",
+        },
+    }
+    defer terraform.Destroy(t, opts)
+    terraform.InitAndApply(t, opts)
+
+    vpcID := terraform.Output(t, opts, "vpc_id")
+    assert.NotEmpty(t, vpcID)
+}</code></div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="terraform-cloud">Terraform Cloud & Enterprise</h2>
+      
+      <h3>Cloud Backend</h3>
+      <div class="code-block"><code>terraform {
+  cloud {
+    organization = "my-org"
+    workspaces {
+      name = "production-vpc"
+    }
+  }
+}
+
+# Login to Terraform Cloud
+terraform login
+terraform init</code></div>
+
+      <h3>Sentinel Policy (Enterprise)</h3>
+      <div class="code-block"><code># policy/enforce-tagging.sentinel
+import "tfplan/v2" as tfplan
+
+required_tags = ["Environment", "Team", "ManagedBy"]
+
+all_resources_tagged = rule {
+    all tfplan.resource_changes as _, rc {
+        all required_tags as tag {
+            rc.change.after.tags[tag] is not null
+        }
+    }
+}
+
+main = rule { all_resources_tagged }</code></div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="quick-reference">Quick Reference</h2>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Command</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>terraform init</td>
+              <td>Initialize directory, download providers/modules</td>
+            </tr>
+            <tr>
+              <td>terraform fmt</td>
+              <td>Format all HCL files</td>
+            </tr>
+            <tr>
+              <td>terraform validate</td>
+              <td>Validate configuration syntax</td>
+            </tr>
+            <tr>
+              <td>terraform plan</td>
+              <td>Show what changes will be made</td>
+            </tr>
+            <tr>
+              <td>terraform apply</td>
+              <td>Apply changes</td>
+            </tr>
+            <tr>
+              <td>terraform destroy</td>
+              <td>Destroy all managed resources</td>
+            </tr>
+            <tr>
+              <td>terraform output</td>
+              <td>Display output values</td>
+            </tr>
+            <tr>
+              <td>terraform state list</td>
+              <td>List all resources in state</td>
+            </tr>
+            <tr>
+              <td>terraform state show</td>
+              <td>Show details of a resource</td>
+            </tr>
+            <tr>
+              <td>terraform import</td>
+              <td>Import existing resource into state</td>
+            </tr>
+            <tr>
+              <td>terraform workspace new</td>
+              <td>Create new workspace</td>
+            </tr>
+            <tr>
+              <td>terraform taint</td>
+              <td>Mark for recreation</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span class="footer-brand">Data Sheets</span>
+          <p class="footer-copyright">© 2026 Data Sheets. All rights reserved.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#documentation">Documentation</a>
+          <a href="#privacy">Privacy</a>
+          <a href="#terms">Terms</a>
+          <a href="#support">Support</a>
+        </div>
+      </div>
+    </footer>
   </main>
+
   <script>
     function toggleTheme() {
       const html = document.documentElement;

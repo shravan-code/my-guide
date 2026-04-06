@@ -9,7 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
   <link rel="stylesheet" href="../shared.css" />
 </head>
 
@@ -167,36 +166,31 @@
           <span class="code-label">Tables</span>
           <h3>Tables</h3>
           <p>Primary structured storage in PostgreSQL.</p>
-<pre class="code-block"><code class="language-sql">
-CREATE TABLE users (
-id SERIAL PRIMARY KEY,
-username VARCHAR(50) UNIQUE NOT NULL,
-email VARCHAR(255) NOT NULL,
-created_at TIMESTAMPTZ DEFAULT NOW()
-);
-
--- Insert data
-INSERT INTO users (username, email)
-VALUES ('alice', 'alice@example.com');
-</code></pre>
+          <div class="code-block">
+            <code><span class="keyword">CREATE TABLE</span> <span class="variable">users</span> (
+  <span class="variable">id</span> <span class="keyword">SERIAL PRIMARY KEY</span>,
+  <span class="variable">username</span> <span class="keyword">VARCHAR</span>(50) <span class="keyword">UNIQUE NOT NULL</span>,
+  <span class="variable">created_at</span> <span class="keyword">TIMESTAMPTZ DEFAULT NOW</span>()
+);</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Arrays</span>
           <h3>Arrays</h3>
           <p>Built‑in array data type for storing lists.</p>
-<pre class="code-block"><code class="language-sql">
-CREATE TABLE products (
-id INT PRIMARY KEY,
-name TEXT,
-tags TEXT[]
+          <div class="code-block">
+            <code><span class="keyword">CREATE TABLE</span> <span class="variable">products</span> (
+  <span class="variable">id</span> <span class="keyword">INT PRIMARY KEY</span>,
+  <span class="variable">name</span> <span class="keyword">TEXT</span>,
+  <span class="variable">tags</span> <span class="keyword">TEXT</span>[]
 );
 
--- Insert with array
-INSERT INTO products VALUES (1, 'Laptop', ARRAY['electronics', 'computers']);
+<span class="comment">-- Insert with array</span>
+<span class="keyword">INSERT INTO</span> <span class="variable">products</span> <span class="keyword">VALUES</span> (1, 'Laptop', <span class="function">ARRAY</span>['electronics', 'computers']);
 
--- Query array
-SELECT * FROM products WHERE 'electronics' = ANY(tags);
-</code></pre>
+<span class="comment">-- Query array</span>
+<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="variable">products</span> <span class="keyword">WHERE</span> 'electronics' = <span class="function">ANY</span>(<span class="variable">tags</span>);</code>
+          </div>
         </div>
       </div>
     </section>
@@ -209,66 +203,66 @@ SELECT * FROM products WHERE 'electronics' = ANY(tags);
           <span class="code-label">Ranking</span>
           <h3 id="list">ROW_NUMBER, RANK, DENSE_RANK</h3>
           <p>Rank rows within partitions.</p>
-<pre class="code-block"><code class="language-sql">
-SELECT
-id,
-name,
-amount,
-ROW_NUMBER() OVER w as rn,
-RANK() OVER w as rnk,
-DENSE_RANK() OVER w as dense_rnk
-FROM orders
-WINDOW w AS (
-PARTITION BY category
-ORDER BY amount DESC
-);
-</code></pre>
+          <div class="code-block">
+            <code><span class="keyword">SELECT</span>
+  <span class="variable">id</span>,
+  <span class="variable">name</span>,
+  <span class="variable">amount</span>,
+  <span class="function">ROW_NUMBER</span>() <span class="keyword">OVER</span> <span class="variable">w</span> <span class="keyword">as</span> <span class="variable">rn</span>,
+  <span class="function">RANK</span>() <span class="keyword">OVER</span> <span class="variable">w</span> <span class="keyword">as</span> <span class="variable">rnk</span>,
+  <span class="function">DENSE_RANK</span>() <span class="keyword">OVER</span> <span class="variable">w</span> <span class="keyword">as</span> <span class="variable">dense_rnk</span>
+<span class="keyword">FROM</span> <span class="variable">orders</span>
+<span class="keyword">WINDOW</span> <span class="variable">w</span> <span class="keyword">AS</span> (
+  <span class="keyword">PARTITION BY</span> <span class="variable">category</span>
+  <span class="keyword">ORDER BY</span> <span class="variable">amount</span> <span class="keyword">DESC</span>
+);</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Offset</span>
           <h3>LAG & LEAD</h3>
           <p>Access previous/next rows.</p>
-<pre class="code-block"><code class="language-sql">
-SELECT
-date,
-amount,
-LAG(amount, 1) OVER (ORDER BY date) as prev_amount,
-LEAD(amount, 1) OVER (ORDER BY date) as next_amount,
-amount - LAG(amount, 1) OVER (ORDER BY date) as diff
-FROM daily_sales;
-</code></pre>
+          <div class="code-block">
+            <code><span class="keyword">SELECT</span>
+  <span class="variable">date</span>,
+  <span class="variable">amount</span>,
+  <span class="function">LAG</span>(<span class="variable">amount</span>, 1) <span class="keyword">OVER</span> (<span class="keyword">ORDER BY</span> <span class="variable">date</span>) <span class="keyword">as</span> <span class="variable">prev_amount</span>,
+  <span class="function">LEAD</span>(<span class="variable">amount</span>, 1) <span class="keyword">OVER</span> (<span class="keyword">ORDER BY</span> <span class="variable">date</span>) <span class="keyword">as</span> <span class="variable">next_amount</span>,
+  <span class="variable">amount</span> - <span class="function">LAG</span>(<span class="variable">amount</span>, 1) <span class="keyword">OVER</span> (<span class="keyword">ORDER BY</span> <span class="variable">date</span>) <span class="keyword">as</span> <span class="variable">diff</span>
+<span class="keyword">FROM</span> <span class="variable">daily_sales</span>;</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Aggregation</span>
           <h3>Running Totals</h3>
           <p>Cumulative aggregations.</p>
-<pre class="code-block"><code class="language-sql">
-SELECT
-date,
-amount,
-SUM(amount) OVER (ORDER BY date) as running_total,
-AVG(amount) OVER (
-ORDER BY date
-ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
-) as moving_avg_7d,
-COUNT(*) OVER (PARTITION BY MONTH(date)) as monthly_count
-FROM daily_sales;
-</code></pre>
+          <div class="code-block">
+            <code><span class="keyword">SELECT</span>
+  <span class="variable">date</span>,
+  <span class="variable">amount</span>,
+  <span class="function">SUM</span>(<span class="variable">amount</span>) <span class="keyword">OVER</span> (<span class="keyword">ORDER BY</span> <span class="variable">date</span>) <span class="keyword">as</span> <span class="variable">running_total</span>,
+  <span class="function">AVG</span>(<span class="variable">amount</span>) <span class="keyword">OVER</span> (
+    <span class="keyword">ORDER BY</span> <span class="variable">date</span>
+    <span class="keyword">ROWS BETWEEN</span> 6 <span class="keyword">PRECEDING AND CURRENT ROW</span>
+  ) <span class="keyword">as</span> <span class="variable">moving_avg_7d</span>,
+  <span class="function">COUNT</span>(*) <span class="keyword">OVER</span> (<span class="keyword">PARTITION BY</span> <span class="function">MONTH</span>(<span class="variable">date</span>)) <span class="keyword">as</span> <span class="variable">monthly_count</span>
+<span class="keyword">FROM</span> <span class="variable">daily_sales</span>;</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">NTILE</span>
           <h3>NTILE & PERCENTILE</h3>
           <p>Divide into buckets.</p>
-<pre class="code-block"><code class="language-sql">
-SELECT
-id,
-amount,
-NTILE(4) OVER (ORDER BY amount) as quartile,
-PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY amount) as median,
-PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY amount) as p25,
-PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY amount) as p75
-FROM orders;
-</code></pre>
+          <div class="code-block">
+            <code><span class="keyword">SELECT</span>
+  <span class="variable">id</span>,
+  <span class="variable">amount</span>,
+  <span class="function">NTILE</span>(4) <span class="keyword">OVER</span> (<span class="keyword">ORDER BY</span> <span class="variable">amount</span>) <span class="keyword">as</span> <span class="variable">quartile</span>,
+  <span class="function">PERCENTILE_CONT</span>(0.5) <span class="keyword">WITHIN GROUP</span> (<span class="keyword">ORDER BY</span> <span class="variable">amount</span>) <span class="keyword">as</span> <span class="variable">median</span>,
+  <span class="function">PERCENTILE_CONT</span>(0.25) <span class="keyword">WITHIN GROUP</span> (<span class="keyword">ORDER BY</span> <span class="variable">amount</span>) <span class="keyword">as</span> <span class="variable">p25</span>,
+  <span class="function">PERCENTILE_CONT</span>(0.75) <span class="keyword">WITHIN GROUP</span> (<span class="keyword">ORDER BY</span> <span class="variable">amount</span>) <span class="keyword">as</span> <span class="variable">p75</span>
+<span class="keyword">FROM</span> <span class="variable">orders</span>;</code>
+          </div>
         </div>
       </div>
     </section>
@@ -281,99 +275,99 @@ FROM orders;
           <span class="code-label">CTE</span>
           <h3>Common Table Expressions</h3>
           <p>Create reusable query blocks.</p>
-<pre class="code-block"><code class="language-sql">
-WITH monthly_sales AS (
-SELECT
-DATE_TRUNC('month', created_at) as month,
-SUM(amount) as total,
-COUNT(*) as cnt
-FROM orders
-GROUP BY 1
+          <div class="code-block">
+            <code><span class="keyword">WITH</span> <span class="variable">monthly_sales</span> <span class="keyword">AS</span> (
+  <span class="keyword">SELECT</span>
+    <span class="function">DATE_TRUNC</span>(<span class="string">'month'</span>, <span class="variable">created_at</span>) <span class="keyword">as</span> <span class="variable">month</span>,
+    <span class="function">SUM</span>(<span class="variable">amount</span>) <span class="keyword">as</span> <span class="variable">total</span>,
+    <span class="function">COUNT</span>(*) <span class="keyword">as</span> <span class="variable">cnt</span>
+  <span class="keyword">FROM</span> <span class="variable">orders</span>
+  <span class="keyword">GROUP BY</span> 1
 ),
-growth AS (
-SELECT
-month,
-total,
-LAG(total) OVER (ORDER BY month) as prev_month,
-ROUND((total - LAG(total) OVER (ORDER BY month))
-/ LAG(total) OVER (ORDER BY month) * 100, 2) as growth_pct
-FROM monthly_sales
+<span class="variable">growth</span> <span class="keyword">AS</span> (
+  <span class="keyword">SELECT</span>
+    <span class="variable">month</span>,
+    <span class="variable">total</span>,
+    <span class="function">LAG</span>(<span class="variable">total</span>) <span class="keyword">OVER</span> (<span class="keyword">ORDER BY</span> <span class="variable">month</span>) <span class="keyword">as</span> <span class="variable">prev_month</span>,
+    <span class="function">ROUND</span>((<span class="variable">total</span> - <span class="function">LAG</span>(<span class="variable">total</span>) <span class="keyword">OVER</span> (<span class="keyword">ORDER BY</span> <span class="variable">month</span>))
+    / <span class="function">LAG</span>(<span class="variable">total</span>) <span class="keyword">OVER</span> (<span class="keyword">ORDER BY</span> <span class="variable">month</span>) * 100, 2) <span class="keyword">as</span> <span class="variable">growth_pct</span>
+  <span class="keyword">FROM</span> <span class="variable">monthly_sales</span>
 )
-SELECT * FROM growth ORDER BY month;
-</code></pre>
+<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="variable">growth</span> <span class="keyword">ORDER BY</span> <span class="variable">month</span>;</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Recursive</span>
           <h3>Recursive CTE</h3>
           <p>Query hierarchical data.</p>
-<pre class="code-block"><code class="language-sql">
-WITH RECURSIVE org_chart AS (
--- Base case: top-level manager
-SELECT id, name, manager_id, 1 as level
-FROM employees
-WHERE manager_id IS NULL
+          <div class="code-block">
+            <code><span class="keyword">WITH RECURSIVE</span> <span class="variable">org_chart</span> <span class="keyword">AS</span> (
+  <span class="comment">-- Base case: top-level manager</span>
+  <span class="keyword">SELECT</span> <span class="variable">id</span>, <span class="variable">name</span>, <span class="variable">manager_id</span>, 1 <span class="keyword">as</span> <span class="variable">level</span>
+  <span class="keyword">FROM</span> <span class="variable">employees</span>
+  <span class="keyword">WHERE</span> <span class="variable">manager_id</span> <span class="keyword">IS NULL</span>
 
-UNION ALL
+  <span class="keyword">UNION ALL</span>
 
--- Recursive case: employees under managers
-SELECT e.id, e.name, e.manager_id, oc.level + 1
-FROM employees e
-JOIN org_chart oc ON e.manager_id = oc.id
+  <span class="comment">-- Recursive case: employees under managers</span>
+  <span class="keyword">SELECT</span> <span class="variable">e</span>.<span class="variable">id</span>, <span class="variable">e</span>.<span class="variable">name</span>, <span class="variable">e</span>.<span class="variable">manager_id</span>, <span class="variable">oc</span>.<span class="variable">level</span> + 1
+  <span class="keyword">FROM</span> <span class="variable">employees</span> <span class="variable">e</span>
+  <span class="keyword">JOIN</span> <span class="variable">org_chart</span> <span class="variable">oc</span> <span class="keyword">ON</span> <span class="variable">e</span>.<span class="variable">manager_id</span> = <span class="variable">oc</span>.<span class="variable">id</span>
 )
-SELECT * FROM org_chart ORDER BY level, id;
-</code></pre>
+<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="variable">org_chart</span> <span class="keyword">ORDER BY</span> <span class="variable">level</span>, <span class="variable">id</span>;</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Multiple CTEs</span>
           <h3>Chained CTEs</h3>
           <p>Use multiple CTEs together.</p>
-<pre class="code-block"><code class="language-sql">
-WITH
-active_users AS (
-SELECT id, name, email
-FROM users
-WHERE status = 'active'
+          <div class="code-block">
+            <code><span class="keyword">WITH</span>
+<span class="variable">active_users</span> <span class="keyword">AS</span> (
+  <span class="keyword">SELECT</span> <span class="variable">id</span>, <span class="variable">name</span>, <span class="variable">email</span>
+  <span class="keyword">FROM</span> <span class="variable">users</span>
+  <span class="keyword">WHERE</span> <span class="variable">status</span> = <span class="string">'active'</span>
 ),
-user_orders AS (
-SELECT
-user_id,
-COUNT(*) as order_count,
-SUM(amount) as total_spent
-FROM orders
-GROUP BY user_id
+<span class="variable">user_orders</span> <span class="keyword">AS</span> (
+  <span class="keyword">SELECT</span>
+    <span class="variable">user_id</span>,
+    <span class="function">COUNT</span>(*) <span class="keyword">as</span> <span class="variable">order_count</span>,
+    <span class="function">SUM</span>(<span class="variable">amount</span>) <span class="keyword">as</span> <span class="variable">total_spent</span>
+  <span class="keyword">FROM</span> <span class="variable">orders</span>
+  <span class="keyword">GROUP BY</span> <span class="variable">user_id</span>
 )
-SELECT
-u.name,
-u.email,
-COALESCE(o.order_count, 0) as orders,
-COALESCE(o.total_spent, 0) as spent
-FROM active_users u
-LEFT JOIN user_orders o ON u.id = o.user_id;
-</code></pre>
+<span class="keyword">SELECT</span>
+  <span class="variable">u</span>.<span class="variable">name</span>,
+  <span class="variable">u</span>.<span class="variable">email</span>,
+  <span class="function">COALESCE</span>(<span class="variable">o</span>.<span class="variable">order_count</span>, 0) <span class="keyword">as</span> <span class="variable">orders</span>,
+  <span class="function">COALESCE</span>(<span class="variable">o</span>.<span class="variable">total_spent</span>, 0) <span class="keyword">as</span> <span class="variable">spent</span>
+<span class="keyword">FROM</span> <span class="variable">active_users</span> <span class="variable">u</span>
+<span class="keyword">LEFT JOIN</span> <span class="variable">user_orders</span> <span class="variable">o</span> <span class="keyword">ON</span> <span class="variable">u</span>.<span class="variable">id</span> = <span class="variable">o</span>.<span class="variable">user_id</span>;</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Materialized</span>
           <h3>Materialized CTE</h3>
           <p>Force CTE materialization.</p>
-<pre class="code-block"><code class="language-sql">
-WITH large_cte AS MATERIALIZED (
-SELECT * FROM huge_table
-WHERE complex_condition = true
+          <div class="code-block">
+            <code><span class="keyword">WITH</span> <span class="variable">large_cte</span> <span class="keyword">AS MATERIALIZED</span> (
+  <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="variable">huge_table</span>
+  <span class="keyword">WHERE</span> <span class="variable">complex_condition</span> = <span class="keyword">true</span>
 )
-SELECT
-a.id,
-(SELECT COUNT(*) FROM large_cte WHERE category = a.category) as cat_count
-FROM another_table a;
+<span class="keyword">SELECT</span>
+  <span class="variable">a</span>.<span class="variable">id</span>,
+  (<span class="keyword">SELECT</span> <span class="function">COUNT</span>(*) <span class="keyword">FROM</span> <span class="variable">large_cte</span> <span class="keyword">WHERE</span> <span class="variable">category</span> = <span class="variable">a</span>.<span class="variable">category</span>) <span class="keyword">as</span> <span class="variable">cat_count</span>
+<span class="keyword">FROM</span> <span class="variable">another_table</span> <span class="variable">a</span>;
 
--- Or use subquery with LATERAL
-SELECT u.id, stats.*
-FROM users u
-CROSS JOIN LATERAL (
-SELECT COUNT(*) as order_count, SUM(amount) as total
-FROM orders o
-WHERE o.user_id = u.id
-) stats;
-</code></pre>
+<span class="comment">-- Or use subquery with LATERAL</span>
+<span class="keyword">SELECT</span> <span class="variable">u</span>.<span class="variable">id</span>, <span class="variable">stats</span>.*
+<span class="keyword">FROM</span> <span class="variable">users</span> <span class="variable">u</span>
+<span class="keyword">CROSS JOIN LATERAL</span> (
+  <span class="keyword">SELECT</span> <span class="function">COUNT</span>(*) <span class="keyword">as</span> <span class="variable">order_count</span>, <span class="function">SUM</span>(<span class="variable">amount</span>) <span class="keyword">as</span> <span class="variable">total</span>
+  <span class="keyword">FROM</span> <span class="variable">orders</span> <span class="variable">o</span>
+  <span class="keyword">WHERE</span> <span class="variable">o</span>.<span class="variable">user_id</span> = <span class="variable">u</span>.<span class="variable">id</span>
+) <span class="variable">stats</span>;</code>
+          </div>
         </div>
       </div>
     </section>
@@ -385,69 +379,69 @@ WHERE o.user_id = u.id
           <span class="code-label">GROUPING SETS</span>
           <h3>Multiple Aggregation Levels</h3>
           <p>Aggregate at multiple levels in one query.</p>
-<pre class="code-block"><code class="language-sql">
-SELECT
-COALESCE(category, 'ALL') as category,
-COALESCE(status, 'ALL') as status,
-SUM(amount) as total,
-COUNT(*) as cnt
-FROM orders
-GROUP BY GROUPING SETS (
-(category, status), -- Both
-(category), -- By category only
-(status), -- By status only
-() -- Grand total
-);
-</code></pre>
+          <div class="code-block">
+            <code><span class="keyword">SELECT</span>
+  <span class="function">COALESCE</span>(<span class="variable">category</span>, <span class="string">'ALL'</span>) <span class="keyword">as</span> <span class="variable">category</span>,
+  <span class="function">COALESCE</span>(<span class="variable">status</span>, <span class="string">'ALL'</span>) <span class="keyword">as</span> <span class="variable">status</span>,
+  <span class="function">SUM</span>(<span class="variable">amount</span>) <span class="keyword">as</span> <span class="variable">total</span>,
+  <span class="function">COUNT</span>(*) <span class="keyword">as</span> <span class="variable">cnt</span>
+<span class="keyword">FROM</span> <span class="variable">orders</span>
+<span class="keyword">GROUP BY GROUPING SETS</span> (
+  (<span class="variable">category</span>, <span class="variable">status</span>), <span class="comment">-- Both</span>
+  (<span class="variable">category</span>),         <span class="comment">-- By category only</span>
+  (<span class="variable">status</span>),           <span class="comment">-- By status only</span>
+  ()                  <span class="comment">-- Grand total</span>
+);</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">ROLLUP</span>
           <h3>ROLLUP</h3>
           <p>Generate subtotals and grand total.</p>
-<pre class="code-block"><code class="language-sql">
-SELECT
-region,
-product,
-SUM(sales) as total_sales
-FROM sales_data
-GROUP BY ROLLUP(region, product);
+          <div class="code-block">
+            <code><span class="keyword">SELECT</span>
+  <span class="variable">region</span>,
+  <span class="variable">product</span>,
+  <span class="function">SUM</span>(<span class="variable">sales</span>) <span class="keyword">as</span> <span class="variable">total_sales</span>
+<span class="keyword">FROM</span> <span class="variable">sales_data</span>
+<span class="keyword">GROUP BY ROLLUP</span>(<span class="variable">region</span>, <span class="variable">product</span>);
 
--- Equivalent to GROUPING SETS:
--- (region, product), (region), ()
-</code></pre>
+<span class="comment">-- Equivalent to GROUPING SETS:</span>
+<span class="comment">-- (region, product), (region), ()</span></code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">CUBE</span>
           <h3>CUBE</h3>
           <p>All combinations of grouping columns.</p>
-<pre class="code-block"><code class="language-sql">
-SELECT
-region,
-product,
-YEAR(sale_date) as year,
-SUM(sales) as total_sales
-FROM sales_data
-GROUP BY CUBE(region, product, YEAR(sale_date));
+          <div class="code-block">
+            <code><span class="keyword">SELECT</span>
+  <span class="variable">region</span>,
+  <span class="variable">product</span>,
+  <span class="function">YEAR</span>(<span class="variable">sale_date</span>) <span class="keyword">as</span> <span class="variable">year</span>,
+  <span class="function">SUM</span>(<span class="variable">sales</span>) <span class="keyword">as</span> <span class="variable">total_sales</span>
+<span class="keyword">FROM</span> <span class="variable">sales_data</span>
+<span class="keyword">GROUP BY CUBE</span>(<span class="variable">region</span>, <span class="variable">product</span>, <span class="function">YEAR</span>(<span class="variable">sale_date</span>));
 
--- Generates 2^n combinations:
--- (r,p,y), (r,p), (r,y), (p,y), (r), (p), (y), ()
-</code></pre>
+<span class="comment">-- Generates 2^n combinations:</span>
+<span class="comment">-- (r,p,y), (r,p), (r,y), (p,y), (r), (p), (y), ()</span></code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">FILTER</span>
           <h3>Conditional Aggregation</h3>
           <p>Aggregate with FILTER clause.</p>
-<pre class="code-block"><code class="language-sql">
-SELECT
-category,
-COUNT(*) as total,
-COUNT(*) FILTER (WHERE status = 'active') as active,
-COUNT(*) FILTER (WHERE status = 'inactive') as inactive,
-SUM(amount) FILTER (WHERE created_at >= NOW() - INTERVAL '30 days') as last_30d,
-AVG(amount) FILTER (WHERE amount > 100) as avg_large
-FROM orders
-GROUP BY category;
-</code></pre>
+          <div class="code-block">
+            <code><span class="keyword">SELECT</span>
+  <span class="variable">category</span>,
+  <span class="function">COUNT</span>(*) <span class="keyword">as</span> <span class="variable">total</span>,
+  <span class="function">COUNT</span>(*) <span class="keyword">FILTER</span> (<span class="keyword">WHERE</span> <span class="variable">status</span> = <span class="string">'active'</span>) <span class="keyword">as</span> <span class="variable">active</span>,
+  <span class="function">COUNT</span>(*) <span class="keyword">FILTER</span> (<span class="keyword">WHERE</span> <span class="variable">status</span> = <span class="string">'inactive'</span>) <span class="keyword">as</span> <span class="variable">inactive</span>,
+  <span class="function">SUM</span>(<span class="variable">amount</span>) <span class="keyword">FILTER</span> (<span class="keyword">WHERE</span> <span class="variable">created_at</span> >= <span class="variable">NOW</span>() - <span class="keyword">INTERVAL</span> <span class="string">'30 days'</span>) <span class="keyword">as</span> <span class="variable">last_30d</span>,
+  <span class="function">AVG</span>(<span class="variable">amount</span>) <span class="keyword">FILTER</span> (<span class="keyword">WHERE</span> <span class="variable">amount</span> > 100) <span class="keyword">as</span> <span class="variable">avg_large</span>
+<span class="keyword">FROM</span> <span class="variable">orders</span>
+<span class="keyword">GROUP BY</span> <span class="variable">category</span>;</code>
+          </div>
         </div>
       </div>
     </section>
@@ -459,98 +453,98 @@ GROUP BY category;
           <span class="code-label">Extract</span>
           <h3>JSON Extraction</h3>
           <p>Extract values from JSON columns.</p>
-<pre class="code-block"><code class="language-sql">
--- Arrow operator (returns JSONB value)
-data->>'name' -- text
-data->'address'->>'city' -- text nested
+          <div class="code-block">
+            <code><span class="comment">-- Arrow operator (returns JSONB value)</span>
+<span class="variable">data</span>->><span class="string">'name'</span> <span class="comment">-- text</span>
+<span class="variable">data</span>-><span class="string">'address'</span>->><span class="string">'city'</span> <span class="comment">-- text nested</span>
 
--- Arrow with integer index
-data->0 -- first array element
-data->'tags'->1 -- second tag
+<span class="comment">-- Arrow with integer index</span>
+<span class="variable">data</span>->0 <span class="comment">-- first array element</span>
+<span class="variable">data</span>-><span class="string">'tags'</span>->1 <span class="comment">-- second tag</span>
 
--- jsonb_extract_path (alternative)
-jsonb_extract_path(data, 'address', 'city')
+<span class="comment">-- jsonb_extract_path (alternative)</span>
+<span class="function">jsonb_extract_path</span>(<span class="variable">data</span>, <span class="string">'address'</span>, <span class="string">'city'</span>)
 
--- Multiple values
-SELECT
-data->>'id' as id,
-data->>'name' as name,
-data->'metadata'->>'created_at' as created
-FROM users;
-</code></pre>
+<span class="comment">-- Multiple values</span>
+<span class="keyword">SELECT</span>
+  <span class="variable">data</span>->><span class="string">'id'</span> <span class="keyword">as</span> <span class="variable">id</span>,
+  <span class="variable">data</span>->><span class="string">'name'</span> <span class="keyword">as</span> <span class="variable">name</span>,
+  <span class="variable">data</span>-><span class="string">'metadata'</span>->><span class="string">'created_at'</span> <span class="keyword">as</span> <span class="variable">created</span>
+<span class="keyword">FROM</span> <span class="variable">users</span>;</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Build</span>
           <h3>Build JSON</h3>
           <p>Create JSON from query results.</p>
-<pre class="code-block"><code class="language-sql">
--- Single object
-SELECT jsonb_build_object(
-'id', id,
-'name', name,
-'total', amount
-) as result
-FROM orders;
+          <div class="code-block">
+            <code><span class="comment">-- Single object</span>
+<span class="keyword">SELECT</span> <span class="function">jsonb_build_object</span>(
+  <span class="string">'id'</span>, <span class="variable">id</span>,
+  <span class="string">'name'</span>, <span class="variable">name</span>,
+  <span class="string">'total'</span>, <span class="variable">amount</span>
+) <span class="keyword">as</span> <span class="variable">result</span>
+<span class="keyword">FROM</span> <span class="variable">orders</span>;
 
--- Array of objects
-SELECT jsonb_agg(
-jsonb_build_object('id', id, 'name', name)
-) as users_array
-FROM users;
+<span class="comment">-- Array of objects</span>
+<span class="keyword">SELECT</span> <span class="function">jsonb_agg</span>(
+  <span class="function">jsonb_build_object</span>(<span class="string">'id'</span>, <span class="variable">id</span>, <span class="string">'name'</span>, <span class="variable">name</span>)
+) <span class="keyword">as</span> <span class="variable">users_array</span>
+<span class="keyword">FROM</span> <span class="variable">users</span>;
 
--- Nested structure
-SELECT jsonb_build_object(
-'category', category,
-'orders', jsonb_agg(
-jsonb_build_object('id', id, 'amount', amount)
-)
-) FROM orders GROUP BY category;
-</code></pre>
+<span class="comment">-- Nested structure</span>
+<span class="keyword">SELECT</span> <span class="function">jsonb_build_object</span>(
+  <span class="string">'category'</span>, <span class="variable">category</span>,
+  <span class="string">'orders'</span>, <span class="function">jsonb_agg</span>(
+    <span class="function">jsonb_build_object</span>(<span class="string">'id'</span>, <span class="variable">id</span>, <span class="string">'amount'</span>, <span class="variable">amount</span>)
+  )
+) <span class="keyword">FROM</span> <span class="variable">orders</span> <span class="keyword">GROUP BY</span> <span class="variable">category</span>;</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Query</span>
           <h3>Query JSON</h3>
           <p>Filter and search JSON data.</p>
-<pre class="code-block"><code class="language-sql">
--- Existence check
-data ? 'name' -- key exists
-data ?| array['a','b'] -- any key exists
-data ?& array['a','b'] -- all keys exist
+          <div class="code-block">
+            <code><span class="comment">-- Existence check</span>
+<span class="variable">data</span> ? <span class="string">'name'</span> <span class="comment">-- key exists</span>
+<span class="variable">data</span> ?| <span class="function">array</span>[<span class="string">'a'</span>,<span class="string">'b'</span>] <span class="comment">-- any key exists</span>
+<span class="variable">data</span> ?& <span class="function">array</span>[<span class="string">'a'</span>,<span class="string">'b'</span>] <span class="comment">-- all keys exist</span>
 
--- Containment
-data @> '{"status": "active"}'::jsonb
+<span class="comment">-- Containment</span>
+<span class="variable">data</span> @> <span class="string">'{"status": "active"}'</span>::<span class="variable">jsonb</span>
 
--- Like matching on text values
-data->>'name' LIKE '%test%'
+<span class="comment">-- Like matching on text values</span>
+<span class="variable">data</span>->><span class="string">'name'</span> <span class="keyword">LIKE</span> <span class="string">'%test%'</span>
 
--- Filter
-SELECT * FROM events
-WHERE data->>'type' = 'purchase'
-AND (data->>'amount')::numeric > 100;
-</code></pre>
+<span class="comment">-- Filter</span>
+<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="variable">events</span>
+<span class="keyword">WHERE</span> <span class="variable">data</span>->><span class="string">'type'</span> = <span class="string">'purchase'</span>
+<span class="keyword">AND</span> (<span class="variable">data</span>->><span class="string">'amount'</span>)::<span class="variable">numeric</span> > 100;</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Index</span>
           <h3>JSON Indexing</h3>
           <p>Index JSON for performance.</p>
-<pre class="code-block"><code class="language-sql">
--- GIN index for containment queries
-CREATE INDEX idx_data_gin ON table_name
-USING GIN (data);
+          <div class="code-block">
+            <code><span class="comment">-- GIN index for containment queries</span>
+<span class="keyword">CREATE INDEX</span> <span class="variable">idx_data_gin</span> <span class="keyword">ON</span> <span class="variable">table_name</span>
+<span class="keyword">USING GIN</span> (<span class="variable">data</span>);
 
--- Expression index on specific key
-CREATE INDEX idx_data_status ON table_name
-((data->>'status'));
+<span class="comment">-- Expression index on specific key</span>
+<span class="keyword">CREATE INDEX</span> <span class="variable">idx_data_status</span> <span class="keyword">ON</span> <span class="variable">table_name</span>
+((<span class="variable">data</span>->><span class="string">'status'</span>));
 
--- Partial index on JSON
-CREATE INDEX idx_active_users ON users
-((data->>'email'))
-WHERE data->>'status' = 'active';
+<span class="comment">-- Partial index on JSON</span>
+<span class="keyword">CREATE INDEX</span> <span class="variable">idx_active_users</span> <span class="keyword">ON</span> <span class="variable">users</span>
+((<span class="variable">data</span>->><span class="string">'email'</span>))
+<span class="keyword">WHERE</span> <span class="variable">data</span>->><span class="string">'status'</span> = <span class="string">'active'</span>;
 
--- BRIN for time-series JSON
-CREATE INDEX idx_events_time ON events
-USING BRIN ((data->>'timestamp'));
-</code></pre>
+<span class="comment">-- BRIN for time-series JSON</span>
+<span class="keyword">CREATE INDEX</span> <span class="variable">idx_events_time</span> <span class="keyword">ON</span> <span class="variable">events</span>
+<span class="keyword">USING BRIN</span> ((<span class="variable">data</span>->><span class="string">'timestamp'</span>));</code>
+          </div>
         </div>
       </div>
     </section>
@@ -563,89 +557,99 @@ USING BRIN ((data->>'timestamp'));
           <span class="code-label">UPSERT</span>
           <h3>INSERT ON CONFLICT</h3>
           <p>Insert or update based on conflicts.</p>
-<pre class="code-block"><code class="language-sql">
-INSERT INTO users (id, name, email, updated_at)
-VALUES (1, 'John', 'john@example.com', NOW())
-ON CONFLICT (id)
-DO UPDATE SET
-name = EXCLUDED.name,
-email = EXCLUDED.email,
-updated_at = EXCLUDED.updated_at;
+          <div class="code-block">
+            <code><span class="keyword">INSERT INTO</span> <span class="variable">users</span> (<span class="variable">id</span>, <span class="variable">name</span>, <span class="variable">email</span>, <span class="variable">updated_at</span>)
+<span class="keyword">VALUES</span> (1, <span class="string">'John'</span>, <span class="string">'john@example.com'</span>, <span class="variable">NOW</span>())
+<span class="keyword">ON CONFLICT</span> (<span class="variable">id</span>)
+<span class="keyword">DO UPDATE SET</span>
+  <span class="variable">name</span> = <span class="keyword">EXCLUDED</span>.<span class="variable">name</span>,
+  <span class="variable">email</span> = <span class="keyword">EXCLUDED</span>.<span class="variable">email</span>,
+  <span class="variable">updated_at</span> = <span class="keyword">EXCLUDED</span>.<span class="variable">updated_at</span>;
 
--- Do nothing on conflict
-INSERT INTO users (id, name)
-VALUES (1, 'John')
-ON CONFLICT (id) DO NOTHING;
+<span class="comment">-- Do nothing on conflict</span>
+<span class="keyword">INSERT INTO</span> <span class="variable">users</span> (<span class="variable">id</span>, <span class="variable">name</span>)
+<span class="keyword">VALUES</span> (1, <span class="string">'John'</span>)
+<span class="keyword">ON CONFLICT</span> (<span class="variable">id</span>) <span class="keyword">DO NOTHING</span>;
 
--- Partial unique index
-CREATE UNIQUE INDEX idx_active_email
-ON users (email) WHERE status = 'active';
-</code></pre>
+<span class="comment">-- Partial unique index</span>
+<span class="keyword">CREATE UNIQUE INDEX</span> <span class="variable">idx_active_email</span>
+<span class="keyword">ON</span> <span class="variable">users</span> (<span class="variable">email</span>) <span class="keyword">WHERE</span> <span class="variable">status</span> = <span class="string">'active'</span>;</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">MERGE</span>
           <h3>MERGE Statement</h3>
           <p>SQL:2003 standard merge (UPSERT).</p>
-<pre class="code-block"><code class="language-sql">
-MERGE INTO target t
-USING source s
-ON t.id = s.id
-WHEN MATCHED AND s.deleted = true THEN
-DELETE
-WHEN MATCHED THEN
-UPDATE SET
-name = s.name,
-email = s.email,
-updated_at = NOW()
-WHEN NOT MATCHED THEN
-INSERT (id, name, email, created_at)
-VALUES (s.id, s.name, s.email, NOW());
-</code></pre>
+          <div class="code-block">
+            <code><span class="keyword">MERGE INTO</span> <span class="variable">target</span> <span class="variable">t</span>
+<span class="keyword">USING</span> <span class="variable">source</span> <span class="variable">s</span>
+<span class="keyword">ON</span> <span class="variable">t</span>.<span class="variable">id</span> = <span class="variable">s</span>.<span class="variable">id</span>
+<span class="keyword">WHEN MATCHED AND</span> <span class="variable">s</span>.<span class="variable">deleted</span> = <span class="keyword">true THEN</span>
+  <span class="keyword">DELETE</span>
+<span class="keyword">WHEN MATCHED THEN</span>
+  <span class="keyword">UPDATE SET</span>
+    <span class="variable">name</span> = <span class="variable">s</span>.<span class="variable">name</span>,
+    <span class="variable">email</span> = <span class="variable">s</span>.<span class="variable">email</span>,
+    <span class="variable">updated_at</span> = <span class="variable">NOW</span>()
+<span class="keyword">WHEN NOT MATCHED THEN</span>
+  <span class="keyword">INSERT</span> (<span class="variable">id</span>, <span class="variable">name</span>, <span class="variable">email</span>, <span class="variable">created_at</span>)
+  <span class="keyword">VALUES</span> (<span class="variable">s</span>.<span class="variable">id</span>, <span class="variable">s</span>.<span class="variable">name</span>, <span class="variable">s</span>.<span class="variable">email</span>, <span class="variable">NOW</span>());</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">DELETE</span>
           <h3>DELETE with RETURNING</h3>
           <p>Delete and return affected rows.</p>
-<pre class="code-block"><code class="language-sql">
--- Delete and return
-DELETE FROM orders
-WHERE created_at < NOW() - INTERVAL '1 year' RETURNING id, name, amount; -- Delete with CTE WITH
-old_records AS ( SELECT id FROM archive_logs WHERE created_at < NOW() - INTERVAL '90 days' ) DELETE FROM
-logs WHERE id IN (SELECT id FROM old_records) RETURNING *; -- Truncate with cascade TRUNCATE TABLE logs
-CASCADE;
-</code></pre>
+          <div class="code-block">
+            <code><span class="comment">-- Delete and return</span>
+<span class="keyword">DELETE FROM</span> <span class="variable">orders</span>
+<span class="keyword">WHERE</span> <span class="variable">created_at</span> < <span class="variable">NOW</span>() - <span class="keyword">INTERVAL</span> <span class="string">'1 year'</span>
+<span class="keyword">RETURNING</span> <span class="variable">id</span>, <span class="variable">name</span>, <span class="variable">amount</span>;
+
+<span class="comment">-- Delete with CTE</span>
+<span class="keyword">WITH</span> <span class="variable">old_records</span> <span class="keyword">AS</span> (
+  <span class="keyword">SELECT</span> <span class="variable">id</span> <span class="keyword">FROM</span> <span class="variable">archive_logs</span>
+  <span class="keyword">WHERE</span> <span class="variable">created_at</span> < <span class="variable">NOW</span>() - <span class="keyword">INTERVAL</span> <span class="string">'90 days'</span>
+)
+<span class="keyword">DELETE FROM</span> <span class="variable">logs</span>
+<span class="keyword">WHERE</span> <span class="variable">id</span> <span class="keyword">IN</span> (<span class="keyword">SELECT</span> <span class="variable">id</span> <span class="keyword">FROM</span> <span class="variable">old_records</span>)
+<span class="keyword">RETURNING</span> *;
+
+<span class="comment">-- Truncate with cascade</span>
+<span class="keyword">TRUNCATE TABLE</span> <span class="variable">logs</span> <span class="keyword">CASCADE</span>;</code>
+          </div>
           </div>
           <div class="code-card">
             <span class="code-label">UPDATE</span>
             <h3>UPDATE with FROM</h3>
             <p>Update using joins.</p>
-<pre class="code-block"><code class="language-sql">
--- Update with JOIN
-UPDATE orders o
-SET status = 'processed'
-FROM customers c
-WHERE o.customer_id = c.id
-AND c.premium = true
-AND o.status = 'pending';
+          <div class="code-block">
+            <code><span class="comment">-- Update with JOIN</span>
+<span class="keyword">UPDATE</span> <span class="variable">orders</span> <span class="variable">o</span>
+<span class="keyword">SET</span> <span class="variable">status</span> = <span class="string">'processed'</span>
+<span class="keyword">FROM</span> <span class="variable">customers</span> <span class="variable">c</span>
+<span class="keyword">WHERE</span> <span class="variable">o</span>.<span class="variable">customer_id</span> = <span class="variable">c</span>.<span class="variable">id</span>
+<span class="keyword">AND</span> <span class="variable">c</span>.<span class="variable">premium</span> = <span class="keyword">true</span>
+<span class="keyword">AND</span> <span class="variable">o</span>.<span class="variable">status</span> = <span class="string">'pending'</span>;
 
--- Update with subquery
-UPDATE products p
-SET price = price * 1.1
-WHERE category_id IN (
-SELECT id FROM categories
-WHERE name = 'Electronics'
+<span class="comment">-- Update with subquery</span>
+<span class="keyword">UPDATE</span> <span class="variable">products</span> <span class="variable">p</span>
+<span class="keyword">SET</span> <span class="variable">price</span> = <span class="variable">price</span> * 1.1
+<span class="keyword">WHERE</span> <span class="variable">category_id</span> <span class="keyword">IN</span> (
+  <span class="keyword">SELECT</span> <span class="variable">id</span> <span class="keyword">FROM</span> <span class="variable">categories</span>
+  <span class="keyword">WHERE</span> <span class="variable">name</span> = <span class="string">'Electronics'</span>
 );
 
--- Update from CTE
-WITH stats AS (
-SELECT user_id, SUM(amount) as total
-FROM orders GROUP BY user_id
+<span class="comment">-- Update from CTE</span>
+<span class="keyword">WITH</span> <span class="variable">stats</span> <span class="keyword">AS</span> (
+  <span class="keyword">SELECT</span> <span class="variable">user_id</span>, <span class="function">SUM</span>(<span class="variable">amount</span>) <span class="keyword">as</span> <span class="variable">total</span>
+  <span class="keyword">FROM</span> <span class="variable">orders</span> <span class="keyword">GROUP BY</span> <span class="variable">user_id</span>
 )
-UPDATE users u
-SET total_spent = stats.total
-FROM stats
-WHERE u.id = stats.user_id;
-</code></pre>
+<span class="keyword">UPDATE</span> <span class="variable">users</span> <span class="variable">u</span>
+<span class="keyword">SET</span> <span class="variable">total_spent</span> = <span class="variable">stats</span>.<span class="variable">total</span>
+<span class="keyword">FROM</span> <span class="variable">stats</span>
+<span class="keyword">WHERE</span> <span class="variable">u</span>.<span class="variable">id</span> = <span class="variable">stats</span>.<span class="variable">user_id</span>;</code>
+          </div>
           </div>
         </div>
     </section>
@@ -657,98 +661,111 @@ WHERE u.id = stats.user_id;
           <span class="code-label">EXPLAIN</span>
           <h3>Query Analysis</h3>
           <p>Analyze query execution plans.</p>
-<pre class="code-block"><code class="language-sql">
--- Basic explain
-EXPLAIN SELECT * FROM orders WHERE user_id = 123;
+          <div class="code-block">
+            <code><span class="comment">-- Basic explain</span>
+<span class="keyword">EXPLAIN SELECT</span> * <span class="keyword">FROM</span> <span class="variable">orders</span> <span class="keyword">WHERE</span> <span class="variable">user_id</span> = 123;
 
--- With actual execution
-EXPLAIN (ANALYZE, BUFFERS, FORMAT TEXT)
-SELECT * FROM orders WHERE user_id = 123;
+<span class="comment">-- With actual execution</span>
+<span class="keyword">EXPLAIN</span> (<span class="keyword">ANALYZE, BUFFERS, FORMAT TEXT</span>)
+<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="variable">orders</span> <span class="keyword">WHERE</span> <span class="variable">user_id</span> = 123;
 
--- Key metrics to check:
--- - Seq Scan vs Index Scan
--- - Rows removed by filter
--- - Actual vs Estimated rows
--- - Buffers (shared hit/read)
--- - Execution time
-</code></pre>
+<span class="comment">-- Key metrics to check:</span>
+<span class="comment">-- - Seq Scan vs Index Scan</span>
+<span class="comment">-- - Rows removed by filter</span>
+<span class="comment">-- - Actual vs Estimated rows</span>
+<span class="comment">-- - Buffers (shared hit/read)</span>
+<span class="comment">-- - Execution time</span></code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Indexes</span>
           <h3>Index Types</h3>
           <p>Choose the right index type.</p>
-<pre class="code-block"><code class="language-sql">
--- B-tree (default, ordered)
-CREATE INDEX idx_orders_user ON orders(user_id);
+          <div class="code-block">
+            <code><span class="comment">-- B-tree (default, ordered)</span>
+<span class="keyword">CREATE INDEX</span> <span class="variable">idx_orders_user</span> <span class="keyword">ON</span> <span class="variable">orders</span>(<span class="variable">user_id</span>);
 
--- Composite index
-CREATE INDEX idx_orders_user_date
-ON orders(user_id, created_at DESC);
+<span class="comment">-- Composite index</span>
+<span class="keyword">CREATE INDEX</span> <span class="variable">idx_orders_user_date</span>
+<span class="keyword">ON</span> <span class="variable">orders</span>(<span class="variable">user_id</span>, <span class="variable">created_at</span> <span class="keyword">DESC</span>);
 
--- Partial index
-CREATE INDEX idx_active_orders
-ON orders(created_at)
-WHERE status = 'active';
+<span class="comment">-- Partial index</span>
+<span class="keyword">CREATE INDEX</span> <span class="variable">idx_active_orders</span>
+<span class="keyword">ON</span> <span class="variable">orders</span>(<span class="variable">created_at</span>)
+<span class="keyword">WHERE</span> <span class="variable">status</span> = <span class="string">'active'</span>;
 
--- Covering index (includes)
-CREATE INDEX idx_orders_covering
-ON orders(user_id) INCLUDE (amount, status);
+<span class="comment">-- Covering index (includes)</span>
+<span class="keyword">CREATE INDEX</span> <span class="variable">idx_orders_covering</span>
+<span class="keyword">ON</span> <span class="variable">orders</span>(<span class="variable">user_id</span>) <span class="keyword">INCLUDE</span> (<span class="variable">amount</span>, <span class="variable">status</span>);
 
--- BRIN for large sorted data
-CREATE INDEX idx_events_brin ON events
-USING BRIN (created_at);
-</code></pre>
+<span class="comment">-- BRIN for large sorted data</span>
+<span class="keyword">CREATE INDEX</span> <span class="variable">idx_events_brin</span> <span class="keyword">ON</span> <span class="variable">events</span>
+<span class="keyword">USING BRIN</span> (<span class="variable">created_at</span>);</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Vacuum</span>
           <h3>Maintenance</h3>
           <p>Database maintenance commands.</p>
-<pre class="code-block"><code class="language-sql">
--- Analyze table stats
-ANALYZE orders;
+          <div class="code-block">
+            <code><span class="comment">-- Analyze table stats</span>
+<span class="keyword">ANALYZE</span> <span class="variable">orders</span>;
 
--- Vacuum (reclaim space)
-VACUUM orders;
-VACUUM FULL orders; -- More aggressive
+<span class="comment">-- Vacuum (reclaim space)</span>
+<span class="keyword">VACUUM</span> <span class="variable">orders</span>;
+<span class="keyword">VACUUM FULL</span> <span class="variable">orders</span>; <span class="comment">-- More aggressive</span>
 
--- Reindex
-REINDEX TABLE orders;
-REINDEX INDEX idx_orders_user;
+<span class="comment">-- Reindex</span>
+<span class="keyword">REINDEX TABLE</span> <span class="variable">orders</span>;
+<span class="keyword">REINDEX INDEX</span> <span class="variable">idx_orders_user</span>;
 
--- Update statistics
-ANALYZE VERBOSE orders;
+<span class="comment">-- Update statistics</span>
+<span class="keyword">ANALYZE VERBOSE</span> <span class="variable">orders</span>;
 
--- Check table bloat
-SELECT schemaname, tablename,
-n_live_tup, n_dead_tup,
-round(100*n_dead_tup/(n_live_tup+n_dead_tup+1),1) as dead_pct
-FROM pg_stat_user_tables
-ORDER BY n_dead_tup DESC;
-</code></pre>
+<span class="comment">-- Check table bloat</span>
+<span class="keyword">SELECT</span>
+  <span class="variable">schemaname</span>,
+  <span class="variable">tablename</span>,
+  <span class="variable">n_live_tup</span>,
+  <span class="variable">n_dead_tup</span>,
+  <span class="function">round</span>(100*<span class="variable">n_dead_tup</span>/(<span class="variable">n_live_tup</span>+<span class="variable">n_dead_tup</span>+1),1) <span class="keyword">as</span> <span class="variable">dead_pct</span>
+<span class="keyword">FROM</span> <span class="variable">pg_stat_user_tables</span>
+<span class="keyword">ORDER BY</span> <span class="variable">n_dead_tup</span> <span class="keyword">DESC</span>;</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Monitoring</span>
           <h3>Performance Monitoring</h3>
           <p>Find slow queries and issues.</p>
-<pre class="code-block"><code class="language-sql">
--- Current queries
-SELECT pid, query, state, duration_ms
-FROM pg_stat_activity
-WHERE state = 'active'
-ORDER BY duration_ms DESC;
+          <div class="code-block">
+            <code><span class="comment">-- Current queries</span>
+<span class="keyword">SELECT</span>
+  <span class="variable">pid</span>,
+  <span class="variable">query</span>,
+  <span class="variable">state</span>,
+  <span class="variable">duration_ms</span>
+<span class="keyword">FROM</span> <span class="variable">pg_stat_activity</span>
+<span class="keyword">WHERE</span> <span class="variable">state</span> = <span class="string">'active'</span>
+<span class="keyword">ORDER BY</span> <span class="variable">duration_ms</span> <span class="keyword">DESC</span>;
 
--- Slow queries (requires pg_stat_statements)
-SELECT query, calls, mean_exec_time, total_exec_time
-FROM pg_stat_statements
-ORDER BY mean_exec_time DESC
-LIMIT 10;
+<span class="comment">-- Slow queries (requires pg_stat_statements)</span>
+<span class="keyword">SELECT</span>
+  <span class="variable">query</span>,
+  <span class="variable">calls</span>,
+  <span class="variable">mean_exec_time</span>,
+  <span class="variable">total_exec_time</span>
+<span class="keyword">FROM</span> <span class="variable">pg_stat_statements</span>
+<span class="keyword">ORDER BY</span> <span class="variable">mean_exec_time</span> <span class="keyword">DESC</span>
+<span class="keyword">LIMIT</span> 10;
 
--- Table sizes
-SELECT schemaname, tablename,
-pg_size_pretty(pg_total_relation_size(schemaname||'.'||tablename)) as size
-FROM pg_tables
-ORDER BY pg_total_relation_size(schemaname||'.'||tablename) DESC;
-</code></pre>
+<span class="comment">-- Table sizes</span>
+<span class="keyword">SELECT</span>
+  <span class="variable">schemaname</span>,
+  <span class="variable">tablename</span>,
+  <span class="function">pg_size_pretty</span>(<span class="function">pg_total_relation_size</span>(<span class="variable">schemaname</span>||<span class="string">'.'</span>||<span class="variable">tablename</span>)) <span class="keyword">as</span> <span class="variable">size</span>
+<span class="keyword">FROM</span> <span class="variable">pg_tables</span>
+<span class="keyword">ORDER BY</span> <span class="function">pg_total_relation_size</span>(<span class="variable">schemaname</span>||<span class="string">'.'</span>||<span class="variable">tablename</span>) <span class="keyword">DESC</span>;</code>
+          </div>
         </div>
       </div>
     </section>
@@ -759,56 +776,56 @@ ORDER BY pg_total_relation_size(schemaname||'.'||tablename) DESC;
           <span class="code-label">Tip</span>
           <h3>Use EXPLAIN ANALYZE for query optimization</h3>
           <p>Understand query execution plans and identify bottlenecks.</p>
-<pre class="code-block"><code class="language-sql">
-EXPLAIN ANALYZE
-SELECT * FROM orders
-WHERE customer_id = 123
-ORDER BY created_at DESC
-LIMIT 10;
-</code></pre>
+          <div class="code-block">
+            <code><span class="keyword">EXPLAIN ANALYZE</span>
+<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="variable">orders</span>
+<span class="keyword">WHERE</span> <span class="variable">customer_id</span> = 123
+<span class="keyword">ORDER BY</span> <span class="variable">created_at</span> <span class="keyword">DESC</span>
+<span class="keyword">LIMIT</span> 10;</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Trick</span>
           <h3>Use CTEs for complex queries</h3>
           <p>Break down complex logic into readable steps.</p>
-<pre class="code-block"><code class="language-sql">
-WITH monthly_sales AS (
-SELECT
-DATE_TRUNC('month', order_date) as month,
-SUM(total_amount) as total
-FROM orders
-GROUP BY 1
+          <div class="code-block">
+            <code><span class="keyword">WITH</span> <span class="variable">monthly_sales</span> <span class="keyword">AS</span> (
+  <span class="keyword">SELECT</span>
+    <span class="function">DATE_TRUNC</span>(<span class="string">'month'</span>, <span class="variable">order_date</span>) <span class="keyword">as</span> <span class="variable">month</span>,
+    <span class="function">SUM</span>(<span class="variable">total_amount</span>) <span class="keyword">as</span> <span class="variable">total</span>
+  <span class="keyword">FROM</span> <span class="variable">orders</span>
+  <span class="keyword">GROUP BY</span> 1
 ),
-growth AS (
-SELECT
-month,
-total,
-LAG(total) OVER (ORDER BY month) as prev_total
-FROM monthly_sales
+<span class="variable">growth</span> <span class="keyword">AS</span> (
+  <span class="keyword">SELECT</span>
+    <span class="variable">month</span>,
+    <span class="variable">total</span>,
+    <span class="function">LAG</span>(<span class="variable">total</span>) <span class="keyword">OVER</span> (<span class="keyword">ORDER BY</span> <span class="variable">month</span>) <span class="keyword">as</span> <span class="variable">prev_total</span>
+  <span class="keyword">FROM</span> <span class="variable">monthly_sales</span>
 )
-SELECT * FROM growth;
-</code></pre>
+<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="variable">growth</span>;</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Tip</span>
           <h3>Use window functions for analytics</h3>
           <p>Perform calculations across rows without grouping.</p>
-<pre class="code-block"><code class="language-sql">
-SELECT
-customer_id,
-order_date,
-total_amount,
-SUM(total_amount) OVER (
-PARTITION BY customer_id
-ORDER BY order_date
-ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
-) as running_total,
-ROW_NUMBER() OVER (
-PARTITION BY customer_id
-ORDER BY order_date DESC
-) as rn
-FROM orders;
-</code></pre>
+          <div class="code-block">
+            <code><span class="keyword">SELECT</span>
+  <span class="variable">customer_id</span>,
+  <span class="variable">order_date</span>,
+  <span class="variable">total_amount</span>,
+  <span class="function">SUM</span>(<span class="variable">total_amount</span>) <span class="keyword">OVER</span> (
+    <span class="keyword">PARTITION BY</span> <span class="variable">customer_id</span>
+    <span class="keyword">ORDER BY</span> <span class="variable">order_date</span>
+    <span class="keyword">ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW</span>
+  ) <span class="keyword">as</span> <span class="variable">running_total</span>,
+  <span class="function">ROW_NUMBER</span>() <span class="keyword">OVER</span> (
+    <span class="keyword">PARTITION BY</span> <span class="variable">customer_id</span>
+    <span class="keyword">ORDER BY</span> <span class="variable">order_date</span> <span class="keyword">DESC</span>
+  ) <span class="keyword">as</span> <span class="variable">rn</span>
+<span class="keyword">FROM</span> <span class="variable">orders</span>;</code>
+          </div>
         </div>
       </div>
     </section>
@@ -820,30 +837,30 @@ FROM orders;
           <span class="code-label">Indexing</span>
           <h3>Use the right indexes</h3>
           <p>Index columns used in joins and where clauses to speed lookups.</p>
-<pre class="code-block"><code class="language-sql">
-CREATE INDEX idx_orders_customer ON orders(customer_id);
-CREATE INDEX idx_orders_date ON orders(order_date);
-</code></pre>
+          <div class="code-block">
+            <code><span class="keyword">CREATE INDEX</span> <span class="variable">idx_orders_customer</span> <span class="keyword">ON</span> <span class="variable">orders</span>(<span class="variable">customer_id</span>);
+<span class="keyword">CREATE INDEX</span> <span class="variable">idx_orders_date</span> <span class="keyword">ON</span> <span class="variable">orders</span>(<span class="variable">order_date</span>);</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Vacuum</span>
           <h3>Regular maintenance</h3>
           <p>Run VACUUM and ANALYZE to keep optimizer stats fresh and reduce bloat.</p>
-<pre class="code-block"><code class="language-sql">
-VACUUM ANALYZE;
-ANALYZE orders;
-</code></pre>
+          <div class="code-block">
+            <code><span class="keyword">VACUUM ANALYZE</span>;
+<span class="keyword">ANALYZE</span> <span class="variable">orders</span>;</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">Transactions</span>
           <h3>Use explicit transactions</h3>
           <p>Group DML in transactions to maintain data integrity.</p>
-<pre class="code-block"><code class="language-sql">
-BEGIN;
-UPDATE accounts SET balance = balance - 100 WHERE id = 1;
-UPDATE accounts SET balance = balance + 100 WHERE id = 2;
-COMMIT;
-</code></pre>
+          <div class="code-block">
+            <code><span class="keyword">BEGIN</span>;
+<span class="keyword">UPDATE</span> <span class="variable">accounts</span> <span class="keyword">SET</span> <span class="variable">balance</span> = <span class="variable">balance</span> - 100 <span class="keyword">WHERE</span> <span class="variable">id</span> = 1;
+<span class="keyword">UPDATE</span> <span class="variable">accounts</span> <span class="keyword">SET</span> <span class="variable">balance</span> = <span class="variable">balance</span> + 100 <span class="keyword">WHERE</span> <span class="variable">id</span> = 2;
+<span class="keyword">COMMIT</span>;</code>
+          </div>
         </div>
       </div>
     </section>

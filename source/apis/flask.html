@@ -3,63 +3,64 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Data Guide | {title}</title>
+  <title>Data Guide | Flask API</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-  <link rel="stylesheet" href="{root_offset}shared.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../shared.css" />
 </head>
 <body class="topic-page">
 
 <aside class="sidebar">
-<nav class="sidebar-nav">
-        <span class="nav-section-title">Main Section</span>
-        <a href="../../index.html" class="nav-item">
-          <span class="material-symbols-outlined">home</span>
-          Home
-        </a>
-        <a href="../cloud/index.html" class="nav-item">
-          <span class="material-symbols-outlined">cloud</span>
-          Cloud
-        </a>
-        <a href="../data/index.html" class="nav-item">
-          <span class="material-symbols-outlined">analytics</span>
-          Big-Data
-        </a>
-        <a href="../python/index.html" class="nav-item">
-          <span class="material-symbols-outlined">code</span>
-          Python
-        </a>
-        <a href="../sql/index.html" class="nav-item">
-          <span class="material-symbols-outlined">database</span>
-          Database
-        </a>
-        <a href="../apis/index.html" class="nav-item">
-          <span class="material-symbols-outlined">api</span>
-          APIs
-        </a>
-        <a href="../tools/index.html" class="nav-item">
-          <span class="material-symbols-outlined">build</span>
-          Tools
-        </a>
-        <a href="../orchestration/index.html" class="nav-item">
-          <span class="material-symbols-outlined">account_tree</span>
-          Orchestration
-        </a>
-        <a href="../roadmaps/roadmap.html" class="nav-item">
-          <span class="material-symbols-outlined">map</span>
-          Roadmaps
-        </a>
-        <a href="../practice/index.html" class="nav-item">
-          <span class="material-symbols-outlined">model_training</span>
-          Practice
-        </a>
-        <a href="../portfolios/portfolio.html" class="nav-item">
-          <span class="material-symbols-outlined">person</span>
-          Portfolio
-        </a>
-    </nav>
+  <nav class="sidebar-nav">
+    <span class="nav-section-title">Main Section</span>
+    <a href="../../index.html" class="nav-item">
+      <span class="material-symbols-outlined">home</span>
+      Home
+    </a>
+    <a href="../cloud/index.html" class="nav-item">
+      <span class="material-symbols-outlined">cloud</span>
+      Cloud
+    </a>
+    <a href="../data/index.html" class="nav-item">
+      <span class="material-symbols-outlined">analytics</span>
+      Big-Data
+    </a>
+    <a href="../python/index.html" class="nav-item">
+      <span class="material-symbols-outlined">code</span>
+      Python
+    </a>
+    <a href="../sql/index.html" class="nav-item">
+      <span class="material-symbols-outlined">database</span>
+      Database
+    </a>
+    <a href="../apis/index.html" class="nav-item active">
+      <span class="material-symbols-outlined">api</span>
+      APIs
+    </a>
+    <a href="../tools/index.html" class="nav-item">
+      <span class="material-symbols-outlined">build</span>
+      Tools
+    </a>
+    <a href="../orchestration/index.html" class="nav-item">
+      <span class="material-symbols-outlined">account_tree</span>
+      Orchestration
+    </a>
+    <a href="../roadmaps/roadmap.html" class="nav-item">
+      <span class="material-symbols-outlined">map</span>
+      Roadmaps
+    </a>
+    <a href="../practice/index.html" class="nav-item">
+      <span class="material-symbols-outlined">model_training</span>
+      Practice
+    </a>
+    <a href="../portfolios/portfolio.html" class="nav-item">
+      <span class="material-symbols-outlined">person</span>
+      Portfolio
+    </a>
+  </nav>
 </aside>
 
 <div class="drawer-overlay" onclick="closeDrawer()"></div>
@@ -92,7 +93,7 @@
           <span class="material-symbols-outlined">database</span>
           Database
         </a>
-        <a href="../apis/index.html" class="nav-item">
+        <a href="../apis/index.html" class="nav-item active">
           <span class="material-symbols-outlined">api</span>
           APIs
         </a>
@@ -121,9 +122,10 @@
 
   <header class="top-nav">
     <div class="top-nav-inner">
-                <button class="nav-icon-btn hamburger" onclick="toggleDrawer()">
-            <span class="material-symbols-outlined">menu</span>
-          </button><a href="../../index.html" class="brand">
+      <button class="nav-icon-btn hamburger" onclick="toggleDrawer()">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+      <a href="../../index.html" class="brand">
         <div class="brand-icon">
           <span class="material-symbols-outlined">architecture</span>
         </div>
@@ -134,24 +136,1743 @@
         <button class="nav-icon-btn" id="themeToggle" onclick="toggleTheme()">
           <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
         </button>
+        <a href="../portfolios/portfolio.html" class="user-avatar" title="View Portfolio">
+          <img src="../../assets/images/profile-pic.jpeg" alt="User profile" />
+        </a>
       </div>
     </div>
   </header>
 
   <main class="main-content">
-    <a href="index.html" class="back-link">
-      <span class="material-symbols-outlined">arrow_back</span>
-      Back to {category}
-    </a>
-    <header class="page-header">
-      <p class="eyebrow">{category}</p>
-      <h1>{title}</h1>
-      <p>{description}</p>
+    <header class="page-header page-header--row">
+      <a href="index.html" class="back-link back-link--round" aria-label="Back">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </a>
+      <div class="page-header-inner">
+        <h1>Flask API</h1>
+        <p>Complete developer guide from zero to production-ready REST APIs. Architecture, routing, authentication, database integration, and deployment.</p>
+      </div>
     </header>
-    <div class="topic-content">
-      <p>Content for {title} is under construction.</p>
-    </div>
+
+    <section class="topic-section">
+      <h2>What is Flask? <span class="level-badge basic">Basic</span></h2>
+      <p>Flask is a lightweight, micro web framework written in Python. Created by Armin Ronacher in 2010, it quickly became one of the most popular Python web frameworks for building web applications and RESTful APIs. The "micro" in micro-framework means Flask does not include features like form validation, database abstraction, or authentication by default — you choose what you need.</p>
+      <div class="info-box">
+        <span class="material-symbols-outlined">lightbulb</span>
+        <p>Flask follows the WSGI (Web Server Gateway Interface) standard and uses the Jinja2 templating engine. It gives developers maximum freedom to structure their applications as they see fit, making it ideal for both small microservices and large-scale API platforms.</p>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2>Flask vs Django vs FastAPI</h2>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Flask</th>
+              <th>Django</th>
+              <th>FastAPI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Type</strong></td>
+              <td>Micro-framework</td>
+              <td>Full-stack framework</td>
+              <td>Async framework</td>
+            </tr>
+            <tr>
+              <td><strong>ORM</strong></td>
+              <td>Optional (SQLAlchemy)</td>
+              <td>Built-in (Django ORM)</td>
+              <td>Optional (SQLAlchemy/Tortoise)</td>
+            </tr>
+            <tr>
+              <td><strong>Admin Panel</strong></td>
+              <td>Flask-Admin (plugin)</td>
+              <td>Built-in</td>
+              <td>Not included</td>
+            </tr>
+            <tr>
+              <td><strong>Performance</strong></td>
+              <td>High (sync)</td>
+              <td>Moderate</td>
+              <td>Very High (async)</td>
+            </tr>
+            <tr>
+              <td><strong>Learning Curve</strong></td>
+              <td>Low</td>
+              <td>Medium-High</td>
+              <td>Low-Medium</td>
+            </tr>
+            <tr>
+              <td><strong>Flexibility</strong></td>
+              <td>Maximum</td>
+              <td>Opinionated</td>
+              <td>High</td>
+            </tr>
+            <tr>
+              <td><strong>Best For</strong></td>
+              <td>APIs, microservices</td>
+              <td>Full apps, CMS</td>
+              <td>High-perf APIs</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2>Core Features</h2>
+      <div class="service-grid">
+        <div class="service-card">
+          <h4><span class="material-symbols-outlined">bug_report</span> Development Server</h4>
+          <p>Built-in development server and debugger for rapid iteration during development.</p>
+        </div>
+        <div class="service-card">
+          <h4><span class="material-symbols-outlined">science</span> Unit Testing</h4>
+          <p>Integrated support for unit testing with a built-in test client and fixtures.</p>
+        </div>
+        <div class="service-card">
+          <h4><span class="material-symbols-outlined">route</span> RESTful Routing</h4>
+          <p>RESTful request dispatching with intuitive decorator-based URL mapping.</p>
+        </div>
+        <div class="service-card">
+          <h4><span class="material-symbols-outlined">web</span> Jinja2 Templating</h4>
+          <p>Powerful templating engine for rendering dynamic HTML responses.</p>
+        </div>
+        <div class="service-card">
+          <h4><span class="material-symbols-outlined">cookie</span> Secure Sessions</h4>
+          <p>Secure cookies for client-side sessions with cryptographic signing.</p>
+        </div>
+        <div class="service-card">
+          <h4><span class="material-symbols-outlined">extension</span> Extension Ecosystem</h4>
+          <p>Extensive ecosystem via Flask extensions for SQLAlchemy, JWT, Marshmallow, and more.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2>Application Architecture <span class="level-badge intermediate">Intermediate</span></h2>
+      <p>Flask applications follow a layered architecture pattern. Understanding each layer helps you build scalable, maintainable APIs.</p>
+      <div class="flowchart">
+        <h3>Request-Response Lifecycle</h3>
+        <div class="flow-row">
+          <div class="flow-node">Client sends HTTP request</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-node">WSGI server (Gunicorn)</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-node">Flask app object</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-node">URL routing (Werkzeug)</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-node">before_request hooks</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-node">View function</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-node">after_request hooks</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-node">Response to client</div>
+        </div>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Application Factory Pattern</h3>
+      <p>The recommended way to structure Flask applications is using the application factory pattern, which creates and configures the app in a function:</p>
+      <div class="code-block">
+<code><span class="comment"># app/__init__.py — Application factory pattern</span>
+<span class="keyword">from</span> flask <span class="keyword">import</span> Flask
+<span class="keyword">from</span> .extensions <span class="keyword">import</span> db, jwt, migrate
+<span class="keyword">from</span> .config <span class="keyword">import</span> config_map
+
+<span class="keyword">def</span> <span class="function">create_app</span>(config_name=<span class="string">"development"</span>):
+    <span class="string">"""Application factory — creates and configures the Flask app."""</span>
+    app = Flask(__name__)
+    app.config.from_object(config_map[config_name])
+
+    <span class="comment"># Initialize extensions</span>
+    db.<span class="function">init_app</span>(app)
+    jwt.<span class="function">init_app</span>(app)
+    migrate.<span class="function">init_app</span>(app, db)
+
+    <span class="comment"># Register blueprints</span>
+    <span class="keyword">from</span> .auth <span class="keyword">import</span> auth_bp
+    <span class="keyword">from</span> .api.users <span class="keyword">import</span> users_bp
+    <span class="keyword">from</span> .api.products <span class="keyword">import</span> products_bp
+
+    app.<span class="function">register_blueprint</span>(auth_bp, url_prefix=<span class="string">"/auth"</span>)
+    app.<span class="function">register_blueprint</span>(users_bp, url_prefix=<span class="string">"/api/users"</span>)
+    app.<span class="function">register_blueprint</span>(products_bp, url_prefix=<span class="string">"/api/products"</span>)
+
+    <span class="keyword">return</span> app</code>
+      </div>
+      <div class="info-box">
+        <span class="material-symbols-outlined">info</span>
+        <p><strong>WSGI</strong> — Web Server Gateway Interface (PEP 3333) defines how Python web applications communicate with web servers. Flask acts as a WSGI application, and servers like Gunicorn or uWSGI act as WSGI servers.</p>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2>Installation & Setup <span class="level-badge basic">Basic</span></h2>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Prerequisites</h3>
+      <div class="key-points">
+        <div class="key-point">
+          <h5>Python 3.8+</h5>
+          <p>Minimum required Python version</p>
+        </div>
+        <div class="key-point">
+          <h5>pip</h5>
+          <p>Python package manager</p>
+        </div>
+        <div class="key-point">
+          <h5>Virtual Environment</h5>
+          <p>venv or conda — strongly recommended</p>
+        </div>
+        <div class="key-point">
+          <h5>Code Editor</h5>
+          <p>VS Code or PyCharm</p>
+        </div>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Virtual Environment</h3>
+      <div class="code-block">
+<code><span class="comment"># Create virtual environment</span>
+python -m venv venv
+
+<span class="comment"># Activate — macOS/Linux</span>
+source venv/bin/activate
+
+<span class="comment"># Activate — Windows</span>
+venv\Scripts\activate</code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Install Packages</h3>
+      <div class="code-block">
+<code>pip install flask
+pip install flask-sqlalchemy    <span class="comment"># ORM</span>
+pip install flask-jwt-extended  <span class="comment"># JWT auth</span>
+pip install flask-marshmallow   <span class="comment"># Serialization</span>
+pip install flask-migrate       <span class="comment"># DB migrations</span>
+pip install flask-cors          <span class="comment"># CORS headers</span>
+pip install python-dotenv       <span class="comment"># .env file support</span>
+
+<span class="comment"># Save dependencies</span>
+pip freeze > requirements.txt</code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Recommended Project Structure</h3>
+      <div class="code-block">
+<code>my_api/
+├── app/
+│   ├── __init__.py          <span class="comment"># Application factory</span>
+│   ├── extensions.py        <span class="comment"># db, jwt, ma instances</span>
+│   ├── config.py            <span class="comment"># Config classes</span>
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── user.py          <span class="comment"># User model</span>
+│   │   └── product.py       <span class="comment"># Product model</span>
+│   ├── api/
+│   │   ├── __init__.py
+│   │   ├── users/
+│   │   │   ├── __init__.py  <span class="comment"># Blueprint registration</span>
+│   │   │   ├── routes.py    <span class="comment"># Route handlers</span>
+│   │   │   └── schemas.py   <span class="comment"># Marshmallow schemas</span>
+│   │   └── products/
+│   │       ├── __init__.py
+│   │       ├── routes.py
+│   │       └── schemas.py
+│   └── auth/
+│       ├── __init__.py
+│       └── routes.py
+├── tests/
+│   ├── conftest.py
+│   ├── test_users.py
+│   └── test_auth.py
+├── migrations/              <span class="comment"># Flask-Migrate auto-generated</span>
+├── .env                     <span class="comment"># Environment variables (never commit!)</span>
+├── .env.example
+├── requirements.txt
+├── run.py                   <span class="comment"># Entry point</span>
+└── README.md</code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Configuration</h3>
+      <div class="code-block">
+<code><span class="comment"># app/config.py</span>
+<span class="keyword">import</span> os
+<span class="keyword">from</span> datetime <span class="keyword">import</span> timedelta
+
+<span class="keyword">class</span> <span class="class-name">BaseConfig</span>:
+    <span class="string">"""Base configuration shared across all environments."""</span>
+    SECRET_KEY = os.environ.get(<span class="string">"SECRET_KEY"</span>, <span class="string">"change-me-in-production"</span>)
+    SQLALCHEMY_TRACK_MODIFICATIONS = <span class="keyword">False</span>
+    JWT_ACCESS_TOKEN_EXPIRES = timedelta(hours=<span class="number">1</span>)
+    JSON_SORT_KEYS = <span class="keyword">False</span>
+
+<span class="keyword">class</span> <span class="class-name">DevelopmentConfig</span>(BaseConfig):
+    DEBUG = <span class="keyword">True</span>
+    SQLALCHEMY_DATABASE_URI = os.environ.get(<span class="string">"DEV_DATABASE_URL"</span>, <span class="string">"sqlite:///dev.db"</span>)
+
+<span class="keyword">class</span> <span class="class-name">ProductionConfig</span>(BaseConfig):
+    DEBUG = <span class="keyword">False</span>
+    SQLALCHEMY_DATABASE_URI = os.environ.get(<span class="string">"DATABASE_URL"</span>)
+    JWT_COOKIE_SECURE = <span class="keyword">True</span>
+
+<span class="keyword">class</span> <span class="class-name">TestingConfig</span>(BaseConfig):
+    TESTING = <span class="keyword">True</span>
+    SQLALCHEMY_DATABASE_URI = <span class="string">"sqlite:///:memory:"</span>
+
+config_map = {
+    <span class="string">"development"</span>: DevelopmentConfig,
+    <span class="string">"production"</span>: ProductionConfig,
+    <span class="string">"testing"</span>: TestingConfig,
+}</code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Environment Variables</h3>
+      <div class="code-block">
+<code><span class="comment"># .env — Never commit this file to version control</span>
+FLASK_APP=run.py
+FLASK_ENV=development
+FLASK_DEBUG=<span class="number">1</span>
+SECRET_KEY=your-very-secret-key-here
+DEV_DATABASE_URL=postgresql://user:password@localhost:<span class="number">5432</span>/mydb
+JWT_SECRET_KEY=another-super-secret-key</code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Entry Point</h3>
+      <div class="code-block">
+<code><span class="comment"># run.py</span>
+<span class="keyword">from</span> dotenv <span class="keyword">import</span> load_dotenv
+<span class="keyword">import</span> os
+
+<span class="function">load_dotenv</span>()
+
+<span class="keyword">from</span> app <span class="keyword">import</span> create_app
+
+app = <span class="function">create_app</span>(os.environ.get(<span class="string">"FLASK_ENV"</span>, <span class="string">"development"</span>))
+
+<span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:
+    app.<span class="function">run</span>(host=<span class="string">"0.0.0.0"</span>, port=<span class="number">5000</span>)</code>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2>Routing & URL Rules <span class="level-badge basic">Basic</span></h2>
+      <p>Routes map URL patterns to Python functions (view functions). Flask uses decorators to define routes on the application object or a Blueprint.</p>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Basic Routing</h3>
+      <div class="code-block">
+<code><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, jsonify
+app = Flask(__name__)
+
+<span class="comment"># Basic route — GET /hello</span>
+<span class="decorator">@app.route</span>(<span class="string">"/hello"</span>)
+<span class="keyword">def</span> <span class="function">hello</span>():
+    <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"message"</span>: <span class="string">"Hello, World!"</span>})
+
+<span class="comment"># Route with methods specified</span>
+<span class="decorator">@app.route</span>(<span class="string">"/users"</span>, methods=[<span class="string">"GET"</span>, <span class="string">"POST"</span>])
+<span class="keyword">def</span> <span class="function">users</span>():
+    <span class="keyword">if</span> request.method == <span class="string">"GET"</span>:
+        <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"users"</span>: []})
+    <span class="comment"># POST handling...</span></code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Dynamic Routes</h3>
+      <div class="code-block">
+<code><span class="comment"># String (default) — /user/john</span>
+<span class="decorator">@app.route</span>(<span class="string">"/user/<username>"</span>)
+<span class="keyword">def</span> <span class="function">get_user</span>(username):
+    <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"user"</span>: username})
+
+<span class="comment"># Integer — /post/42</span>
+<span class="decorator">@app.route</span>(<span class="string">"/post/<int:post_id>"</span>)
+<span class="keyword">def</span> <span class="function">get_post</span>(post_id):
+    <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"post_id"</span>: post_id})
+
+<span class="comment"># Float — /price/9.99</span>
+<span class="decorator">@app.route</span>(<span class="string">"/price/<float:amount>"</span>)
+<span class="keyword">def</span> <span class="function">get_price</span>(amount):
+    <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"price"</span>: amount})
+
+<span class="comment"># UUID — /item/550e8400-e29b-41d4-a716-446655440000</span>
+<span class="decorator">@app.route</span>(<span class="string">"/item/<uuid:item_id>"</span>)
+<span class="keyword">def</span> <span class="function">get_item</span>(item_id):
+    <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"id"</span>: <span class="function">str</span>(item_id)})
+
+<span class="comment"># Path — /files/images/logo.png (includes slashes)</span>
+<span class="decorator">@app.route</span>(<span class="string">"/files/<path:filename>"</span>)
+<span class="keyword">def</span> <span class="function">serve_file</span>(filename):
+    <span class="keyword">return</span> <span class="function">send_from_directory</span>(<span class="string">"uploads"</span>, filename)</code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">URL Converters Reference</h3>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Converter</th>
+              <th>Description</th>
+              <th>Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>&lt;string:x&gt;</code></td>
+              <td>Default. Accepts any text without a slash</td>
+              <td><code>/user/&lt;string:name&gt;</code></td>
+            </tr>
+            <tr>
+              <td><code>&lt;int:x&gt;</code></td>
+              <td>Accepts positive integers</td>
+              <td><code>/page/&lt;int:num&gt;</code></td>
+            </tr>
+            <tr>
+              <td><code>&lt;float:x&gt;</code></td>
+              <td>Accepts positive floating-point values</td>
+              <td><code>/price/&lt;float:val&gt;</code></td>
+            </tr>
+            <tr>
+              <td><code>&lt;path:x&gt;</code></td>
+              <td>Like string but accepts slashes</td>
+              <td><code>/files/&lt;path:filepath&gt;</code></td>
+            </tr>
+            <tr>
+              <td><code>&lt;uuid:x&gt;</code></td>
+              <td>Accepts UUID strings</td>
+              <td><code>/resource/&lt;uuid:uid&gt;</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">URL Building with url_for()</h3>
+      <div class="code-block">
+<code><span class="keyword">from</span> flask <span class="keyword">import</span> url_for
+
+<span class="keyword">with</span> app.<span class="function">test_request_context</span>():
+    <span class="comment"># Simple URL</span>
+    <span class="function">print</span>(<span class="function">url_for</span>(<span class="string">"get_user"</span>, username=<span class="string">"john"</span>))
+    <span class="comment"># /user/john</span>
+
+    <span class="comment"># With query string</span>
+    <span class="function">print</span>(<span class="function">url_for</span>(<span class="string">"get_users"</span>, page=<span class="number">2</span>, limit=<span class="number">10</span>))
+    <span class="comment"># /users?page=2&limit=10</span>
+
+    <span class="comment"># Blueprint route: blueprint_name.view_function</span>
+    <span class="function">print</span>(<span class="function">url_for</span>(<span class="string">"users.get_user"</span>, user_id=<span class="number">42</span>))
+    <span class="comment"># /api/users/42</span>
+
+    <span class="comment"># Absolute URL (for emails, redirects)</span>
+    <span class="function">print</span>(<span class="function">url_for</span>(<span class="string">"index"</span>, _external=<span class="keyword">True</span>))
+    <span class="comment"># http://localhost:5000/</span></code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Redirects and URL Uniqueness</h3>
+      <div class="code-block">
+<code><span class="comment"># Trailing slash = canonical URL with redirect</span>
+<span class="comment"># /projects/ → accessing /projects redirects to /projects/</span>
+<span class="decorator">@app.route</span>(<span class="string">"/projects/"</span>)
+<span class="keyword">def</span> <span class="function">projects</span>():
+    <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"projects"</span>: []})
+
+<span class="comment"># No trailing slash = strict URL (404 if / appended)</span>
+<span class="decorator">@app.route</span>(<span class="string">"/about"</span>)
+<span class="keyword">def</span> <span class="function">about</span>():
+    <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"page"</span>: <span class="string">"about"</span>})
+
+<span class="comment"># Manual redirect</span>
+<span class="keyword">from</span> flask <span class="keyword">import</span> redirect
+
+<span class="decorator">@app.route</span>(<span class="string">"/old-endpoint"</span>)
+<span class="keyword">def</span> <span class="function">old_endpoint</span>():
+    <span class="keyword">return</span> <span class="function">redirect</span>(<span class="function">url_for</span>(<span class="string">"new_endpoint"</span>), <span class="number">301</span>)</code>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2>HTTP Methods <span class="level-badge intermediate">Intermediate</span></h2>
+      <div class="bento-grid">
+        <div class="bento-card medium">
+          <div class="card-icon primary">
+            <span class="material-symbols-outlined">visibility</span>
+          </div>
+          <h3>GET</h3>
+          <p>Retrieve resources. Idempotent — same request returns same result. Should never modify server state.</p>
+        </div>
+        <div class="bento-card medium">
+          <div class="card-icon primary">
+            <span class="material-symbols-outlined">add_circle</span>
+          </div>
+          <h3>POST</h3>
+          <p>Create resources. NOT idempotent. Request body contains new resource data. Response returns 201 Created.</p>
+        </div>
+        <div class="bento-card medium">
+          <div class="card-icon primary">
+            <span class="material-symbols-outlined">update</span>
+          </div>
+          <h3>PUT</h3>
+          <p>Replace resources entirely. All fields should be provided. Can also create if resource does not exist (upsert).</p>
+        </div>
+        <div class="bento-card medium">
+          <div class="card-icon primary">
+            <span class="material-symbols-outlined">edit</span>
+          </div>
+          <h3>PATCH</h3>
+          <p>Partial update — only provided fields change. More efficient than PUT when only a few fields need updating.</p>
+        </div>
+        <div class="bento-card medium">
+          <div class="card-icon primary">
+            <span class="material-symbols-outlined">delete</span>
+          </div>
+          <h3>DELETE</h3>
+          <p>Remove resources. Idempotent — deleting the same resource twice should return 404 on the second call.</p>
+        </div>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">HTTP Status Codes Reference</h3>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Status</th>
+              <th>When to Use</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>200</strong></td>
+              <td>OK</td>
+              <td>Successful GET, PUT, PATCH, DELETE</td>
+            </tr>
+            <tr>
+              <td><strong>201</strong></td>
+              <td>Created</td>
+              <td>Successful POST (resource created)</td>
+            </tr>
+            <tr>
+              <td><strong>204</strong></td>
+              <td>No Content</td>
+              <td>DELETE success (no body returned)</td>
+            </tr>
+            <tr>
+              <td><strong>400</strong></td>
+              <td>Bad Request</td>
+              <td>Malformed request / missing fields</td>
+            </tr>
+            <tr>
+              <td><strong>401</strong></td>
+              <td>Unauthorized</td>
+              <td>Authentication required or failed</td>
+            </tr>
+            <tr>
+              <td><strong>403</strong></td>
+              <td>Forbidden</td>
+              <td>Authenticated but not authorized</td>
+            </tr>
+            <tr>
+              <td><strong>404</strong></td>
+              <td>Not Found</td>
+              <td>Resource does not exist</td>
+            </tr>
+            <tr>
+              <td><strong>409</strong></td>
+              <td>Conflict</td>
+              <td>Resource already exists / version conflict</td>
+            </tr>
+            <tr>
+              <td><strong>422</strong></td>
+              <td>Unprocessable Entity</td>
+              <td>Validation errors in body</td>
+            </tr>
+            <tr>
+              <td><strong>429</strong></td>
+              <td>Too Many Requests</td>
+              <td>Rate limit exceeded</td>
+            </tr>
+            <tr>
+              <td><strong>500</strong></td>
+              <td>Internal Server Error</td>
+              <td>Unexpected server-side error</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">GET — List with Pagination</h3>
+      <div class="code-block">
+<code><span class="comment"># GET /api/users — list with pagination and filtering</span>
+<span class="decorator">@users_bp.route</span>(<span class="string">"/"</span>, methods=[<span class="string">"GET"</span>])
+<span class="keyword">def</span> <span class="function">list_users</span>():
+    page     = request.args.get(<span class="string">"page"</span>, <span class="number">1</span>, type=<span class="keyword">int</span>)
+    per_page = request.args.get(<span class="string">"per_page"</span>, <span class="number">20</span>, type=<span class="keyword">int</span>)
+    search   = request.args.get(<span class="string">"q"</span>, <span class="string">""</span>, type=<span class="keyword">str</span>)
+
+    query = User.query
+    <span class="keyword">if</span> search:
+        query = query.<span class="function">filter</span>(User.name.<span class="function">ilike</span>(<span class="string">f"%{search}%"</span>))
+
+    paginated = query.<span class="function">paginate</span>(page=page, per_page=per_page, error_out=<span class="keyword">False</span>)
+
+    <span class="keyword">return</span> <span class="function">jsonify</span>({
+        <span class="string">"users"</span>:    [u.<span class="function">to_dict</span>() <span class="keyword">for</span> u <span class="keyword">in</span> paginated.items],
+        <span class="string">"total"</span>:    paginated.total,
+        <span class="string">"page"</span>:     paginated.page,
+        <span class="string">"pages"</span>:    paginated.pages,
+        <span class="string">"per_page"</span>: paginated.per_page,
+    }), <span class="number">200</span></code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">POST — Create Resource</h3>
+      <div class="code-block">
+<code><span class="comment"># POST /api/users — create new user</span>
+<span class="decorator">@users_bp.route</span>(<span class="string">"/"</span>, methods=[<span class="string">"POST"</span>])
+<span class="keyword">def</span> <span class="function">create_user</span>():
+    data = request.<span class="function">get_json</span>()
+    <span class="keyword">if</span> <span class="keyword">not</span> data:
+        <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"error"</span>: <span class="string">"No JSON body provided"</span>}), <span class="number">400</span>
+
+    <span class="comment"># Validate with schema</span>
+    schema = <span class="function">UserCreateSchema</span>()
+    <span class="keyword">try</span>:
+        validated = schema.<span class="function">load</span>(data)
+    <span class="keyword">except</span> ValidationError <span class="keyword">as</span> e:
+        <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"errors"</span>: e.messages}), <span class="number">422</span>
+
+    <span class="keyword">if</span> User.query.<span class="function">filter_by</span>(email=validated[<span class="string">"email"</span>]).<span class="function">first</span>():
+        <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"error"</span>: <span class="string">"Email already registered"</span>}), <span class="number">409</span>
+
+    user = <span class="function">User</span>(**validated)
+    user.<span class="function">set_password</span>(validated[<span class="string">"password"</span>])
+    db.session.<span class="function">add</span>(user)
+    db.session.<span class="function">commit</span>()
+
+    <span class="keyword">return</span> <span class="function">jsonify</span>({
+        <span class="string">"message"</span>: <span class="string">"User created successfully"</span>,
+        <span class="string">"user"</span>:    user.<span class="function">to_dict</span>()
+    }), <span class="number">201</span></code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">PUT & PATCH — Update Resources</h3>
+      <div class="code-block">
+<code><span class="comment"># PUT — full replacement</span>
+<span class="decorator">@users_bp.route</span>(<span class="string">"/<int:user_id>"</span>, methods=[<span class="string">"PUT"</span>])
+<span class="keyword">def</span> <span class="function">update_user</span>(user_id):
+    user = User.query.<span class="function">get_or_404</span>(user_id)
+    data = request.<span class="function">get_json</span>()
+    schema = <span class="function">UserUpdateSchema</span>()
+    <span class="keyword">try</span>:
+        validated = schema.<span class="function">load</span>(data)
+    <span class="keyword">except</span> ValidationError <span class="keyword">as</span> e:
+        <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"errors"</span>: e.messages}), <span class="number">422</span>
+    <span class="keyword">for</span> key, value <span class="keyword">in</span> validated.<span class="function">items</span>():
+        <span class="function">setattr</span>(user, key, value)
+    db.session.<span class="function">commit</span>()
+    <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"message"</span>: <span class="string">"User updated"</span>, <span class="string">"user"</span>: user.<span class="function">to_dict</span>()}), <span class="number">200</span>
+
+<span class="comment"># PATCH — partial update</span>
+<span class="decorator">@users_bp.route</span>(<span class="string">"/<int:user_id>"</span>, methods=[<span class="string">"PATCH"</span>])
+<span class="keyword">def</span> <span class="function">partial_update_user</span>(user_id):
+    user = User.query.<span class="function">get_or_404</span>(user_id)
+    data = request.<span class="function">get_json</span>()
+    schema = <span class="function">UserUpdateSchema</span>(partial=<span class="keyword">True</span>)
+    <span class="keyword">try</span>:
+        validated = schema.<span class="function">load</span>(data)
+    <span class="keyword">except</span> ValidationError <span class="keyword">as</span> e:
+        <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"errors"</span>: e.messages}), <span class="number">422</span>
+    <span class="keyword">for</span> key, value <span class="keyword">in</span> validated.<span class="function">items</span>():
+        <span class="function">setattr</span>(user, key, value)
+    db.session.<span class="function">commit</span>()
+    <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"message"</span>: <span class="string">"User patched"</span>, <span class="string">"user"</span>: user.<span class="function">to_dict</span>()}), <span class="number">200</span></code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">DELETE — Remove Resource</h3>
+      <div class="code-block">
+<code><span class="decorator">@users_bp.route</span>(<span class="string">"/<int:user_id>"</span>, methods=[<span class="string">"DELETE"</span>])
+<span class="keyword">def</span> <span class="function">delete_user</span>(user_id):
+    user = User.query.<span class="function">get_or_404</span>(user_id)
+    db.session.<span class="function">delete</span>(user)
+    db.session.<span class="function">commit</span>()
+    <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"message"</span>: <span class="string">f"User {user_id} deleted"</span>}), <span class="number">200</span>
+    <span class="comment"># Alternative: return 204 No Content</span>
+    <span class="comment"># return "", 204</span></code>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2>Request & Response Objects <span class="level-badge intermediate">Intermediate</span></h2>
+      <p>Flask provides a thread-local request object that contains all data from the incoming HTTP request.</p>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">The Request Object</h3>
+      <div class="code-block">
+<code><span class="keyword">from</span> flask <span class="keyword">import</span> request
+
+<span class="decorator">@app.route</span>(<span class="string">"/demo"</span>, methods=[<span class="string">"GET"</span>, <span class="string">"POST"</span>])
+<span class="keyword">def</span> <span class="function">demo</span>():
+    <span class="comment"># URL Query Parameters</span>
+    page  = request.args.get(<span class="string">"page"</span>, <span class="number">1</span>, type=<span class="keyword">int</span>)
+    q     = request.args.get(<span class="string">"q"</span>, <span class="string">""</span>)
+    tags  = request.args.<span class="function">getlist</span>(<span class="string">"tag"</span>)
+
+    <span class="comment"># Request Body</span>
+    json_data  = request.<span class="function">get_json</span>()
+    form_data  = request.form.<span class="function">get</span>(<span class="string">"username"</span>)
+    raw_body   = request.data
+
+    <span class="comment"># Headers</span>
+    auth   = request.headers.<span class="function">get</span>(<span class="string">"Authorization"</span>)
+    ctype  = request.headers.<span class="function">get</span>(<span class="string">"Content-Type"</span>)
+    ua     = request.user_agent.string
+
+    <span class="comment"># Files</span>
+    file = request.files.<span class="function">get</span>(<span class="string">"avatar"</span>)
+    <span class="keyword">if</span> file <span class="keyword">and</span> file.filename:
+        file.<span class="function">save</span>(<span class="string">f"/uploads/{file.filename}"</span>)
+
+    <span class="comment"># Meta</span>
+    <span class="function">print</span>(request.method)       <span class="comment"># GET, POST, etc.</span>
+    <span class="function">print</span>(request.url)          <span class="comment"># Full URL</span>
+    <span class="function">print</span>(request.path)         <span class="comment"># /demo</span>
+    <span class="function">print</span>(request.remote_addr)  <span class="comment"># Client IP</span>
+    <span class="function">print</span>(request.is_json)      <span class="comment"># True if JSON content</span>
+
+    <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"received"</span>: <span class="keyword">True</span>})</code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Building Responses</h3>
+      <div class="code-block">
+<code><span class="keyword">from</span> flask <span class="keyword">import</span> jsonify, make_response, Response
+
+<span class="comment"># Simple JSON response</span>
+<span class="decorator">@app.route</span>(<span class="string">"/simple"</span>)
+<span class="keyword">def</span> <span class="function">simple</span>():
+    <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"key"</span>: <span class="string">"value"</span>})
+
+<span class="comment"># With explicit status code</span>
+<span class="decorator">@app.route</span>(<span class="string">"/created"</span>)
+<span class="keyword">def</span> <span class="function">created</span>():
+    <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"id"</span>: <span class="number">1</span>}), <span class="number">201</span>
+
+<span class="comment"># make_response — full control over headers</span>
+<span class="decorator">@app.route</span>(<span class="string">"/custom"</span>)
+<span class="keyword">def</span> <span class="function">custom</span>():
+    response = <span class="function">make_response</span>(<span class="function">jsonify</span>({<span class="string">"data"</span>: <span class="string">"value"</span>}), <span class="number">200</span>)
+    response.headers[<span class="string">"X-Custom-Header"</span>]  = <span class="string">"Hello"</span>
+    response.headers[<span class="string">"Cache-Control"</span>]    = <span class="string">"no-cache"</span>
+    <span class="keyword">return</span> response
+
+<span class="comment"># Streaming response (large files/data)</span>
+<span class="decorator">@app.route</span>(<span class="string">"/stream"</span>)
+<span class="keyword">def</span> <span class="function">stream</span>():
+    <span class="keyword">def</span> <span class="function">generate</span>():
+        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(<span class="number">1000</span>):
+            <span class="keyword">yield</span> <span class="string">f"data: {i}\n\n"</span>
+    <span class="keyword">return</span> <span class="function">Response</span>(<span class="function">generate</span>(), mimetype=<span class="string">"text/event-stream"</span>)
+
+<span class="comment"># File download</span>
+<span class="keyword">from</span> flask <span class="keyword">import</span> send_file
+
+<span class="decorator">@app.route</span>(<span class="string">"/download"</span>)
+<span class="keyword">def</span> <span class="function">download</span>():
+    <span class="keyword">return</span> <span class="function">send_file</span>(<span class="string">"reports/monthly.pdf"</span>,
+                     as_attachment=<span class="keyword">True</span>,
+                     download_name=<span class="string">"report.pdf"</span>)</code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Consistent API Response Pattern</h3>
+      <div class="code-block">
+<code><span class="keyword">def</span> <span class="function">api_response</span>(data=<span class="keyword">None</span>, message=<span class="string">"Success"</span>, status=<span class="number">200</span>, errors=<span class="keyword">None</span>):
+    <span class="string">"""Standard API response wrapper."""</span>
+    payload = {
+        <span class="string">"status"</span>:  <span class="string">"success"</span> <span class="keyword">if</span> status < <span class="number">400</span> <span class="keyword">else</span> <span class="string">"error"</span>,
+        <span class="string">"message"</span>: message,
+    }
+    <span class="keyword">if</span> data <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:
+        payload[<span class="string">"data"</span>] = data
+    <span class="keyword">if</span> errors:
+        payload[<span class="string">"errors"</span>] = errors
+    <span class="keyword">return</span> <span class="function">jsonify</span>(payload), status</code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">File Uploads</h3>
+      <div class="code-block">
+<code><span class="keyword">import</span> os
+<span class="keyword">from</span> werkzeug.utils <span class="keyword">import</span> secure_filename
+
+UPLOAD_FOLDER  = <span class="string">"/var/uploads"</span>
+ALLOWED_EXTS   = {<span class="string">"png"</span>, <span class="string">"jpg"</span>, <span class="string">"jpeg"</span>, <span class="string">"gif"</span>, <span class="string">"pdf"</span>}
+
+<span class="keyword">def</span> <span class="function">allowed_file</span>(filename):
+    <span class="keyword">return</span> <span class="string">"."</span> <span class="keyword">in</span> filename <span class="keyword">and</span> \
+           filename.<span class="function">rsplit</span>(<span class="string">"."</span>, <span class="number">1</span>)[<span class="number">1</span>].<span class="function">lower</span>() <span class="keyword">in</span> ALLOWED_EXTS
+
+<span class="decorator">@app.route</span>(<span class="string">"/upload"</span>, methods=[<span class="string">"POST"</span>])
+<span class="keyword">def</span> <span class="function">upload_file</span>():
+    <span class="keyword">if</span> <span class="string">"file"</span> <span class="keyword">not</span> <span class="keyword">in</span> request.files:
+        <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"error"</span>: <span class="string">"No file part"</span>}), <span class="number">400</span>
+    file = request.files[<span class="string">"file"</span>]
+    <span class="keyword">if</span> file.filename == <span class="string">""</span>:
+        <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"error"</span>: <span class="string">"No file selected"</span>}), <span class="number">400</span>
+    <span class="keyword">if</span> file <span class="keyword">and</span> <span class="function">allowed_file</span>(file.filename):
+        filename = <span class="function">secure_filename</span>(file.filename)
+        filepath = os.path.<span class="function">join</span>(UPLOAD_FOLDER, filename)
+        file.<span class="function">save</span>(filepath)
+        <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"message"</span>: <span class="string">"Uploaded"</span>, <span class="string">"path"</span>: filename}), <span class="number">201</span>
+    <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"error"</span>: <span class="string">"File type not allowed"</span>}), <span class="number">415</span></code>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2>Blueprints — Modular Applications <span class="level-badge intermediate">Intermediate</span></h2>
+      <p>Blueprints allow you to organize your Flask application into reusable, modular components. Each blueprint can have its own routes, templates, static files, and error handlers.</p>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Creating a Blueprint</h3>
+      <div class="code-block">
+<code><span class="comment"># app/api/users/__init__.py</span>
+<span class="keyword">from</span> flask <span class="keyword">import</span> Blueprint
+
+users_bp = <span class="function">Blueprint</span>(
+    <span class="string">"users"</span>,          <span class="comment"># Blueprint name — used in url_for()</span>
+    __name__,         <span class="comment"># Import name</span>
+    url_prefix=<span class="string">"/api/users"</span>  <span class="comment"># Optional, can also be set when registering</span>
+)
+
+<span class="comment"># Import routes AFTER creating blueprint to avoid circular imports</span>
+<span class="keyword">from</span> . <span class="keyword">import</span> routes</code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Blueprint Routes</h3>
+      <div class="code-block">
+<code><span class="comment"># app/api/users/routes.py</span>
+<span class="keyword">from</span> flask <span class="keyword">import</span> jsonify, request
+<span class="keyword">from</span> app.extensions <span class="keyword">import</span> db
+<span class="keyword">from</span> app.models.user <span class="keyword">import</span> User
+<span class="keyword">from</span> . <span class="keyword">import</span> users_bp
+
+<span class="decorator">@users_bp.route</span>(<span class="string">"/"</span>, methods=[<span class="string">"GET"</span>])
+<span class="keyword">def</span> <span class="function">list_users</span>():
+    users = User.query.<span class="function">all</span>()
+    <span class="keyword">return</span> <span class="function">jsonify</span>([u.<span class="function">to_dict</span>() <span class="keyword">for</span> u <span class="keyword">in</span> users])
+
+<span class="decorator">@users_bp.route</span>(<span class="string">"/<int:user_id>"</span>, methods=[<span class="string">"GET"</span>])
+<span class="keyword">def</span> <span class="function">get_user</span>(user_id):
+    user = User.query.<span class="function">get_or_404</span>(user_id)
+    <span class="keyword">return</span> <span class="function">jsonify</span>(user.<span class="function">to_dict</span>())
+
+<span class="decorator">@users_bp.route</span>(<span class="string">"/<int:user_id>"</span>, methods=[<span class="string">"DELETE"</span>])
+<span class="keyword">def</span> <span class="function">delete_user</span>(user_id):
+    user = User.query.<span class="function">get_or_404</span>(user_id)
+    db.session.<span class="function">delete</span>(user)
+    db.session.<span class="function">commit</span>()
+    <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"message"</span>: <span class="string">"Deleted"</span>}), <span class="number">200</span></code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Registering Blueprints</h3>
+      <div class="code-block">
+<code><span class="comment"># app/__init__.py</span>
+<span class="keyword">def</span> <span class="function">create_app</span>(config_name=<span class="string">"development"</span>):
+    app = Flask(__name__)
+    app.config.from_object(config_map[config_name])
+    db.<span class="function">init_app</span>(app)
+
+    <span class="keyword">from</span> .auth.routes       <span class="keyword">import</span> auth_bp
+    <span class="keyword">from</span> .api.users         <span class="keyword">import</span> users_bp
+    <span class="keyword">from</span> .api.products      <span class="keyword">import</span> products_bp
+    <span class="keyword">from</span> .api.orders        <span class="keyword">import</span> orders_bp
+
+    app.<span class="function">register_blueprint</span>(auth_bp,     url_prefix=<span class="string">"/auth"</span>)
+    app.<span class="function">register_blueprint</span>(users_bp,    url_prefix=<span class="string">"/api/v1/users"</span>)
+    app.<span class="function">register_blueprint</span>(products_bp, url_prefix=<span class="string">"/api/v1/products"</span>)
+    app.<span class="function">register_blueprint</span>(orders_bp,   url_prefix=<span class="string">"/api/v1/orders"</span>)
+
+    <span class="keyword">return</span> app</code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Blueprint-Level Error Handlers</h3>
+      <div class="code-block">
+<code><span class="decorator">@users_bp.errorhandler</span>(<span class="number">404</span>)
+<span class="keyword">def</span> <span class="function">user_not_found</span>(error):
+    <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"error"</span>: <span class="string">"User not found"</span>, <span class="string">"code"</span>: <span class="number">404</span>}), <span class="number">404</span>
+
+<span class="decorator">@users_bp.errorhandler</span>(<span class="number">403</span>)
+<span class="keyword">def</span> <span class="function">user_forbidden</span>(error):
+    <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"error"</span>: <span class="string">"Access denied"</span>, <span class="string">"code"</span>: <span class="number">403</span>}), <span class="number">403</span></code>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2>Database Integration with SQLAlchemy <span class="level-badge intermediate">Intermediate</span></h2>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Setting Up Extensions</h3>
+      <div class="code-block">
+<code><span class="comment"># app/extensions.py</span>
+<span class="keyword">from</span> flask_sqlalchemy <span class="keyword">import</span> SQLAlchemy
+<span class="keyword">from</span> flask_migrate <span class="keyword">import</span> Migrate
+<span class="keyword">from</span> flask_marshmallow <span class="keyword">import</span> Marshmallow
+
+db      = <span class="function">SQLAlchemy</span>()
+migrate = <span class="function">Migrate</span>()
+ma      = <span class="function">Marshmallow</span>()</code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Defining Models</h3>
+      <div class="code-block">
+<code><span class="comment"># app/models/user.py</span>
+<span class="keyword">from</span> app.extensions <span class="keyword">import</span> db
+<span class="keyword">from</span> datetime <span class="keyword">import</span> datetime
+<span class="keyword">from</span> werkzeug.security <span class="keyword">import</span> generate_password_hash, check_password_hash
+
+<span class="keyword">class</span> <span class="class-name">User</span>(db.Model):
+    __tablename__ = <span class="string">"users"</span>
+
+    id         = db.Column(db.Integer, primary_key=<span class="keyword">True</span>)
+    username   = db.Column(db.String(<span class="number">80</span>),  unique=<span class="keyword">True</span>, nullable=<span class="keyword">False</span>)
+    email      = db.Column(db.String(<span class="number">120</span>), unique=<span class="keyword">True</span>, nullable=<span class="keyword">False</span>)
+    password   = db.Column(db.String(<span class="number">255</span>), nullable=<span class="keyword">False</span>)
+    role       = db.Column(db.String(<span class="number">20</span>),  default=<span class="string">"user"</span>)
+    is_active  = db.Column(db.Boolean,     default=<span class="keyword">True</span>)
+    created_at = db.Column(db.DateTime,    default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime,    default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    <span class="comment"># Relationship — one user has many posts</span>
+    posts = db.<span class="function">relationship</span>(<span class="string">"Post"</span>, backref=<span class="string">"author"</span>, lazy=<span class="string">"dynamic"</span>,
+                            cascade=<span class="string">"all, delete-orphan"</span>)
+
+    <span class="keyword">def</span> <span class="function">set_password</span>(<span class="method">self</span>, password: <span class="keyword">str</span>):
+        <span class="method">self</span>.password = <span class="function">generate_password_hash</span>(password)
+
+    <span class="keyword">def</span> <span class="function">check_password</span>(<span class="method">self</span>, password: <span class="keyword">str</span>) -> <span class="keyword">bool</span>:
+        <span class="keyword">return</span> <span class="function">check_password_hash</span>(<span class="method">self</span>.password, password)
+
+    <span class="keyword">def</span> <span class="function">to_dict</span>(<span class="method">self</span>):
+        <span class="keyword">return</span> {
+            <span class="string">"id"</span>:         <span class="method">self</span>.id,
+            <span class="string">"username"</span>:   <span class="method">self</span>.username,
+            <span class="string">"email"</span>:      <span class="method">self</span>.email,
+            <span class="string">"role"</span>:       <span class="method">self</span>.role,
+            <span class="string">"is_active"</span>:  <span class="method">self</span>.is_active,
+            <span class="string">"created_at"</span>: <span class="method">self</span>.created_at.<span class="function">isoformat</span>(),
+        }</code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Relationships & Foreign Keys</h3>
+      <div class="code-block">
+<code><span class="comment"># Many-to-many association table</span>
+post_tags = db.<span class="function">Table</span>(<span class="string">"post_tags"</span>,
+    db.Column(<span class="string">"post_id"</span>, db.Integer, db.ForeignKey(<span class="string">"posts.id"</span>), primary_key=<span class="keyword">True</span>),
+    db.Column(<span class="string">"tag_id"</span>,  db.Integer, db.ForeignKey(<span class="string">"tags.id"</span>),  primary_key=<span class="keyword">True</span>)
+)
+
+<span class="keyword">class</span> <span class="class-name">Post</span>(db.Model):
+    __tablename__ = <span class="string">"posts"</span>
+    id         = db.Column(db.Integer,    primary_key=<span class="keyword">True</span>)
+    title      = db.Column(db.String(<span class="number">200</span>), nullable=<span class="keyword">False</span>)
+    body       = db.Column(db.Text)
+    user_id    = db.Column(db.Integer, db.ForeignKey(<span class="string">"users.id"</span>), nullable=<span class="keyword">False</span>)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    <span class="comment"># Many-to-many with Tag</span>
+    tags = db.<span class="function">relationship</span>(<span class="string">"Tag"</span>, secondary=post_tags, backref=<span class="string">"posts"</span>)</code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Database Migrations</h3>
+      <div class="code-block">
+<code><span class="comment"># Initialize migration repository (once)</span>
+flask db init
+
+<span class="comment"># Auto-generate migration from model changes</span>
+flask db migrate -m <span class="string">"add users table"</span>
+
+<span class="comment"># Apply migration to database</span>
+flask db upgrade
+
+<span class="comment"># Rollback last migration</span>
+flask db downgrade
+
+<span class="comment"># View migration history</span>
+flask db history</code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">CRUD Query Patterns</h3>
+      <div class="code-block">
+<code><span class="comment"># CREATE</span>
+user = <span class="function">User</span>(username=<span class="string">"john"</span>, email=<span class="string">"john@example.com"</span>)
+user.<span class="function">set_password</span>(<span class="string">"secret123"</span>)
+db.session.<span class="function">add</span>(user)
+db.session.<span class="function">commit</span>()
+
+<span class="comment"># READ</span>
+all_users   = User.query.<span class="function">all</span>()
+user        = User.query.<span class="function">get</span>(user_id)
+user        = User.query.<span class="function">get_or_404</span>(user_id)
+user        = User.query.<span class="function">filter_by</span>(email=<span class="string">"j@x.com"</span>).<span class="function">first</span>()
+active      = User.query.<span class="function">filter</span>(User.is_active == <span class="keyword">True</span>).<span class="function">all</span>()
+count       = User.query.<span class="function">count</span>()
+
+<span class="comment"># Chained filters + ordering + pagination</span>
+users = (User.query
+         .<span class="function">filter</span>(User.is_active == <span class="keyword">True</span>)
+         .<span class="function">filter</span>(User.username.<span class="function">ilike</span>(<span class="string">"%john%"</span>))
+         .<span class="function">order_by</span>(User.created_at.<span class="function">desc</span>())
+         .<span class="function">paginate</span>(page=<span class="number">1</span>, per_page=<span class="number">20</span>))
+
+<span class="comment"># UPDATE</span>
+user = User.query.<span class="function">get_or_404</span>(<span class="number">1</span>)
+user.email = <span class="string">"newemail@example.com"</span>
+db.session.<span class="function">commit</span>()
+
+<span class="comment"># Bulk update</span>
+User.query.<span class="function">filter_by</span>(role=<span class="string">"user"</span>).<span class="function">update</span>({<span class="string">"is_active"</span>: <span class="keyword">False</span>})
+db.session.<span class="function">commit</span>()
+
+<span class="comment"># DELETE</span>
+user = User.query.<span class="function">get_or_404</span>(<span class="number">1</span>)
+db.session.<span class="function">delete</span>(user)
+db.session.<span class="function">commit</span>()</code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Marshmallow Schemas</h3>
+      <div class="code-block">
+<code><span class="comment"># app/api/users/schemas.py</span>
+<span class="keyword">from</span> app.extensions <span class="keyword">import</span> ma
+<span class="keyword">from</span> app.models.user <span class="keyword">import</span> User
+<span class="keyword">from</span> marshmallow <span class="keyword">import</span> fields, validate, validates, ValidationError
+
+<span class="keyword">class</span> <span class="class-name">UserSchema</span>(ma.SQLAlchemyAutoSchema):
+    <span class="keyword">class</span> <span class="class-name">Meta</span>:
+        model = User
+        load_instance = <span class="keyword">True</span>
+        exclude = (<span class="string">"password"</span>,)  <span class="comment"># Never expose password hash!</span>
+
+<span class="keyword">class</span> <span class="class-name">UserCreateSchema</span>(ma.Schema):
+    username = fields.Str(required=<span class="keyword">True</span>, validate=validate.Length(min=<span class="number">3</span>, max=<span class="number">80</span>))
+    email    = fields.Email(required=<span class="keyword">True</span>)
+    password = fields.Str(required=<span class="keyword">True</span>, validate=validate.Length(min=<span class="number">8</span>),
+                          load_only=<span class="keyword">True</span>)
+    role     = fields.Str(load_default=<span class="string">"user"</span>,
+                          validate=validate.OneOf([<span class="string">"user"</span>, <span class="string">"admin"</span>]))
+
+    <span class="decorator">@validates</span>(<span class="string">"username"</span>)
+    <span class="keyword">def</span> <span class="function">validate_username</span>(<span class="method">self</span>, value):
+        <span class="keyword">if</span> User.query.<span class="function">filter_by</span>(username=value).<span class="function">first</span>():
+            <span class="keyword">raise</span> <span class="function">ValidationError</span>(<span class="string">"Username already taken."</span>)
+
+<span class="comment"># Usage:</span>
+schema = <span class="function">UserCreateSchema</span>()
+user_data = schema.<span class="function">load</span>(request.<span class="function">get_json</span>())  <span class="comment"># Deserialize + validate</span>
+output = <span class="function">UserSchema</span>().<span class="function">dump</span>(user)             <span class="comment"># Serialize to dict</span>
+many   = <span class="function">UserSchema</span>(many=<span class="keyword">True</span>).<span class="function">dump</span>(users)   <span class="comment"># Serialize list</span></code>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2>Authentication & Authorization <span class="level-badge advanced">Advanced</span></h2>
+      <p>JSON Web Tokens (JWT) are the standard for stateless API authentication. Flask-JWT-Extended makes it straightforward to implement.</p>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Setup JWT</h3>
+      <div class="code-block">
+<code><span class="comment"># app/extensions.py — add JWT</span>
+<span class="keyword">from</span> flask_jwt_extended <span class="keyword">import</span> JWTManager
+jwt = <span class="function">JWTManager</span>()
+
+<span class="comment"># app/__init__.py — init JWT</span>
+jwt.<span class="function">init_app</span>(app)</code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Login & Token Generation</h3>
+      <div class="code-block">
+<code><span class="comment"># app/auth/routes.py</span>
+<span class="keyword">from</span> flask <span class="keyword">import</span> Blueprint, request, jsonify
+<span class="keyword">from</span> flask_jwt_extended <span class="keyword">import</span> (create_access_token,
+                                 create_refresh_token,
+                                 jwt_required, get_jwt_identity,
+                                 get_jwt)
+<span class="keyword">from</span> app.models.user <span class="keyword">import</span> User
+
+auth_bp = <span class="function">Blueprint</span>(<span class="string">"auth"</span>, __name__)
+
+<span class="decorator">@auth_bp.route</span>(<span class="string">"/login"</span>, methods=[<span class="string">"POST"</span>])
+<span class="keyword">def</span> <span class="function">login</span>():
+    data = request.<span class="function">get_json</span>()
+    email    = data.<span class="function">get</span>(<span class="string">"email"</span>)
+    password = data.<span class="function">get</span>(<span class="string">"password"</span>)
+
+    <span class="keyword">if</span> <span class="keyword">not</span> email <span class="keyword">or</span> <span class="keyword">not</span> password:
+        <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"error"</span>: <span class="string">"Email and password required"</span>}), <span class="number">400</span>
+
+    user = User.query.<span class="function">filter_by</span>(email=email).<span class="function">first</span>()
+    <span class="keyword">if</span> <span class="keyword">not</span> user <span class="keyword">or</span> <span class="keyword">not</span> user.<span class="function">check_password</span>(password):
+        <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"error"</span>: <span class="string">"Invalid credentials"</span>}), <span class="number">401</span>
+
+    <span class="keyword">if</span> <span class="keyword">not</span> user.is_active:
+        <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"error"</span>: <span class="string">"Account disabled"</span>}), <span class="number">403</span>
+
+    access_token  = <span class="function">create_access_token</span>(
+        identity=<span class="function">str</span>(user.id),
+        additional_claims={<span class="string">"role"</span>: user.role, <span class="string">"email"</span>: user.email}
+    )
+    refresh_token = <span class="function">create_refresh_token</span>(identity=<span class="function">str</span>(user.id))
+
+    <span class="keyword">return</span> <span class="function">jsonify</span>({
+        <span class="string">"access_token"</span>:  access_token,
+        <span class="string">"refresh_token"</span>: refresh_token,
+        <span class="string">"user"</span>:          user.<span class="function">to_dict</span>()
+    }), <span class="number">200</span>
+
+<span class="decorator">@auth_bp.route</span>(<span class="string">"/refresh"</span>, methods=[<span class="string">"POST"</span>])
+<span class="decorator">@jwt_required</span>(refresh=<span class="keyword">True</span>)
+<span class="keyword">def</span> <span class="function">refresh</span>():
+    identity     = <span class="function">get_jwt_identity</span>()
+    access_token = <span class="function">create_access_token</span>(identity=identity)
+    <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"access_token"</span>: access_token}), <span class="number">200</span>
+
+<span class="decorator">@auth_bp.route</span>(<span class="string">"/logout"</span>, methods=[<span class="string">"DELETE"</span>])
+<span class="decorator">@jwt_required</span>()
+<span class="keyword">def</span> <span class="function">logout</span>():
+    jti = <span class="function">get_jwt</span>()[<span class="string">"jti"</span>]
+    <span class="comment"># Add JWT ID to blocklist in Redis/DB</span>
+    <span class="comment"># blocklist.add(jti)</span>
+    <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"message"</span>: <span class="string">"Successfully logged out"</span>}), <span class="number">200</span></code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Protecting Routes</h3>
+      <div class="code-block">
+<code><span class="comment"># Require any valid JWT</span>
+<span class="decorator">@users_bp.route</span>(<span class="string">"/profile"</span>, methods=[<span class="string">"GET"</span>])
+<span class="decorator">@jwt_required</span>()
+<span class="keyword">def</span> <span class="function">my_profile</span>():
+    user_id = <span class="function">get_jwt_identity</span>()
+    user = User.query.<span class="function">get_or_404</span>(<span class="function">int</span>(user_id))
+    <span class="keyword">return</span> <span class="function">jsonify</span>(user.<span class="function">to_dict</span>())
+
+<span class="comment"># Role-based access control (RBAC)</span>
+<span class="keyword">from</span> functools <span class="keyword">import</span> wraps
+
+<span class="keyword">def</span> <span class="function">admin_required</span>(fn):
+    <span class="decorator">@wraps</span>(fn)
+    <span class="decorator">@jwt_required</span>()
+    <span class="keyword">def</span> <span class="function">wrapper</span>(*args, **kwargs):
+        claims = <span class="function">get_jwt</span>()
+        <span class="keyword">if</span> claims.<span class="function">get</span>(<span class="string">"role"</span>) != <span class="string">"admin"</span>:
+            <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"error"</span>: <span class="string">"Admin access required"</span>}), <span class="number">403</span>
+        <span class="keyword">return</span> <span class="function">fn</span>(*args, **kwargs)
+    <span class="keyword">return</span> wrapper
+
+<span class="decorator">@users_bp.route</span>(<span class="string">"/admin/all"</span>, methods=[<span class="string">"GET"</span>])
+<span class="decorator">@admin_required</span>
+<span class="keyword">def</span> <span class="function">admin_list_users</span>():
+    users = User.query.<span class="function">all</span>()
+    <span class="keyword">return</span> <span class="function">jsonify</span>([u.<span class="function">to_dict</span>() <span class="keyword">for</span> u <span class="keyword">in</span> users])</code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">API Key Authentication</h3>
+      <div class="code-block">
+<code><span class="keyword">def</span> <span class="function">api_key_required</span>(fn):
+    <span class="decorator">@wraps</span>(fn)
+    <span class="keyword">def</span> <span class="function">wrapper</span>(*args, **kwargs):
+        key = request.headers.<span class="function">get</span>(<span class="string">"X-API-Key"</span>)
+        <span class="keyword">if</span> <span class="keyword">not</span> key:
+            <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"error"</span>: <span class="string">"API key missing"</span>}), <span class="number">401</span>
+        api_key = ApiKey.query.<span class="function">filter_by</span>(key=key, is_active=<span class="keyword">True</span>).<span class="function">first</span>()
+        <span class="keyword">if</span> <span class="keyword">not</span> api_key:
+            <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"error"</span>: <span class="string">"Invalid API key"</span>}), <span class="number">401</span>
+        <span class="keyword">return</span> <span class="function">fn</span>(*args, **kwargs)
+    <span class="keyword">return</span> wrapper
+
+<span class="decorator">@app.route</span>(<span class="string">"/data"</span>)
+<span class="decorator">@api_key_required</span>
+<span class="keyword">def</span> <span class="function">get_data</span>():
+    <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"data"</span>: <span class="string">"protected content"</span>})</code>
+      </div>
+      <div class="info-box">
+        <span class="material-symbols-outlined">security</span>
+        <p><strong>Security Note:</strong> Never store plain-text passwords. Always use <code>werkzeug.security.generate_password_hash()</code> with a strong algorithm (pbkdf2:sha256 or argon2). Keep JWT secrets in environment variables — never hardcode them.</p>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2>Error Handling & Validation <span class="level-badge intermediate">Intermediate</span></h2>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Custom Error Handlers</h3>
+      <div class="code-block">
+<code><span class="keyword">def</span> <span class="function">register_error_handlers</span>(app):
+    <span class="decorator">@app.errorhandler</span>(<span class="number">400</span>)
+    <span class="keyword">def</span> <span class="function">bad_request</span>(e):
+        <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"error"</span>: <span class="string">"Bad Request"</span>, <span class="string">"message"</span>: <span class="function">str</span>(e)}), <span class="number">400</span>
+
+    <span class="decorator">@app.errorhandler</span>(<span class="number">401</span>)
+    <span class="keyword">def</span> <span class="function">unauthorized</span>(e):
+        <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"error"</span>: <span class="string">"Unauthorized"</span>, <span class="string">"message"</span>: <span class="function">str</span>(e)}), <span class="number">401</span>
+
+    <span class="decorator">@app.errorhandler</span>(<span class="number">403</span>)
+    <span class="keyword">def</span> <span class="function">forbidden</span>(e):
+        <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"error"</span>: <span class="string">"Forbidden"</span>}), <span class="number">403</span>
+
+    <span class="decorator">@app.errorhandler</span>(<span class="number">404</span>)
+    <span class="keyword">def</span> <span class="function">not_found</span>(e):
+        <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"error"</span>: <span class="string">"Not Found"</span>, <span class="string">"message"</span>: <span class="function">str</span>(e)}), <span class="number">404</span>
+
+    <span class="decorator">@app.errorhandler</span>(<span class="number">405</span>)
+    <span class="keyword">def</span> <span class="function">method_not_allowed</span>(e):
+        <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"error"</span>: <span class="string">"Method Not Allowed"</span>}), <span class="number">405</span>
+
+    <span class="decorator">@app.errorhandler</span>(<span class="number">500</span>)
+    <span class="keyword">def</span> <span class="function">internal_error</span>(e):
+        db.session.<span class="function">rollback</span>()
+        <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"error"</span>: <span class="string">"Internal Server Error"</span>}), <span class="number">500</span></code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Custom Exceptions</h3>
+      <div class="code-block">
+<code><span class="keyword">class</span> <span class="class-name">APIError</span>(Exception):
+    <span class="string">"""Base API exception with status code."""</span>
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, message: <span class="keyword">str</span>, status_code: <span class="keyword">int</span> = <span class="number">400</span>, payload=<span class="keyword">None</span>):
+        <span class="function">super</span>().<span class="function">__init__</span>(message)
+        <span class="method">self</span>.message     = message
+        <span class="method">self</span>.status_code = status_code
+        <span class="method">self</span>.payload     = payload
+
+    <span class="keyword">def</span> <span class="function">to_dict</span>(<span class="method">self</span>):
+        rv = <span class="function">dict</span>(<span class="method">self</span>.payload <span class="keyword">or</span> {})
+        rv[<span class="string">"error"</span>]   = <span class="method">self</span>.message
+        rv[<span class="string">"status"</span>]  = <span class="method">self</span>.status_code
+        <span class="keyword">return</span> rv
+
+<span class="keyword">class</span> <span class="class-name">NotFoundError</span>(APIError):
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, resource=<span class="string">"Resource"</span>):
+        <span class="function">super</span>().<span class="function">__init__</span>(<span class="string">f"{resource} not found"</span>, <span class="number">404</span>)
+
+<span class="keyword">class</span> <span class="class-name">ConflictError</span>(APIError):
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="method">self</span>, message=<span class="string">"Resource already exists"</span>):
+        <span class="function">super</span>().<span class="function">__init__</span>(message, <span class="number">409</span>)
+
+<span class="comment"># Register in app factory:</span>
+<span class="decorator">@app.errorhandler</span>(APIError)
+<span class="keyword">def</span> <span class="function">handle_api_error</span>(error):
+    <span class="keyword">return</span> <span class="function">jsonify</span>(error.<span class="function">to_dict</span>()), error.status_code</code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Input Validation with Marshmallow</h3>
+      <div class="code-block">
+<code><span class="keyword">from</span> marshmallow <span class="keyword">import</span> Schema, fields, validate, ValidationError
+
+<span class="keyword">class</span> <span class="class-name">CreateProductSchema</span>(Schema):
+    name     = fields.Str(required=<span class="keyword">True</span>, validate=validate.Length(min=<span class="number">1</span>, max=<span class="number">200</span>))
+    price    = fields.Float(required=<span class="keyword">True</span>, validate=validate.Range(min=<span class="number">0</span>))
+    stock    = fields.Int(load_default=<span class="number">0</span>, validate=validate.Range(min=<span class="number">0</span>))
+    category = fields.Str(validate=validate.OneOf([<span class="string">"electronics"</span>,<span class="string">"clothing"</span>,<span class="string">"food"</span>]))
+    tags     = fields.List(fields.Str(), load_default=[])
+
+<span class="decorator">@products_bp.route</span>(<span class="string">"/"</span>, methods=[<span class="string">"POST"</span>])
+<span class="keyword">def</span> <span class="function">create_product</span>():
+    schema = <span class="function">CreateProductSchema</span>()
+    <span class="keyword">try</span>:
+        data = schema.<span class="function">load</span>(request.<span class="function">get_json</span>())
+    <span class="keyword">except</span> ValidationError <span class="keyword">as</span> err:
+        <span class="keyword">return</span> <span class="function">jsonify</span>({<span class="string">"errors"</span>: err.messages}), <span class="number">422</span>
+    product = <span class="function">Product</span>(**data)
+    db.session.<span class="function">add</span>(product)
+    db.session.<span class="function">commit</span>()
+    <span class="keyword">return</span> <span class="function">jsonify</span>(product.<span class="function">to_dict</span>()), <span class="number">201</span></code>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2>Middleware & Hooks <span class="level-badge advanced">Advanced</span></h2>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Request Lifecycle Hooks</h3>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Hook</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>@app.before_request</code></td>
+              <td>Runs before every request. Return a response to short-circuit.</td>
+            </tr>
+            <tr>
+              <td><code>@app.after_request</code></td>
+              <td>Runs after every request. Receives and must return the response.</td>
+            </tr>
+            <tr>
+              <td><code>@app.teardown_request</code></td>
+              <td>Runs after response is sent. Used for cleanup (e.g., close DB).</td>
+            </tr>
+            <tr>
+              <td><code>@app.before_first_request</code></td>
+              <td>Deprecated in Flask 2.3+. Use CLI commands or app init instead.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="code-block">
+<code><span class="keyword">import</span> time
+<span class="keyword">from</span> flask <span class="keyword">import</span> g, request
+
+<span class="decorator">@app.before_request</span>
+<span class="keyword">def</span> <span class="function">before_request</span>():
+    g.start_time = time.<span class="function">time</span>()
+    g.request_id = <span class="function">str</span>(uuid.<span class="function">uuid4</span>())
+
+<span class="decorator">@app.after_request</span>
+<span class="keyword">def</span> <span class="function">after_request</span>(response):
+    <span class="comment"># CORS headers</span>
+    response.headers[<span class="string">"Access-Control-Allow-Origin"</span>]  = <span class="string">"*"</span>
+    response.headers[<span class="string">"Access-Control-Allow-Headers"</span>] = <span class="string">"Content-Type, Authorization"</span>
+    response.headers[<span class="string">"Access-Control-Allow-Methods"</span>] = <span class="string">"GET, POST, PUT, PATCH, DELETE, OPTIONS"</span>
+    <span class="comment"># Performance header</span>
+    elapsed = time.<span class="function">time</span>() - g.<span class="function">get</span>(<span class="string">"start_time"</span>, time.<span class="function">time</span>())
+    response.headers[<span class="string">"X-Response-Time"</span>] = <span class="string">f"{elapsed:.3f}s"</span>
+    response.headers[<span class="string">"X-Request-Id"</span>]    = g.<span class="function">get</span>(<span class="string">"request_id"</span>, <span class="string">""</span>)
+    <span class="keyword">return</span> response
+
+<span class="decorator">@app.teardown_request</span>
+<span class="keyword">def</span> <span class="function">teardown_request</span>(exception=<span class="keyword">None</span>):
+    <span class="keyword">if</span> exception:
+        db.session.<span class="function">rollback</span>()</code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">CORS Configuration</h3>
+      <div class="code-block">
+<code><span class="keyword">from</span> flask_cors <span class="keyword">import</span> CORS
+
+<span class="comment"># Simple — allow all origins (development only)</span>
+<span class="function">CORS</span>(app)
+
+<span class="comment"># Production — restrict origins</span>
+<span class="function">CORS</span>(app, resources={
+    r<span class="string">"/api/*"</span>: {
+        <span class="string">"origins"</span>: [<span class="string">"https://myapp.com"</span>, <span class="string">"https://www.myapp.com"</span>],
+        <span class="string">"methods"</span>: [<span class="string">"GET"</span>, <span class="string">"POST"</span>, <span class="string">"PUT"</span>, <span class="string">"PATCH"</span>, <span class="string">"DELETE"</span>],
+        <span class="string">"allow_headers"</span>: [<span class="string">"Content-Type"</span>, <span class="string">"Authorization"</span>]
+    }
+})</code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Rate Limiting</h3>
+      <div class="code-block">
+<code><span class="keyword">from</span> flask_limiter <span class="keyword">import</span> Limiter
+<span class="keyword">from</span> flask_limiter.util <span class="keyword">import</span> get_remote_address
+
+limiter = <span class="function">Limiter</span>(get_remote_address, app=app,
+                  default_limits=[<span class="string">"200 per day"</span>, <span class="string">"50 per hour"</span>])
+
+<span class="decorator">@auth_bp.route</span>(<span class="string">"/login"</span>, methods=[<span class="string">"POST"</span>])
+<span class="decorator">@limiter.limit</span>(<span class="string">"5 per minute"</span>)
+<span class="keyword">def</span> <span class="function">login</span>():
+    ...
+
+<span class="decorator">@api_bp.route</span>(<span class="string">"/export"</span>, methods=[<span class="string">"GET"</span>])
+<span class="decorator">@limiter.limit</span>(<span class="string">"10 per hour"</span>)
+<span class="keyword">def</span> <span class="function">export_data</span>():
+    ...</code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Logging</h3>
+      <div class="code-block">
+<code><span class="keyword">import</span> logging
+<span class="keyword">from</span> logging.handlers <span class="keyword">import</span> RotatingFileHandler
+
+<span class="keyword">def</span> <span class="function">setup_logging</span>(app):
+    <span class="keyword">if</span> <span class="keyword">not</span> app.debug:
+        handler = <span class="function">RotatingFileHandler</span>(
+            <span class="string">"logs/app.log"</span>, maxBytes=<span class="number">10_000_000</span>, backupCount=<span class="number">10</span>
+        )
+        handler.<span class="function">setLevel</span>(logging.INFO)
+        formatter = logging.<span class="function">Formatter</span>(
+            <span class="string">"[%(asctime)s] %(levelname)s in %(module)s: %(message)s"</span>
+        )
+        handler.<span class="function">setFormatter</span>(formatter)
+        app.logger.<span class="function">addHandler</span>(handler)
+        app.logger.<span class="function">setLevel</span>(logging.INFO)
+        app.logger.<span class="function">info</span>(<span class="string">"Application startup"</span>)
+
+<span class="comment"># In view functions:</span>
+<span class="keyword">from</span> flask <span class="keyword">import</span> current_app
+
+current_app.logger.<span class="function">info</span>(<span class="string">f"User {user.id} logged in"</span>)
+current_app.logger.<span class="function">warning</span>(<span class="string">f"Invalid login attempt for {email}"</span>)
+current_app.logger.<span class="function">error</span>(<span class="string">"Database connection failed"</span>, exc_info=<span class="keyword">True</span>)</code>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2>Testing Flask APIs <span class="level-badge advanced">Advanced</span></h2>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Test Configuration</h3>
+      <div class="code-block">
+<code><span class="comment"># tests/conftest.py</span>
+<span class="keyword">import</span> pytest
+<span class="keyword">from</span> app <span class="keyword">import</span> create_app
+<span class="keyword">from</span> app.extensions <span class="keyword">import</span> db <span class="keyword">as</span> _db
+
+<span class="decorator">@pytest.fixture</span>(scope=<span class="string">"session"</span>)
+<span class="keyword">def</span> <span class="function">app</span>():
+    app = <span class="function">create_app</span>(<span class="string">"testing"</span>)
+    ctx = app.<span class="function">app_context</span>()
+    ctx.<span class="function">push</span>()
+    <span class="keyword">yield</span> app
+    ctx.<span class="function">pop</span>()
+
+<span class="decorator">@pytest.fixture</span>(scope=<span class="string">"session"</span>)
+<span class="keyword">def</span> <span class="function">db</span>(app):
+    _db.<span class="function">create_all</span>()
+    <span class="keyword">yield</span> _db
+    _db.<span class="function">drop_all</span>()
+
+<span class="decorator">@pytest.fixture</span>(scope=<span class="string">"function"</span>)
+<span class="keyword">def</span> <span class="function">client</span>(app, db):
+    <span class="keyword">with</span> app.<span class="function">test_client</span>() <span class="keyword">as</span> client:
+        <span class="keyword">with</span> _db.session.<span class="function">begin_nested</span>():
+            <span class="keyword">yield</span> client
+        _db.session.<span class="function">rollback</span>()
+
+<span class="decorator">@pytest.fixture</span>
+<span class="keyword">def</span> <span class="function">auth_headers</span>(client):
+    user = <span class="function">User</span>(username=<span class="string">"testuser"</span>, email=<span class="string">"test@example.com"</span>, role=<span class="string">"user"</span>)
+    user.<span class="function">set_password</span>(<span class="string">"testpass123"</span>)
+    _db.session.<span class="function">add</span>(user)
+    _db.session.<span class="function">flush</span>()
+    resp = client.<span class="function">post</span>(<span class="string">"/auth/login"</span>,
+                       json={<span class="string">"email"</span>: <span class="string">"test@example.com"</span>, <span class="string">"password"</span>: <span class="string">"testpass123"</span>})
+    token = resp.<span class="function">get_json</span>()[<span class="string">"access_token"</span>]
+    <span class="keyword">return</span> {<span class="string">"Authorization"</span>: <span class="string">f"Bearer {token}"</span>}</code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Writing Tests</h3>
+      <div class="code-block">
+<code><span class="keyword">class</span> <span class="class-name">TestGetUsers</span>:
+    <span class="keyword">def</span> <span class="function">test_list_users_unauthenticated</span>(<span class="method">self</span>, client):
+        resp = client.<span class="function">get</span>(<span class="string">"/api/v1/users/"</span>)
+        <span class="keyword">assert</span> resp.status_code == <span class="number">401</span>
+
+    <span class="keyword">def</span> <span class="function">test_list_users_authenticated</span>(<span class="method">self</span>, client, auth_headers):
+        resp = client.<span class="function">get</span>(<span class="string">"/api/v1/users/"</span>, headers=auth_headers)
+        <span class="keyword">assert</span> resp.status_code == <span class="number">200</span>
+        data = resp.<span class="function">get_json</span>()
+        <span class="keyword">assert</span> <span class="string">"users"</span> <span class="keyword">in</span> data
+
+<span class="keyword">class</span> <span class="class-name">TestCreateUser</span>:
+    <span class="keyword">def</span> <span class="function">test_create_user_success</span>(<span class="method">self</span>, client):
+        resp = client.<span class="function">post</span>(<span class="string">"/api/v1/users/"</span>, json={
+            <span class="string">"username"</span>: <span class="string">"newuser"</span>,
+            <span class="string">"email"</span>:    <span class="string">"new@example.com"</span>,
+            <span class="string">"password"</span>: <span class="string">"SecurePass1!"</span>
+        })
+        <span class="keyword">assert</span> resp.status_code == <span class="number">201</span>
+        data = resp.<span class="function">get_json</span>()
+        <span class="keyword">assert</span> <span class="string">"password"</span> <span class="keyword">not</span> <span class="keyword">in</span> data[<span class="string">"user"</span>]
+
+    <span class="keyword">def</span> <span class="function">test_create_user_missing_fields</span>(<span class="method">self</span>, client):
+        resp = client.<span class="function">post</span>(<span class="string">"/api/v1/users/"</span>, json={<span class="string">"username"</span>: <span class="string">"only"</span>})
+        <span class="keyword">assert</span> resp.status_code == <span class="number">422</span>
+        <span class="keyword">assert</span> <span class="string">"errors"</span> <span class="keyword">in</span> resp.<span class="function">get_json</span>()</code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Running Tests</h3>
+      <div class="code-block">
+<code><span class="comment"># Run all tests</span>
+pytest
+
+<span class="comment"># Run with verbose output</span>
+pytest -v
+
+<span class="comment"># Run specific file</span>
+pytest tests/test_users.py
+
+<span class="comment"># Coverage report</span>
+pytest --cov=app --cov-report=html</code>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2>Deployment <span class="level-badge advanced">Advanced</span></h2>
+      <div class="info-box">
+        <span class="material-symbols-outlined">warning</span>
+        <p>The built-in Flask dev server is <strong>NOT</strong> for production. Use Gunicorn or uWSGI in production.</p>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Gunicorn — Production WSGI Server</h3>
+      <div class="code-block">
+<code><span class="comment"># Install Gunicorn</span>
+pip install gunicorn
+
+<span class="comment"># Basic run (workers = 2 * CPU cores + 1)</span>
+gunicorn run:app
+
+<span class="comment"># Production settings</span>
+gunicorn \
+    --workers <span class="number">4</span> \
+    --worker-class gevent \
+    --bind <span class="number">0.0</span>.<span class="number">0.0</span>:<span class="number">5000</span> \
+    --timeout <span class="number">120</span> \
+    --access-logfile logs/access.log \
+    --error-logfile  logs/error.log \
+    --log-level info \
+    run:app</code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Docker</h3>
+      <div class="code-block">
+<code><span class="comment"># Dockerfile</span>
+<span class="keyword">FROM</span> python:3.12-slim
+
+<span class="comment"># Create non-root user (security)</span>
+<span class="keyword">RUN</span> addgroup --system app && adduser --system --group app
+
+<span class="keyword">WORKDIR</span> /app
+
+<span class="comment"># Install dependencies first (better layer caching)</span>
+<span class="keyword">COPY</span> requirements.txt .
+<span class="keyword">RUN</span> pip install --no-cache-dir -r requirements.txt
+
+<span class="comment"># Copy application code</span>
+<span class="keyword">COPY</span> . .
+
+<span class="comment"># Run as non-root</span>
+<span class="keyword">USER</span> app
+
+<span class="keyword">EXPOSE</span> <span class="number">5000</span>
+
+<span class="keyword">CMD</span> ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "4", "run:app"]</code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Docker Compose</h3>
+      <div class="code-block">
+<code><span class="comment"># docker-compose.yml</span>
+<span class="keyword">version</span>: "3.9"
+<span class="keyword">services</span>:
+  <span class="keyword">api</span>:
+    <span class="keyword">build</span>: .
+    <span class="keyword">ports</span>:
+      - "5000:5000"
+    <span class="keyword">environment</span>:
+      - FLASK_ENV=production
+      - DATABASE_URL=postgresql://user:pass@db:5432/mydb
+      - SECRET_KEY=${SECRET_KEY}
+    <span class="keyword">depends_on</span>:
+      - db
+    <span class="keyword">restart</span>: unless-stopped
+
+  <span class="keyword">db</span>:
+    <span class="keyword">image</span>: postgres:15-alpine
+    <span class="keyword">volumes</span>:
+      - pgdata:/var/lib/postgresql/data
+    <span class="keyword">environment</span>:
+      POSTGRES_DB: mydb
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+
+  <span class="keyword">nginx</span>:
+    <span class="keyword">image</span>: nginx:alpine
+    <span class="keyword">ports</span>:
+      - "80:80"
+      - "443:443"
+    <span class="keyword">volumes</span>:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    <span class="keyword">depends_on</span>:
+      - api
+
+<span class="keyword">volumes</span>:
+  pgdata:</code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Nginx Reverse Proxy</h3>
+      <div class="code-block">
+<code><span class="comment"># nginx.conf</span>
+<span class="keyword">upstream</span> flask_app {
+    server api:5000;
+}
+
+<span class="keyword">server</span> {
+    <span class="keyword">listen</span> 80;
+    server_name api.myapp.com;
+    <span class="keyword">return</span> 301 https://$host$request_uri;
+}
+
+<span class="keyword">server</span> {
+    <span class="keyword">listen</span> 443 ssl;
+    server_name api.myapp.com;
+
+    ssl_certificate     /etc/ssl/certs/cert.pem;
+    ssl_certificate_key /etc/ssl/private/key.pem;
+
+    <span class="keyword">location</span> /api {
+        proxy_pass         http://flask_app;
+        proxy_set_header   Host              $host;
+        proxy_set_header   X-Real-IP         $remote_addr;
+        proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+    }
+}</code>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Cloud Deployment Options</h3>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Platform</th>
+              <th>Type</th>
+              <th>Best For</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Heroku</strong></td>
+              <td>PaaS</td>
+              <td>Quick deployment, small-medium apps</td>
+            </tr>
+            <tr>
+              <td><strong>AWS Elastic Beanstalk</strong></td>
+              <td>PaaS on AWS</td>
+              <td>AWS ecosystem integration</td>
+            </tr>
+            <tr>
+              <td><strong>Google Cloud Run</strong></td>
+              <td>Serverless containers</td>
+              <td>Auto-scaling, pay-per-request</td>
+            </tr>
+            <tr>
+              <td><strong>Azure App Service</strong></td>
+              <td>PaaS on Azure</td>
+              <td>Enterprise, .NET ecosystem</td>
+            </tr>
+            <tr>
+              <td><strong>DigitalOcean App Platform</strong></td>
+              <td>PaaS</td>
+              <td>Simple, affordable, modern apps</td>
+            </tr>
+            <tr>
+              <td><strong>Railway / Render</strong></td>
+              <td>PaaS</td>
+              <td>Developer-friendly, free tier</td>
+            </tr>
+            <tr>
+              <td><strong>AWS EC2 / GCE VM</strong></td>
+              <td>IaaS</td>
+              <td>Full control, high performance</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2>Best Practices & Security <span class="level-badge advanced">Advanced</span></h2>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">API Design Best Practices</h3>
+      <div class="key-points">
+        <div class="key-point">
+          <h5>Use Nouns for Resources</h5>
+          <p><code>/users</code> not <code>/getUsers</code>. Use plural nouns: <code>/users</code>, <code>/products</code>, <code>/orders</code></p>
+        </div>
+        <div class="key-point">
+          <h5>Version Your API</h5>
+          <p><code>/api/v1/users</code>, <code>/api/v2/users</code> for breaking changes</p>
+        </div>
+        <div class="key-point">
+          <h5>Use HTTP Methods Correctly</h5>
+          <p>GET for read, POST for create, PUT for replace, PATCH for partial, DELETE for remove</p>
+        </div>
+        <div class="key-point">
+          <h5>Consistent JSON Responses</h5>
+          <p>Return consistent structures. Always paginate list endpoints. Use 201 for created, 204 for empty success.</p>
+        </div>
+        <div class="key-point">
+          <h5>Meaningful Error Messages</h5>
+          <p>Include error codes and descriptive messages. Use HTTPS in production — always.</p>
+        </div>
+        <div class="key-point">
+          <h5>Rate Limiting</h5>
+          <p>Implement rate limiting to prevent abuse, especially on auth endpoints</p>
+        </div>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Security Checklist</h3>
+      <div class="key-points">
+        <div class="key-point">
+          <h5>Never Commit Secrets</h5>
+          <p>Never commit .env files or secrets to version control</p>
+        </div>
+        <div class="key-point">
+          <h5>Environment Variables</h5>
+          <p>Use environment variables for all sensitive configuration</p>
+        </div>
+        <div class="key-point">
+          <h5>Hash Passwords</h5>
+          <p>Hash passwords with bcrypt or argon2 — never MD5/SHA1</p>
+        </div>
+        <div class="key-point">
+          <h5>Validate All Inputs</h5>
+          <p>Validate and sanitize all user inputs. Use parameterized queries.</p>
+        </div>
+        <div class="key-point">
+          <h5>Strong SECRET_KEY</h5>
+          <p>Set SECRET_KEY to a cryptographically random 32+ byte value</p>
+        </div>
+        <div class="key-point">
+          <h5>HTTPS & CORS</h5>
+          <p>Enable HTTPS with valid SSL. Implement CORS correctly — restrict to known origins</p>
+        </div>
+        <div class="key-point">
+          <h5>Keep Dependencies Updated</h5>
+          <p>Run <code>pip audit</code> regularly to check for vulnerabilities</p>
+        </div>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Performance Tips</h3>
+      <div class="key-points">
+        <div class="key-point">
+          <h5>Connection Pooling</h5>
+          <p>Use connection pooling for databases (SQLAlchemy handles this)</p>
+        </div>
+        <div class="key-point">
+          <h5>Caching</h5>
+          <p>Cache expensive queries with Flask-Caching + Redis</p>
+        </div>
+        <div class="key-point">
+          <h5>Async Tasks</h5>
+          <p>Use async tasks for long operations (Celery + Redis/RabbitMQ)</p>
+        </div>
+        <div class="key-point">
+          <h5>Gzip Compression</h5>
+          <p>Enable gzip compression via Flask-Compress</p>
+        </div>
+        <div class="key-point">
+          <h5>Lazy Loading</h5>
+          <p>Use lazy loading for SQLAlchemy relationships where appropriate</p>
+        </div>
+        <div class="key-point">
+          <h5>CDN for Static Assets</h5>
+          <p>Use CDN for static assets to reduce server load</p>
+        </div>
+      </div>
+      <h3 style="font-size:1.1rem; margin: var(--space-6) 0 var(--space-4);">Useful Flask Extensions</h3>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Extension</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Flask-SQLAlchemy</strong></td>
+              <td>ORM and database abstraction</td>
+            </tr>
+            <tr>
+              <td><strong>Flask-JWT-Extended</strong></td>
+              <td>JWT authentication</td>
+            </tr>
+            <tr>
+              <td><strong>Flask-Marshmallow</strong></td>
+              <td>Serialization and validation</td>
+            </tr>
+            <tr>
+              <td><strong>Flask-Migrate</strong></td>
+              <td>Database schema migrations</td>
+            </tr>
+            <tr>
+              <td><strong>Flask-CORS</strong></td>
+              <td>Cross-Origin Resource Sharing</td>
+            </tr>
+            <tr>
+              <td><strong>Flask-Limiter</strong></td>
+              <td>Rate limiting</td>
+            </tr>
+            <tr>
+              <td><strong>Flask-Caching</strong></td>
+              <td>Response and data caching</td>
+            </tr>
+            <tr>
+              <td><strong>Flask-Mail</strong></td>
+              <td>Email sending</td>
+            </tr>
+            <tr>
+              <td><strong>Flask-Celery-Helper</strong></td>
+              <td>Async background tasks</td>
+            </tr>
+            <tr>
+              <td><strong>Flask-DebugToolbar</strong></td>
+              <td>Development profiling toolbar</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
   </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <span class="footer-brand">Data Sheets</span>
+        <p class="footer-copyright">&copy; 2026 Data Sheets. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#documentation">Documentation</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#terms">Terms</a>
+        <a href="#support">Support</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../scripts.js"></script>
   <script>
     function toggleTheme() {
       const html = document.documentElement;
@@ -177,7 +1898,5 @@
       }
     })();
   </script>
-
-  <script src="../scripts.js"></script>
 </body>
 </html>

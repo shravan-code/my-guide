@@ -108,7 +108,7 @@ body {
 
 /* Dark Mode */
 html.dark {
-  --color-bg: #0a1a1a;
+  --color-bg: #000000;
   --color-bg-alt: rgba(8, 178, 177, 0.08);
   --color-bg-elevated: #0f2525;
   --color-text: var(--porcelain);

@@ -115,23 +115,27 @@ document.addEventListener("DOMContentLoaded", () => {
                 const toolGrid = document.createElement('div');
                 toolGrid.className = 'tool-grid';
 
-                activeTools.forEach(tool => {
-                    const toolCard = document.createElement('div');
-                    toolCard.className = 'tool-cell';
-                    
-                    const header = document.createElement('div');
-                    header.className = 'tool-cell-header';
-                    header.innerHTML = `<div class="tool-chip">${tool.toUpperCase()}</div>`;
-                    
-                    const code = document.createElement('code');
-                    code.className = 'code-cell';
-                    const val = scenario[tool] || 'N/A';
-                    code.innerHTML = highlightCode(val);
-                    
-                    toolCard.appendChild(header);
-                    toolCard.appendChild(code);
-                    toolGrid.appendChild(toolCard);
-                });
+            activeTools.forEach(tool => {
+                const toolCard = document.createElement('div');
+                toolCard.className = 'tool-cell';
+                
+                const header = document.createElement('div');
+                header.className = 'tool-cell-header';
+                header.innerHTML = `<div class="tool-chip">${tool.toUpperCase()}</div>`;
+                
+                const codeBlock = document.createElement('div');
+                codeBlock.className = 'code-block';
+                
+                const code = document.createElement('code');
+                code.className = 'code-cell';
+                const val = scenario[tool] || 'N/A';
+                code.innerHTML = highlightCode(val);
+                
+                codeBlock.appendChild(code);
+                toolCard.appendChild(header);
+                toolCard.appendChild(codeBlock);
+                toolGrid.appendChild(toolCard);
+            });
 
                 scenarioStack.appendChild(toolGrid);
                 grid.appendChild(scenarioStack);
@@ -152,34 +156,36 @@ document.addEventListener("DOMContentLoaded", () => {
     function highlightCode(text) {
         if (!text || text === 'N/A') return text;
         
-        // 1. Escape HTML entities
         let html = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        
         const placeholders = [];
         
-        // 2. Identify and mask strings first (since they can contain #)
+        // 1. Strings
         html = html.replace(/(['"])(?:(?!\1|\\).|\\.)*\1/g, (match) => {
             const id = `__STR_${placeholders.length}__`;
             placeholders.push({ id, content: `<span class="string">${match}</span>` });
             return id;
         });
         
-        // 3. Identify and mask comments
+        // 2. Comments
         html = html.replace(/(#.*$|--.*$|\/\/.*$)/gm, (match) => {
             const id = `__COM_${placeholders.length}__`;
             placeholders.push({ id, content: `<span class="comment">${match}</span>` });
             return id;
         });
+
+        // 3. Decorators
+        html = html.replace(/(@\w+)/g, '<span class="decorator">$1</span>');
         
-        // 4. Highlight keywords in the remaining text
-        const keywords = /\b(def|class|if|else|elif|for|while|return|import|as|from|try|except|with|None|True|False|SELECT|FROM|WHERE|GROUP BY|ORDER BY|JOIN|LEFT|RIGHT|INNER|ON|CREATE|TABLE|INSERT|INTO|VALUES|UPDATE|SET|DELETE|DROP|ALTER|ADD|CONSTRAINT|PRIMARY|KEY|FOREIGN|REFERENCES|NOT|NULL|UNIQUE|DEFAULT|CHECK|INDEX|VIEW|PROCEDURE|FUNCTION|TRIGGER|DATABASE|USE|SHOW|DESCRIBE|EXPLAIN|LIMIT|OFFSET|FETCH|UNION|ALL|INTERSECT|EXCEPT|CASE|WHEN|THEN|END|AS|CAST|COALESCE|NULLIF|EXTRACT|DATE|TIME|TIMESTAMP|INTERVAL|BOOLEAN|INTEGER|REAL|DOUBLE|PRECISION|CHAR|VARCHAR|TEXT|BLOB|CLOB|XML|ARRAY|MAP|STRUCT|JSON|BYTEA|SERIAL|BIGSERIAL|SMALLSERIAL|UUID|INET|CIDR|MACADDR|BOX|CIRCLE|LINE|LSEG|PATH|POINT|POLYGON|TSQUERY|TSVECTOR|VARBIT|BIT|VARYING|WITHOUT|WITH|ZONE)\b/g;
+        // 4. Keywords
+        const keywords = /\b(def|class|if|else|elif|for|while|return|import|as|from|try|except|with|None|True|False|lambda|SELECT|FROM|WHERE|GROUP BY|ORDER BY|JOIN|LEFT|RIGHT|INNER|ON|CREATE|TABLE|INSERT|INTO|VALUES|UPDATE|SET|DELETE|DROP|ALTER|ADD|CONSTRAINT|PRIMARY|KEY|FOREIGN|REFERENCES|NOT|NULL|UNIQUE|DEFAULT|CHECK|INDEX|VIEW|PROCEDURE|FUNCTION|TRIGGER|DATABASE|USE|SHOW|DESCRIBE|EXPLAIN|LIMIT|OFFSET|FETCH|UNION|ALL|INTERSECT|EXCEPT|CASE|WHEN|THEN|END|CAST|COALESCE|NULLIF|EXTRACT|DATE|TIME|TIMESTAMP|INTERVAL|BOOLEAN|INTEGER|REAL|DOUBLE|PRECISION|CHAR|VARCHAR|TEXT|BLOB|CLOB|XML|ARRAY|MAP|STRUCT|JSON|BYTEA|SERIAL|BIGSERIAL|SMALLSERIAL|UUID|INET|CIDR|MACADDR|BOX|CIRCLE|LINE|LSEG|PATH|POINT|POLYGON|TSQUERY|TSVECTOR|VARBIT|BIT|VARYING|WITHOUT|WITH|ZONE)\b/gi;
         html = html.replace(keywords, '<span class="keyword">$&</span>');
         
-        // 5. Highlight numbers
+        // 5. Functions
+        html = html.replace(/(\w+)(?=\()/g, '<span class="function">$1</span>');
+        
+        // 6. Numbers
         html = html.replace(/\b(\d+)\b/g, '<span class="number">$&</span>');
         
-        // 6. Restore placeholders in reverse or sequential order
-        // Sequential is fine as each ID is unique and doesn't overlap
         placeholders.forEach(p => {
             html = html.replace(p.id, p.content);
         });

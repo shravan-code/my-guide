@@ -160,41 +160,72 @@
     </header>
 
         <section class="topic-section" id="what-is-api">
-      <h2>What is an API? <span class="section-badge getting-started">Getting Started</span></h2>
+      <h2>What is an API? <span class="level-badge basic">Basic</span></h2>
       <p>An <strong>API (Application Programming Interface)</strong> is a contract between two software systems defining how they communicate. It abstracts internal implementation details and exposes only what is needed.</p>
+      
+      <div class="architecture-diagram">
+        <div class="api-flow">
+          <div class="flow-entity">
+            <h4>Client</h4>
+            <div class="entity-title">App / Browser</div>
+          </div>
+          <div class="flow-arrow-container">
+            <span class="flow-label">Request</span>
+            <div class="flow-arrow-line"></div>
+            <span class="flow-label">Response</span>
+          </div>
+          <div class="flow-entity">
+            <h4>API Layer</h4>
+            <div class="entity-title">API Endpoint</div>
+          </div>
+          <div class="flow-arrow-container">
+            <span class="flow-label">Logic</span>
+            <div class="flow-arrow-line"></div>
+            <span class="flow-label">Data</span>
+          </div>
+          <div class="flow-entity">
+            <h4>Server</h4>
+            <div class="entity-title">Logic + DB</div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section class="topic-section" id="rest-api">
-      <h2>REST API <span class="section-badge core">Core</span></h2>
+      <h2>REST API <span class="level-badge basic">Basic</span></h2>
       <p><strong>REST (Representational State Transfer)</strong> is an architectural style defined by Roy Fielding in 2000. It uses standard <strong>HTTP methods</strong> and treats every resource as a uniquely addressable URL.</p>
 
       <h3>Core Constraints of REST</h3>
-      <table>
-        <thead>
-          <tr><th>Constraint</th><th>Description</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><strong>Stateless</strong></td><td>Each request must contain all info needed; server stores no session</td></tr>
-          <tr><td><strong>Client-Server</strong></td><td>UI and data storage are decoupled</td></tr>
-          <tr><td><strong>Cacheable</strong></td><td>Responses define themselves as cacheable or not</td></tr>
-          <tr><td><strong>Uniform Interface</strong></td><td>Consistent resource-based URLs and HTTP verbs</td></tr>
-          <tr><td><strong>Layered System</strong></td><td>Client cannot tell if connected directly or through proxy</td></tr>
-        </tbody>
-      </table>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr><th>Constraint</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Stateless</strong></td><td>Each request must contain all info needed; server stores no session</td></tr>
+            <tr><td><strong>Client-Server</strong></td><td>UI and data storage are decoupled</td></tr>
+            <tr><td><strong>Cacheable</strong></td><td>Responses define themselves as cacheable or not</td></tr>
+            <tr><td><strong>Uniform Interface</strong></td><td>Consistent resource-based URLs and HTTP verbs</td></tr>
+            <tr><td><strong>Layered System</strong></td><td>Client cannot tell if connected directly or through proxy</td></tr>
+          </tbody>
+        </table>
+      </div>
 
       <h3>HTTP Methods in REST</h3>
-      <table>
-        <thead>
-          <tr><th>Method</th><th>CRUD</th><th>Idempotent</th><th>Safe</th><th>Example</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><code>GET</code></td><td>Read</td><td>✅ Yes</td><td>✅ Yes</td><td><code>GET /users/42</code></td></tr>
-          <tr><td><code>POST</code></td><td>Create</td><td>❌ No</td><td>❌ No</td><td><code>POST /users</code></td></tr>
-          <tr><td><code>PUT</code></td><td>Replace</td><td>✅ Yes</td><td>❌ No</td><td><code>PUT /users/42</code></td></tr>
-          <tr><td><code>PATCH</code></td><td>Update</td><td>❌ No</td><td>❌ No</td><td><code>PATCH /users/42</code></td></tr>
-          <tr><td><code>DELETE</code></td><td>Delete</td><td>✅ Yes</td><td>❌ No</td><td><code>DELETE /users/42</code></td></tr>
-        </tbody>
-      </table>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr><th>Method</th><th>CRUD</th><th>Idempotent</th><th>Safe</th><th>Example</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>GET</code></td><td>Read</td><td><span class="material-symbols-outlined" style="color: var(--primary); font-size: 18px;">check_circle</span> Yes</td><td><span class="material-symbols-outlined" style="color: var(--primary); font-size: 18px;">check_circle</span> Yes</td><td><code>GET /users/42</code></td></tr>
+            <tr><td><code>POST</code></td><td>Create</td><td><span class="material-symbols-outlined" style="color: #ef4444; font-size: 18px;">cancel</span> No</td><td><span class="material-symbols-outlined" style="color: #ef4444; font-size: 18px;">cancel</span> No</td><td><code>POST /users</code></td></tr>
+            <tr><td><code>PUT</code></td><td>Replace</td><td><span class="material-symbols-outlined" style="color: var(--primary); font-size: 18px;">check_circle</span> Yes</td><td><span class="material-symbols-outlined" style="color: #ef4444; font-size: 18px;">cancel</span> No</td><td><code>PUT /users/42</code></td></tr>
+            <tr><td><code>PATCH</code></td><td>Update</td><td><span class="material-symbols-outlined" style="color: #ef4444; font-size: 18px;">cancel</span> No</td><td><span class="material-symbols-outlined" style="color: #ef4444; font-size: 18px;">cancel</span> No</td><td><code>PATCH /users/42</code></td></tr>
+            <tr><td><code>DELETE</code></td><td>Delete</td><td><span class="material-symbols-outlined" style="color: var(--primary); font-size: 18px;">check_circle</span> Yes</td><td><span class="material-symbols-outlined" style="color: #ef4444; font-size: 18px;">cancel</span> No</td><td><code>DELETE /users/42</code></td></tr>
+          </tbody>
+        </table>
+      </div>
 
       <h3>REST Resource URL Design</h3>
       <div class="code-block">
@@ -209,48 +240,59 @@ DELETE /users/{id}         → Delete user
 GET    /users/{id}/posts   → Get all posts by user</code>
       </div>
 
-      <h3>REST — Pros & Cons</h3>
       <div class="split-grid">
-        <div class="split-item">
-          <h4>✅ Pros</h4>
-          <ul>
-            <li>Simple, widely understood</li>
-            <li>Great HTTP caching support</li>
-            <li>Stateless = horizontally scalable</li>
-            <li>Huge ecosystem of tools</li>
-            <li>Language and platform agnostic</li>
-          </ul>
+        <div class="key-points">
+          <h4><span class="material-symbols-outlined">check_circle</span> Pros</h4>
+          <div class="key-point">
+            <h5>Simplicity</h5>
+            <p>Widely understood and easy to implement across all platforms.</p>
+          </div>
+          <div class="key-point">
+            <h5>Caching</h5>
+            <p>Native HTTP caching support for high performance.</p>
+          </div>
+          <div class="key-point">
+            <h5>Scalability</h5>
+            <p>Stateless architecture allows for easy horizontal scaling.</p>
+          </div>
         </div>
-        <div class="split-item">
-          <h4>❌ Cons</h4>
-          <ul>
-            <li>Over-fetching (too much data)</li>
-            <li>Under-fetching (multiple requests)</li>
-            <li>API versioning complexity</li>
-            <li>No real-time/push support</li>
-            <li>No strict contract by default</li>
-          </ul>
+        <div class="key-points">
+          <h4><span class="material-symbols-outlined">cancel</span> Cons</h4>
+          <div class="key-point">
+            <h5>Data Fetching</h5>
+            <p>Common issues with over-fetching or under-fetching data.</p>
+          </div>
+          <div class="key-point">
+            <h5>Real-time</h5>
+            <p>Lacks native support for push notifications or real-time data.</p>
+          </div>
+          <div class="key-point">
+            <h5>Versioning</h5>
+            <p>API versioning can lead to maintenance complexity over time.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="topic-section" id="graphql-api">
-      <h2>GraphQL API <span class="section-badge core">Core</span></h2>
+      <h2>GraphQL API <span class="level-badge intermediate">Intermediate</span></h2>
       <p><strong>GraphQL</strong> is a query language for APIs developed by <strong>Facebook (Meta)</strong> in 2012. Unlike REST's fixed endpoints, GraphQL exposes a <strong>single endpoint</strong> where clients specify exactly the data they need.</p>
 
       <h3>GraphQL Core Concepts</h3>
-      <table>
-        <thead>
-          <tr><th>Concept</th><th>Description</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><strong>Schema</strong></td><td>Strongly-typed definition of all data and operations</td></tr>
-          <tr><td><strong>Query</strong></td><td>Read operation — fetch data</td></tr>
-          <tr><td><strong>Mutation</strong></td><td>Write operation — create, update, delete</td></tr>
-          <tr><td><strong>Subscription</strong></td><td>Real-time operation — subscribe to events</td></tr>
-          <tr><td><strong>Resolver</strong></td><td>Function that fetches data for each field</td></tr>
-        </tbody>
-      </table>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr><th>Concept</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Schema</strong></td><td>Strongly-typed definition of all data and operations</td></tr>
+            <tr><td><strong>Query</strong></td><td>Read operation — fetch data</td></tr>
+            <tr><td><strong>Mutation</strong></td><td>Write operation — create, update, delete</td></tr>
+            <tr><td><strong>Subscription</strong></td><td>Real-time operation — subscribe to events</td></tr>
+            <tr><td><strong>Resolver</strong></td><td>Function that fetches data for each field</td></tr>
+          </tbody>
+        </table>
+      </div>
 
       <h3>GraphQL Query Example</h3>
       <div class="code-block">
@@ -259,8 +301,8 @@ GET    /users/{id}/posts   → Get all posts by user</code>
     name
     email
     posts {
-    title
-    tags
+      title
+      tags
     }
   }
 }</code>
@@ -268,29 +310,41 @@ GET    /users/{id}/posts   → Get all posts by user</code>
 
       <h3>GraphQL — Pros & Cons</h3>
       <div class="split-grid">
-        <div class="split-item">
-          <h4>✅ Pros</h4>
-          <ul>
-            <li>Fetch exactly the data needed</li>
-            <li>Single endpoint for all operations</li>
-            <li>Strongly typed — self-documenting</li>
-            <li>No versioning — evolve schema</li>
-          </ul>
+        <div class="key-points">
+          <h4><span class="material-symbols-outlined">check_circle</span> Pros</h4>
+          <div class="key-point">
+            <h5>Precision</h5>
+            <p>Clients fetch exactly the data they need, reducing payload size.</p>
+          </div>
+          <div class="key-point">
+            <h5>Single Endpoint</h5>
+            <p>Access all data and operations through a single gateway.</p>
+          </div>
+          <div class="key-point">
+            <h5>Typed Schema</h5>
+            <p>Strongly-typed contracts between client and server.</p>
+          </div>
         </div>
-        <div class="split-item">
-          <h4>❌ Cons</h4>
-          <ul>
-            <li>Steeper learning curve vs REST</li>
-            <li>Complex queries can cause N+1 problem</li>
-            <li>HTTP caching is harder</li>
-            <li>Overkill for simple CRUD apps</li>
-          </ul>
+        <div class="key-points">
+          <h4><span class="material-symbols-outlined">cancel</span> Cons</h4>
+          <div class="key-point">
+            <h5>Complexity</h5>
+            <p>Steeper learning curve and more difficult server-side setup.</p>
+          </div>
+          <div class="key-point">
+            <h5>Caching</h5>
+            <p>Harder to implement standard HTTP caching for flexible queries.</p>
+          </div>
+          <div class="key-point">
+            <h5>Server Load</h5>
+            <p>Complex queries can significantly strain backend resources.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="topic-section" id="soap-api">
-      <h2>SOAP API <span class="section-badge intermediate">Intermediate</span></h2>
+      <h2>SOAP API <span class="level-badge intermediate">Intermediate</span></h2>
       <p><strong>SOAP (Simple Object Access Protocol)</strong> is a <strong>messaging protocol</strong> using <strong>XML</strong> for message format and HTTP, SMTP, or TCP for transport. It's a formal protocol with a strict specification.</p>
 
       <h3>SOAP Message Structure</h3>
@@ -302,52 +356,85 @@ GET    /users/{id}/posts   → Get all posts by user</code>
   &lt;/soap:Header&gt;
   &lt;soap:Body&gt;
     &lt;GetAccountBalance xmlns="http://bank.example.com/services"&gt;
-    &lt;AccountNumber&gt;1234567890&lt;/AccountNumber&gt;
-    &lt;Currency&gt;USD&lt;/Currency&gt;
+      &lt;AccountNumber&gt;1234567890&lt;/AccountNumber&gt;
+      &lt;Currency&gt;USD&lt;/Currency&gt;
     &lt;/GetAccountBalance&gt;
   &lt;/soap:Body&gt;
 &lt;/soap:Envelope&gt;</code>
       </div>
 
-      <h3>SOAP Security Standards (WS-Security)</h3>
-      <table>
-        <thead>
-          <tr><th>Standard</th><th>Purpose</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><strong>WS-Security</strong></td><td>Message-level encryption and signing</td></tr>
-          <tr><td><strong>WS-Trust</strong></td><td>Token-based authentication (SAML, X.509)</td></tr>
-          <tr><td><strong>WS-ReliableMessaging</strong></td><td>Guaranteed message delivery</td></tr>
-          <tr><td><strong>WS-AtomicTransaction</strong></td><td>Distributed ACID transactions</td></tr>
-        </tbody>
-      </table>
+      <h3>SOAP Security Standards</h3>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr><th>Standard</th><th>Purpose</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>WS-Security</strong></td><td>Message-level encryption and signing</td></tr>
+            <tr><td><strong>WS-Trust</strong></td><td>Token-based authentication (SAML, X.509)</td></tr>
+            <tr><td><strong>WS-ReliableMessaging</strong></td><td>Guaranteed message delivery</td></tr>
+            <tr><td><strong>WS-AtomicTransaction</strong></td><td>Distributed ACID transactions</td></tr>
+          </tbody>
+        </table>
+      </div>
 
-      <h3>SOAP — Pros & Cons</h3>
       <div class="split-grid">
-        <div class="split-item">
-          <h4>✅ Pros</h4>
-          <ul>
-            <li>Formal contract via WSDL</li>
-            <li>Built-in security (WS-Security)</li>
-            <li>ACID transaction support</li>
-            <li>Strict error handling (SOAP Faults)</li>
-          </ul>
+        <div class="key-points">
+          <h4><span class="material-symbols-outlined">check_circle</span> Pros</h4>
+          <div class="key-point">
+            <h5>Formal Contract</h5>
+            <p>Strict interface definition through WSDL and XML schemas.</p>
+          </div>
+          <div class="key-point">
+            <h5>Security</h5>
+            <p>Built-in WS-Security standards for message-level encryption.</p>
+          </div>
+          <div class="key-point">
+            <h5>Transactions</h5>
+            <p>Native support for distributed ACID transactions (WS-Atomic).</p>
+          </div>
         </div>
-        <div class="split-item">
-          <h4>❌ Cons</h4>
-          <ul>
-            <li>Extremely verbose XML overhead</li>
-            <li>Slow compared to REST/gRPC</li>
-            <li>Complex to implement and debug</li>
-            <li>Poor readability for humans</li>
-          </ul>
+        <div class="key-points">
+          <h4><span class="material-symbols-outlined">cancel</span> Cons</h4>
+          <div class="key-point">
+            <h5>Overhead</h5>
+            <p>Extremely verbose XML leading to increased payload size.</p>
+          </div>
+          <div class="key-point">
+            <h5>Complexity</h5>
+            <p>Steep learning curve to implement and troubleshoot protocols.</p>
+          </div>
+          <div class="key-point">
+            <h5>Performance</h5>
+            <p>Slow parsing and processing speeds compared to REST/gRPC.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="topic-section" id="grpc-api">
-      <h2>gRPC API <span class="section-badge advanced">Advanced</span></h2>
+      <h2>gRPC API <span class="level-badge advanced">Advanced</span></h2>
       <p><strong>gRPC (Google Remote Procedure Call)</strong> is a high-performance RPC framework developed by <strong>Google</strong>. It uses <strong>HTTP/2</strong> for transport and <strong>Protocol Buffers (protobuf)</strong> for serialization.</p>
+
+      <div class="architecture-diagram">
+        <div class="api-flow">
+          <div class="flow-entity">
+            <h4>gRPC Client</h4>
+            <div class="entity-title">Generated Stub</div>
+            <div class="comment" style="font-size: 0.75rem; margin-top: 0.5rem; color: var(--text-tertiary);">user.proto</div>
+          </div>
+          <div class="flow-arrow-container">
+            <span class="flow-label">Binary Protobuf</span>
+            <div class="flow-arrow-line"></div>
+            <span class="flow-label">HTTP/2 Stream</span>
+          </div>
+          <div class="flow-entity">
+            <h4>gRPC Server</h4>
+            <div class="entity-title">Service Impl</div>
+            <div class="comment" style="font-size: 0.75rem; margin-top: 0.5rem; color: var(--text-tertiary);">user.proto</div>
+          </div>
+        </div>
+      </div>
 
       <h3>Protocol Buffer Definition (.proto)</h3>
       <div class="code-block">
@@ -370,43 +457,56 @@ message User {
       </div>
 
       <h3>gRPC Streaming Types</h3>
-      <table>
-        <thead>
-          <tr><th>Type</th><th>Description</th><th>Use Case</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><strong>Unary</strong></td><td>One request → One response</td><td>Standard function call</td></tr>
-          <tr><td><strong>Server Streaming</strong></td><td>One request → Many responses</td><td>File download, live feed</td></tr>
-          <tr><td><strong>Client Streaming</strong></td><td>Many requests → One response</td><td>File upload, batch insert</td></tr>
-          <tr><td><strong>Bidirectional</strong></td><td>Many ↔ Many</td><td>Chat, real-time collaboration</td></tr>
-        </tbody>
-      </table>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr><th>Type</th><th>Description</th><th>Use Case</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Unary</strong></td><td>One request → One response</td><td>Standard function call</td></tr>
+            <tr><td><strong>Server Streaming</strong></td><td>One request → Many responses</td><td>File download, live feed</td></tr>
+            <tr><td><strong>Client Streaming</strong></td><td>Many requests → One response</td><td>File upload, batch insert</td></tr>
+            <tr><td><strong>Bidirectional</strong></td><td>Many ↔ Many</td><td>Chat, real-time collaboration</td></tr>
+          </tbody>
+        </table>
+      </div>
 
-      <h3>gRPC — Pros & Cons</h3>
       <div class="split-grid">
-        <div class="split-item">
-          <h4>✅ Pros</h4>
-          <ul>
-            <li>Extremely fast (binary protobuf)</li>
-            <li>HTTP/2 multiplexing</li>
-            <li>4 streaming patterns</li>
-            <li>Auto-generates client/server code</li>
-          </ul>
+        <div class="key-points">
+          <h4><span class="material-symbols-outlined">check_circle</span> Pros</h4>
+          <div class="key-point">
+            <h5>Performance</h5>
+            <p>High binary throughput using Protobuf and HTTP/2 multiplexing.</p>
+          </div>
+          <div class="key-point">
+            <h5>Streaming</h5>
+            <p>Native support for 4 different streaming patterns (Unary to BiDi).</p>
+          </div>
+          <div class="key-point">
+            <h5>Codegen</h5>
+            <p>Auto-generates strongly-typed client and server code stubs.</p>
+          </div>
         </div>
-        <div class="split-item">
-          <h4>❌ Cons</h4>
-          <ul>
-            <li>Not human-readable</li>
-            <li>Limited browser support</li>
-            <li>Requires tooling setup</li>
-            <li>Debugging is harder</li>
-          </ul>
+        <div class="key-points">
+          <h4><span class="material-symbols-outlined">cancel</span> Cons</h4>
+          <div class="key-point">
+            <h5>Readability</h5>
+            <p>Binary format is not human-readable without specific tools.</p>
+          </div>
+          <div class="key-point">
+            <h5>Browser Support</h5>
+            <p>Limited native browser support requiring gRPC-web proxies.</p>
+          </div>
+          <div class="key-point">
+            <h5>Debugging</h5>
+            <p>Harder to troubleshoot than plain JSON/REST interfaces.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="topic-section" id="websocket-api">
-      <h2>WebSocket API <span class="section-badge intermediate">Intermediate</span></h2>
+      <h2>WebSocket API <span class="level-badge intermediate">Intermediate</span></h2>
       <p><strong>WebSocket</strong> provides <strong>full-duplex (bidirectional), persistent connections</strong> over a single TCP connection. After an initial HTTP handshake, the connection is upgraded.</p>
 
       <h3>WebSocket Handshake</h3>
@@ -425,30 +525,44 @@ Connection: Upgrade</code>
       </div>
 
       <h3>WebSocket vs HTTP Polling</h3>
-      <table>
-        <thead>
-          <tr><th>Feature</th><th>HTTP Short Polling</th><th>WebSocket</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Connection</td><td>New per request</td><td>Persistent</td></tr>
-          <tr><td>Latency</td><td>High</td><td>Very Low</td></tr>
-          <tr><td>Server Push</td><td>❌</td><td>✅</td></tr>
-          <tr><td>Overhead</td><td>High</td><td>Minimal</td></tr>
-          <tr><td>Scalability</td><td>Poor</td><td>Good</td></tr>
-        </tbody>
-      </table>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr><th>Feature</th><th>HTTP Short Polling</th><th>WebSocket</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Connection</td><td>New per request</td><td>Persistent</td></tr>
+            <tr><td>Latency</td><td>High</td><td>Very Low</td></tr>
+            <tr><td>Server Push</td><td><span class="material-symbols-outlined" style="color: #ef4444; font-size: 18px;">cancel</span></td><td><span class="material-symbols-outlined" style="color: var(--primary); font-size: 18px;">check_circle</span></td></tr>
+            <tr><td>Overhead</td><td>High</td><td>Minimal</td></tr>
+            <tr><td>Scalability</td><td>Poor</td><td>Good</td></tr>
+          </tbody>
+        </table>
+      </div>
 
       <h3>When to Use WebSocket</h3>
-      <ul>
-        <li>Live chat applications (Slack, Discord, WhatsApp Web)</li>
-        <li>Multiplayer online games</li>
-        <li>Real-time collaborative tools (Google Docs, Figma)</li>
-        <li>Live financial data (stock tickers, crypto prices)</li>
-      </ul>
+      <div class="key-points">
+        <div class="key-point">
+          <h5>Live Chat</h5>
+          <p>Instant messaging platforms like Slack, Discord, or WhatsApp Web requiring zero latency.</p>
+        </div>
+        <div class="key-point">
+          <h5>Online Gaming</h5>
+          <p>Multiplayer games where rapid state synchronization is critical for gameplay.</p>
+        </div>
+        <div class="key-point">
+          <h5>Collaborative Tools</h5>
+          <p>Real-time editing environments like Google Docs, Figma, or interactive whiteboards.</p>
+        </div>
+        <div class="key-point">
+          <h5>Financial Feeds</h5>
+          <p>High-frequency data streams for stock tickers, crypto prices, and trading terminals.</p>
+        </div>
+      </div>
     </section>
 
     <section class="topic-section" id="webhooks">
-      <h2>Webhooks <span class="section-badge intermediate">Intermediate</span></h2>
+      <h2>Webhooks <span class="level-badge intermediate">Intermediate</span></h2>
       <p>A <strong>Webhook</strong> is a user-defined HTTP callback — a <strong>reverse API</strong>. Instead of polling, the <strong>server sends an HTTP POST</strong> to the client's URL when an event occurs.</p>
 
       <h3>Webhook vs Polling</h3>
@@ -471,52 +585,70 @@ Server → POST /your-webhook-url → Client
   "created": 1609459200,
   "data": {
     "object": {
-    "id": "pi_abc123",
-    "amount": 4999,
-    "currency": "usd",
-    "status": "succeeded"
+      "id": "pi_abc123",
+      "amount": 4999,
+      "currency": "usd",
+      "status": "succeeded"
     }
   }
 }</code>
       </div>
 
       <h3>When to Use Webhooks</h3>
-      <ul>
-        <li>Payment and subscription events (Stripe, PayPal)</li>
-        <li>CI/CD triggers (GitHub pushes trigger builds)</li>
-        <li>Form submission routing</li>
-        <li>E-commerce order lifecycle notifications</li>
-      </ul>
+      <div class="key-points">
+        <div class="key-point">
+          <h5>Payment Events</h5>
+          <p>Capturing subscription renewals, successful charges, or chargebacks from Stripe/PayPal.</p>
+        </div>
+        <div class="key-point">
+          <h5>Automation Triggers</h5>
+          <p>Triggering CI/CD pipelines (GitHub) or Zapier workflows when a specific event occurs.</p>
+        </div>
+        <div class="key-point">
+          <h5>Form Routing</h5>
+          <p>Instantly sending new lead data from a landing page to a CRM or email service.</p>
+        </div>
+      </div>
     </section>
 
     <section class="topic-section" id="sse">
-      <h2>SSE — Server-Sent Events <span class="section-badge intermediate">Intermediate</span></h2>
+      <h2>SSE <span class="level-badge intermediate">Intermediate</span></h2>
       <p><strong>Server-Sent Events (SSE)</strong> is a server push technology over a <strong>standard HTTP connection</strong>. The server streams events to the client. Unlike WebSocket, SSE is <strong>one-directional</strong> (server → client only).</p>
 
       <h3>SSE vs WebSocket</h3>
-      <table>
-        <thead>
-          <tr><th>Feature</th><th>SSE</th><th>WebSocket</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Direction</td><td>Server → Client only</td><td>Bidirectional</td></tr>
-          <tr><td>Protocol</td><td>Plain HTTP</td><td>WS upgrade</td></tr>
-          <tr><td>Auto-reconnect</td><td>✅ Built-in</td><td>❌ Must implement</td></tr>
-          <tr><td>HTTP/2 support</td><td>✅</td><td>❌</td></tr>
-        </tbody>
-      </table>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr><th>Feature</th><th>SSE</th><th>WebSocket</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Direction</td><td>Server → Client only</td><td>Bidirectional</td></tr>
+            <tr><td>Protocol</td><td>Plain HTTP</td><td>WS upgrade</td></tr>
+            <tr><td>Auto-reconnect</td><td><span class="material-symbols-outlined" style="color: var(--primary); font-size: 18px;">check_circle</span> Built-in</td><td><span class="material-symbols-outlined" style="color: #ef4444; font-size: 18px;">cancel</span> Manual</td></tr>
+            <tr><td>HTTP/2 support</td><td><span class="material-symbols-outlined" style="color: var(--primary); font-size: 18px;">check_circle</span></td><td><span class="material-symbols-outlined" style="color: #ef4444; font-size: 18px;">cancel</span></td></tr>
+          </tbody>
+        </table>
+      </div>
 
       <h3>When to Use SSE</h3>
-      <ul>
-        <li>Live news feeds and activity streams</li>
-        <li>Real-time notifications</li>
-        <li>Live dashboards — metrics, logs, analytics</li>
-        <li>Stock prices and sports scores display</li>
-      </ul>
+      <div class="key-points">
+        <div class="key-point">
+          <h5>Activity Streams</h5>
+          <p>Social media feeds, news updates, or real-time notification centers.</p>
+        </div>
+        <div class="key-point">
+          <h5>Live Analytics</h5>
+          <p>Streaming log data or server performance metrics to a browser dashboard.</p>
+        </div>
+        <div class="key-point">
+          <h5>Scoreboards</h5>
+          <p>Displaying live sports scores or election results without requiring user refresh.</p>
+        </div>
+      </div>
     </section>
 
     <section class="topic-section" id="json-rpc">
-      <h2>JSON-RPC <span class="section-badge intermediate">Intermediate</span></h2>
+      <h2>JSON-RPC <span class="level-badge intermediate">Intermediate</span></h2>
       <p><strong>JSON-RPC</strong> is a lightweight, <strong>stateless remote procedure call protocol</strong> encoded in <strong>JSON</strong>.</p>
 
       <h3>JSON-RPC Request/Response</h3>
@@ -538,104 +670,118 @@ Server → POST /your-webhook-url → Client
       </div>
 
       <h3>When to Use JSON-RPC</h3>
-      <ul>
-        <li>Blockchain and cryptocurrency APIs (Ethereum, Bitcoin nodes)</li>
-        <li>Simple lightweight internal services</li>
-      </ul>
+      <div class="key-points">
+        <div class="key-point">
+          <h5>Blockchain Nodes</h5>
+          <p>Querying Ethereum, Bitcoin, or Solana nodes for transaction data and smart contract state.</p>
+        </div>
+        <div class="key-point">
+          <h5>Internal Services</h5>
+          <p>Extremely lightweight internal micro-services where REST overhead is unnecessary.</p>
+        </div>
+      </div>
     </section>
 
     <section class="topic-section" id="api-gateway">
-      <h2>API Gateway <span class="section-badge intermediate">Intermediate</span></h2>
+      <h2>API Gateway <span class="level-badge intermediate">Intermediate</span></h2>
       <p>An <strong>API Gateway</strong> is a server that acts as the <strong>single entry point</strong> for all client requests. It handles cross-cutting concerns like authentication, rate limiting, logging, and routing.</p>
 
       <h3>API Gateway Responsibilities</h3>
-      <table>
-        <thead>
-          <tr><th>Feature</th><th>Description</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><strong>Routing</strong></td><td>Direct requests to the right service</td></tr>
-          <tr><td><strong>Authentication</strong></td><td>Verify JWT, API keys, OAuth tokens</td></tr>
-          <tr><td><strong>Rate Limiting</strong></td><td>Prevent abuse (100 req/min per user)</td></tr>
-          <tr><td><strong>SSL Termination</strong></td><td>Handle HTTPS, pass plain HTTP internally</td></tr>
-          <tr><td><strong>Caching</strong></td><td>Cache responses to reduce backend load</td></tr>
-          <tr><td><strong>Logging</strong></td><td>Centralized observability</td></tr>
-        </tbody>
-      </table>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr><th>Feature</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Routing</strong></td><td>Direct requests to the right service</td></tr>
+            <tr><td><strong>Authentication</strong></td><td>Verify JWT, API keys, OAuth tokens</td></tr>
+            <tr><td><strong>Rate Limiting</strong></td><td>Prevent abuse (100 req/min per user)</td></tr>
+            <tr><td><strong>SSL Termination</strong></td><td>Handle HTTPS, pass plain HTTP internally</td></tr>
+            <tr><td><strong>Caching</strong></td><td>Cache responses to reduce backend load</td></tr>
+            <tr><td><strong>Logging</strong></td><td>Centralized observability</td></tr>
+          </tbody>
+        </table>
+      </div>
 
       <h3>Popular API Gateway Tools</h3>
-      <table>
-        <thead>
-          <tr><th>Tool</th><th>Type</th><th>Best For</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><strong>AWS API Gateway</strong></td><td>Managed cloud</td><td>AWS-native microservices</td></tr>
-          <tr><td><strong>Kong</strong></td><td>Open source</td><td>Self-hosted, plugin ecosystem</td></tr>
-          <tr><td><strong>Nginx</strong></td><td>Proxy/Gateway</td><td>High performance</td></tr>
-          <tr><td><strong>Azure API Management</strong></td><td>Managed cloud</td><td>Azure ecosystem</td></tr>
-        </tbody>
-      </table>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr><th>Tool</th><th>Type</th><th>Best For</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>AWS API Gateway</strong></td><td>Managed cloud</td><td>AWS-native microservices</td></tr>
+            <tr><td><strong>Kong</strong></td><td>Open source</td><td>Self-hosted, plugin ecosystem</td></tr>
+            <tr><td><strong>Nginx</strong></td><td>Proxy/Gateway</td><td>High performance</td></tr>
+            <tr><td><strong>Azure API Management</strong></td><td>Managed cloud</td><td>Azure ecosystem</td></tr>
+          </tbody>
+        </table>
+      </div>
     </section>
 
     <section class="topic-section" id="openapi">
-      <h2>OpenAPI / Swagger <span class="section-badge intermediate">Intermediate</span></h2>
+      <h2>OpenAPI / Swagger <span class="level-badge intermediate">Intermediate</span></h2>
       <p><strong>OpenAPI (formerly Swagger)</strong> is a <strong>specification standard</strong> for describing REST APIs in machine-readable YAML or JSON. It enables automatic generation of documentation, client SDKs, and server stubs.</p>
 
       <h3>OpenAPI Tooling Ecosystem</h3>
-      <table>
-        <thead>
-          <tr><th>Tool</th><th>Purpose</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><strong>Swagger UI</strong></td><td>Auto-generate interactive HTML documentation</td></tr>
-          <tr><td><strong>Swagger Editor</strong></td><td>Write and validate OpenAPI specs online</td></tr>
-          <tr><td><strong>OpenAPI Generator</strong></td><td>Generate client SDKs in 50+ languages</td></tr>
-          <tr><td><strong>Redoc</strong></td><td>Alternative beautiful API documentation</td></tr>
-        </tbody>
-      </table>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr><th>Tool</th><th>Purpose</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Swagger UI</strong></td><td>Auto-generate interactive HTML documentation from spec files.</td></tr>
+            <tr><td><strong>Swagger Editor</strong></td><td>Write and validate OpenAPI specs with real-time feedback.</td></tr>
+            <tr><td><strong>OpenAPI Generator</strong></td><td>Generate production-ready client SDKs in 50+ languages.</td></tr>
+            <tr><td><strong>Redoc</strong></td><td>Generate highly-performant, themeable 3-column documentation.</td></tr>
+          </tbody>
+        </table>
+      </div>
     </section>
 
     <section class="topic-section" id="comparison">
-      <h2>Comparison Summary Table <span class="section-badge core">Core</span></h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Feature</th>
-            <th>REST</th>
-            <th>GraphQL</th>
-            <th>SOAP</th>
-            <th>gRPC</th>
-            <th>WebSocket</th>
-            <th>Webhook</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td><strong>Protocol</strong></td><td>HTTP</td><td>HTTP</td><td>HTTP/SMTP</td><td>HTTP/2</td><td>TCP/WS</td><td>HTTP</td></tr>
-          <tr><td><strong>Data Format</strong></td><td>JSON/XML</td><td>JSON</td><td>XML</td><td>Protobuf</td><td>Any</td><td>JSON/XML</td></tr>
-          <tr><td><strong>Direction</strong></td><td>Req/Res</td><td>Req/Res</td><td>Req/Res</td><td>Both</td><td>Full-duplex</td><td>Push</td></tr>
-          <tr><td><strong>Real-time</strong></td><td>❌</td><td>❌</td><td>❌</td><td>✅</td><td>✅</td><td>✅</td></tr>
-          <tr><td><strong>Caching</strong></td><td>✅</td><td>⚠️</td><td>❌</td><td>❌</td><td>❌</td><td>❌</td></tr>
-          <tr><td><strong>Learning Curve</strong></td><td>Low</td><td>Medium</td><td>High</td><td>Medium</td><td>Medium</td><td>Low</td></tr>
-        </tbody>
-      </table>
+      <h2>Comparison Summary <span class="level-badge basic">Basic</span></h2>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>REST</th>
+              <th>GraphQL</th>
+              <th>gRPC</th>
+              <th>SOAP</th>
+              <th>WebSocket</th>
+              <th>Webhook</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Protocol</strong></td><td>HTTP/1.1</td><td>HTTP/1.1</td><td>HTTP/2</td><td>HTTP/XML</td><td>TCP/WS</td><td>HTTP</td></tr>
+            <tr><td><strong>Data Format</strong></td><td>JSON/XML</td><td>JSON</td><td>Protobuf</td><td>XML</td><td>Any</td><td>JSON/XML</td></tr>
+            <tr><td><strong>Direction</strong></td><td>Req/Res</td><td>Req/Res</td><td>Bi-Di</td><td>Req/Res</td><td>Full-duplex</td><td>Push</td></tr>
+            <tr><td><strong>Real-time</strong></td><td><span class="material-symbols-outlined" style="color: #ef4444; font-size: 18px;">cancel</span></td><td><span class="material-symbols-outlined" style="color: #ef4444; font-size: 18px;">cancel</span></td><td><span class="material-symbols-outlined" style="color: var(--primary); font-size: 18px;">check_circle</span></td><td><span class="material-symbols-outlined" style="color: #ef4444; font-size: 18px;">cancel</span></td><td><span class="material-symbols-outlined" style="color: var(--primary); font-size: 18px;">check_circle</span></td><td><span class="material-symbols-outlined" style="color: var(--primary); font-size: 18px;">check_circle</span></td></tr>
+            <tr><td><strong>Caching</strong></td><td><span class="material-symbols-outlined" style="color: var(--primary); font-size: 18px;">check_circle</span></td><td><span class="material-symbols-outlined" style="color: #f59e0b; font-size: 18px;">warning</span></td><td><span class="material-symbols-outlined" style="color: #ef4444; font-size: 18px;">cancel</span></td><td><span class="material-symbols-outlined" style="color: #ef4444; font-size: 18px;">cancel</span></td><td><span class="material-symbols-outlined" style="color: #ef4444; font-size: 18px;">cancel</span></td><td><span class="material-symbols-outlined" style="color: #ef4444; font-size: 18px;">cancel</span></td></tr>
+            <tr><td><strong>Latency</strong></td><td>Medium</td><td>Medium</td><td>Ultra-Low</td><td>High</td><td>Ultra-Low</td><td>Low</td></tr>
+          </tbody>
+        </table>
+      </div>
     </section>
 
     <section class="topic-section" id="choosing">
-      <h2>How to Choose the Right API <span class="section-badge core">Core</span></h2>
+      <h2>Selection Guide <span class="level-badge basic">Basic</span></h2>
       
-      <table>
+      <table class="comparison-table">
         <thead>
           <tr><th>Your Situation</th><th>Best API Choice</th></tr>
         </thead>
         <tbody>
-          <tr><td>Building a public web/mobile API</td><td>✅ <strong>REST</strong></td></tr>
-          <tr><td>Complex data with deep relationships</td><td>✅ <strong>GraphQL</strong></td></tr>
-          <tr><td>Banking, healthcare, enterprise legacy</td><td>✅ <strong>SOAP</strong></td></tr>
-          <tr><td>Internal microservices, high performance</td><td>✅ <strong>gRPC</strong></td></tr>
-          <tr><td>Chat, gaming, collaborative apps</td><td>✅ <strong>WebSocket</strong></td></tr>
-          <tr><td>Payment callbacks, CI/CD triggers</td><td>✅ <strong>Webhook</strong></td></tr>
-          <tr><td>Live dashboards, notifications</td><td>✅ <strong>SSE</strong></td></tr>
-          <tr><td>Blockchain/crypto node calls</td><td>✅ <strong>JSON-RPC</strong></td></tr>
+          <tr><td>Building a public web/mobile API</td><td><span class="material-symbols-outlined" style="color: var(--primary); font-size: 18px; vertical-align: middle; margin-right: 4px;">stars</span> <strong>REST</strong></td></tr>
+          <tr><td>Complex data with deep relationships</td><td><span class="material-symbols-outlined" style="color: var(--primary); font-size: 18px; vertical-align: middle; margin-right: 4px;">stars</span> <strong>GraphQL</strong></td></tr>
+          <tr><td>Banking, healthcare, enterprise legacy</td><td><span class="material-symbols-outlined" style="color: var(--primary); font-size: 18px; vertical-align: middle; margin-right: 4px;">stars</span> <strong>SOAP</strong></td></tr>
+          <tr><td>Internal microservices, high performance</td><td><span class="material-symbols-outlined" style="color: var(--primary); font-size: 18px; vertical-align: middle; margin-right: 4px;">stars</span> <strong>gRPC</strong></td></tr>
+          <tr><td>Chat, gaming, collaborative apps</td><td><span class="material-symbols-outlined" style="color: var(--primary); font-size: 18px; vertical-align: middle; margin-right: 4px;">stars</span> <strong>WebSocket</strong></td></tr>
+          <tr><td>Payment callbacks, CI/CD triggers</td><td><span class="material-symbols-outlined" style="color: var(--primary); font-size: 18px; vertical-align: middle; margin-right: 4px;">stars</span> <strong>Webhook</strong></td></tr>
+          <tr><td>Live dashboards, notifications</td><td><span class="material-symbols-outlined" style="color: var(--primary); font-size: 18px; vertical-align: middle; margin-right: 4px;">stars</span> <strong>SSE</strong></td></tr>
+          <tr><td>Blockchain/crypto node calls</td><td><span class="material-symbols-outlined" style="color: var(--primary); font-size: 18px; vertical-align: middle; margin-right: 4px;">stars</span> <strong>JSON-RPC</strong></td></tr>
         </tbody>
       </table>
     </section>

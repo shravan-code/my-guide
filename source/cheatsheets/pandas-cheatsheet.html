@@ -9,7 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
   <link rel="stylesheet" href="../shared.css" />
 </head>
 
@@ -167,35 +166,31 @@
           <span class="code-label">Series</span>
           <h3>Series</h3>
           <p>One-dimensional labeled array.</p>
-<pre class="code-block"><code class="language-python">
-import pandas as pd
+          <div class="code-block">
+            <code><span class="keyword">import</span> <span class="variable">pandas</span> <span class="keyword">as</span> <span class="variable">pd</span>
 
-s = pd.Series([1, 3, 5, 7, 9])
-print(s.index)  # RangeIndex(start=0, stop=5, step=1)
-print(s.values)  # [1 3 5 7 9]
-
-# With custom index
-s = pd.Series([10, 20, 30], index=['a', 'b', 'c'])
-print(s['a'])  # 10
-</code></pre>
+<span class="variable">s</span> = <span class="variable">pd</span>.<span class="function">Series</span>([1, 3, 5, 7, 9])
+<span class="function">print</span>(<span class="variable">s</span>.<span class="variable">index</span>)
+<span class="function">print</span>(<span class="variable">s</span>.<span class="variable">values</span>)</code>
+          </div>
         </div>
         <div class="code-card">
           <span class="code-label">DataFrame</span>
           <h3>DataFrame</h3>
           <p>Two-dimensional labeled data structure with columns of potentially different types.</p>
-<pre class="code-block"><code class="language-python">
-import pandas as pd
+          <div class="code-block">
+            <code><span class="keyword">import</span> <span class="variable">pandas</span> <span class="keyword">as</span> <span class="variable">pd</span>
 
-data = {
-'Name': ['Alice', 'Bob', 'Charlie'],
-'Age': [25, 30, 35],
-'City': ['New York', 'London', 'Paris']
+<span class="variable">data</span> = {
+  <span class="string">'Name'</span>: [<span class="string">'Alice'</span>, <span class="string">'Bob'</span>, <span class="string">'Charlie'</span>],
+  <span class="string">'Age'</span>: [25, 30, 35],
+  <span class="string">'City'</span>: [<span class="string">'New York'</span>, <span class="string">'London'</span>, <span class="string">'Paris'</span>]
 }
 
-df = pd.DataFrame(data)
-print(df.shape)  # (3, 3)
-print(df.columns)  # Index(['Name', 'Age', 'City'], dtype='object')
-</code></pre>
+<span class="variable">df</span> = <span class="variable">pd</span>.<span class="function">DataFrame</span>(<span class="variable">data</span>)
+<span class="function">print</span>(<span class="variable">df</span>.<span class="variable">shape</span>) <span class="comment"># (3, 3)</span>
+<span class="function">print</span>(<span class="variable">df</span>.<span class="variable">columns</span>) <span class="comment"># Index(['Name', 'Age', 'City'], dtype='object')</span></code>
+          </div>
         </div>
       </div>
     </section>
@@ -207,78 +202,78 @@ print(df.columns)  # Index(['Name', 'Age', 'City'], dtype='object')
         <span class="code-label">CSV</span>
         <h3>Read & Write CSV</h3>
         <p>Handle CSV files.</p>
-<pre class="code-block"><code class="language-python">
-import pandas as pd
+          <div class="code-block">
+            <code><span class="keyword">import</span> <span class="variable">pandas</span> <span class="keyword">as</span> <span class="variable">pd</span>
 
-# Read CSV
-df = pd.read_csv('data.csv')
-df = pd.read_csv('data.csv',
-dtype={'id': 'int64', 'name': 'str'},
-parse_dates=['created_at'],
-na_values=['NA', 'N/A', ''])
+<span class="comment"># Read CSV</span>
+<span class="variable">df</span> = <span class="variable">pd</span>.<span class="function">read_csv</span>(<span class="string">'data.csv'</span>)
+<span class="variable">df</span> = <span class="variable">pd</span>.<span class="function">read_csv</span>(<span class="string">'data.csv'</span>,
+  <span class="variable">dtype</span>={<span class="string">'id'</span>: <span class="string">'int64'</span>, <span class="string">'name'</span>: <span class="string">'str'</span>},
+  <span class="variable">parse_dates</span>=[<span class="string">'created_at'</span>],
+  <span class="variable">na_values</span>=[<span class="string">'NA'</span>, <span class="string">'N/A'</span>, <span class="string">''</span>])
 
-# Write CSV
-df.to_csv('output.csv', index=False)
-df.to_csv('output.csv',
-columns=['id', 'name'],
-encoding='utf-8')
-</code></pre>
+<span class="comment"># Write CSV</span>
+<span class="variable">df</span>.<span class="function">to_csv</span>(<span class="string">'output.csv'</span>, <span class="variable">index</span>=<span class="keyword">False</span>)
+<span class="variable">df</span>.<span class="function">to_csv</span>(<span class="string">'output.csv'</span>,
+  <span class="variable">columns</span>=[<span class="string">'id'</span>, <span class="string">'name'</span>],
+  <span class="variable">encoding</span>=<span class="string">'utf-8'</span>)</code>
+          </div>
       </div>
       <div class="code-card">
         <span class="code-label">Excel</span>
         <h3>Read & Write Excel</h3>
         <p>Handle Excel files.</p>
-<pre class="code-block"><code class="language-python">
-# Read Excel
-df = pd.read_excel('file.xlsx')
-df = pd.read_excel('file.xlsx',
-sheet_name='Sheet1',
-skiprows=2,
-usecols='A:C')
+          <div class="code-block">
+            <code><span class="comment"># Read Excel</span>
+<span class="variable">df</span> = <span class="variable">pd</span>.<span class="function">read_excel</span>(<span class="string">'file.xlsx'</span>)
+<span class="variable">df</span> = <span class="variable">pd</span>.<span class="function">read_excel</span>(<span class="string">'file.xlsx'</span>,
+  <span class="variable">sheet_name</span>=<span class="string">'Sheet1'</span>,
+  <span class="variable">skiprows</span>=2,
+  <span class="variable">usecols</span>=<span class="string">'A:C'</span>)
 
-# Multiple sheets
-dfs = pd.read_excel('file.xlsx', sheet_name=None)
+<span class="comment"># Multiple sheets</span>
+<span class="variable">dfs</span> = <span class="variable">pd</span>.<span class="function">read_excel</span>(<span class="string">'file.xlsx'</span>, <span class="variable">sheet_name</span>=<span class="keyword">None</span>)
 
-# Write Excel
-df.to_excel('output.xlsx', index=False)
-df.to_excel('output.xlsx', sheet_name='Data')
-</code></pre>
+<span class="comment"># Write Excel</span>
+<span class="variable">df</span>.<span class="function">to_excel</span>(<span class="string">'output.xlsx'</span>, <span class="variable">index</span>=<span class="keyword">False</span>)
+<span class="variable">df</span>.<span class="function">to_excel</span>(<span class="string">'output.xlsx'</span>, <span class="variable">sheet_name</span>=<span class="string">'Data'</span>)</code>
+          </div>
       </div>
       <div class="code-card">
         <span class="code-label">JSON</span>
         <h3>Read & Write JSON</h3>
         <p>Handle JSON files.</p>
-<pre class="code-block"><code class="language-python">
-# Read JSON
-df = pd.read_json('data.json')
-df = pd.read_json('data.json', orient='records')
+          <div class="code-block">
+            <code><span class="comment"># Read JSON</span>
+<span class="variable">df</span> = <span class="variable">pd</span>.<span class="function">read_json</span>(<span class="string">'data.json'</span>)
+<span class="variable">df</span> = <span class="variable">pd</span>.<span class="function">read_json</span>(<span class="string">'data.json'</span>, <span class="variable">orient</span>=<span class="string">'records'</span>)
 
-# JSON lines (one object per line)
-df = pd.read_json('data.jsonl', lines=True)
+<span class="comment"># JSON lines (one object per line)</span>
+<span class="variable">df</span> = <span class="variable">pd</span>.<span class="function">read_json</span>(<span class="string">'data.jsonl'</span>, <span class="variable">lines</span>=<span class="keyword">True</span>)
 
-# Write JSON
-df.to_json('output.json', orient='records')
-df.to_json('output.jsonl', orient='records', lines=True)
-</code></pre>
+<span class="comment"># Write JSON</span>
+<span class="variable">df</span>.<span class="function">to_json</span>(<span class="string">'output.json'</span>, <span class="variable">orient</span>=<span class="string">'records'</span>)
+<span class="variable">df</span>.<span class="function">to_json</span>(<span class="string">'output.jsonl'</span>, <span class="variable">orient</span>=<span class="string">'records'</span>, <span class="variable">lines</span>=<span class="keyword">True</span>)</code>
+          </div>
       </div>
       <div class="code-card">
         <span class="code-label">SQL</span>
         <h3>Read & Write SQL</h3>
         <p>Database operations.</p>
-<pre class="code-block"><code class="language-python">
-from sqlalchemy import create_engine
+          <div class="code-block">
+            <code><span class="keyword">from</span> <span class="variable">sqlalchemy</span> <span class="keyword">import</span> <span class="variable">create_engine</span>
 
-engine = create_engine('postgresql://user:pass@host/db')
+<span class="variable">engine</span> = <span class="function">create_engine</span>(<span class="string">'postgresql://user:pass@host/db'</span>)
 
-# Read SQL
-df = pd.read_sql('SELECT * FROM users', engine)
-df = pd.read_sql_table('users', engine)
-df = pd.read_sql_query('SELECT * FROM users WHERE age > 18', engine)
+<span class="comment"># Read SQL</span>
+<span class="variable">df</span> = <span class="variable">pd</span>.<span class="function">read_sql</span>(<span class="string">'SELECT * FROM users'</span>, <span class="variable">engine</span>)
+<span class="variable">df</span> = <span class="variable">pd</span>.<span class="function">read_sql_table</span>(<span class="string">'users'</span>, <span class="variable">engine</span>)
+<span class="variable">df</span> = <span class="variable">pd</span>.<span class="function">read_sql_query</span>(<span class="string">'SELECT * FROM users WHERE age > 18'</span>, <span class="variable">engine</span>)
 
-# Write SQL
-df.to_sql('users', engine, if_exists='append', index=False)
-df.to_sql('users', engine, if_exists='replace', index=False)
-</code></pre>
+<span class="comment"># Write SQL</span>
+<span class="variable">df</span>.<span class="function">to_sql</span>(<span class="string">'users'</span>, <span class="variable">engine</span>, <span class="variable">if_exists</span>=<span class="string">'append'</span>, <span class="variable">index</span>=<span class="keyword">False</span>)
+<span class="variable">df</span>.<span class="function">to_sql</span>(<span class="string">'users'</span>, <span class="variable">engine</span>, <span class="variable">if_exists</span>=<span class="string">'replace'</span>, <span class="variable">index</span>=<span class="keyword">False</span>)</code>
+          </div>
       </div>
     </div>
     </section>
@@ -291,95 +286,96 @@ df.to_sql('users', engine, if_exists='replace', index=False)
         <span class="code-label">Columns</span>
         <h3>Select Columns</h3>
         <p>Select and access columns.</p>
-<pre class="code-block"><code class="language-python">
-# Single column (returns Series)
-df['name']
-df.name
+          <div class="code-block">
+            <code><span class="comment"># Single column (returns Series)</span>
+<span class="variable">df</span>[<span class="string">'name'</span>]
+<span class="variable">df</span>.<span class="variable">name</span>
 
-# Multiple columns (returns DataFrame)
-df[['name', 'age', 'city']]
+<span class="comment"># Multiple columns (returns DataFrame)</span>
+<span class="variable">df</span>[[<span class="string">'name'</span>, <span class="string">'age'</span>, <span class="string">'city'</span>]]
 
-# By dtype
-df.select_dtypes(include=['int64', 'float64'])
-df.select_dtypes(exclude=['object'])
+<span class="comment"># By dtype</span>
+<span class="variable">df</span>.<span class="function">select_dtypes</span>(<span class="variable">include</span>=[<span class="string">'int64'</span>, <span class="string">'float64'</span>])
+<span class="variable">df</span>.<span class="function">select_dtypes</span>(<span class="variable">exclude</span>=[<span class="string">'object'</span>])
 
-# Columns attribute
-df.columns.tolist()
-df.filter(items=['name', 'age'])
-df.filter(like='date') # Columns containing 'date'
-df.filter(regex='^id') # Columns starting with 'id'
-</code></pre>
+<span class="comment"># Columns attribute</span>
+<span class="variable">df</span>.<span class="variable">columns</span>.<span class="function">tolist</span>()
+<span class="variable">df</span>.<span class="function">filter</span>(<span class="variable">items</span>=[<span class="string">'name'</span>, <span class="string">'age'</span>])
+<span class="variable">df</span>.<span class="function">filter</span>(<span class="variable">like</span>=<span class="string">'date'</span>) <span class="comment"># Columns containing 'date'</span>
+<span class="variable">df</span>.<span class="function">filter</span>(<span class="variable">regex</span>=<span class="string">'^id'</span>) <span class="comment"># Columns starting with 'id'</span></code>
+          </div>
       </div>
       <div class="code-card">
         <span class="code-label">LOC</span>
         <h3>LOC & ILOC</h3>
         <p>Label and position-based selection.</p>
-<pre class="code-block"><code class="language-python">
-# LOC (label-based)
-df.loc[0] # Row with index 0
-df.loc[0:5] # Rows 0 to 5 (inclusive)
-df.loc[0:5, 'name'] # Column 'name', rows 0-5
-df.loc[0:5, ['name', 'age']]
-df.loc[df['age'] > 18] # Filter by condition
+          <div class="code-block">
+            <code><span class="comment"># LOC (label-based)</span>
+<span class="variable">df</span>.<span class="variable">loc</span>[0] <span class="comment"># Row with index 0</span>
+<span class="variable">df</span>.<span class="variable">loc</span>[0:5] <span class="comment"># Rows 0 to 5 (inclusive)</span>
+<span class="variable">df</span>.<span class="variable">loc</span>[0:5, <span class="string">'name'</span>] <span class="comment"># Column 'name', rows 0-5</span>
+<span class="variable">df</span>.<span class="variable">loc</span>[0:5, [<span class="string">'name'</span>, <span class="string">'age'</span>]]
+<span class="variable">df</span>.<span class="variable">loc</span>[<span class="variable">df</span>[<span class="string">'age'</span>] > 18] <span class="comment"># Filter by condition</span>
 
-# ILOC (integer position-based)
-df.iloc[0] # First row
-df.iloc[0:5] # First 5 rows (exclusive)
-df.iloc[0:5, 0:3] # First 5 rows, first 3 cols
-df.iloc[[0, 2, 4]] # Specific rows
-df.iloc[:, 1] # Second column
-</code></pre>
+<span class="comment"># ILOC (integer position-based)</span>
+<span class="variable">df</span>.<span class="variable">iloc</span>[0] <span class="comment"># First row</span>
+<span class="variable">df</span>.<span class="variable">iloc</span>[0:5] <span class="comment"># First 5 rows (exclusive)</span>
+<span class="variable">df</span>.<span class="variable">iloc</span>[0:5, 0:3] <span class="comment"># First 5 rows, first 3 cols</span>
+<span class="variable">df</span>.<span class="variable">iloc</span>[[0, 2, 4]] <span class="comment"># Specific rows</span>
+<span class="variable">df</span>.<span class="variable">iloc</span>[:, 1] <span class="comment"># Second column</span></code>
+          </div>
       </div>
       <div class="code-card">
         <span class="code-label">Filter</span>
         <h3>Filter Rows</h3>
         <p>Filter DataFrames by conditions.</p>
-<pre class="code-block"><code class="language-python">
-# Single condition
-df[df['age'] > 18]
-df.query('age > 18')
+          <div class="code-block">
+            <code><span class="comment"># Single condition</span>
+<span class="variable">df</span>[<span class="variable">df</span>[<span class="string">'age'</span>] > 18]
+<span class="variable">df</span>.<span class="function">query</span>(<span class="string">'age > 18'</span>)
 
-# Multiple conditions (AND)
-df[(df['age'] > 18) & (df['city'] == 'NYC')]
+<span class="comment"># Multiple conditions (AND)</span>
+<span class="variable">df</span>[(<span class="variable">df</span>[<span class="string">'age'</span>] > 18) & (<span class="variable">df</span>[<span class="string">'city'</span>] == <span class="string">'NYC'</span>)]
 
-# Multiple conditions (OR)
-df[(df['status'] == 'active') | (df['premium'] == True)]
+<span class="comment"># Multiple conditions (OR)</span>
+<span class="variable">df</span>[(<span class="variable">df</span>[<span class="string">'status'</span>] == <span class="string">'active'</span>) | (<span class="variable">df</span>[<span class="string">'premium'</span>] == <span class="keyword">True</span>)]
 
-# String contains
-df[df['name'].str.contains('John', case=False)]
+<span class="comment"># String contains</span>
+<span class="variable">df</span>[<span class="variable">df</span>[<span class="string">'name'</span>].<span class="variable">str</span>.<span class="function">contains</span>(<span class="string">'John'</span>, <span class="variable">case</span>=<span class="keyword">False</span>)]
 
-# Is in list
-df[df['city'].isin(['NYC', 'LA', 'SF'])]
+<span class="comment"># Is in list</span>
+<span class="variable">df</span>[<span class="variable">df</span>[<span class="string">'city'</span>].<span class="function">isin</span>([<span class="string">'NYC'</span>, <span class="string">'LA'</span>, <span class="string">'SF'</span>])]
 
-# Between
-df[df['age'].between(18, 30)]
+<span class="comment"># Between</span>
+<span class="variable">df</span>[<span class="variable">df</span>[<span class="string">'age'</span>].<span class="function">between</span>(18, 30)]
 
-# Not null
-df[df['name'].notna()]
-df.dropna(subset=['name', 'email'])
-</code></pre>
+<span class="comment"># Not null</span>
+<span class="variable">df</span>[<span class="variable">df</span>[<span class="string">'name'</span>].<span class="function">notna</span>()]
+<span class="variable">df</span>.<span class="function">dropna</span>(<span class="variable">subset</span>=[<span class="string">'name'</span>, <span class="string">'email'</span>])</code>
+          </div>
       </div>
       <div class="code-card">
         <span class="code-label">Query</span>
         <h3>Query Method</h3>
         <p>Use string expressions for filtering.</p>
-<pre class="code-block"><code class="language-python">
-# Basic query
-df.query('age > 18 and city == "NYC"')
+          <div class="code-block">
+            <code><span class="comment"># Basic query</span>
+<span class="variable">df</span>.<span class="function">query</span>(<span class="string">'age > 18 and city == "NYC"'</span>)
 
-# Using variables
-min_age = 21
-df.query('age > @min_age')
+<span class="comment"># Using variables</span>
+<span class="variable">min_age</span> = 21
+<span class="variable">df</span>.<span class="function">query</span>(<span class="string">'age > @min_age'</span>)
 
-# Multiple conditions
-df.query('age > 18 and status == ["active", "pending"]')
+<span class="comment"># Multiple conditions</span>
+<span class="variable">df</span>.<span class="function">query</span>(<span class="string">'age > 18 and status == ["active", "pending"]'</span>)
 
-# Date query
-df.query('created_at > "2024-01-01"')
+<span class="comment"># Date query</span>
+<span class="variable">df</span>.<span class="function">query</span>(<span class="string">'created_at > "2024-01-01"'</span>)
 
-# Inverse (not)
-df.query('not (age < 18)') # Between shorthand df.query('18 <=age <=30')
-</code></pre>
+<span class="comment"># Inverse (not)</span>
+<span class="variable">df</span>.<span class="function">query</span>(<span class="string">'not (age < 18)'</span>)
+<span class="variable">df</span>.<span class="function">query</span>(<span class="string">'18 <= age <= 30'</span>)</code>
+          </div>
         </div>
       </div>
     </section>
@@ -392,95 +388,95 @@ df.query('not (age < 18)') # Between shorthand df.query('18 <=age <=30')
         <span class="code-label">GroupBy</span>
         <h3>Basic GroupBy</h3>
         <p>Group and aggregate data.</p>
-<pre class="code-block"><code class="language-python">
-# Single column groupby
-df.groupby('category')
-df.groupby('category')['amount'].sum()
-df.groupby('category')['amount'].agg('sum')
+          <div class="code-block">
+            <code><span class="comment"># Single column groupby</span>
+<span class="variable">df</span>.<span class="function">groupby</span>(<span class="string">'category'</span>)
+<span class="variable">df</span>.<span class="function">groupby</span>(<span class="string">'category'</span>)[<span class="string">'amount'</span>].<span class="function">sum</span>()
+<span class="variable">df</span>.<span class="function">groupby</span>(<span class="string">'category'</span>)[<span class="string">'amount'</span>].<span class="function">agg</span>(<span class="string">'sum'</span>)
 
-# Multiple columns
-df.groupby(['category', 'status'])
+<span class="comment"># Multiple columns</span>
+<span class="variable">df</span>.<span class="function">groupby</span>([<span class="string">'category'</span>, <span class="string">'status'</span>])
 
-# Aggregation functions
-df.groupby('category').agg({
-'amount': ['sum', 'mean', 'count'],
-'user_id': 'nunique',
-'created_at': 'max'
-}).reset_index()
+<span class="comment"># Aggregation functions</span>
+<span class="variable">df</span>.<span class="function">groupby</span>(<span class="string">'category'</span>).<span class="function">agg</span>({
+  <span class="string">'amount'</span>: [<span class="string">'sum'</span>, <span class="string">'mean'</span>, <span class="string">'count'</span>],
+  <span class="string">'user_id'</span>: <span class="string">'nunique'</span>,
+  <span class="string">'created_at'</span>: <span class="string">'max'</span>
+}).<span class="function">reset_index</span>()
 
-# Size (counts)
-df.groupby('category').size()
-df.groupby('category').value_counts()
-</code></pre>
+<span class="comment"># Size (counts)</span>
+<span class="variable">df</span>.<span class="function">groupby</span>(<span class="string">'category'</span>).<span class="function">size</span>()
+<span class="variable">df</span>.<span class="function">groupby</span>(<span class="string">'category'</span>).<span class="variable">value_counts</span>()</code>
+          </div>
       </div>
       <div class="code-card">
         <span class="code-label">Agg</span>
         <h3>Aggregation Methods</h3>
         <p>Common aggregation functions.</p>
-<pre class="code-block"><code class="language-python">
-# Single aggregation
-df['amount'].sum()
-df['amount'].mean()
-df['amount'].median()
-df['amount'].std()
-df['amount'].var()
-df['amount'].min()
-df['amount'].max()
-df['amount'].count()
+          <div class="code-block">
+            <code><span class="comment"># Single aggregation</span>
+<span class="variable">df</span>[<span class="string">'amount'</span>].<span class="function">sum</span>()
+<span class="variable">df</span>[<span class="string">'amount'</span>].<span class="function">mean</span>()
+<span class="variable">df</span>[<span class="string">'amount'</span>].<span class="function">median</span>()
+<span class="variable">df</span>[<span class="string">'amount'</span>].<span class="function">std</span>()
+<span class="variable">df</span>[<span class="string">'amount'</span>].<span class="function">var</span>()
+<span class="variable">df</span>[<span class="string">'amount'</span>].<span class="function">min</span>()
+<span class="variable">df</span>[<span class="string">'amount'</span>].<span class="function">max</span>()
+<span class="variable">df</span>[<span class="string">'amount'</span>].<span class="function">count</span>()
 
-# Multiple aggregations
-df.agg({
-'amount': ['sum', 'mean', 'std'],
-'age': ['mean', 'min', 'max']
+<span class="comment"># Multiple aggregations</span>
+<span class="variable">df</span>.<span class="function">agg</span>({
+  <span class="string">'amount'</span>: [<span class="string">'sum'</span>, <span class="string">'mean'</span>, <span class="string">'std'</span>],
+  <span class="string">'age'</span>: [<span class="string">'mean'</span>, <span class="string">'min'</span>, <span class="string">'max'</span>]
 })
 
-# Custom aggregation
-df.groupby('category')['amount'].agg(lambda x: x.quantile(0.75))
-</code></pre>
+<span class="comment"># Custom aggregation</span>
+<span class="variable">df</span>.<span class="function">groupby</span>(<span class="string">'category'</span>)[<span class="string">'amount'</span>].<span class="function">agg</span>(<span class="keyword">lambda</span> <span class="variable">x</span>: <span class="variable">x</span>.<span class="function">quantile</span>(0.75))</code>
+          </div>
       </div>
       <div class="code-card">
         <span class="code-label">Transform</span>
         <h3>Transform & Apply</h3>
         <p>Apply functions to groups.</p>
-<pre class="code-block"><code class="language-python">
-# Transform (returns same shape)
-df['category_total'] = df.groupby('category')['amount'].transform('sum')
-df['category_mean'] = df.groupby('category')['amount'].transform('mean')
-df['pct_of_group'] = df['amount'] / df.groupby('category')['amount'].transform('sum')
+          <div class="code-block">
+            <code><span class="comment"># Transform (returns same shape)</span>
+<span class="variable">df</span>[<span class="string">'category_total'</span>] = <span class="variable">df</span>.<span class="function">groupby</span>(<span class="string">'category'</span>)[<span class="string">'amount'</span>].<span class="function">transform</span>(<span class="string">'sum'</span>)
+<span class="variable">df</span>[<span class="string">'category_mean'</span>] = <span class="variable">df</span>.<span class="function">groupby</span>(<span class="string">'category'</span>)[<span class="string">'amount'</span>].<span class="function">transform</span>(<span class="string">'mean'</span>)
+<span class="variable">df</span>[<span class="string">'pct_of_group'</span>] = <span class="variable">df</span>[<span class="string">'amount'</span>] / <span class="variable">df</span>.<span class="function">groupby</span>(<span class="string">'category'</span>)[<span class="string">'amount'</span>].<span class="function">transform</span>(<span class="string">'sum'</span>)
 
-# Apply
-df.groupby('category').apply(lambda x: x.nlargest(3, 'amount'))
+<span class="comment"># Apply</span>
+<span class="variable">df</span>.<span class="function">groupby</span>(<span class="string">'category'</span>).<span class="function">apply</span>(<span class="keyword">lambda</span> <span class="variable">x</span>: <span class="variable">x</span>.<span class="function">nlargest</span>(3, <span class="string">'amount'</span>))
 
-# Map/Apply on rows
-df['name_upper'] = df['name'].apply(str.upper)
-df['full_name'] = df.apply(lambda row: f"{row['first']} {row['last']}", axis=1)
-</code></pre>
+<span class="comment"># Map/Apply on rows</span>
+<span class="variable">df</span>[<span class="string">'name_upper'</span>] = <span class="variable">df</span>[<span class="string">'name'</span>].<span class="function">apply</span>(<span class="variable">str</span>.<span class="variable">upper</span>)
+<span class="variable">df</span>[<span class="string">'full_name'</span>] = <span class="variable">df</span>.<span class="function">apply</span>(<span class="keyword">lambda</span> <span class="variable">row</span>: <span class="string">f"{row['first']} {row['last']}"</span>, <span class="variable">axis</span>=1)</code>
+          </div>
       </div>
       <div class="code-card">
         <span class="code-label">Pivot</span>
         <h3>Pivot Tables</h3>
         <p>Reshape data with pivots.</p>
-<pre class="code-block"><code class="language-python">
-# Pivot table
-pd.pivot_table(df,
-values='amount',
-index='category',
-columns='status',
-aggfunc='sum',
-fill_value=0,
-margins=True) # Add totals
+          <div class="code-block">
+            <code><span class="comment"># Pivot table</span>
+<span class="variable">pd</span>.<span class="function">pivot_table</span>(<span class="variable">df</span>,
+  <span class="variable">values</span>=<span class="string">'amount'</span>,
+  <span class="variable">index</span>=<span class="string">'category'</span>,
+  <span class="variable">columns</span>=<span class="string">'status'</span>,
+  <span class="variable">aggfunc</span>=<span class="string">'sum'</span>,
+  <span class="variable">fill_value</span>=0,
+  <span class="variable">margins</span>=<span class="keyword">True</span>) <span class="comment"># Add totals</span>
 
-# Cross tabulation
-pd.crosstab(df['category'], df['status'])
-pd.crosstab(df['category'], df['status'], normalize='index') # Row %
+<span class="comment"># Cross tabulation</span>
+<span class="variable">pd</span>.<span class="function">crosstab</span>(<span class="variable">df</span>[<span class="string">'category'</span>], <span class="variable">df</span>[<span class="string">'status'</span>])
+<span class="variable">pd</span>.<span class="function">crosstab</span>(<span class="variable">df</span>[<span class="string">'category'</span>], <span class="variable">df</span>[<span class="string">'status'</span>], <span class="variable">normalize</span>=<span class="string">'index'</span>) <span class="comment"># Row %</span>
 
-# Melt (wide to long)
-pd.melt(df,
-id_vars=['id', 'name'],
-value_vars=['jan', 'feb', 'mar'],
-var_name='month',
-value_name='revenue')
-</code></pre>
+<span class="comment"># Melt (wide to long)</span>
+<span class="variable">pd</span>.<span class="function">melt</span>(<span class="variable">df</span>,
+  <span class="variable">id_vars</span>=[<span class="string">'id'</span>, <span class="string">'name'</span>],
+  <span class="variable">value_vars</span>=[<span class="string">'jan'</span>, <span class="string">'feb'</span>, <span class="string">'mar'</span>],
+  <span class="variable">var_name</span>=<span class="string">'month'</span>,
+  <span class="variable">value_name</span>=<span class="string">'revenue'</span>)</code>
+          </div>
       </div>
     </div>
     </section>
@@ -492,96 +488,96 @@ value_name='revenue')
         <span class="code-label">Merge</span>
         <h3>Merge DataFrames</h3>
         <p>Combine DataFrames.</p>
-<pre class="code-block"><code class="language-python">
-# Inner join (default)
-pd.merge(df1, df2, on='id', how='inner')
+          <div class="code-block">
+            <code><span class="comment"># Inner join (default)</span>
+<span class="variable">pd</span>.<span class="function">merge</span>(<span class="variable">df1</span>, <span class="variable">df2</span>, <span class="variable">on</span>=<span class="string">'id'</span>, <span class="variable">how</span>=<span class="string">'inner'</span>)
 
-# Left join
-pd.merge(df1, df2, on='id', how='left')
+<span class="comment"># Left join</span>
+<span class="variable">pd</span>.<span class="function">merge</span>(<span class="variable">df1</span>, <span class="variable">df2</span>, <span class="variable">on</span>=<span class="string">'id'</span>, <span class="variable">how</span>=<span class="string">'left'</span>)
 
-# Right join
-pd.merge(df1, df2, on='id', how='right')
+<span class="comment"># Right join</span>
+<span class="variable">pd</span>.<span class="function">merge</span>(<span class="variable">df1</span>, <span class="variable">df2</span>, <span class="variable">on</span>=<span class="string">'id'</span>, <span class="variable">how</span>=<span class="string">'right'</span>)
 
-# Outer join
-pd.merge(df1, df2, on='id', how='outer')
+<span class="comment"># Outer join</span>
+<span class="variable">pd</span>.<span class="function">merge</span>(<span class="variable">df1</span>, <span class="variable">df2</span>, <span class="variable">on</span>=<span class="string">'id'</span>, <span class="variable">how</span>=<span class="string">'outer'</span>)
 
-# Different column names
-pd.merge(df1, df2, left_on='user_id', right_on='id', how='left')
+<span class="comment"># Different column names</span>
+<span class="variable">pd</span>.<span class="function">merge</span>(<span class="variable">df1</span>, <span class="variable">df2</span>, <span class="variable">left_on</span>=<span class="string">'user_id'</span>, <span class="variable">right_on</span>=<span class="string">'id'</span>, <span class="variable">how</span>=<span class="string">'left'</span>)
 
-# Multiple keys
-pd.merge(df1, df2, on=['id', 'date'], how='inner')
+<span class="comment"># Multiple keys</span>
+<span class="variable">pd</span>.<span class="function">merge</span>(<span class="variable">df1</span>, <span class="variable">df2</span>, <span class="variable">on</span>=[<span class="string">'id'</span>, <span class="string">'date'</span>], <span class="variable">how</span>=<span class="string">'inner'</span>)
 
-# Suffix for overlapping column names
-pd.merge(df1, df2, on='id', suffixes=('_left', '_right'))
-</code></pre>
+<span class="comment"># Suffix for overlapping column names</span>
+<span class="variable">pd</span>.<span class="function">merge</span>(<span class="variable">df1</span>, <span class="variable">df2</span>, <span class="variable">on</span>=<span class="string">'id'</span>, <span class="variable">suffixes</span>=(<span class="string">'_left'</span>, <span class="string">'_right'</span>))</code>
+          </div>
       </div>
       <div class="code-card">
         <span class="code-label">Join</span>
         <h3>Join on Index</h3>
         <p>Join using index.</p>
-<pre class="code-block"><code class="language-python">
-# Join on index
-df1.join(df2)
+          <div class="code-block">
+            <code><span class="comment"># Join on index</span>
+<span class="variable">df1</span>.<span class="function">join</span>(<span class="variable">df2</span>)
 
-# Join on specific column
-df1.join(df2, lsuffix='_l', rsuffix='_r')
+<span class="comment"># Join on specific column</span>
+<span class="variable">df1</span>.<span class="function">join</span>(<span class="variable">df2</span>, <span class="variable">lsuffix</span>=<span class="string">'_l'</span>, <span class="variable">rsuffix</span>=<span class="string">'_r'</span>)
 
-# Concat (stack DataFrames)
-pd.concat([df1, df2]) # Vertical stack
-pd.concat([df1, df2], axis=1) # Horizontal stack
-pd.concat([df1, df2], ignore_index=True) # Reset index
+<span class="comment"># Concat (stack DataFrames)</span>
+<span class="variable">pd</span>.<span class="function">concat</span>([<span class="variable">df1</span>, <span class="variable">df2</span>]) <span class="comment"># Vertical stack</span>
+<span class="variable">pd</span>.<span class="function">concat</span>([<span class="variable">df1</span>, <span class="variable">df2</span>], <span class="variable">axis</span>=1) <span class="comment"># Horizontal stack</span>
+<span class="variable">pd</span>.<span class="function">concat</span>([<span class="variable">df1</span>, <span class="variable">df2</span>], <span class="variable">ignore_index</span>=<span class="keyword">True</span>) <span class="comment"># Reset index</span>
 
-# Append (deprecated, use concat)
-# df1.append(df2) # Use pd.concat instead
-</code></pre>
+<span class="comment"># Append (deprecated, use concat)</span>
+<span class="comment"># df1.append(df2) # Use pd.concat instead</span></code>
+          </div>
       </div>
       <div class="code-card">
         <span class="code-label">Merge AsOf</span>
         <h3>Merge AsOf</h3>
         <p>Time-based or ordered merges.</p>
-<pre class="code-block"><code class="language-python">
-# Merge asof (nearest match)
-pd.merge_asof(
-trades, # Left DataFrame
-quotes, # Right DataFrame
-on='timestamp', # Merge key
-by='symbol', # Group by
-direction='nearest', # 'forward', 'backward', 'nearest'
-tolerance=pd.Timedelta('1min')
+          <div class="code-block">
+            <code><span class="comment"># Merge asof (nearest match)</span>
+<span class="variable">pd</span>.<span class="function">merge_asof</span>(
+  <span class="variable">trades</span>, <span class="comment"># Left DataFrame</span>
+  <span class="variable">quotes</span>, <span class="comment"># Right DataFrame</span>
+  <span class="variable">on</span>=<span class="string">'timestamp'</span>, <span class="comment"># Merge key</span>
+  <span class="variable">by</span>=<span class="string">'symbol'</span>, <span class="comment"># Group by</span>
+  <span class="variable">direction</span>=<span class="string">'nearest'</span>, <span class="comment"># 'forward', 'backward', 'nearest'</span>
+  <span class="variable">tolerance</span>=<span class="variable">pd</span>.<span class="function">Timedelta</span>(<span class="string">'1min'</span>)
 )
 
-# Example use case: match trades to nearest quote
-# trades: timestamps of trades
-# quotes: timestamps of quotes
-# Result: each trade matched to nearest quote
-</code></pre>
+<span class="comment"># Example use case: match trades to nearest quote</span>
+<span class="comment"># trades: timestamps of trades</span>
+<span class="comment"># quotes: timestamps of quotes</span>
+<span class="comment"># Result: each trade matched to nearest quote</span></code>
+          </div>
       </div>
       <div class="code-card">
         <span class="code-label">Concat</span>
         <h3>Concatenate DataFrames</h3>
         <p>Stack multiple DataFrames.</p>
-<pre class="code-block"><code class="language-python">
-# Vertical concat
-pd.concat([df1, df2, df3], ignore_index=True)
+          <div class="code-block">
+            <code><span class="comment"># Vertical concat</span>
+<span class="variable">pd</span>.<span class="function">concat</span>([<span class="variable">df1</span>, <span class="variable">df2</span>, <span class="variable">df3</span>], <span class="variable">ignore_index</span>=<span class="keyword">True</span>)
 
-# Horizontal concat
-pd.concat([df1, df2], axis=1)
+<span class="comment"># Horizontal concat</span>
+<span class="variable">pd</span>.<span class="function">concat</span>([<span class="variable">df1</span>, <span class="variable">df2</span>], <span class="variable">axis</span>=1)
 
-# With keys (hierarchical index)
-pd.concat([df1, df2], keys=['source1', 'source2'])
+<span class="comment"># With keys (hierarchical index)</span>
+<span class="variable">pd</span>.<span class="function">concat</span>([<span class="variable">df1</span>, <span class="variable">df2</span>], <span class="variable">keys</span>=[<span class="string">'source1'</span>, <span class="string">'source2'</span>])
 
-# Only common columns
-pd.concat([df1, df2], join='inner')
+<span class="comment"># Only common columns</span>
+<span class="variable">pd</span>.<span class="function">concat</span>([<span class="variable">df1</span>, <span class="variable">df2</span>], <span class="variable">join</span>=<span class="string">'inner'</span>)
 
-# Dictionary of DataFrames
-pd.concat({'file1': df1, 'file2': df2})
+<span class="comment"># Dictionary of DataFrames</span>
+<span class="variable">pd</span>.<span class="function">concat</span>({<span class="string">'file1'</span>: <span class="variable">df1</span>, <span class="string">'file2'</span>: <span class="variable">df2</span>})
 
-# Along specific axis with keys
-result = pd.concat([df1, df2],
-axis=0,
-keys=['Q1', 'Q2'],
-names=['quarter'])
-</code></pre>
+<span class="comment"># Along specific axis with keys</span>
+<span class="variable">result</span> = <span class="variable">pd</span>.<span class="function">concat</span>([<span class="variable">df1</span>, <span class="variable">df2</span>],
+  <span class="variable">axis</span>=0,
+  <span class="variable">keys</span>=[<span class="string">'Q1'</span>, <span class="string">'Q2'</span>],
+  <span class="variable">names</span>=[<span class="string">'quarter'</span>])</code>
+          </div>
       </div>
     </div>
     </section>
@@ -593,103 +589,103 @@ names=['quarter'])
         <span class="code-label">Missing</span>
         <h3>Handle Missing Values</h3>
         <p>Detect and handle nulls.</p>
-<pre class="code-block"><code class="language-python">
-# Detect
-df.isnull().sum()
-df.isna().sum()
-df.info() # Shows non-null counts
+          <div class="code-block">
+            <code><span class="comment"># Detect</span>
+<span class="variable">df</span>.<span class="function">isnull</span>().<span class="function">sum</span>()
+<span class="variable">df</span>.<span class="function">isna</span>().<span class="function">sum</span>()
+<span class="variable">df</span>.<span class="function">info</span>() <span class="comment"># Shows non-null counts</span>
 
-# Drop
-df.dropna() # Drop rows with any null
-df.dropna(subset=['name']) # Drop if name is null
-df.dropna(how='all') # Drop only if all null
-df.dropna(thresh=2) # Keep rows with at least 2 non-null
+<span class="comment"># Drop</span>
+<span class="variable">df</span>.<span class="function">dropna</span>() <span class="comment"># Drop rows with any null</span>
+<span class="variable">df</span>.<span class="function">dropna</span>(<span class="variable">subset</span>=[<span class="string">'name'</span>]) <span class="comment"># Drop if name is null</span>
+<span class="variable">df</span>.<span class="function">dropna</span>(<span class="variable">how</span>=<span class="string">'all'</span>) <span class="comment"># Drop only if all null</span>
+<span class="variable">df</span>.<span class="function">dropna</span>(<span class="variable">thresh</span>=2) <span class="comment"># Keep rows with at least 2 non-null</span>
 
-# Fill
-df.fillna(0) # Fill with 0
-df.fillna({'age': 0, 'city': 'Unknown'}) # Different fills
-df.fillna(method='ffill') # Forward fill
-df.fillna(method='bfill') # Backward fill
-df.fillna(df.mean()) # Fill with column means
+<span class="comment"># Fill</span>
+<span class="variable">df</span>.<span class="function">fillna</span>(0) <span class="comment"># Fill with 0</span>
+<span class="variable">df</span>.<span class="function">fillna</span>({<span class="string">'age'</span>: 0, <span class="string">'city'</span>: <span class="string">'Unknown'</span>}) <span class="comment"># Different fills</span>
+<span class="variable">df</span>.<span class="function">fillna</span>(<span class="variable">method</span>=<span class="string">'ffill'</span>) <span class="comment"># Forward fill</span>
+<span class="variable">df</span>.<span class="function">fillna</span>(<span class="variable">method</span>=<span class="string">'bfill'</span>) <span class="comment"># Backward fill</span>
+<span class="variable">df</span>.<span class="function">fillna</span>(<span class="variable">df</span>.<span class="function">mean</span>()) <span class="comment"># Fill with column means</span>
 
-# Interpolate
-df.interpolate() # Linear interpolation
-</code></pre>
+<span class="comment"># Interpolate</span>
+<span class="variable">df</span>.<span class="function">interpolate</span>() <span class="comment"># Linear interpolation</span></code>
+          </div>
       </div>
       <div class="code-card">
         <span class="code-label">Duplicates</span>
         <h3>Handle Duplicates</h3>
         <p>Find and remove duplicates.</p>
-<pre class="code-block"><code class="language-python">
-# Detect duplicates
-df.duplicated().sum()
-df.duplicated(subset=['email']).sum()
-df.duplicated(keep='last') # Mark all but last as dup
+          <div class="code-block">
+            <code><span class="comment"># Detect duplicates</span>
+<span class="variable">df</span>.<span class="function">duplicated</span>().<span class="function">sum</span>()
+<span class="variable">df</span>.<span class="function">duplicated</span>(<span class="variable">subset</span>=[<span class="string">'email'</span>]).<span class="function">sum</span>()
+<span class="variable">df</span>.<span class="function">duplicated</span>(<span class="variable">keep</span>=<span class="string">'last'</span>) <span class="comment"># Mark all but last as dup</span>
 
-# Remove duplicates
-df.drop_duplicates()
-df.drop_duplicates(subset=['email'])
-df.drop_duplicates(subset=['name', 'email'], keep='last')
+<span class="comment"># Remove duplicates</span>
+<span class="variable">df</span>.<span class="function">drop_duplicates</span>()
+<span class="variable">df</span>.<span class="function">drop_duplicates</span>(<span class="variable">subset</span>=[<span class="string">'email'</span>])
+<span class="variable">df</span>.<span class="function">drop_duplicates</span>(<span class="variable">subset</span>=[<span class="string">'name'</span>, <span class="string">'email'</span>], <span class="variable">keep</span>=<span class="string">'last'</span>)
 
-# Get duplicates
-dups = df[df.duplicated(subset=['email'], keep=False)]
+<span class="comment"># Get duplicates</span>
+<span class="variable">dups</span> = <span class="variable">df</span>[<span class="variable">df</span>.<span class="function">duplicated</span>(<span class="variable">subset</span>=[<span class="string">'email'</span>], <span class="variable">keep</span>=<span class="keyword">False</span>)]
 
-# Count by column
-df['email'].value_counts()
-df['email'].value_counts().head(10)
-</code></pre>
+<span class="comment"># Count by column</span>
+<span class="variable">df</span>[<span class="string">'email'</span>].<span class="variable">value_counts</span>()
+<span class="variable">df</span>[<span class="string">'email'</span>].<span class="variable">value_counts</span>().<span class="function">head</span>(10)</code>
+          </div>
       </div>
       <div class="code-card">
         <span class="code-label">Types</span>
         <h3>Data Type Conversion</h3>
         <p>Convert column data types.</p>
-<pre class="code-block"><code class="language-python">
-# Check types
-df.dtypes
-df.info()
+          <div class="code-block">
+            <code><span class="comment"># Check types</span>
+<span class="variable">df</span>.<span class="variable">dtypes</span>
+<span class="variable">df</span>.<span class="function">info</span>()
 
-# Convert types
-df['age'] = df['age'].astype(int)
-df['price'] = df['price'].astype(float)
-df['is_active'] = df['is_active'].astype(bool)
+<span class="comment"># Convert types</span>
+<span class="variable">df</span>[<span class="string">'age'</span>] = <span class="variable">df</span>[<span class="string">'age'</span>].<span class="function">astype</span>(<span class="variable">int</span>)
+<span class="variable">df</span>[<span class="string">'price'</span>] = <span class="variable">df</span>[<span class="string">'price'</span>].<span class="function">astype</span>(<span class="variable">float</span>)
+<span class="variable">df</span>[<span class="string">'is_active'</span>] = <span class="variable">df</span>[<span class="string">'is_active'</span>].<span class="function">astype</span>(<span class="variable">bool</span>)
 
-# To datetime
-df['date'] = pd.to_datetime(df['date'])
-df['date'] = pd.to_datetime(df['date'], format='%Y-%m-%d')
-df['date'] = pd.to_datetime(df['date'], errors='coerce') # Invalid -> NaT
+<span class="comment"># To datetime</span>
+<span class="variable">df</span>[<span class="string">'date'</span>] = <span class="variable">pd</span>.<span class="function">to_datetime</span>(<span class="variable">df</span>[<span class="string">'date'</span>])
+<span class="variable">df</span>[<span class="string">'date'</span>] = <span class="variable">pd</span>.<span class="function">to_datetime</span>(<span class="variable">df</span>[<span class="string">'date'</span>], <span class="variable">format</span>=<span class="string">'%Y-%m-%d'</span>)
+<span class="variable">df</span>[<span class="string">'date'</span>] = <span class="variable">pd</span>.<span class="function">to_datetime</span>(<span class="variable">df</span>[<span class="string">'date'</span>], <span class="variable">errors</span>=<span class="string">'coerce'</span>) <span class="comment"># Invalid -> NaT</span>
 
-# Extract datetime components
-df['year'] = df['date'].dt.year
-df['month'] = df['date'].dt.month
-df['day_of_week'] = df['date'].dt.dayofweek
-</code></pre>
+<span class="comment"># Extract datetime components</span>
+<span class="variable">df</span>[<span class="string">'year'</span>] = <span class="variable">df</span>[<span class="string">'date'</span>].<span class="variable">dt</span>.<span class="variable">year</span>
+<span class="variable">df</span>[<span class="string">'month'</span>] = <span class="variable">df</span>[<span class="string">'date'</span>].<span class="variable">dt</span>.<span class="variable">month</span>
+<span class="variable">df</span>[<span class="string">'day_of_week'</span>] = <span class="variable">df</span>[<span class="string">'date'</span>].<span class="variable">dt</span>.<span class="variable">dayofweek</span></code>
+          </div>
       </div>
       <div class="code-card">
         <span class="code-label">Strings</span>
         <h3>String Operations</h3>
         <p>Text manipulation with .str accessor.</p>
-<pre class="code-block"><code class="language-python">
-# Case conversion
-df['name'] = df['name'].str.lower()
-df['name'] = df['name'].str.upper()
-df['name'] = df['name'].str.title()
-df['name'] = df['name'].str.strip()
+          <div class="code-block">
+            <code><span class="comment"># Case conversion</span>
+<span class="variable">df</span>[<span class="string">'name'</span>] = <span class="variable">df</span>[<span class="string">'name'</span>].<span class="variable">str</span>.<span class="function">lower</span>()
+<span class="variable">df</span>[<span class="string">'name'</span>] = <span class="variable">df</span>[<span class="string">'name'</span>].<span class="variable">str</span>.<span class="function">upper</span>()
+<span class="variable">df</span>[<span class="string">'name'</span>] = <span class="variable">df</span>[<span class="string">'name'</span>].<span class="variable">str</span>.<span class="function">title</span>()
+<span class="variable">df</span>[<span class="string">'name'</span>] = <span class="variable">df</span>[<span class="string">'name'</span>].<span class="variable">str</span>.<span class="function">strip</span>()
 
-# Search and replace
-df['name'].str.contains('John')
-df['name'].str.startswith('Mr')
-df['name'].str.replace('Mr.', '')
-df['name'].str.replace(r'\d+', '', regex=True)
+<span class="comment"># Search and replace</span>
+<span class="variable">df</span>[<span class="string">'name'</span>].<span class="variable">str</span>.<span class="function">contains</span>(<span class="string">'John'</span>)
+<span class="variable">df</span>[<span class="string">'name'</span>].<span class="variable">str</span>.<span class="function">startswith</span>(<span class="string">'Mr'</span>)
+<span class="variable">df</span>[<span class="string">'name'</span>].<span class="variable">str</span>.<span class="function">replace</span>(<span class="string">'Mr.'</span>, <span class="string">''</span>)
+<span class="variable">df</span>[<span class="string">'name'</span>].<span class="variable">str</span>.<span class="function">replace</span>(<span class="string">r'\d+'</span>, <span class="string">''</span>, <span class="variable">regex</span>=<span class="keyword">True</span>)
 
-# Split and extract
-df['name'].str.split()
-df['email'].str.split('@').str[1] # Domain
-df['address'].str.extract(r'(\d{5})') # Extract zip
+<span class="comment"># Split and extract</span>
+<span class="variable">df</span>[<span class="string">'name'</span>].<span class="variable">str</span>.<span class="function">split</span>()
+<span class="variable">df</span>[<span class="string">'email'</span>].<span class="variable">str</span>.<span class="function">split</span>(<span class="string">'@'</span>).<span class="variable">str</span>[1] <span class="comment"># Domain</span>
+<span class="variable">df</span>[<span class="string">'address'</span>].<span class="variable">str</span>.<span class="function">extract</span>(<span class="string">r'(\d{5})'</span>) <span class="comment"># Extract zip</span>
 
-# Length and slice
-df['name'].str.len()
-df['name'].str[:10]
-</code></pre>
+<span class="comment"># Length and slice</span>
+<span class="variable">df</span>[<span class="string">'name'</span>].<span class="variable">str</span>.<span class="function">len</span>()
+<span class="variable">df</span>[<span class="string">'name'</span>].<span class="variable">str</span>[:10]</code>
+          </div>
       </div>
     </div>
     </section>
@@ -702,97 +698,97 @@ df['name'].str[:10]
         <span class="code-label">Parsing</span>
         <h3>Datetime Parsing</h3>
         <p>Convert strings to datetime.</p>
-<pre class="code-block"><code class="language-python">
-# Parse dates
-df['date'] = pd.to_datetime(df['date'])
-df['date'] = pd.to_datetime(df['date'], format='%Y-%m-%d')
+          <div class="code-block">
+            <code><span class="comment"># Parse dates</span>
+<span class="variable">df</span>[<span class="string">'date'</span>] = <span class="variable">pd</span>.<span class="function">to_datetime</span>(<span class="variable">df</span>[<span class="string">'date'</span>])
+<span class="variable">df</span>[<span class="string">'date'</span>] = <span class="variable">pd</span>.<span class="function">to_datetime</span>(<span class="variable">df</span>[<span class="string">'date'</span>], <span class="variable">format</span>=<span class="string">'%Y-%m-%d'</span>)
 
-# Multiple formats
-df['date'] = pd.to_datetime(df['date'],
-format='mixed',
-dayfirst=True)
+<span class="comment"># Multiple formats</span>
+<span class="variable">df</span>[<span class="string">'date'</span>] = <span class="variable">pd</span>.<span class="function">to_datetime</span>(<span class="variable">df</span>[<span class="string">'date'</span>],
+  <span class="variable">format</span>=<span class="string">'mixed'</span>,
+  <span class="variable">dayfirst</span>=<span class="keyword">True</span>)
 
-# Create date range
-dates = pd.date_range('2024-01-01', periods=365, freq='D')
-dates = pd.date_range('2024-01-01', '2024-12-31', freq='M')
+<span class="comment"># Create date range</span>
+<span class="variable">dates</span> = <span class="variable">pd</span>.<span class="function">date_range</span>(<span class="string">'2024-01-01'</span>, <span class="variable">periods</span>=365, <span class="variable">freq</span>=<span class="string">'D'</span>)
+<span class="variable">dates</span> = <span class="variable">pd</span>.<span class="function">date_range</span>(<span class="string">'2024-01-01'</span>, <span class="string">'2024-12-31'</span>, <span class="variable">freq</span>=<span class="string">'M'</span>)
 
-# Extract components
-df['year'] = df['date'].dt.year
-df['month'] = df['date'].dt.month
-df['day'] = df['date'].dt.day
-df['dayofweek'] = df['date'].dt.dayofweek # Monday=0
-df['quarter'] = df['date'].dt.quarter
-</code></pre>
+<span class="comment"># Extract components</span>
+<span class="variable">df</span>[<span class="string">'year'</span>] = <span class="variable">df</span>[<span class="string">'date'</span>].<span class="variable">dt</span>.<span class="variable">year</span>
+<span class="variable">df</span>[<span class="string">'month'</span>] = <span class="variable">df</span>[<span class="string">'date'</span>].<span class="variable">dt</span>.<span class="variable">month</span>
+<span class="variable">df</span>[<span class="string">'day'</span>] = <span class="variable">df</span>[<span class="string">'date'</span>].<span class="variable">dt</span>.<span class="variable">day</span>
+<span class="variable">df</span>[<span class="string">'dayofweek'</span>] = <span class="variable">df</span>[<span class="string">'date'</span>].<span class="variable">dt</span>.<span class="variable">dayofweek</span> <span class="comment"># Monday=0</span>
+<span class="variable">df</span>[<span class="string">'quarter'</span>] = <span class="variable">df</span>[<span class="string">'date'</span>].<span class="variable">dt</span>.<span class="variable">quarter</span></code>
+          </div>
       </div>
       <div class="code-card">
         <span class="code-label">Arithmetic</span>
         <h3>Datetime Arithmetic</h3>
         <p>Perform date calculations.</p>
-<pre class="code-block"><code class="language-python">
-# Time differences
-df['days_since'] = (pd.Timestamp.now() - df['date']).dt.days
-df['diff'] = df['end_date'] - df['start_date']
+          <div class="code-block">
+            <code><span class="comment"># Time differences</span>
+<span class="variable">df</span>[<span class="string">'days_since'</span>] = (<span class="variable">pd</span>.<span class="variable">Timestamp</span>.<span class="function">now</span>() - <span class="variable">df</span>[<span class="string">'date'</span>]).<span class="variable">dt</span>.<span class="variable">days</span>
+<span class="variable">df</span>[<span class="string">'diff'</span>] = <span class="variable">df</span>[<span class="string">'end_date'</span>] - <span class="variable">df</span>[<span class="string">'start_date'</span>]
 
-# Add/subtract
-df['next_week'] = df['date'] + pd.Timedelta(days=7)
-df['prev_month'] = df['date'] - pd.DateOffset(months=1)
+<span class="comment"># Add/subtract</span>
+<span class="variable">df</span>[<span class="string">'next_week'</span>] = <span class="variable">df</span>[<span class="string">'date'</span>] + <span class="variable">pd</span>.<span class="function">Timedelta</span>(<span class="variable">days</span>=7)
+<span class="variable">df</span>[<span class="string">'prev_month'</span>] = <span class="variable">df</span>[<span class="string">'date'</span>] - <span class="variable">pd</span>.<span class="function">DateOffset</span>(<span class="variable">months</span>=1)
 
-# Date offset
-from pandas.tseries.offsets import BusinessDay, MonthEnd
-df['next_biz'] = df['date'] + BusinessDay()
-df['month_end'] = df['date'] + MonthEnd()
+<span class="comment"># Date offset</span>
+<span class="keyword">from</span> <span class="variable">pandas</span>.<span class="variable">tseries</span>.<span class="variable">offsets</span> <span class="keyword">import</span> <span class="variable">BusinessDay</span>, <span class="variable">MonthEnd</span>
+<span class="variable">df</span>[<span class="string">'next_biz'</span>] = <span class="variable">df</span>[<span class="string">'date'</span>] + <span class="function">BusinessDay</span>()
+<span class="variable">df</span>[<span class="string">'month_end'</span>] = <span class="variable">df</span>[<span class="string">'date'</span>] + <span class="function">MonthEnd</span>()
 
-# Floor/ceil/round
-df['date'].dt.floor('D') # Floor to day
-df['date'].dt.ceil('H') # Ceil to hour
-df['date'].dt.round('min') # Round to minute
-</code></pre>
+<span class="comment"># Floor/ceil/round</span>
+<span class="variable">df</span>[<span class="string">'date'</span>].<span class="variable">dt</span>.<span class="function">floor</span>(<span class="string">'D'</span>) <span class="comment"># Floor to day</span>
+<span class="variable">df</span>[<span class="string">'date'</span>].<span class="variable">dt</span>.<span class="function">ceil</span>(<span class="string">'H'</span>) <span class="comment"># Ceil to hour</span>
+<span class="variable">df</span>[<span class="string">'date'</span>].<span class="variable">dt</span>.<span class="function">round</span>(<span class="string">'min'</span>) <span class="comment"># Round to minute</span></code>
+          </div>
       </div>
       <div class="code-card">
         <span class="code-label">Resample</span>
         <h3>Time Series Resampling</h3>
         <p>Aggregate time series data.</p>
-<pre class="code-block"><code class="language-python">
-# Set date as index for resampling
-df = df.set_index('date')
+          <div class="code-block">
+            <code><span class="comment"># Set date as index for resampling</span>
+<span class="variable">df</span> = <span class="variable">df</span>.<span class="function">set_index</span>(<span class="string">'date'</span>)
 
-# Resample and aggregate
-df.resample('D').sum() # Daily sum
-df.resample('W').mean() # Weekly mean
-df.resample('M').agg({
-'amount': 'sum',
-'quantity': 'mean'
+<span class="comment"># Resample and aggregate</span>
+<span class="variable">df</span>.<span class="function">resample</span>(<span class="string">'D'</span>).<span class="function">sum</span>() <span class="comment"># Daily sum</span>
+<span class="variable">df</span>.<span class="function">resample</span>(<span class="string">'W'</span>).<span class="function">mean</span>() <span class="comment"># Weekly mean</span>
+<span class="variable">df</span>.<span class="function">resample</span>(<span class="string">'M'</span>).<span class="function">agg</span>({
+  <span class="string">'amount'</span>: <span class="string">'sum'</span>,
+  <span class="string">'quantity'</span>: <span class="string">'mean'</span>
 })
 
-# Resample options
-# 'D' - daily, 'W' - weekly, 'M' - month end
-# 'ME' - month end (new), 'MS' - month start
-# 'Q' - quarter, 'Y' - year, 'h' - hour
-# 'min' - minute, 's' - second
+<span class="comment"># Resample options</span>
+<span class="comment"># 'D' - daily, 'W' - weekly, 'M' - month end</span>
+<span class="comment"># 'ME' - month end (new), 'MS' - month start</span>
+<span class="comment"># 'Q' - quarter, 'Y' - year, 'h' - hour</span>
+<span class="comment"># 'min' - minute, 's' - second</span>
 
-# Rolling window
-df['rolling_7d'] = df['amount'].rolling('7D').sum()
-df['rolling_avg'] = df['amount'].rolling(window=7).mean()
-</code></pre>
+<span class="comment"># Rolling window</span>
+<span class="variable">df</span>[<span class="string">'rolling_7d'</span>] = <span class="variable">df</span>[<span class="string">'amount'</span>].<span class="function">rolling</span>(<span class="string">'7D'</span>).<span class="function">sum</span>()
+<span class="variable">df</span>[<span class="string">'rolling_avg'</span>] = <span class="variable">df</span>[<span class="string">'amount'</span>].<span class="function">rolling</span>(<span class="variable">window</span>=7).<span class="function">mean</span>()</code>
+          </div>
       </div>
       <div class="code-card">
         <span class="code-label">Period</span>
         <h3>Period & Interval</h3>
         <p>Work with time periods.</p>
-<pre class="code-block"><code class="language-python">
-# Create periods
-periods = pd.period_range('2024-01', periods=12, freq='M')
-df['period'] = pd.PeriodIndex(df['date'], freq='M')
+          <div class="code-block">
+            <code><span class="comment"># Create periods</span>
+<span class="variable">periods</span> = <span class="variable">pd</span>.<span class="function">period_range</span>(<span class="string">'2024-01'</span>, <span class="variable">periods</span>=12, <span class="variable">freq</span>=<span class="string">'M'</span>)
+<span class="variable">df</span>[<span class="string">'period'</span>] = <span class="variable">pd</span>.<span class="function">PeriodIndex</span>(<span class="variable">df</span>[<span class="string">'date'</span>], <span class="variable">freq</span>=<span class="string">'M'</span>)
 
-# Convert period to timestamp
-df['period'].dt.to_timestamp()
+<span class="comment"># Convert period to timestamp</span>
+<span class="variable">df</span>[<span class="string">'period'</span>].<span class="variable">dt</span>.<span class="function">to_timestamp</span>()
 
-# Date intervals
-interval = pd.Interval(left='2024-01-01', right='2024-12-31')
-df['in_period'] = df['date'].apply(
-lambda x: x in interval if pd.notna(x) else False
-)
-</code></pre>
+<span class="comment"># Date intervals</span>
+<span class="variable">interval</span> = <span class="variable">pd</span>.<span class="function">Interval</span>(<span class="variable">left</span>=<span class="string">'2024-01-01'</span>, <span class="variable">right</span>=<span class="string">'2024-12-31'</span>)
+<span class="variable">df</span>[<span class="string">'in_period'</span>] = <span class="variable">df</span>[<span class="string">'date'</span>].<span class="function">apply</span>(
+  <span class="keyword">lambda</span> <span class="variable">x</span>: <span class="variable">x</span> <span class="keyword">in</span> <span class="variable">interval</span> <span class="keyword">if</span> <span class="variable">pd</span>.<span class="function">notna</span>(<span class="variable">x</span>) <span class="keyword">else</span> <span class="keyword">False</span>
+)</code>
+          </div>
       </div>
     </div>
     </section>
@@ -803,54 +799,54 @@ lambda x: x in interval if pd.notna(x) else False
         <span class="code-label">Tip</span>
         <h3>Use vectorized operations</h3>
         <p>Avoid loops; leverage pandas built‑in vectorization for speed.</p>
-<pre class="code-block"><code class="language-python">
-# Slow
-for i in range(len(df)):
-df.at[i, 'new'] = df.at[i, 'value'] * 2
+          <div class="code-block">
+            <code><span class="comment"># Slow</span>
+<span class="keyword">for</span> <span class="variable">i</span> <span class="keyword">in</span> <span class="variable">range</span>(<span class="variable">len</span>(<span class="variable">df</span>)):
+  <span class="variable">df</span>.<span class="variable">at</span>[<span class="variable">i</span>, <span class="string">'new'</span>] = <span class="variable">df</span>.<span class="variable">at</span>[<span class="variable">i</span>, <span class="string">'value'</span>] * 2
 
-# Fast
-df['new'] = df['value'] * 2
-</code></pre>
+<span class="comment"># Fast</span>
+<span class="variable">df</span>[<span class="string">'new'</span>] = <span class="variable">df</span>[<span class="string">'value'</span>] * 2</code>
+          </div>
       </div>
       <div class="code-card">
         <span class="code-label">Trick</span>
         <h3>Chaining method calls</h3>
         <p>Use `.pipe()` to chain custom functions.</p>
-<pre class="code-block"><code class="language-python">
-def add_column(df, col_name, value):
-df[col_name] = value
-return df
+          <div class="code-block">
+            <code><span class="keyword">def</span> <span class="function">add_column</span>(<span class="variable">df</span>, <span class="variable">col_name</span>, <span class="variable">value</span>):
+  <span class="variable">df</span>[<span class="variable">col_name</span>] = <span class="variable">value</span>
+  <span class="keyword">return</span> <span class="variable">df</span>
 
-result = (df
-.pipe(add_column, 'flag', True)
-.query('flag == True')
-.drop('flag', axis=1))
-</code></pre>
+<span class="variable">result</span> = (<span class="variable">df</span>
+  .<span class="function">pipe</span>(<span class="variable">add_column</span>, <span class="string">'flag'</span>, <span class="keyword">True</span>)
+  .<span class="function">query</span>(<span class="string">'flag == True'</span>)
+  .<span class="function">drop</span>(<span class="string">'flag'</span>, <span class="variable">axis</span>=1))</code>
+          </div>
       </div>
       <div class="code-card">
         <span class="code-label">Tip</span>
         <h3>Use `inplace=True` sparingly</h3>
         <p>Prefer assignment over inplace operations for clarity.</p>
-<pre class="code-block"><code class="language-python">
-# Avoid
-df.dropna(inplace=True)
+          <div class="code-block">
+            <code><span class="comment"># Avoid</span>
+<span class="variable">df</span>.<span class="function">dropna</span>(<span class="variable">inplace</span>=<span class="keyword">True</span>)
 
-# Prefer
-df = df.dropna()
-</code></pre>
+<span class="comment"># Prefer</span>
+<span class="variable">df</span> = <span class="variable">df</span>.<span class="function">dropna</span>()</code>
+          </div>
       </div>
       <div class="code-card">
         <span class="code-label">Trick</span>
         <h3>Method chaining with `assign`</h3>
         <p>Create multiple columns in one chain.</p>
-<pre class="code-block"><code class="language-python">
-df = (df
-.assign(
-log_price=lambda x: np.log(x['price']),
-price_sq=lambda x: x['price'] ** 2,
-high_price=lambda x: x['price'] > x['price'].median()
-))
-</code></pre>
+          <div class="code-block">
+            <code><span class="variable">df</span> = (<span class="variable">df</span>
+  .<span class="function">assign</span>(
+    <span class="variable">log_price</span>=<span class="keyword">lambda</span> <span class="variable">x</span>: <span class="variable">np</span>.<span class="function">log</span>(<span class="variable">x</span>[<span class="string">'price'</span>]),
+    <span class="variable">price_sq</span>=<span class="keyword">lambda</span> <span class="variable">x</span>: <span class="variable">x</span>[<span class="string">'price'</span>] ** 2,
+    <span class="variable">high_price</span>=<span class="keyword">lambda</span> <span class="variable">x</span>: <span class="variable">x</span>[<span class="string">'price'</span>] > <span class="variable">x</span>[<span class="string">'price'</span>].<span class="function">median</span>()
+  ))</code>
+          </div>
       </div>
     </div>
     </section>
@@ -862,30 +858,30 @@ high_price=lambda x: x['price'] > x['price'].median()
         <span class="code-label">Memory</span>
         <h3>Use categorical types</h3>
         <p>Convert low-cardinality columns to category for memory savings.</p>
-<pre class="code-block"><code class="language-python">
-df['category'] = df['category'].astype('category')
-print(df.memory_usage(deep=True))
-</code></pre>
+          <div class="code-block">
+            <code><span class="variable">df</span>[<span class="string">'category'</span>] = <span class="variable">df</span>[<span class="string">'category'</span>].<span class="function">astype</span>(<span class="string">'category'</span>)
+<span class="function">print</span>(<span class="variable">df</span>.<span class="function">memory_usage</span>(<span class="variable">deep</span>=<span class="keyword">True</span>))</code>
+          </div>
       </div>
       <div class="code-card">
         <span class="code-label">Lazy</span>
         <h3>Chain transformations</h3>
         <p>Use chained operations with assign/apply to avoid intermediate copies.</p>
-<pre class="code-block"><code class="language-python">
-df = (df
-.assign(total=lambda x: x['price'] * x['quantity'])
-.query('total > 100')
-.dropna(subset=['customer']))
-</code></pre>
+          <div class="code-block">
+            <code><span class="variable">df</span> = (<span class="variable">df</span>
+  .<span class="function">assign</span>(<span class="variable">total</span>=<span class="keyword">lambda</span> <span class="variable">x</span>: <span class="variable">x</span>[<span class="string">'price'</span>] * <span class="variable">x</span>[<span class="string">'quantity'</span>])
+  .<span class="function">query</span>(<span class="string">'total > 100'</span>)
+  .<span class="function">dropna</span>(<span class="variable">subset</span>=[<span class="string">'customer'</span>]))</code>
+          </div>
       </div>
       <div class="code-card">
         <span class="code-label">Integrity</span>
         <h3>Use `.copy()` carefully</h3>
         <p>Avoid SettingWithCopy warnings and explicit copy for clarity.</p>
-<pre class="code-block"><code class="language-python">
-subset = df.loc[df['active'], ['name', 'email']].copy()
-subset['name'] = subset['name'].str.strip()
-</code></pre>
+          <div class="code-block">
+            <code><span class="variable">subset</span> = <span class="variable">df</span>.<span class="variable">loc</span>[<span class="variable">df</span>[<span class="string">'active'</span>], [<span class="string">'name'</span>, <span class="string">'email'</span>]].<span class="function">copy</span>()
+<span class="variable">subset</span>[<span class="string">'name'</span>] = <span class="variable">subset</span>[<span class="string">'name'</span>].<span class="variable">str</span>.<span class="function">strip</span>()</code>
+          </div>
       </div>
     </div>
     </section>
