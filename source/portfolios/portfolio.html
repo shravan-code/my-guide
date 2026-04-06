@@ -267,61 +267,120 @@
       font-weight: 500;
     }
 
-    /* ---- Experience ---- */
+    /* ---- Experience Timeline ---- */
+    .experience-timeline {
+      position: relative;
+      padding-left: 3rem;
+      margin-top: 2rem;
+    }
+
+    .experience-timeline::before {
+      content: '';
+      position: absolute;
+      left: 0.75rem;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--dark-cyan) 0%, var(--fuchsia-flame) 50%, var(--light-sea-green) 100%);
+      opacity: 0.3;
+      border-radius: 1px;
+    }
+
     .experience-item {
+      position: relative;
       background: var(--color-surface);
       border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
-      padding: 1.5rem;
-      margin-bottom: 1.25rem;
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin-bottom: 2.5rem;
       transition: all var(--transition-base);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    }
+
+    .experience-item::before {
+      content: '';
+      position: absolute;
+      left: -2.25rem;
+      top: 2rem;
+      width: 1rem;
+      height: 1rem;
+      background: var(--color-bg);
+      border: 2px solid var(--color-accent);
+      border-radius: 50%;
+      z-index: 2;
+      box-shadow: 0 0 10px rgba(15, 139, 139, 0.3);
     }
 
     .experience-item:hover {
       border-color: var(--color-accent);
-      box-shadow: 0 4px 20px rgba(15, 139, 139, 0.15);
+      transform: translateX(5px);
+      box-shadow: 0 12px 40px rgba(15, 139, 139, 0.1);
     }
 
     .experience-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 1rem;
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: 1.25rem;
     }
 
     .experience-header h3 {
-      font-size: 1.05rem;
-      font-weight: 600;
-      margin: 0 0 0.25rem;
+      font-family: "Sora", sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--color-text);
     }
 
     .experience-header .company {
       color: var(--color-accent);
-      font-weight: 500;
-      font-size: 0.9rem;
+      font-weight: 600;
+      font-size: 1rem;
+      display: block;
+      margin-top: 0.25rem;
     }
 
     .experience-header .period {
-      font-size: 0.8rem;
+      font-size: 0.85rem;
+      font-weight: 600;
       color: var(--color-text-secondary);
       background: var(--color-bg-alt);
-      padding: 0.25rem 0.75rem;
-      border-radius: 6px;
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
       white-space: nowrap;
       border: 1px solid var(--color-border);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .project-block {
+      margin-bottom: 1.5rem;
+    }
+
+    .project-block:last-child {
+      margin-bottom: 0;
     }
 
     .project-title {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--light-sea-green);
-      margin: 0.75rem 0 0.5rem;
+      font-family: "Sora", sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-text);
+      margin: 0 0 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
     }
 
-    .project-title:first-of-type {
-      margin-top: 0;
+    .project-title span.material-symbols-outlined {
+      font-size: 1.2rem;
+      color: var(--color-accent);
     }
 
     .experience-item ul {
@@ -332,18 +391,22 @@
 
     .experience-item li {
       position: relative;
-      padding-left: 1.25rem;
-      margin-bottom: 0.4rem;
-      font-size: 0.88rem;
+      padding-left: 1.5rem;
+      margin-bottom: 0.6rem;
+      font-size: 0.95rem;
       color: var(--color-text-secondary);
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
     .experience-item li::before {
-      content: '▹';
+      content: 'check_circle';
+      font-family: 'Material Symbols Outlined';
       position: absolute;
       left: 0;
+      top: 0.1rem;
+      font-size: 1rem;
       color: var(--color-accent);
+      opacity: 0.7;
     }
 
     /* ---- Bottom Bar ---- */
@@ -659,10 +722,10 @@
         <span>PySpark</span>
       </p>
       <p class="summary">
-        Data Engineer with 4+ years of experience designing and maintaining batch data pipelines and ETL workflows.
-        Experienced in processing 600K–1M records per batch and improving pipeline performance using parallel
-        processing,
-        SQL optimisation, and efficient data transformations.
+        Data Engineer with 4+ years of experience building scalable ETL pipelines and cloud-native data platforms.
+        Expertise in processing large datasets (3–10GB per run), designing distributed batch systems, and optimising
+        performance using multiprocessing and vectorized computations. Strong in system design, reliability engineering,
+        and AI-assisted development for production-grade data workflows.
       </p>
       <div class="contact-bar">
         <a href="mailto:shra1.mywork@gmail.com" class="contact-item">
@@ -709,10 +772,11 @@
       <h2 class="section-title">Technical Skills</h2>
       <div class="skills-grid">
         <div class="skill-category">
-          <h3>Programming</h3>
+          <h3>Languages</h3>
           <div class="skill-tags">
             <span class="skill-tag">Python</span>
             <span class="skill-tag">SQL</span>
+            <span class="skill-tag">Bash</span>
           </div>
         </div>
         <div class="skill-category">
@@ -727,20 +791,24 @@
           <h3>Cloud (AWS)</h3>
           <div class="skill-tags">
             <span class="skill-tag">S3</span>
-            <span class="skill-tag">Glue</span>
-            <span class="skill-tag">Athena</span>
-            <span class="skill-tag">Redshift</span>
             <span class="skill-tag">Lambda</span>
             <span class="skill-tag">Batch</span>
             <span class="skill-tag">API Gateway</span>
             <span class="skill-tag">DynamoDB</span>
+            <span class="skill-tag">RDS</span>
+            <span class="skill-tag">EC2</span>
+            <span class="skill-tag">CloudWatch</span>
+            <span class="skill-tag">EMR</span>
+            <span class="skill-tag">GLUE</span>
+            <span class="skill-tag">Athena</span>
+            <span class="skill-tag">QuickSight</span>
           </div>
         </div>
         <div class="skill-category">
           <h3>Databases</h3>
           <div class="skill-tags">
-            <span class="skill-tag">Oracle SQL</span>
             <span class="skill-tag">PostgreSQL</span>
+            <span class="skill-tag">Oracle</span>
           </div>
         </div>
         <div class="skill-category">
@@ -751,26 +819,19 @@
           </div>
         </div>
         <div class="skill-category">
-          <h3>Testing</h3>
-          <div class="skill-tags">
-            <span class="skill-tag">Pytest</span>
-            <span class="skill-tag">Unittest</span>
-          </div>
-        </div>
-        <div class="skill-category">
           <h3>DevOps</h3>
           <div class="skill-tags">
             <span class="skill-tag">Docker</span>
-            <span class="skill-tag">GitHub</span>
+            <span class="skill-tag">Terraform</span>
+            <span class="skill-tag">GitLab CI/CD</span>
             <span class="skill-tag">GitHub Actions</span>
           </div>
         </div>
         <div class="skill-category">
-          <h3>Tools & Environment</h3>
+          <h3>Testing</h3>
           <div class="skill-tags">
-            <span class="skill-tag">GitHub Copilot</span>
-            <span class="skill-tag">VS Code</span>
-            <span class="skill-tag">Linux</span>
+            <span class="skill-tag">Pytest</span>
+            <span class="skill-tag">Unittest</span>
           </div>
         </div>
       </div>
@@ -793,55 +854,53 @@
     <section id="experience" class="section">
       <h2 class="section-title">Professional Experience</h2>
 
-      <div class="experience-item">
-        <div class="experience-header">
-          <div>
-            <h3>Data Engineer</h3>
-            <span class="company">Tata Consultancy Services (TCS)</span>
+      <div class="experience-timeline">
+        <div class="experience-item">
+          <div class="experience-header">
+            <div>
+              <h3><span class="material-symbols-outlined">engineering</span>Data Engineer</h3>
+              <span class="company">Tata Consultancy Services (TCS)</span>
+            </div>
+            <span class="period">Jan 2023 – Present</span>
           </div>
-          <span class="period">Jan 2023 – Present</span>
+
+          <div class="project-block">
+            <p class="project-title"><span class="material-symbols-outlined">cloud_done</span>Cloud-Native Batch Processing System</p>
+            <ul>
+              <li>Designed event-driven architecture (API → Lambda → Batch → S3) for scalable data processing workflows using Flask and AWS Batch with EC2.</li>
+              <li>Automated infrastructure provisioning using Terraform + GitLab CI/CD and implemented multithreading for high API throughput.</li>
+              <li>Engineered idempotent job execution, retry logic, and real-time monitoring via CloudWatch and Google Chat Webhooks (60% incident response improvement).</li>
+            </ul>
+          </div>
+
+          <div class="project-block">
+            <p class="project-title"><span class="material-symbols-outlined">sync_problem</span>Legacy System Migration & Modernization</p>
+            <ul>
+              <li>Migrated Oracle-dependent ETL systems to a modular Python framework, reverse-engineering PL/SQL logic into scalable workflows.</li>
+              <li>Developed an AI-assisted unit test generation system using agents and GitHub Copilot, reducing manual testing effort by 80%.</li>
+              <li>Designed reusable components, improving maintainability by 40% and eliminating vendor lock-in.</li>
+            </ul>
+          </div>
         </div>
 
-        <p class="project-title">Automated Batch Data Processing System</p>
-        <ul>
-          <li>Designed and maintained batch ETL pipelines ingesting 600K–1M records per run from Oracle databases.</li>
-          <li>Improved batch runtime 25% (2h → 1.5h) using chunk-based data processing and multiprocessing techniques.
-          </li>
-          <li>Optimized large dataset queries through Oracle SQL tuning, indexing strategies, and execution plan
-            analysis.</li>
-          <li>Implemented structured logging, exception handling, and monitoring to improve reliability of production
-            data pipelines.</li>
-          <li>Built an AI-assisted unit test generation agent (VS Code + GitHub Copilot) that automatically generates
-            rule-based test cases, reducing manual testing effort by ~70%.</li>
-        </ul>
-
-        <p class="project-title">Rule-Based Data Processing Engine</p>
-        <ul>
-          <li>Developed Flask-based REST APIs to trigger and monitor AWS Batch data processing workflows via API
-            Gateway.</li>
-          <li>Implemented AWS Lambda orchestration with DynamoDB-based job state tracking.</li>
-          <li>Built a webhook-based progress notification system integrated with Google Chat Webhook API for real-time
-            job status updates.</li>
-        </ul>
-      </div>
-
-      <div class="experience-item">
-        <div class="experience-header">
-          <div>
-            <h3>Python Developer</h3>
-            <span class="company">Crown Solutions</span>
+        <div class="experience-item">
+          <div class="experience-header">
+            <div>
+              <h3><span class="material-symbols-outlined">code</span>Python Developer</h3>
+              <span class="company">Crown Solutions</span>
+            </div>
+            <span class="period">Nov 2021 – Jan 2023</span>
           </div>
-          <span class="period">Nov 2021 – Jan 2023</span>
-        </div>
 
-        <ul>
-          <li>Processed large raw CSV datasets using Python, Pandas, and Regex to build automated data cleaning and
-            transformation pipelines.</li>
-          <li>Implemented multiprocessing-based data processing to accelerate batch transformations of large datasets.
-          </li>
-          <li>Developed reusable data validation and transformation modules for structured dataset processing.</li>
-          <li>Automated manual data preparation tasks, improving efficiency of internal data workflows.</li>
-        </ul>
+          <div class="project-block">
+            <p class="project-title"><span class="material-symbols-outlined">dataset</span>Scalable CSV Data Processing Pipeline</p>
+            <ul>
+              <li>Designed end-to-end architecture for processing ~3GB unstructured datasets using Pandas and Regex, handling noisy formats.</li>
+              <li>Built an OOP-based pipeline using dataclasses and optimized performance via multiprocessing, reducing runtime by 70%.</li>
+              <li>Developed reusable validation and transformation modules to generate analysis-ready datasets for multiple workflows.</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
   
