@@ -160,7 +160,7 @@
     </header>
 
         <section class="topic-section" id="what-is-api">
-      <h2>What is an API? <span class="section-badge getting-started">Getting Started</span></h2>
+      <h2>What is an API? <span class="level-badge basic">Basic</span></h2>
       <p>An <strong>API (Application Programming Interface)</strong> is a set of rules and protocols that allows one software application to <strong>communicate</strong> with another. It defines the methods and data formats that applications can use to request and exchange information.</p>
       <p>Think of an API like a <strong>waiter in a restaurant</strong>:</p>
       <div class="code-block">
@@ -177,7 +177,7 @@
     </section>
 
     <section class="topic-section" id="how-apis-work">
-      <h2>How APIs Work <span class="section-badge getting-started">Getting Started</span></h2>
+      <h2>How APIs Work <span class="level-badge basic">Basic</span></h2>
       <p>APIs operate on a <strong>Request → Process → Response</strong> cycle:</p>
       <div class="code-block">
 <code>┌──────────────┐         HTTP Request          ┌──────────────────┐
@@ -187,11 +187,11 @@
 │   Mobile App)│   Body: { ... }               │    Database)     │
 │              │  ◄─────────────────────────   │                  │
 └──────────────┘         HTTP Response         └──────────────────┘
-                Status: 200 OK
-                Body: { "id": 42, "name": "Alice" }</code>
+Status: 200 OK
+Body: { "id": 42, "name": "Alice" }</code>
       </div>
       <h3>Common HTTP Methods</h3>
-      <table>
+      <table class="comparison-table">
         <thead>
           <tr><th>Method</th><th>Action</th><th>Example</th></tr>
         </thead>
@@ -206,7 +206,7 @@
     </section>
 
     <section class="topic-section" id="types-of-apis">
-      <h2>Types of APIs <span class="section-badge core">Core</span></h2>
+      <h2>API Types <span class="level-badge basic">Basic</span></h2>
       
       <h3 id="rest-api">REST API</h3>
       <p>REST is the <strong>most widely used</strong> API architecture. It uses standard HTTP methods and is <strong>stateless</strong> — each request contains all the information needed to process it.</p>
@@ -247,8 +247,8 @@ Content-Type: application/json</code>
     name
     email
     posts {
-    title
-    createdAt
+      title
+      createdAt
     }
   }
 }</code>
@@ -258,161 +258,219 @@ Content-Type: application/json</code>
 
       <h3 id="soap-api">SOAP API</h3>
       <p>SOAP is a <strong>protocol</strong> (not just an architectural style) that uses <strong>XML</strong> for message formatting and typically runs over HTTP or SMTP. It is strict, formal, and has built-in error handling and security.</p>
-      <p><strong>Where it's still used:</strong></p>
-      <ul>
-        <li>Banking and financial systems</li>
-        <li>Healthcare (HL7 integrations)</li>
-        <li>Government and enterprise legacy systems</li>
-        <li>Payment gateways</li>
-      </ul>
+      
+      <div class="service-grid">
+        <div class="service-card">
+          <h4><span class="material-symbols-outlined">account_balance</span> Banking</h4>
+          <p>Financial systems and inter-bank transfers requiring high security.</p>
+        </div>
+        <div class="service-card">
+          <h4><span class="material-symbols-outlined">medical_services</span> Healthcare</h4>
+          <p>HL7 integrations and legacy healthcare data exchange standards.</p>
+        </div>
+        <div class="service-card">
+          <h4><span class="material-symbols-outlined">business</span> Enterprise</h4>
+          <p>Government systems and legacy enterprise service buses.</p>
+        </div>
+      </div>
 
       <h3 id="grpc-api">gRPC API</h3>
       <p>gRPC is a <strong>high-performance RPC framework</strong> developed by Google. It uses <strong>Protocol Buffers (protobuf)</strong> instead of JSON/XML for serialization, making it significantly faster.</p>
       
-      <h4>Best for:</h4>
-      <ul>
-        <li>Microservices communicating internally</li>
-        <li>Low-latency, high-throughput systems</li>
-        <li>Streaming large amounts of data</li>
-        <li>Polyglot environments (supports 10+ languages)</li>
-      </ul>
+      <div class="service-grid">
+        <div class="service-card">
+          <h4><span class="material-symbols-outlined">hub</span> Microservices</h4>
+          <p>Internal communication between backend services in a cluster.</p>
+        </div>
+        <div class="service-card">
+          <h4><span class="material-symbols-outlined">speed</span> Low Latency</h4>
+          <p>High-throughput systems requiring minimal overhead.</p>
+        </div>
+        <div class="service-card">
+          <h4><span class="material-symbols-outlined">stream</span> Streaming</h4>
+          <p>Efficiently streaming large amounts of structured binary data.</p>
+        </div>
+      </div>
 
       <h3 id="websocket-api">WebSocket API</h3>
-      <p>WebSocket provides a <strong>persistent, full-duplex communication channel</strong> between a client and server over a single TCP connection. Unlike HTTP, WebSocket allows the <strong>server to push data to the client</strong> at any time.</p>
+      <p>WebSocket provides a <strong>persistent, full-duplex communication channel</strong> between a client and server. Unlike HTTP, WebSocket allows the <strong>server to push data</strong> to the client at any time.</p>
       
-      <h4>Use Cases:</h4>
-      <ul>
-        <li>Live chat applications (Slack, Discord)</li>
-        <li>Real-time dashboards and analytics</li>
-        <li>Multiplayer online games</li>
-        <li>Live sports scores and stock tickers</li>
-      </ul>
+      <div class="service-grid">
+        <div class="service-card">
+          <h4><span class="material-symbols-outlined">chat</span> Real-time Chat</h4>
+          <p>Slack, Discord, and collaborative tools requiring instant delivery.</p>
+        </div>
+        <div class="service-card">
+          <h4><span class="material-symbols-outlined">monitoring</span> Dashboard</h4>
+          <p>Live metrics, stock tickers, and real-time performance tracking.</p>
+        </div>
+        <div class="service-card">
+          <h4><span class="material-symbols-outlined">sports_esports</span> Gaming</h4>
+          <p>Multiplayer online games requiring low-latency state sync.</p>
+        </div>
+      </div>
 
       <h3 id="webhooks">Webhooks</h3>
       <p>Webhooks are <strong>reverse APIs</strong> — instead of the client polling the server for updates, the <strong>server sends data to the client automatically</strong> when an event occurs.</p>
-      
-      <h4>Common Webhook Use Cases:</h4>
-      <ul>
-        <li>Payment confirmation (Stripe)</li>
-        <li>CI/CD pipelines (GitHub)</li>
-        <li>Form submissions</li>
-        <li>E-commerce order updates</li>
-      </ul>
+      <div class="service-grid">
+        <div class="service-card">
+          <h4><span class="material-symbols-outlined">payments</span> Payments</h4>
+          <p>Confirming transactions from platforms like Stripe or PayPal.</p>
+        </div>
+        <div class="service-card">
+          <h4><span class="material-symbols-outlined">rocket_launch</span> CI/CD</h4>
+          <p>Triggering builds and deployments from GitHub Actions.</p>
+        </div>
+        <div class="service-card">
+          <h4><span class="material-symbols-outlined">campaign</span> Alerts</h4>
+          <p>Notifying external systems of new support tickets or form entries.</p>
+        </div>
+      </div>
     </section>
 
     <section class="topic-section" id="pros-cons">
-      <h2>Pros & Cons of Each API Type <span class="section-badge intermediate">Intermediate</span></h2>
+      <h2>Architectures <span class="level-badge intermediate">Intermediate</span></h2>
       
       <h3>REST API</h3>
       <div class="split-grid">
-        <div class="split-item">
-          <h4>✅ Pros</h4>
-          <ul>
-            <li>Simple and easy to understand</li>
-            <li>Widely adopted</li>
-            <li>Works with HTTP caching</li>
-            <li>Language and platform agnostic</li>
-            <li>Great tooling (Postman, Swagger)</li>
-          </ul>
+        <div class="key-points">
+          <h4><span class="material-symbols-outlined">check_circle</span> Pros</h4>
+          <div class="key-point">
+            <h5>Simplicity</h5>
+            <p>Widely understood architectural style with standard HTTP semantics.</p>
+          </div>
+          <div class="key-point">
+            <h5>Caching</h5>
+            <p>Native support for HTTP level caching for high performance.</p>
+          </div>
         </div>
-        <div class="split-item">
-          <h4>❌ Cons</h4>
-          <ul>
-            <li>Over-fetching (too much data)</li>
-            <li>Under-fetching (multiple requests)</li>
-            <li>No real-time support</li>
-            <li>Versioning can become complex</li>
-          </ul>
+        <div class="key-points">
+          <h4><span class="material-symbols-outlined">cancel</span> Cons</h4>
+          <div class="key-point">
+            <h5>Data Payloads</h5>
+            <p>Commonly suffers from over-fetching or under-fetching issues.</p>
+          </div>
+          <div class="key-point">
+            <h5>Real-time</h5>
+            <p>No native support for push notifications or real-time updates.</p>
+          </div>
         </div>
       </div>
 
       <h3>GraphQL API</h3>
       <div class="split-grid">
-        <div class="split-item">
-          <h4>✅ Pros</h4>
-          <ul>
-            <li>Fetch exactly the data you need</li>
-            <li>Single endpoint for all operations</li>
-            <li>Strongly typed schema</li>
-            <li>Reduces network requests</li>
-          </ul>
+        <div class="key-points">
+          <h4><span class="material-symbols-outlined">check_circle</span> Pros</h4>
+          <div class="key-point">
+            <h5>Query Precision</h5>
+            <p>Clients fetch exactly what they need, minimizing network traffic.</p>
+          </div>
+          <div class="key-point">
+            <h5>Single Endpoint</h5>
+            <p>Simplifies client architecture by exposing all data through one URL.</p>
+          </div>
         </div>
-        <div class="split-item">
-          <h4>❌ Cons</h4>
-          <ul>
-            <li>Steeper learning curve</li>
-            <li>Complex queries can strain server</li>
-            <li>Harder to cache than REST</li>
-            <li>N+1 query problem</li>
-          </ul>
+        <div class="key-points">
+          <h4><span class="material-symbols-outlined">cancel</span> Cons</h4>
+          <div class="key-point">
+            <h5>Implementation</h5>
+            <p>Significantly more complex to implement and maintain server-side.</p>
+          </div>
+          <div class="key-point">
+            <h5>Caching Complexity</h5>
+            <p>Standard HTTP caching doesn't work for flexible POST-based queries.</p>
+          </div>
         </div>
       </div>
 
       <h3>gRPC API</h3>
       <div class="split-grid">
-        <div class="split-item">
-          <h4>✅ Pros</h4>
-          <ul>
-            <li>Extremely fast (protobuf binary)</li>
-            <li>Supports streaming</li>
-            <li>Strongly typed contracts</li>
-            <li>Auto-generates client code</li>
-          </ul>
+        <div class="key-points">
+          <h4><span class="material-symbols-outlined">check_circle</span> Pros</h4>
+          <div class="key-point">
+            <h5>Raw Speed</h5>
+            <p>Uses binary Protocol Buffers and HTTP/2 for ultra-fast throughput.</p>
+          </div>
+          <div class="key-point">
+            <h5>Streaming</h5>
+            <p>Native support for bidirectional and server-side streaming.</p>
+          </div>
         </div>
-        <div class="split-item">
-          <h4>❌ Cons</h4>
-          <ul>
-            <li>Not human-readable</li>
-            <li>Limited browser support</li>
-            <li>Requires protobuf tooling</li>
-            <li>Not suitable for public APIs</li>
-          </ul>
+        <div class="key-points">
+          <h4><span class="material-symbols-outlined">cancel</span> Cons</h4>
+          <div class="key-point">
+            <h5>Accessibility</h5>
+            <p>Not human-readable and has very limited browser-side support.</p>
+          </div>
+          <div class="key-point">
+            <h5>Tooling</h5>
+            <p>Requires specific Protobuf tooling and client-side code generation.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="topic-section" id="problems-apis-solve">
-      <h2>What Problems Do APIs Solve? <span class="section-badge getting-started">Getting Started</span></h2>
+      <h2>Value Proposition <span class="level-badge basic">Basic</span></h2>
       
-      <h3>1. Interoperability</h3>
-      <p><strong>Problem:</strong> Different software systems, built in different languages and on different platforms, cannot naturally communicate.</p>
-      <p><strong>How APIs solve it:</strong> APIs create a <strong>universal language</strong> between systems.</p>
-
-      <h3>2. Modularity & Separation of Concerns</h3>
-      <p><strong>Problem:</strong> Monolithic applications become impossible to maintain and scale.</p>
-      <p><strong>How APIs solve it:</strong> APIs allow teams to build <strong>independent services</strong> (microservices) that communicate through well-defined interfaces.</p>
-
-      <h3>3. Reusability & Faster Development</h3>
-      <p><strong>Problem:</strong> Rebuilding functionality that already exists wastes time.</p>
-      <p><strong>How APIs solve it:</strong> APIs allow developers to <strong>reuse existing functionality</strong> — integrate SendGrid for email, Stripe for payments, etc.</p>
-
-      <h3>4. Security & Abstraction</h3>
-      <p><strong>Problem:</strong> Exposing internal systems directly is a security risk.</p>
-      <p><strong>How APIs solve it:</strong> APIs act as a <strong>controlled gateway</strong> — authentication, rate-limiting, hiding internal implementation.</p>
+      <div class="bento-grid">
+        <div class="bento-card medium">
+          <div class="card-icon primary">
+            <span class="material-symbols-outlined">hub</span>
+          </div>
+          <h3>Interoperability</h3>
+          <p><strong>Problem:</strong> Different systems built in different languages cannot naturally communicate.</p>
+          <p><strong>Solution:</strong> APIs create a universal, platform-agnostic language between services.</p>
+        </div>
+        <div class="bento-card medium">
+          <div class="card-icon primary">
+            <span class="material-symbols-outlined">account_tree</span>
+          </div>
+          <h3>Modularity</h3>
+          <p><strong>Problem:</strong> Monolithic applications become impossible to maintain as they grow.</p>
+          <p><strong>Solution:</strong> Build independent microservices that communicate through clean interfaces.</p>
+        </div>
+        <div class="bento-card medium">
+          <div class="card-icon primary">
+            <span class="material-symbols-outlined">storage</span>
+          </div>
+          <h3>Reusability</h3>
+          <p><strong>Problem:</strong> Rebuilding common functionality (email, payments) from scratch wastes time.</p>
+          <p><strong>Solution:</strong> Integrate battle-tested third-party services like Stripe or SendGrid via API.</p>
+        </div>
+        <div class="bento-card medium">
+          <div class="card-icon primary">
+            <span class="material-symbols-outlined">security</span>
+          </div>
+          <h3>Security</h3>
+          <p><strong>Problem:</strong> Exposing internal databases and systems directly is a massive security risk.</p>
+          <p><strong>Solution:</strong> APIs act as a controlled gateway with authentication and rate limiting.</p>
+        </div>
+      </div>
     </section>
 
     <section class="topic-section" id="choosing-api">
-      <h2>Choosing the Right API <span class="section-badge intermediate">Intermediate</span></h2>
+      <h2>Selection Logic <span class="level-badge intermediate">Intermediate</span></h2>
       
-      <table>
+      <table class="comparison-table">
         <thead>
           <tr><th>Situation</th><th>Best Choice</th></tr>
         </thead>
         <tbody>
-          <tr><td>Building a public API for web/mobile</td><td>✅ REST</td></tr>
-          <tr><td>Complex data queries (social network, CMS)</td><td>✅ GraphQL</td></tr>
-          <tr><td>Internal microservices communication</td><td>✅ gRPC</td></tr>
-          <tr><td>Banking, healthcare, enterprise legacy</td><td>✅ SOAP</td></tr>
-          <tr><td>Chat, gaming, live feeds</td><td>✅ WebSocket</td></tr>
-          <tr><td>Payment callbacks, CI/CD triggers</td><td>✅ Webhooks</td></tr>
+          <tr><td>Building a public API for web/mobile</td><td><span class="material-symbols-outlined" style="color: var(--primary); font-size: 18px; vertical-align: middle; margin-right: 4px;">stars</span> <strong>REST</strong></td></tr>
+          <tr><td>Complex data queries (social network, CMS)</td><td><span class="material-symbols-outlined" style="color: var(--primary); font-size: 18px; vertical-align: middle; margin-right: 4px;">stars</span> <strong>GraphQL</strong></td></tr>
+          <tr><td>Internal microservices communication</td><td><span class="material-symbols-outlined" style="color: var(--primary); font-size: 18px; vertical-align: middle; margin-right: 4px;">stars</span> <strong>gRPC</strong></td></tr>
+          <tr><td>Banking, healthcare, enterprise legacy</td><td><span class="material-symbols-outlined" style="color: var(--primary); font-size: 18px; vertical-align: middle; margin-right: 4px;">stars</span> <strong>SOAP</strong></td></tr>
+          <tr><td>Chat, gaming, live feeds</td><td><span class="material-symbols-outlined" style="color: var(--primary); font-size: 18px; vertical-align: middle; margin-right: 4px;">stars</span> <strong>WebSocket</strong></td></tr>
+          <tr><td>Payment callbacks, CI/CD triggers</td><td><span class="material-symbols-outlined" style="color: var(--primary); font-size: 18px; vertical-align: middle; margin-right: 4px;">stars</span> <strong>Webhooks</strong></td></tr>
         </tbody>
       </table>
     </section>
 
     <section class="topic-section" id="terminology">
-      <h2>Key Concepts & Terminology <span class="section-badge getting-started">Getting Started</span></h2>
+      <h2>Terminology <span class="level-badge basic">Basic</span></h2>
       
-      <table>
+      <table class="comparison-table">
         <thead>
           <tr><th>Term</th><th>Definition</th></tr>
         </thead>
