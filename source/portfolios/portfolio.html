@@ -11,7 +11,21 @@
   <link rel="stylesheet" href="../shared.css" />
   <style>
     @import url("../design-tokens.css");
-/* ---- Page Layout ---- */
+    
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 0.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        padding: 0 1.5rem;
+      }
+    }
+
+    /* ---- Page Layout ---- */
     main {
       padding: 1.5rem 2rem 3rem;
     }
@@ -819,6 +833,7 @@
   </header>
 
   <main class="main-content">
+    <div class="container">
     <a href="../../index.html" class="back-link">
       <span class="material-symbols-outlined">arrow_back</span>
       Back
@@ -1036,7 +1051,7 @@
         </a>
       </div>
     </section>
-        
+    </div>
   </main>
 
   <footer class="footer">
