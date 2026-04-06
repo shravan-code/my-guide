@@ -1225,6 +1225,19 @@
       font-weight: 500;
       letter-spacing: 0.03em;
     }
+
+    .container {
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 var(--space-2);
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        padding: 0 var(--space-6);
+      }
+    }
   </style>
 </head>
 <body>
@@ -1390,7 +1403,7 @@
 
   <!-- Main Content -->
   <main class="main-content">
-  <div class="home-wrapper">
+  <div class="container home-wrapper">
 
     <!-- Statement Hero -->
     <section class="statement-hero">
@@ -1489,25 +1502,6 @@
   </div>
   </main>
 
-  <!-- Mobile Bottom Navigation -->
-  <nav class="bottom-nav">
-    <a href="index.html" class="bottom-nav-item active">
-          <span class="material-symbols-outlined">home</span>
-          Home
-        </a>
-    <a href="#" class="bottom-nav-item">
-      <span class="material-symbols-outlined">explore</span>
-      Explore
-    </a>
-    <a href="#" class="bottom-nav-item">
-      <span class="material-symbols-outlined">book</span>
-      Library
-    </a>
-    <a href="#" class="bottom-nav-item">
-      <span class="material-symbols-outlined">settings</span>
-      Settings
-    </a>
-  </nav>
 
   <script>
     // Apply theme before page renders

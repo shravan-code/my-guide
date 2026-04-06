@@ -11,6 +11,20 @@
   <link rel="stylesheet" href="../../shared.css" />
   <style>
     @import url("../../design-tokens.css");
+
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 0.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        padding: 0 1.5rem;
+      }
+    }
+
     /* Navigation Pills */
     .nav-pills {
       display: flex;
@@ -397,6 +411,7 @@
   </header>
 
 <main class="main-content">
+    <div class="container">
     <a href="../portfolio.html" class="back-link">
       <span class="material-symbols-outlined">arrow_back</span>
       Back
@@ -465,7 +480,7 @@
         </div>
       </div>
     </article>
-   
+    </div>
   </main>
 
   <footer class="footer">
