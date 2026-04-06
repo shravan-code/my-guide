@@ -389,14 +389,75 @@
     </a>
     
     <div class="page-wrap" style="padding: 2rem 4rem;">
-      <div id="mainPanel" class="content-main">
-        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 400px; text-align: center; color: var(--color-text-secondary);">
-          <span class="material-symbols-outlined" style="font-size: 4rem; margin-bottom: 1rem; opacity: 0.3;">construction</span>
-          <h2 style="font-family: 'Sora', sans-serif; font-size: 2rem; color: var(--color-text); margin-bottom: 0.5rem;">Yet to implement</h2>
-          <p>This section is currently under development. Check back soon for more project deep-dives.</p>
-        </div>
+        <header class="hero" style="margin-bottom: 4rem;">
+          <p class="eyebrow" style="color: var(--color-accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem;">Learning & Experiments</p>
+          <h1 style="font-family: 'Sora', sans-serif; font-size: 3.5rem; color: var(--color-text); margin-bottom: 1rem;">Self-Taught</h1>
+          <p style="color: var(--color-text-secondary); font-size: 1.25rem; max-width: 900px; line-height: 1.6;">Continuous exploration of distributed systems, big data architectures, and cloud-native engineering.</p>
+        </header>
 
-      </div>
+        <article class="experience-card" id="healthcare-pipeline">
+          <div class="company-header">
+            <div class="company-info">
+              <h2>Distributed Healthcare Data Processing Pipeline</h2>
+              <p class="role">Big Data Engineering Project</p>
+            </div>
+            <div class="duration">
+              <strong>Personal Project</strong>
+              <span>AWS EMR & PySpark</span>
+            </div>
+          </div>
+          
+          <div class="project-section">
+            <h3>🏥 High-Volume Patient Data Orchestration</h3>
+            <div class="tech-stack">
+              <span class="tech-pill">PySpark</span>
+              <span class="tech-pill">AWS EMR</span>
+              <span class="tech-pill">AWS S3</span>
+              <span class="tech-pill">Parquet</span>
+              <span class="tech-pill">AWS Athena</span>
+              <span class="tech-pill">AWS QuickSight</span>
+            </div>
+            
+            <div class="details-grid">
+              <div class="detail-item">
+                <h4>🎯 Objective</h4>
+                <p>Building a distributed batch processing pipeline to handle large-scale healthcare datasets (~10GB CSV) and enable serverless analytics with high performance.</p>
+              </div>
+              <div class="detail-item">
+                <h4>🛠️ Core Implementation</h4>
+                <ul>
+                  <li>Deployed a distributed Spark cluster on AWS EMR to process multi-gigabyte healthcare datasets efficiently.</li>
+                  <li>Converted raw unstructured CSV data into partitioned and columnar Parquet format (partitioned by <code>hospital_id</code> and <code>date</code>).</li>
+                  <li>Designed complex Spark transformations for patient classification and hospital-level aggregations using lazy evaluation.</li>
+                  <li>Integrated AWS Athena for serverless SQL querying, utilizing partition pruning to minimize data scan costs.</li>
+                </ul>
+              </div>
+              <div class="detail-item">
+                <h4>📈 Results & Impact</h4>
+                <ul>
+                  <li>Improved storage efficiency and query performance by ~50% through columnar storage (Parquet).</li>
+                  <li>Reduced query cost and latency by implementing effective partition pruning strategies.</li>
+                  <li>Built interactive dashboards in AWS QuickSight for real-time patient trends and hospital analytics.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="pipeline-visual" style="margin-top: 2rem;">
+              <h4 style="text-align: center; margin-bottom: 1.5rem;">Data Flow Architecture</h4>
+              <div class="visual-flow">
+                <div class="flow-node">Raw Healthcare CSVs (S3)</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-node">PySpark on EMR (ETL)</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-node">Partitioned Parquet (S3)</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-node">AWS Athena (Serverless Query)</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-node" style="border-style: dashed; border-color: var(--fuchsia-flame);">QuickSight Dashboards</div>
+              </div>
+            </div>
+          </div>
+        </article>
     </div>
   
   </main>
