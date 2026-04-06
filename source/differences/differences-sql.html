@@ -25,57 +25,86 @@
       border-bottom: 2px solid var(--color-accent, #0f8b8b);
       padding-bottom: 0.5rem;
       margin-bottom: 1.5rem;
-    }
-
-    #nestedContent h3 {
-      font-size: 1.1rem;
-      font-family: 'Sora', sans-serif;
-      color: var(--color-text);
-      margin: 0.75rem 0;
-      padding: 1.25rem;
-      background: var(--glass, rgba(255, 255, 255, 0.5));
-      border: 1px solid var(--glass-border, rgba(15, 139, 139, 0.1));
-      border-radius: var(--radius-md);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       cursor: pointer;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      gap: 0.5rem;
     }
 
-    #nestedContent h3:hover {
-      background: var(--color-bg-alt, #f8f9fa);
-      border-color: var(--color-accent);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 20px rgba(15, 139, 139, 0.1);
+    .section-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
-    
-    .explanation-card {
-      background: var(--color-bg-alt, #ffffff);
-      border: 1px solid rgba(15, 139, 139, 0.12);
-      border-radius: var(--radius-md);
-      padding: 1.5rem;
+
+    .toggle-icon {
+      font-size: 0.9rem;
+      transition: transform 0.3s ease;
+      color: var(--color-accent, #0f8b8b);
+    }
+
+    .toggle-icon.rotated {
+      transform: rotate(90deg);
+    }
+
+    .section-items-list.collapsed {
+      display: none;
+    }
+
+    .section-wrapper {
       margin-bottom: 1rem;
     }
 
-    .explanation-card h4 {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--color-accent);
-      margin: 0 0 0.75rem;
-      font-weight: 700;
+    .diff-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      background: var(--color-surface, #ffffff);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     }
 
-    .explanation-card p, .explanation-card ul {
-      color: var(--color-text-secondary);
-      font-size: 0.95rem;
-      line-height: 1.7;
+    .diff-table td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-color, rgba(15, 139, 139, 0.1));
+      vertical-align: top;
+      width: 50%;
+    }
+
+    .diff-table tr:nth-child(1) {
+      background: rgba(15, 139, 139, 0.05);
+    }
+
+    .diff-table tr:nth-child(2):hover {
+      background: rgba(15, 139, 139, 0.1);
+    }
+
+    .diff-table tr:nth-child(3) {
+      background: rgba(99, 102, 241, 0.08);
+    }
+
+    .diff-table .option-header {
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .diff-table .code-block {
+      background: #1e1e1e;
+      border-radius: 6px;
+      padding: 0.75rem;
+      overflow-x: auto;
       margin: 0;
     }
-    
-    .explanation-card ul { padding-left: 1.25rem; }
-    .explanation-card li { margin-bottom: 0.4rem; }
+
+    .diff-table .code-block code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: #d4d4d4;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
     
     .bottom-bar {
       position: sticky;
@@ -316,347 +345,2064 @@
   </script>
   <script>
     const DATA = {
-      // 1. JOIN FOUNDATIONS
-      "Inner Join vs Outer Join": {
-        definition: "An <strong>Inner Join</strong> returns only rows where there is a match in both tables. An <strong>Outer Join</strong> (Left, Right, or Full) returns all rows from at least one table, padding with NULLs for missing matches from the other side.",
-        internal_working: "Inner join uses a filtering mechanism; during execution (e.g., Hash Join), rows without a matching join key are discarded from the output stream. Outer join uses a 'preserve' flag; if the probe doesn't find a match in the build table, it constructs a result row with all NULLs for the outer table's columns.",
-        use_case: "Use <strong>Inner Join</strong> for mandatory relationships — e.g., orders for specific customers. Use <strong>Outer Join</strong> for optional relationships — e.g., all customers and their orders, including those with zero orders.",
-        key_points: ["Inner join minimizes output volume; outer join preserves reference table completeness.", "Outer joins are critical for identifying missing relationships (WHERE right.id IS NULL).", "Inner joins are generally faster because they allow the optimizer more freedom to prune rows early.", "Full outer joins are often simulated via UNION of Left and Right joins in DBs like MySQL."]
-      },
-      "Left Join vs Right Join": {
-        definition: "A <strong>Left Join</strong> returns all rows from the left table and matched rows from the right. A <strong>Right Join</strong> returns all rows from the right table and matched rows from the left. They are logically identical if the table order is reversed.",
-        internal_working: "Most query optimizers (Postgres, Oracle) convert Right Joins into Left Joins internally before generating the physical plan. The first table in the query (left) is set as the 'outer' table that drives the join process, ensuring its rows are always present in the result set regardless of matches.",
-        use_case: "Use <strong>Left Join</strong> (standard practice) to keep all records from the primary entity — e.g., <code>FROM users LEFT JOIN profiles</code>. Use <strong>Right Join</strong> only if it improves readability for specific subqueries where the added table is more important.",
-        key_points: ["Left join is significantly more common in standard SQL development.", "Both types append NULLs to the 'optional' side when no match exists.", "A <code>Left Join</code> with a <code>WHERE right.id IS NULL</code> is a high-performance pattern for 'Set Difference'.", "Chaining Left Joins requires care; if a middle table has no match, all subsequent right-side tables will also be NULL."]
-      },
-      "Full Join vs Cross Join": {
-        definition: "A <strong>Full Join</strong> (Full Outer Join) returns all rows from both tables, matching where possible. A <strong>Cross Join</strong> returns a Cartesian product (every row from Table A paired with every row from Table B).",
-        internal_working: "Full Join requires a more complex execution strategy (Sort-Merge) because it must track which rows from both sides were matched and which weren't. Cross Join is the simplest join: it has no join condition and avoids any hash table or sorting logic, but generates O(N*M) output rows.",
-        use_case: "Use <strong>Full Join</strong> for synchronizing two lists — e.g., matching experimental and control groups where overlap is partial. Use <strong>Cross Join</strong> to generate exhaustive combinations — e.g., All colors CROSS JOIN all sizes for an inventory list.",
-        key_points: ["Cross joins with large tables lead to 'Explosive Joins' that can crash production databases.", "Full joins are useful for full dataset reconciliation/audits.", "Full join is not supported in SQLite or MySQL; requires a <code>LEFT JOIN UNION RIGHT JOIN</code> workaround.", "Cross join is equivalent to a join with a condition that is always true (e.g., 1=1)."]
-      },
-      "Join vs Union": {
-        definition: "A <strong>Join</strong> combines columns from two tables based on a relationship (horizontal expansion). A <strong>Union</strong> combines rows from two results into one column set (vertical expansion).",
-        internal_working: "Joins are processed per-row across active memory buffers; the optimizer must decide on Nested Loops, Hash, or Sort-Merge. Unions are sequential; the database executes Query A, then Query B, and merges the resulting recordsets. <code>UNION</code> (distinct) requires an extra sort/unique pass, while <code>UNION ALL</code> is a simple append.",
-        use_case: "Use <strong>Join</strong> to enrich data — e.g., attaching customer names to order IDs. Use <strong>Union</strong> to consolidate datasets — e.g., merging 'ArchivedOrders' with 'ActiveOrders' into a single report.",
-        key_points: ["Joins increase the 'width' of a result; Unions increase the 'length'.", "For Union, the number and data types of columns must match exactly.", "Unions can often be replaced by filtered joins if the data is already related.", "Joins heavily utilize indexes; Unions rely on the performance of the individual subqueries."]
-      },
-      "Union vs Union All": {
-        definition: "<strong>Union</strong> combines result sets and removes duplicate rows. <strong>Union All</strong> simply appends result sets, keeping all duplicates.",
-        internal_working: "<code>UNION ALL</code> is a zero-overhead operation; the second set starts streaming immediately after the first. <code>UNION</code> requires an expensive deduplication step, often involving an internal sort or a temporary hash table to identify and discard redundant rows.",
-        use_case: "Use <strong>Union All</strong> by default for better performance if you know the sets are disjoint. Use <strong>Union</strong> only when you must guarantee uniqueness — e.g., a pool of unique customer IDs from multiple region-specific tables.",
-        key_points: ["Union All is significantly faster for large datasets.", "Union 'distinct' behavior applies to the entire row, not just a specific column.", "In dbt and ELT, Union All is preferred; deduplication is typically handled in a subsequent CTE.", "Combining results where duplicates are impossible (like primary keys) should never use UNION (distinct)."]
-      },
-      "Natural Join vs Inner Join": {
-        definition: "<strong>Inner Join</strong> requires an explicit `ON A.id = B.id`. <strong>Natural Join</strong> automatically joins on columns that have the same name in both tables.",
-        internal_working: "Logically identical in result, but different in coding. `Natural Join` invisibly inspects both schemas. If you later add an unrelated column named `created_at` to both tables, the Natural Join will instantly break or return zero results.",
-        use_case: "Almost never use <strong>Natural Join</strong>; it is dangerous to schema changes. Always use <strong>Inner Join</strong> for explicit clarity.",
-        key_points: ["Natural Join is considered 'Syntactic Poison' in professional SQL.", "Implicitly relies on naming conventions that are fragile.", "Inner Join with `USING(id)` is a safer middle-ground.", "Explicit joins make debugging and refactoring much safer."]
-      },
-      "Self Join vs Normal Join": {
-        definition: "<strong>Normal Join</strong> joins Table A to Table B. <strong>Self Join</strong> joins Table A to itself.",
-        internal_working: "A Self Join creates two logical aliases (e.g., `FROM users u1 JOIN users u2`) of the same physical table. This is used to find relationships inside a single hierarchy.",
-        use_case: "Use <strong>Self Join</strong> to find a manager's name for an employee: <code>FROM employees e JOIN employees m ON e.mgr_id = m.id</code>.",
-        key_points: ["Alias mandatory for self-joins to resolve column ambiguity.", "Often used to find duplicate records (<code>ids are different, emails are same</code>).", "Can also be replaced by recursive CTEs or Window functions for deep trees.", "Self-joins are the standard way to model 'Adjacency Lists'."]
-      },
-      "Semi Join vs Anti Join": {
-        definition: "<strong>Semi Join</strong>: Return rows from A that have a match in B (but only A's columns). <strong>Anti Join</strong>: Return rows from A that do NOT have a match in B.",
-        internal_working: "Semi Join: uses `EXISTS` or `IN`. Anti Join: uses `NOT EXISTS` or `NOT IN`. Unlike a regular join, these don't duplicate rows from A if there are multiple matches in B; they stop searching once the 'existence' is proven.",
-        use_case: "<strong>Semi Join</strong>: Customers who have made an order. <strong>Anti Join</strong>: Customers who have never made an order.",
-        key_points: ["Semi joins prevent 'Fan-out' duplication (unlike a standard Inner Join).", "Anti joins are the cleanest way to find 'Missing' data.", "Both are highly optimized Semi-Hash algorithms in modern engines.", "Essential for set-based logic and deduplication queries."]
-      },
+  // JOINs
+  "INNER JOIN vs LEFT JOIN": {
+    definition: "<strong>INNER JOIN vs LEFT JOIN</strong>",
+    query_a: `-- INNER JOIN
+SELECT e.name, d.dept_name
+FROM employees e
+INNER JOIN departments d
+  ON e.dept_id = d.id;`,
+    query_b: `-- LEFT JOIN
+SELECT e.name, d.dept_name
+FROM employees e
+LEFT JOIN departments d
+  ON e.dept_id = d.id;`,
+    key_diff: "INNER returns only matched rows. LEFT returns ALL left rows; unmatched right columns are NULL. Use LEFT when some employees may have no department."
+  },
+  "LEFT JOIN vs RIGHT JOIN": {
+    definition: "<strong>LEFT JOIN vs RIGHT JOIN</strong>",
+    query_a: `-- LEFT JOIN
+SELECT e.name, d.dept_name
+FROM employees e
+LEFT JOIN departments d
+  ON e.dept_id = d.id;`,
+    query_b: `-- RIGHT JOIN
+SELECT e.name, d.dept_name
+FROM employees e
+RIGHT JOIN departments d
+  ON e.dept_id = d.id;`,
+    key_diff: "LEFT keeps all rows from left table. RIGHT keeps all rows from right table. RIGHT JOIN is rarely used — swap table order and use LEFT instead."
+  },
+  "INNER JOIN vs FULL OUTER JOIN": {
+    definition: "<strong>INNER JOIN vs FULL OUTER JOIN</strong>",
+    query_a: `-- INNER JOIN
+SELECT a.name, b.score
+FROM students a
+INNER JOIN scores b
+  ON a.id = b.student_id;`,
+    query_b: `-- FULL OUTER JOIN
+SELECT a.name, b.score
+FROM students a
+FULL OUTER JOIN scores b
+  ON a.id = b.student_id;`,
+    key_diff: "INNER: only matched pairs. FULL OUTER: all rows from both tables, NULLs where no match. Use to find unmatched rows on EITHER side."
+  },
+  "JOIN vs CROSS JOIN": {
+    definition: "<strong>JOIN vs CROSS JOIN</strong>",
+    query_a: `-- JOIN with condition
+SELECT p.name, c.color
+FROM products p
+JOIN colors c
+  ON p.color_id = c.id;`,
+    query_b: `-- CROSS JOIN
+SELECT p.name, c.color
+FROM products p
+CROSS JOIN colors c;`,
+    key_diff: "JOIN filters via ON condition. CROSS JOIN produces Cartesian product — every row × every row. Useful for generating combinations (e.g., size × color)."
+  },
+  "Self JOIN": {
+    definition: "<strong>Self JOIN</strong>",
+    query_a: `-- Employee-Manager self join
+SELECT e.name AS employee,
+       m.name AS manager
+FROM employees e
+LEFT JOIN employees m
+  ON e.manager_id = m.id;`,
+    query_b: `-- Finding duplicates with self join
+SELECT a.id, a.email
+FROM users a
+JOIN users b
+  ON a.email = b.email
+ AND a.id <> b.id;`,
+    key_diff: "A self JOIN joins a table to itself. Use table aliases (e, m). Common for hierarchies and finding duplicates."
+  },
+  "LATERAL JOIN vs Subquery": {
+    definition: "<strong>LATERAL JOIN vs Subquery</strong>",
+    query_a: `-- Subquery (runs independently)
+SELECT u.name,
+  (SELECT MAX(amount)
+   FROM orders o
+   WHERE o.user_id = u.id) AS max_ord
+FROM users u;`,
+    query_b: `-- LATERAL JOIN (references outer)
+SELECT u.name, o.max_ord
+FROM users u
+JOIN LATERAL (
+  SELECT MAX(amount) AS max_ord
+  FROM orders WHERE user_id = u.id
+) o ON true;`,
+    key_diff: "LATERAL lets the subquery reference the outer FROM clause. More powerful than a plain subquery — can return multiple columns and be combined with LIMIT."
+  },
+  // Window Functions
+  "RANK vs DENSE_RANK": {
+    definition: "<strong>RANK vs DENSE_RANK</strong>",
+    query_a: `-- RANK — gaps after ties
+SELECT name, score,
+  RANK() OVER (
+    ORDER BY score DESC
+  ) AS rnk
+FROM students;`,
+    query_b: `-- DENSE_RANK — no gaps
+SELECT name, score,
+  DENSE_RANK() OVER (
+    ORDER BY score DESC
+  ) AS dense_rnk
+FROM students;`,
+    key_diff: "RANK: ties share rank, next rank skips (1,2,2,4). DENSE_RANK: ties share rank, next rank is consecutive (1,2,2,3). Use DENSE_RANK for medal-style ranking."
+  },
+  "RANK vs ROW_NUMBER": {
+    definition: "<strong>RANK vs ROW_NUMBER</strong>",
+    query_a: `-- ROW_NUMBER — always unique
+SELECT name, salary,
+  ROW_NUMBER() OVER (
+    ORDER BY salary DESC
+  ) AS rn
+FROM employees;`,
+    query_b: `-- RANK — ties get same rank
+SELECT name, salary,
+  RANK() OVER (
+    ORDER BY salary DESC
+  ) AS rnk
+FROM employees;`,
+    key_diff: "ROW_NUMBER: unique sequential integer regardless of ties. RANK: tied rows get the same number. Use ROW_NUMBER for pagination, RANK for competitions."
+  },
+  "PARTITION BY vs no PARTITION": {
+    definition: "<strong>PARTITION BY vs no PARTITION</strong>",
+    query_a: `-- Global rank (no partition)
+SELECT name, dept, salary,
+  RANK() OVER (
+    ORDER BY salary DESC
+  ) AS global_rank
+FROM employees;`,
+    query_b: `-- Rank within department
+SELECT name, dept, salary,
+  RANK() OVER (
+    PARTITION BY dept
+    ORDER BY salary DESC
+  ) AS dept_rank
+FROM employees;`,
+    key_diff: "Without PARTITION BY, window spans all rows. PARTITION BY restarts the calculation per group — like GROUP BY but without collapsing rows."
+  },
+  "LAG vs LEAD": {
+    definition: "<strong>LAG vs LEAD</strong>",
+    query_a: `-- LAG — look backwards
+SELECT date, revenue,
+  LAG(revenue, 1) OVER (
+    ORDER BY date
+  ) AS prev_revenue
+FROM daily_sales;`,
+    query_b: `-- LEAD — look forward
+SELECT date, revenue,
+  LEAD(revenue, 1) OVER (
+    ORDER BY date
+  ) AS next_revenue
+FROM daily_sales;`,
+    key_diff: "LAG accesses value from N rows BEFORE current. LEAD accesses N rows AFTER. Both return NULL at boundaries. Use for MoM/WoW comparisons."
+  },
+  "NTILE vs PERCENT_RANK": {
+    definition: "<strong>NTILE vs PERCENT_RANK</strong>",
+    query_a: `-- NTILE — equal buckets
+SELECT name, score,
+  NTILE(4) OVER (
+    ORDER BY score DESC
+  ) AS quartile
+FROM students;`,
+    query_b: `-- PERCENT_RANK — 0 to 1 range
+SELECT name, score,
+  ROUND(PERCENT_RANK() OVER (
+    ORDER BY score
+  )::numeric, 2) AS pct_rank
+FROM students;`,
+    key_diff: "NTILE(n) divides rows into n equal buckets (1..n). PERCENT_RANK returns fraction: (rank-1)/(n-1). First row = 0, last = 1."
+  },
+  "FIRST_VALUE vs LAST_VALUE": {
+    definition: "<strong>FIRST_VALUE vs LAST_VALUE</strong>",
+    query_a: `-- FIRST_VALUE
+SELECT name, salary,
+  FIRST_VALUE(name) OVER (
+    PARTITION BY dept
+    ORDER BY salary DESC
+  ) AS top_earner
+FROM employees;`,
+    query_b: `-- LAST_VALUE (needs explicit frame)
+SELECT name, salary,
+  LAST_VALUE(name) OVER (
+    PARTITION BY dept
+    ORDER BY salary DESC
+    ROWS BETWEEN UNBOUNDED PRECEDING
+         AND UNBOUNDED FOLLOWING
+  ) AS lowest_earner
+FROM employees;`,
+    key_diff: "FIRST_VALUE works naturally. LAST_VALUE requires ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING — default frame stops at current row."
+  },
+  "SUM OVER vs GROUP BY": {
+    definition: "<strong>SUM OVER vs GROUP BY</strong>",
+    query_a: `-- GROUP BY — collapses rows
+SELECT dept,
+  SUM(salary) AS total_sal
+FROM employees
+GROUP BY dept;`,
+    query_b: `-- SUM OVER — keeps all rows
+SELECT name, dept, salary,
+  SUM(salary) OVER (
+    PARTITION BY dept
+  ) AS dept_total
+FROM employees;`,
+    key_diff: "GROUP BY reduces to one row per group. SUM() as a window function keeps every row and adds the aggregate as a new column — great for ratios."
+  },
+  "CUME_DIST vs PERCENT_RANK": {
+    definition: "<strong>CUME_DIST vs PERCENT_RANK</strong>",
+    query_a: `-- PERCENT_RANK — excludes self
+SELECT score,
+  ROUND(PERCENT_RANK() OVER (
+    ORDER BY score
+  )::numeric, 3) AS pct_rank
+FROM test_scores;`,
+    query_b: `-- CUME_DIST — includes self
+SELECT score,
+  ROUND(CUME_DIST() OVER (
+    ORDER BY score
+  )::numeric, 3) AS cume_dist
+FROM test_scores;`,
+    key_diff: "PERCENT_RANK: (rank-1)/(n-1). CUME_DIST: rank/n. CUME_DIST is always > 0; first row of PERCENT_RANK is always 0."
+  },
+  // Aggregations & Grouping
+  "WHERE vs HAVING": {
+    definition: "<strong>WHERE vs HAVING</strong>",
+    query_a: `-- WHERE — filters before aggregation
+SELECT dept, COUNT(*) AS cnt
+FROM employees
+WHERE status = 'active'
+GROUP BY dept;`,
+    query_b: `-- HAVING — filters after aggregation
+SELECT dept, COUNT(*) AS cnt
+FROM employees
+GROUP BY dept
+HAVING COUNT(*) > 5;`,
+    key_diff: "WHERE filters raw rows before GROUP BY. HAVING filters aggregated groups. You CANNOT use aggregate functions in WHERE — use HAVING."
+  },
+  "GROUP BY vs GROUP BY ROLLUP": {
+    definition: "<strong>GROUP BY vs GROUP BY ROLLUP</strong>",
+    query_a: `-- Regular GROUP BY
+SELECT region, product,
+  SUM(sales) AS total
+FROM orders
+GROUP BY region, product;`,
+    query_b: `-- ROLLUP — adds subtotals
+SELECT region, product,
+  SUM(sales) AS total
+FROM orders
+GROUP BY ROLLUP(region, product);`,
+    key_diff: "ROLLUP adds subtotal rows: (region, product), (region, NULL=subtotal), (NULL, NULL=grand total). Hierarchical subtotals in one query."
+  },
+  "ROLLUP vs CUBE": {
+    definition: "<strong>ROLLUP vs CUBE</strong>",
+    query_a: `-- ROLLUP — hierarchical
+SELECT year, quarter, month,
+  SUM(revenue)
+FROM sales
+GROUP BY ROLLUP(year, quarter, month);`,
+    query_b: `-- CUBE — all combinations
+SELECT year, quarter, month,
+  SUM(revenue)
+FROM sales
+GROUP BY CUBE(year, quarter, month);`,
+    key_diff: "ROLLUP: 4 groupings (y,q,m),(y,q),(y),(). CUBE: all 8 possible combinations. Use ROLLUP for drill-down hierarchies, CUBE for pivot-style analysis."
+  },
+  "COUNT(*) vs COUNT(col) vs COUNT(DISTINCT col)": {
+    definition: "<strong>COUNT(*) vs COUNT(col) vs COUNT(DISTINCT col)</strong>",
+    query_a: `-- COUNT(*) and COUNT(col)
+SELECT
+  COUNT(*) AS total_rows,
+  COUNT(email) AS non_null_emails
+FROM users;`,
+    query_b: `-- COUNT(DISTINCT col)
+SELECT
+  COUNT(DISTINCT country) AS unique_countries,
+  COUNT(DISTINCT user_id) AS unique_users
+FROM orders;`,
+    key_diff: "COUNT(*): all rows including NULLs. COUNT(col): non-NULL values only. COUNT(DISTINCT col): unique non-NULL values. Each serves different purpose."
+  },
+  "SUM vs COUNT": {
+    definition: "<strong>SUM vs COUNT</strong>",
+    query_a: `-- COUNT — how many rows
+SELECT dept,
+  COUNT(*) AS num_employees,
+  COUNT(bonus) AS employees_with_bonus
+FROM employees
+GROUP BY dept;`,
+    query_b: `-- SUM — total value
+SELECT dept,
+  SUM(salary) AS total_salary,
+  SUM(bonus) AS total_bonus
+FROM employees
+GROUP BY dept;`,
+    key_diff: "COUNT counts rows/non-NULLs (returns integer). SUM adds up actual numeric values, ignoring NULLs. SUM(NULL) = NULL; COUNT(NULL col) = 0."
+  },
+  "AVG vs PERCENTILE_CONT": {
+    definition: "<strong>AVG vs PERCENTILE_CONT</strong>",
+    query_a: `-- AVG — arithmetic mean
+SELECT dept,
+  ROUND(AVG(salary), 2) AS avg_salary
+FROM employees
+GROUP BY dept;`,
+    query_b: `-- PERCENTILE_CONT — median/percentiles
+SELECT dept,
+  PERCENTILE_CONT(0.5)
+    WITHIN GROUP (ORDER BY salary)
+    AS median_salary
+FROM employees
+GROUP BY dept;`,
+    key_diff: "AVG is skewed by outliers. PERCENTILE_CONT(0.5) gives the true median. Use PERCENTILE_CONT(0.9) for p90. PERCENTILE_DISC returns an actual existing value."
+  },
+  "STRING_AGG vs ARRAY_AGG": {
+    definition: "<strong>STRING_AGG vs ARRAY_AGG</strong>",
+    query_a: `-- STRING_AGG — concatenate to string
+SELECT dept,
+  STRING_AGG(name, ', '
+    ORDER BY name) AS members
+FROM employees
+GROUP BY dept;`,
+    query_b: `-- ARRAY_AGG — collect into array
+SELECT dept,
+  ARRAY_AGG(name
+    ORDER BY salary DESC) AS members
+FROM employees
+GROUP BY dept;`,
+    key_diff: "STRING_AGG joins values into a delimited string. ARRAY_AGG collects values into a PostgreSQL array. Both support ORDER BY inside the aggregate."
+  },
+  "FILTER clause vs CASE in aggregate": {
+    definition: "<strong>FILTER clause vs CASE in aggregate</strong>",
+    query_a: `-- CASE inside aggregate (verbose)
+SELECT
+  SUM(CASE WHEN status='won'
+       THEN amount ELSE 0 END) AS won,
+  SUM(CASE WHEN status='lost'
+       THEN amount ELSE 0 END) AS lost
+FROM deals;`,
+    query_b: `-- FILTER clause (clean)
+SELECT
+  SUM(amount) FILTER (
+    WHERE status = 'won') AS won,
+  SUM(amount) FILTER (
+    WHERE status = 'lost') AS lost
+FROM deals;`,
+    key_diff: "FILTER is cleaner and PostgreSQL-native. Both produce the same pivot result. FILTER also works with COUNT, AVG, and window functions."
+  },
+  // Subqueries & CTEs
+  "Subquery vs CTE": {
+    definition: "<strong>Subquery vs CTE</strong>",
+    query_a: `-- Inline subquery (harder to read)
+SELECT name, salary
+FROM (
+  SELECT name, salary,
+    AVG(salary) OVER () AS avg_sal
+  FROM employees
+) sub
+WHERE salary > avg_sal;`,
+    query_b: `-- CTE (readable, reusable)
+WITH avg_data AS (
+  SELECT AVG(salary) AS avg_sal
+  FROM employees
+)
+SELECT e.name, e.salary
+FROM employees e
+JOIN avg_data a
+  ON e.salary > a.avg_sal;`,
+    key_diff: "CTEs are named, defined once, easier to read and debug. Subqueries are inline. CTEs can also be referenced multiple times in the same query."
+  },
+  "CTE vs Recursive CTE": {
+    definition: "<strong>CTE vs Recursive CTE</strong>",
+    query_a: `-- Plain CTE (single pass)
+WITH dept_totals AS (
+  SELECT dept_id,
+    SUM(salary) AS total
+  FROM employees
+  GROUP BY dept_id
+)
+SELECT * FROM dept_totals
+WHERE total > 100000;`,
+    query_b: `-- Recursive CTE (hierarchy)
+WITH RECURSIVE emp_tree AS (
+  SELECT id, name, manager_id, 1 AS lvl
+  FROM employees WHERE manager_id IS NULL
+  UNION ALL
+  SELECT e.id, e.name, e.manager_id, t.lvl+1
+  FROM employees e
+  JOIN emp_tree t ON e.manager_id = t.id
+)
+SELECT * FROM emp_tree;`,
+    key_diff: "RECURSIVE CTE has an anchor (base case) + UNION ALL + recursive part. Use for org charts, bill of materials, folder trees."
+  },
+  "EXISTS vs IN": {
+    definition: "<strong>EXISTS vs IN</strong>",
+    query_a: `-- IN — checks list membership
+SELECT name FROM customers
+WHERE id IN (
+  SELECT customer_id
+  FROM orders
+  WHERE total > 500
+);`,
+    query_b: `-- EXISTS — short-circuits
+SELECT name FROM customers c
+WHERE EXISTS (
+  SELECT 1 FROM orders o
+  WHERE o.customer_id = c.id
+  AND o.total > 500
+);`,
+    key_diff: "IN evaluates full subquery result. EXISTS stops at first match — faster when matches are expected. EXISTS handles NULLs safely (IN with NULLs can return no rows)."
+  },
+  "ANY vs ALL": {
+    definition: "<strong>ANY vs ALL</strong>",
+    query_a: `-- ANY — at least one match
+SELECT name, salary
+FROM employees
+WHERE salary > ANY (
+  SELECT salary FROM employees
+  WHERE dept = 'Engineering'
+);`,
+    query_b: `-- ALL — must satisfy all values
+SELECT name, salary
+FROM employees
+WHERE salary > ALL (
+  SELECT salary FROM employees
+  WHERE dept = 'Intern'
+);`,
+    key_diff: "ANY returns TRUE if condition holds for at least one value. ALL returns TRUE only if it holds for every value. ANY is like OR, ALL is like AND across values."
+  },
+  "Correlated vs Non-correlated Subquery": {
+    definition: "<strong>Correlated vs Non-correlated Subquery</strong>",
+    query_a: `-- Non-correlated (runs once)
+SELECT name, salary
+FROM employees
+WHERE salary > (
+  SELECT AVG(salary)
+  FROM employees
+);`,
+    query_b: `-- Correlated (runs per outer row)
+SELECT name, salary,
+  (SELECT AVG(salary)
+   FROM employees e2
+   WHERE e2.dept = e1.dept
+  ) AS dept_avg
+FROM employees e1;`,
+    key_diff: "Non-correlated subquery runs once. Correlated runs for each outer row — can be slow. PostgreSQL optimizer often transforms correlated subqueries into JOINs."
+  },
+  // Query Operators & Clauses
+  "UNION vs UNION ALL": {
+    definition: "<strong>UNION vs UNION ALL</strong>",
+    query_a: `-- UNION — removes duplicates
+SELECT email FROM customers
+UNION
+SELECT email FROM newsletter_subs;`,
+    query_b: `-- UNION ALL — keeps duplicates
+SELECT email FROM customers
+UNION ALL
+SELECT email FROM newsletter_subs;`,
+    key_diff: "UNION deduplicates (involves sort) — slower. UNION ALL keeps all rows — faster. Use UNION ALL unless you specifically need distinct rows."
+  },
+  "INTERSECT vs EXCEPT": {
+    definition: "<strong>INTERSECT vs EXCEPT</strong>",
+    query_a: `-- INTERSECT — rows in both
+SELECT user_id FROM mobile_users
+INTERSECT
+SELECT user_id FROM web_users;`,
+    query_b: `-- EXCEPT — rows only in first
+SELECT user_id FROM mobile_users
+EXCEPT
+SELECT user_id FROM web_users;`,
+    key_diff: "INTERSECT: customers using both platforms. EXCEPT: mobile-only customers. Both deduplicate. Use EXCEPT to find gaps or missing records."
+  },
+  "LIMIT with OFFSET vs Keyset Pagination": {
+    definition: "<strong>LIMIT with OFFSET vs Keyset Pagination</strong>",
+    query_a: `-- OFFSET (slow on large tables)
+SELECT id, name, created_at
+FROM posts
+ORDER BY created_at DESC
+LIMIT 20 OFFSET 1000;`,
+    query_b: `-- Keyset pagination (fast)
+SELECT id, name, created_at
+FROM posts
+WHERE created_at < '2024-06-01'
+  AND id < 5000
+ORDER BY created_at DESC, id DESC
+LIMIT 20;`,
+    key_diff: "OFFSET must scan and skip rows — degrades with large offsets. Keyset uses indexed WHERE conditions — consistently fast regardless of page number."
+  },
+  "DISTINCT vs DISTINCT ON": {
+    definition: "<strong>DISTINCT vs DISTINCT ON</strong>",
+    query_a: `-- DISTINCT — deduplicate all columns
+SELECT DISTINCT country, city
+FROM customers
+ORDER BY country, city;`,
+    query_b: `-- DISTINCT ON — first row per key
+SELECT DISTINCT ON (customer_id)
+  customer_id, order_date, total
+FROM orders
+ORDER BY customer_id, order_date DESC;`,
+    key_diff: "DISTINCT removes duplicate column combinations. DISTINCT ON (col) keeps ONE row per col value — the first row per ORDER BY. No standard SQL equivalent."
+  },
+  "LIKE vs ILIKE vs ~": {
+    definition: "<strong>LIKE vs ILIKE vs ~</strong>",
+    query_a: `-- LIKE — case-sensitive pattern
+SELECT name FROM products
+WHERE name LIKE 'Apple%';`,
+    query_b: `-- ILIKE — case-insensitive; ~ for regex
+SELECT name FROM products
+WHERE name ILIKE '%apple%';
 
-      // 2. OPERATIONS & FILTERS
-      "Where vs Having": {
-        definition: "<strong>Where</strong> filters individual rows before any grouping occurs. <strong>Having</strong> filters group-levels (aggregations) after the GROUP BY clause is processed.",
-        internal_working: "The DB engine applies <code>WHERE</code> during the scan or join phase (early). Aggregate functions (like SUM, COUNT) are then computed on the remaining rows. Finally, <code>HAVING</code> is applied to these calculated results. Thus, <code>WHERE</code> can use indexes, but <code>HAVING</code> cannot directly.",
-        use_case: "Use <strong>Where</strong> to exclude specific records — e.g., <code>id > 100</code>. Use <strong>Having</strong> to filter totals — e.g., <code>SUM(sales) > 5000</code>.",
-        key_points: ["Where is more efficient; it reduces the count of rows that must be processed for aggregation.", "You cannot use aggregate functions inside a Where clause.", "Having can technically filter non-aggregated columns, but it is poor practice and less efficient than Where.", "In the execution plan, Where appears early in the scan; Having appears late after the Sort/Group step."]
-      },
-      "Distinct vs GroupBy": {
-        definition: "<strong>Distinct</strong> is a keyword that removes duplicate result rows. <strong>GroupBy</strong> is a clause used to aggregate data into groups, often used with summary functions like COUNT or SUM.",
-        internal_working: "<code>DISTINCT</code> is often implemented as a specialized <code>GROUP BY</code> where every column in the SELECT is in the grouping set. Both usually trigger a sort or a hash operation to find unique values. <code>GROUP BY</code> is more flexible because it generates internal state for aggregators (SUM, AVG) per group.",
-        use_case: "Use <strong>Distinct</strong> for simple unique lists — e.g., <code>SELECT DISTINCT status FROM orders</code>. Use <strong>GroupBy</strong> when you need metrics — e.g., <code>SELECT status, COUNT(*) FROM orders GROUP BY status</code>.",
-        key_points: ["Distinct is essentially a 'shorthand' for grouping by everything in the select list.", "GroupBy is strictly required if you use any aggregate functions.", "Performance is nearly identical in modern SQL engines if only selecting unique keys.", "GroupBy allows <code>HAVING</code>; Distinct does not."]
-      },
-      "Count(*) vs Count(Column)": {
-        definition: "<strong>Count(*)</strong> counts the total number of rows in a result, including those with NULL values. <strong>Count(Column)</strong> counts only rows where the specified column is NOT NULL.",
-        internal_working: "<code>COUNT(*)</code> is optimized by the engine to count rows (sometimes using a row-count estimate or a primary key index scan). <code>COUNT(Col)</code> requires the engine to fetch and check each value in that column for 'nullness' before incrementing the counter.",
-        use_case: "Use <strong>Count(*)</strong> for general row counts — e.g., <code>SELECT COUNT(*) FROM users</code>. Use <strong>Count(Col)</strong> to see how many users have entered a phone number: <code>SELECT COUNT(phone)</code>.",
-        key_points: ["Count(*) is generally faster because the engine doesn't check for NULLs.", "Count(1) is functionally identical to Count(*).", "Postgres and MySQL have specific internal optimizations for Count(*) on large tables.", "Always use Count(*) unless you specifically need to exclude NULLs."]
-      },
-      "Truncate vs Delete": {
-        definition: "<strong>Truncate</strong> is a DDL command that removes all rows from a table by deallocating the pages. <strong>Delete</strong> is a DML command that removes specific rows based on a condition and logs each deletion.",
-        internal_working: "Truncate resets the high-water mark of the table and is minimally logged (fast). Delete iterates through records, marking them for deletion in the WAL (Write Ahead Log), checking constraints, and triggering delete-triggers for every row.",
-        use_case: "Use <strong>Truncate</strong> to wipe temporary tables or reset datasets — e.g., at the start of a daily ETL. Use <strong>Delete</strong> when you only want to remove *some* data or need triggers to fire.",
-        key_points: ["Truncate is faster and uses fewer log resources.", "Truncate resets auto-increment values; Delete does not.", "Delete can have a WHERE clause; Truncate is all-or-nothing.", "In Postgres, Truncate is transaction-safe but triggers an exclusive lock."]
-      },
-      "In vs Exists": {
-        definition: "<strong>In</strong> checks if a value is contained within a literal list or subquery result. <strong>Exists</strong> checks if a subquery returns any rows at all (true/false).",
-        internal_working: "<code>IN</code> usually processes the subquery first, creating a temporary set in memory. <code>EXISTS</code> is a semi-join; it stops scanning a subquery as soon as the first match is found, making it highly efficient for 'membership' checks without fetching data.",
-        use_case: "Use <strong>In</strong> for small, static lists — e.g., <code>status IN ('A', 'B')</code>. Use <strong>Exists</strong> when checking complex relationships in large tables.",
-        key_points: ["Exists is generally safer with NULLs than IN.", "Modern optimizers often rewrite IN to EXISTS (or vice versa).", "Exists is the standard for 'correlated subqueries'.", "Use <code>NOT EXISTS</code> instead of <code>NOT IN</code> when NULLs are possible."]
-      },
-      "Correlated vs Non-Correlated Subquery": {
-        definition: "<strong>Non-Correlated</strong>: The inner query runs once independently. <strong>Correlated</strong>: The inner query references a column from the outer query (runs for every row).",
-        internal_working: "Non-Correlated: Executed first, result set is materialized, then joined. Correlated: Logic is coupled; the engine must logically execute the subquery for every candidate row in the outer set, which is often O(N^2) without a smart optimizer 'Unnesting'.",
-        use_case: "Use <strong>Non-Correlated</strong> for fixed filters (<code>WHERE price > (SELECT avg...)</code>). Use <strong>Correlated</strong> for complex membership (<code>WHERE EXISTS...</code>).",
-        key_points: ["Non-correlated is almost always faster.", "Correlated subqueries can be refactored into JOINs for performance.", "The <code>EXISTS</code> operator is the most common use of correlated logic.", "Optimizers are getting better at 'Unrolling' correlated queries into efficient joins."]
-      },
+-- Regex match
+SELECT name FROM products
+WHERE name ~ '^App[a-z]+';`,
+    key_diff: "LIKE is case-sensitive. ILIKE is case-insensitive (PostgreSQL-specific). ~ is POSIX regex match. ~* is case-insensitive regex. !~ and !~* are negations."
+  },
+  "BETWEEN vs >= AND <=": {
+    definition: "<strong>BETWEEN vs >= AND <=</strong>",
+    query_a: `-- BETWEEN (inclusive both ends)
+SELECT * FROM orders
+WHERE order_date
+  BETWEEN '2024-01-01' AND '2024-12-31';`,
+    query_b: `-- >= AND < for dates (safer)
+SELECT * FROM orders
+WHERE order_date >= '2024-01-01'
+  AND order_date < '2025-01-01';`,
+    key_diff: "BETWEEN is inclusive on BOTH ends. For dates, BETWEEN '2024-01-01' AND '2024-12-31' misses times on Dec 31. Use >= start AND < next_day to be safe."
+  },
+  "IS NULL vs IS NOT DISTINCT FROM": {
+    definition: "<strong>IS NULL vs IS NOT DISTINCT FROM</strong>",
+    query_a: `-- IS NULL / IS NOT NULL
+SELECT * FROM users
+WHERE phone IS NULL;
 
-      // 3. ARCHITECTURE & OBJECTS
-      "View vs Table": {
-        definition: "A <strong>Table</strong> is a physical object that contains stored data. A <strong>View</strong> is a virtual table representing a saved SQL query; it contains no data of its own.",
-        internal_working: "Tables require disk space for rows and indexes. Views are stored in the system catalog as metadata strings. When you query a view, the database merges the view's SQL with your query into a single execution plan at runtime.",
-        use_case: "Use <strong>Table</strong> to store source-of-truth data. Use <strong>View</strong> to provide abstractions — e.g., a 'CustomerSummary' view that joins 4 tables.",
-        key_points: ["Views simplify complex queries for users.", "Views don't store data, so they are always up-to-date.", "Updating data through a view is only possible if the view is 'simple'.", "Views can be used for security (RLS) by shielding columns."]
-      },
-      "Materialized View vs View": {
-        definition: "A <strong>Materialized View</strong> is a view whose result is physically stored on disk like a table. A regular <strong>View</strong> is recomputed every time it is queried.",
-        internal_working: "Materialized Views store the query snapshot. They must be 'refreshed' (manually or on a schedule) to stay current. This trades data staleness for massive query performance gains, as complex joins are pre-computed.",
-        use_case: "Use <strong>View</strong> for near-real-time logic. Use <strong>Materialized View</strong> for analytical dashboards where data only needs to be refreshed once an hour.",
-        key_points: ["Materialized views occupy disk space; regular views do not.", "Materialized views can be indexed (in Oracle/Postgres), making them extremely fast.", "Refresh strategies differ: 'Complete Refresh' vs 'Incremental/Fast Refresh'.", "Commonly used in OLAP systems for pre-aggregating metrics."]
-      },
-      "Acid vs Base": {
-        definition: "<strong>ACID</strong> (Atomicity, Consistency, Isolation, Durability) guarantees reliable transactions in SQL. <strong>BASE</strong> (Basically Available, Soft state, Eventual consistency) is used in NoSQL for high availability.",
-        internal_working: "ACID uses locking and logging (WAL) to ensure that if a system crashes mid-transaction, either the whole thing is saved or none of it is. BASE uses replication and 'quorum' voting; it allows different nodes to have different data versions briefly until they sync eventually.",
-        use_case: "Use <strong>ACID</strong> (Relational) for financial transactions where accuracy is vital. Use <strong>BASE</strong> (NoSQL) for social media feeds.",
-        key_points: ["ACID focuses on Consistency; BASE focuses on Availability.", "Postgres and SQL Server are the gold standard for ACID compliance.", "Consistency is the 'hard' part of the CAP theorem for distributed SQL.", "Most data modern stacks are ACID for core processing."]
-      },
-      "Fact vs Dimension": {
-        definition: "A <strong>Fact</strong> is a quantitative metric (SalesAmount). A <strong>Dimension</strong> is a descriptive attribute (CustomerCity, Date).",
-        internal_working: "In a Star Schema, Fact tables are long/narrow and hold foreign keys + numbers. Dimension tables are short/wide and hold text. This structure optimizes 'Join-Filtering-Aggregation' patterns in analytical warehouses.",
-        use_case: "Use <strong>Fact Table</strong> to record every sale event. Use <strong>Dimension Table</strong> to store detailed attributes of the products.",
-        key_points: ["Facts = Numbers; Dimensions = Text/Context.", "Combining Facts and Dimensions creates the 'Star Schema'.", "Fact tables usually grow exponentially faster than dimension tables.", "Dimensions provide the 'How' and 'Who'; Facts provide the 'How Much'."]
-      },
-      "Normalization vs Denormalization": {
-        definition: "<strong>Normalization</strong> organizes data to reduce redundancy (splitting tables). <strong>Denormalization</strong> adds redundancy (combining tables) to improve performance.",
-        internal_working: "Normalization (3NF) reduces the size of the database and prevents update anomalies. Denormalization reduces the number of joins, which is the most expensive part of a query.",
-        use_case: "Use <strong>Normalization</strong> for OLTP applications (Web Apps). Use <strong>Denormalization</strong> for OLAP systems (Dashboards, Data Warehouses).",
-        key_points: ["Normalization = Better for Writes; Denormalization = Better for Reads.", "Over-normalization can cause 'Join Hell'.", "Modern Columnar DBs handle Joins extremely well.", "Star Schema is a form of intentional denormalization."]
-      },
-      "SCD Type 1 vs Type 2 vs Type 3": {
-        definition: "These are strategies for tracking **Slowly Changing Dimensions**. **Type 1**: Overwrite. **Type 2**: New row (history). **Type 3**: New column (previous value).",
-        internal_working: "Type 1: Simple <code>UPDATE</code>. Type 2: <code>INSERT</code> new row and <code>UPDATE</code> 'End Date' of the previous row. Type 3: <code>UPDATE</code> the 'old_val' column.",
-        use_case: "Use **Type 2** for tracking address history to see where a customer lived when they bought a specific item.",
-        key_points: ["Type 2 is the industry standard for analytical history.", "Type 2 requires a surrogate key.", "Type 1 is destructive.", "Type 2 allows 'Time Travel' logic in BI queries."]
-      },
-      "Surrogate vs Natural Key": {
-        definition: "A **Natural Key** is an identifier from the real world (SSN, Email). A **Surrogate Key** is a system-generated ID (auto-increment) with no business meaning.",
-        internal_working: "Natural keys can change which breaks foreign keys. Surrogate keys remain constant forever, shielding the data warehouse from changes in source systems.",
-        use_case: "Use **Surrogate Keys** in every fact and dimension table in a DW for stability.",
-        key_points: ["Surrogate keys are usually integers or hashes.", "Natural keys are 'Volatile'; Surrogate keys are 'Immutable'.", "Using hashes helps avoid lookup joins during ingestion.", "Always define PKs using surrogate keys in models."]
-      },
-      "Inmon vs Kimball Methodology": {
-        definition: "**Kimball** focuses on 'Bottom-Up' Data Marts (Star Schema). **Inmon** focuses on 'Top-Down' Corporate Data Warehouse (3NF).",
-        internal_working: "Kimball: Start with business processes and build Star Schemas for immediate analyst use. Inmon: Build a massive, normalized repository for all company data first, then spin off marts.",
-        use_case: "Use **Kimball** for agile cloud teams wanting quick delivery.",
-        key_points: ["Kimball uses conformed dimensions.", "Kimball is 'Direct-to-Consumer' SQL; Inmon is 'Architect-to-IT'.", "Most dbt projects are 'Modified Kimball'.", "Kimball is faster to implement."]
-      },
-      "Data Vault vs Star Schema": {
-        definition: "**Data Vault** is a pattern using Hubs, Satellites, and Links. **Star Schema** is the classic Fact and Dimension approach.",
-        internal_working: "Star Schema prioritizes query performance (fewer joins). Data Vault prioritizes auditing and agile ingestion (never change, only append).",
-        use_case: "Use **Data Vault** for a 'Raw/Staged' layer with 100+ messy sources. Use **Star Schema** for the final reporting layer.",
-        key_points: ["Hubs = Natural Keys; Links = Relationships; Satellites = Attributes.", "Data Vault allows parallel loading.", "Star is for analysis; Data Vault is a system of record.", "Vault is harder to query directly."]
-      },
+SELECT * FROM users
+WHERE phone IS NOT NULL;`,
+    query_b: `-- IS NOT DISTINCT FROM (NULL-safe =)
+-- Treats NULL = NULL as TRUE
+SELECT * FROM users u
+JOIN defaults d
+  ON u.country IS NOT DISTINCT FROM d.country;`,
+    key_diff: "= NULL always returns NULL (never TRUE). IS NULL checks for NULL. IS NOT DISTINCT FROM is NULL-safe equality: NULL IS NOT DISTINCT FROM NULL = TRUE."
+  },
+  "COALESCE vs NULLIF vs GREATEST": {
+    definition: "<strong>COALESCE vs NULLIF vs GREATEST</strong>",
+    query_a: `-- COALESCE — first non-NULL
+SELECT
+  COALESCE(phone, mobile, 'N/A') AS contact
+FROM users;`,
+    query_b: `-- NULLIF and GREATEST
+-- NULLIF: return NULL if equal
+SELECT NULLIF(status, 'unknown'),
+-- GREATEST: max of values
+       GREATEST(score1, score2, score3)
+FROM results;`,
+    key_diff: "COALESCE returns first non-NULL. NULLIF(a,b) returns NULL when a=b (avoids divide-by-zero). GREATEST/LEAST return max/min across a list of values."
+  },
+  "CASE WHEN vs CASE (simple form)": {
+    definition: "<strong>CASE WHEN vs CASE (simple form)</strong>",
+    query_a: `-- Searched CASE (flexible conditions)
+SELECT name,
+  CASE
+    WHEN salary > 100000 THEN 'High'
+    WHEN salary > 50000  THEN 'Mid'
+    ELSE 'Low'
+  END AS salary_band
+FROM employees;`,
+    query_b: `-- Simple CASE (equality checks)
+SELECT name,
+  CASE status
+    WHEN 'A' THEN 'Active'
+    WHEN 'I' THEN 'Inactive'
+    WHEN 'P' THEN 'Pending'
+    ELSE 'Unknown'
+  END AS status_label
+FROM users;`,
+    key_diff: "Searched CASE uses boolean conditions — more flexible (ranges, NULLs, inequalities). Simple CASE compares one expression to values — cleaner for equality checks."
+  },
+  // DML - INSERT/UPDATE/DELETE
+  "INSERT vs INSERT ON CONFLICT": {
+    definition: "<strong>INSERT vs INSERT ON CONFLICT</strong>",
+    query_a: `-- Plain INSERT (fails on duplicate)
+INSERT INTO users (email, name)
+VALUES ('a@b.com', 'Alice');
 
-      // 4. ANALYTICS & WINDOWING
-      "Rank vs Dense_Rank": {
-        definition: "<strong>Rank</strong> leaves gaps in numbering after ties (1, 2, 2, 4). <strong>Dense_Rank</strong> has no gaps (1, 2, 2, 3).",
-        internal_working: "Window functions work on the 'result set' after filtering. Rank uses the internal row number of the first 'tie' as the next rank. Dense_Rank maintains a separate 'unique value' counter.",
-        use_case: "Use <strong>Rank</strong> for competition results. Use <strong>Dense_Rank</strong> for salary bands.",
-        key_points: ["Neither Rank nor Dense_Rank causes aggregation.", "Both require OVER(ORDER BY).", "Row_Number is often preferred for unique ranks.", "Standard 'Top N' skill in interviews."]
-      },
-      "Row_Number vs Rank": {
-        definition: "<strong>Row_Number</strong> assigns a sequential number (1, 2, 3, 4). <strong>Rank</strong> assigns same number to ties.",
-        internal_working: "Row_Number is a simple counter per window partition. Rank is value-sensitive.",
-        use_case: "Use <strong>Row_Number</strong> for deduplication: <code>WHERE rn = 1</code>.",
-        key_points: ["Row_Number is essential for 'First Record per Group'.", "Rank helps with 'Top 3 including ties'.", "Partitioning restarts numbering.", "Row_Number is non-deterministic on ties without a tie-breaker."]
-      },
-      "Lead vs Lag": {
-        definition: "<strong>Lead</strong> accesses data from the next row. <strong>Lag</strong> accesses data from the previous row.",
-        internal_working: "These functions look ahead/back within the sorted window buffer, avoiding self-joins.",
-        use_case: "Use <strong>Lag</strong> for MoM growth. Use <strong>Lead</strong> for sessionization.",
-        key_points: ["Both support optional offset.", "Crucial for time series analysis.", "O(N) operation using existing sort.", "Default values can be set for edges."]
-      },
-      "Stored Procedure vs Function": {
-        definition: "A **Function** must return a value. A **Stored Procedure** is code executed via CALL/EXEC.",
-        internal_working: "Functions cannot perform 'side effects' like Inserts. Procedures can perform full transactions.",
-        use_case: "Use **Function** for <code>CalculateTax()</code>. Use **Procedure** for <code>DailyETL()</code>.",
-        key_points: ["Functions are 'embedded'; Procedures are 'invoked'.", "Procedures allow error handling (Try/Catch).", "Functions must be deterministic for certain indexes.", "Procedures can return multiple result sets."]
-      },
-      "Scalar vs Aggregate vs Window Functions": {
-        definition: "**Scalar**: 1 to 1 (LENGTH). **Aggregate**: N to 1 (SUM). **Window**: N to N (RANK).",
-        internal_working: "Aggregate requires GROUP BY. Window uses OVER clause to preserve individual rows.",
-        use_case: "Use **Window** functions to calculate 'Percent of Total' for every specific item.",
-        key_points: ["Window functions are the #1 'Expert' SQL skill.", "Aggregates remove detail; Window functions keep it.", "Window functions run AFTER WHERE clause.", "Essential for ranking and running totals."]
-      },
+-- Raises error if email already exists`,
+    query_b: `-- UPSERT with ON CONFLICT
+INSERT INTO users (email, name)
+VALUES ('a@b.com', 'Alice')
+ON CONFLICT (email)
+DO UPDATE SET
+  name = EXCLUDED.name,
+  updated_at = NOW();`,
+    key_diff: "ON CONFLICT handles duplicate key violations. DO UPDATE performs an update; DO NOTHING silently skips. EXCLUDED refers to the row that was rejected."
+  },
+  "UPDATE vs UPDATE FROM": {
+    definition: "<strong>UPDATE vs UPDATE FROM</strong>",
+    query_a: `-- Simple UPDATE
+UPDATE employees
+SET salary = salary * 1.10
+WHERE dept = 'Engineering';`,
+    query_b: `-- UPDATE with JOIN (FROM clause)
+UPDATE employees e
+SET salary = salary * r.multiplier
+FROM raise_table r
+WHERE e.dept = r.dept
+  AND r.year = 2024;`,
+    key_diff: "UPDATE...FROM lets you join another table into the UPDATE. The joined table goes in FROM, matching in WHERE. Much cleaner than correlated subqueries."
+  },
+  "DELETE vs DELETE USING": {
+    definition: "<strong>DELETE vs DELETE USING</strong>",
+    query_a: `-- Simple DELETE with subquery
+DELETE FROM orders
+WHERE customer_id IN (
+  SELECT id FROM customers
+  WHERE status = 'banned'
+);`,
+    query_b: `-- DELETE with USING (join style)
+DELETE FROM orders o
+USING customers c
+WHERE o.customer_id = c.id
+  AND c.status = 'banned';`,
+    key_diff: "DELETE...USING is PostgreSQL's join-style delete — like UPDATE...FROM. More readable than a subquery when deleting based on another table's conditions."
+  },
+  "RETURNING in INSERT/UPDATE/DELETE": {
+    definition: "<strong>RETURNING in INSERT/UPDATE/DELETE</strong>",
+    query_a: `-- Without RETURNING (need extra query)
+INSERT INTO users (email, name)
+VALUES ('x@y.com', 'Bob');
+-- Must do separate SELECT to get new id
+SELECT id FROM users
+WHERE email = 'x@y.com';`,
+    query_b: `-- With RETURNING (single statement)
+INSERT INTO users (email, name)
+VALUES ('x@y.com', 'Bob')
+RETURNING id, created_at;
 
-      // 5. PERFORMANCE & STORAGE
-      "Clustered vs Non-Clustered Index": {
-        definition: "A **Clustered Index** determines physical order. A **Non-Clustered Index** is a separate lookup structure.",
-        internal_working: "Clustered: The table *is* the index. Non-Clustered: Points to the actual row.",
-        use_case: "Use **Clustered** for the Primary Key. Use **Non-Clustered** for email searches.",
-        key_points: ["Only one Clustered index allowed per table.", "Non-Clustered indices consume extra disk space.", "Searching non-clustered is a two-step 'hop'.", "Index Covering avoids the extra hop."]
-      },
-      "Hash Join vs Nested Loop vs Sort-Merge": {
-        definition: "Physical join algorithms. **Hash** builds a lookup table. **Nested Loop** compares row-by-row. **Sort-Merge** sorts then zips.",
-        internal_working: "Hash Join: Builds memory-hash (O(M+N)). Nested Loop: Iterates outer rows (O(M*N)). Sort-Merge: Robust for massive datasets not fitting in RAM.",
-        use_case: "DB optimizers pick these. Hash Join is the workhorse of Analytical DBs.",
-        key_points: ["Hash joins require significant RAM.", "Nested loops benefit from inner indices.", "Sort-merge is predictable on massive sorts.", "Vectorized Join engines heavily prefer Hashing."]
-      },
-      "Columnar vs Row-based Storage": {
-        definition: "**Row-based** (Postgres) stores full records. **Columnar** (Snowflake) stores elements of same column together.",
-        internal_working: "Columnar skips unused columns and achieves 10x better compression.",
-        use_case: "Use **Row-based** for apps (OLTP). Use **Columnar** for data lakes (OLAP).",
-        key_points: ["Postgres is Row; BigQuery is Columnar.", "Columnar = Aggregation speed; Row = Single record speed.", "Row storage optimized for Write; Columnar for Read.", "Columnar uses Dictionary encoding."]
-      },
-      "Partitioning vs Sharding": {
-        definition: "**Partitioning** splits table in *same* DB. **Sharding** splits across *multiple* servers.",
-        internal_working: "Partitioning: Pruning during query. Sharding: App-level shard map for infinite scale.",
-        use_case: "Use **Partitioning** for history speed. Use **Sharding** for global scale (Facebook).",
-        key_points: ["Partitioning is for Manageability; Sharding for Scale.", "Sharding makes cross-shard joins nearly impossible.", "Many cloud DBs partition automatically.", "Partitioning is 'Vertical' scale; Sharding is 'Horizontal'."]
-      },
-      "CTE vs Temporary Table": {
-        definition: "A **CTE** is virtual (one statement). A **Temp Table** is physical (session-long).",
-        internal_working: "CTE inlined by optimizer. Temp Table persists and can be indexed.",
-        use_case: "Use **CTE** for clean logic. Use **Temp Table** for complex multi-step pipelines.",
-        key_points: ["CTEs have zero storage overhead.", "Temp tables can have their own indices.", "CTEs more readable; Temp tables can be passed around.", "CTEs allow recursive logic."]
-      },
-      "B-Tree vs Bitmap Index": {
-        definition: "**B-Tree** is for high-cardinality (Unique IDs). **Bitmap** is for low-cardinality (Gender, Status).",
-        internal_working: "B-Tree: Navigates tree hierarchy. Bitmap: Bit-array matching (AND/OR).",
-        use_case: "Bitmap amazing for multi-filter BI queries on columns with few distinct values.",
-        key_points: ["Standard indices are B-Trees.", "Bitmaps problematic in high-write systems.", "Postgres uses Bitmap Scans in memory in combination with B-trees.", "Bitmaps save massive space on low-cardinality data."]
-      },
+UPDATE orders SET status='shipped'
+WHERE id = 5 RETURNING *;`,
+    key_diff: "RETURNING eliminates the need for a follow-up SELECT. Works with INSERT, UPDATE, and DELETE. Returns the state AFTER INSERT/UPDATE, BEFORE DELETE."
+  },
+  "TRUNCATE vs DELETE": {
+    definition: "<strong>TRUNCATE vs DELETE</strong>",
+    query_a: `-- DELETE — row by row, slow
+DELETE FROM log_entries;
 
-      // 6. DATA TYPES & LANGUAGES
-      "Char vs Varchar vs Text": {
-        definition: "**Char**: Fixed-length. **Varchar**: Variable-length with limit. **Text**: Unlimited.",
-        internal_working: "Char(10) always uses 10 bytes. Varchar uses only as many as needed.",
-        use_case: "Use **Char(2)** for State codes. Use **Varchar** for names.",
-        key_points: ["Almost zero performance benefit for Char in modern DBs.", "Varchar enforces length at schema level.", "Postgres 'text' is just as fast as 'varchar'.", "Text columns often require full-text indexing."]
-      },
-      "Integer vs BigInt vs Decimal": {
-        definition: "**Integer**: 4-byte. **BigInt**: 8-byte. **Decimal**: Fixed-precision.",
-        internal_working: "Decimal avoids binary floating point errors.",
-        use_case: "Use **BigInt** for IDs. Use **Decimal** for money.",
-        key_points: ["Never use Float for money.", "BigInt safest default for PKs.", "SmallInt saves bits on 'Age' columns.", "Integer overflow is a common production bug."]
-      },
-      "Date vs Timestamp vs Timestamptz": {
-        definition: "**Date**: Y-M-D. **Timestamp**: Exact time. **Timestamptz**: Times with offsets.",
-        internal_working: "Timestamptz converts to UTC internally in Postgres.",
-        use_case: "Always use **Timestamptz** for all event logs to avoid timezone bugs.",
-        key_points: ["Comparing different timezones is the #1 data engineer nightmare.", "Plain timestamps lead to silent bugs in global apps.", "Date used for Birthdays.", "Extract functions work across all types."]
-      },
-      "DDL vs DML vs DCL vs TCL": {
-        definition: "Sub-languages: **Definition**, **Manipulation**, **Control**, **Transaction**.",
-        internal_working: "DDL: Create/Drop. DML: Select/Insert. DCL: Grant. TCL: Commit/Rollback.",
-        use_case: "DDL to build the schema; DML to fill it.",
-        key_points: ["Metadata locks triggered by DDL.", "DML is the performance bottleneck.", "Admins need DCL; Users need DML.", "DDL usually triggers implicit commit."]
-      },
+-- Fires row triggers
+-- Logs each row deletion
+-- Can be filtered with WHERE`,
+    query_b: `-- TRUNCATE — instant, no row scan
+TRUNCATE TABLE log_entries;
 
-      // 7. MODERN DATA STACK
-      "dbt vs Stored Procedures": {
-        definition: "**Stored Procedures** are imperative code inside DB. **dbt** is a declarative SQL framework in Git.",
-        internal_working: "dbt turns SELECTs into project-wide Lineage automatically.",
-        use_case: "Use **dbt** for all modern Data Warehousing transformations.",
-        key_points: ["dbt is in Git; Stored Procs are in the DB catalog.", "dbt allows testing and documentation easily.", "Lineage is automatic in dbt.", "dbt enables Software Engineering for SQL."]
-      },
-      "ETL vs ELT": {
-        definition: "**ETL**: Transform before loading. **ELT**: Transform inside the warehouse.",
-        internal_working: "ELT leverages cloud warehouse compute (Snowflake/BigQuery).",
-        use_case: "Use **ELT** for 99% of cloud projects.",
-        key_points: ["ELT allows keeping 'Raw' data forever.", "Fivetran/dbt stack is the definition of ELT.", "ETL better for pre-cloud PII masking.", "ELT is faster and more scalable."]
-      },
-      "Primary Key vs Unique Key": {
-        definition: "**Primary Key** uniquely identifies (Not Null). **Unique Key** ensures uniqueness (Allows Null).",
-        internal_working: "One PK per table; multiple Unique Keys allowed.",
-        use_case: "PK for <code>id</code>; Unique Key for <code>email</code>.",
-        key_points: ["PKs prohibit Nulls by definition.", "PK targets for Foreign Keys.", "Unique Key typically non-clustered index.", "PK is usually the clustered index."]
-      },
-      "CTE vs Subquery": {
-        definition: "**CTE** is named (WITH clause). **Subquery** is nested.",
-        internal_working: "In modern engines, performance is identical after inlining.",
-        use_case: "Use **CTE** for readability and recursive logic.",
-        key_points: ["CTEs much easier to read.", "Recursive CTEs for trees.", "Subqueries in SELECT can be slow (N+1).", "CTEs can be reused in the same query."]
-      },
-      "BigQuery vs Snowflake": {
-        definition: "**BigQuery**: Serverless pool. **Snowflake**: Multi-cloud dedicated warehouses.",
-        internal_working: "BigQuery pay-per-TB. Snowflake pay-per-second of compute tier (Size).",
-        use_case: "BigQuery for Google-native ad-hoc. Snowflake for Enterprise across clouds.",
-        key_points: ["BigQuery is index-less; Snowflake uses micro-partitions.", "Snowflake allows multi-cluster scaling.", "Both leaders in ELT architecture.", "BigQuery is true serverless."]
-      }
-    };
+-- TRUNCATE with reset sequence
+TRUNCATE TABLE log_entries
+RESTART IDENTITY;`,
+    key_diff: "DELETE scans and logs every row — slow for large tables. TRUNCATE removes all rows instantly, resets sequences with RESTART IDENTITY. PostgreSQL TRUNCATE is transactional."
+  },
+  // DDL & Schema Design
+  "PRIMARY KEY vs UNIQUE": {
+    definition: "<strong>PRIMARY KEY vs UNIQUE</strong>",
+    query_a: `-- PRIMARY KEY
+CREATE TABLE products (
+  id SERIAL PRIMARY KEY,
+  sku TEXT NOT NULL,
+  name TEXT
+);`,
+    query_b: `-- UNIQUE constraint
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  email TEXT UNIQUE NOT NULL,
+  username TEXT UNIQUE
+);`,
+    key_diff: "PRIMARY KEY = NOT NULL + UNIQUE, one per table. UNIQUE allows NULL (multiple NULLs allowed in PostgreSQL since NULL ≠ NULL). Both create an index automatically."
+  },
+  "SERIAL vs IDENTITY": {
+    definition: "<strong>SERIAL vs IDENTITY</strong>",
+    query_a: `-- SERIAL (legacy shorthand)
+CREATE TABLE orders (
+  id SERIAL PRIMARY KEY,
+  amount NUMERIC
+);
+-- SERIAL = INT + sequence`,
+    query_b: `-- IDENTITY (SQL standard, preferred)
+CREATE TABLE orders (
+  id INT GENERATED ALWAYS AS IDENTITY
+    PRIMARY KEY,
+  amount NUMERIC
+);`,
+    key_diff: "SERIAL is PostgreSQL shorthand using a sequence. IDENTITY (pg10+) is the SQL standard. IDENTITY prevents manual inserts unless you use OVERRIDING SYSTEM VALUE."
+  },
+  "CHECK constraint vs trigger for validation": {
+    definition: "<strong>CHECK constraint vs trigger for validation</strong>",
+    query_a: `-- CHECK constraint (declarative)
+CREATE TABLE employees (
+  id SERIAL PRIMARY KEY,
+  salary NUMERIC
+    CHECK (salary > 0),
+  age INT
+    CHECK (age BETWEEN 18 AND 70)
+);`,
+    query_b: `-- FUNCTION + TRIGGER (complex logic)
+CREATE OR REPLACE FUNCTION chk_salary()
+RETURNS TRIGGER AS $$
+BEGIN
+  IF NEW.salary <= 0 THEN
+    RAISE EXCEPTION 'Salary must be > 0';
+  END IF;
+  RETURN NEW;
+END; $$ LANGUAGE plpgsql;`,
+    key_diff: "CHECK constraints are simple, fast, declarative. Triggers handle complex cross-table or conditional validation. Prefer CHECK for single-table column rules."
+  },
+  "VIEW vs MATERIALIZED VIEW": {
+    definition: "<strong>VIEW vs MATERIALIZED VIEW</strong>",
+    query_a: `-- Regular VIEW — always fresh
+CREATE VIEW active_customers AS
+SELECT id, name, email
+FROM customers
+WHERE status = 'active';
+
+-- Always current; no storage`,
+    query_b: `-- MATERIALIZED VIEW — stored snapshot
+CREATE MATERIALIZED VIEW
+  monthly_sales_summary AS
+SELECT month, SUM(total) AS revenue
+FROM orders
+GROUP BY month;
+
+REFRESH MATERIALIZED VIEW monthly_sales_summary;`,
+    key_diff: "VIEW runs its query on every access — always current but slower. MATERIALIZED VIEW stores results physically — fast to query but must be refreshed manually or via cron/pg_cron."
+  },
+  "Table Inheritance vs Partitioning": {
+    definition: "<strong>Table Inheritance vs Partitioning</strong>",
+    query_a: `-- Declarative Partitioning (pg10+)
+CREATE TABLE orders (
+  id BIGINT, order_date DATE
+) PARTITION BY RANGE (order_date);
+
+CREATE TABLE orders_2024
+PARTITION OF orders
+FOR VALUES FROM ('2024-01-01')
+             TO ('2025-01-01');`,
+    query_b: `-- Table Inheritance (older approach)
+CREATE TABLE orders_base (
+  id BIGINT, order_date DATE
+);
+CREATE TABLE orders_2024 (
+) INHERITS (orders_base);`,
+    key_diff: "Declarative partitioning is preferred — automatic partition pruning, faster queries, supports DEFAULT partition. Inheritance is older, lacks partition pruning. Use partitioning for large tables."
+  },
+  // Indexes in Depth
+  "B-Tree vs Hash Index": {
+    definition: "<strong>B-Tree vs Hash Index</strong>",
+    query_a: `-- B-Tree (default, versatile)
+-- Default index type
+CREATE INDEX idx_users_email
+  ON users (email);
+
+-- Supports: =, <, >, BETWEEN,
+-- LIKE 'prefix%', ORDER BY`,
+    query_b: `-- Hash Index (equality only)
+CREATE INDEX idx_sessions_token
+  ON sessions USING HASH (token);
+
+-- Only supports: =
+-- Smaller than B-Tree for =`,
+    key_diff: "B-Tree is the default and handles most cases. Hash index is smaller and faster for pure equality lookups. Use Hash for token/UUID exact lookups."
+  },
+  "Regular Index vs Partial Index": {
+    definition: "<strong>Regular Index vs Partial Index</strong>",
+    query_a: `-- Full index (all rows)
+CREATE INDEX idx_orders_status
+  ON orders (status);
+
+-- Indexes ALL rows including
+-- completed/cancelled orders`,
+    query_b: `-- Partial index (subset of rows)
+CREATE INDEX idx_orders_pending
+  ON orders (created_at)
+  WHERE status = 'pending';
+
+-- Only indexes pending orders
+-- Much smaller & faster`,
+    key_diff: "Partial index only covers rows matching the WHERE clause. Much smaller and faster when queries target a small fraction of rows (e.g., only active/pending records)."
+  },
+  "Single-column vs Composite Index": {
+    definition: "<strong>Single-column vs Composite Index</strong>",
+    query_a: `-- Single-column index
+CREATE INDEX idx_emp_dept
+  ON employees (dept_id);
+
+CREATE INDEX idx_emp_salary
+  ON employees (salary);`,
+    query_b: `-- Composite index (column order matters)
+CREATE INDEX idx_emp_dept_salary
+  ON employees (dept_id, salary);
+
+-- Supports: WHERE dept_id = ?
+-- Supports: WHERE dept_id = ? AND salary > ?
+-- Does NOT help: WHERE salary > ? only`,
+    key_diff: "Composite index benefits queries that filter on leading columns. Column order matters — place most selective or most commonly filtered column first."
+  },
+  "Index vs INCLUDE (Covering Index)": {
+    definition: "<strong>Index vs INCLUDE (Covering Index)</strong>",
+    query_a: `-- Regular index (heap fetch needed)
+CREATE INDEX idx_orders_cust
+  ON orders (customer_id);
+
+-- For SELECT total, still needs
+-- to fetch heap page for 'total'`,
+    query_b: `-- Covering index with INCLUDE
+CREATE INDEX idx_orders_cust_cover
+  ON orders (customer_id)
+  INCLUDE (total, order_date);
+
+-- Index-only scan possible
+-- No heap fetch needed`,
+    key_diff: "INCLUDE stores extra columns in the index leaf pages. Queries accessing only indexed+included columns can do index-only scans — much faster, no heap access."
+  },
+  "Regular CREATE INDEX vs CONCURRENTLY": {
+    definition: "<strong>Regular CREATE INDEX vs CONCURRENTLY</strong>",
+    query_a: `-- Regular (locks writes)
+CREATE INDEX idx_users_email
+  ON users (email);
+
+-- Locks the table for writes
+-- until complete — causes downtime`,
+    query_b: `-- CONCURRENTLY (no write lock)
+CREATE INDEX CONCURRENTLY
+  idx_users_email ON users (email);
+
+-- No write lock; table stays writable
+-- Takes longer to build
+-- Cannot run inside a transaction`,
+    key_diff: "CONCURRENTLY builds the index without locking writes — safe for production with active traffic. Takes 2x longer. Cannot be used inside explicit transactions."
+  },
+  // Transactions & Locking
+  "BEGIN vs SAVEPOINT": {
+    definition: "<strong>BEGIN vs SAVEPOINT</strong>",
+    query_a: `-- Full transaction rollback
+BEGIN;
+UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+-- Something goes wrong
+ROLLBACK; -- undoes everything`,
+    query_b: `-- SAVEPOINT — partial rollback
+BEGIN;
+UPDATE inventory SET qty = qty - 1;
+SAVEPOINT after_inventory;
+INSERT INTO orders VALUES (...);
+-- Order insert fails
+ROLLBACK TO after_inventory;
+-- inventory update preserved
+COMMIT;`,
+    key_diff: "SAVEPOINT creates a checkpoint inside a transaction. ROLLBACK TO savepoint undoes only back to that point — lets you recover from partial failures without losing everything."
+  },
+  "READ COMMITTED vs REPEATABLE READ": {
+    definition: "<strong>READ COMMITTED vs REPEATABLE READ</strong>",
+    query_a: `-- READ COMMITTED (PostgreSQL default)
+BEGIN;
+SET TRANSACTION ISOLATION LEVEL
+  READ COMMITTED;
+-- Each statement sees latest committed data
+-- Two SELECTs may return different results
+SELECT balance FROM accounts WHERE id=1;
+-- (another txn commits between these)
+SELECT balance FROM accounts WHERE id=1;
+COMMIT;`,
+    query_b: `-- REPEATABLE READ (consistent snapshot)
+BEGIN;
+SET TRANSACTION ISOLATION LEVEL
+  REPEATABLE READ;
+-- Entire transaction sees same snapshot
+-- Both SELECTs return same result
+SELECT balance FROM accounts WHERE id=1;
+-- (another txn commits — not visible here)
+SELECT balance FROM accounts WHERE id=1;
+COMMIT;`,
+    key_diff: "READ COMMITTED: each statement gets a fresh snapshot. REPEATABLE READ: entire transaction sees the same snapshot — prevents non-repeatable reads."
+  },
+  "FOR UPDATE vs FOR SHARE vs SKIP LOCKED": {
+    definition: "<strong>FOR UPDATE vs FOR SHARE vs SKIP LOCKED</strong>",
+    query_a: `-- FOR UPDATE — exclusive row lock
+BEGIN;
+SELECT * FROM jobs
+WHERE status = 'pending'
+LIMIT 1
+FOR UPDATE;
+-- Blocks other sessions from
+-- locking or modifying this row`,
+    query_b: `-- FOR SHARE and SKIP LOCKED
+BEGIN;
+-- FOR SHARE: allows other readers,
+--   blocks writers
+SELECT * FROM queue
+WHERE status = 'pending'
+LIMIT 1
+FOR UPDATE SKIP LOCKED;
+-- Skips already-locked rows
+-- Perfect for job queues`,
+    key_diff: "FOR UPDATE: exclusive lock — others must wait. FOR SHARE: shared lock — others can read but not modify. SKIP LOCKED: skip locked rows — ideal for concurrent job workers."
+  },
+  // Functions & Expressions
+  "Scalar Function vs Aggregate Function": {
+    definition: "<strong>Scalar Function vs Aggregate Function</strong>",
+    query_a: `-- Scalar — operates on one row
+SELECT
+  UPPER(name),
+  LENGTH(email),
+  ROUND(salary, 2),
+  NOW(),
+  EXTRACT(YEAR FROM hire_date)
+FROM employees;`,
+    query_b: `-- Aggregate — operates on many rows
+SELECT
+  COUNT(*) AS total,
+  SUM(salary) AS total_sal,
+  AVG(salary) AS avg_sal,
+  MAX(salary) AS max_sal,
+  MIN(hire_date) AS earliest_hire
+FROM employees;`,
+    key_diff: "Scalar functions transform each row independently. Aggregate functions collapse multiple rows into one value. Aggregates require GROUP BY when mixed with non-aggregate columns."
+  },
+  "CAST vs :: operator": {
+    definition: "<strong>CAST vs :: operator</strong>",
+    query_a: `-- CAST — SQL standard syntax
+SELECT
+  CAST('42' AS INTEGER),
+  CAST(price AS NUMERIC(10,2)),
+  CAST(created_at AS DATE)
+FROM orders;`,
+    query_b: `-- :: — PostgreSQL shorthand
+SELECT
+  '42'::INTEGER,
+  price::NUMERIC(10,2),
+  created_at::DATE,
+  '2024-01-15'::TIMESTAMPTZ
+FROM orders;`,
+    key_diff: "Both are identical. :: is PostgreSQL shorthand — shorter and very common in PG code. CAST is portable across databases. Both raise an error on invalid conversion."
+  },
+  "DATE_TRUNC vs EXTRACT": {
+    definition: "<strong>DATE_TRUNC vs EXTRACT</strong>",
+    query_a: `-- DATE_TRUNC — truncate to precision
+SELECT
+  DATE_TRUNC('month', order_date) AS month,
+  COUNT(*) AS orders
+FROM orders
+GROUP BY DATE_TRUNC('month', order_date)
+ORDER BY 1;`,
+    query_b: `-- EXTRACT — get a part as number
+SELECT
+  EXTRACT(YEAR FROM order_date) AS yr,
+  EXTRACT(MONTH FROM order_date) AS mo,
+  EXTRACT(DOW FROM order_date) AS weekday
+FROM orders;`,
+    key_diff: "DATE_TRUNC returns a timestamp truncated to a unit (great for GROUP BY time periods). EXTRACT returns a numeric component. Both work on DATE, TIMESTAMP, TIMESTAMPTZ, INTERVAL."
+  },
+  "String functions: TRIM vs REGEXP_REPLACE": {
+    definition: "<strong>String functions: TRIM vs REGEXP_REPLACE</strong>",
+    query_a: `-- TRIM, LTRIM, RTRIM
+SELECT
+  TRIM('  hello  '),
+  LTRIM('  hello'),
+  RTRIM('hello  '),
+  TRIM(BOTH 'x' FROM 'xxhelloxx')
+FROM (VALUES (1)) v;`,
+    query_b: `-- REGEXP_REPLACE — regex-based
+SELECT
+  REGEXP_REPLACE(phone,
+    '[^0-9]', '', 'g') AS clean_phone,
+  REGEXP_REPLACE(text,
+    '<[^>]+>', '', 'g') AS strip_html
+FROM contacts;`,
+    key_diff: "TRIM removes whitespace or specific characters. REGEXP_REPLACE uses POSIX regex — 'g' flag replaces all occurrences. Use for data cleaning, phone normalization, HTML stripping."
+  },
+  "GENERATE_SERIES for date spine": {
+    definition: "<strong>GENERATE_SERIES for date spine</strong>",
+    query_a: `-- Without generate_series (gaps visible)
+-- Months with orders only:
+SELECT DATE_TRUNC('month', order_date),
+  COUNT(*) FROM orders
+GROUP BY 1 ORDER BY 1;
+-- Missing months have no row!`,
+    query_b: `-- With generate_series (no gaps)
+SELECT gs.month, COUNT(o.id) AS orders
+FROM GENERATE_SERIES(
+  '2024-01-01'::DATE,
+  '2024-12-01'::DATE,
+  '1 month'::INTERVAL
+) AS gs(month)
+LEFT JOIN orders o
+  ON DATE_TRUNC('month', o.order_date) = gs.month
+GROUP BY gs.month ORDER BY 1;`,
+    key_diff: "GENERATE_SERIES creates a complete sequence of dates/numbers. LEFT JOIN against it ensures every period appears even with zero counts — essential for time-series charts."
+  },
+  "JSON operators: -> vs ->> vs #>": {
+    definition: "<strong>JSON operators: -> vs ->> vs #></strong>",
+    query_a: `-- -> and -> (object access)
+SELECT
+  data -> 'address' AS addr_json,
+  data ->> 'name' AS name_text,
+  data -> 'scores' -> 0 AS first_score
+FROM profiles;`,
+    query_b: `-- #> and @> (path and contains)
+SELECT *
+FROM profiles
+WHERE data #>> '{address,city}' = 'NYC'
+  AND data @> '{\"active\": true}'::jsonb;
+
+-- Update nested JSONB key
+UPDATE profiles
+SET data = data || '{\"score\": 99}'::jsonb;`,
+    key_diff: "->  returns JSON object. ->> returns text. #> path access for nested. #>> nested path as text. @> containment check. || merge JSONB. All work on JSONB; JSONB is preferred for indexing."
+  },
+  // Null Handling
+  "NULL in comparisons": {
+    definition: "<strong>NULL in comparisons</strong>",
+    query_a: `-- Wrong — = NULL never matches
+-- These always return 0 rows:
+SELECT * FROM users
+WHERE phone = NULL;
+
+SELECT * FROM users
+WHERE phone != NULL;`,
+    query_b: `-- Correct — use IS NULL
+SELECT * FROM users
+WHERE phone IS NULL;
+
+SELECT * FROM users
+WHERE phone IS NOT NULL;
+
+-- NULL-safe equality:
+SELECT * FROM a JOIN b
+  ON a.x IS NOT DISTINCT FROM b.x;`,
+    key_diff: "NULL represents unknown — any comparison with NULL returns NULL, not TRUE/FALSE. Always use IS NULL or IS NOT NULL. IS NOT DISTINCT FROM handles NULL = NULL as TRUE."
+  },
+  "NULL in aggregations": {
+    definition: "<strong>NULL in aggregations</strong>",
+    query_a: `-- Aggregates ignore NULLs
+SELECT
+  COUNT(*) AS total_rows,     -- 10
+  COUNT(bonus) AS has_bonus,   -- 7 (ignores NULLs)
+  SUM(bonus) AS total_bonus,   -- ignores NULLs
+  AVG(bonus) AS avg_bonus      -- avg of 7, not 10
+FROM employees;`,
+    query_b: `-- COALESCE to handle NULLs in agg
+SELECT
+  AVG(COALESCE(bonus, 0)) AS avg_incl_zeros,
+  SUM(COALESCE(bonus, 0)) AS sum_incl_zeros,
+  COUNT(CASE WHEN bonus IS NULL
+       THEN 1 END) AS null_count
+FROM employees;`,
+    key_diff: "Aggregates (SUM, AVG, MIN, MAX, COUNT(col)) skip NULLs. COUNT(*) includes them. Use COALESCE(col, default) to treat NULLs as zeros in averages."
+  },
+  "NULL in ORDER BY": {
+    definition: "<strong>NULL in ORDER BY</strong>",
+    query_a: `-- NULLS LAST (ascending default)
+-- Default ascending: NULLs last?
+-- Actually NULLs go LAST in ASC in PG
+SELECT name, score
+FROM leaderboard
+ORDER BY score ASC NULLS LAST;`,
+    query_b: `-- Control NULL sort position
+-- Put NULLs first in descending:
+SELECT name, score
+FROM leaderboard
+ORDER BY score DESC NULLS LAST;
+
+-- Put NULLs last in ascending:
+ORDER BY score ASC NULLS LAST;`,
+    key_diff: "PostgreSQL: ASC puts NULLs LAST, DESC puts NULLs FIRST by default. Use NULLS FIRST / NULLS LAST to explicitly control NULL position in any sort order."
+  },
+  // Constraints & Data Integrity
+  "NOT NULL vs CHECK": {
+    definition: "<strong>NOT NULL vs CHECK</strong>",
+    query_a: `-- NOT NULL constraint
+CREATE TABLE orders (
+  id SERIAL PRIMARY KEY,
+  customer_id INT NOT NULL,
+  status TEXT NOT NULL,
+  amount NUMERIC NOT NULL
+);`,
+    query_b: `-- CHECK constraint (value rules)
+CREATE TABLE orders (
+  id SERIAL PRIMARY KEY,
+  status TEXT CHECK (
+    status IN ('pending','paid','cancelled')
+  ),
+  amount NUMERIC CHECK (amount > 0),
+  discount NUMERIC CHECK (discount BETWEEN 0 AND 100)
+);`,
+    key_diff: "NOT NULL prevents missing values. CHECK enforces value rules. Both are enforced on INSERT and UPDATE. For enum-like checks, consider an ENUM type or FK to a lookup table."
+  },
+  "ON DELETE CASCADE vs RESTRICT vs SET NULL": {
+    definition: "<strong>ON DELETE CASCADE vs RESTRICT vs SET NULL</strong>",
+    query_a: `-- CASCADE — propagate deletion
+CREATE TABLE orders (
+  id SERIAL PRIMARY KEY,
+  customer_id INT REFERENCES customers(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);`,
+    query_b: `-- RESTRICT vs SET NULL
+-- RESTRICT: prevents parent deletion
+customer_id INT REFERENCES customers(id)
+  ON DELETE RESTRICT,
+
+-- SET NULL: orphan the child row
+customer_id INT REFERENCES customers(id)
+  ON DELETE SET NULL`,
+    key_diff: "CASCADE: delete child rows automatically. RESTRICT: block parent deletion (safest). SET NULL: keep child rows, set FK to NULL. SET DEFAULT: set FK to its default value."
+  },
+  // Advanced Patterns
+  "Running Total with Window": {
+    definition: "<strong>Running Total with Window</strong>",
+    query_a: `-- SUM window — running total
+SELECT
+  order_date,
+  amount,
+  SUM(amount) OVER (
+    ORDER BY order_date
+    ROWS BETWEEN UNBOUNDED PRECEDING
+             AND CURRENT ROW
+  ) AS running_total
+FROM orders;`,
+    query_b: `-- Running total per partition
+SELECT
+  customer_id,
+  order_date,
+  amount,
+  SUM(amount) OVER (
+    PARTITION BY customer_id
+    ORDER BY order_date
+  ) AS customer_running_total
+FROM orders;`,
+    key_diff: "Running total accumulates over an ordered window. Default frame for ORDER BY is RANGE UNBOUNDED PRECEDING — same result but ROWS frame is more explicit and predictable."
+  },
+  "Pivot with CASE vs crosstab": {
+    definition: "<strong>Pivot with CASE vs crosstab</strong>",
+    query_a: `-- Manual pivot with CASE
+SELECT
+  dept,
+  SUM(CASE WHEN gender='M' THEN 1 END) AS male,
+  SUM(CASE WHEN gender='F' THEN 1 END) AS female
+FROM employees
+GROUP BY dept;`,
+    query_b: `-- crosstab extension (tablefunc)
+-- Requires: CREATE EXTENSION tablefunc;
+SELECT * FROM crosstab(
+  'SELECT dept, gender, COUNT(*)
+   FROM employees GROUP BY 1,2 ORDER BY 1,2',
+  'VALUES (''M''),(''F'')'
+) AS ct(dept TEXT, male BIGINT, female BIGINT);`,
+    key_diff: "CASE-based pivot is simple and portable. crosstab from tablefunc extension is cleaner for many columns but requires the extension. CASE approach is usually sufficient."
+  },
+  "Find duplicates: GROUP BY vs ROW_NUMBER": {
+    definition: "<strong>Find duplicates: GROUP BY vs ROW_NUMBER</strong>",
+    query_a: `-- GROUP BY to count duplicates
+SELECT email, COUNT(*) AS cnt
+FROM users
+GROUP BY email
+HAVING COUNT(*) > 1;`,
+    query_b: `-- ROW_NUMBER to identify & delete
+WITH dupes AS (
+  SELECT id,
+    ROW_NUMBER() OVER (
+      PARTITION BY email
+      ORDER BY created_at
+    ) AS rn
+  FROM users
+)
+DELETE FROM users
+WHERE id IN (SELECT id FROM dupes WHERE rn > 1);`,
+    key_diff: "GROUP BY + HAVING finds duplicate values. ROW_NUMBER() lets you keep the earliest (rn=1) and delete the rest in one statement. Most elegant deduplication pattern."
+  },
+  "Top-N per group: subquery vs LATERAL": {
+    definition: "<strong>Top-N per group: subquery vs LATERAL</strong>",
+    query_a: `-- ROW_NUMBER approach
+WITH ranked AS (
+  SELECT *,
+    ROW_NUMBER() OVER (
+      PARTITION BY dept
+      ORDER BY salary DESC
+    ) AS rn
+  FROM employees
+)
+SELECT * FROM ranked WHERE rn <= 3;`,
+    query_b: `-- LATERAL approach
+SELECT e.*
+FROM departments d
+JOIN LATERAL (
+  SELECT * FROM employees
+  WHERE dept_id = d.id
+  ORDER BY salary DESC
+  LIMIT 3
+) e ON true;`,
+    key_diff: "Both return top-N per group. ROW_NUMBER CTE is more familiar. LATERAL is often more readable and can be slightly faster. Both are standard PostgreSQL patterns."
+  },
+  "Gap detection in sequences": {
+    definition: "<strong>Gap detection in sequences</strong>",
+    query_a: `-- Find missing IDs with generate_series
+SELECT s.id AS missing_id
+FROM GENERATE_SERIES(1,
+  (SELECT MAX(id) FROM orders)
+) AS s(id)
+LEFT JOIN orders o ON s.id = o.id
+WHERE o.id IS NULL;`,
+    query_b: `-- Find gaps with LAG
+SELECT
+  id AS gap_start,
+  next_id - 1 AS gap_end
+FROM (
+  SELECT id,
+    LEAD(id) OVER (ORDER BY id) AS next_id
+  FROM orders
+) t
+WHERE next_id - id > 1;`,
+    key_diff: "generate_series + LEFT JOIN finds all missing values. LAG/LEAD approach finds the start and end of each gap range — better when gaps can be large."
+  },
+  "Conditional aggregation: CASE vs FILTER": {
+    definition: "<strong>Conditional aggregation: CASE vs FILTER</strong>",
+    query_a: `-- CASE inside aggregate
+SELECT
+  month,
+  SUM(CASE WHEN region='North'
+       THEN revenue ELSE 0 END) AS north,
+  SUM(CASE WHEN region='South'
+       THEN revenue ELSE 0 END) AS south
+FROM sales GROUP BY month;`,
+    query_b: `-- FILTER clause (cleaner)
+SELECT
+  month,
+  SUM(revenue) FILTER (WHERE region='North') AS north,
+  SUM(revenue) FILTER (WHERE region='South') AS south,
+  COUNT(*) FILTER (WHERE revenue > 1000) AS big_deals
+FROM sales GROUP BY month;`,
+    key_diff: "FILTER is syntactically cleaner and works with all aggregate functions including COUNT, AVG, and window functions. Both produce identical results."
+  },
+  "Recursive tree traversal": {
+    definition: "<strong>Recursive tree traversal</strong>",
+    query_a: `-- Flat parent-child table
+-- Org chart table:
+-- id, name, manager_id
+SELECT e.name, m.name AS manager
+FROM employees e
+LEFT JOIN employees m
+  ON e.manager_id = m.id;
+-- Only shows one level!`,
+    query_b: `-- Recursive CTE for full tree
+WITH RECURSIVE org AS (
+  SELECT id, name, manager_id, 0 AS depth,
+    ARRAY[id] AS path
+  FROM employees WHERE manager_id IS NULL
+  UNION ALL
+  SELECT e.id, e.name, e.manager_id,
+    o.depth + 1,
+    o.path || e.id
+  FROM employees e JOIN org o
+    ON e.manager_id = o.id
+)
+SELECT depth, name, path FROM org ORDER BY path;`,
+    key_diff: "Recursive CTE is the standard way to traverse trees in PostgreSQL. The path array prevents infinite loops. depth tracks level. Works for org charts, file systems, categories."
+  },
+  "String aggregation patterns": {
+    definition: "<strong>String aggregation patterns</strong>",
+    query_a: `-- Basic STRING_AGG
+SELECT
+  dept,
+  STRING_AGG(name, ', '
+    ORDER BY name) AS team_members,
+  STRING_AGG(name::TEXT, ' | '
+    ORDER BY salary DESC) AS by_salary
+FROM employees
+GROUP BY dept;`,
+    query_b: `-- Array aggregation + unnest round-trip
+-- Aggregate into array
+SELECT dept,
+  ARRAY_AGG(id ORDER BY salary DESC) AS ids
+FROM employees GROUP BY dept;
+
+-- Expand array back to rows
+SELECT dept, UNNEST(ids) AS id
+FROM dept_arrays;`,
+    key_diff: "STRING_AGG produces delimited strings. ARRAY_AGG collects into a PostgreSQL array. UNNEST expands arrays back to rows. Arrays support @>, &&, ANY() operators for filtering."
+  },
+  "Date arithmetic": {
+    definition: "<strong>Date arithmetic</strong>",
+    query_a: `-- Adding/subtracting intervals
+SELECT
+  NOW() + INTERVAL '30 days' AS due_date,
+  NOW() - INTERVAL '1 year' AS last_year,
+  DATE_TRUNC('month', NOW())
+    + INTERVAL '1 month' - INTERVAL '1 day'
+    AS last_day_of_month
+FROM (VALUES(1)) v;`,
+    query_b: `-- Age and date difference
+SELECT
+  AGE(NOW(), hire_date) AS tenure,
+  EXTRACT(YEAR FROM AGE(hire_date)) AS years,
+  (CURRENT_DATE - birth_date::DATE) / 365
+    AS approx_age,
+  TO_CHAR(hire_date, 'Month DD, YYYY')
+    AS formatted
+FROM employees;`,
+    key_diff: "INTERVAL arithmetic works with +/- on timestamps. AGE() returns a human-readable interval. EXTRACT gets numeric components. TO_CHAR formats dates as strings."
+  },
+  "EXPLAIN vs EXPLAIN ANALYZE": {
+    definition: "<strong>EXPLAIN vs EXPLAIN ANALYZE</strong>",
+    query_a: `-- EXPLAIN — estimated plan only
+EXPLAIN
+SELECT * FROM orders o
+JOIN customers c ON o.customer_id = c.id
+WHERE o.status = 'pending'
+ORDER BY o.created_at DESC;
+
+-- Shows plan + estimated costs
+-- Does NOT execute the query`,
+    query_b: `-- EXPLAIN ANALYZE — real execution stats
+EXPLAIN (ANALYZE, BUFFERS, FORMAT TEXT)
+SELECT * FROM orders o
+JOIN customers c ON o.customer_id = c.id
+WHERE o.status = 'pending'
+ORDER BY o.created_at DESC;
+
+-- ACTUALLY runs query
+-- Shows real rows, timing, buffer hits`,
+    key_diff: "EXPLAIN shows the planner's estimated plan. EXPLAIN ANALYZE actually executes and shows real row counts and timing. BUFFERS shows cache hits vs disk reads. Critical for optimization."
+  },
+  "Index scan types: Seq vs Index vs Bitmap": {
+    definition: "<strong>Index scan types: Seq vs Index vs Bitmap</strong>",
+    query_a: `-- Sequential Scan — no index used
+-- Seq Scan when:
+-- - table is small
+-- - query returns many rows (>10-20%)
+-- - no suitable index exists
+EXPLAIN SELECT * FROM small_table;
+-- Seq Scan on small_table`,
+    query_b: `-- Index Scan vs Bitmap Index Scan
+-- Index Scan: direct, few rows
+EXPLAIN SELECT * FROM orders
+WHERE id = 12345;
+-- Index Scan on orders
+
+-- Bitmap: moderate selectivity
+EXPLAIN SELECT * FROM orders
+WHERE status = 'pending';
+-- Bitmap Heap Scan on orders`,
+    key_diff: "Seq Scan: reads all pages — fine for small tables or low-selectivity queries. Index Scan: follows index pointers one by one. Bitmap: collects matching pages first, then bulk-reads heap — efficient for moderate result sets."
+  },
+  "CTE materialization: fence vs inline": {
+    definition: "<strong>CTE materialization: fence vs inline</strong>",
+    query_a: `-- CTE as optimization fence (pg11-)
+-- Pre-pg12: CTEs were always materialized
+-- (executed once, result stored)
+WITH recent AS (
+  SELECT * FROM orders
+  WHERE created_at > NOW() - INTERVAL '7 days'
+)
+SELECT * FROM recent WHERE status = 'pending';
+-- Planner could NOT push predicates into CTE`,
+    query_b: `-- Controlling materialization (pg12+)
+-- pg12+: planner inlines CTEs by default
+-- Force materialization:
+WITH recent AS MATERIALIZED (
+  SELECT * FROM orders
+  WHERE created_at > NOW() - INTERVAL '7 days'
+)
+SELECT * FROM recent WHERE status = 'pending';
+
+-- Force inline:
+WITH recent AS NOT MATERIALIZED (...)`,
+    key_diff: "pg12+ CTEs are inlined by default — planner optimizes them like subqueries. Use MATERIALIZED to force execution once (useful if CTE is referenced multiple times)."
+  },
+  "LATERAL vs correlated subquery for top-N": {
+    definition: "<strong>LATERAL vs correlated subquery for top-N</strong>",
+    query_a: `-- Correlated subquery (N+1 style)
+SELECT c.name,
+  (SELECT SUM(amount)
+   FROM orders o
+   WHERE o.customer_id = c.id
+     AND o.created_at > NOW()-INTERVAL '1 year'
+  ) AS yearly_spend
+FROM customers c;`,
+    query_b: `-- LATERAL JOIN (more powerful)
+SELECT c.name, stats.yearly_spend,
+  stats.order_count
+FROM customers c
+JOIN LATERAL (
+  SELECT SUM(amount) AS yearly_spend,
+         COUNT(*) AS order_count
+  FROM orders
+  WHERE customer_id = c.id
+    AND created_at > NOW()-INTERVAL '1 year'
+) stats ON true;`,
+    key_diff: "Correlated subquery can only return one value. LATERAL can return multiple columns and rows, use LIMIT, and reference the outer row. LATERAL is more expressive."
+  },
+  "COPY vs INSERT for bulk loading": {
+    definition: "<strong>COPY vs INSERT for bulk loading</strong>",
+    query_a: `-- INSERT — slow for bulk
+-- Inserting 100k rows with INSERT:
+INSERT INTO events (type, data, ts)
+VALUES
+  ('click', 'home', NOW()),
+  ('view', 'product', NOW()),
+  -- ... 99,998 more rows
+  ('buy', 'cart', NOW());
+-- Slow: row-by-row WAL logging`,
+    query_b: `-- COPY — fast bulk load
+-- From file:
+COPY events (type, data, ts)
+FROM '/tmp/events.csv'
+CSV HEADER;
+
+-- From stdin (psql client):
+\copy events FROM 'local_file.csv' CSV HEADER;
+
+-- From program:
+COPY events FROM PROGRAM 'cat file.csv' CSV;`,
+    key_diff: "COPY is 10-100x faster than INSERT for bulk data — uses a streamlined protocol, minimal WAL. \copy (lowercase) runs on the client side. Use for ETL, data migrations, seeding."
+  },
+  "Row-level Security (RLS)": {
+    definition: "<strong>Row-level Security (RLS)</strong>",
+    query_a: `-- Without RLS — all users see all rows
+-- Every user can see every company's data:
+SELECT * FROM documents;
+-- Returns rows for ALL companies!
+
+-- Must manually filter in every query:
+SELECT * FROM documents
+WHERE company_id = current_company_id();`,
+    query_b: `-- With RLS — automatic row filtering
+ALTER TABLE documents ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY tenant_isolation ON documents
+  USING (company_id = current_setting(
+    'app.current_company_id')::INT);
+
+-- Now SELECT * FROM documents
+-- automatically filters by company`,
+    key_diff: "RLS enforces access at the database level — policies applied automatically on every query. No risk of forgetting a WHERE clause. Essential for multi-tenant SaaS applications."
+  },
+  "WINDOW frame: ROWS vs RANGE": {
+    definition: "<strong>WINDOW frame: ROWS vs RANGE</strong>",
+    query_a: `-- RANGE frame (default)
+SELECT date, amount,
+  SUM(amount) OVER (
+    ORDER BY date
+    RANGE BETWEEN UNBOUNDED PRECEDING
+             AND CURRENT ROW
+  ) AS running_total
+FROM sales;
+-- Groups ties — same date rows
+-- all get same running_total`,
+    query_b: `-- ROWS frame (physical rows)
+SELECT date, amount,
+  SUM(amount) OVER (
+    ORDER BY date
+    ROWS BETWEEN UNBOUNDED PRECEDING
+            AND CURRENT ROW
+  ) AS running_total
+FROM sales;
+-- Each row gets its own total
+-- regardless of ties in date`,
+    key_diff: "RANGE groups rows with equal ORDER BY values into the same frame position. ROWS counts physical rows. Use ROWS for running totals to avoid tie-grouping surprises."
+  },
+  "UNNEST and array operations": {
+    definition: "<strong>UNNEST and array operations</strong>",
+    query_a: `-- Array construction and access
+SELECT
+  ARRAY[1, 2, 3] AS nums,
+  ARRAY['a','b','c'][2] AS second_el,
+  ARRAY_LENGTH(ARRAY[1,2,3], 1) AS len,
+  1 = ANY(ARRAY[1,2,3]) AS contains_1
+FROM (VALUES(1)) v;`,
+    query_b: `-- UNNEST — expand array to rows
+SELECT user_id, tag
+FROM posts, UNNEST(tags) AS tag
+WHERE 'postgresql' = ANY(tags);
+
+-- Unnest with index:
+SELECT u.*, ordinality
+FROM posts,
+UNNEST(tags) WITH ORDINALITY AS u(tag, ordinality);`,
+    key_diff: "UNNEST expands an array column into one row per element. WITH ORDINALITY adds a position index. Useful for normalizing array data or filtering by array contents."
+  },
+  "Conditional UPDATE patterns": {
+    definition: "<strong>Conditional UPDATE patterns</strong>",
+    query_a: `-- UPDATE with CASE
+UPDATE products
+SET price =
+  CASE
+    WHEN category = 'electronics'
+      THEN price * 0.90
+    WHEN category = 'clothing'
+      THEN price * 0.85
+    ELSE price
+  END
+WHERE sale_active = true;`,
+    query_b: `-- UPDATE from another table
+UPDATE inventory i
+SET
+  quantity = i.quantity - s.sold_qty,
+  last_updated = NOW()
+FROM sales_summary s
+WHERE i.product_id = s.product_id
+  AND s.sale_date = CURRENT_DATE
+RETURNING i.product_id, i.quantity;`,
+    key_diff: "CASE inside SET handles multi-value conditional updates. UPDATE...FROM joins another table's values. RETURNING shows the updated state — no extra SELECT needed."
+  },
+  "CTE for multi-step DML": {
+    definition: "<strong>CTE for multi-step DML</strong>",
+    query_a: `-- Chained CTEs for complex DML
+WITH moved_orders AS (
+  DELETE FROM orders_staging
+  WHERE created_at < NOW() - INTERVAL '30 days'
+  RETURNING *
+),
+inserted AS (
+  INSERT INTO orders_archive
+  SELECT * FROM moved_orders
+  RETURNING id
+)
+SELECT COUNT(*) AS archived FROM inserted;`,
+    query_b: `-- CTE with UPDATE and INSERT
+WITH updated AS (
+  UPDATE subscriptions
+  SET status = 'expired',
+      expired_at = NOW()
+  WHERE end_date < CURRENT_DATE
+    AND status = 'active'
+  RETURNING user_id, plan_id
+)
+INSERT INTO notifications (user_id, message)
+SELECT user_id, 'Your subscription expired'
+FROM updated;`,
+    key_diff: "CTEs can contain DML (INSERT/UPDATE/DELETE) statements. They execute as a single transaction. This enables move/copy/archive patterns and trigger-like side effects in SQL."
+  },
+  "JSONB querying patterns": {
+    definition: "<strong>JSONB querying patterns</strong>",
+    query_a: `-- Basic JSONB access and filtering
+-- Table: profiles(id, data JSONB)
+SELECT
+  data->>'name' AS name,
+  data->'address'->>'city' AS city,
+  (data->>'age')::INT AS age
+FROM profiles
+WHERE data->>'status' = 'active'
+  AND (data->>'age')::INT > 25;`,
+    query_b: `-- JSONB containment and GIN index
+-- Create GIN index:
+CREATE INDEX idx_profiles_data
+  ON profiles USING GIN (data);
+
+-- Containment query (uses index):
+SELECT * FROM profiles
+WHERE data @> '{\"role\": \"admin\"}';
+
+-- Existence:
+SELECT * FROM profiles
+WHERE data ? 'premium_features';`,
+    key_diff: "@> (containment) uses GIN index — very fast. ? checks key existence. ->> extracts as text (needed for comparisons). Always use JSONB (not JSON) for queryable/indexed data."
+  },
+  "Full Text Search": {
+    definition: "<strong>Full Text Search</strong>",
+    query_a: `-- Basic FTS with tsvector/tsquery
+SELECT title, body
+FROM articles
+WHERE to_tsvector('english', body)
+  @@ to_tsquery('english', 'postgresql & performance');
+
+-- With ranking:
+SELECT title,
+  ts_rank(to_tsvector('english', body),
+    to_tsquery('postgresql & performance')) AS rank
+FROM articles
+ORDER BY rank DESC;`,
+    query_b: `-- FTS with indexed tsvector column
+ALTER TABLE articles
+ADD COLUMN search_vector TSVECTOR
+GENERATED ALWAYS AS (
+  to_tsvector('english',
+    COALESCE(title,'') || ' ' ||
+    COALESCE(body,''))
+) STORED;
+
+CREATE INDEX ON articles USING GIN(search_vector);
+
+SELECT * FROM articles
+WHERE search_vector @@ plainto_tsquery('fast queries');`,
+    key_diff: "Computed tsvector column + GIN index is the production pattern. @@ is the match operator. plainto_tsquery handles natural language queries. ts_rank scores results by relevance."
+  },
+  "Partitioning: RANGE vs LIST vs HASH": {
+    definition: "<strong>Partitioning: RANGE vs LIST vs HASH</strong>",
+    query_a: `-- RANGE partitioning (dates/numbers)
+CREATE TABLE events (
+  id BIGINT, event_date DATE, data TEXT
+) PARTITION BY RANGE (event_date);
+
+CREATE TABLE events_2024
+PARTITION OF events
+FOR VALUES FROM ('2024-01-01')
+             TO ('2025-01-01');
+
+CREATE TABLE events_default
+PARTITION OF events DEFAULT;`,
+    query_b: `-- LIST and HASH partitioning
+-- LIST: partition by specific values
+CREATE TABLE orders (
+  id BIGINT, region TEXT, amount NUMERIC
+) PARTITION BY LIST (region);
+CREATE TABLE orders_us PARTITION OF orders
+  FOR VALUES IN ('US', 'CA');
+
+-- HASH: even distribution
+CREATE TABLE users (id BIGINT, data TEXT)
+PARTITION BY HASH (id);
+CREATE TABLE users_0 PARTITION OF users
+  FOR VALUES WITH (modulus 4, remainder 0);`,
+    key_diff: "RANGE: best for time-series data — enables partition pruning by date. LIST: best for known discrete values (region, status). HASH: even distribution when no natural partition key."
+  },
+  "LISTEN / NOTIFY for event messaging": {
+    definition: "<strong>LISTEN / NOTIFY for event messaging</strong>",
+    query_a: `-- NOTIFY from one session
+-- Session 1: send notification
+NOTIFY order_updates, 'order_id:12345';
+
+-- Or from a trigger:
+CREATE OR REPLACE FUNCTION notify_order()
+RETURNS TRIGGER AS $$
+BEGIN
+  PERFORM PG_NOTIFY('order_updates',
+    row_to_json(NEW)::TEXT);
+  RETURN NEW;
+END; $$ LANGUAGE plpgsql;`,
+    query_b: `-- LISTEN from another session
+-- Session 2: listen for notifications
+LISTEN order_updates;
+
+-- Receive with timeout:
+-- (In psql: notifications appear automatically)
+-- (In app code: use LISTEN + poll with wait)
+
+-- Unlisten:
+UNLISTEN order_updates;`,
+    key_diff: "LISTEN/NOTIFY is PostgreSQL's built-in pub/sub. Notifications are transactional — only sent on COMMIT. Payload limit is 8KB. Used for cache invalidation and real-time updates."
+  },
+  "Inheritance vs Separate tables for lookup": {
+    definition: "<strong>Inheritance vs Separate tables for lookup</strong>",
+    query_a: `-- Lookup/reference table pattern
+-- Status lookup table:
+CREATE TABLE order_statuses (
+  code TEXT PRIMARY KEY,
+  label TEXT NOT NULL,
+  is_terminal BOOLEAN DEFAULT false
+);
+INSERT INTO order_statuses VALUES
+  ('pending','Pending',false),
+  ('paid','Paid',false),
+  ('cancelled','Cancelled',true);
+-- FK ensures valid values`,
+    query_b: `-- CHECK constraint alternative
+-- For simple value validation:
+CREATE TABLE orders (
+  id SERIAL PRIMARY KEY,
+  status TEXT CHECK (status IN (
+    'pending','paid','cancelled'
+  )),
+  priority INT CHECK (priority BETWEEN 1 AND 5)
+);
+
+-- Or use ENUM type:
+CREATE TYPE order_status AS ENUM (
+  'pending', 'paid', 'cancelled'
+);`,
+    key_diff: "Lookup tables allow runtime changes (INSERT new status) and add labels/metadata. CHECK/ENUM is simpler for static lists. ENUM requires ALTER TYPE to add values — cannot remove."
+  },
+  "Sequence vs IDENTITY vs UUID as PK": {
+    definition: "<strong>Sequence vs IDENTITY vs UUID as PK</strong>",
+    query_a: `-- SERIAL / SEQUENCE
+-- Using SEQUENCE directly:
+CREATE SEQUENCE order_seq START 1000;
+CREATE TABLE orders (
+  id BIGINT DEFAULT NEXTVAL('order_seq') PRIMARY KEY
+);
+
+-- Or BIGSERIAL shorthand:
+CREATE TABLE orders (
+  id BIGSERIAL PRIMARY KEY
+);`,
+    query_b: `-- IDENTITY vs UUID
+-- SQL standard IDENTITY:
+CREATE TABLE orders (
+  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY
+);
+
+-- UUID primary key:
+CREATE TABLE orders (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);`,
+    key_diff: "SEQUENCE/SERIAL: simple, sequential, small storage. IDENTITY: SQL standard, cleaner. UUID: globally unique — safe for distributed systems, harder to guess, slightly larger (16 bytes vs 8)."
+  },
+  "Window function with custom frame": {
+    definition: "<strong>Window function with custom frame</strong>",
+    query_a: `-- 7-day moving average
+SELECT
+  sale_date,
+  amount,
+  ROUND(AVG(amount) OVER (
+    ORDER BY sale_date
+    ROWS BETWEEN 6 PRECEDING
+             AND CURRENT ROW
+  ), 2) AS moving_avg_7d
+FROM daily_sales
+ORDER BY sale_date;`,
+    query_b: `-- Sliding window with RANGE INTERVAL
+SELECT
+  sale_date,
+  amount,
+  SUM(amount) OVER (
+    ORDER BY sale_date
+    RANGE BETWEEN INTERVAL '7 days' PRECEDING
+             AND CURRENT ROW
+  ) AS rolling_7d_sum
+FROM daily_sales
+ORDER BY sale_date;`,
+    key_diff: "ROWS uses physical row counts. RANGE with INTERVAL uses the actual value range — includes all rows within 7 days even if dates are missing. RANGE INTERVAL requires a datetime ORDER BY."
+  },
+  "INSERT with CTE for complex scenarios": {
+    definition: "<strong>INSERT with CTE for complex scenarios</strong>",
+    query_a: `-- INSERT from CTE
+WITH new_users AS (
+  SELECT email, name,
+    NOW() AS created_at
+  FROM staging_signups
+  WHERE processed = false
+),
+inserted AS (
+  INSERT INTO users (email, name, created_at)
+  SELECT * FROM new_users
+  RETURNING id, email
+)
+UPDATE staging_signups s
+SET processed = true
+FROM inserted i
+WHERE s.email = i.email;`,
+    query_b: `-- Upsert with complex CTE
+WITH source AS (
+  SELECT * FROM product_feed
+  WHERE updated_at > NOW() - INTERVAL '1 hour'
+)
+INSERT INTO products (sku, name, price, updated_at)
+SELECT sku, name, price, NOW() FROM source
+ON CONFLICT (sku) DO UPDATE SET
+  name = EXCLUDED.name,
+  price = EXCLUDED.price,
+  updated_at = EXCLUDED.updated_at
+WHERE products.price <> EXCLUDED.price;`,
+    key_diff: "CTEs in DML enable complex multi-table operations in a single statement. The ON CONFLICT WHERE clause only updates when values actually changed — avoids unnecessary writes."
+  },
+  "Error handling in PL/pgSQL": {
+    definition: "<strong>Error handling in PL/pgSQL</strong>",
+    query_a: `-- Basic exception handling
+CREATE OR REPLACE FUNCTION safe_divide(a NUMERIC, b NUMERIC)
+RETURNS NUMERIC AS $$
+BEGIN
+  IF b = 0 THEN
+    RAISE EXCEPTION 'Division by zero';
+  END IF;
+  RETURN a / b;
+EXCEPTION
+  WHEN division_by_zero THEN
+    RAISE WARNING 'Caught division by zero';
+    RETURN NULL;
+END; $$ LANGUAGE plpgsql;`,
+    query_b: `-- RAISE levels and SQLSTATE
+CREATE OR REPLACE FUNCTION process_order(oid INT)
+RETURNS VOID AS $$
+BEGIN
+  -- RAISE levels: DEBUG, LOG, INFO, NOTICE, WARNING, EXCEPTION
+  RAISE NOTICE 'Processing order %', oid;
+  -- Custom SQLSTATE:
+  RAISE EXCEPTION USING
+    MESSAGE = 'Invalid order state',
+    ERRCODE = 'P0001',
+    HINT = 'Check order status first';
+EXCEPTION WHEN OTHERS THEN
+  RAISE; -- re-raise
+END; $$ LANGUAGE plpgsql;`,
+    key_diff: "EXCEPTION block catches errors within a PL/pgSQL block. WHEN OTHERS catches any error. Use specific error codes (division_by_zero, unique_violation) for targeted handling."
+  },
+  "Table-valued functions vs Subqueries": {
+    definition: "<strong>Table-valued functions vs Subqueries</strong>",
+    query_a: `-- Subquery in FROM
+SELECT dept, avg_sal
+FROM (
+  SELECT dept,
+    AVG(salary) AS avg_sal,
+    COUNT(*) AS headcount
+  FROM employees
+  GROUP BY dept
+) dept_stats
+WHERE avg_sal > 70000;`,
+    query_b: `-- Set-returning function (SRF)
+CREATE OR REPLACE FUNCTION dept_stats(min_sal NUMERIC)
+RETURNS TABLE(dept TEXT, avg_sal NUMERIC, cnt BIGINT) AS $$
+  SELECT dept, AVG(salary), COUNT(*)
+  FROM employees
+  GROUP BY dept
+  HAVING AVG(salary) > min_sal;
+$$ LANGUAGE sql;
+
+SELECT * FROM dept_stats(70000);`,
+    key_diff: "Set-returning functions (SRFs) are reusable parameterized subqueries. They return a table and can be called like a table in FROM. Useful for encapsulating common complex queries."
+  },
+  "pg_stat_statements for query analysis": {
+    definition: "<strong>pg_stat_statements for query analysis</strong>",
+    query_a: `-- Finding slow queries
+-- Enable extension first:
+CREATE EXTENSION pg_stat_statements;
+
+-- Find slowest queries:
+SELECT
+  LEFT(query, 80) AS query_snippet,
+  calls,
+  ROUND(total_exec_time::numeric, 2) AS total_ms,
+  ROUND(mean_exec_time::numeric, 2) AS avg_ms,
+  rows
+FROM pg_stat_statements
+ORDER BY mean_exec_time DESC
+LIMIT 10;`,
+    query_b: `-- Finding most I/O intensive queries
+SELECT
+  LEFT(query, 80) AS query_snippet,
+  calls,
+  shared_blks_hit + shared_blks_read AS total_blks,
+  ROUND(100.0 * shared_blks_hit /
+    NULLIF(shared_blks_hit + shared_blks_read, 0)
+  , 1) AS cache_hit_pct
+FROM pg_stat_statements
+WHERE calls > 100
+ORDER BY total_blks DESC LIMIT 10;`,
+    key_diff: "pg_stat_statements is the most powerful query performance tool in PostgreSQL. Tracks every query, execution count, total/avg time, and I/O stats. Reset with pg_stat_statements_reset()."
+  },
+  "Optimistic vs Pessimistic locking": {
+    definition: "<strong>Optimistic vs Pessimistic locking</strong>",
+    query_a: `-- Pessimistic locking (FOR UPDATE)
+-- Lock the row before reading:
+BEGIN;
+SELECT * FROM inventory
+WHERE product_id = 42
+FOR UPDATE;
+
+-- Safe to modify — row is locked
+UPDATE inventory
+SET quantity = quantity - 1
+WHERE product_id = 42;
+COMMIT;`,
+    query_b: `-- Optimistic locking (version column)
+-- Check version on update:
+UPDATE inventory
+SET quantity = quantity - 1,
+  version = version + 1
+WHERE product_id = 42
+  AND version = 7;
+
+-- If rows_affected = 0:
+-- Someone else modified it first
+-- Retry the operation`,
+    key_diff: "Pessimistic: lock first, update later — safe but reduces concurrency. Optimistic: check version on update — higher throughput but requires retry logic. Use optimistic for low-conflict scenarios."
+  },
+  "COPY TO vs SELECT for data export": {
+    definition: "<strong>COPY TO vs SELECT for data export</strong>",
+    query_a: `-- SELECT for application-level export
+-- Export to application:
+SELECT id, name, email, created_at
+FROM users
+WHERE created_at > '2024-01-01'
+ORDER BY created_at;
+
+-- Application fetches rows and writes file`,
+    query_b: `-- COPY TO for fast file export
+-- Server-side file:
+COPY (
+  SELECT id, name, email, created_at
+  FROM users
+  WHERE created_at > '2024-01-01'
+  ORDER BY created_at
+) TO '/tmp/users_2024.csv'
+CSV HEADER;
+
+-- Client-side:
+\copy (SELECT ...) TO 'local.csv' CSV HEADER`,
+    key_diff: "COPY TO streams directly from server to file — very fast. \copy (lowercase) writes to client machine. Use for large exports, ETL, and data migrations. Much faster than application-level row fetching."
+  },
+  "Logical replication and publication": {
+    definition: "<strong>Logical replication and publication</strong>",
+    query_a: `-- Setup logical replication
+-- On source database:
+CREATE PUBLICATION my_pub
+FOR TABLE orders, customers;
+
+-- Or publish all tables:
+CREATE PUBLICATION all_tables FOR ALL TABLES;
+
+-- Check publications:
+SELECT * FROM pg_publication;
+SELECT * FROM pg_publication_tables;`,
+    query_b: `-- Subscription (target database)
+-- On target database:
+CREATE SUBSCRIPTION my_sub
+CONNECTION 'host=source_host dbname=mydb
+  user=repl password=secret'
+PUBLICATION my_pub;
+
+-- Check subscription status:
+SELECT * FROM pg_subscription;
+SELECT * FROM pg_stat_subscription;`,
+    key_diff: "Logical replication replicates specific tables — unlike physical replication which copies everything. Works between different PostgreSQL versions. Used for zero-downtime upgrades and read replicas."
+  },
+  "VACUUM, ANALYZE, and autovacuum tuning": {
+    definition: "<strong>VACUUM, ANALYZE, and autovacuum tuning</strong>",
+    query_a: `-- Manual VACUUM and ANALYZE
+-- Basic vacuum (reclaim space):
+VACUUM orders;
+
+-- Full vacuum (rewrites table):
+VACUUM FULL orders;  -- locks table!
+
+-- Update query planner statistics:
+ANALYZE orders;
+
+-- Both in one:
+VACUUM ANALYZE orders;
+
+-- Check table bloat:
+SELECT n_dead_tup, n_live_tup
+FROM pg_stat_user_tables
+WHERE relname = 'orders';`,
+    query_b: `-- Autovacuum tuning for busy tables
+-- Tune autovacuum for a hot table:
+ALTER TABLE orders SET (
+  autovacuum_vacuum_scale_factor = 0.01,
+  autovacuum_analyze_scale_factor = 0.005,
+  autovacuum_vacuum_cost_delay = 10
+);
+
+-- Monitor autovacuum activity:
+SELECT relname, last_vacuum, last_autovacuum,
+  last_analyze, n_dead_tup
+FROM pg_stat_user_tables
+ORDER BY n_dead_tup DESC;`,
+    key_diff: "VACUUM reclaims dead tuple space from MVCC. ANALYZE updates planner statistics. VACUUM FULL rewrites the table (use rarely — locks table). Tune autovacuum thresholds for frequently updated tables."
+  },
+  "Connection pooling patterns": {
+    definition: "<strong>Connection pooling patterns</strong>",
+    query_a: `-- Direct connection anti-pattern
+-- Every app instance opens connections:
+-- App instance 1: 10 connections
+-- App instance 2: 10 connections
+-- App instance N: 10 connections
+-- PostgreSQL max_connections = 100
+-- With 20 instances = 200 > 100!
+
+-- Check current connections:
+SELECT COUNT(*), state
+FROM pg_stat_activity
+WHERE datname = 'mydb'
+GROUP BY state;`,
+    query_b: `-- PgBouncer pooling modes
+-- pgbouncer pool_mode options:
+
+-- Transaction pooling (most efficient):
+-- Connection returned after each transaction
+-- Supports most app patterns
+
+-- Session pooling (safest):
+-- Connection held for entire session
+
+-- Check pool stats via pgbouncer:
+-- SHOW POOLS;
+-- SHOW STATS;
+
+-- In app: use shorter timeouts,
+-- avoid SET, temp tables with transaction mode`,
+    key_diff: "PostgreSQL has high connection overhead. PgBouncer is the standard pooler. Transaction mode is most efficient — reuses connections across transactions. Session mode is needed for SET/temp tables."
+  },
+};
 
     const SECTIONS = [
-      { name: "Join Foundations", items: ["Inner Join vs Outer Join", "Left Join vs Right Join", "Full Join vs Cross Join", "Join vs Union", "Union vs Union All", "Natural Join vs Inner Join", "Self Join vs Normal Join", "Semi Join vs Anti Join"] },
-      { name: "Operations & Filters", items: ["Where vs Having", "Distinct vs GroupBy", "Count(*) vs Count(Column)", "Truncate vs Delete", "In vs Exists", "Correlated vs Non-Correlated Subquery"] },
-      { name: "Architecture & Objects", items: ["View vs Table", "Materialized View vs View", "Acid vs Base", "Fact vs Dimension", "Normalization vs Denormalization", "SCD Type 1 vs Type 2 vs Type 3", "Surrogate vs Natural Key", "Inmon vs Kimball Methodology", "Data Vault vs Star Schema"] },
-      { name: "Analytics & Windowing", items: ["Rank vs Dense_Rank", "Row_Number vs Rank", "Lead vs Lag", "Stored Procedure vs Function", "Scalar vs Aggregate vs Window Functions"] },
-      { name: "Performance & Storage", items: ["Clustered vs Non-Clustered Index", "Hash Join vs Nested Loop vs Sort-Merge", "Columnar vs Row-based Storage", "Partitioning vs Sharding", "CTE vs Temporary Table", "B-Tree vs Bitmap Index"] },
-      { name: "Data Types & Language", items: ["Char vs Varchar vs Text", "Integer vs BigInt vs Decimal", "Date vs Timestamp vs Timestamptz", "DDL vs DML vs DCL vs TCL"] },
-      { name: "Modern Data Stack", items: ["dbt vs Stored Procedures", "ETL vs ELT", "Primary Key vs Unique Key", "CTE vs Subquery", "BigQuery vs Snowflake"] }
-    ];
+  { name: "JOINs", items: ["INNER JOIN vs LEFT JOIN", "LEFT JOIN vs RIGHT JOIN", "INNER JOIN vs FULL OUTER JOIN", "JOIN vs CROSS JOIN", "Self JOIN", "LATERAL JOIN vs Subquery"] },
+  { name: "Window Functions", items: ["RANK vs DENSE_RANK", "RANK vs ROW_NUMBER", "PARTITION BY vs no PARTITION", "LAG vs LEAD", "NTILE vs PERCENT_RANK", "FIRST_VALUE vs LAST_VALUE", "SUM OVER vs GROUP BY", "CUME_DIST vs PERCENT_RANK"] },
+  { name: "Aggregations & Grouping", items: ["WHERE vs HAVING", "GROUP BY vs GROUP BY ROLLUP", "ROLLUP vs CUBE", "COUNT(*) vs COUNT(col) vs COUNT(DISTINCT col)", "SUM vs COUNT", "AVG vs PERCENTILE_CONT", "STRING_AGG vs ARRAY_AGG", "FILTER clause vs CASE in aggregate"] },
+  { name: "Subqueries & CTEs", items: ["Subquery vs CTE", "CTE vs Recursive CTE", "EXISTS vs IN", "ANY vs ALL", "Correlated vs Non-correlated Subquery"] },
+  { name: "Query Operators & Clauses", items: ["UNION vs UNION ALL", "INTERSECT vs EXCEPT", "LIMIT with OFFSET vs Keyset Pagination", "DISTINCT vs DISTINCT ON", "LIKE vs ILIKE vs ~", "BETWEEN vs >= AND <=", "IS NULL vs IS NOT DISTINCT FROM", "COALESCE vs NULLIF vs GREATEST", "CASE WHEN vs CASE (simple form)"] },
+  { name: "DML - INSERT/UPDATE/DELETE", items: ["INSERT vs INSERT ON CONFLICT", "UPDATE vs UPDATE FROM", "DELETE vs DELETE USING", "RETURNING in INSERT/UPDATE/DELETE", "TRUNCATE vs DELETE"] },
+  { name: "DDL & Schema Design", items: ["PRIMARY KEY vs UNIQUE", "SERIAL vs IDENTITY", "CHECK constraint vs trigger for validation", "VIEW vs MATERIALIZED VIEW", "Table Inheritance vs Partitioning"] },
+  { name: "Indexes in Depth", items: ["B-Tree vs Hash Index", "Regular Index vs Partial Index", "Single-column vs Composite Index", "Index vs INCLUDE (Covering Index)", "Regular CREATE INDEX vs CONCURRENTLY"] },
+  { name: "Transactions & Locking", items: ["BEGIN vs SAVEPOINT", "READ COMMITTED vs REPEATABLE READ", "FOR UPDATE vs FOR SHARE vs SKIP LOCKED"] },
+  { name: "Functions & Expressions", items: ["Scalar Function vs Aggregate Function", "CAST vs :: operator", "DATE_TRUNC vs EXTRACT", "String functions: TRIM vs REGEXP_REPLACE", "GENERATE_SERIES for date spine", "JSON operators: -> vs ->> vs #>"] },
+  { name: "Null Handling", items: ["NULL in comparisons", "NULL in aggregations", "NULL in ORDER BY"] },
+  { name: "Constraints & Data Integrity", items: ["NOT NULL vs CHECK", "ON DELETE CASCADE vs RESTRICT vs SET NULL"] },
+  { name: "Advanced Patterns", items: ["Running Total with Window", "Pivot with CASE vs crosstab", "Find duplicates: GROUP BY vs ROW_NUMBER", "Top-N per group: subquery vs LATERAL", "Gap detection in sequences", "Conditional aggregation: CASE vs FILTER", "Recursive tree traversal", "String aggregation patterns", "Date arithmetic", "EXPLAIN vs EXPLAIN ANALYZE", "Index scan types: Seq vs Index vs Bitmap", "CTE materialization: fence vs inline", "LATERAL vs correlated subquery for top-N", "COPY vs INSERT for bulk loading", "Row-level Security (RLS)", "WINDOW frame: ROWS vs RANGE", "UNNEST and array operations", "Conditional UPDATE patterns", "CTE for multi-step DML", "JSONB querying patterns", "Full Text Search", "Partitioning: RANGE vs LIST vs HASH", "LISTEN / NOTIFY for event messaging", "Inheritance vs Separate tables for lookup", "Sequence vs IDENTITY vs UUID as PK", "Window function with custom frame", "INSERT with CTE for complex scenarios", "Error handling in PL/pgSQL", "Table-valued functions vs Subqueries", "pg_stat_statements for query analysis", "Optimistic vs Pessimistic locking", "COPY TO vs SELECT for data export", "Logical replication and publication", "VACUUM, ANALYZE, and autovacuum tuning", "Connection pooling patterns"] },
+];
 
     function renderSQLDifferences() {
       const container = document.getElementById('nestedContent');
       SECTIONS.forEach(sec => {
+        // Create collapsible section
+        const sectionWrapper = document.createElement('div');
+        sectionWrapper.className = 'section-wrapper';
+        
         const h2 = document.createElement('h2');
-        h2.textContent = sec.name;
-        container.appendChild(h2);
-
+        h2.className = 'section-toggle';
+        h2.innerHTML = `<span class="toggle-icon">▶</span> ${sec.name}`;
+        h2.onclick = function() {
+          const content = this.nextElementSibling;
+          const icon = this.querySelector('.toggle-icon');
+          content.classList.toggle('collapsed');
+          icon.classList.toggle('rotated');
+        };
+        
         const secContent = document.createElement('div');
-        secContent.className = 'section-items-list';
+        secContent.className = 'section-items-list collapsed';
         
         sec.items.forEach(itemKey => {
           const d = DATA[itemKey];
           if (!d) return;
 
-          const h3 = document.createElement('h3');
-          h3.innerHTML = `<span>${itemKey}</span> <span class="arr" style="transition: transform 0.3s ease;">→</span>`;
-          secContent.appendChild(h3);
+          const topics = itemKey.split(' vs ').map(t => t.trim());
+          const topicA = topics[0] || '';
+          const topicB = topics[1] || itemKey;
 
-          const itemContent = document.createElement('div');
-          itemContent.className = 'item-details';
+          // Create individual table for each concept
+          const table = document.createElement('table');
+          table.className = 'diff-table';
           
-          itemContent.innerHTML = `
-            <div class="explanation-card">
-              <h4>📘 Definition</h4>
-              <p>${d.definition}</p>
-            </div>
-            <div class="explanation-card">
-              <h4>⚙️ Internal Working</h4>
-              <p>${d.internal_working}</p>
-            </div>
-            <div class="explanation-card">
-              <h4>🎯 Use Case</h4>
-              <p>${d.use_case}</p>
-            </div>
-            <div class="explanation-card">
-              <h4>📋 Key Points</h4>
-              <ul>${d.key_points.map(p => `<li>${p}</li>`).join('')}</ul>
-            </div>
+          const queryA = d.query_a.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+          const queryB = d.query_b.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+          
+          table.innerHTML = `
+            <tbody>
+              <tr>
+                <td class="option-a-header" style="background: rgba(15, 139, 139, 0.12); border-left: 3px solid #0f8b8b;"><strong>${topicA}</strong></td>
+                <td class="option-b-header" style="background: rgba(99, 102, 241, 0.12); border-left: 3px solid #6366f1;"><strong>${topicB}</strong></td>
+              </tr>
+              <tr>
+                <td><div class="code-block"><code>${queryA}</code></div></td>
+                <td><div class="code-block"><code>${queryB}</code></div></td>
+              </tr>
+              <tr>
+                <td colspan="2" style="background: rgba(99, 102, 241, 0.08); font-weight: 500;"><strong>Key Difference:</strong> ${d.key_diff}</td>
+              </tr>
+            </tbody>
           `;
-          secContent.appendChild(itemContent);
+          secContent.appendChild(table);
         });
         
-        container.appendChild(secContent);
+        sectionWrapper.appendChild(h2);
+        sectionWrapper.appendChild(secContent);
+        container.appendChild(sectionWrapper);
       });
-
-      if (typeof initializeCollapsibleSections === 'function') {
-        initializeCollapsibleSections(container, 'h2');
-        initializeCollapsibleSections(container, 'h3');
-      }
     }
-
-    // Scroll to Top visibility
-    const stt = document.getElementById('scrollToTop');
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 400) stt.classList.add('visible');
-      else stt.classList.remove('visible');
-    });
-    stt.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
 
     renderSQLDifferences();
   </script>

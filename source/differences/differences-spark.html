@@ -25,30 +25,82 @@
       border-bottom: 2px solid var(--color-accent, #0f8b8b);
       padding-bottom: 0.5rem;
       margin-bottom: 1.5rem;
-    }
-
-    #nestedContent h3 {
-      font-size: 1.1rem;
-      font-family: 'Sora', sans-serif;
-      color: var(--color-text);
-      margin: 0.75rem 0;
-      padding: 1.25rem;
-      background: var(--glass, rgba(255, 255, 255, 0.5));
-      border: 1px solid var(--glass-border, rgba(15, 139, 139, 0.1));
-      border-radius: var(--radius-md);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
     }
 
-    #nestedContent h3:hover {
-      background: var(--color-bg-alt, #f8f9fa);
-      border-color: var(--color-accent);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 20px rgba(15, 139, 139, 0.1);
+    .section-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
+
+    .toggle-icon {
+      font-size: 0.9rem;
+      transition: transform 0.3s ease;
+      color: var(--color-accent, #0f8b8b);
+    }
+
+    .toggle-icon.rotated {
+      transform: rotate(90deg);
+    }
+
+    .section-items-list.collapsed {
+      display: none;
+    }
+
+    .section-wrapper {
+      margin-bottom: 1rem;
+    }
+
+    .diff-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      background: var(--color-surface, #ffffff);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    .diff-table th {
+      background: linear-gradient(135deg, #0f8b8b 0%, #6366f1 100%);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .diff-table td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-color, rgba(15, 139, 139, 0.1));
+      vertical-align: top;
+      width: 50%;
+    }
+
+    .diff-table tr:nth-child(2) {
+      background: rgba(15, 139, 139, 0.05);
+    }
+
+    .diff-table tr:nth-child(2):hover {
+      background: rgba(15, 139, 139, 0.1);
+    }
+
+    .diff-table tr:nth-child(3) {
+      background: var(--color-surface, #ffffff);
+    }
+
+    .diff-table tr:nth-child(3):hover {
+      background: rgba(99, 102, 241, 0.08);
+    }
+
+    .diff-table .option-header {
+      text-align: center;
+      font-weight: 600;
+    }
+
+    /* h3 styles removed - using tables now */
     
     .explanation-card {
       background: var(--color-bg-alt, #ffffff);
@@ -316,162 +368,584 @@
   </script>
   <script>
     const DATA = {
-      // 1. DATA ABSTRACTIONS
-      "RDD vs DataFrame vs Dataset": {
-        definition: "<strong>RDD</strong> (Resilient Distributed Dataset) is the low-level, schema-less API. <strong>DataFrame</strong> is a distributed collection organizes into titled columns. <strong>Dataset</strong> is a type-safe version of DataFrames available in Scala/Java.",
-        internal_working: "RDDs use Java/Python objects and are opaque to Spark's optimizer (Catalyst). DataFrames and Datasets use the binary 'Tungsten' format, allowing Spark to understand the data structure and optimize the query plan by pushing down filters and pruning columns.",
-        use_case: "Use <strong>DataFrame</strong> for almost all production Python/SQL tasks. Use <strong>RDD</strong> only if you need low-level hardware control or are dealing with unstructured legacy data.",
-        key_points: ["DataFrames provide a 10x-50x speed boost over RDDs for many operations.", "RDDs are 'Immutable' and 'Lazy'.", "Datasets allow 'Compile-time' type checking (Scala only).", "Tungsten memory management is why DataFrames are faster."]
-      },
-      "Narrow vs Wide Transformation": {
-        definition: "<strong>Narrow</strong>: Each input partition contributes to exactly one output partition. <strong>Wide</strong>: Input partitions contribute to multiple output partitions (triggers a Shuffle).",
-        internal_working: "Narrow: operations (like <code>map</code>, <code>filter</code>) happen locally on each executor without network transfer. Wide: operations (like <code>groupBy</code>, <code>join</code>, <code>distinct</code>) require moving data across the network to group related keys onto the same executor.",
-        use_case: "Always aim for <strong>Narrow</strong> transformations to avoid the 'Shuffle' bottleneck. Use <strong>Wide</strong> only when necessary for global data organization.",
-        key_points: ["Narrow = No Network; Wide = Network Shuffle.", "Shuffles are the #1 performance killer in Spark.", "Wide transformations create new 'Stages' in the Spark UI.", "Co-located data can sometimes turn a wide transformation narrow."]
-      },
-
-      // 2. JOIN STRATEGIES
-      "Broadcast Hash Join vs Shuffle-Sort-Merge Join": {
-        definition: "<strong>Broadcast Hash Join</strong> (BHJ) sends a small table to all executors. <strong>Sort-Merge Join</strong> (SMJ) shuffles both tables by the join key and sorts them on each executor.",
-        internal_working: "BHJ: O(1) shuffle for the small table, then it's a local hash-lookup (very fast). SMJ: O(N log N) shuffle and sort; it is highly robust for joining two massive tables that don't fit in memory.",
-        use_case: "Use <strong>BHJ</strong> when one table is small (default < 10MB). Use <strong>SMJ</strong> for massive joins (e.g., 1TB join 2TB).",
-        key_points: ["BHJ avoids the massive network overhead of shuffling the large table.", "Spark 3.x 'AQE' can automatically convert SMJ to BHJ at runtime.", "BHJ can cause 'Out of Memory' (OOM) on the driver if the table is too big.", "SMJ is the default 'Fallback' join for large datasets."]
-      },
-      "Shuffle Hash Join vs Sort-Merge Join": {
-        definition: "<strong>Shuffle Hash Join</strong> shuffles data then builds an in-memory hash table. <strong>Sort-Merge</strong> shuffles then sorts.",
-        internal_working: "Shuffle Hash Join is faster if the smaller side fits into the executor's memory. Sort-Merge is more memory-stable because it processes data in slices rather than keeping a whole hash table in RAM.",
-        use_case: "Use <strong>Shuffle Hash</strong> if you have many small partitions and good memory. Use <strong>Sort-Merge</strong> (Spark default) for large-scale enterprise data.",
-        key_points: ["Sort-Merge is better for avoiding OOM errors.", "Hashing is generally faster than sorting for raw compute.", "Spark 2.3+ heavily favors Sort-Merge.", "Shuffle Hash Join is enabled via <code>spark.sql.join.preferShuffleHashJoin</code>."]
-      },
-
-      // 3. STORAGE & PARTITIONING
-      "Coalesce vs Repartition": {
-        definition: "<strong>Repartition</strong> redistributes data across a specified number of partitions (always shuffles). <strong>Coalesce</strong> reduces the number of partitions without a full shuffle.",
-        internal_working: "Repartition: Uses a Round-Robin or Hash partitioner to move every row of data across the network. Coalesce: Efficiently merges local partitions together, avoiding the network shuffle phase, but can lead to 'Data Skew' if not careful.",
-        use_case: "Use <strong>Repartition</strong> to increase parallelism. Use <strong>Coalesce</strong> to reduce the number of small files before writing to S3.",
-        key_points: ["Repartition is expensive (Shuffle); Coalesce is cheap.", "Coalesce cannot increase the number of partitions.", "Repartitioning is useful before a join to ensure balanced work.", "Overused repartitioning leads to excessive network overhead."]
-      },
-      "Bucketing vs Partitioning": {
-        definition: "<strong>Partitioning</strong> creates physical sub-directories (e.g., <code>/year=2024/</code>). <strong>Bucketing</strong> distributes data into a fixed number of files based on a hash of a column.",
-        internal_working: "Partitioning is O(1) for folder-skipping but fails if a column has too many unique values (too many small files). Bucketing ensures that related data (e.g., same <code>user_id</code>) always lands in the same file index, which optimizes subsequent joins by avoiding shuffles.",
-        use_case: "Use <strong>Partitioning</strong> for coarse fields like `Date` or `Region`. Use <strong>Bucketing</strong> for high-cardinality fields like `User_ID` that you frequently join on.",
-        key_points: ["Bucketing requires a fixed number of buckets (e.g., 32, 64).", "Partitioning is visible in the file system structure; Bucketing is internal to the file.", "Bucketing is only useful for tables with <code>saveAsTable</code> in a metastore.", "Appropriate bucketing can lead to 'Sort-Merge Join' skipping the sort phase."]
-      },
-
-      // 4. MEMORY & CORE
-      "Client vs Cluster Mode": {
-        definition: "In <strong>Client Mode</strong>, the Driver runs on the machine where the spark-submit was called. In <strong>Cluster Mode</strong>, the Driver runs on one of the worker nodes in the cluster.",
-        internal_working: "Client: Driver stays local; network latency between Driver and Executors can be high. Cluster: Driver is inside the cluster; high-bandwidth communication between Driver and Executors, and it is resilient to the local machine disconnecting.",
-        use_case: "Use <strong>Client Mode</strong> for interactive development/notebooks. Use <strong>Cluster Mode</strong> for production background jobs.",
-        key_points: ["Client mode is easier to debug logs locally.", "Cluster mode is more reliable for long-running production pipelines.", "YARN/K8s manage the placement of the driver in Cluster mode.", "Client mode depends on the health of your edge node/laptop."]
-      },
-      "Driver vs Executor": {
-        definition: "The <strong>Driver</strong> is the brain (orchestrator). The <strong>Executors</strong> are the muscles (workers).",
-        internal_working: "Driver: Converts code into DAG (Directed Acyclic Graph), schedules tasks, and maintains state. Executors: Request data, perform the actual computation (Map/Reduce), and return results (or store them locally).",
-        use_case: "Give **Driver** more memory if you are 'Collecting' large results. Give **Executors** more cores if you have heavy data transformations.",
-        key_points: ["Driver is a single point of failure (usually).", "Executors handle 99% of the 'Heavy Lifting'.", "Driver communicates with the Cluster Manager (YARN/Mesos).", "Heartbeat checks ensure executors are still alive."]
-      },
-
-      // 5. CACHING & PERFORMANCE
-      "Persistence Levels (MEMORY_ONLY vs DISK_ONLY)": {
-        definition: "<strong>MEMORY_ONLY</strong> keeps data in RAM. <strong>MEMORY_AND_DISK</strong> spills to disk if RAM is full. <strong>DISK_ONLY</strong> stores solely on executor disks.",
-        internal_working: "Persistence is lazy. When a partition is computed for the first time, it's stored in the Block Manager. MEMORY_ONLY is fastest but sensitive to OOM. MEMORY_AND_DISK_SER (serialized) is slower but more memory-efficient.",
-        use_case: "Use <strong>MEMORY_ONLY</strong> for small datasets used repeatedly. Use <strong>MEMORY_AND_DISK_SER</strong> for massive datasets during iterative ML training.",
-        key_points: ["Serialized (SER) storage uses 3x less memory but requires CPU to decode.", "<code>cache()</code> is just a shorthand for <code>persist(MEMORY_AND_DISK)</code> (default differs by API).", "Persist should be used when an intermediate DataFrame is referenced 3+ times.", "Unpersist releases memory when done."]
-      },
-      "Adaptive Query Execution (AQE) vs Standard Execution": {
-        definition: "<strong>Standard</strong> builds a static plan before running. <strong>AQE</strong> re-plans the query while it is running based on actual data metadata.",
-        internal_working: "AQE monitors completed stages. If it detects that a 'Small table' was actually a 'Giant table' (Skew), it re-partitions dynamically. If it sees two tables are small after filtering, it swaps a Sort-Merge Join for a Broadcast Join midway.",
-        use_case: "Enable <strong>AQE</strong> (default in Spark 3.2+) for all complex production queries to handle data skew and small-file problems automatically.",
-        key_points: ["AQE can coalesce small shuffle partitions automatically.", "AQE can 'Optimize Joins' based on runtime stats.", "AQE can handle 'Data Skew' by splitting massive partitions.", "Spark 3.0 made AQE a game-changer for SQL Performance."]
-      },
-
-      // NEW ENTRIES (Wave 2)
-      "Kryo vs Java Serialization": {
-        definition: "<strong>Kryo</strong> is a fast and efficient binary serialization framework. <strong>Java Serialization</strong> is the standard, slower, and more verbose format.",
-        internal_working: "Java serialization is slow and leads to large serialized objects. Kryo is up to 10x faster and results in much smaller objects by omitting bulky class metadata. Spark uses Kryo internally for many tasks but requires explicit registration for custom classes.",
-        use_case: "Use <strong>Kryo</strong> in production for faster shuffles and lower GC pressure.",
-        key_points: ["Kryo is not the default for everything because it requires manual class registration.", "Set <code>spark.serializer</code> to <code>org.apache.spark.serializer.KryoSerializer</code>.", "Kryo can significantly reduce memory usage during persistence.", "Kryo is essential for high-performance scale."]
-      },
-      "FIFO vs Fair Scheduler": {
-        definition: "<strong>FIFO</strong> (First In First Out) runs jobs sequentially. <strong>Fair</strong> scheduler shares resources between jobs simultaneously.",
-        internal_working: "FIFO: The first job gets all resources; later jobs wait. Fair: Resources are distributed so that multiple small queries can run even while one giant job is active, preventing 'Resource Starvation'.",
-        use_case: "Use **FIFO** for single-user batch scripts. Use **Fair** for a multi-user shared workspace like Databricks or a shared Spark cluster.",
-        key_points: ["Fair scheduling allows for better 'Concurrency'.", "FIFO is simpler to reason about for job order.", "Fair scheduling can be configured with 'Pools' to give specific users priority.", "Configured via <code>spark.scheduler.mode</code>."]
-      },
-      "Dynamic Allocation vs Static Allocation": {
-        definition: "**Static Allocation** keeps a fixed number of executors for the duration of the job. **Dynamic Allocation** adds/removes executors based on current workload.",
-        internal_working: "Dynamic: Spark requests more executors from the resource manager (YARN/K8s) if tasks are queuing. It releases them if they are idle for X seconds, saving money in cloud environments.",
-        use_case: "Use **Dynamic Allocation** to share cluster resources efficiently among many fluctuating jobs.",
-        key_points: ["Dynamic allocation is great for 'Elastic' cloud scaling.", "Static allocation is better for reserved, time-sensitive production windows.", "Dynamic requires an External Shuffle Service or Shuffle Tracking.", "Helps prevent a small job from hogging 100 unused executors."]
-      }
-    };
+  // Core Concepts
+  "RDD vs DataFrame": {
+    definition: "<strong>RDD vs DataFrame</strong>",
+    side_a: "RDD: Low-level distributed collection. Type-safe, functional API (map/filter/reduce). No schema. Full control over data layout. Immutable partitioned dataset.",
+    side_b: "DataFrame: High-level abstraction with named columns & schema. Optimized via Catalyst. Easier SQL-like operations. Python/R/Scala/Java APIs. Preferred for most use cases."
+  },
+  "DataFrame vs Dataset": {
+    definition: "<strong>DataFrame vs Dataset</strong>",
+    side_a: "DataFrame: Untyped (Row objects). Dynamic schema. Preferred in Python & R. Catalyst + Tungsten optimizations. Losses compile-time type safety.",
+    side_b: "Dataset: Typed (Dataset[T] in Scala/Java). Compile-time type checking. Combines RDD expressiveness + DataFrame optimization. Not available in Python/R."
+  },
+  "Transformation vs Action": {
+    definition: "<strong>Transformation vs Action</strong>",
+    side_a: "Transformation: Lazy operation (map, filter, groupBy, join). Returns new RDD/DF. Not executed immediately. Build DAG of operations. Examples: select, where, withColumn.",
+    side_b: "Action: Triggers execution (collect, count, save, show). Forces DAG to execute. Triggers job submission to cluster. Examples: collect(), count(), write.save()."
+  },
+  "Narrow vs Wide Transformation": {
+    definition: "<strong>Narrow vs Wide Transformation</strong>",
+    side_a: "Narrow: Each input partition maps to one output partition. No shuffle. Fast. Examples: map, filter, union, flatMap. Data stays local to partition.",
+    side_b: "Wide (Shuffle): Requires data from multiple partitions. Creates shuffle. Expensive. Examples: groupBy, join, distinct, repartition. Causes stage boundaries."
+  },
+  "Lazy vs Eager Evaluation": {
+    definition: "<strong>Lazy vs Eager Evaluation</strong>",
+    side_a: "Lazy: Transformations not executed until action is called. Spark builds a logical plan. Enables optimization via Catalyst. Reduces unnecessary computations.",
+    side_b: "Eager (Actions): Immediately triggers computation when called. Forces Spark to execute the full DAG. No further optimization possible after this point."
+  },
+  "Immutability in Spark": {
+    definition: "<strong>Immutability in Spark</strong>",
+    side_a: "RDD/DF Immutable: Once created, cannot be changed. Every transformation produces a new RDD/DF. Enables fault tolerance via lineage. Safe for concurrent operations.",
+    side_b: "Mutable Accumulators: Only accumulators are mutable shared variables. Used for counters/sums across tasks. Fault-tolerant via task re-execution. Read on driver only."
+  },
+  "DAG vs MapReduce": {
+    definition: "<strong>DAG vs MapReduce</strong>",
+    side_a: "Spark DAG: Directed Acyclic Graph of stages and tasks. Multi-step pipeline without writing to disk between stages. In-memory. Complex pipelines optimized end-to-end.",
+    side_b: "Hadoop MapReduce: Two-phase (Map → Reduce). Writes results to HDFS between phases. Disk-based. Simple but slow for iterative algorithms. Spark is 10-100x faster."
+  },
+  "Partition vs Block": {
+    definition: "<strong>Partition vs Block</strong>",
+    side_a: "Spark Partition: Logical division of data for parallel processing. Unit of parallelism. One task per partition. Default size ~128MB. Can be repartitioned.",
+    side_b: "HDFS Block: Physical division of files on disk. Default 128MB. Multiple blocks form one partition. Spark tries to schedule tasks co-located with HDFS blocks."
+  },
+  "Job vs Stage vs Task": {
+    definition: "<strong>Job vs Stage vs Task</strong>",
+    side_a: "Job: Triggered by an action. A job is a set of stages. One job per action call. The highest-level unit of Spark work. Visible in Spark UI under Jobs tab.",
+    side_b: "Stage: Set of tasks executing the same code. Separated by shuffle boundaries (wide transformations). Tasks: Atomic unit of work. One task per partition per stage."
+  },
+  "Lineage vs Checkpointing": {
+    definition: "<strong>Lineage vs Checkpointing</strong>",
+    side_a: "Lineage: Spark tracks transformation history to recompute lost partitions. Fault tolerance without replication. Long lineages can be slow to recompute on failure.",
+    side_b: "Checkpoint: Materializes RDD/DF to disk (HDFS). Truncates lineage. Useful for iterative algorithms (MLlib, GraphX). Breaks recovery chain but speeds up recomputation."
+  },
+  "Driver vs Executor": {
+    definition: "<strong>Driver vs Executor</strong>",
+    side_a: "Driver: JVM process that runs main(). Hosts SparkContext. Orchestrates execution. Creates DAG. Schedules tasks to executors. Single point of failure.",
+    side_b: "Executor: JVM processes on worker nodes. Execute assigned tasks. Store partition data in memory/disk. Report results back to driver. Multiple per node possible."
+  },
+  "SparkContext vs SparkSession": {
+    definition: "<strong>SparkContext vs SparkSession</strong>",
+    side_a: "SparkContext (SC): Entry point for Spark Core & RDD API. Older API (pre-2.0). Connects to cluster manager. One per JVM. Use for low-level RDD operations.",
+    side_b: "SparkSession (SS): Unified entry point since Spark 2.0. Combines SC + SQLContext + HiveContext. Use for DataFrames, Datasets, SQL. Internally creates SparkContext."
+  },
+  // Architecture
+  "Cluster Managers: Standalone vs YARN": {
+    definition: "<strong>Cluster Managers: Standalone vs YARN</strong>",
+    side_a: "Standalone: Spark's built-in cluster manager. Simple setup. Spark-only cluster. Static resource allocation. Good for dev/test. No dynamic resource sharing with other apps.",
+    side_b: "YARN (Hadoop): Resource negotiator. Shares cluster with MapReduce, Hive etc. Dynamic allocation. Better multi-tenant. ResourceManager + NodeManager. Preferred in production."
+  },
+  "YARN Client vs Cluster Mode": {
+    definition: "<strong>YARN Client vs Cluster Mode</strong>",
+    side_a: "Client Mode: Driver runs on the client machine (your laptop/edge node). Logs appear locally. Suitable for interactive jobs. Client must stay alive. Network-sensitive.",
+    side_b: "Cluster Mode: Driver runs inside YARN ApplicationMaster on cluster. Client can disconnect. Better fault tolerance. Preferred for production batch jobs. Logs on cluster."
+  },
+  "Kubernetes vs YARN": {
+    definition: "<strong>Kubernetes vs YARN</strong>",
+    side_a: "Kubernetes (K8s): Container-native. Pod-based executors. Dynamic scaling. Cloud-native. Better resource isolation. Growing adoption. Spark 2.3+ support. Stateless driver pods.",
+    side_b: "YARN: Hadoop ecosystem native. Mature & stable. Strong security (Kerberos). Good for on-premise Hadoop clusters. Richer Spark history. Complex setup vs K8s."
+  },
+  "Static vs Dynamic Allocation": {
+    definition: "<strong>Static vs Dynamic Allocation</strong>",
+    side_a: "Static: Fixed executors for the life of application. Set spark.executor.instances. Simple but wastes resources during idle phases. All executors allocated at startup.",
+    side_b: "Dynamic Allocation: Executors added/removed based on workload. spark.dynamicAllocation.enabled=true. Better cluster utilization. Works with external shuffle service."
+  },
+  "Coarse-grained vs Fine-grained": {
+    definition: "<strong>Coarse-grained vs Fine-grained</strong>",
+    side_a: "Coarse-grained (Spark): Executors held for entire job duration. Lower overhead per task. Better for long-running jobs. Standard Spark resource model.",
+    side_b: "Fine-grained (old Mesos): Resources returned after each task. Higher scheduling overhead. Better utilization for mixed workloads. Deprecated in favor of coarse-grained."
+  },
+  "Local Mode vs Distributed Mode": {
+    definition: "<strong>Local Mode vs Distributed Mode</strong>",
+    side_a: "Local[N]: Runs driver + executor in single JVM. N threads for parallelism. local[*] uses all CPU cores. No cluster needed. For development, testing, debugging.",
+    side_b: "Distributed: Driver on master, executors on workers. Requires cluster manager. Full parallelism. Production workloads. Needs network, storage configuration."
+  },
+  "Physical Plan vs Logical Plan": {
+    definition: "<strong>Physical Plan vs Logical Plan</strong>",
+    side_a: "Logical Plan: Abstract representation of query. Unresolved → Analyzed → Optimized. Catalyst applies rule-based & cost-based optimizations. Technology-agnostic.",
+    side_b: "Physical Plan: Concrete execution strategy. Spark converts optimized logical plan to physical plans. Selects best via cost model. Generates RDD-based bytecode."
+  },
+  "Catalyst Optimizer vs Tungsten": {
+    definition: "<strong>Catalyst Optimizer vs Tungsten</strong>",
+    side_a: "Catalyst: Query optimizer. Rewrites logical plans. Predicate pushdown, column pruning, join reordering. Extensible rule-based + cost-based. Works on SQL/DataFrame plans.",
+    side_b: "Tungsten: Execution engine. Off-heap memory management. Cache-friendly data structures. Code generation (whole-stage codegen). Binary data processing. Reduces GC pressure."
+  },
+  "Whole-Stage CodeGen vs Volcano Model": {
+    definition: "<strong>Whole-Stage CodeGen vs Volcano Model</strong>",
+    side_a: "Whole-Stage CodeGen: Fuses multiple operators into single JVM bytecode function. Eliminates virtual function calls. CPU cache-friendly. Up to 10x faster for simple queries.",
+    side_b: "Volcano Iterator Model: Each operator implements next() method. Virtual calls per row. Simple but overhead-heavy for wide tables. Used in older databases & early Spark."
+  },
+  "Shuffle Service: External vs Internal": {
+    definition: "<strong>Shuffle Service: External vs Internal</strong>",
+    side_a: "Internal Shuffle: Shuffle data managed by executor JVM. Lost if executor dies. Requires dynamic allocation to keep data alive. Default in local/simple setups.",
+    side_b: "External Shuffle Service (ESS): Separate long-running daemon on each node. Serves shuffle data even if executor stops. Required for dynamic allocation in YARN/K8s."
+  },
+  "Speculative Execution": {
+    definition: "<strong>Speculative Execution</strong>",
+    side_a: "Enabled (default): Spark launches duplicate copies of slow (straggler) tasks. First to complete wins. Reduces tail latency. Costs extra resources. spark.speculation=true.",
+    side_b: "Disabled: No duplicate tasks. Stragglers slow down the stage. Useful when tasks have side effects or idempotency issues. Lower resource usage. spark.speculation=false."
+  },
+  "Shuffle Hash Join vs Sort Merge Join": {
+    definition: "<strong>Shuffle Hash Join vs Sort Merge Join</strong>",
+    side_a: "Shuffle Hash Join: Hash-based. Smaller table hashed into memory. No sort needed. Fast for small-medium tables. Fails if build side too large for memory.",
+    side_b: "Sort Merge Join (SMJ): Default for large tables. Both sides sorted + merged. Spill-tolerant. Scalable. Requires sortable join keys. Preferred for large equi-joins."
+  },
+  // Coding & API
+  "map() vs flatMap()": {
+    definition: "<strong>map() vs flatMap()</strong>",
+    side_a: "map(): One-to-one transformation. Each input element → exactly one output element. Preserves partition count. Returns same type or different type. Example: x => x*2.",
+    side_b: "flatMap(): One-to-many transformation. Each input element → zero or more output elements. Flattens result. Example: split sentence into words. Returns Iterator."
+  },
+  "filter() vs where()": {
+    definition: "<strong>filter() vs where()</strong>",
+    side_a: "filter(): RDD & DataFrame API. Keeps rows matching condition. For RDDs: filter(lambda x: x>0). Equivalent to SQL WHERE clause.",
+    side_b: "where(): DataFrame/SQL alias for filter(). Same behavior. Preferred in SQL-style code. where('age > 18'). Both accept Column expressions or string SQL predicates."
+  },
+  "groupBy() vs groupByKey()": {
+    definition: "<strong>groupBy() vs groupByKey()</strong>",
+    side_a: "groupBy() (DataFrame): Returns RelationalGroupedDataset. Apply agg functions (sum, count, avg). Catalyst-optimized. Preferred for structured data. Efficient partial aggregation.",
+    side_b: "groupByKey() (RDD): Groups all values by key into memory. No partial aggregation. Shuffle-heavy. Memory intensive — all values per key must fit in memory. Avoid if possible."
+  },
+  "reduceByKey() vs groupByKey()": {
+    definition: "<strong>reduceByKey() vs groupByKey()</strong>",
+    side_a: "reduceByKey(): Performs partial aggregation on each partition BEFORE shuffle. Less data shuffled. Memory efficient. Only works with associative/commutative operations.",
+    side_b: "groupByKey(): Shuffles ALL values first, then groups. Much more data over network. Memory intensive. Use only when full value list needed. Anti-pattern for aggregations."
+  },
+  "withColumn() vs select()": {
+    definition: "<strong>withColumn() vs select()</strong>",
+    side_a: "withColumn(name, expr): Adds or replaces one column. Returns all existing columns plus new one. Simple column mutations. Can be chained but inefficient for many columns.",
+    side_b: "select(*cols): Projects specific columns. Can add/transform multiple columns at once. More efficient for many column operations. Can drop columns by omission."
+  },
+  "union() vs unionAll() vs unionByName()": {
+    definition: "<strong>union() vs unionAll() vs unionByName()</strong>",
+    side_a: "union(): Deduplicates rows (like SQL UNION). Expensive. Adds extra distinct operation. Use unionAll/unionByName for most cases.",
+    side_b: "unionAll(): Keeps all rows including duplicates (like SQL UNION ALL). Fast — no dedup. unionByName(): Matches columns by name not position. Handles schema differences."
+  },
+  "join() types: inner vs outer": {
+    definition: "<strong>join() types: inner vs outer</strong>",
+    side_a: "Inner Join: Returns only matching rows. Most restrictive. Default join type. Filters unmatched rows from both sides. df1.join(df2, 'id', 'inner').",
+    side_b: "Outer Joins: left/right/full outer — preserves unmatched rows with nulls. left_semi: only left rows with match. left_anti: only left rows WITHOUT match."
+  },
+  "broadcast() vs sort-merge join": {
+    definition: "<strong>broadcast() vs sort-merge join</strong>",
+    side_a: "broadcast(df): Forces small table to be broadcast to all executors. Eliminates shuffle. Very fast. Use when one table fits in memory (<= spark.sql.autoBroadcastJoinThreshold).",
+    side_b: "Sort-Merge Join: Both tables sorted on join key, then merged. Scales to huge tables. No broadcast limit. Default for large joins. Requires shuffle but spill-tolerant."
+  },
+  "cache() vs persist()": {
+    definition: "<strong>cache() vs persist()</strong>",
+    side_a: "cache(): Stores in default storage level = MEMORY_AND_DISK. Shortcut for persist(). Easy to use. Auto-spills to disk if memory full.",
+    side_b: "persist(level): Fine-grained control. Levels: MEMORY_ONLY, MEMORY_AND_DISK, DISK_ONLY, OFF_HEAP, _SER variants (serialized). Use for specific memory/disk tradeoffs."
+  },
+  "collect() vs take() vs first()": {
+    definition: "<strong>collect() vs take() vs first()</strong>",
+    side_a: "collect(): Returns ALL rows to driver. Dangerous for large datasets — can OOM driver. Use only for small results or testing.",
+    side_b: "take(n): Returns first n rows. Efficient — only scans enough partitions. first(): Returns first row only. Both safer than collect() for large datasets."
+  },
+  "repartition() vs coalesce()": {
+    definition: "<strong>repartition() vs coalesce()</strong>",
+    side_a: "repartition(n): Increases or decreases partitions. Full shuffle. Evenly distributes data. Expensive but produces balanced partitions. Use when increasing or balancing.",
+    side_b: "coalesce(n): Decreases partitions ONLY. Avoids full shuffle by merging local partitions. Faster but can create skewed partitions. Use only when reducing partition count."
+  },
+  "UDF vs Built-in Functions": {
+    definition: "<strong>UDF vs Built-in Functions</strong>",
+    side_a: "UDF (User Defined Function): Custom Python/Scala/Java logic. Cannot be optimized by Catalyst. Serialization overhead (Python UDFs especially slow). Last resort option.",
+    side_b: "Built-in Functions (functions.*): Catalyst-optimized. Run inside JVM. No serialization. 200+ functions: col(), lit(), when(), coalesce(), date_format(), regexp_replace() etc."
+  },
+  "Python UDF vs Pandas UDF (Arrow)": {
+    definition: "<strong>Python UDF vs Pandas UDF (Arrow)</strong>",
+    side_a: "Regular Python UDF: Row-by-row processing via Pickle serialization. Very slow — Python ↔ JVM per row. Cannot be optimized. Avoid for performance-critical code.",
+    side_b: "Pandas UDF (Arrow-based): Batch processing using Apache Arrow. 10-100x faster than regular UDF. Vectorized. Types: SCALAR, GROUPED_MAP, GROUPED_AGG. Use @pandas_udf decorator."
+  },
+  "show() vs display() vs toPandas()": {
+    definition: "<strong>show() vs display() vs toPandas()</strong>",
+    side_a: "show(n): Prints first n rows as ASCII table to stdout. Default 20 rows. truncate=False for full content. Triggers an action. Runs on cluster side.",
+    side_b: "display() (Databricks): Rich HTML rendering. Visualizations. toPandas(): Collects ALL data to driver as Pandas DF. Dangerous for large data. For small result sets only."
+  },
+  // Methods & Functions
+  "agg() vs groupBy().agg()": {
+    definition: "<strong>agg() vs groupBy().agg()</strong>",
+    side_a: "df.agg(): Global aggregation across entire DataFrame. No grouping. Returns single row. Example: df.agg(sum('sales'), avg('price')).",
+    side_b: "df.groupBy(cols).agg(): Groups by specified columns first, then aggregates. Returns one row per group. Multiple agg functions per call. Most common pattern."
+  },
+  "pivot() vs unpivot()/stack()": {
+    definition: "<strong>pivot() vs unpivot()/stack()</strong>",
+    side_a: "pivot(col): Rotates rows to columns. Converts categorical values to column headers. Optional aggregation. Expensive (multiple passes). Requires groupBy first.",
+    side_b: "unpivot()/stack(): Rotates columns back to rows. Melts wide format to long format. In Spark 3.4+: unpivot(). Earlier versions use SQL STACK function or melt workaround."
+  },
+  "explode() vs posexplode()": {
+    definition: "<strong>explode() vs posexplode()</strong>",
+    side_a: "explode(col): Converts array/map column to multiple rows. One row per element. Nulls dropped by default (use explode_outer to keep). Most common for nested data.",
+    side_b: "posexplode(col): Like explode but adds position index column. Returns (pos, col) pairs. posexplode_outer() keeps nulls. Useful when element order matters."
+  },
+  "window functions: rank vs dense_rank vs row_number": {
+    definition: "<strong>window functions: rank vs dense_rank vs row_number</strong>",
+    side_a: "rank(): Leaves gaps after ties. (1,1,3,4). dense_rank(): No gaps after ties. (1,1,2,3). Both require Window.partitionBy().orderBy().",
+    side_b: "row_number(): Unique sequential number even for ties. Deterministic only with unique sort key. Use for top-N per group queries. lag()/lead() for previous/next row values."
+  },
+  "orderBy() vs sortWithinPartitions()": {
+    definition: "<strong>orderBy() vs sortWithinPartitions()</strong>",
+    side_a: "orderBy() / sort(): Global sort across entire DataFrame. Requires shuffle to bring data together. Expensive but produces globally sorted output.",
+    side_b: "sortWithinPartitions(): Sorts data within each partition independently. No shuffle. Much faster. Data NOT globally sorted. Use before writing partitioned output files."
+  },
+  "dropDuplicates() vs distinct()": {
+    definition: "<strong>dropDuplicates() vs distinct()</strong>",
+    side_a: "dropDuplicates(cols): Removes duplicates based on SPECIFIC subset of columns. More flexible. df.dropDuplicates(['id', 'date']) keeps first occurrence per key.",
+    side_b: "distinct(): Removes rows that are fully identical across ALL columns. Equivalent to SELECT DISTINCT *. Less flexible. Full shuffle required."
+  },
+  "fillna() / fill() vs dropna() / drop()": {
+    definition: "<strong>fillna() / fill() vs dropna() / drop()</strong>",
+    side_a: "fillna(val, subset): Replaces null values with specified value. Can specify subset of columns. Also: fill(). For type-specific fills use when().otherwise() for complex logic.",
+    side_b: "dropna(thresh, subset): Removes rows with nulls. thresh: min non-null values required. how: 'any' (default) or 'all'. Returns clean DataFrame without null rows."
+  },
+  "crossJoin() vs broadcast join": {
+    definition: "<strong>crossJoin() vs broadcast join</strong>",
+    side_a: "crossJoin(): Cartesian product of two DataFrames. N×M rows result. No join condition needed. Extremely expensive for large tables. Requires spark.sql.crossJoin.enabled=true.",
+    side_b: "Broadcast Join: Sends small table to all executors. Avoids shuffle of large table. Very efficient. Limited by executor memory. Hint: broadcast(df) or SQL /*+ BROADCAST */."
+  },
+  "mapPartitions() vs map()": {
+    definition: "<strong>mapPartitions() vs map()</strong>",
+    side_a: "map(f): Applies function to each element individually. One function call per record. Higher overhead for initialization-heavy operations (DB connections, ML model loading).",
+    side_b: "mapPartitions(f): Applies function to entire partition as iterator. One function call per partition. Efficient for setup-heavy operations. Can hold entire partition in memory."
+  },
+  "foreachPartition() vs foreach()": {
+    definition: "<strong>foreachPartition() vs foreach()</strong>",
+    side_a: "foreach(f): Applies function to each row (action). For side effects (writing to DB). One call per row. Higher overhead per record for connection setup.",
+    side_b: "foreachPartition(f): Applies function once per partition. Open connection once per partition, process all rows, close. Far more efficient for I/O-bound side effects."
+  },
+  "sample() vs sampleBy()": {
+    definition: "<strong>sample() vs sampleBy()</strong>",
+    side_a: "sample(fraction, seed): Random sample of DataFrame. withReplacement option. Approximate fraction. Useful for quick data exploration or creating train/test splits.",
+    side_b: "sampleBy(col, fractions): Stratified sampling. Different sample rates per key value. Preserves class distribution. Essential for imbalanced ML datasets."
+  },
+  "broadcast variable vs accumulator": {
+    definition: "<strong>broadcast variable vs accumulator</strong>",
+    side_a: "Broadcast Variable: Read-only variable sent to all executors once. Efficient for large lookup tables (replaces join). sc.broadcast(dict). Cached on each executor node.",
+    side_b: "Accumulator: Write-only (from tasks), read on driver. For counters and sums. Fault-tolerant (re-executed tasks may double-count). LongAccumulator, DoubleAccumulator."
+  },
+  "schema inference vs explicit schema": {
+    definition: "<strong>schema inference vs explicit schema</strong>",
+    side_a: "Schema Inference: Spark reads file to infer schema. Convenient but slow (requires extra scan). May infer wrong types (ints as longs). Bad for large files or production.",
+    side_b: "Explicit Schema (StructType): Define schema in code. No extra scan. Correct types. Faster reads. Required for production pipelines. Use StructType + StructField + DataTypes."
+  },
+  "read.csv() options: header vs inferSchema": {
+    definition: "<strong>read.csv() options: header vs inferSchema</strong>",
+    side_a: "header=True: Uses first row as column names. header=False: Columns named _c0,_c1,... inferSchema=True: Scans file to guess types. Slow but convenient for exploration.",
+    side_b: "inferSchema=False (default): All columns read as strings. Fast. Use with explicit schema for production. sep, quote, escape, nullValue, dateFormat are key read options."
+  },
+  // Memory Concepts
+  "Heap vs Off-Heap Memory": {
+    definition: "<strong>Heap vs Off-Heap Memory</strong>",
+    side_a: "On-Heap (JVM): Managed by JVM garbage collector. Subject to GC pauses. Default for most Spark operations. Configured via spark.executor.memory. Subject to GC overhead.",
+    side_b: "Off-Heap: Managed by Spark/Unsafe API. Not subject to GC. Reduces GC pressure. Enable: spark.memory.offHeap.enabled=true. Size: spark.memory.offHeap.size."
+  },
+  "Execution Memory vs Storage Memory": {
+    definition: "<strong>Execution Memory vs Storage Memory</strong>",
+    side_a: "Execution Memory: Used for shuffles, joins, sorts, aggregations. Temporary working memory. Can evict storage memory if needed. Critical for join/shuffle performance.",
+    side_b: "Storage Memory: Used for caching (persist/cache). Stores broadcast variables. Can be evicted by execution. Shared pool: spark.memory.fraction (default 0.6) of heap."
+  },
+  "Unified Memory Manager vs Static": {
+    definition: "<strong>Unified Memory Manager vs Static</strong>",
+    side_a: "Unified (Spark 1.6+): Execution and storage share a single pool. Either can use the other's memory. Dynamic boundary. spark.memory.fraction=0.6 (of usable heap).",
+    side_b: "Static (Legacy pre-1.6): Execution and storage had fixed separate regions. Wasted memory if one region underused. spark.shuffle.memoryFraction & spark.storage.memoryFraction."
+  },
+  "Memory Fraction Configs": {
+    definition: "<strong>Memory Fraction Configs</strong>",
+    side_a: "spark.memory.fraction (0.6): Fraction of JVM heap for Spark execution+storage. Remaining 40% for user objects, internal metadata, safe margin against OOM.",
+    side_b: "spark.memory.storageFraction (0.5): Within memory.fraction, fraction protected from eviction for storage. Storage evicted only below this. Execution can grow above it."
+  },
+  "Serialization: Java vs Kryo": {
+    definition: "<strong>Serialization: Java vs Kryo</strong>",
+    side_a: "Java Serialization: Default. Compatible with all Java-serializable classes. Slow. Produces large byte arrays. Higher GC pressure. Use for compatibility.",
+    side_b: "Kryo Serialization: 10x faster, 3x more compact than Java. spark.serializer=org.apache.spark.serializer.KryoSerializer. Must register classes. Best for performance-sensitive apps."
+  },
+  "MEMORY_ONLY vs MEMORY_AND_DISK": {
+    definition: "<strong>MEMORY_ONLY vs MEMORY_AND_DISK</strong>",
+    side_a: "MEMORY_ONLY: Stores RDD as deserialized Java objects in heap. Fast access. If doesn't fit, partitions recomputed on demand. Risk of OOM. Best when recompute is cheap.",
+    side_b: "MEMORY_AND_DISK: Spills excess partitions to disk. Safer. Slower disk reads. Good default choice. MEMORY_AND_DISK_SER: Serialized version uses less memory but slower CPU."
+  },
+  "OFF_HEAP storage level": {
+    definition: "<strong>OFF_HEAP storage level</strong>",
+    side_a: "OFF_HEAP: Store serialized data outside JVM heap. Requires off-heap enabled. Reduces GC pauses. Faster than disk. Complex setup. For memory-intensive caching workloads.",
+    side_b: "ON_HEAP equivalents: MEMORY_ONLY, MEMORY_ONLY_SER, MEMORY_AND_DISK etc. All subject to GC. Easier setup. Default behavior. Better for most use cases."
+  },
+  "GC: G1GC vs CMS vs ZGC": {
+    definition: "<strong>GC: G1GC vs CMS vs ZGC</strong>",
+    side_a: "G1GC: Recommended for Spark executors. Predictable pauses. Large heap support. Low pause goals. spark.executor.extraJavaOptions=-XX:+UseG1GC. Good balance for batch.",
+    side_b: "ZGC/Shenandoah: Sub-millisecond GC pauses. Experimental for Spark. Best for latency-sensitive streaming. CMS: Old collector, deprecated in Java 14. Avoid."
+  },
+  "Spill to Disk": {
+    definition: "<strong>Spill to Disk</strong>",
+    side_a: "Spill: When shuffle/sort memory exhausted, data serialized and written to temp disk files. Performance degrades but avoids OOM. Monitor via spark.executor.extraJavaOptions.",
+    side_b: "Prevention: Increase spark.executor.memory. Increase partitions (reduce per-partition size). Use reduceByKey instead of groupByKey. Tune spark.shuffle.spill.compress=true."
+  },
+  "Container Memory vs Executor Memory": {
+    definition: "<strong>Container Memory vs Executor Memory</strong>",
+    side_a: "Executor Memory: spark.executor.memory = JVM heap. E.g., 4g. YARN/K8s container = executor memory + memoryOverhead.",
+    side_b: "Memory Overhead: spark.executor.memoryOverhead = off-heap memory for JVM internals (thread stacks, NIO buffers). Default: max(384MB, 10% of executor memory). Critical for Python."
+  },
+  "Driver Memory": {
+    definition: "<strong>Driver Memory</strong>",
+    side_a: "spark.driver.memory: JVM heap for driver process. Must hold collect() results, broadcast variables, and plan metadata. Default 1g. Increase for complex queries or large collects.",
+    side_b: "spark.driver.memoryOverhead: Off-heap memory for driver. Defaults same as executor overhead. Important when driver runs Python (PySpark) code or handles large broadcasts."
+  },
+  "Caching Strategy: Eager vs Lazy": {
+    definition: "<strong>Caching Strategy: Eager vs Lazy</strong>",
+    side_a: "cache() / persist(): Lazy — only materialized when first action is called on cached DF. Calling .cache() alone does nothing. Need .count() or similar to trigger caching.",
+    side_b: "Force cache with action: df.cache().count() forces immediate materialization. Ensures data is fully cached before subsequent queries. Adds upfront cost but avoids double-work."
+  },
+  // Performance Concepts
+  "Shuffle: causes & reduction": {
+    definition: "<strong>Shuffle: causes & reduction</strong>",
+    side_a: "Causes Shuffle: groupBy, join (non-broadcast), distinct, repartition, orderBy, pivot. Shuffle = expensive network I/O + disk I/O + serialization.",
+    side_b: "Reduce Shuffle: Use broadcast joins for small tables. reduceByKey over groupByKey. Increase partitions to reduce per-partition work. Pre-partition data. Use bucketing."
+  },
+  "Skew: Problem vs Solutions": {
+    definition: "<strong>Skew: Problem vs Solutions</strong>",
+    side_a: "Data Skew: One partition has much more data than others. Stage hangs on one slow task. Common with null keys or high-cardinality values in joins/groupBy.",
+    side_b: "Solutions: Salting (add random prefix to key). Split skewed keys. AQE skew join optimization. Increase spark.sql.shuffle.partitions. Use broadcast for skewed small tables."
+  },
+  "AQE: Adaptive Query Execution": {
+    definition: "<strong>AQE: Adaptive Query Execution</strong>",
+    side_a: "AQE (Spark 3.0+): Dynamically optimizes query plans at runtime. Re-optimizes based on actual shuffle statistics. spark.sql.adaptive.enabled=true (default in 3.2+).",
+    side_b: "AQE Features: Auto coalescing small shuffle partitions. Converting sort-merge to broadcast join at runtime. Handling skew joins automatically. Changing join strategy mid-query."
+  },
+  "Predicate Pushdown": {
+    definition: "<strong>Predicate Pushdown</strong>",
+    side_a: "Predicate Pushdown: Catalyst pushes filter conditions down to data source. Applied during read. Avoids reading unnecessary data. Works with Parquet, ORC, JDBC sources.",
+    side_b: "Column Pruning: Only reads columns needed by query. Parquet/ORC column-oriented — only relevant column chunks read. Reduce IO dramatically for wide tables."
+  },
+  "Bucketing vs Partitioning": {
+    definition: "<strong>Bucketing vs Partitioning</strong>",
+    side_a: "Partitioning (disk): Divides data into directories by column value. Prunes irrelevant directories at scan time. df.write.partitionBy('date'). Great for date/region filters.",
+    side_b: "Bucketing: Pre-shuffles data into fixed buckets by hash of column. Eliminates shuffle for joins/aggregations on bucket key. df.write.bucketBy(n, 'id').saveAsTable(name)."
+  },
+  "File Formats: Parquet vs ORC vs CSV": {
+    definition: "<strong>File Formats: Parquet vs ORC vs CSV</strong>",
+    side_a: "Parquet: Columnar. Splittable. Excellent compression. Schema evolution. Default for Spark. 10-100x faster reads than CSV. Supports predicate pushdown & column pruning.",
+    side_b: "ORC: Columnar. Better for Hive. Built-in indexing (bloom filters). Excellent for Hive-heavy workloads. CSV: Text-based. Human-readable. Slow. No compression advantage. Avoid for prod."
+  },
+  "Compression: Snappy vs Gzip vs Zstd": {
+    definition: "<strong>Compression: Snappy vs Gzip vs Zstd</strong>",
+    side_a: "Snappy: Fast compress/decompress. Moderate compression ratio. Splittable in Parquet/ORC. Default for Spark. Best balance of speed and size.",
+    side_b: "Gzip: Better compression (smaller files). Slower. Not splittable for raw text files. Zstd (Spark 3.0+): Better than Snappy in both speed and ratio. Recommended upgrade."
+  },
+  "spark.sql.shuffle.partitions": {
+    definition: "<strong>spark.sql.shuffle.partitions</strong>",
+    side_a: "Default (200): Often wrong. Too many small partitions wastes overhead. Too few large partitions causes OOM/spill. Rule of thumb: 2-3x number of CPU cores in cluster.",
+    side_b: "Tuning: For large datasets: increase to 1000-2000+. AQE can auto-coalesce. Formula: total_shuffle_bytes / target_partition_size (100-200MB). Use AQE to avoid manual tuning."
+  },
+  "Partition Size: too small vs too large": {
+    definition: "<strong>Partition Size: too small vs too large</strong>",
+    side_a: "Too Small (<10MB): Excessive task overhead. Scheduling latency dominates. Thousands of tiny tasks. Solution: coalesce(), AQE coalescing, increase target size config.",
+    side_b: "Too Large (>1GB): OOM risk during processing. Long GC pauses. Slow task completion. Solution: repartition(n), increase shuffle partitions, split input data."
+  },
+  "Locality: PROCESS_LOCAL vs NODE_LOCAL": {
+    definition: "<strong>Locality: PROCESS_LOCAL vs NODE_LOCAL</strong>",
+    side_a: "PROCESS_LOCAL: Data already in executor JVM memory. Fastest. For cached/persisted data. No data movement at all.",
+    side_b: "NODE_LOCAL: Data on same node but different process (HDFS block). Fast local read. RACK_LOCAL: Same rack, different node. ANY: Remote read. Worst locality level."
+  },
+  "Stage Barrier: Sync vs Async": {
+    definition: "<strong>Stage Barrier: Sync vs Async</strong>",
+    side_a: "Stage Barrier: All tasks in stage must finish before next stage starts. Necessary at shuffle boundaries. Long-tail tasks (stragglers) block entire stage.",
+    side_b: "Speculative Execution: Launch duplicate of slow tasks. Reduces stage completion time. Barrier execution mode: all tasks start and finish together (for ML allreduce patterns)."
+  },
+  "Cost Based Optimizer (CBO)": {
+    definition: "<strong>Cost Based Optimizer (CBO)</strong>",
+    side_a: "CBO (Spark 2.2+): Uses table/column statistics for better join ordering, join type selection. Enable: spark.sql.cbo.enabled=true. Requires ANALYZE TABLE to collect stats.",
+    side_b: "Rule Based Optimizer (RBO): Default optimization. Applies fixed transformation rules. No statistics needed. Always active. CBO supplements RBO with statistics-aware choices."
+  },
+  "Vectorized Reading (Parquet/ORC)": {
+    definition: "<strong>Vectorized Reading (Parquet/ORC)</strong>",
+    side_a: "Vectorized Reader: Reads data in batches of rows as columnar arrays. Leverages CPU SIMD instructions. Avoids row-by-row deserialization. spark.sql.parquet.enableVectorizedReader=true.",
+    side_b: "Non-vectorized: Row-by-row deserialization. Slower. Used as fallback for complex nested types. Vectorized is default and strongly recommended for flat schemas."
+  },
+  "File Splitting & Parallelism": {
+    definition: "<strong>File Splitting & Parallelism</strong>",
+    side_a: "Splittable Files: Parquet, ORC, Avro, uncompressed/Snappy compressed text. Each split → one task. Parallelism = number of file splits. HDFS block size = default split.",
+    side_b: "Non-splittable: Gzip-compressed CSV/JSON. Entire file = one task regardless of size. Creates bottleneck. Avoid gzip for large text files. Use Snappy or Bzip2 for text."
+  },
+  // Streaming
+  "Structured Streaming vs DStreams": {
+    definition: "<strong>Structured Streaming vs DStreams</strong>",
+    side_a: "Structured Streaming (SS): DataFrame/Dataset API. Exactly-once semantics. Fault-tolerant checkpointing. Continuous processing mode. Unified batch+stream code. Spark 2.0+.",
+    side_b: "DStreams (Spark Streaming): RDD-based micro-batch. Older API. Spark 1.x era. Being phased out. Less optimized. Harder fault tolerance. Still used in legacy code."
+  },
+  "Micro-batch vs Continuous Processing": {
+    definition: "<strong>Micro-batch vs Continuous Processing</strong>",
+    side_a: "Micro-batch: Processes data in small time intervals (triggers). Default SS mode. 100ms+ latency. Exactly-once. Strong fault tolerance. Higher throughput than continuous.",
+    side_b: "Continuous Processing: Sub-millisecond latency. At-least-once guarantees. For ultra-low latency. Experimental in Spark. trigger(continuous='1 second'). Limited operations."
+  },
+  "Watermarking": {
+    definition: "<strong>Watermarking</strong>",
+    side_a: "Watermark: Threshold for late data handling. Tells Spark how late data can arrive. df.withWatermark('timestamp', '10 minutes'). Drops data older than max_event_time - threshold.",
+    side_b: "Without Watermark: State grows unbounded. OOM risk. Must use watermarks with event-time aggregations and stream-stream joins to bound state size."
+  },
+  "Trigger modes in SS": {
+    definition: "<strong>Trigger modes in SS</strong>",
+    side_a: "Trigger.ProcessingTime('5 seconds'): Micro-batch every 5s. Default. Trigger.Once(): Processes all available data, stops. Good for scheduled batch-style streaming.",
+    side_b: "Trigger.AvailableNow(): Like Once() but multiple micro-batches. More efficient. Trigger.Continuous('1 second'): Continuous mode. Trigger.Default: As fast as possible."
+  },
+  "Output Modes: append vs update vs complete": {
+    definition: "<strong>Output Modes: append vs update vs complete</strong>",
+    side_a: "append: Only new rows written since last trigger. Default. Only valid without aggregation or with watermarked aggregation. Best for simple event streams.",
+    side_b: "update: Only rows that changed. For aggregations. complete: Entire result table written every trigger. Only for aggregations. Expensive for large results."
+  },
+  "Checkpointing in Streaming": {
+    definition: "<strong>Checkpointing in Streaming</strong>",
+    side_a: "Checkpoint Location: Required for fault tolerance in SS. Stores query progress, offsets, state. On HDFS/S3/ADLS. Resume after failure from exact position.",
+    side_b: "Without Checkpoint: Cannot recover from failure. No offset tracking. Data may be reprocessed or lost. Always set: .option('checkpointLocation', '/path')."
+  },
+  "Stateless vs Stateful Streaming": {
+    definition: "<strong>Stateless vs Stateful Streaming</strong>",
+    side_a: "Stateless Ops: Transformations applied independently per batch. No memory of previous data. filter, select, map, flatMap on streams. Simple and scalable.",
+    side_b: "Stateful Ops: Maintain state across batches. Aggregations with groupBy, stream-stream joins, deduplication, mapGroupsWithState. Requires watermarking to manage state size."
+  },
+  "Kafka Source: earliest vs latest": {
+    definition: "<strong>Kafka Source: earliest vs latest</strong>",
+    side_a: "startingOffsets='earliest': Reads from beginning of topic. Full history on first run. Use for initial load or reprocessing.",
+    side_b: "startingOffsets='latest' (default): Only reads new messages after query starts. Skips historical data. For real-time only pipelines. Can also specify exact offset JSON per partition."
+  },
+  // Spark SQL & Delta
+  "Temp View vs Global Temp View": {
+    definition: "<strong>Temp View vs Global Temp View</strong>",
+    side_a: "createOrReplaceTempView(): Session-scoped. Visible only in current SparkSession. Dropped when session ends. Most common. Use for intra-session SQL queries.",
+    side_b: "createOrReplaceGlobalTempView(): Global scope across all SparkSessions in same JVM. Access via 'global_temp.viewname'. Useful for sharing data between multiple sessions."
+  },
+  "Hive Metastore vs In-memory Catalog": {
+    definition: "<strong>Hive Metastore vs In-memory Catalog</strong>",
+    side_a: "Hive Metastore: Persistent table catalog. Survives application restart. Tables accessible from multiple apps. Requires Hive or external metastore (AWS Glue, Databricks Unity Catalog).",
+    side_b: "In-memory Catalog: Default Spark catalog. Session-scoped. Tables/views lost when session ends. No persistence. For ad-hoc queries and temp operations."
+  },
+  "Managed vs External Tables": {
+    definition: "<strong>Managed vs External Tables</strong>",
+    side_a: "Managed Table: Spark owns both metadata AND data. Dropping table deletes data from storage. Default saveAsTable() behavior. Data stored in warehouse directory.",
+    side_b: "External Table: Spark owns only metadata. Data lives at specified LOCATION. Dropping table removes metadata only, NOT data. Safer for shared datasets."
+  },
+  "Delta Lake: ACID & Time Travel": {
+    definition: "<strong>Delta Lake: ACID & Time Travel</strong>",
+    side_a: "ACID Transactions: Delta Lake adds transactions to data lakes. Concurrent reads + writes. No partial writes. Upserts via MERGE INTO. Schema enforcement. DML operations.",
+    side_b: "Time Travel: Query historical versions. SELECT * FROM table VERSION AS OF 5. SELECT * FROM table TIMESTAMP AS OF '2024-01-01'. RESTORE TABLE. Audit history."
+  },
+  "SQL EXPLAIN PLAN modes": {
+    definition: "<strong>SQL EXPLAIN PLAN modes</strong>",
+    side_a: "EXPLAIN df.explain() / EXPLAIN SQL: Shows logical and physical plan. explain('simple'): Only physical. explain('extended'): All plan stages. explain('codegen'): Generated code.",
+    side_b: "explain('formatted'): Tree-style readable plan. explain('cost'): With CBO statistics. Use to diagnose missed predicate pushdown, unexpected joins, missing broadcast hints."
+  },
+  "Salting for Skew Joins": {
+    definition: "<strong>Salting for Skew Joins</strong>",
+    side_a: "Salting: Append random integer (0 to N) to skewed join key. Distributes hot key across N buckets. Requires exploding the other table N times to match. Eliminates skew.",
+    side_b: "AQE Skew Join: Automatic skew handling in Spark 3.0+. Splits large partitions at runtime. No code changes needed. spark.sql.adaptive.skewJoin.enabled=true (default true)."
+  },
+  // ML, Advanced & Ecosystem
+  "MLlib RDD-based vs ML Pipeline (DataFrame)": {
+    definition: "<strong>MLlib RDD-based vs ML Pipeline (DataFrame)</strong>",
+    side_a: "spark.mllib (RDD-based): Legacy. Being deprecated. RDD-based APIs. Functional style. Still has some algorithms not yet in spark.ml.",
+    side_b: "spark.ml (DataFrame-based): Current API. Pipeline abstraction (Transformer, Estimator, Pipeline). Integrates with Spark SQL. Better for feature engineering. Cross-validation support."
+  },
+  "Transformer vs Estimator": {
+    definition: "<strong>Transformer vs Estimator</strong>",
+    side_a: "Transformer: Applies transform() to DataFrame → DataFrame. No fitting needed. Examples: Tokenizer, StandardScalerModel, IndexToString, PCA model.",
+    side_b: "Estimator: Applies fit(df) → Model (Transformer). Learns from data. Examples: LogisticRegression, KMeans, StandardScaler, StringIndexer. fit() returns a Transformer."
+  },
+  "GraphX vs GraphFrames": {
+    definition: "<strong>GraphX vs GraphFrames</strong>",
+    side_a: "GraphX: RDD-based graph computation. Pregel API for iterative graph algorithms. PageRank, Connected Components, Triangle Count. Native Spark. Lower-level API.",
+    side_b: "GraphFrames: DataFrame-based graph library (separate package). Motif finding. Built-in algorithms. Better integration with Spark SQL. Easier API. Preferred for new development."
+  },
+  "Accumulators: Spark vs Custom": {
+    definition: "<strong>Accumulators: Spark vs Custom</strong>",
+    side_a: "Built-in Accumulators: LongAccumulator, DoubleAccumulator, CollectionAccumulator. Thread-safe. Updated inside tasks. Only reliable when action completes successfully.",
+    side_b: "Custom Accumulators: Extend AccumulatorV2[IN,OUT]. Implement add, reset, merge, copy, isZero, value. Use for complex types (sets, maps). Register with sc.register()."
+  },
+  "Spark Connect (Spark 3.4+)": {
+    definition: "<strong>Spark Connect (Spark 3.4+)</strong>",
+    side_a: "Legacy Mode: Spark driver runs in same process or nearby. Tight coupling. Version mismatch issues. Heavy client-side Spark dependencies required.",
+    side_b: "Spark Connect: Client-server architecture. Thin client. Language-agnostic protocol (gRPC). Remote Spark server. Versioned API. Enables Spark in Jupyter, IDEs without full Spark install."
+  },
+  "Arrow Columnar Format in PySpark": {
+    definition: "<strong>Arrow Columnar Format in PySpark</strong>",
+    side_a: "Without Arrow: Python UDFs serialize row-by-row via Pickle. Slow Python-JVM boundary. High overhead for vectorizable operations. Default for regular UDFs.",
+    side_b: "With Arrow (spark.sql.execution.arrow.pyspark.enabled=true): Batch transfer using columnar Arrow format. 10-100x faster toPandas()/createDataFrame(). Enables Pandas UDFs."
+  },
+  "Lakehouse: Hudi vs Delta vs Iceberg": {
+    definition: "<strong>Lakehouse: Hudi vs Delta vs Iceberg</strong>",
+    side_a: "Delta Lake: Databricks-native. Best Spark integration. ACID. Time travel. Schema evolution. DML. Strong community. Default for Databricks workloads.",
+    side_b: "Apache Hudi: Upsert-optimized. Copy-on-Write & Merge-on-Read table types. Incremental query. Good for near-real-time CDC. Iceberg: Multi-engine (Flink, Trino). Hidden partitioning. Netflix origin."
+  },
+  "Observability: Spark UI vs Spark History Server": {
+    definition: "<strong>Observability: Spark UI vs Spark History Server</strong>",
+    side_a: "Spark UI (Live): Real-time monitoring during job execution. Jobs, Stages, Tasks, Storage, Executors, SQL, Streaming tabs. Port 4040 by default. Disappears after app ends.",
+    side_b: "Spark History Server: Post-job analysis. Persists event logs (spark.eventLog.enabled=true). Multiple completed applications. Bottleneck analysis, stage comparison, executor metrics."
+  },
+};
 
     const SECTIONS = [
-      { name: "Data Abstractions", items: ["RDD vs DataFrame vs Dataset", "Narrow vs Wide Transformation"] },
-      { name: "Join Strategies", items: ["Broadcast Hash Join vs Shuffle-Sort-Merge Join", "Shuffle Hash Join vs Sort-Merge Join"] },
-      { name: "Storage & Partitioning", items: ["Coalesce vs Repartition", "Bucketing vs Partitioning"] },
-      { name: "Memory & Core", items: ["Client vs Cluster Mode", "Driver vs Executor", "Dynamic Allocation vs Static Allocation"] },
-      { name: "Caching & Internal Optimization", items: ["Persistence Levels (MEMORY_ONLY vs DISK_ONLY)", "Adaptive Query Execution (AQE) vs Standard Execution", "Kryo vs Java Serialization", "FIFO vs Fair Scheduler"] }
-    ];
+  { name: "Core Concepts", items: ["RDD vs DataFrame", "DataFrame vs Dataset", "Transformation vs Action", "Narrow vs Wide Transformation", "Lazy vs Eager Evaluation", "Immutability in Spark", "DAG vs MapReduce", "Partition vs Block", "Job vs Stage vs Task", "Lineage vs Checkpointing", "Driver vs Executor", "SparkContext vs SparkSession"] },
+  { name: "Architecture", items: ["Cluster Managers: Standalone vs YARN", "YARN Client vs Cluster Mode", "Kubernetes vs YARN", "Static vs Dynamic Allocation", "Coarse-grained vs Fine-grained", "Local Mode vs Distributed Mode", "Physical Plan vs Logical Plan", "Catalyst Optimizer vs Tungsten", "Whole-Stage CodeGen vs Volcano Model", "Shuffle Service: External vs Internal", "Speculative Execution", "Shuffle Hash Join vs Sort Merge Join"] },
+  { name: "Coding & API", items: ["map() vs flatMap()", "filter() vs where()", "groupBy() vs groupByKey()", "reduceByKey() vs groupByKey()", "withColumn() vs select()", "union() vs unionAll() vs unionByName()", "join() types: inner vs outer", "broadcast() vs sort-merge join", "cache() vs persist()", "collect() vs take() vs first()", "repartition() vs coalesce()", "UDF vs Built-in Functions", "Python UDF vs Pandas UDF (Arrow)", "show() vs display() vs toPandas()"] },
+  { name: "Methods & Functions", items: ["agg() vs groupBy().agg()", "pivot() vs unpivot()/stack()", "explode() vs posexplode()", "window functions: rank vs dense_rank vs row_number", "orderBy() vs sortWithinPartitions()", "dropDuplicates() vs distinct()", "fillna() / fill() vs dropna() / drop()", "crossJoin() vs broadcast join", "mapPartitions() vs map()", "foreachPartition() vs foreach()", "sample() vs sampleBy()", "broadcast variable vs accumulator", "schema inference vs explicit schema", "read.csv() options: header vs inferSchema"] },
+  { name: "Memory Concepts", items: ["Heap vs Off-Heap Memory", "Execution Memory vs Storage Memory", "Unified Memory Manager vs Static", "Memory Fraction Configs", "Serialization: Java vs Kryo", "MEMORY_ONLY vs MEMORY_AND_DISK", "OFF_HEAP storage level", "GC: G1GC vs CMS vs ZGC", "Spill to Disk", "Container Memory vs Executor Memory", "Driver Memory", "Caching Strategy: Eager vs Lazy"] },
+  { name: "Performance Concepts", items: ["Shuffle: causes & reduction", "Skew: Problem vs Solutions", "AQE: Adaptive Query Execution", "Predicate Pushdown", "Bucketing vs Partitioning", "File Formats: Parquet vs ORC vs CSV", "Compression: Snappy vs Gzip vs Zstd", "spark.sql.shuffle.partitions", "Partition Size: too small vs too large", "Locality: PROCESS_LOCAL vs NODE_LOCAL", "Stage Barrier: Sync vs Async", "Cost Based Optimizer (CBO)", "Vectorized Reading (Parquet/ORC)", "File Splitting & Parallelism"] },
+  { name: "Streaming", items: ["Structured Streaming vs DStreams", "Micro-batch vs Continuous Processing", "Watermarking", "Trigger modes in SS", "Output Modes: append vs update vs complete", "Checkpointing in Streaming", "Stateless vs Stateful Streaming", "Kafka Source: earliest vs latest"] },
+  { name: "Spark SQL & Delta", items: ["Temp View vs Global Temp View", "Hive Metastore vs In-memory Catalog", "Managed vs External Tables", "Delta Lake: ACID & Time Travel", "SQL EXPLAIN PLAN modes", "Salting for Skew Joins"] },
+  { name: "ML, Advanced & Ecosystem", items: ["MLlib RDD-based vs ML Pipeline (DataFrame)", "Transformer vs Estimator", "GraphX vs GraphFrames", "Accumulators: Spark vs Custom", "Spark Connect (Spark 3.4+)", "Arrow Columnar Format in PySpark", "Lakehouse: Hudi vs Delta vs Iceberg", "Observability: Spark UI vs Spark History Server"] },
+];
 
     function renderSparkDifferences() {
       const container = document.getElementById('nestedContent');
       SECTIONS.forEach(sec => {
+        // Create collapsible section
+        const sectionWrapper = document.createElement('div');
+        sectionWrapper.className = 'section-wrapper';
+        
         const h2 = document.createElement('h2');
-        h2.textContent = sec.name;
-        container.appendChild(h2);
-
+        h2.className = 'section-toggle';
+        h2.innerHTML = `<span class="toggle-icon">▶</span> ${sec.name}`;
+        h2.onclick = function() {
+          const content = this.nextElementSibling;
+          const icon = this.querySelector('.toggle-icon');
+          content.classList.toggle('collapsed');
+          icon.classList.toggle('rotated');
+        };
+        
         const secContent = document.createElement('div');
-        secContent.className = 'section-items-list';
+        secContent.className = 'section-items-list collapsed';
         
         sec.items.forEach(itemKey => {
           const d = DATA[itemKey];
           if (!d) return;
 
-          const h3 = document.createElement('h3');
-          h3.innerHTML = `<span>${itemKey}</span> <span class="arr">→</span>`;
-          secContent.appendChild(h3);
+          const topics = itemKey.split(' vs ').map(t => t.trim());
+          const topicA = topics[0] || '';
+          const topicB = topics[1] || itemKey;
 
-          const itemContent = document.createElement('div');
-          itemContent.className = 'item-details';
-          
-          itemContent.innerHTML = `
-            <div class="explanation-card">
-              <h4>📘 Definition</h4>
-              <p>${d.definition}</p>
-            </div>
-            <div class="explanation-card">
-              <h4>⚙️ Internal Working</h4>
-              <p>${d.internal_working}</p>
-            </div>
-            <div class="explanation-card">
-              <h4>🎯 Use Case</h4>
-              <p>${d.use_case}</p>
-            </div>
-            <div class="explanation-card">
-              <h4>📋 Key Points</h4>
-              <ul>${d.key_points.map(p => `<li>${p}</li>`).join('')}</ul>
-            </div>
+          // Create individual table for each concept
+          const table = document.createElement('table');
+          table.className = 'diff-table';
+          table.innerHTML = `
+            <tbody>
+              <tr>
+                <td class="option-a-header" style="background: rgba(15, 139, 139, 0.12); border-left: 3px solid #0f8b8b;"><strong>${topicA}</strong></td>
+                <td class="option-b-header" style="background: rgba(99, 102, 241, 0.12); border-left: 3px solid #6366f1;"><strong>${topicB}</strong></td>
+              </tr>
+              <tr>
+                <td>${d.side_a}</td>
+                <td>${d.side_b}</td>
+              </tr>
+            </tbody>
           `;
-          secContent.appendChild(itemContent);
+          secContent.appendChild(table);
         });
         
-        container.appendChild(secContent);
+        sectionWrapper.appendChild(h2);
+        sectionWrapper.appendChild(secContent);
+        container.appendChild(sectionWrapper);
       });
 
       if (typeof initializeCollapsibleSections === 'function') {
         initializeCollapsibleSections(container, 'h2');
-        initializeCollapsibleSections(container, 'h3');
       }
     }
-
-    const stt = document.getElementById('scrollToTop');
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 400) stt.classList.add('visible');
-      else stt.classList.remove('visible');
-    });
-    stt.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
 
     renderSparkDifferences();
   </script>

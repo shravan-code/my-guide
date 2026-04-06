@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Guide | SQLAlchemy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../shared.css" />
+</head>
+
+<body class="topic-page topic-index">
+
+<aside class="sidebar">
+<nav class="sidebar-nav">
+        <span class="nav-section-title">Main Section</span>
+        <a href="../../index.html" class="nav-item">
+          <span class="material-symbols-outlined">home</span>
+          Home
+        </a>
+        <a href="../cloud/index.html" class="nav-item">
+          <span class="material-symbols-outlined">cloud</span>
+          Cloud
+        </a>
+        <a href="../data/index.html" class="nav-item">
+          <span class="material-symbols-outlined">analytics</span>
+          Big-Data
+        </a>
+        <a href="../python/index.html" class="nav-item">
+          <span class="material-symbols-outlined">code</span>
+          Python
+        </a>
+        <a href="../sql/index.html" class="nav-item">
+          <span class="material-symbols-outlined">database</span>
+          Database
+        </a>
+        <a href="../apis/index.html" class="nav-item">
+          <span class="material-symbols-outlined">api</span>
+          APIs
+        </a>
+        <a href="index.html" class="nav-item active">
+          <span class="material-symbols-outlined">build</span>
+          Tools
+        </a>
+        <a href="../orchestration/index.html" class="nav-item">
+          <span class="material-symbols-outlined">account_tree</span>
+          Orchestration
+        </a>
+        <a href="../roadmaps/roadmap.html" class="nav-item">
+          <span class="material-symbols-outlined">map</span>
+          Roadmaps
+        </a>
+        <a href="../practice/index.html" class="nav-item">
+          <span class="material-symbols-outlined">model_training</span>
+          Practice
+        </a>
+        <a href="../portfolios/portfolio.html" class="nav-item">
+          <span class="material-symbols-outlined">person</span>
+          Portfolio
+        </a>
+    </nav>
+</aside>
+
+<div class="drawer-overlay" onclick="closeDrawer()"></div>
+<aside class="drawer">
+    <div class="drawer-header">
+      <span class="drawer-brand">Data Sheets</span>
+      <button class="drawer-close" onclick="closeDrawer()">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <nav class="drawer-nav">
+        <span class="nav-section-title">Main Section</span>
+        <a href="../../index.html" class="nav-item">
+          <span class="material-symbols-outlined">home</span>
+          Home
+        </a>
+        <a href="../cloud/index.html" class="nav-item">
+          <span class="material-symbols-outlined">cloud</span>
+          Cloud
+        </a>
+        <a href="../data/index.html" class="nav-item">
+          <span class="material-symbols-outlined">analytics</span>
+          Big-Data
+        </a>
+        <a href="../python/index.html" class="nav-item">
+          <span class="material-symbols-outlined">code</span>
+          Python
+        </a>
+        <a href="../sql/index.html" class="nav-item">
+          <span class="material-symbols-outlined">database</span>
+          Database
+        </a>
+        <a href="../apis/index.html" class="nav-item">
+          <span class="material-symbols-outlined">api</span>
+          APIs
+        </a>
+        <a href="index.html" class="nav-item active">
+          <span class="material-symbols-outlined">build</span>
+          Tools
+        </a>
+        <a href="../orchestration/index.html" class="nav-item">
+          <span class="material-symbols-outlined">account_tree</span>
+          Orchestration
+        </a>
+        <a href="../roadmaps/roadmap.html" class="nav-item">
+          <span class="material-symbols-outlined">map</span>
+          Roadmaps
+        </a>
+        <a href="../practice/index.html" class="nav-item">
+          <span class="material-symbols-outlined">model_training</span>
+          Practice
+        </a>
+        <a href="../portfolios/portfolio.html" class="nav-item">
+          <span class="material-symbols-outlined">person</span>
+          Portfolio
+        </a>
+    </nav>
+</aside>
+
+  <header class="top-nav">
+    <div class="top-nav-inner">
+                <button class="nav-icon-btn hamburger" onclick="toggleDrawer()">
+            <span class="material-symbols-outlined">menu</span>
+          </button><a href="../../index.html" class="brand">
+        <div class="brand-icon">
+          <span class="material-symbols-outlined">architecture</span>
+        </div>
+        <span class="brand-text">Data Sheets</span>
+      </a>
+      <div class="nav-center">
+        <div class="search-bar">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" class="search-input" placeholder="Search architecture, patterns, or cloud..." />
+        </div>
+      </div>
+      <div class="nav-right">
+        <button class="nav-icon-btn" id="themeToggle" onclick="toggleTheme()">
+          <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+        </button>
+        <a href="../portfolios/portfolio.html" class="user-avatar" title="View Portfolio">
+          <img src="../../assets/images/profile-pic.jpeg" alt="User profile" />
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="container">
+    <a href="index.html" class="back-link">
+      <span class="material-symbols-outlined">arrow_back</span>
+      Back to Tools
+    </a>
+
+    <header class="page-header page-header--row">
+      <div class="page-header-inner">
+        <h1>SQLAlchemy</h1>
+        <p>Complete Guide with Python Examples</p>
+      </div>
+    </header>
+
+    <section class="topic-section">
+      <h2 id="introduction">Introduction</h2>
+      <p>SQLAlchemy is the most popular and feature-rich Python SQL toolkit and Object Relational Mapper (ORM). It provides a full suite of well-known enterprise-level persistence patterns, designed for efficient and high-performing database access.</p>
+      <p>SQLAlchemy consists of two distinct components:</p>
+      <div class="key-points">
+        <div class="key-point">
+          <span class="material-symbols-outlined">check_circle</span>
+          <div>
+            <h4>SQLAlchemy Core</h4>
+            <p>A schema-centric, SQL-expression toolkit</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="material-symbols-outlined">check_circle</span>
+          <div>
+            <h4>SQLAlchemy ORM</h4>
+            <p>An object-centric, domain-model layer built on top of Core</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Explore SQLAlchemy</h2>
+      <div class="section-grid">
+        <a href="https://docs.sqlalchemy.org/en/20/" class="section-card">
+          <span class="material-symbols-outlined">article</span>
+          <h3>Docs</h3>
+          <p>Official SQLAlchemy documentation</p>
+        </a>
+        <a href="https://alembic.sqlalchemy.org/en/latest/" class="section-card">
+          <span class="material-symbols-outlined">article</span>
+          <h3>Alembic Docs</h3>
+          <p>Database migration documentation</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="topic-section" style="margin-top: 3rem;">
+      <h2>Key Features</h2>
+      <div class="service-grid">
+        <div class="service-card">
+          <span class="material-symbols-outlined">language</span>
+          <h4>Database Agnostic</h4>
+          <p>Works with PostgreSQL, MySQL, SQLite, Oracle, MSSQL, and more</p>
+        </div>
+        <div class="service-card">
+          <span class="material-symbols-outlined">hub</span>
+          <h4>Powerful ORM</h4>
+          <p>Lazy loading, eager loading, and relationship management</p>
+        </div>
+        <div class="service-card">
+          <span class="material-symbols-outlined">code</span>
+          <h4>Raw SQL Support</h4>
+          <p>Execute raw SQL alongside ORM queries</p>
+        </div>
+        <div class="service-card">
+          <span class="material-symbols-outlined">settings</span>
+          <h4>Connection Pooling</h4>
+          <p>Built-in connection pooling and transaction management</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="installation">Installation</h2>
+      <div class="code-block">
+        <code>pip install sqlalchemy
+pip install psycopg2-binary   # for PostgreSQL
+pip install pymysql           # for MySQL
+pip install alembic           # for migrations</code>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="engine">Engine</h2>
+      <p>The Engine is the starting point for any SQLAlchemy application.</p>
+      <div class="code-block">
+        <code>from sqlalchemy import create_engine
+
+# SQLite (file-based)
+engine = create_engine("sqlite:///mydb.db", echo=True)
+
+# PostgreSQL
+engine = create_engine(
+    "postgresql+psycopg2://user:password@localhost:5432/mydb",
+    pool_size=5,
+    max_overflow=10
+)
+
+# In-memory SQLite (for testing)
+engine = create_engine("sqlite:///:memory:")</code>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="session">Session</h2>
+      <p>The Session is the primary interface for persistence operations in SQLAlchemy ORM.</p>
+      <div class="code-block">
+        <code>from sqlalchemy.orm import sessionmaker, Session
+
+# Method 1: sessionmaker factory
+SessionLocal = sessionmaker(autocommit=False, autoflush=True, bind=engine)
+session = SessionLocal()
+try:
+    session.add(user)
+    session.commit()
+except Exception:
+    session.rollback()
+    raise
+finally:
+    session.close()
+
+# Method 2: Context manager (SQLAlchemy 1.4+)
+with Session(engine) as session:
+    session.add(user)
+    session.commit()</code>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="declarative-base">Declarative Base</h2>
+      <p>The Declarative system allows you to define mapped classes and Table metadata together.</p>
+      <div class="code-block">
+        <code>from sqlalchemy import Column, Integer, String, DateTime, Boolean, Float
+from sqlalchemy.orm import DeclarativeBase
+from datetime import datetime
+
+class Base(DeclarativeBase):
+    pass
+
+class User(Base):
+    __tablename__ = "users"
+    
+    id         = Column(Integer, primary_key=True, autoincrement=True)
+    username   = Column(String(50), unique=True, nullable=False, index=True)
+    email      = Column(String(120), unique=True, nullable=False)
+    full_name  = Column(String(100))
+    is_active  = Column(Boolean, default=True)
+    score      = Column(Float, default=0.0)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    def __repr__(self):
+        return f"<User(id={self.id}, username='{self.username}')>"
+
+# Create all tables
+Base.metadata.create_all(engine)</code>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="column-types">Column Types</h2>
+      <div class="code-block">
+        <code>from sqlalchemy import (
+    Integer, BigInteger, SmallInteger, Float, Numeric, Boolean,
+    String, Text, Unicode, UnicodeText,
+    Date, DateTime, Time, Interval,
+    LargeBinary, JSON, Enum, ARRAY
+)</code>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="relationships">Relationships</h2>
+      
+      <h3>One-to-Many</h3>
+      <div class="code-block">
+        <code>from sqlalchemy.orm import relationship
+
+class Department(Base):
+    __tablename__ = "departments"
+    id       = Column(Integer, primary_key=True)
+    name     = Column(String(100), nullable=False)
+    employees = relationship("Employee", back_populates="department",
+                             lazy="select", cascade="all, delete-orphan")
+
+class Employee(Base):
+    __tablename__ = "employees"
+    id            = Column(Integer, primary_key=True)
+    name          = Column(String(100))
+    department_id = Column(Integer, ForeignKey("departments.id"))
+    department    = relationship("Department", back_populates="employees")</code>
+      </div>
+
+      <h3>Many-to-Many</h3>
+      <div class="code-block">
+        <code>from sqlalchemy import Table
+
+post_tags = Table(
+    "post_tags",
+    Base.metadata,
+    Column("post_id", Integer, ForeignKey("posts.id"), primary_key=True),
+    Column("tag_id",  Integer, ForeignKey("tags.id"),  primary_key=True)
+)
+
+class Post(Base):
+    __tablename__ = "posts"
+    id    = Column(Integer, primary_key=True)
+    title = Column(String(200))
+    tags  = relationship("Tag", secondary=post_tags, back_populates="posts")
+
+class Tag(Base):
+    __tablename__ = "tags"
+    id    = Column(Integer, primary_key=True)
+    name  = Column(String(50), unique=True)
+    posts = relationship("Post", secondary=post_tags, back_populates="tags")</code>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="crud">CRUD Operations</h2>
+      
+      <h3>Create</h3>
+      <div class="code-block">
+        <code>from sqlalchemy import select
+from sqlalchemy.orm import Session
+
+# Single insert
+with Session(engine) as session:
+    user = User(username="alice", email="alice@example.com")
+    session.add(user)
+    session.commit()
+    session.refresh(user)
+    print(user.id)
+
+# Bulk insert
+with Session(engine) as session:
+    session.add_all([
+        User(username="bob",     email="bob@example.com"),
+        User(username="charlie", email="charlie@example.com"),
+    ])
+    session.commit()</code>
+      </div>
+
+      <h3>Read / Query</h3>
+      <div class="code-block">
+        <code>from sqlalchemy import select, and_, or_
+
+with Session(engine) as session:
+    # Get by primary key
+    user = session.get(User, 1)
+    
+    # Simple select all
+    users = session.execute(select(User)).scalars().all()
+    
+    # With filter
+    stmt = select(User).where(User.is_active == True)
+    active_users = session.execute(stmt).scalars().all()
+    
+    # Multiple conditions
+    stmt = select(User).where(
+        and_(User.is_active == True, User.score > 50)
+    )
+    
+    # LIKE / ILIKE
+    stmt = select(User).where(User.email.ilike("%@gmail.com"))
+    
+    # IN
+    stmt = select(User).where(User.id.in_([1, 2, 3]))
+    
+    # Ordering & Pagination
+    stmt = select(User).order_by(User.created_at.desc()).offset(20).limit(10)</code>
+      </div>
+
+      <h3>Update</h3>
+      <div class="code-block">
+        <code>from sqlalchemy import update
+
+with Session(engine) as session:
+    # ORM style
+    user = session.get(User, 1)
+    if user:
+        user.email = "newemail@example.com"
+        session.commit()
+    
+    # Bulk UPDATE
+    stmt = (
+        update(User)
+        .where(User.is_active == False)
+        .values(score=0.0)
+    )
+    session.execute(stmt)
+    session.commit()</code>
+      </div>
+
+      <h3>Delete</h3>
+      <div class="code-block">
+        <code>from sqlalchemy import delete
+
+with Session(engine) as session:
+    # ORM style
+    user = session.get(User, 1)
+    if user:
+        session.delete(user)
+        session.commit()
+    
+    # Bulk DELETE
+    stmt = delete(User).where(User.is_active == False)
+    session.execute(stmt)
+    session.commit()</code>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="alembic">Database Migrations with Alembic</h2>
+      <div class="code-block">
+        <code>pip install alembic
+alembic init alembic
+
+# Auto-generate migration
+alembic revision --autogenerate -m "add user column"
+
+# Apply migrations
+alembic upgrade head
+
+# Rollback
+alembic downgrade -1</code>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="flask">Flask Integration</h2>
+      <div class="code-block">
+        <code>pip install flask flask-sqlalchemy flask-migrate
+
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://user:pass@localhost/mydb"
+
+db = SQLAlchemy(app)
+
+class User(db.Model):
+    __tablename__ = "users"
+    id       = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), unique=True, nullable=False)
+    email    = db.Column(db.String(120), unique=True, nullable=False)
+
+with app.app_context():
+    db.create_all()</code>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="fastapi">FastAPI Integration</h2>
+      <div class="code-block">
+        <code>from fastapi import FastAPI, Depends
+from sqlalchemy.orm import Session
+from pydantic import BaseModel
+
+app = FastAPI()
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+class UserCreate(BaseModel):
+    username: str
+    email: str
+
+@app.post("/users/")
+def create_user(user: UserCreate, db: Session = Depends(get_db)):
+    db_user = User(**user.dict())
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user</code>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="performance">Performance & Optimization</h2>
+      <div class="key-points">
+        <p>Use selectinload / joinedload to avoid N+1 queries</p>
+        <p>Add indexes on frequently filtered/sorted columns</p>
+        <p>Set expire_on_commit=False to avoid re-fetching after commit</p>
+        <p>Use bulk operations for large inserts</p>
+        <p>Configure connection pooling appropriately</p>
+      </div>
+    </section>
+
+    <section class="topic-section">
+      <h2 id="summary">Summary</h2>
+      <p>SQLAlchemy is a mature, powerful library covering every database interaction pattern from simple CRUD to complex multi-join analytics.</p>
+      <div class="key-points">
+        <p>Engine & Session — the foundation</p>
+        <p>Declarative Models — Pythonic table definitions</p>
+        <p>Relationships — one-to-many, many-to-many</p>
+        <p>CRUD & Advanced Queries</p>
+        <p>Alembic for migrations</p>
+        <p>Flask & FastAPI Integration</p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span class="footer-brand">Data Sheets</span>
+          <p class="footer-copyright">&copy; 2026 Data Sheets. All rights reserved.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#">Documentation</a>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Support</a>
+        </div>
+      </div>
+    </footer>
+    </div>
+  </main>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const themeIcon = document.getElementById('themeIcon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        themeIcon.textContent = 'dark_mode';
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.textContent = 'light_mode';
+      }
+    }
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const themeIcon = document.getElementById('themeIcon');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+        themeIcon.textContent = 'light_mode';
+      } else {
+        themeIcon.textContent = 'dark_mode';
+      }
+    })();
+  </script>
+
+  <script src="../scripts.js"></script>
+</body>
+</html>
